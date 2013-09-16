@@ -1,7 +1,14 @@
 package at.bestsolution.persistence.mybatis.impl;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +21,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -56,6 +65,33 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		}
 		
 		Configuration cfg = new Configuration(environment.getEnvironment());
+		cfg.getTypeHandlerRegistry().register(Blob.class, JdbcType.BLOB, new BaseTypeHandler<Blob>() {
+
+			@Override
+			  public void setNonNullParameter(PreparedStatement ps, int i, Blob parameter, JdbcType jdbcType)
+			      throws SQLException {
+				ps.setBlob(i, parameter.getBinaryStream());
+			  }
+
+			  @Override
+			  public Blob getNullableResult(ResultSet rs, String columnName)
+			      throws SQLException {
+			    return rs.getBlob(columnName);
+			  }
+
+			  @Override
+			  public Blob getNullableResult(ResultSet rs, int columnIndex)
+			      throws SQLException {
+			    return rs.getBlob(columnIndex);
+			  }
+
+			  @Override
+			  public Blob getNullableResult(CallableStatement cs, int columnIndex)
+			      throws SQLException {
+			    return cs.getBlob(columnIndex);
+			  }
+			
+		});
 		for( MappingProvider p : mappingProviders ) {
 			for( MappingUnit u : p.getMappingUnits() ) {
 				cfg.getTypeAliasRegistry().registerAlias(u.getModelInterface().getName(),u.getModelInterface());
