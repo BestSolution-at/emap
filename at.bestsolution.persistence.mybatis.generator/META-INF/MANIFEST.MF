@@ -3,5 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Generator
 Bundle-SymbolicName: at.bestsolution.persistence.mybatis.generator;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;bundle-version="2.8.3",
+ org.eclipse.xtend.lib,
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.equinox.ds;bundle-version="1.4.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Service-Component: OSGI-INF/services/defcolumninfoprovider.xml,OSGI-INF/services/deftablenameprovider.xml
+Bundle-ActivationPolicy: lazy
+

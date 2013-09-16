@@ -1,5 +1,6 @@
 package at.bestsolution.persistence.mybatis;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface MappingProvider {
 		public Class<?> getModelInterface();
 		public Class<?> getMapperInterface();
 		public EClass getEClass();
-		public InputStream getMappingXML();
+		public InputStream getMappingXML() throws IOException;
 		public String getId();
 	}
 	
