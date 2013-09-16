@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mybatis
+Bundle-SymbolicName: at.bestsolution.persistence.mybatis
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.apache.ibatis;bundle-version="3.2.2",
+ org.eclipse.emf.ecore;bundle-version="2.9.0"
