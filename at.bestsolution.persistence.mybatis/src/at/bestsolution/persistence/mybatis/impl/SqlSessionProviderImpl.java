@@ -1,11 +1,9 @@
 package at.bestsolution.persistence.mybatis.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +14,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
+import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
+import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,6 +25,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import at.bestsolution.persistence.mybatis.EnvironmentProvider;
@@ -64,6 +66,18 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			return sessionFactory;
 		}
 		
+//		Configuration cfg = new Configuration(environment.getEnvironment()) {
+//			@Override
+//			public ResultSetHandler newResultSetHandler(Executor executor,
+//					MappedStatement mappedStatement, RowBounds rowBounds,
+//					ParameterHandler parameterHandler,
+//					ResultHandler resultHandler, BoundSql boundSql) {
+//				// TODO Auto-generated method stub
+////				return super.newResultSetHandler(executor, mappedStatement, rowBounds,
+////						parameterHandler, resultHandler, boundSql);
+//				return new FastResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
+//			}
+//		};
 		Configuration cfg = new Configuration(environment.getEnvironment());
 		cfg.getTypeHandlerRegistry().register(Blob.class, JdbcType.BLOB, new BaseTypeHandler<Blob>() {
 
@@ -125,14 +139,17 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			public void setProperties(Properties arg0) {
 			}
 			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public boolean isCollection(Class arg0) {
 				return objFactory.isCollection(arg0);
 			}
 			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Object create(Class arg0, List arg1, List arg2) {
 				return null;
 			}
 			
+			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Object create(Class arg0) {
 				EClass e = eClassCache.get(arg0);
 				if( e != null ) {
@@ -140,6 +157,31 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				}
 				
 				return objFactory.create(arg0);
+			}
+		});
+		sessionFactory.getConfiguration().setCacheEnabled(true);
+		final ObjectWrapperFactory orig = sessionFactory.getConfiguration().getObjectWrapperFactory();
+		sessionFactory.getConfiguration().setLazyLoadingEnabled(true);
+		sessionFactory.getConfiguration().setAggressiveLazyLoading(false);
+		sessionFactory.getConfiguration().setObjectWrapperFactory(new ObjectWrapperFactory() {
+			@Override
+			public boolean hasWrapperFor(Object arg0) {
+				if( arg0 instanceof EObject ) {
+					return true;
+				}
+//				System.err.println("hasWrapperFor: " +arg0);
+				// TODO Auto-generated method stub
+				return orig.hasWrapperFor(arg0);
+			}
+			
+			@Override
+			public ObjectWrapper getWrapperFor(MetaObject arg0, Object arg1) {
+//				System.err.println("getWrapperFor: " +arg0 + " => " + arg1);
+				// TODO Auto-generated method stub
+				if( arg1 instanceof EObject ) {
+					return new EMFObjectWrapper(arg0, (EObject) arg1);
+				}
+				return orig.getWrapperFor(arg0, arg1);
 			}
 		});
 		return sessionFactory;
