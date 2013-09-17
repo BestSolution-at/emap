@@ -37,7 +37,7 @@ public class Application implements IApplication {
 		String ecorePackage = System.getProperty("epackage-uri");
 		String mappingProject = System.getProperty("mapping-project");
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(ecorePackage);
-		Set<EClass> mappedClasses = new HashSet<>();
+		Set<EClass> mappedClasses = new HashSet<EClass>();
 		generateMappers(mappingProject, Boolean.getBoolean("overwrite"), ePackage, tblProvider, clProvider, mappedClasses);
 		
 		File f = new File(mappingProject + "/src/mapping/MappingProviderImpl.java");
