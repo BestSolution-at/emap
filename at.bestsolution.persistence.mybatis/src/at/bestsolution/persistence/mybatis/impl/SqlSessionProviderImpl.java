@@ -110,8 +110,12 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			for( MappingUnit u : p.getMappingUnits() ) {
 				cfg.getTypeAliasRegistry().registerAlias(u.getModelInterface().getName(),u.getModelInterface());
 				cfg.addMapper(u.getMapperInterface());
-				eClassCache.put(u.getModelInterface(), u.getEClass());
-				
+				eClassCache.put(u.getModelInterface(), u.getEClass());				
+			}
+		}
+
+		for( MappingProvider p : mappingProviders ) {
+			for( MappingUnit u : p.getMappingUnits() ) {
 				InputStream in = null;
 				try {
 					in = u.getMappingXML();
@@ -128,9 +132,9 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 						}
 					}
 				}
-				
 			}
 		}
+
 		
 		sessionFactory = new SqlSessionFactoryBuilder().build(cfg);
 		final ObjectFactory objFactory = sessionFactory.getConfiguration().getObjectFactory();
