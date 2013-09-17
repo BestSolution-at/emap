@@ -52,7 +52,6 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public String[] getSetterNames() {
-		System.err.println("Fetching setter names");
 		return wrapper.getSetterNames();
 	}
 
@@ -68,14 +67,12 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public boolean hasSetter(String arg0) {
-		System.err.println("Checking setter: " + arg0);
 		return wrapper.hasSetter(arg0);
 	}
 
 	@Override
 	public MetaObject instantiatePropertyValue(String arg0,
 			PropertyTokenizer arg1, ObjectFactory arg2) {
-		System.err.println("Create MetaObject: " + arg0 + "; " + arg1+"," +arg2);
 		return wrapper.instantiatePropertyValue(arg0, arg1, arg2);
 	}
 
@@ -87,15 +84,13 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void set(PropertyTokenizer arg0, Object arg1) {
+//		System.err.println(arg0.getName());
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
 		if( feature.isMany() ) {
 			((List<Object>)object.eGet(feature)).addAll((Collection<? extends Object>) arg1);
 		} else {
 			object.eSet(feature, arg1);
 		}
-		
-//		System.err.println("Setting: " + arg0.getName() + " => " + arg1);
-//		wrapper.set(arg0, arg1);
 	}
 
 }
