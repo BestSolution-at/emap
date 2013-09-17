@@ -37,7 +37,7 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public Object get(PropertyTokenizer arg0) {
-		return wrapper.get(arg0);
+		return object.eGet(object.eClass().getEStructuralFeature(arg0.getName()));
 	}
 
 	@Override
@@ -84,7 +84,6 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void set(PropertyTokenizer arg0, Object arg1) {
-//		System.err.println(arg0.getName());
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
 		if( feature.isMany() ) {
 			((List<Object>)object.eGet(feature)).addAll((Collection<? extends Object>) arg1);
