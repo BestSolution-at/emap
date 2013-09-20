@@ -66,20 +66,59 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			return sessionFactory;
 		}
 		
-//		Configuration cfg = new Configuration(environment.getEnvironment()) {
-//			@Override
-//			public ResultSetHandler newResultSetHandler(Executor executor,
-//					MappedStatement mappedStatement, RowBounds rowBounds,
-//					ParameterHandler parameterHandler,
-//					ResultHandler resultHandler, BoundSql boundSql) {
-//				// TODO Auto-generated method stub
-////				return super.newResultSetHandler(executor, mappedStatement, rowBounds,
-////						parameterHandler, resultHandler, boundSql);
-//				return new FastResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);
-//			}
-//		};
 		Configuration cfg = new Configuration(environment.getEnvironment());
-		cfg.getTypeHandlerRegistry().register(Blob.class, JdbcType.BLOB, new BaseTypeHandler<Blob>() {
+		final ObjectFactory objFactory = cfg.getObjectFactory();
+		cfg.setObjectFactory(new ObjectFactory() {
+			
+			public void setProperties(Properties arg0) {
+			}
+			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public boolean isCollection(Class arg0) {
+				return objFactory.isCollection(arg0);
+			}
+			
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public Object create(Class arg0, List arg1, List arg2) {
+				return null;
+			}
+			
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			public Object create(Class arg0) {
+				EClass e = eClassCache.get(arg0);
+				if( e != null ) {
+					return EcoreUtil.create(e);	
+				}
+				
+				return objFactory.create(arg0);
+			}
+		});
+		cfg.setCacheEnabled(true);
+		final ObjectWrapperFactory orig = cfg.getObjectWrapperFactory();
+		cfg.setLazyLoadingEnabled(true);
+		cfg.setAggressiveLazyLoading(false);
+		cfg.setObjectWrapperFactory(new ObjectWrapperFactory() {
+			@Override
+			public boolean hasWrapperFor(Object arg0) {
+				if( arg0 instanceof EObject ) {
+					return true;
+				}
+//				System.err.println("hasWrapperFor: " +arg0);
+				// TODO Auto-generated method stub
+				return orig.hasWrapperFor(arg0);
+			}
+			
+			@Override
+			public ObjectWrapper getWrapperFor(MetaObject arg0, Object arg1) {
+//				System.err.println("getWrapperFor: " +arg0 + " => " + arg1);
+				// TODO Auto-generated method stub
+				if( arg1 instanceof EObject ) {
+					return new EMFObjectWrapper(arg0, (EObject) arg1);
+				}
+				return orig.getWrapperFor(arg0, arg1);
+			}
+		});
+		cfg.getTypeHandlerRegistry().register(Blob.class, new BaseTypeHandler<Blob>() {
 
 			@Override
 			  public void setNonNullParameter(PreparedStatement ps, int i, Blob parameter, JdbcType jdbcType)
@@ -137,57 +176,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 
 		
 		sessionFactory = new SqlSessionFactoryBuilder().build(cfg);
-		final ObjectFactory objFactory = sessionFactory.getConfiguration().getObjectFactory();
-		sessionFactory.getConfiguration().setObjectFactory(new ObjectFactory() {
-			
-			public void setProperties(Properties arg0) {
-			}
-			
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			public boolean isCollection(Class arg0) {
-				return objFactory.isCollection(arg0);
-			}
-			
-			@SuppressWarnings({ "rawtypes", "unchecked" })
-			public Object create(Class arg0, List arg1, List arg2) {
-				return null;
-			}
-			
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			public Object create(Class arg0) {
-				EClass e = eClassCache.get(arg0);
-				if( e != null ) {
-					return EcoreUtil.create(e);	
-				}
-				
-				return objFactory.create(arg0);
-			}
-		});
-		sessionFactory.getConfiguration().setCacheEnabled(true);
-		final ObjectWrapperFactory orig = sessionFactory.getConfiguration().getObjectWrapperFactory();
-		sessionFactory.getConfiguration().setLazyLoadingEnabled(true);
-		sessionFactory.getConfiguration().setAggressiveLazyLoading(false);
-		sessionFactory.getConfiguration().setObjectWrapperFactory(new ObjectWrapperFactory() {
-			@Override
-			public boolean hasWrapperFor(Object arg0) {
-				if( arg0 instanceof EObject ) {
-					return true;
-				}
-//				System.err.println("hasWrapperFor: " +arg0);
-				// TODO Auto-generated method stub
-				return orig.hasWrapperFor(arg0);
-			}
-			
-			@Override
-			public ObjectWrapper getWrapperFor(MetaObject arg0, Object arg1) {
-//				System.err.println("getWrapperFor: " +arg0 + " => " + arg1);
-				// TODO Auto-generated method stub
-				if( arg1 instanceof EObject ) {
-					return new EMFObjectWrapper(arg0, (EObject) arg1);
-				}
-				return orig.getWrapperFor(arg0, arg1);
-			}
-		});
+		
 		return sessionFactory;
 	}
 }

@@ -1,6 +1,7 @@
 package at.bestsolution.persistence.mybatis.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.reflection.MetaObject;
@@ -9,6 +10,7 @@ import org.apache.ibatis.reflection.property.PropertyTokenizer;
 import org.apache.ibatis.reflection.wrapper.BeanWrapper;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class EMFObjectWrapper implements ObjectWrapper {
@@ -86,10 +88,20 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	public void set(PropertyTokenizer arg0, Object arg1) {
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
 		if( feature.isMany() ) {
-			((List<Object>)object.eGet(feature)).addAll((Collection<? extends Object>) arg1);
+//			System.err.println(object + "#" + feature.getName());
+			List<Object> l = (List<Object>)object.eGet(feature);
+			if( l.isEmpty() ) {
+				l.addAll((Collection<? extends Object>) arg1);
+			}
 		} else {
-			object.eSet(feature, arg1);
+			if( feature instanceof EReference ) {
+				if( object.eGet(feature) == null ) {
+					object.eSet(feature, arg1);
+				}
+			} else {
+				object.eSet(feature, arg1);	
+			}
+			
 		}
 	}
-
 }
