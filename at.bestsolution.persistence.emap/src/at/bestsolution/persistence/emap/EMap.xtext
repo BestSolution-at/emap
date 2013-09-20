@@ -1,0 +1,79 @@
+grammar at.bestsolution.persistence.emap.EMap with org.eclipse.xtext.common.Terminals
+
+generate eMap "http://www.bestsolution.at/persistence/emap/EMap"
+
+EMapping:
+	root=(EMappingBundle|EMappingEntityDef);
+
+EMappingBundle:
+	imports+=Import*
+	'bundle' name=ID '{'
+		entities += [EMappingEntity|ID] (',' entities += [EMappingEntity|ID])*
+	'}'
+;
+
+EMappingEntityDef:
+	package=PackageDeclaration
+	imports+=Import*
+	entity=EMappingEntity
+;
+
+Import:
+	'import' importedNamespace=(QualifiedNameWithWildcard|QualifiedName);
+
+PackageDeclaration:
+	'package' name=QualifiedName ';'
+;
+
+EMappingEntity:
+	abstract?='abstract'? 'entity' name=ID (extensionType=('extends'|'derived') parent=[EMappingEntity|QualifiedName])? '{'
+		 etype=EType
+		 'attributes' 
+		 '{'
+		 	attributes += EAttribute (',' attributes += EAttribute)*
+		 '}'
+		 ('queries'
+		 '{'
+		 	namedQueries += ENamedQuery (',' namedQueries+=ENamedQuery)*
+		 '}')?
+	'}' ('as' tableName=ID)?
+;
+
+EAttribute:
+	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | 'resolve' entity=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+;
+
+ENamedQuery:
+	name=ID ('(' parameters+=EParameter* ')')? '{'
+		queries += EQuery
+	'}' 
+;
+
+EParameter:
+	type=ID name=ID
+;
+
+EQuery:
+	dbType=('default'|STRING) mapping = EObjectSection (('FROM' from=STRING ('WHERE' where=STRING)? ('GROUP BY' groupBy=STRING)? ('ORDER BY' orderby=STRING)? ) | all=STRING) 
+;
+
+EObjectSection:
+	entity=[EMappingEntity|ID] (prefix=ID ('{'
+		attributes+=EMappingAttribute (',' attributes += EMappingAttribute)*
+	'}')?)?
+;
+
+EMappingAttribute:
+	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | 'resolve' entity=[ENamedQuery|QualifiedName] '('parameters+=ID')' | 'map' map=EObjectSection )
+;
+
+
+EType:
+	'etype' url=STRING '#' name=ID
+;
+
+QualifiedName:
+  ID (=>'.' ID)*;
+ 
+QualifiedNameWithWildcard :
+	QualifiedName  '.' '*';

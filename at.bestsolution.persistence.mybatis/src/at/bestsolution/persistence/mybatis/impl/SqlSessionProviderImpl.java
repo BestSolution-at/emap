@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,14 +15,24 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
+import org.apache.ibatis.cache.CacheKey;
+import org.apache.ibatis.executor.BatchResult;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.SimpleExecutor;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.Transaction;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
@@ -66,7 +77,27 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			return sessionFactory;
 		}
 		
-		Configuration cfg = new Configuration(environment.getEnvironment());
+		Configuration cfg = new Configuration(environment.getEnvironment()) {
+			@Override
+			public Executor newExecutor(Transaction arg0, ExecutorType arg1,
+					boolean arg2) {
+				if( arg1 == ExecutorType.SIMPLE ) {
+					return new SimpleExecutor(this, arg0) {
+						@Override
+						protected void closeStatement(Statement arg0) {
+							super.closeStatement(arg0);
+							try {
+								transaction.close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					};
+				}
+				return super.newExecutor(arg0, arg1, arg2);
+			}
+		};
 		final ObjectFactory objFactory = cfg.getObjectFactory();
 		cfg.setObjectFactory(new ObjectFactory() {
 			
@@ -173,8 +204,6 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				}
 			}
 		}
-
-		
 		sessionFactory = new SqlSessionFactoryBuilder().build(cfg);
 		
 		return sessionFactory;

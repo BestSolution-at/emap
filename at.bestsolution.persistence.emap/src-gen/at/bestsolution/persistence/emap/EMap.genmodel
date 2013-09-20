@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.bestsolution.persistence.emap/src-gen" editDirectory="/at.bestsolution.persistence.emap.edit/src"
+    editorDirectory="/at.bestsolution.persistence.emap.editor/src" modelPluginID="at.bestsolution.persistence.emap"
+    forceOverwrite="true" modelName="EMap" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="at.bestsolution.persistence.emap.edit"
+    editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.8">
+  <genPackages prefix="EMap" basePackage="at.bestsolution.persistence.emap" disposableProviderFactory="true"
+      fileExtensions="emap" ecorePackage="EMap.ecore#/">
+    <genClasses ecoreClass="EMap.ecore#//EMapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMapping/root"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EMappingBundle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/imports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/entities"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EMappingEntityDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/package"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/entity"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//PackageDeclaration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//PackageDeclaration/name"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EMappingEntity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/abstract"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/extensionType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/etype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/namedQueries"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/tableName"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/pk"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/property"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/columnName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ENamedQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedQuery/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/queries"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/name"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/dbType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EQuery/mapping"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/where"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/all"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EObjectSection">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EObjectSection/prefix"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EMappingAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/pk"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/property"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/columnName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingAttribute/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingAttribute/map"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EType/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EType/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
