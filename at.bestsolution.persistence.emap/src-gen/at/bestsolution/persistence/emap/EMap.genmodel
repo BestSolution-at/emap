@@ -7,6 +7,10 @@
     editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.8">
   <genPackages prefix="EMap" basePackage="at.bestsolution.persistence.emap" disposableProviderFactory="true"
       fileExtensions="emap" ecorePackage="EMap.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMap.ecore#//ReturnType">
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ReturnType/list"/>
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ReturnType/single"/>
+    </genEnums>
     <genClasses ecoreClass="EMap.ecore#//EMapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMapping/root"/>
     </genClasses>
@@ -45,6 +49,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ENamedQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedQuery/returnType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedQuery/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/queries"/>
@@ -71,8 +76,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/pk"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/property"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/columnName"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingAttribute/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/resolved"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingAttribute/query"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingAttribute/mapped"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingAttribute/map"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EType">

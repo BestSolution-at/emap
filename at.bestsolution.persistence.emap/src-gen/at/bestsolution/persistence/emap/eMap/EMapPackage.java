@@ -4,6 +4,7 @@ package at.bestsolution.persistence.emap.eMap;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -407,13 +408,22 @@ public interface EMapPackage extends EPackage
   int ENAMED_QUERY = 7;
 
   /**
+   * The feature id for the '<em><b>Return Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_QUERY__RETURN_TYPE = 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ENAMED_QUERY__NAME = 0;
+  int ENAMED_QUERY__NAME = 1;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -422,7 +432,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENAMED_QUERY__PARAMETERS = 1;
+  int ENAMED_QUERY__PARAMETERS = 2;
 
   /**
    * The feature id for the '<em><b>Queries</b></em>' containment reference list.
@@ -431,7 +441,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENAMED_QUERY__QUERIES = 2;
+  int ENAMED_QUERY__QUERIES = 3;
 
   /**
    * The number of structural features of the '<em>ENamed Query</em>' class.
@@ -440,7 +450,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENAMED_QUERY_FEATURE_COUNT = 3;
+  int ENAMED_QUERY_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl <em>EParameter</em>}' class.
@@ -645,13 +655,22 @@ public interface EMapPackage extends EPackage
   int EMAPPING_ATTRIBUTE__COLUMN_NAME = 2;
 
   /**
-   * The feature id for the '<em><b>Entity</b></em>' reference.
+   * The feature id for the '<em><b>Resolved</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMAPPING_ATTRIBUTE__ENTITY = 3;
+  int EMAPPING_ATTRIBUTE__RESOLVED = 3;
+
+  /**
+   * The feature id for the '<em><b>Query</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_ATTRIBUTE__QUERY = 4;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -660,7 +679,16 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_ATTRIBUTE__PARAMETERS = 4;
+  int EMAPPING_ATTRIBUTE__PARAMETERS = 5;
+
+  /**
+   * The feature id for the '<em><b>Mapped</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_ATTRIBUTE__MAPPED = 6;
 
   /**
    * The feature id for the '<em><b>Map</b></em>' containment reference.
@@ -669,7 +697,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_ATTRIBUTE__MAP = 5;
+  int EMAPPING_ATTRIBUTE__MAP = 7;
 
   /**
    * The number of structural features of the '<em>EMapping Attribute</em>' class.
@@ -678,7 +706,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_ATTRIBUTE_FEATURE_COUNT = 6;
+  int EMAPPING_ATTRIBUTE_FEATURE_COUNT = 8;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ETypeImpl <em>EType</em>}' class.
@@ -716,6 +744,16 @@ public interface EMapPackage extends EPackage
    * @ordered
    */
   int ETYPE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.ReturnType
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
+   * @generated
+   */
+  int RETURN_TYPE = 13;
 
 
   /**
@@ -1052,6 +1090,17 @@ public interface EMapPackage extends EPackage
   EClass getENamedQuery();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Return Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedQuery#getReturnType()
+   * @see #getENamedQuery()
+   * @generated
+   */
+  EAttribute getENamedQuery_ReturnType();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1290,15 +1339,26 @@ public interface EMapPackage extends EPackage
   EAttribute getEMappingAttribute_ColumnName();
 
   /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#getEntity <em>Entity</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#isResolved <em>Resolved</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Entity</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EMappingAttribute#getEntity()
+   * @return the meta object for the attribute '<em>Resolved</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingAttribute#isResolved()
    * @see #getEMappingAttribute()
    * @generated
    */
-  EReference getEMappingAttribute_Entity();
+  EAttribute getEMappingAttribute_Resolved();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#getQuery <em>Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingAttribute#getQuery()
+   * @see #getEMappingAttribute()
+   * @generated
+   */
+  EReference getEMappingAttribute_Query();
 
   /**
    * Returns the meta object for the attribute list '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#getParameters <em>Parameters</em>}'.
@@ -1310,6 +1370,17 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEMappingAttribute_Parameters();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#isMapped <em>Mapped</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Mapped</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingAttribute#isMapped()
+   * @see #getEMappingAttribute()
+   * @generated
+   */
+  EAttribute getEMappingAttribute_Mapped();
 
   /**
    * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.EMappingAttribute#getMap <em>Map</em>}'.
@@ -1353,6 +1424,16 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEType_Name();
+
+  /**
+   * Returns the meta object for enum '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Return Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ReturnType
+   * @generated
+   */
+  EEnum getReturnType();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1642,6 +1723,14 @@ public interface EMapPackage extends EPackage
     EClass ENAMED_QUERY = eINSTANCE.getENamedQuery();
 
     /**
+     * The meta object literal for the '<em><b>Return Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENAMED_QUERY__RETURN_TYPE = eINSTANCE.getENamedQuery_ReturnType();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1826,12 +1915,20 @@ public interface EMapPackage extends EPackage
     EAttribute EMAPPING_ATTRIBUTE__COLUMN_NAME = eINSTANCE.getEMappingAttribute_ColumnName();
 
     /**
-     * The meta object literal for the '<em><b>Entity</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Resolved</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EMAPPING_ATTRIBUTE__ENTITY = eINSTANCE.getEMappingAttribute_Entity();
+    EAttribute EMAPPING_ATTRIBUTE__RESOLVED = eINSTANCE.getEMappingAttribute_Resolved();
+
+    /**
+     * The meta object literal for the '<em><b>Query</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMAPPING_ATTRIBUTE__QUERY = eINSTANCE.getEMappingAttribute_Query();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' attribute list feature.
@@ -1840,6 +1937,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EMAPPING_ATTRIBUTE__PARAMETERS = eINSTANCE.getEMappingAttribute_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Mapped</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMAPPING_ATTRIBUTE__MAPPED = eINSTANCE.getEMappingAttribute_Mapped();
 
     /**
      * The meta object literal for the '<em><b>Map</b></em>' containment reference feature.
@@ -1874,6 +1979,16 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute ETYPE__NAME = eINSTANCE.getEType_Name();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.ReturnType
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
+     * @generated
+     */
+    EEnum RETURN_TYPE = eINSTANCE.getReturnType();
 
   }
 

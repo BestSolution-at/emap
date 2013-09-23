@@ -32,8 +32,10 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getColumnName <em>Column Name</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getEntity <em>Entity</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#isResolved <em>Resolved</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#isMapped <em>Mapped</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getMap <em>Map</em>}</li>
  * </ul>
  * </p>
@@ -103,14 +105,34 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
   protected String columnName = COLUMN_NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getEntity() <em>Entity</em>}' reference.
+   * The default value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEntity()
+   * @see #isResolved()
    * @generated
    * @ordered
    */
-  protected ENamedQuery entity;
+  protected static final boolean RESOLVED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isResolved()
+   * @generated
+   * @ordered
+   */
+  protected boolean resolved = RESOLVED_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getQuery() <em>Query</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQuery()
+   * @generated
+   * @ordered
+   */
+  protected ENamedQuery query;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute list.
@@ -121,6 +143,26 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
    * @ordered
    */
   protected EList<String> parameters;
+
+  /**
+   * The default value of the '{@link #isMapped() <em>Mapped</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isMapped()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean MAPPED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isMapped() <em>Mapped</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isMapped()
+   * @generated
+   * @ordered
+   */
+  protected boolean mapped = MAPPED_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getMap() <em>Map</em>}' containment reference.
@@ -227,19 +269,42 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public ENamedQuery getEntity()
+  public boolean isResolved()
   {
-    if (entity != null && entity.eIsProxy())
+    return resolved;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResolved(boolean newResolved)
+  {
+    boolean oldResolved = resolved;
+    resolved = newResolved;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMAPPING_ATTRIBUTE__RESOLVED, oldResolved, resolved));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ENamedQuery getQuery()
+  {
+    if (query != null && query.eIsProxy())
     {
-      InternalEObject oldEntity = (InternalEObject)entity;
-      entity = (ENamedQuery)eResolveProxy(oldEntity);
-      if (entity != oldEntity)
+      InternalEObject oldQuery = (InternalEObject)query;
+      query = (ENamedQuery)eResolveProxy(oldQuery);
+      if (query != oldQuery)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.EMAPPING_ATTRIBUTE__ENTITY, oldEntity, entity));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.EMAPPING_ATTRIBUTE__QUERY, oldQuery, query));
       }
     }
-    return entity;
+    return query;
   }
 
   /**
@@ -247,9 +312,9 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public ENamedQuery basicGetEntity()
+  public ENamedQuery basicGetQuery()
   {
-    return entity;
+    return query;
   }
 
   /**
@@ -257,12 +322,12 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEntity(ENamedQuery newEntity)
+  public void setQuery(ENamedQuery newQuery)
   {
-    ENamedQuery oldEntity = entity;
-    entity = newEntity;
+    ENamedQuery oldQuery = query;
+    query = newQuery;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMAPPING_ATTRIBUTE__ENTITY, oldEntity, entity));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMAPPING_ATTRIBUTE__QUERY, oldQuery, query));
   }
 
   /**
@@ -277,6 +342,29 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
       parameters = new EDataTypeEList<String>(String.class, this, EMapPackage.EMAPPING_ATTRIBUTE__PARAMETERS);
     }
     return parameters;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isMapped()
+  {
+    return mapped;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMapped(boolean newMapped)
+  {
+    boolean oldMapped = mapped;
+    mapped = newMapped;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMAPPING_ATTRIBUTE__MAPPED, oldMapped, mapped));
   }
 
   /**
@@ -359,11 +447,15 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
         return getProperty();
       case EMapPackage.EMAPPING_ATTRIBUTE__COLUMN_NAME:
         return getColumnName();
-      case EMapPackage.EMAPPING_ATTRIBUTE__ENTITY:
-        if (resolve) return getEntity();
-        return basicGetEntity();
+      case EMapPackage.EMAPPING_ATTRIBUTE__RESOLVED:
+        return isResolved();
+      case EMapPackage.EMAPPING_ATTRIBUTE__QUERY:
+        if (resolve) return getQuery();
+        return basicGetQuery();
       case EMapPackage.EMAPPING_ATTRIBUTE__PARAMETERS:
         return getParameters();
+      case EMapPackage.EMAPPING_ATTRIBUTE__MAPPED:
+        return isMapped();
       case EMapPackage.EMAPPING_ATTRIBUTE__MAP:
         return getMap();
     }
@@ -390,12 +482,18 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
       case EMapPackage.EMAPPING_ATTRIBUTE__COLUMN_NAME:
         setColumnName((String)newValue);
         return;
-      case EMapPackage.EMAPPING_ATTRIBUTE__ENTITY:
-        setEntity((ENamedQuery)newValue);
+      case EMapPackage.EMAPPING_ATTRIBUTE__RESOLVED:
+        setResolved((Boolean)newValue);
+        return;
+      case EMapPackage.EMAPPING_ATTRIBUTE__QUERY:
+        setQuery((ENamedQuery)newValue);
         return;
       case EMapPackage.EMAPPING_ATTRIBUTE__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends String>)newValue);
+        return;
+      case EMapPackage.EMAPPING_ATTRIBUTE__MAPPED:
+        setMapped((Boolean)newValue);
         return;
       case EMapPackage.EMAPPING_ATTRIBUTE__MAP:
         setMap((EObjectSection)newValue);
@@ -423,11 +521,17 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
       case EMapPackage.EMAPPING_ATTRIBUTE__COLUMN_NAME:
         setColumnName(COLUMN_NAME_EDEFAULT);
         return;
-      case EMapPackage.EMAPPING_ATTRIBUTE__ENTITY:
-        setEntity((ENamedQuery)null);
+      case EMapPackage.EMAPPING_ATTRIBUTE__RESOLVED:
+        setResolved(RESOLVED_EDEFAULT);
+        return;
+      case EMapPackage.EMAPPING_ATTRIBUTE__QUERY:
+        setQuery((ENamedQuery)null);
         return;
       case EMapPackage.EMAPPING_ATTRIBUTE__PARAMETERS:
         getParameters().clear();
+        return;
+      case EMapPackage.EMAPPING_ATTRIBUTE__MAPPED:
+        setMapped(MAPPED_EDEFAULT);
         return;
       case EMapPackage.EMAPPING_ATTRIBUTE__MAP:
         setMap((EObjectSection)null);
@@ -452,10 +556,14 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
         return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
       case EMapPackage.EMAPPING_ATTRIBUTE__COLUMN_NAME:
         return COLUMN_NAME_EDEFAULT == null ? columnName != null : !COLUMN_NAME_EDEFAULT.equals(columnName);
-      case EMapPackage.EMAPPING_ATTRIBUTE__ENTITY:
-        return entity != null;
+      case EMapPackage.EMAPPING_ATTRIBUTE__RESOLVED:
+        return resolved != RESOLVED_EDEFAULT;
+      case EMapPackage.EMAPPING_ATTRIBUTE__QUERY:
+        return query != null;
       case EMapPackage.EMAPPING_ATTRIBUTE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case EMapPackage.EMAPPING_ATTRIBUTE__MAPPED:
+        return mapped != MAPPED_EDEFAULT;
       case EMapPackage.EMAPPING_ATTRIBUTE__MAP:
         return map != null;
     }
@@ -479,8 +587,12 @@ public class EMappingAttributeImpl extends MinimalEObjectImpl.Container implemen
     result.append(property);
     result.append(", columnName: ");
     result.append(columnName);
+    result.append(", resolved: ");
+    result.append(resolved);
     result.append(", parameters: ");
     result.append(parameters);
+    result.append(", mapped: ");
+    result.append(mapped);
     result.append(')');
     return result.toString();
   }

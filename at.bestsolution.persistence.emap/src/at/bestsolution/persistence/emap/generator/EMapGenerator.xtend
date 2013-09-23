@@ -13,6 +13,11 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import at.bestsolution.persistence.emap.eMap.ReturnType
+import at.bestsolution.persistence.emap.eMap.EObjectSection
+import java.util.List
+import at.bestsolution.persistence.emap.eMap.EParameter
+import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 
 /**
  * Generates code from your model files on save.
@@ -38,10 +43,10 @@ class EMapGenerator implements IGenerator {
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
 	
-	import at.bestsolution.persistence.mybatis.mapper.BaseMapper;
-	
-	public interface «entityDef.entity.name»Mapper extends BaseMapper<«eClass.instanceClassName»> {
-		
+	public interface «entityDef.entity.name»Mapper {
+		«FOR query : entityDef.entity.namedQueries»
+		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
+		«ENDFOR»
 	}
 	'''
 	
@@ -55,28 +60,128 @@ class EMapGenerator implements IGenerator {
 		<select id="«query.name»" 
 			«IF ! query.parameters.empty»parameter="«IF query.parameters.size > 1»HashMap«ELSE»«query.parameters.head.type»«ENDIF»"«ENDIF»
 			«IF query.queries.head.mapping.attributes.empty»resultMap="Default_«eClass.name»Map"«ELSE»resultMap="«query.name»_«eClass.name»Map"«ENDIF»>
-			
+			SELECT 
+				«IF query.queries.head.mapping.attributes.empty»
+					*
+				«ELSE»
+					«query.queries.head.mapping.mapColumns»
+				«ENDIF»
+			FROM 
+				«query.queries.head.from.replaceParameters(query.parameters)»
+			«IF query.queries.head.where != null»WHERE 
+				«query.queries.head.where.replaceParameters(query.parameters)»«ENDIF»
+			«IF query.queries.head.groupBy != null»GROUP BY 
+				«query.queries.head.groupBy.replaceParameters(query.parameters)»«ENDIF»
+			«IF query.queries.head.orderby != null»ORDER BY 
+				«query.queries.head.orderby.replaceParameters(query.parameters)»«ENDIF»
 		</select>
+		«IF !query.queries.head.mapping.attributes.empty»
+		<resultMap id="«query.name»_«eClass.name»Map" type="«eClass.instanceClassName»">
+			«query.queries.head.mapping.objectSectionMap»
+		</resultMap>
+		«ENDIF»
 	«ENDFOR»
 	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
-		«FOR a : entityDef.allAttributes»
-			«IF a.pk»
-				<id property="«a.property»" column="«a.columnName»" />
-			«ELSE»
-				«IF a.resolved»
-					«IF a.isSingle(eClass)»
-						<association property="«a.property»" column="«a.query.parameters.head.name»" select="«a.query.fqn»"/>
-					«ELSE»
-						<collection property="«a.property»" select="«a.query.fqn»" />
-					«ENDIF»
-				«ELSE»
-					<result property="«a.property»" column="«a.columnName»" />
-				«ENDIF»
-			«ENDIF»
-		«ENDFOR»
+		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass)»
 	</resultMap>
 </mapper>
 	'''
+	
+	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass) '''
+	«FOR a : attributes»
+		«IF a.pk»
+			<id property="«a.property»" column="«a.columnName»" />
+		«ELSE»
+			«IF a.resolved»
+				«IF a.isSingle(eClass)»
+					<association property="«a.property»" column="«a.parameters.head»" select="«a.query.fqn»"/>
+				«ELSE»
+					<collection property="«a.property»" select="«a.query.fqn»" />
+				«ENDIF»
+			«ELSE»
+				<result property="«a.property»" column="«a.columnName»" />
+			«ENDIF»
+		«ENDIF»
+	«ENDFOR»
+	'''
+	
+	def static mappedattrib_resultMapContent(Iterable<EMappingAttribute> attributes, EClass eClass) '''
+	«FOR a : attributes»
+		«IF a.pk»
+			<id property="«a.property»" column="«a.columnName»" />
+		«ELSE»
+			«IF a.resolved»
+				«IF a.isSingle(eClass)»
+					<association property="«a.property»" column="«a.parameters.head»" select="«a.query.fqn»"/>
+				«ELSE»
+					<collection property="«a.property»" select="«a.query.fqn»" />
+				«ENDIF»
+			«ELSEIF a.mapped»
+				«IF a.isSingle(eClass)»
+					<association property="«a.property»">
+						«a.map.objectSectionMap»
+					</association>
+				«ELSE»
+					<collection property="«a.property»">
+						«a.map.objectSectionMap»
+					</collection>
+				«ENDIF»
+			«ELSE»
+				<result property="«a.property»" column="«a.columnName»" />
+			«ENDIF»
+		«ENDIF»
+	«ENDFOR»
+	'''
+	
+	def static CharSequence objectSectionMap(EObjectSection section) '''
+	«attrib_resultMapContent(section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null],JavaHelper::getEClass(section.entity.etype))»
+	«mappedattrib_resultMapContent(section.attributes, JavaHelper::getEClass(section.entity.etype))»
+	'''
+//	{
+//		val attrs = section.entity.collectAttributes
+//		for( attr : section.attributes ) {
+//			attrs.remove(attrs.findFirst[a|a.property == attr.property])
+//		}
+//		
+//		
+//		
+//		return "";
+//	}
+	
+	def static replaceParameters(String v, List<EParameter> parameters) {
+		if( parameters.empty ){
+			return v;
+		} else if( parameters.size == 1 ) {
+			if( parameters.head.type.isPrimitive ) {
+				return v.replace("${"+parameters.head.name+"}","#{id}");
+			}
+			return v.replace("${"+parameters.head.name+".","#{");
+		} else {
+			return v.replace("${","#{");
+		}
+	}
+	
+	def static isPrimitive(String type) {
+		switch(type) {
+			case "long": return true
+			case "int": return true
+		}
+		return false;
+	}
+	
+	def static String mapColumns(EObjectSection s) {
+		val atts = s.entity.collectAttributes
+		val id = atts.findFirst[a|a.pk]
+		
+		val StringBuilder b = new StringBuilder;
+		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix + "."(if(a.resolved) a.parameters.head else a.columnName) + "\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
+		
+		for( es : s.attributes.filter[a|a.map!=null] ) {
+			b.append(",\n\n" + es.map.mapColumns)
+		}
+		
+		return b.toString;
+	}
 	
 	def static fqn(ENamedQuery e) {
 		val r = (e.eResource.contents.head as EMapping).root
@@ -91,6 +196,10 @@ class EMapGenerator implements IGenerator {
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
 	
+	def static isSingle(EMappingAttribute attribute, EClass eclass) {
+		return ! eclass.getEStructuralFeature(attribute.property).many
+	}
+	
 	def static tableName(EMappingEntityDef entityDef) {
 		if( entityDef.entity.tableName == null ) {
 			return JavaHelper::getEClass(entityDef.entity.etype).name.toUpperCase
@@ -98,9 +207,9 @@ class EMapGenerator implements IGenerator {
 		return entityDef.entity.tableName
 	}
 	
-	def static allAttributes(EMappingEntityDef entityDef) {
+	def static collectAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
-		entityDef.entity.allAttributes(l)
+		entity.allAttributes(l)
 		l.sort([ a,b | 
 					if (a.pk) 
 						return -1 
@@ -108,7 +217,7 @@ class EMapGenerator implements IGenerator {
 						return 1
 					else 
 						if ( a.resolved && b.resolved ) {
-							val eClass = JavaHelper::getEClass(entityDef.entity.etype)
+							val eClass = JavaHelper::getEClass(entity.etype)
 							if( a.isSingle(eClass) && b.isSingle(eClass) ) {
 								
 							}
@@ -127,7 +236,7 @@ class EMapGenerator implements IGenerator {
 	
 	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
 		l.addAll(entity.attributes)
-		if( entity.extensionType == "derived" ) {
+		if( entity.parent != null ) {
 			entity.parent.allAttributes(l)
 		}
 	}

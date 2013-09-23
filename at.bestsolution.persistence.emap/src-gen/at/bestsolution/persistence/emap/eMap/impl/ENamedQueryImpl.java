@@ -6,6 +6,7 @@ import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.ENamedQuery;
 import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EQuery;
+import at.bestsolution.persistence.emap.eMap.ReturnType;
 
 import java.util.Collection;
 
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getQueries <em>Queries</em>}</li>
@@ -40,6 +42,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENamedQuery
 {
+  /**
+   * The default value of the '{@link #getReturnType() <em>Return Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReturnType()
+   * @generated
+   * @ordered
+   */
+  protected static final ReturnType RETURN_TYPE_EDEFAULT = ReturnType.LIST;
+
+  /**
+   * The cached value of the '{@link #getReturnType() <em>Return Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getReturnType()
+   * @generated
+   * @ordered
+   */
+  protected ReturnType returnType = RETURN_TYPE_EDEFAULT;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -99,6 +121,29 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
   protected EClass eStaticClass()
   {
     return EMapPackage.Literals.ENAMED_QUERY;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReturnType getReturnType()
+  {
+    return returnType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setReturnType(ReturnType newReturnType)
+  {
+    ReturnType oldReturnType = returnType;
+    returnType = newReturnType == null ? RETURN_TYPE_EDEFAULT : newReturnType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ENAMED_QUERY__RETURN_TYPE, oldReturnType, returnType));
   }
 
   /**
@@ -180,6 +225,8 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
   {
     switch (featureID)
     {
+      case EMapPackage.ENAMED_QUERY__RETURN_TYPE:
+        return getReturnType();
       case EMapPackage.ENAMED_QUERY__NAME:
         return getName();
       case EMapPackage.ENAMED_QUERY__PARAMETERS:
@@ -201,6 +248,9 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
   {
     switch (featureID)
     {
+      case EMapPackage.ENAMED_QUERY__RETURN_TYPE:
+        setReturnType((ReturnType)newValue);
+        return;
       case EMapPackage.ENAMED_QUERY__NAME:
         setName((String)newValue);
         return;
@@ -226,6 +276,9 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
   {
     switch (featureID)
     {
+      case EMapPackage.ENAMED_QUERY__RETURN_TYPE:
+        setReturnType(RETURN_TYPE_EDEFAULT);
+        return;
       case EMapPackage.ENAMED_QUERY__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -249,6 +302,8 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
   {
     switch (featureID)
     {
+      case EMapPackage.ENAMED_QUERY__RETURN_TYPE:
+        return returnType != RETURN_TYPE_EDEFAULT;
       case EMapPackage.ENAMED_QUERY__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case EMapPackage.ENAMED_QUERY__PARAMETERS:
@@ -270,7 +325,9 @@ public class ENamedQueryImpl extends MinimalEObjectImpl.Container implements ENa
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
+    result.append(" (returnType: ");
+    result.append(returnType);
+    result.append(", name: ");
     result.append(name);
     result.append(')');
     return result.toString();

@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getQueries <em>Queries</em>}</li>
@@ -26,6 +27,35 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ENamedQuery extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Return Type</b></em>' attribute.
+   * The literals are from the enumeration {@link at.bestsolution.persistence.emap.eMap.ReturnType}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Return Type</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Return Type</em>' attribute.
+   * @see at.bestsolution.persistence.emap.eMap.ReturnType
+   * @see #setReturnType(ReturnType)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getENamedQuery_ReturnType()
+   * @model
+   * @generated
+   */
+  ReturnType getReturnType();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.ENamedQuery#getReturnType <em>Return Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Return Type</em>' attribute.
+   * @see at.bestsolution.persistence.emap.eMap.ReturnType
+   * @see #getReturnType()
+   * @generated
+   */
+  void setReturnType(ReturnType value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->

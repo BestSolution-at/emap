@@ -44,9 +44,13 @@ EAttribute:
 ;
 
 ENamedQuery:
-	name=ID ('(' parameters+=EParameter* ')')? '{'
-		queries += EQuery
+	returnType=ReturnType? name=ID ('(' parameters+=EParameter* ')')? '{'
+		queries += EQuery (',' queries += EQuery)*
 	'}' 
+;
+
+enum ReturnType:
+	list|single
 ;
 
 EParameter:
@@ -64,7 +68,7 @@ EObjectSection:
 ;
 
 EMappingAttribute:
-	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | 'resolve' entity=[ENamedQuery|QualifiedName] '('parameters+=ID')' | 'map' map=EObjectSection )
+	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' | mapped?='map' map=EObjectSection )
 ;
 
 

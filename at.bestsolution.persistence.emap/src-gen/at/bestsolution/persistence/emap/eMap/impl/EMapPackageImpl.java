@@ -16,9 +16,11 @@ import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EType;
 import at.bestsolution.persistence.emap.eMap.Import;
 import at.bestsolution.persistence.emap.eMap.PackageDeclaration;
+import at.bestsolution.persistence.emap.eMap.ReturnType;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -122,6 +124,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum returnTypeEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -501,7 +510,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getENamedQuery_Name()
+  public EAttribute getENamedQuery_ReturnType()
   {
     return (EAttribute)eNamedQueryEClass.getEStructuralFeatures().get(0);
   }
@@ -511,9 +520,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getENamedQuery_Name()
+  {
+    return (EAttribute)eNamedQueryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getENamedQuery_Parameters()
   {
-    return (EReference)eNamedQueryEClass.getEStructuralFeatures().get(1);
+    return (EReference)eNamedQueryEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -523,7 +542,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EReference getENamedQuery_Queries()
   {
-    return (EReference)eNamedQueryEClass.getEStructuralFeatures().get(2);
+    return (EReference)eNamedQueryEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -721,9 +740,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEMappingAttribute_Entity()
+  public EAttribute getEMappingAttribute_Resolved()
   {
-    return (EReference)eMappingAttributeEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)eMappingAttributeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMappingAttribute_Query()
+  {
+    return (EReference)eMappingAttributeEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -733,7 +762,17 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEMappingAttribute_Parameters()
   {
-    return (EAttribute)eMappingAttributeEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)eMappingAttributeEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEMappingAttribute_Mapped()
+  {
+    return (EAttribute)eMappingAttributeEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -743,7 +782,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EReference getEMappingAttribute_Map()
   {
-    return (EReference)eMappingAttributeEClass.getEStructuralFeatures().get(5);
+    return (EReference)eMappingAttributeEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -774,6 +813,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EAttribute getEType_Name()
   {
     return (EAttribute)eTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EEnum getReturnType()
+  {
+    return returnTypeEEnum;
   }
 
   /**
@@ -844,6 +893,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eAttributeEClass, EATTRIBUTE__PARAMETERS);
 
     eNamedQueryEClass = createEClass(ENAMED_QUERY);
+    createEAttribute(eNamedQueryEClass, ENAMED_QUERY__RETURN_TYPE);
     createEAttribute(eNamedQueryEClass, ENAMED_QUERY__NAME);
     createEReference(eNamedQueryEClass, ENAMED_QUERY__PARAMETERS);
     createEReference(eNamedQueryEClass, ENAMED_QUERY__QUERIES);
@@ -870,13 +920,18 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__PK);
     createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__PROPERTY);
     createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__COLUMN_NAME);
-    createEReference(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__ENTITY);
+    createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__RESOLVED);
+    createEReference(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__QUERY);
     createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__PARAMETERS);
+    createEAttribute(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__MAPPED);
     createEReference(eMappingAttributeEClass, EMAPPING_ATTRIBUTE__MAP);
 
     eTypeEClass = createEClass(ETYPE);
     createEAttribute(eTypeEClass, ETYPE__URL);
     createEAttribute(eTypeEClass, ETYPE__NAME);
+
+    // Create enums
+    returnTypeEEnum = createEEnum(RETURN_TYPE);
   }
 
   /**
@@ -948,6 +1003,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eNamedQueryEClass, ENamedQuery.class, "ENamedQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getENamedQuery_ReturnType(), this.getReturnType(), "returnType", null, 0, 1, ENamedQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getENamedQuery_Name(), ecorePackage.getEString(), "name", null, 0, 1, ENamedQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getENamedQuery_Parameters(), this.getEParameter(), null, "parameters", null, 0, -1, ENamedQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getENamedQuery_Queries(), this.getEQuery(), null, "queries", null, 0, -1, ENamedQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -974,13 +1030,20 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEMappingAttribute_Pk(), ecorePackage.getEBoolean(), "pk", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingAttribute_Property(), ecorePackage.getEString(), "property", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingAttribute_ColumnName(), ecorePackage.getEString(), "columnName", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEMappingAttribute_Entity(), this.getENamedQuery(), null, "entity", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEMappingAttribute_Resolved(), ecorePackage.getEBoolean(), "resolved", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingAttribute_Query(), this.getENamedQuery(), null, "query", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEMappingAttribute_Mapped(), ecorePackage.getEBoolean(), "mapped", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingAttribute_Map(), this.getEObjectSection(), null, "map", null, 0, 1, EMappingAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eTypeEClass, EType.class, "EType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEType_Url(), ecorePackage.getEString(), "url", null, 0, 1, EType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEType_Name(), ecorePackage.getEString(), "name", null, 0, 1, EType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    // Initialize enums and add enum literals
+    initEEnum(returnTypeEEnum, ReturnType.class, "ReturnType");
+    addEEnumLiteral(returnTypeEEnum, ReturnType.LIST);
+    addEEnumLiteral(returnTypeEEnum, ReturnType.SINGLE);
 
     // Create resource
     createResource(eNS_URI);
