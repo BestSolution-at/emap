@@ -688,19 +688,19 @@ ruleEAttribute returns [EObject current=null]
 )
 )?(
 (
-		{ 
-	        newCompositeNode(grammarAccess.getEAttributeAccess().getPropertyQualifiedNameParserRuleCall_1_0()); 
-	    }
-		lv_property_1_0=ruleQualifiedName		{
+		lv_property_1_0=RULE_ID
+		{
+			newLeafNode(lv_property_1_0, grammarAccess.getEAttributeAccess().getPropertyIDTerminalRuleCall_1_0()); 
+		}
+		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEAttributeRule());
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
 	        }
-       		set(
+       		setWithLastConsumed(
        			$current, 
        			"property",
         		lv_property_1_0, 
-        		"QualifiedName");
-	        afterParserOrEnumRuleCall();
+        		"ID");
 	    }
 
 )
@@ -727,11 +727,22 @@ ruleEAttribute returns [EObject current=null]
 
 )
 )
-    |(	otherlv_4='resolve' 
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getEAttributeAccess().getResolveKeyword_3_1_0());
-    }
+    |((
 (
+		lv_resolved_4_0=	'resolve' 
+    {
+        newLeafNode(lv_resolved_4_0, grammarAccess.getEAttributeAccess().getResolvedResolveKeyword_3_1_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed($current, "resolved", true, "resolve");
+	    }
+
+)
+)(
 (
 		{
 			if ($current==null) {
@@ -739,7 +750,7 @@ ruleEAttribute returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getEAttributeAccess().getEntityENamedQueryCrossReference_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEAttributeAccess().getQueryENamedQueryCrossReference_3_1_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1014,15 +1025,15 @@ ruleEQuery returns [EObject current=null]
 	    }
 
 )
-)	otherlv_4='WHERE' 
+)(	otherlv_4='WHERE' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getEQueryAccess().getWHEREKeyword_2_0_2());
+    	newLeafNode(otherlv_4, grammarAccess.getEQueryAccess().getWHEREKeyword_2_0_2_0());
     }
 (
 (
 		lv_where_5_0=RULE_STRING
 		{
-			newLeafNode(lv_where_5_0, grammarAccess.getEQueryAccess().getWhereSTRINGTerminalRuleCall_2_0_3_0()); 
+			newLeafNode(lv_where_5_0, grammarAccess.getEQueryAccess().getWhereSTRINGTerminalRuleCall_2_0_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1036,12 +1047,56 @@ ruleEQuery returns [EObject current=null]
 	    }
 
 )
-))
+))?(	otherlv_6='GROUP BY' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getEQueryAccess().getGROUPBYKeyword_2_0_3_0());
+    }
+(
+(
+		lv_groupBy_7_0=RULE_STRING
+		{
+			newLeafNode(lv_groupBy_7_0, grammarAccess.getEQueryAccess().getGroupBySTRINGTerminalRuleCall_2_0_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEQueryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"groupBy",
+        		lv_groupBy_7_0, 
+        		"STRING");
+	    }
+
+)
+))?(	otherlv_8='ORDER BY' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getEQueryAccess().getORDERBYKeyword_2_0_4_0());
+    }
+(
+(
+		lv_orderby_9_0=RULE_STRING
+		{
+			newLeafNode(lv_orderby_9_0, grammarAccess.getEQueryAccess().getOrderbySTRINGTerminalRuleCall_2_0_4_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEQueryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"orderby",
+        		lv_orderby_9_0, 
+        		"STRING");
+	    }
+
+)
+))?)
     |(
 (
-		lv_all_6_0=RULE_STRING
+		lv_all_10_0=RULE_STRING
 		{
-			newLeafNode(lv_all_6_0, grammarAccess.getEQueryAccess().getAllSTRINGTerminalRuleCall_2_1_0()); 
+			newLeafNode(lv_all_10_0, grammarAccess.getEQueryAccess().getAllSTRINGTerminalRuleCall_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1050,7 +1105,7 @@ ruleEQuery returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"all",
-        		lv_all_6_0, 
+        		lv_all_10_0, 
         		"STRING");
 	    }
 

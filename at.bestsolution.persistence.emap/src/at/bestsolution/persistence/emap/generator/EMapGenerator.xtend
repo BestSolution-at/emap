@@ -3,16 +3,16 @@
  */
 package at.bestsolution.persistence.emap.generator
 
+import at.bestsolution.persistence.emap.eMap.EAttribute
+import at.bestsolution.persistence.emap.eMap.EMapping
+import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.ENamedQuery
+import java.util.ArrayList
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
-import at.bestsolution.persistence.emap.eMap.EType
-import at.bestsolution.persistence.emap.eMap.EMapping
-import org.eclipse.emf.ecore.EClass
-import java.util.ArrayList
-import at.bestsolution.persistence.emap.eMap.EAttribute
-import at.bestsolution.persistence.emap.eMap.EMappingEntity
 
 /**
  * Generates code from your model files on save.
@@ -51,21 +51,45 @@ class EMapGenerator implements IGenerator {
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="«eClass.instanceClassName»Mapper">
-	<select id="selectById" parameterType="long" resultMap="«eClass.name»Map">
-		SELECT * FROM «entityDef.tableName» WHERE 
-	</select>
-	<insert id="insertObject">
-	INSERT INTO «entityDef.tableName»
-	(
-		«entityDef.allAttributes.map[columnName].join(",\n")»
-	)
-	VALUES
-	(
-		«entityDef.allAttributes.map[if(pk) "__ GEN __" else property].join(",\n")»
-	)
-	</insert>
+	«FOR query : entityDef.entity.namedQueries»
+		<select id="«query.name»" 
+			«IF ! query.parameters.empty»parameter="«IF query.parameters.size > 1»HashMap«ELSE»«query.parameters.head.type»«ENDIF»"«ENDIF»
+			«IF query.queries.head.mapping.attributes.empty»resultMap="Default_«eClass.name»Map"«ELSE»resultMap="«query.name»_«eClass.name»Map"«ENDIF»>
+			
+		</select>
+	«ENDFOR»
+	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
+		«FOR a : entityDef.allAttributes»
+			«IF a.pk»
+				<id property="«a.property»" column="«a.columnName»" />
+			«ELSE»
+				«IF a.resolved»
+					«IF a.isSingle(eClass)»
+						<association property="«a.property»" column="«a.query.parameters.head.name»" select="«a.query.fqn»"/>
+					«ELSE»
+						<collection property="«a.property»" select="«a.query.fqn»" />
+					«ENDIF»
+				«ELSE»
+					<result property="«a.property»" column="«a.columnName»" />
+				«ENDIF»
+			«ENDIF»
+		«ENDFOR»
+	</resultMap>
 </mapper>
 	'''
+	
+	def static fqn(ENamedQuery e) {
+		val r = (e.eResource.contents.head as EMapping).root
+		if( r instanceof EMappingEntityDef ) {
+			val d = r as EMappingEntityDef;
+			return d.package.name + "." + d.entity.name + "." + e.name
+		}
+		return "NOX DA"
+	}
+	
+	def static isSingle(EAttribute attribute, EClass eclass) {
+		return ! eclass.getEStructuralFeature(attribute.property).many
+	}
 	
 	def static tableName(EMappingEntityDef entityDef) {
 		if( entityDef.entity.tableName == null ) {
@@ -77,7 +101,28 @@ class EMapGenerator implements IGenerator {
 	def static allAttributes(EMappingEntityDef entityDef) {
 		val l = new ArrayList<EAttribute>
 		entityDef.entity.allAttributes(l)
-		l.sort([ a,b | return if (a.pk) -1 else 0  ]);
+		l.sort([ a,b | 
+					if (a.pk) 
+						return -1 
+					else if (b.pk)
+						return 1
+					else 
+						if ( a.resolved && b.resolved ) {
+							val eClass = JavaHelper::getEClass(entityDef.entity.etype)
+							if( a.isSingle(eClass) && b.isSingle(eClass) ) {
+								
+							}
+							return a.property.compareToIgnoreCase(b.property)
+						}
+						else if( ! a.resolved && !  b.resolved )
+							return a.property.compareToIgnoreCase(b.property)
+						else if( ! a.resolved )
+							return -1
+						else if( ! b.resolved )
+							return 1
+						else 
+							return a.property.compareToIgnoreCase(b.property)
+		]);
 	}
 	
 	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {

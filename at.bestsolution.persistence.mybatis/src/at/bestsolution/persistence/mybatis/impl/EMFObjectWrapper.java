@@ -90,14 +90,14 @@ public class EMFObjectWrapper implements ObjectWrapper {
 		if( feature.isMany() ) {
 //			System.err.println(object + "#" + feature.getName());
 			List<Object> l = (List<Object>)object.eGet(feature);
-			if( l.isEmpty() ) {
+//			if( l.isEmpty() ) {
 				l.addAll((Collection<? extends Object>) arg1);
-			}
+//			}
 		} else {
 			if( feature instanceof EReference ) {
-				if( object.eGet(feature) == null ) {
+//				if( object.eGet(feature) == null ) {
 					object.eSet(feature, arg1);
-				}
+//				}
 			} else {
 				object.eSet(feature, arg1);	
 			}

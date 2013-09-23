@@ -34,26 +34,28 @@ public class Application implements IApplication {
 		TableNameProvider tblProvider = getService(TableNameProvider.class);
 		ColumnInfoProvider clProvider = getService(ColumnInfoProvider.class);
 		
-		String ecorePackage = System.getProperty("epackage-uri");
-		String mappingProject = System.getProperty("mapping-project");
-		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(ecorePackage);
-		Set<EClass> mappedClasses = new HashSet<EClass>();
-		generateMappers(mappingProject, Boolean.getBoolean("overwrite"), ePackage, tblProvider, clProvider, mappedClasses);
+		String emap_bundle = System.getProperty("emap_bundle");	
 		
-		File f = new File(mappingProject + "/src/mapping/MappingProviderImpl.java");
-		f.getParentFile().mkdirs();
-		f.createNewFile();
-		FileOutputStream out = new FileOutputStream(f);
-		out.write(EClassMapper.generatingMappingProviderJava(mappedClasses.toArray(new EClass[0])).toString().getBytes());
-		out.close();
-		
-		f = new File(mappingProject + "/OSGI-INF/services/mappingprovider.xml");
-		f.getParentFile().mkdirs();
-		f.createNewFile();
-		
-		out = new FileOutputStream(f);
-		out.write(EClassMapper.generateMappingProviderReg(new File(mappingProject).getName()).toString().getBytes());
-		out.close();
+//		String ecorePackage = System.getProperty("epackage-uri");
+//		String mappingProject = System.getProperty("mapping-project");
+//		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(ecorePackage);
+//		Set<EClass> mappedClasses = new HashSet<EClass>();
+//		generateMappers(mappingProject, Boolean.getBoolean("overwrite"), ePackage, tblProvider, clProvider, mappedClasses);
+//		
+//		File f = new File(mappingProject + "/src/mapping/MappingProviderImpl.java");
+//		f.getParentFile().mkdirs();
+//		f.createNewFile();
+//		FileOutputStream out = new FileOutputStream(f);
+//		out.write(EClassMapper.generatingMappingProviderJava(mappedClasses.toArray(new EClass[0])).toString().getBytes());
+//		out.close();
+//		
+//		f = new File(mappingProject + "/OSGI-INF/services/mappingprovider.xml");
+//		f.getParentFile().mkdirs();
+//		f.createNewFile();
+//		
+//		out = new FileOutputStream(f);
+//		out.write(EClassMapper.generateMappingProviderReg(new File(mappingProject).getName()).toString().getBytes());
+//		out.close();
 		
 		return IApplication.EXIT_OK;
 	}

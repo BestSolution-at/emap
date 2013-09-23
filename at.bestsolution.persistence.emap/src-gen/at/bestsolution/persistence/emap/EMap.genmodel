@@ -40,7 +40,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/pk"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/property"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/columnName"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/resolved"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/query"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ENamedQuery">
@@ -57,6 +58,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EQuery/mapping"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/from"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/where"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/groupBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/orderby"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/all"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EObjectSection">

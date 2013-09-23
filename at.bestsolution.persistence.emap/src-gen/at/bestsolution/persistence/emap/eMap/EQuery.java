@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getMapping <em>Mapping</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getFrom <em>From</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getWhere <em>Where</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getGroupBy <em>Group By</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getOrderby <em>Orderby</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getAll <em>All</em>}</li>
  * </ul>
  * </p>
@@ -129,6 +131,58 @@ public interface EQuery extends EObject
    * @generated
    */
   void setWhere(String value);
+
+  /**
+   * Returns the value of the '<em><b>Group By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Group By</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Group By</em>' attribute.
+   * @see #setGroupBy(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEQuery_GroupBy()
+   * @model
+   * @generated
+   */
+  String getGroupBy();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EQuery#getGroupBy <em>Group By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Group By</em>' attribute.
+   * @see #getGroupBy()
+   * @generated
+   */
+  void setGroupBy(String value);
+
+  /**
+   * Returns the value of the '<em><b>Orderby</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Orderby</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Orderby</em>' attribute.
+   * @see #setOrderby(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEQuery_Orderby()
+   * @model
+   * @generated
+   */
+  String getOrderby();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EQuery#getOrderby <em>Orderby</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Orderby</em>' attribute.
+   * @see #getOrderby()
+   * @generated
+   */
+  void setOrderby(String value);
 
   /**
    * Returns the value of the '<em><b>All</b></em>' attribute.

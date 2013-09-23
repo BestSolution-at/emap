@@ -402,16 +402,17 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPkAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Keyword cPkPrimarykeyKeyword_0_0 = (Keyword)cPkAssignment_0.eContents().get(0);
 		private final Assignment cPropertyAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cPropertyQualifiedNameParserRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
+		private final RuleCall cPropertyIDTerminalRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
 		private final Assignment cColumnNameAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
 		private final RuleCall cColumnNameIDTerminalRuleCall_3_0_0 = (RuleCall)cColumnNameAssignment_3_0.eContents().get(0);
 		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
-		private final Keyword cResolveKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cEntityAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final CrossReference cEntityENamedQueryCrossReference_3_1_1_0 = (CrossReference)cEntityAssignment_3_1_1.eContents().get(0);
-		private final RuleCall cEntityENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1 = (RuleCall)cEntityENamedQueryCrossReference_3_1_1_0.eContents().get(1);
+		private final Assignment cResolvedAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
+		private final Keyword cResolvedResolveKeyword_3_1_0_0 = (Keyword)cResolvedAssignment_3_1_0.eContents().get(0);
+		private final Assignment cQueryAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final CrossReference cQueryENamedQueryCrossReference_3_1_1_0 = (CrossReference)cQueryAssignment_3_1_1.eContents().get(0);
+		private final RuleCall cQueryENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1 = (RuleCall)cQueryENamedQueryCrossReference_3_1_1_0.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_3_1_2 = (Keyword)cGroup_3_1.eContents().get(2);
 		private final Assignment cParametersAssignment_3_1_3 = (Assignment)cGroup_3_1.eContents().get(3);
 		private final RuleCall cParametersIDTerminalRuleCall_3_1_3_0 = (RuleCall)cParametersAssignment_3_1_3.eContents().get(0);
@@ -419,12 +420,12 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EAttribute:
 		//
-		//	pk?="primarykey"? property=QualifiedName "=>" (columnName=ID | "resolve" entity=[ENamedQuery|QualifiedName] "("
+		//	pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
 		//
 		//	parameters+=ID ")");
 		public ParserRule getRule() { return rule; }
 
-		//pk?="primarykey"? property=QualifiedName "=>" (columnName=ID | "resolve" entity=[ENamedQuery|QualifiedName] "("
+		//pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
 		//
 		//parameters+=ID ")")
 		public Group getGroup() { return cGroup; }
@@ -435,16 +436,16 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//"primarykey"
 		public Keyword getPkPrimarykeyKeyword_0_0() { return cPkPrimarykeyKeyword_0_0; }
 
-		//property=QualifiedName
+		//property=ID
 		public Assignment getPropertyAssignment_1() { return cPropertyAssignment_1; }
 
-		//QualifiedName
-		public RuleCall getPropertyQualifiedNameParserRuleCall_1_0() { return cPropertyQualifiedNameParserRuleCall_1_0; }
+		//ID
+		public RuleCall getPropertyIDTerminalRuleCall_1_0() { return cPropertyIDTerminalRuleCall_1_0; }
 
 		//"=>"
 		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
 
-		//columnName=ID | "resolve" entity=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
+		//columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
 		//columnName=ID
@@ -453,20 +454,23 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getColumnNameIDTerminalRuleCall_3_0_0() { return cColumnNameIDTerminalRuleCall_3_0_0; }
 
-		//"resolve" entity=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
+		//resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//"resolve"
-		public Keyword getResolveKeyword_3_1_0() { return cResolveKeyword_3_1_0; }
+		//resolved?="resolve"
+		public Assignment getResolvedAssignment_3_1_0() { return cResolvedAssignment_3_1_0; }
 
-		//entity=[ENamedQuery|QualifiedName]
-		public Assignment getEntityAssignment_3_1_1() { return cEntityAssignment_3_1_1; }
+		//"resolve"
+		public Keyword getResolvedResolveKeyword_3_1_0_0() { return cResolvedResolveKeyword_3_1_0_0; }
+
+		//query=[ENamedQuery|QualifiedName]
+		public Assignment getQueryAssignment_3_1_1() { return cQueryAssignment_3_1_1; }
 
 		//[ENamedQuery|QualifiedName]
-		public CrossReference getEntityENamedQueryCrossReference_3_1_1_0() { return cEntityENamedQueryCrossReference_3_1_1_0; }
+		public CrossReference getQueryENamedQueryCrossReference_3_1_1_0() { return cQueryENamedQueryCrossReference_3_1_1_0; }
 
 		//QualifiedName
-		public RuleCall getEntityENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1() { return cEntityENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1; }
+		public RuleCall getQueryENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1() { return cQueryENamedQueryQualifiedNameParserRuleCall_3_1_1_0_1; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_2() { return cLeftParenthesisKeyword_3_1_2; }
@@ -581,18 +585,31 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFROMKeyword_2_0_0 = (Keyword)cGroup_2_0.eContents().get(0);
 		private final Assignment cFromAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
 		private final RuleCall cFromSTRINGTerminalRuleCall_2_0_1_0 = (RuleCall)cFromAssignment_2_0_1.eContents().get(0);
-		private final Keyword cWHEREKeyword_2_0_2 = (Keyword)cGroup_2_0.eContents().get(2);
-		private final Assignment cWhereAssignment_2_0_3 = (Assignment)cGroup_2_0.eContents().get(3);
-		private final RuleCall cWhereSTRINGTerminalRuleCall_2_0_3_0 = (RuleCall)cWhereAssignment_2_0_3.eContents().get(0);
+		private final Group cGroup_2_0_2 = (Group)cGroup_2_0.eContents().get(2);
+		private final Keyword cWHEREKeyword_2_0_2_0 = (Keyword)cGroup_2_0_2.eContents().get(0);
+		private final Assignment cWhereAssignment_2_0_2_1 = (Assignment)cGroup_2_0_2.eContents().get(1);
+		private final RuleCall cWhereSTRINGTerminalRuleCall_2_0_2_1_0 = (RuleCall)cWhereAssignment_2_0_2_1.eContents().get(0);
+		private final Group cGroup_2_0_3 = (Group)cGroup_2_0.eContents().get(3);
+		private final Keyword cGROUPBYKeyword_2_0_3_0 = (Keyword)cGroup_2_0_3.eContents().get(0);
+		private final Assignment cGroupByAssignment_2_0_3_1 = (Assignment)cGroup_2_0_3.eContents().get(1);
+		private final RuleCall cGroupBySTRINGTerminalRuleCall_2_0_3_1_0 = (RuleCall)cGroupByAssignment_2_0_3_1.eContents().get(0);
+		private final Group cGroup_2_0_4 = (Group)cGroup_2_0.eContents().get(4);
+		private final Keyword cORDERBYKeyword_2_0_4_0 = (Keyword)cGroup_2_0_4.eContents().get(0);
+		private final Assignment cOrderbyAssignment_2_0_4_1 = (Assignment)cGroup_2_0_4.eContents().get(1);
+		private final RuleCall cOrderbySTRINGTerminalRuleCall_2_0_4_1_0 = (RuleCall)cOrderbyAssignment_2_0_4_1.eContents().get(0);
 		private final Assignment cAllAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cAllSTRINGTerminalRuleCall_2_1_0 = (RuleCall)cAllAssignment_2_1.eContents().get(0);
 		
 		//EQuery:
 		//
-		//	dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING "WHERE" where=STRING | all=STRING);
+		//	dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING ("WHERE" where=STRING)? ("GROUP BY"
+		//
+		//	groupBy=STRING)? ("ORDER BY" orderby=STRING)? | all=STRING);
 		public ParserRule getRule() { return rule; }
 
-		//dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING "WHERE" where=STRING | all=STRING)
+		//dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING ("WHERE" where=STRING)? ("GROUP BY"
+		//
+		//groupBy=STRING)? ("ORDER BY" orderby=STRING)? | all=STRING)
 		public Group getGroup() { return cGroup; }
 
 		//dbType=("default" | STRING)
@@ -613,10 +630,10 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//EObjectSection
 		public RuleCall getMappingEObjectSectionParserRuleCall_1_0() { return cMappingEObjectSectionParserRuleCall_1_0; }
 
-		//"FROM" from=STRING "WHERE" where=STRING | all=STRING
+		//"FROM" from=STRING ("WHERE" where=STRING)? ("GROUP BY" groupBy=STRING)? ("ORDER BY" orderby=STRING)? | all=STRING
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//"FROM" from=STRING "WHERE" where=STRING
+		//"FROM" from=STRING ("WHERE" where=STRING)? ("GROUP BY" groupBy=STRING)? ("ORDER BY" orderby=STRING)?
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//"FROM"
@@ -628,14 +645,41 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getFromSTRINGTerminalRuleCall_2_0_1_0() { return cFromSTRINGTerminalRuleCall_2_0_1_0; }
 
+		//("WHERE" where=STRING)?
+		public Group getGroup_2_0_2() { return cGroup_2_0_2; }
+
 		//"WHERE"
-		public Keyword getWHEREKeyword_2_0_2() { return cWHEREKeyword_2_0_2; }
+		public Keyword getWHEREKeyword_2_0_2_0() { return cWHEREKeyword_2_0_2_0; }
 
 		//where=STRING
-		public Assignment getWhereAssignment_2_0_3() { return cWhereAssignment_2_0_3; }
+		public Assignment getWhereAssignment_2_0_2_1() { return cWhereAssignment_2_0_2_1; }
 
 		//STRING
-		public RuleCall getWhereSTRINGTerminalRuleCall_2_0_3_0() { return cWhereSTRINGTerminalRuleCall_2_0_3_0; }
+		public RuleCall getWhereSTRINGTerminalRuleCall_2_0_2_1_0() { return cWhereSTRINGTerminalRuleCall_2_0_2_1_0; }
+
+		//("GROUP BY" groupBy=STRING)?
+		public Group getGroup_2_0_3() { return cGroup_2_0_3; }
+
+		//"GROUP BY"
+		public Keyword getGROUPBYKeyword_2_0_3_0() { return cGROUPBYKeyword_2_0_3_0; }
+
+		//groupBy=STRING
+		public Assignment getGroupByAssignment_2_0_3_1() { return cGroupByAssignment_2_0_3_1; }
+
+		//STRING
+		public RuleCall getGroupBySTRINGTerminalRuleCall_2_0_3_1_0() { return cGroupBySTRINGTerminalRuleCall_2_0_3_1_0; }
+
+		//("ORDER BY" orderby=STRING)?
+		public Group getGroup_2_0_4() { return cGroup_2_0_4; }
+
+		//"ORDER BY"
+		public Keyword getORDERBYKeyword_2_0_4_0() { return cORDERBYKeyword_2_0_4_0; }
+
+		//orderby=STRING
+		public Assignment getOrderbyAssignment_2_0_4_1() { return cOrderbyAssignment_2_0_4_1; }
+
+		//STRING
+		public RuleCall getOrderbySTRINGTerminalRuleCall_2_0_4_1_0() { return cOrderbySTRINGTerminalRuleCall_2_0_4_1_0; }
 
 		//all=STRING
 		public Assignment getAllAssignment_2_1() { return cAllAssignment_2_1; }
@@ -1036,7 +1080,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EAttribute:
 	//
-	//	pk?="primarykey"? property=QualifiedName "=>" (columnName=ID | "resolve" entity=[ENamedQuery|QualifiedName] "("
+	//	pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
 	//
 	//	parameters+=ID ")");
 	public EAttributeElements getEAttributeAccess() {
@@ -1071,7 +1115,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EQuery:
 	//
-	//	dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING "WHERE" where=STRING | all=STRING);
+	//	dbType=("default" | STRING) mapping=EObjectSection ("FROM" from=STRING ("WHERE" where=STRING)? ("GROUP BY"
+	//
+	//	groupBy=STRING)? ("ORDER BY" orderby=STRING)? | all=STRING);
 	public EQueryElements getEQueryAccess() {
 		return (pEQuery != null) ? pEQuery : (pEQuery = new EQueryElements());
 	}

@@ -19,8 +19,17 @@ import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.SimpleExecutor;
+import org.apache.ibatis.executor.loader.CglibProxyFactory;
+import org.apache.ibatis.executor.loader.ProxyFactory;
+import org.apache.ibatis.executor.loader.ResultLoaderMap;
+import org.apache.ibatis.executor.parameter.ParameterHandler;
+import org.apache.ibatis.executor.resultset.FastResultSetHandler;
+import org.apache.ibatis.executor.resultset.NestedResultSetHandler;
+import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ResultMap;
+import org.apache.ibatis.mapping.ResultMapping;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
@@ -49,6 +58,8 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 	private List<MappingProvider> mappingProviders = new ArrayList<MappingProvider>();
 	private SqlSessionFactory sessionFactory;
 	private Map<Class<?>, EClass> eClassCache = new HashMap<Class<?>, EClass>();
+	private Map<Executor, Map<String, EObject>> sessionObjectCache = new HashMap<Executor, Map<String,EObject>>();
+	private Map<EObject, EObject> proxyCache = new HashMap<EObject, EObject>();
 	
 	private EnvironmentProvider environment;
 	
@@ -97,6 +108,119 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				}
 				return super.newExecutor(arg0, arg1, arg2);
 			}
+			
+			@Override
+			public ResultSetHandler newResultSetHandler(Executor executor,
+					MappedStatement mappedStatement, RowBounds rowBounds,
+					ParameterHandler parameterHandler,
+					ResultHandler resultHandler, BoundSql boundSql) {
+//				return super.newResultSetHandler(executor, mappedStatement, rowBounds,
+//						parameterHandler, resultHandler, boundSql);
+				Map<String, EObject> objectCache = sessionObjectCache.get(executor);
+				if( objectCache == null ) {
+					objectCache = new HashMap<String,EObject>();
+					sessionObjectCache.put(executor, objectCache);
+				}
+				final Map<String, EObject> fobjectCache = objectCache;
+				if( mappedStatement.hasNestedResultMaps() ) {
+					return new NestedResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql,
+					        rowBounds) {
+						@Override
+						protected Object createResultObject(ResultSet rs,
+								ResultMap resultMap,
+								List<Class<?>> constructorArgTypes,
+								List<Object> constructorArgs, String columnPrefix,
+								ResultColumnCache resultColumnCache)
+								throws SQLException {
+							final Class<?> resultType = resultMap.getType();
+							String key = resultType.getName() + "#" + rs.getObject(resultMap.getIdResultMappings().get(0).getColumn());
+//							System.err.println(key);
+							Object rv = fobjectCache.get(key);
+							if( rv == null ) {
+								rv = super.createResultObject(rs, resultMap, constructorArgTypes,
+										constructorArgs, columnPrefix, resultColumnCache);
+//								System.err.println("CREATING: " + rv.getClass() + " => " + rv.hashCode());
+								if( rv instanceof EObject ) {
+									fobjectCache.put(key, (EObject) rv);
+//									System.err.println("CACHING IT"); 
+								}
+							} else {
+//								System.err.println("I AM CACHED: " + rv.hashCode());
+							}
+							
+							return rv;
+						}
+						
+						@Override
+						protected Object createParameterizedResultObject(
+								ResultSet arg0, Class<?> arg1,
+								List<ResultMapping> arg2, List<Class<?>> arg3,
+								List<Object> arg4, String arg5,
+								ResultColumnCache arg6) throws SQLException {
+							System.err.println("createParameterizedResultObject");
+							// TODO Auto-generated method stub
+							return super.createParameterizedResultObject(arg0, arg1, arg2, arg3, arg4,
+									arg5, arg6);
+						}
+						
+						@Override
+						protected Object instantiateParameterObject(
+								Class<?> parameterType) {
+							System.err.println("instantiateParameterObject");
+							// TODO Auto-generated method stub
+							return super.instantiateParameterObject(parameterType);
+						}
+					};
+				} else {
+				return new FastResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds) {
+					@Override
+					protected Object createResultObject(ResultSet rs,
+							ResultMap resultMap,
+							List<Class<?>> constructorArgTypes,
+							List<Object> constructorArgs, String columnPrefix,
+							ResultColumnCache resultColumnCache)
+							throws SQLException {
+						final Class<?> resultType = resultMap.getType();
+						String key = resultType.getName() + "#" + rs.getObject(resultMap.getIdResultMappings().get(0).getColumn());
+//						System.err.println(key);
+						Object rv = fobjectCache.get(key);
+						if( rv == null ) {
+							rv = super.createResultObject(rs, resultMap, constructorArgTypes,
+									constructorArgs, columnPrefix, resultColumnCache);
+//							System.err.println("CREATING: " + rv.getClass() + " => " + rv.hashCode());
+							if( rv instanceof EObject ) {
+								fobjectCache.put(key, (EObject) rv);
+//								System.err.println("CACHING IT"); 
+							}
+						} else {
+//							System.err.println("I AM CACHED: " + rv.hashCode());
+						}
+						
+						return rv;
+					}
+					
+					@Override
+					protected Object createParameterizedResultObject(
+							ResultSet arg0, Class<?> arg1,
+							List<ResultMapping> arg2, List<Class<?>> arg3,
+							List<Object> arg4, String arg5,
+							ResultColumnCache arg6) throws SQLException {
+						System.err.println("createParameterizedResultObject");
+						// TODO Auto-generated method stub
+						return super.createParameterizedResultObject(arg0, arg1, arg2, arg3, arg4,
+								arg5, arg6);
+					}
+					
+					@Override
+					protected Object instantiateParameterObject(
+							Class<?> parameterType) {
+						System.err.println("instantiateParameterObject");
+						// TODO Auto-generated method stub
+						return super.instantiateParameterObject(parameterType);
+					}
+				};
+				}
+			}
 		};
 		final ObjectFactory objFactory = cfg.getObjectFactory();
 		cfg.setObjectFactory(new ObjectFactory() {
@@ -128,6 +252,29 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		final ObjectWrapperFactory orig = cfg.getObjectWrapperFactory();
 		cfg.setLazyLoadingEnabled(true);
 		cfg.setAggressiveLazyLoading(false);
+		final ProxyFactory original = cfg.getProxyFactory();
+		cfg.setProxyFactory(new ProxyFactory() {
+			
+			@Override
+			public void setProperties(Properties arg0) {
+				original.setProperties(arg0);
+			}
+			
+			@Override
+			public Object createProxy(Object arg0, ResultLoaderMap arg1,
+					Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
+					List<Object> arg5) {
+				if( arg0 instanceof EObject ) {
+					EObject rv = proxyCache.get(arg0);
+					if( rv == null ) {
+						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+						proxyCache.put((EObject) arg0, rv);
+					}
+					return rv;	
+				}
+				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+			}
+		});
 		cfg.setObjectWrapperFactory(new ObjectWrapperFactory() {
 			@Override
 			public boolean hasWrapperFor(Object arg0) {

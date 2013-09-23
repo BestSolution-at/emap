@@ -17,7 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getProperty <em>Property</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getColumnName <em>Column Name</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getEntity <em>Entity</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -107,30 +108,56 @@ public interface EAttribute extends EObject
   void setColumnName(String value);
 
   /**
-   * Returns the value of the '<em><b>Entity</b></em>' reference.
+   * Returns the value of the '<em><b>Resolved</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Entity</em>' reference isn't clear,
+   * If the meaning of the '<em>Resolved</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Entity</em>' reference.
-   * @see #setEntity(ENamedQuery)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Entity()
+   * @return the value of the '<em>Resolved</em>' attribute.
+   * @see #setResolved(boolean)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Resolved()
    * @model
    * @generated
    */
-  ENamedQuery getEntity();
+  boolean isResolved();
 
   /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getEntity <em>Entity</em>}' reference.
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Entity</em>' reference.
-   * @see #getEntity()
+   * @param value the new value of the '<em>Resolved</em>' attribute.
+   * @see #isResolved()
    * @generated
    */
-  void setEntity(ENamedQuery value);
+  void setResolved(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Query</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Query</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Query</em>' reference.
+   * @see #setQuery(ENamedQuery)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Query()
+   * @model
+   * @generated
+   */
+  ENamedQuery getQuery();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getQuery <em>Query</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Query</em>' reference.
+   * @see #getQuery()
+   * @generated
+   */
+  void setQuery(ENamedQuery value);
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' attribute list.

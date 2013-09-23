@@ -361,13 +361,22 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__COLUMN_NAME = 2;
 
   /**
-   * The feature id for the '<em><b>Entity</b></em>' reference.
+   * The feature id for the '<em><b>Resolved</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__ENTITY = 3;
+  int EATTRIBUTE__RESOLVED = 3;
+
+  /**
+   * The feature id for the '<em><b>Query</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__QUERY = 4;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -376,7 +385,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__PARAMETERS = 4;
+  int EATTRIBUTE__PARAMETERS = 5;
 
   /**
    * The number of structural features of the '<em>EAttribute</em>' class.
@@ -385,7 +394,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 5;
+  int EATTRIBUTE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl <em>ENamed Query</em>}' class.
@@ -517,13 +526,31 @@ public interface EMapPackage extends EPackage
   int EQUERY__WHERE = 3;
 
   /**
+   * The feature id for the '<em><b>Group By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUERY__GROUP_BY = 4;
+
+  /**
+   * The feature id for the '<em><b>Orderby</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUERY__ORDERBY = 5;
+
+  /**
    * The feature id for the '<em><b>All</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EQUERY__ALL = 4;
+  int EQUERY__ALL = 6;
 
   /**
    * The number of structural features of the '<em>EQuery</em>' class.
@@ -532,7 +559,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EQUERY_FEATURE_COUNT = 5;
+  int EQUERY_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl <em>EObject Section</em>}' class.
@@ -982,15 +1009,26 @@ public interface EMapPackage extends EPackage
   EAttribute getEAttribute_ColumnName();
 
   /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getEntity <em>Entity</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Entity</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getEntity()
+   * @return the meta object for the attribute '<em>Resolved</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#isResolved()
    * @see #getEAttribute()
    * @generated
    */
-  EReference getEAttribute_Entity();
+  EAttribute getEAttribute_Resolved();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getQuery <em>Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getQuery()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EReference getEAttribute_Query();
 
   /**
    * Returns the meta object for the attribute list '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getParameters <em>Parameters</em>}'.
@@ -1131,6 +1169,28 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEQuery_Where();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EQuery#getGroupBy <em>Group By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Group By</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EQuery#getGroupBy()
+   * @see #getEQuery()
+   * @generated
+   */
+  EAttribute getEQuery_GroupBy();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EQuery#getOrderby <em>Orderby</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Orderby</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EQuery#getOrderby()
+   * @see #getEQuery()
+   * @generated
+   */
+  EAttribute getEQuery_Orderby();
 
   /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EQuery#getAll <em>All</em>}'.
@@ -1548,12 +1608,20 @@ public interface EMapPackage extends EPackage
     EAttribute EATTRIBUTE__COLUMN_NAME = eINSTANCE.getEAttribute_ColumnName();
 
     /**
-     * The meta object literal for the '<em><b>Entity</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Resolved</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference EATTRIBUTE__ENTITY = eINSTANCE.getEAttribute_Entity();
+    EAttribute EATTRIBUTE__RESOLVED = eINSTANCE.getEAttribute_Resolved();
+
+    /**
+     * The meta object literal for the '<em><b>Query</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EATTRIBUTE__QUERY = eINSTANCE.getEAttribute_Query();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' attribute list feature.
@@ -1664,6 +1732,22 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EQUERY__WHERE = eINSTANCE.getEQuery_Where();
+
+    /**
+     * The meta object literal for the '<em><b>Group By</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EQUERY__GROUP_BY = eINSTANCE.getEQuery_GroupBy();
+
+    /**
+     * The meta object literal for the '<em><b>Orderby</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EQUERY__ORDERBY = eINSTANCE.getEQuery_Orderby();
 
     /**
      * The meta object literal for the '<em><b>All</b></em>' attribute feature.

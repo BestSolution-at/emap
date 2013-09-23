@@ -30,7 +30,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getColumnName <em>Column Name</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getEntity <em>Entity</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isResolved <em>Resolved</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -100,14 +101,34 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
   protected String columnName = COLUMN_NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getEntity() <em>Entity</em>}' reference.
+   * The default value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getEntity()
+   * @see #isResolved()
    * @generated
    * @ordered
    */
-  protected ENamedQuery entity;
+  protected static final boolean RESOLVED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isResolved()
+   * @generated
+   * @ordered
+   */
+  protected boolean resolved = RESOLVED_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getQuery() <em>Query</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getQuery()
+   * @generated
+   * @ordered
+   */
+  protected ENamedQuery query;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' attribute list.
@@ -214,19 +235,42 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public ENamedQuery getEntity()
+  public boolean isResolved()
   {
-    if (entity != null && entity.eIsProxy())
+    return resolved;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setResolved(boolean newResolved)
+  {
+    boolean oldResolved = resolved;
+    resolved = newResolved;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__RESOLVED, oldResolved, resolved));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ENamedQuery getQuery()
+  {
+    if (query != null && query.eIsProxy())
     {
-      InternalEObject oldEntity = (InternalEObject)entity;
-      entity = (ENamedQuery)eResolveProxy(oldEntity);
-      if (entity != oldEntity)
+      InternalEObject oldQuery = (InternalEObject)query;
+      query = (ENamedQuery)eResolveProxy(oldQuery);
+      if (query != oldQuery)
       {
         if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.EATTRIBUTE__ENTITY, oldEntity, entity));
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.EATTRIBUTE__QUERY, oldQuery, query));
       }
     }
-    return entity;
+    return query;
   }
 
   /**
@@ -234,9 +278,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public ENamedQuery basicGetEntity()
+  public ENamedQuery basicGetQuery()
   {
-    return entity;
+    return query;
   }
 
   /**
@@ -244,12 +288,12 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setEntity(ENamedQuery newEntity)
+  public void setQuery(ENamedQuery newQuery)
   {
-    ENamedQuery oldEntity = entity;
-    entity = newEntity;
+    ENamedQuery oldQuery = query;
+    query = newQuery;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__ENTITY, oldEntity, entity));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__QUERY, oldQuery, query));
   }
 
   /**
@@ -282,9 +326,11 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return getProperty();
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return getColumnName();
-      case EMapPackage.EATTRIBUTE__ENTITY:
-        if (resolve) return getEntity();
-        return basicGetEntity();
+      case EMapPackage.EATTRIBUTE__RESOLVED:
+        return isResolved();
+      case EMapPackage.EATTRIBUTE__QUERY:
+        if (resolve) return getQuery();
+        return basicGetQuery();
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         return getParameters();
     }
@@ -311,8 +357,11 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName((String)newValue);
         return;
-      case EMapPackage.EATTRIBUTE__ENTITY:
-        setEntity((ENamedQuery)newValue);
+      case EMapPackage.EATTRIBUTE__RESOLVED:
+        setResolved((Boolean)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__QUERY:
+        setQuery((ENamedQuery)newValue);
         return;
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         getParameters().clear();
@@ -341,8 +390,11 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName(COLUMN_NAME_EDEFAULT);
         return;
-      case EMapPackage.EATTRIBUTE__ENTITY:
-        setEntity((ENamedQuery)null);
+      case EMapPackage.EATTRIBUTE__RESOLVED:
+        setResolved(RESOLVED_EDEFAULT);
+        return;
+      case EMapPackage.EATTRIBUTE__QUERY:
+        setQuery((ENamedQuery)null);
         return;
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         getParameters().clear();
@@ -367,8 +419,10 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return COLUMN_NAME_EDEFAULT == null ? columnName != null : !COLUMN_NAME_EDEFAULT.equals(columnName);
-      case EMapPackage.EATTRIBUTE__ENTITY:
-        return entity != null;
+      case EMapPackage.EATTRIBUTE__RESOLVED:
+        return resolved != RESOLVED_EDEFAULT;
+      case EMapPackage.EATTRIBUTE__QUERY:
+        return query != null;
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
@@ -392,6 +446,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     result.append(property);
     result.append(", columnName: ");
     result.append(columnName);
+    result.append(", resolved: ");
+    result.append(resolved);
     result.append(", parameters: ");
     result.append(parameters);
     result.append(')');

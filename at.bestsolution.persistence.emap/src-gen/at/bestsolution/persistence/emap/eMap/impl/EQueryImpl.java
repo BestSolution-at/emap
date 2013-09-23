@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getMapping <em>Mapping</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getFrom <em>From</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getWhere <em>Where</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getGroupBy <em>Group By</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getOrderby <em>Orderby</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl#getAll <em>All</em>}</li>
  * </ul>
  * </p>
@@ -103,6 +105,46 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
    * @ordered
    */
   protected String where = WHERE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getGroupBy() <em>Group By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGroupBy()
+   * @generated
+   * @ordered
+   */
+  protected static final String GROUP_BY_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getGroupBy() <em>Group By</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGroupBy()
+   * @generated
+   * @ordered
+   */
+  protected String groupBy = GROUP_BY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getOrderby() <em>Orderby</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOrderby()
+   * @generated
+   * @ordered
+   */
+  protected static final String ORDERBY_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getOrderby() <em>Orderby</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOrderby()
+   * @generated
+   * @ordered
+   */
+  protected String orderby = ORDERBY_EDEFAULT;
 
   /**
    * The default value of the '{@link #getAll() <em>All</em>}' attribute.
@@ -267,6 +309,52 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getGroupBy()
+  {
+    return groupBy;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGroupBy(String newGroupBy)
+  {
+    String oldGroupBy = groupBy;
+    groupBy = newGroupBy;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EQUERY__GROUP_BY, oldGroupBy, groupBy));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getOrderby()
+  {
+    return orderby;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOrderby(String newOrderby)
+  {
+    String oldOrderby = orderby;
+    orderby = newOrderby;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EQUERY__ORDERBY, oldOrderby, orderby));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getAll()
   {
     return all;
@@ -319,6 +407,10 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
         return getFrom();
       case EMapPackage.EQUERY__WHERE:
         return getWhere();
+      case EMapPackage.EQUERY__GROUP_BY:
+        return getGroupBy();
+      case EMapPackage.EQUERY__ORDERBY:
+        return getOrderby();
       case EMapPackage.EQUERY__ALL:
         return getAll();
     }
@@ -346,6 +438,12 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
         return;
       case EMapPackage.EQUERY__WHERE:
         setWhere((String)newValue);
+        return;
+      case EMapPackage.EQUERY__GROUP_BY:
+        setGroupBy((String)newValue);
+        return;
+      case EMapPackage.EQUERY__ORDERBY:
+        setOrderby((String)newValue);
         return;
       case EMapPackage.EQUERY__ALL:
         setAll((String)newValue);
@@ -376,6 +474,12 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
       case EMapPackage.EQUERY__WHERE:
         setWhere(WHERE_EDEFAULT);
         return;
+      case EMapPackage.EQUERY__GROUP_BY:
+        setGroupBy(GROUP_BY_EDEFAULT);
+        return;
+      case EMapPackage.EQUERY__ORDERBY:
+        setOrderby(ORDERBY_EDEFAULT);
+        return;
       case EMapPackage.EQUERY__ALL:
         setAll(ALL_EDEFAULT);
         return;
@@ -401,6 +505,10 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
         return FROM_EDEFAULT == null ? from != null : !FROM_EDEFAULT.equals(from);
       case EMapPackage.EQUERY__WHERE:
         return WHERE_EDEFAULT == null ? where != null : !WHERE_EDEFAULT.equals(where);
+      case EMapPackage.EQUERY__GROUP_BY:
+        return GROUP_BY_EDEFAULT == null ? groupBy != null : !GROUP_BY_EDEFAULT.equals(groupBy);
+      case EMapPackage.EQUERY__ORDERBY:
+        return ORDERBY_EDEFAULT == null ? orderby != null : !ORDERBY_EDEFAULT.equals(orderby);
       case EMapPackage.EQUERY__ALL:
         return ALL_EDEFAULT == null ? all != null : !ALL_EDEFAULT.equals(all);
     }
@@ -424,6 +532,10 @@ public class EQueryImpl extends MinimalEObjectImpl.Container implements EQuery
     result.append(from);
     result.append(", where: ");
     result.append(where);
+    result.append(", groupBy: ");
+    result.append(groupBy);
+    result.append(", orderby: ");
+    result.append(orderby);
     result.append(", all: ");
     result.append(all);
     result.append(')');

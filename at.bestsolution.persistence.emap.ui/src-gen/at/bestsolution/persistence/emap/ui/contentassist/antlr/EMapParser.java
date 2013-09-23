@@ -62,6 +62,9 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEParameterAccess().getGroup(), "rule__EParameter__Group__0");
 					put(grammarAccess.getEQueryAccess().getGroup(), "rule__EQuery__Group__0");
 					put(grammarAccess.getEQueryAccess().getGroup_2_0(), "rule__EQuery__Group_2_0__0");
+					put(grammarAccess.getEQueryAccess().getGroup_2_0_2(), "rule__EQuery__Group_2_0_2__0");
+					put(grammarAccess.getEQueryAccess().getGroup_2_0_3(), "rule__EQuery__Group_2_0_3__0");
+					put(grammarAccess.getEQueryAccess().getGroup_2_0_4(), "rule__EQuery__Group_2_0_4__0");
 					put(grammarAccess.getEObjectSectionAccess().getGroup(), "rule__EObjectSection__Group__0");
 					put(grammarAccess.getEObjectSectionAccess().getGroup_1(), "rule__EObjectSection__Group_1__0");
 					put(grammarAccess.getEObjectSectionAccess().getGroup_1_1(), "rule__EObjectSection__Group_1_1__0");
@@ -96,7 +99,8 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEAttributeAccess().getPkAssignment_0(), "rule__EAttribute__PkAssignment_0");
 					put(grammarAccess.getEAttributeAccess().getPropertyAssignment_1(), "rule__EAttribute__PropertyAssignment_1");
 					put(grammarAccess.getEAttributeAccess().getColumnNameAssignment_3_0(), "rule__EAttribute__ColumnNameAssignment_3_0");
-					put(grammarAccess.getEAttributeAccess().getEntityAssignment_3_1_1(), "rule__EAttribute__EntityAssignment_3_1_1");
+					put(grammarAccess.getEAttributeAccess().getResolvedAssignment_3_1_0(), "rule__EAttribute__ResolvedAssignment_3_1_0");
+					put(grammarAccess.getEAttributeAccess().getQueryAssignment_3_1_1(), "rule__EAttribute__QueryAssignment_3_1_1");
 					put(grammarAccess.getEAttributeAccess().getParametersAssignment_3_1_3(), "rule__EAttribute__ParametersAssignment_3_1_3");
 					put(grammarAccess.getENamedQueryAccess().getNameAssignment_0(), "rule__ENamedQuery__NameAssignment_0");
 					put(grammarAccess.getENamedQueryAccess().getParametersAssignment_1_1(), "rule__ENamedQuery__ParametersAssignment_1_1");
@@ -106,7 +110,9 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQueryAccess().getDbTypeAssignment_0(), "rule__EQuery__DbTypeAssignment_0");
 					put(grammarAccess.getEQueryAccess().getMappingAssignment_1(), "rule__EQuery__MappingAssignment_1");
 					put(grammarAccess.getEQueryAccess().getFromAssignment_2_0_1(), "rule__EQuery__FromAssignment_2_0_1");
-					put(grammarAccess.getEQueryAccess().getWhereAssignment_2_0_3(), "rule__EQuery__WhereAssignment_2_0_3");
+					put(grammarAccess.getEQueryAccess().getWhereAssignment_2_0_2_1(), "rule__EQuery__WhereAssignment_2_0_2_1");
+					put(grammarAccess.getEQueryAccess().getGroupByAssignment_2_0_3_1(), "rule__EQuery__GroupByAssignment_2_0_3_1");
+					put(grammarAccess.getEQueryAccess().getOrderbyAssignment_2_0_4_1(), "rule__EQuery__OrderbyAssignment_2_0_4_1");
 					put(grammarAccess.getEQueryAccess().getAllAssignment_2_1(), "rule__EQuery__AllAssignment_2_1");
 					put(grammarAccess.getEObjectSectionAccess().getEntityAssignment_0(), "rule__EObjectSection__EntityAssignment_0");
 					put(grammarAccess.getEObjectSectionAccess().getPrefixAssignment_1_0(), "rule__EObjectSection__PrefixAssignment_1_0");

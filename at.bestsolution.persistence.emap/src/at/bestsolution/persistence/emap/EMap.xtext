@@ -40,7 +40,7 @@ EMappingEntity:
 ;
 
 EAttribute:
-	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | 'resolve' entity=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+	pk?='primarykey'? property=ID '=>' ( columnName=ID | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
 ;
 
 ENamedQuery:

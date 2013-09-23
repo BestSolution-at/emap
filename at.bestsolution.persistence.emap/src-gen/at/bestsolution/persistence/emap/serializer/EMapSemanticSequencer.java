@@ -121,7 +121,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (pk?='primarykey'? property=QualifiedName (columnName=ID | (entity=[ENamedQuery|QualifiedName] parameters+=ID)))
+	 *     (pk?='primarykey'? property=ID (columnName=ID | (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID)))
 	 */
 	protected void sequence_EAttribute(EObject context, EAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -221,7 +221,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ((dbType='default' | dbType=STRING) mapping=EObjectSection ((from=STRING where=STRING) | all=STRING))
+	 *     ((dbType='default' | dbType=STRING) mapping=EObjectSection ((from=STRING where=STRING? groupBy=STRING? orderby=STRING?) | all=STRING))
 	 */
 	protected void sequence_EQuery(EObject context, EQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
