@@ -1,7 +1,6 @@
 package at.bestsolution.persistence.mybatis.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.ibatis.reflection.MetaObject;
@@ -13,13 +12,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import at.bestsolution.persistence.model.LazyEObject;
+
 public class EMFObjectWrapper implements ObjectWrapper {
 	private BeanWrapper wrapper;
 	private EObject object;
+	private boolean isFilled;
 	
 	public EMFObjectWrapper(MetaObject metaObject, EObject object) {
 		this.wrapper = new BeanWrapper(metaObject, object);
 		this.object = object;
+		this.isFilled = ((LazyEObject)object).getPrimaryKey() != null;
 	}
 	
 	@Override
@@ -86,6 +89,9 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void set(PropertyTokenizer arg0, Object arg1) {
+		if( isFilled ) {
+			return;
+		}
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
 		if( feature.isMany() ) {
 //			System.err.println(object + "#" + feature.getName());

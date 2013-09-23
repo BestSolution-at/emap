@@ -15,11 +15,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
-import org.apache.ibatis.cache.CacheKey;
-import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.SimpleExecutor;
-import org.apache.ibatis.executor.loader.CglibProxyFactory;
 import org.apache.ibatis.executor.loader.ProxyFactory;
 import org.apache.ibatis.executor.loader.ResultLoaderMap;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
@@ -46,8 +43,11 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import at.bestsolution.persistence.model.LazyEObject;
+import at.bestsolution.persistence.model.ResolveDelegate;
 import at.bestsolution.persistence.mybatis.EnvironmentProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider.MappingUnit;
@@ -103,6 +103,12 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+						}
+
+						@Override
+						public void close(boolean arg0) {
+							sessionObjectCache.remove(this);
+							super.close(arg0);
 						}
 					};
 				}
@@ -253,28 +259,29 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		cfg.setLazyLoadingEnabled(true);
 		cfg.setAggressiveLazyLoading(false);
 		final ProxyFactory original = cfg.getProxyFactory();
-		cfg.setProxyFactory(new ProxyFactory() {
-			
-			@Override
-			public void setProperties(Properties arg0) {
-				original.setProperties(arg0);
-			}
-			
-			@Override
-			public Object createProxy(Object arg0, ResultLoaderMap arg1,
-					Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
-					List<Object> arg5) {
-				if( arg0 instanceof EObject ) {
-					EObject rv = proxyCache.get(arg0);
-					if( rv == null ) {
-						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
-						proxyCache.put((EObject) arg0, rv);
-					}
-					return rv;	
-				}
-				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
-			}
-		});
+//		cfg.setProxyFactory(new ProxyFactory() {
+//			
+//			@Override
+//			public void setProperties(Properties arg0) {
+//				original.setProperties(arg0);
+//			}
+//			
+//			@Override
+//			public Object createProxy(Object arg0, ResultLoaderMap arg1,
+//					Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
+//					List<Object> arg5) {
+//				if( arg0 instanceof EObject ) {
+//					EObject rv = proxyCache.get(arg0);
+//					if( rv == null ) {
+//						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+//						proxyCache.put((EObject) arg0, rv);
+//					}
+//					return rv;	
+//				}
+//				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+//			}
+//		});
+		cfg.setProxyFactory(new EObjectProxy());
 		cfg.setObjectWrapperFactory(new ObjectWrapperFactory() {
 			@Override
 			public boolean hasWrapperFor(Object arg0) {
@@ -354,5 +361,41 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		sessionFactory = new SqlSessionFactoryBuilder().build(cfg);
 		
 		return sessionFactory;
+	}
+	
+	class EObjectProxy implements ProxyFactory {
+
+		@Override
+		public Object createProxy(Object arg0, final ResultLoaderMap arg1,
+				Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
+				List<Object> arg5) {
+//			System.err.println("CREATING PROXY");
+			if( arg0 instanceof LazyEObject ) {
+//				System.err.println("LAZY");
+				LazyEObject leo = (LazyEObject) arg0;
+				if( ! leo.isEnhanced() ) {
+//					System.err.println("ENHANCE IT");
+					leo.setProxyDelegate(new ResolveDelegate() {
+						
+						@Override
+						public void resolve(EStructuralFeature f) {
+							try {
+								arg1.load(f.getName());
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					});
+				}
+			}
+			return arg0;
+		}
+
+		@Override
+		public void setProperties(Properties arg0) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }
