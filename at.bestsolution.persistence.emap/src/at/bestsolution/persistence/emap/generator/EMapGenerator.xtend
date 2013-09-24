@@ -18,6 +18,8 @@ import at.bestsolution.persistence.emap.eMap.EObjectSection
 import java.util.List
 import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
+import java.util.Map
+import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
@@ -82,30 +84,30 @@ class EMapGenerator implements IGenerator {
 		«ENDIF»
 	«ENDFOR»
 	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
-		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass)»
+		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
 	</resultMap>
 </mapper>
 	'''
 	
-	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass) '''
+	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 	«FOR a : attributes»
 		«IF a.pk»
 			<id property="«a.property»" column="«a.columnName»" />
 		«ELSE»
 			«IF a.resolved»
 				«IF a.isSingle(eClass)»
-					<association property="«a.property»" column="«a.parameters.head»" select="«a.query.fqn»"/>
+					<association property="«a.property»" column="«columnPrefix»«a.parameters.head»" select="«a.query.fqn»"/>
 				«ELSE»
 					<collection property="«a.property»" select="«a.query.fqn»" />
 				«ENDIF»
 			«ELSE»
-				<result property="«a.property»" column="«a.columnName»" />
+				<result property="«a.property»" column="«columnPrefix»«a.columnName»" />
 			«ENDIF»
 		«ENDIF»
 	«ENDFOR»
 	'''
 	
-	def static mappedattrib_resultMapContent(Iterable<EMappingAttribute> attributes, EClass eClass) '''
+	def static mappedattrib_resultMapContent(Iterable<EMappingAttribute> attributes, EClass eClass, String columnPrefix) '''
 	«FOR a : attributes»
 		«IF a.pk»
 			<id property="«a.property»" column="«a.columnName»" />
@@ -134,8 +136,8 @@ class EMapGenerator implements IGenerator {
 	'''
 	
 	def static CharSequence objectSectionMap(EObjectSection section) '''
-	«attrib_resultMapContent(section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null],JavaHelper::getEClass(section.entity.etype))»
-	«mappedattrib_resultMapContent(section.attributes, JavaHelper::getEClass(section.entity.etype))»
+	«attrib_resultMapContent(section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null],JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
+	«mappedattrib_resultMapContent(section.attributes, JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
 	'''
 //	{
 //		val attrs = section.entity.collectAttributes
@@ -174,13 +176,33 @@ class EMapGenerator implements IGenerator {
 		val id = atts.findFirst[a|a.pk]
 		
 		val StringBuilder b = new StringBuilder;
-		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix + "."(if(a.resolved) a.parameters.head else a.columnName) + "\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
+		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head else a.columnName) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
 		
 		for( es : s.attributes.filter[a|a.map!=null] ) {
 			b.append(",\n\n" + es.map.mapColumns)
 		}
 		
 		return b.toString;
+	}
+	
+	def static String prefix(EObjectSection s, EAttribute attribute) {
+		val sectionClass = JavaHelper::getEClass(s.entity.etype)
+		val allDerivedAttributes = s.entity.collectDerivedAttributes
+		if( allDerivedAttributes.containsKey(attribute.property) ) {
+			return s.prefix;
+		}
+		val ownerType = getDbOwnerType(s.entity, attribute)
+		return s.prefix + if (ownerType == null) "__UNKNOWN__" else sectionClass.EAllSuperTypes.indexOf(ownerType)
+	}
+	
+	def static EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
+		val allDerivedAttributes = childEntity.collectDerivedAttributes
+		if( allDerivedAttributes.containsKey(attribute.property) ) {
+			return JavaHelper::getEClass(childEntity.etype)
+		} else if( childEntity.parent != null && childEntity.extensionType == "extends" ) {
+			return getDbOwnerType(childEntity.parent, attribute)
+		}
+		return null;
 	}
 	
 	def static fqn(ENamedQuery e) {
@@ -238,6 +260,21 @@ class EMapGenerator implements IGenerator {
 		l.addAll(entity.attributes)
 		if( entity.parent != null ) {
 			entity.parent.allAttributes(l)
+		}
+	}
+	
+	def static collectDerivedAttributes(EMappingEntity entity) {
+		val map = new HashMap<String,EAttribute>
+		entity.allDerivedAttributes(map)
+		return map
+	}
+	
+	def static void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
+		for( a : entity.attributes ) {
+			map.put(a.property,a);
+		}
+		if( entity.parent != null && entity.extensionType == "derived" ) {
+			entity.parent.allDerivedAttributes(map)
 		}
 	}
 }
