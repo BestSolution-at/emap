@@ -20,6 +20,7 @@ import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import java.util.Map
 import java.util.HashMap
+import at.bestsolution.persistence.emap.eMap.EMappingBundle
 
 /**
  * Generates code from your model files on save.
@@ -38,9 +39,40 @@ class EMapGenerator implements IGenerator {
 			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype)))	
 			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, JavaHelper::getEClass(edef.entity.etype)))
 		} else {
-			
+			val bundleDef = root.root as EMappingBundle
+			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
 		}
 	}
+	
+	def generateBundleContribution(EMappingBundle bundleDef) '''
+		package mappings;
+		
+		import at.bestsolution.persistence.mybatis.MappingProvider;
+		import at.bestsolution.persistence.mybatis.mapper.URLMappingUnit;
+		
+		import java.util.List;
+		import java.util.ArrayList;
+		import java.util.Collections;
+		
+		@SuppressWarnings("restriction")
+		public class «bundleDef.name»MappingUnitProvider implements MappingProvider {
+			private List<MappingUnit> units;
+
+			public «bundleDef.name»MappingUnitProvider() {
+				units = new ArrayList<MappingUnit>();
+				«FOR e : bundleDef.entities»
+					units.add(new URLMappingUnit("mappers/«e.name»Mapper.xml",
+						«JavaHelper::getEClass(e.etype).instanceClassName».class,
+						«JavaHelper::getEClass(e.etype).instanceClassName»Mapper.class,
+						«JavaHelper::getEClass(e.etype).packageName».«JavaHelper::getEClass(e.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«JavaHelper::getEClass(e.etype).name»(),getClass().getClassLoader().getResource("mappers/«e.name»Mapper.xml")));
+				«ENDFOR»
+			}
+		
+			public List<MappingUnit> getMappingUnits() {
+				return Collections.unmodifiableList(units);
+			}
+		}
+	'''
 	
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
@@ -60,7 +92,7 @@ class EMapGenerator implements IGenerator {
 <mapper namespace="«eClass.instanceClassName»Mapper">
 	«FOR query : entityDef.entity.namedQueries»
 		<select id="«query.name»" 
-			«IF ! query.parameters.empty»parameter="«IF query.parameters.size > 1»HashMap«ELSE»«query.parameters.head.type»«ENDIF»"«ENDIF»
+			«IF ! query.parameters.empty»parameterType="«IF query.parameters.size > 1»HashMap«ELSE»«query.parameters.head.type»«ENDIF»"«ENDIF»
 			«IF query.queries.head.mapping.attributes.empty»resultMap="Default_«eClass.name»Map"«ELSE»resultMap="«query.name»_«eClass.name»Map"«ENDIF»>
 			SELECT 
 				«IF query.queries.head.mapping.attributes.empty»
@@ -92,13 +124,13 @@ class EMapGenerator implements IGenerator {
 	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 	«FOR a : attributes»
 		«IF a.pk»
-			<id property="«a.property»" column="«a.columnName»" />
+			<id property="«a.property»" column="«columnPrefix»«a.columnName»" />
 		«ELSE»
 			«IF a.resolved»
 				«IF a.isSingle(eClass)»
 					<association property="«a.property»" column="«columnPrefix»«a.parameters.head»" select="«a.query.fqn»"/>
 				«ELSE»
-					<collection property="«a.property»" select="«a.query.fqn»" />
+					<collection property="«a.property»" column="«columnPrefix»«attributes.head.columnName»" select="«a.query.fqn»" />
 				«ENDIF»
 			«ELSE»
 				<result property="«a.property»" column="«columnPrefix»«a.columnName»" />
@@ -120,11 +152,11 @@ class EMapGenerator implements IGenerator {
 				«ENDIF»
 			«ELSEIF a.mapped»
 				«IF a.isSingle(eClass)»
-					<association property="«a.property»">
+					<association property="«a.property»" javaType="«JavaHelper::getEClass(a.map.entity.etype).instanceClassName»">
 						«a.map.objectSectionMap»
 					</association>
 				«ELSE»
-					<collection property="«a.property»">
+					<collection property="«a.property»" ofType="«JavaHelper::getEClass(a.map.entity.etype).instanceClassName»">
 						«a.map.objectSectionMap»
 					</collection>
 				«ENDIF»
@@ -209,7 +241,7 @@ class EMapGenerator implements IGenerator {
 		val r = (e.eResource.contents.head as EMapping).root
 		if( r instanceof EMappingEntityDef ) {
 			val d = r as EMappingEntityDef;
-			return d.package.name + "." + d.entity.name + "." + e.name
+			return d.package.name + "." + d.entity.name + "Mapper." + e.name
 		}
 		return "NOX DA"
 	}
@@ -241,7 +273,11 @@ class EMapGenerator implements IGenerator {
 						if ( a.resolved && b.resolved ) {
 							val eClass = JavaHelper::getEClass(entity.etype)
 							if( a.isSingle(eClass) && b.isSingle(eClass) ) {
-								
+								return a.property.compareToIgnoreCase(b.property)
+							} else if( a.isSingle(eClass) ) {
+								return -1;
+							} else if( b.isSingle(eClass) ) {
+								return 1;
 							}
 							return a.property.compareToIgnoreCase(b.property)
 						}
@@ -276,5 +312,9 @@ class EMapGenerator implements IGenerator {
 		if( entity.parent != null && entity.extensionType == "derived" ) {
 			entity.parent.allDerivedAttributes(map)
 		}
+	}
+	
+	static def packageName(EClass eClass) {
+		return eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf("."))
 	}
 }

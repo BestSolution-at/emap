@@ -93,6 +93,11 @@ public class EMFObjectWrapper implements ObjectWrapper {
 			return;
 		}
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
+		
+		if( feature == null ) {
+			System.err.println(object.eClass().getName() + " no feature " + arg0.getName());
+		}
+		
 		if( feature.isMany() ) {
 //			System.err.println(object + "#" + feature.getName());
 			List<Object> l = (List<Object>)object.eGet(feature);
