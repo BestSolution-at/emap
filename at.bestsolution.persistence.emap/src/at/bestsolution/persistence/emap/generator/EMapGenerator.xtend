@@ -118,6 +118,47 @@ class EMapGenerator implements IGenerator {
 	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
 		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
 	</resultMap>
+	<insert id="insert" parameterType="«eClass.instanceClassName»">
+		INSERT INTO «entityDef.tableName»
+		(
+			<trim suffixOverrides=','>
+				«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
+					«IF a.columnName != null»
+					«a.columnName»,
+					«ELSEIF a.isSingle(eClass)»
+					«a.parameters.head»,
+					«ENDIF»
+				«ENDFOR»
+			</trim>
+		)
+		VALUES
+		(
+			<trim suffixOverrides=','>
+				«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
+					«IF a.columnName != null»
+						#{«a.property»},
+					«ELSEIF a.isSingle(eClass)»
+						#{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},
+					«ENDIF»
+				«ENDFOR»
+			</trim>
+		)
+	</insert>
+	<update id="update">
+		UPDATE
+			«entityDef.tableName»
+		<set>
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
+				«IF a.columnName != null»
+					«a.columnName» = #{«a.property»},
+				«ELSEIF a.isSingle(eClass)»
+					<if test="_isModified_«a.property»">«a.parameters.head» = #{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},</if>
+				«ENDIF»
+			«ENDFOR»
+		</set>
+		WHERE
+			«entityDef.entity.collectAttributes.findFirst[pk].columnName» = #{«entityDef.entity.collectAttributes.findFirst[pk].property»}
+	</update>
 </mapper>
 	'''
 	
@@ -261,35 +302,37 @@ class EMapGenerator implements IGenerator {
 		return entityDef.entity.tableName
 	}
 	
+	def static sortAttributes(EClass eClass, EAttribute a, EAttribute b) {
+		if (a.pk) 
+			return -1 
+		else if (b.pk)
+			return 1
+		else 
+			if ( a.resolved && b.resolved ) {
+				if( a.isSingle(eClass) && b.isSingle(eClass) ) {
+					return a.property.compareToIgnoreCase(b.property)
+				} else if( a.isSingle(eClass) ) {
+					return -1;
+				} else if( b.isSingle(eClass) ) {
+					return 1;
+				}
+				return a.property.compareToIgnoreCase(b.property)
+			}
+			else if( ! a.resolved && !  b.resolved )
+				return a.property.compareToIgnoreCase(b.property)
+			else if( ! a.resolved )
+				return -1
+			else if( ! b.resolved )
+				return 1
+			else 
+				return a.property.compareToIgnoreCase(b.property)
+	}
+	
 	def static collectAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
 		entity.allAttributes(l)
-		l.sort([ a,b | 
-					if (a.pk) 
-						return -1 
-					else if (b.pk)
-						return 1
-					else 
-						if ( a.resolved && b.resolved ) {
-							val eClass = JavaHelper::getEClass(entity.etype)
-							if( a.isSingle(eClass) && b.isSingle(eClass) ) {
-								return a.property.compareToIgnoreCase(b.property)
-							} else if( a.isSingle(eClass) ) {
-								return -1;
-							} else if( b.isSingle(eClass) ) {
-								return 1;
-							}
-							return a.property.compareToIgnoreCase(b.property)
-						}
-						else if( ! a.resolved && !  b.resolved )
-							return a.property.compareToIgnoreCase(b.property)
-						else if( ! a.resolved )
-							return -1
-						else if( ! b.resolved )
-							return 1
-						else 
-							return a.property.compareToIgnoreCase(b.property)
-		]);
+		val eClass = JavaHelper::getEClass(entity.etype);
+		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
 	}
 	
 	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
