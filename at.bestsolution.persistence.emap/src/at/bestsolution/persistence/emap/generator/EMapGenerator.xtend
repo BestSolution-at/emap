@@ -259,13 +259,12 @@ class EMapGenerator implements IGenerator {
 	}
 	
 	def static String prefix(EObjectSection s, EAttribute attribute) {
-		val sectionClass = JavaHelper::getEClass(s.entity.etype)
 		val allDerivedAttributes = s.entity.collectDerivedAttributes
 		if( allDerivedAttributes.containsKey(attribute.property) ) {
 			return s.prefix;
 		}
 		val ownerType = getDbOwnerType(s.entity, attribute)
-		return s.prefix + if (ownerType == null) "__UNKNOWN__" else sectionClass.EAllSuperTypes.indexOf(ownerType)
+		return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
 	}
 	
 	def static EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
