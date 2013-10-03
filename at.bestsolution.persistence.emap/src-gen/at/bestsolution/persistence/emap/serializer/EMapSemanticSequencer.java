@@ -180,8 +180,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         name=ID 
 	 *         ((extensionType='extends' | extensionType='derived') parent=[EMappingEntity|QualifiedName])? 
 	 *         etype=EType 
-	 *         attributes+=EAttribute 
-	 *         attributes+=EAttribute* 
+	 *         (attributes+=EAttribute attributes+=EAttribute*)? 
 	 *         (namedQueries+=ENamedQuery namedQueries+=ENamedQuery*)? 
 	 *         tableName=ID?
 	 *     )

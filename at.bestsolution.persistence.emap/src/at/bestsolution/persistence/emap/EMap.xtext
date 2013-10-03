@@ -30,7 +30,7 @@ EMappingEntity:
 		 etype=EType
 		 'attributes' 
 		 '{'
-		 	attributes += EAttribute (',' attributes += EAttribute)*
+		 	(attributes += EAttribute (',' attributes += EAttribute)*)?
 		 '}'
 		 ('queries'
 		 '{'
