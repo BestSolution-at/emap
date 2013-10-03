@@ -2,6 +2,7 @@ package at.bestsolution.persistence.mybatis.impl;
 
 import org.apache.ibatis.session.SqlSession;
 
+import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.mybatis.SqlSessionProvider;
@@ -30,8 +31,8 @@ public class SessionFactoryImpl implements SessionFactory {
 		}
 		
 		@Override
-		public <O> O createMapper(Class<O> mapper) {
-			O m = session.getMapper(mapper);
+		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
+			M m = session.getMapper(mapper);
 			//TODO We need to wrap this for inserts when we insert objects who are split in
 			// multiple tables
 			return m;

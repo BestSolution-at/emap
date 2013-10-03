@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -54,7 +55,8 @@ import at.bestsolution.persistence.mybatis.MappingProvider.MappingUnit;
 import at.bestsolution.persistence.mybatis.SqlSessionProvider;
 
 public class SqlSessionProviderImpl implements SqlSessionProvider {
-	
+	static ThreadLocal<Boolean> IN_PROXY_RESOLVE = new ThreadLocal<Boolean>();
+
 	private List<MappingProvider> mappingProviders = new ArrayList<MappingProvider>();
 	private SqlSessionFactory sessionFactory;
 	private Map<Class<?>, EClass> eClassCache = new HashMap<Class<?>, EClass>();
@@ -107,7 +109,8 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 
 						@Override
 						public void close(boolean arg0) {
-							sessionObjectCache.remove(this);
+							Map<String, EObject> remove = sessionObjectCache.remove(this);
+							proxyCache.keySet().removeAll(remove.values());
 							super.close(arg0);
 						}
 					};
@@ -258,30 +261,8 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		final ObjectWrapperFactory orig = cfg.getObjectWrapperFactory();
 		cfg.setLazyLoadingEnabled(true);
 		cfg.setAggressiveLazyLoading(false);
-		final ProxyFactory original = cfg.getProxyFactory();
-//		cfg.setProxyFactory(new ProxyFactory() {
-//			
-//			@Override
-//			public void setProperties(Properties arg0) {
-//				original.setProperties(arg0);
-//			}
-//			
-//			@Override
-//			public Object createProxy(Object arg0, ResultLoaderMap arg1,
-//					Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
-//					List<Object> arg5) {
-//				if( arg0 instanceof EObject ) {
-//					EObject rv = proxyCache.get(arg0);
-//					if( rv == null ) {
-//						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
-//						proxyCache.put((EObject) arg0, rv);
-//					}
-//					return rv;	
-//				}
-//				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
-//			}
-//		});
-		cfg.setProxyFactory(new EObjectProxy());
+		cfg.setLazyLoadTriggerMethods(new HashSet<String>());
+		cfg.setProxyFactory(new EObjectProxy(new CglibProxyFactory()));
 		cfg.setObjectWrapperFactory(new ObjectWrapperFactory() {
 			@Override
 			public boolean hasWrapperFor(Object arg0) {
@@ -364,32 +345,58 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 	}
 	
 	class EObjectProxy implements ProxyFactory {
-
+		private ProxyFactory original;
+		
+		public EObjectProxy(ProxyFactory original) {
+			this.original = original;
+		}
+		
 		@Override
 		public Object createProxy(Object arg0, final ResultLoaderMap arg1,
 				Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
 				List<Object> arg5) {
-//			System.err.println("CREATING PROXY");
 			if( arg0 instanceof LazyEObject ) {
-//				System.err.println("LAZY");
+				//TODO We should optimize this and not create ResolveDelegate instances
+				// we could store the object => resultloadermap in a hash and look it up
 				LazyEObject leo = (LazyEObject) arg0;
 				if( ! leo.isEnhanced() ) {
-//					System.err.println("ENHANCE IT");
 					leo.setProxyDelegate(new ResolveDelegate() {
 						
 						@Override
-						public void resolve(EStructuralFeature f) {
-							try {
-								arg1.load(f.getName());
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+						public boolean resolve(LazyEObject eo, EStructuralFeature f) {
+							if( IN_PROXY_RESOLVE.get() == Boolean.TRUE ) {
+								return false;
 							}
+							try {
+								IN_PROXY_RESOLVE.set(Boolean.TRUE);
+								if( arg1.hasLoader(f.getName()) ) {
+									try {
+										arg1.load(f.getName());
+										return true;
+									} catch (SQLException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}								
+							} finally {
+								IN_PROXY_RESOLVE.set(Boolean.FALSE);
+							}
+							return false;
 						}
 					});
 				}
+				return arg0;
+			} else {
+				if( arg0 instanceof EObject ) {
+					EObject rv = proxyCache.get(arg0);
+					if( rv == null ) {
+						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+						proxyCache.put((EObject) arg0, rv);
+					}
+					return rv;	
+				}
+				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
 			}
-			return arg0;
 		}
 
 		@Override

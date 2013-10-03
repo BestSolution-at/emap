@@ -12,17 +12,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import at.bestsolution.persistence.model.LazyEObject;
+import at.bestsolution.persistence.model.PersistedEObject;
 
 public class EMFObjectWrapper implements ObjectWrapper {
 	private BeanWrapper wrapper;
 	private EObject object;
 	private boolean isFilled;
+	private static final String MODIFIED_PREFIX = "_isResolved_";
 	
 	public EMFObjectWrapper(MetaObject metaObject, EObject object) {
 		this.wrapper = new BeanWrapper(metaObject, object);
 		this.object = object;
-		this.isFilled = ((LazyEObject)object).getPrimaryKey() != null;
+		
+		if( object instanceof PersistedEObject ) {
+			this.isFilled = ((PersistedEObject)object).getPrimaryKey() != null;	
+		}
 	}
 	
 	@Override
@@ -42,6 +46,16 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public Object get(PropertyTokenizer arg0) {
+		if( arg0.getName().startsWith(MODIFIED_PREFIX) ) {
+			if( object instanceof PersistedEObject ) {
+				EReference f = (EReference) object.eClass().getEStructuralFeature(arg0.getName().substring(MODIFIED_PREFIX.length()));
+				PersistedEObject peo = (PersistedEObject) object;
+				return peo.isResolved(f);
+			}
+			// If it is not optimized we need to treat it as resolved
+			// even if this means we'll resolve a proxy
+			return true;
+		}
 		return object.eGet(object.eClass().getEStructuralFeature(arg0.getName()));
 	}
 
@@ -67,12 +81,16 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public boolean hasGetter(String arg0) {
-		return wrapper.hasGetter(arg0);
+		if( arg0.startsWith(MODIFIED_PREFIX) ) {
+			String attribute = arg0.substring(MODIFIED_PREFIX.length());
+			return object.eClass().getEStructuralFeature(attribute) != null;
+		}
+		return object.eClass().getEStructuralFeature(arg0) != null;
 	}
 
 	@Override
 	public boolean hasSetter(String arg0) {
-		return wrapper.hasSetter(arg0);
+		return object.eClass().getEStructuralFeature(arg0) != null;
 	}
 
 	@Override
@@ -99,16 +117,14 @@ public class EMFObjectWrapper implements ObjectWrapper {
 		}
 		
 		if( feature.isMany() ) {
-//			System.err.println(object + "#" + feature.getName());
 			List<Object> l = (List<Object>)object.eGet(feature);
-//			if( l.isEmpty() ) {
-				l.addAll((Collection<? extends Object>) arg1);
-//			}
+			System.err.println("Current:   " + l.size());
+			System.err.println("Attaching: " + ((Collection<?>)arg1).size());
+			l.addAll((Collection<? extends Object>) arg1);
+			System.err.println("AFTER:   " + l.size());
 		} else {
 			if( feature instanceof EReference ) {
-//				if( object.eGet(feature) == null ) {
-					object.eSet(feature, arg1);
-//				}
+				object.eSet(feature, arg1);
 			} else {
 				object.eSet(feature, arg1);	
 			}
