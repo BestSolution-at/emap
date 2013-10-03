@@ -391,6 +391,7 @@ class EMapGenerator implements IGenerator {
 		entity.allAttributes(l,false)
 		val eClass = JavaHelper::getEClass(entity.etype);
 		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
+		return l
 	}
 	
 	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l, boolean skipPrimary) {
