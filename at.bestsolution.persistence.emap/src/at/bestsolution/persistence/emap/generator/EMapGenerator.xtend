@@ -388,15 +388,15 @@ class EMapGenerator implements IGenerator {
 	
 	def static collectAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
-		entity.allAttributes(l)
+		entity.allAttributes(l,false)
 		val eClass = JavaHelper::getEClass(entity.etype);
 		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
 	}
 	
-	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
-		l.addAll(entity.attributes)
+	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l, boolean skipPrimary) {
+		l.addAll(entity.attributes.filter[! skipPrimary || ! pk ])
 		if( entity.parent != null ) {
-			entity.parent.allAttributes(l)
+			entity.parent.allAttributes(l, true)
 		}
 	}
 	
