@@ -41,6 +41,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getImportAccess().getImportedNamespaceAlternatives_1_0(), "rule__Import__ImportedNamespaceAlternatives_1_0");
 					put(grammarAccess.getEMappingEntityAccess().getExtensionTypeAlternatives_3_0_0(), "rule__EMappingEntity__ExtensionTypeAlternatives_3_0_0");
 					put(grammarAccess.getEAttributeAccess().getAlternatives_3(), "rule__EAttribute__Alternatives_3");
+					put(grammarAccess.getEAttributeAccess().getAlternatives_3_0_1_3(), "rule__EAttribute__Alternatives_3_0_1_3");
 					put(grammarAccess.getEQueryAccess().getDbTypeAlternatives_0_0(), "rule__EQuery__DbTypeAlternatives_0_0");
 					put(grammarAccess.getEQueryAccess().getAlternatives_2(), "rule__EQuery__Alternatives_2");
 					put(grammarAccess.getEMappingAttributeAccess().getAlternatives_3(), "rule__EMappingAttribute__Alternatives_3");
@@ -57,6 +58,10 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getGroup_11_3(), "rule__EMappingEntity__Group_11_3__0");
 					put(grammarAccess.getEMappingEntityAccess().getGroup_13(), "rule__EMappingEntity__Group_13__0");
 					put(grammarAccess.getEAttributeAccess().getGroup(), "rule__EAttribute__Group__0");
+					put(grammarAccess.getEAttributeAccess().getGroup_3_0(), "rule__EAttribute__Group_3_0__0");
+					put(grammarAccess.getEAttributeAccess().getGroup_3_0_1(), "rule__EAttribute__Group_3_0_1__0");
+					put(grammarAccess.getEAttributeAccess().getGroup_3_0_1_3_1(), "rule__EAttribute__Group_3_0_1_3_1__0");
+					put(grammarAccess.getEAttributeAccess().getGroup_3_0_1_3_2(), "rule__EAttribute__Group_3_0_1_3_2__0");
 					put(grammarAccess.getEAttributeAccess().getGroup_3_1(), "rule__EAttribute__Group_3_1__0");
 					put(grammarAccess.getENamedQueryAccess().getGroup(), "rule__ENamedQuery__Group__0");
 					put(grammarAccess.getENamedQueryAccess().getGroup_2(), "rule__ENamedQuery__Group_2__0");
@@ -100,7 +105,11 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_13_1(), "rule__EMappingEntity__TableNameAssignment_13_1");
 					put(grammarAccess.getEAttributeAccess().getPkAssignment_0(), "rule__EAttribute__PkAssignment_0");
 					put(grammarAccess.getEAttributeAccess().getPropertyAssignment_1(), "rule__EAttribute__PropertyAssignment_1");
-					put(grammarAccess.getEAttributeAccess().getColumnNameAssignment_3_0(), "rule__EAttribute__ColumnNameAssignment_3_0");
+					put(grammarAccess.getEAttributeAccess().getColumnNameAssignment_3_0_0(), "rule__EAttribute__ColumnNameAssignment_3_0_0");
+					put(grammarAccess.getEAttributeAccess().getDbTypeAssignment_3_0_1_2(), "rule__EAttribute__DbTypeAssignment_3_0_1_2");
+					put(grammarAccess.getEAttributeAccess().getAutoAssignment_3_0_1_3_0(), "rule__EAttribute__AutoAssignment_3_0_1_3_0");
+					put(grammarAccess.getEAttributeAccess().getKeygenqueryAssignment_3_0_1_3_1_1(), "rule__EAttribute__KeygenqueryAssignment_3_0_1_3_1_1");
+					put(grammarAccess.getEAttributeAccess().getSequenceAssignment_3_0_1_3_2_1(), "rule__EAttribute__SequenceAssignment_3_0_1_3_2_1");
 					put(grammarAccess.getEAttributeAccess().getResolvedAssignment_3_1_0(), "rule__EAttribute__ResolvedAssignment_3_1_0");
 					put(grammarAccess.getEAttributeAccess().getQueryAssignment_3_1_1(), "rule__EAttribute__QueryAssignment_3_1_1");
 					put(grammarAccess.getEAttributeAccess().getParametersAssignment_3_1_3(), "rule__EAttribute__ParametersAssignment_3_1_3");
