@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.sql.DataSource;
+
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.SimpleExecutor;
 import org.apache.ibatis.executor.loader.ProxyFactory;
@@ -25,6 +29,7 @@ import org.apache.ibatis.executor.resultset.FastResultSetHandler;
 import org.apache.ibatis.executor.resultset.NestedResultSetHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.ResultMapping;
@@ -39,7 +44,11 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.session.TransactionIsolationLevel;
 import org.apache.ibatis.transaction.Transaction;
+import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransaction;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
@@ -58,6 +67,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 	static ThreadLocal<Boolean> IN_PROXY_RESOLVE = new ThreadLocal<Boolean>();
 
 	private List<MappingProvider> mappingProviders = new ArrayList<MappingProvider>();
+	//TODO We need to support multi configurations
 	private SqlSessionFactory sessionFactory;
 	private Map<Class<?>, EClass> eClassCache = new HashMap<Class<?>, EClass>();
 	private Map<Executor, Map<String, EObject>> sessionObjectCache = new HashMap<Executor, Map<String,EObject>>();
@@ -89,8 +99,43 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		if( sessionFactory != null ) {
 			return sessionFactory;
 		}
-		
-		Configuration cfg = new Configuration(environment.getEnvironment()) {
+		TransactionFactory transactionFactory = new JdbcTransactionFactory() {
+			@Override
+			public Transaction newTransaction(Connection conn) {
+				throw new UnsupportedOperationException();
+			}
+			
+			@Override
+			public Transaction newTransaction(DataSource ds,
+					TransactionIsolationLevel desiredLevel, boolean desiredAutoCommit) {
+				return new JdbcTransaction(ds, desiredLevel, desiredAutoCommit) {
+					private int i = 0;
+					@Override
+					protected void openConnection() throws SQLException {
+						super.openConnection();
+					}
+					
+					@Override
+					public Connection getConnection() throws SQLException {
+						i++;
+						return super.getConnection();
+					}
+					
+					@Override
+					public void close() throws SQLException {
+						i--;
+						if( i == 0 ) {
+							super.close();
+							connection = null;	
+						}
+					}
+				};
+			}
+		};
+		//TODO We need to support multi configurations
+		PooledDataSource dataSource = new PooledDataSource(environment.getDriverClass(), environment.getJDBCUrl(), environment.getUsername(), environment.getPassword());
+		Environment env = new Environment(environment.getEnvironmentId(), transactionFactory, dataSource);
+		Configuration cfg = new Configuration(env) {
 			@Override
 			public Executor newExecutor(Transaction arg0, ExecutorType arg1,
 					boolean arg2) {

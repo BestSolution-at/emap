@@ -9,12 +9,7 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.8.0",
  at.bestsolution.persistence;bundle-version="1.0.0"
 Export-Package: at.bestsolution.persistence.mybatis;x-internal:=true,
  at.bestsolution.persistence.mybatis.factories;x-internal:=true,
- at.bestsolution.persistence.mybatis.mapper;x-internal:=true,
- org.apache.ibatis.datasource.pooled,
- org.apache.ibatis.mapping;x-internal:=true,
- org.apache.ibatis.session;x-internal:=true,
- org.apache.ibatis.transaction;x-internal:=true,
- org.apache.ibatis.transaction.jdbc;x-internal:=true
+ at.bestsolution.persistence.mybatis.mapper;x-internal:=true
 Service-Component: OSGI-INF/services/sqlsessionprovider.xml,
  OSGI-INF/services/sessionfactory.xml
 Bundle-ActivationPolicy: lazy
