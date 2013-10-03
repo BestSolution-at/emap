@@ -28,10 +28,10 @@ PackageDeclaration:
 EMappingEntity:
 	abstract?='abstract'? 'entity' name=ID (extensionType=('extends'|'derived') parent=[EMappingEntity|QualifiedName])? '{'
 		 etype=EType
-		 'attributes' 
+		 ('attributes' 
 		 '{'
-		 	(attributes += EAttribute (',' attributes += EAttribute)*)?
-		 '}'
+		 	attributes += EAttribute (',' attributes += EAttribute)*
+		 '}')?
 		 ('queries'
 		 '{'
 		 	namedQueries += ENamedQuery (',' namedQueries+=ENamedQuery)*

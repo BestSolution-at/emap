@@ -1080,7 +1080,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMappingEntity"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:416:1: ruleEMappingEntity returns [EObject current=null] : ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) otherlv_7= 'attributes' otherlv_8= '{' ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )? otherlv_12= '}' (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? ) ;
+    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:416:1: ruleEMappingEntity returns [EObject current=null] : ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? ) ;
     public final EObject ruleEMappingEntity() throws RecognitionException {
         EObject current = null;
 
@@ -1115,11 +1115,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:419:28: ( ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) otherlv_7= 'attributes' otherlv_8= '{' ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )? otherlv_12= '}' (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) otherlv_7= 'attributes' otherlv_8= '{' ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )? otherlv_12= '}' (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:419:28: ( ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? ) )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) otherlv_7= 'attributes' otherlv_8= '{' ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )? otherlv_12= '}' (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:2: ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) otherlv_7= 'attributes' otherlv_8= '{' ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )? otherlv_12= '}' (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )?
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )? )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:2: ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )? otherlv_19= '}' (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )?
             {
             // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:2: ( (lv_abstract_0_0= 'abstract' ) )?
             int alt6=2;
@@ -1359,30 +1359,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,22,FOLLOW_22_in_ruleEMappingEntity1011); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                  	newLeafNode(otherlv_7, grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6());
-                  
-            }
-            otherlv_8=(Token)match(input,12,FOLLOW_12_in_ruleEMappingEntity1023); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                  	newLeafNode(otherlv_8, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7());
-                  
-            }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:532:1: ( ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* )?
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:524:2: (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
-            if ( (LA10_0==RULE_ID||LA10_0==25) ) {
+            if ( (LA10_0==22) ) {
                 alt10=1;
             }
             switch (alt10) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:532:2: ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )*
+                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:524:4: otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}'
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:532:2: ( (lv_attributes_9_0= ruleEAttribute ) )
+                    otherlv_7=(Token)match(input,22,FOLLOW_22_in_ruleEMappingEntity1012); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_7, grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6_0());
+                          
+                    }
+                    otherlv_8=(Token)match(input,12,FOLLOW_12_in_ruleEMappingEntity1024); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_8, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_6_1());
+                          
+                    }
+                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:532:1: ( (lv_attributes_9_0= ruleEAttribute ) )
                     // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:533:1: (lv_attributes_9_0= ruleEAttribute )
                     {
                     // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:533:1: (lv_attributes_9_0= ruleEAttribute )
@@ -1390,7 +1390,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     {
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_0_0()); 
+                      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_2_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_ruleEAttribute_in_ruleEMappingEntity1045);
@@ -1435,7 +1435,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    otherlv_10=(Token)match(input,13,FOLLOW_13_in_ruleEMappingEntity1058); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	          	newLeafNode(otherlv_10, grammarAccess.getEMappingEntityAccess().getCommaKeyword_8_1_0());
+                    	          	newLeafNode(otherlv_10, grammarAccess.getEMappingEntityAccess().getCommaKeyword_6_3_0());
                     	          
                     	    }
                     	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:554:1: ( (lv_attributes_11_0= ruleEAttribute ) )
@@ -1446,7 +1446,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
-                    	      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_1_1_0()); 
+                    	      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_3_1_0()); 
                     	      	    
                     	    }
                     	    pushFollow(FOLLOW_ruleEAttribute_in_ruleEMappingEntity1079);
@@ -1482,19 +1482,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
+                    otherlv_12=(Token)match(input,14,FOLLOW_14_in_ruleEMappingEntity1093); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_12, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_6_4());
+                          
+                    }
 
                     }
                     break;
 
             }
 
-            otherlv_12=(Token)match(input,14,FOLLOW_14_in_ruleEMappingEntity1095); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                  	newLeafNode(otherlv_12, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_9());
-                  
-            }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:1: (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )?
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:3: (otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1503,18 +1503,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt12) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:3: otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}'
+                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:5: otherlv_13= 'queries' otherlv_14= '{' ( (lv_namedQueries_15_0= ruleENamedQuery ) ) (otherlv_16= ',' ( (lv_namedQueries_17_0= ruleENamedQuery ) ) )* otherlv_18= '}'
                     {
                     otherlv_13=(Token)match(input,23,FOLLOW_23_in_ruleEMappingEntity1108); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_13, grammarAccess.getEMappingEntityAccess().getQueriesKeyword_10_0());
+                          	newLeafNode(otherlv_13, grammarAccess.getEMappingEntityAccess().getQueriesKeyword_7_0());
                           
                     }
                     otherlv_14=(Token)match(input,12,FOLLOW_12_in_ruleEMappingEntity1120); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_14, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_10_1());
+                          	newLeafNode(otherlv_14, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7_1());
                           
                     }
                     // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:584:1: ( (lv_namedQueries_15_0= ruleENamedQuery ) )
@@ -1525,7 +1525,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     {
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_2_0()); 
+                      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_2_0()); 
                       	    
                     }
                     pushFollow(FOLLOW_ruleENamedQuery_in_ruleEMappingEntity1141);
@@ -1570,7 +1570,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    otherlv_16=(Token)match(input,13,FOLLOW_13_in_ruleEMappingEntity1154); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	          	newLeafNode(otherlv_16, grammarAccess.getEMappingEntityAccess().getCommaKeyword_10_3_0());
+                    	          	newLeafNode(otherlv_16, grammarAccess.getEMappingEntityAccess().getCommaKeyword_7_3_0());
                     	          
                     	    }
                     	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:606:1: ( (lv_namedQueries_17_0= ruleENamedQuery ) )
@@ -1581,7 +1581,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
-                    	      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_3_1_0()); 
+                    	      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_3_1_0()); 
                     	      	    
                     	    }
                     	    pushFollow(FOLLOW_ruleENamedQuery_in_ruleEMappingEntity1175);
@@ -1620,7 +1620,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     otherlv_18=(Token)match(input,14,FOLLOW_14_in_ruleEMappingEntity1189); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_18, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_10_4());
+                          	newLeafNode(otherlv_18, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_7_4());
                           
                     }
 
@@ -1632,7 +1632,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             otherlv_19=(Token)match(input,14,FOLLOW_14_in_ruleEMappingEntity1203); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_19, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_11());
+                  	newLeafNode(otherlv_19, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_8());
                   
             }
             // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:632:1: (otherlv_20= 'as' ( (lv_tableName_21_0= RULE_ID ) ) )?
@@ -1649,7 +1649,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     otherlv_20=(Token)match(input,24,FOLLOW_24_in_ruleEMappingEntity1216); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_20, grammarAccess.getEMappingEntityAccess().getAsKeyword_12_0());
+                          	newLeafNode(otherlv_20, grammarAccess.getEMappingEntityAccess().getAsKeyword_9_0());
                           
                     }
                     // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:636:1: ( (lv_tableName_21_0= RULE_ID ) )
@@ -1661,7 +1661,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     lv_tableName_21_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingEntity1233); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			newLeafNode(lv_tableName_21_0, grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_12_1_0()); 
+                      			newLeafNode(lv_tableName_21_0, grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_9_1_0()); 
                       		
                     }
                     if ( state.backtracking==0 ) {
@@ -4758,13 +4758,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_21_in_ruleEMappingEntity925 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEMappingEntity964 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_12_in_ruleEMappingEntity978 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_ruleEType_in_ruleEMappingEntity999 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleEMappingEntity1011 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_ruleEMappingEntity1023 = new BitSet(new long[]{0x0000000002004010L});
+    public static final BitSet FOLLOW_ruleEType_in_ruleEMappingEntity999 = new BitSet(new long[]{0x0000000000C04000L});
+    public static final BitSet FOLLOW_22_in_ruleEMappingEntity1012 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_ruleEMappingEntity1024 = new BitSet(new long[]{0x0000000002000010L});
     public static final BitSet FOLLOW_ruleEAttribute_in_ruleEMappingEntity1045 = new BitSet(new long[]{0x0000000000006000L});
     public static final BitSet FOLLOW_13_in_ruleEMappingEntity1058 = new BitSet(new long[]{0x0000000002000010L});
     public static final BitSet FOLLOW_ruleEAttribute_in_ruleEMappingEntity1079 = new BitSet(new long[]{0x0000000000006000L});
-    public static final BitSet FOLLOW_14_in_ruleEMappingEntity1095 = new BitSet(new long[]{0x0000000000804000L});
+    public static final BitSet FOLLOW_14_in_ruleEMappingEntity1093 = new BitSet(new long[]{0x0000000000804000L});
     public static final BitSet FOLLOW_23_in_ruleEMappingEntity1108 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_12_in_ruleEMappingEntity1120 = new BitSet(new long[]{0x0000300000000010L});
     public static final BitSet FOLLOW_ruleENamedQuery_in_ruleEMappingEntity1141 = new BitSet(new long[]{0x0000000000006000L});

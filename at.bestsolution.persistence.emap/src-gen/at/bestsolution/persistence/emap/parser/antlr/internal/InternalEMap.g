@@ -521,18 +521,18 @@ ruleEMappingEntity returns [EObject current=null]
 	    }
 
 )
-)	otherlv_7='attributes' 
+)(	otherlv_7='attributes' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6());
+    	newLeafNode(otherlv_7, grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6_0());
     }
 	otherlv_8='{' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7());
+    	newLeafNode(otherlv_8, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_6_1());
     }
-((
+(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_0_0()); 
+	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_2_0()); 
 	    }
 		lv_attributes_9_0=ruleEAttribute		{
 	        if ($current==null) {
@@ -549,12 +549,12 @@ ruleEMappingEntity returns [EObject current=null]
 )
 )(	otherlv_10=',' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getEMappingEntityAccess().getCommaKeyword_8_1_0());
+    	newLeafNode(otherlv_10, grammarAccess.getEMappingEntityAccess().getCommaKeyword_6_3_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_3_1_0()); 
 	    }
 		lv_attributes_11_0=ruleEAttribute		{
 	        if ($current==null) {
@@ -569,22 +569,22 @@ ruleEMappingEntity returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_12='}' 
+))*	otherlv_12='}' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_9());
+    	newLeafNode(otherlv_12, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_6_4());
     }
-(	otherlv_13='queries' 
+)?(	otherlv_13='queries' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getEMappingEntityAccess().getQueriesKeyword_10_0());
+    	newLeafNode(otherlv_13, grammarAccess.getEMappingEntityAccess().getQueriesKeyword_7_0());
     }
 	otherlv_14='{' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_10_1());
+    	newLeafNode(otherlv_14, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_2_0()); 
+	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_2_0()); 
 	    }
 		lv_namedQueries_15_0=ruleENamedQuery		{
 	        if ($current==null) {
@@ -601,12 +601,12 @@ ruleEMappingEntity returns [EObject current=null]
 )
 )(	otherlv_16=',' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getEMappingEntityAccess().getCommaKeyword_10_3_0());
+    	newLeafNode(otherlv_16, grammarAccess.getEMappingEntityAccess().getCommaKeyword_7_3_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_3_1_0()); 
+	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_3_1_0()); 
 	    }
 		lv_namedQueries_17_0=ruleENamedQuery		{
 	        if ($current==null) {
@@ -623,21 +623,21 @@ ruleEMappingEntity returns [EObject current=null]
 )
 ))*	otherlv_18='}' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_10_4());
+    	newLeafNode(otherlv_18, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_7_4());
     }
 )?	otherlv_19='}' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_11());
+    	newLeafNode(otherlv_19, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_8());
     }
 (	otherlv_20='as' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getEMappingEntityAccess().getAsKeyword_12_0());
+    	newLeafNode(otherlv_20, grammarAccess.getEMappingEntityAccess().getAsKeyword_9_0());
     }
 (
 (
 		lv_tableName_21_0=RULE_ID
 		{
-			newLeafNode(lv_tableName_21_0, grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_12_1_0()); 
+			newLeafNode(lv_tableName_21_0, grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_9_1_0()); 
 		}
 		{
 	        if ($current==null) {

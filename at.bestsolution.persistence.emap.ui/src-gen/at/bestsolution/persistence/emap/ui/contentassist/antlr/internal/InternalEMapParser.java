@@ -4454,24 +4454,45 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__6__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1474:1: rule__EMappingEntity__Group__6__Impl : ( 'attributes' ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1474:1: rule__EMappingEntity__Group__6__Impl : ( ( rule__EMappingEntity__Group_6__0 )? ) ;
     public final void rule__EMappingEntity__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1478:1: ( ( 'attributes' ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1479:1: ( 'attributes' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1478:1: ( ( ( rule__EMappingEntity__Group_6__0 )? ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1479:1: ( ( rule__EMappingEntity__Group_6__0 )? )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1479:1: ( 'attributes' )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1480:1: 'attributes'
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1479:1: ( ( rule__EMappingEntity__Group_6__0 )? )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1480:1: ( rule__EMappingEntity__Group_6__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6()); 
+               before(grammarAccess.getEMappingEntityAccess().getGroup_6()); 
             }
-            match(input,24,FOLLOW_24_in_rule__EMappingEntity__Group__6__Impl3025); if (state.failed) return ;
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1481:1: ( rule__EMappingEntity__Group_6__0 )?
+            int alt15=2;
+            int LA15_0 = input.LA(1);
+
+            if ( (LA15_0==24) ) {
+                alt15=1;
+            }
+            switch (alt15) {
+                case 1 :
+                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1481:2: rule__EMappingEntity__Group_6__0
+                    {
+                    pushFollow(FOLLOW_rule__EMappingEntity__Group_6__0_in_rule__EMappingEntity__Group__6__Impl3024);
+                    rule__EMappingEntity__Group_6__0();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6()); 
+               after(grammarAccess.getEMappingEntityAccess().getGroup_6()); 
             }
 
             }
@@ -4495,21 +4516,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__7"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1493:1: rule__EMappingEntity__Group__7 : rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8 ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1491:1: rule__EMappingEntity__Group__7 : rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8 ;
     public final void rule__EMappingEntity__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1497:1: ( rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1498:2: rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1495:1: ( rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1496:2: rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__7__Impl_in_rule__EMappingEntity__Group__73056);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group__7__Impl_in_rule__EMappingEntity__Group__73055);
             rule__EMappingEntity__Group__7__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__8_in_rule__EMappingEntity__Group__73059);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group__8_in_rule__EMappingEntity__Group__73058);
             rule__EMappingEntity__Group__8();
 
             state._fsp--;
@@ -4533,24 +4554,45 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__7__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1505:1: rule__EMappingEntity__Group__7__Impl : ( '{' ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1503:1: rule__EMappingEntity__Group__7__Impl : ( ( rule__EMappingEntity__Group_7__0 )? ) ;
     public final void rule__EMappingEntity__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1509:1: ( ( '{' ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1510:1: ( '{' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1507:1: ( ( ( rule__EMappingEntity__Group_7__0 )? ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1508:1: ( ( rule__EMappingEntity__Group_7__0 )? )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1510:1: ( '{' )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1511:1: '{'
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1508:1: ( ( rule__EMappingEntity__Group_7__0 )? )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1509:1: ( rule__EMappingEntity__Group_7__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7()); 
+               before(grammarAccess.getEMappingEntityAccess().getGroup_7()); 
             }
-            match(input,17,FOLLOW_17_in_rule__EMappingEntity__Group__7__Impl3087); if (state.failed) return ;
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1510:1: ( rule__EMappingEntity__Group_7__0 )?
+            int alt16=2;
+            int LA16_0 = input.LA(1);
+
+            if ( (LA16_0==25) ) {
+                alt16=1;
+            }
+            switch (alt16) {
+                case 1 :
+                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1510:2: rule__EMappingEntity__Group_7__0
+                    {
+                    pushFollow(FOLLOW_rule__EMappingEntity__Group_7__0_in_rule__EMappingEntity__Group__7__Impl3085);
+                    rule__EMappingEntity__Group_7__0();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7()); 
+               after(grammarAccess.getEMappingEntityAccess().getGroup_7()); 
             }
 
             }
@@ -4574,21 +4616,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__8"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1524:1: rule__EMappingEntity__Group__8 : rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9 ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1520:1: rule__EMappingEntity__Group__8 : rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9 ;
     public final void rule__EMappingEntity__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1528:1: ( rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1529:2: rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1524:1: ( rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1525:2: rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__8__Impl_in_rule__EMappingEntity__Group__83118);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group__8__Impl_in_rule__EMappingEntity__Group__83116);
             rule__EMappingEntity__Group__8__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__9_in_rule__EMappingEntity__Group__83121);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group__9_in_rule__EMappingEntity__Group__83119);
             rule__EMappingEntity__Group__9();
 
             state._fsp--;
@@ -4612,45 +4654,24 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__8__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1536:1: rule__EMappingEntity__Group__8__Impl : ( ( rule__EMappingEntity__Group_8__0 )? ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1532:1: rule__EMappingEntity__Group__8__Impl : ( '}' ) ;
     public final void rule__EMappingEntity__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1540:1: ( ( ( rule__EMappingEntity__Group_8__0 )? ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1541:1: ( ( rule__EMappingEntity__Group_8__0 )? )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1536:1: ( ( '}' ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1537:1: ( '}' )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1541:1: ( ( rule__EMappingEntity__Group_8__0 )? )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1542:1: ( rule__EMappingEntity__Group_8__0 )?
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1537:1: ( '}' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1538:1: '}'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getGroup_8()); 
+               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_8()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1543:1: ( rule__EMappingEntity__Group_8__0 )?
-            int alt15=2;
-            int LA15_0 = input.LA(1);
-
-            if ( (LA15_0==RULE_ID||LA15_0==42) ) {
-                alt15=1;
-            }
-            switch (alt15) {
-                case 1 :
-                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1543:2: rule__EMappingEntity__Group_8__0
-                    {
-                    pushFollow(FOLLOW_rule__EMappingEntity__Group_8__0_in_rule__EMappingEntity__Group__8__Impl3148);
-                    rule__EMappingEntity__Group_8__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-                    break;
-
-            }
-
+            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group__8__Impl3147); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getGroup_8()); 
+               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_8()); 
             }
 
             }
@@ -4674,22 +4695,17 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__9"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1553:1: rule__EMappingEntity__Group__9 : rule__EMappingEntity__Group__9__Impl rule__EMappingEntity__Group__10 ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1551:1: rule__EMappingEntity__Group__9 : rule__EMappingEntity__Group__9__Impl ;
     public final void rule__EMappingEntity__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1557:1: ( rule__EMappingEntity__Group__9__Impl rule__EMappingEntity__Group__10 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1558:2: rule__EMappingEntity__Group__9__Impl rule__EMappingEntity__Group__10
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1555:1: ( rule__EMappingEntity__Group__9__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1556:2: rule__EMappingEntity__Group__9__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__9__Impl_in_rule__EMappingEntity__Group__93179);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group__9__Impl_in_rule__EMappingEntity__Group__93178);
             rule__EMappingEntity__Group__9__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__10_in_rule__EMappingEntity__Group__93182);
-            rule__EMappingEntity__Group__10();
 
             state._fsp--;
             if (state.failed) return ;
@@ -4712,24 +4728,45 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group__9__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1565:1: rule__EMappingEntity__Group__9__Impl : ( '}' ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1562:1: rule__EMappingEntity__Group__9__Impl : ( ( rule__EMappingEntity__Group_9__0 )? ) ;
     public final void rule__EMappingEntity__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1569:1: ( ( '}' ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1570:1: ( '}' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1566:1: ( ( ( rule__EMappingEntity__Group_9__0 )? ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1567:1: ( ( rule__EMappingEntity__Group_9__0 )? )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1570:1: ( '}' )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1571:1: '}'
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1567:1: ( ( rule__EMappingEntity__Group_9__0 )? )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1568:1: ( rule__EMappingEntity__Group_9__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_9()); 
+               before(grammarAccess.getEMappingEntityAccess().getGroup_9()); 
             }
-            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group__9__Impl3210); if (state.failed) return ;
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1569:1: ( rule__EMappingEntity__Group_9__0 )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
+
+            if ( (LA17_0==26) ) {
+                alt17=1;
+            }
+            switch (alt17) {
+                case 1 :
+                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1569:2: rule__EMappingEntity__Group_9__0
+                    {
+                    pushFollow(FOLLOW_rule__EMappingEntity__Group_9__0_in_rule__EMappingEntity__Group__9__Impl3205);
+                    rule__EMappingEntity__Group_9__0();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
+
+            }
+
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_9()); 
+               after(grammarAccess.getEMappingEntityAccess().getGroup_9()); 
             }
 
             }
@@ -4752,296 +4789,22 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__EMappingEntity__Group__9__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group__10"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1584:1: rule__EMappingEntity__Group__10 : rule__EMappingEntity__Group__10__Impl rule__EMappingEntity__Group__11 ;
-    public final void rule__EMappingEntity__Group__10() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1588:1: ( rule__EMappingEntity__Group__10__Impl rule__EMappingEntity__Group__11 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1589:2: rule__EMappingEntity__Group__10__Impl rule__EMappingEntity__Group__11
-            {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__10__Impl_in_rule__EMappingEntity__Group__103241);
-            rule__EMappingEntity__Group__10__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__11_in_rule__EMappingEntity__Group__103244);
-            rule__EMappingEntity__Group__11();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__10"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group__10__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1596:1: rule__EMappingEntity__Group__10__Impl : ( ( rule__EMappingEntity__Group_10__0 )? ) ;
-    public final void rule__EMappingEntity__Group__10__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1600:1: ( ( ( rule__EMappingEntity__Group_10__0 )? ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1601:1: ( ( rule__EMappingEntity__Group_10__0 )? )
-            {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1601:1: ( ( rule__EMappingEntity__Group_10__0 )? )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1602:1: ( rule__EMappingEntity__Group_10__0 )?
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getGroup_10()); 
-            }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1603:1: ( rule__EMappingEntity__Group_10__0 )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
-
-            if ( (LA16_0==25) ) {
-                alt16=1;
-            }
-            switch (alt16) {
-                case 1 :
-                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1603:2: rule__EMappingEntity__Group_10__0
-                    {
-                    pushFollow(FOLLOW_rule__EMappingEntity__Group_10__0_in_rule__EMappingEntity__Group__10__Impl3271);
-                    rule__EMappingEntity__Group_10__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-                    break;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getGroup_10()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__10__Impl"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group__11"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1613:1: rule__EMappingEntity__Group__11 : rule__EMappingEntity__Group__11__Impl rule__EMappingEntity__Group__12 ;
-    public final void rule__EMappingEntity__Group__11() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1617:1: ( rule__EMappingEntity__Group__11__Impl rule__EMappingEntity__Group__12 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1618:2: rule__EMappingEntity__Group__11__Impl rule__EMappingEntity__Group__12
-            {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__11__Impl_in_rule__EMappingEntity__Group__113302);
-            rule__EMappingEntity__Group__11__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__12_in_rule__EMappingEntity__Group__113305);
-            rule__EMappingEntity__Group__12();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__11"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group__11__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1625:1: rule__EMappingEntity__Group__11__Impl : ( '}' ) ;
-    public final void rule__EMappingEntity__Group__11__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1629:1: ( ( '}' ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1630:1: ( '}' )
-            {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1630:1: ( '}' )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1631:1: '}'
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_11()); 
-            }
-            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group__11__Impl3333); if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_11()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__11__Impl"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group__12"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1644:1: rule__EMappingEntity__Group__12 : rule__EMappingEntity__Group__12__Impl ;
-    public final void rule__EMappingEntity__Group__12() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1648:1: ( rule__EMappingEntity__Group__12__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1649:2: rule__EMappingEntity__Group__12__Impl
-            {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group__12__Impl_in_rule__EMappingEntity__Group__123364);
-            rule__EMappingEntity__Group__12__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__12"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group__12__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1655:1: rule__EMappingEntity__Group__12__Impl : ( ( rule__EMappingEntity__Group_12__0 )? ) ;
-    public final void rule__EMappingEntity__Group__12__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1659:1: ( ( ( rule__EMappingEntity__Group_12__0 )? ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1660:1: ( ( rule__EMappingEntity__Group_12__0 )? )
-            {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1660:1: ( ( rule__EMappingEntity__Group_12__0 )? )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1661:1: ( rule__EMappingEntity__Group_12__0 )?
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getGroup_12()); 
-            }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1662:1: ( rule__EMappingEntity__Group_12__0 )?
-            int alt17=2;
-            int LA17_0 = input.LA(1);
-
-            if ( (LA17_0==26) ) {
-                alt17=1;
-            }
-            switch (alt17) {
-                case 1 :
-                    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1662:2: rule__EMappingEntity__Group_12__0
-                    {
-                    pushFollow(FOLLOW_rule__EMappingEntity__Group_12__0_in_rule__EMappingEntity__Group__12__Impl3391);
-                    rule__EMappingEntity__Group_12__0();
-
-                    state._fsp--;
-                    if (state.failed) return ;
-
-                    }
-                    break;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getGroup_12()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group__12__Impl"
-
-
     // $ANTLR start "rule__EMappingEntity__Group_3__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1698:1: rule__EMappingEntity__Group_3__0 : rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1 ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1599:1: rule__EMappingEntity__Group_3__0 : rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1 ;
     public final void rule__EMappingEntity__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1702:1: ( rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1703:2: rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1603:1: ( rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1604:2: rule__EMappingEntity__Group_3__0__Impl rule__EMappingEntity__Group_3__1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__0__Impl_in_rule__EMappingEntity__Group_3__03448);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__0__Impl_in_rule__EMappingEntity__Group_3__03256);
             rule__EMappingEntity__Group_3__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__1_in_rule__EMappingEntity__Group_3__03451);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__1_in_rule__EMappingEntity__Group_3__03259);
             rule__EMappingEntity__Group_3__1();
 
             state._fsp--;
@@ -5065,25 +4828,25 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group_3__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1710:1: rule__EMappingEntity__Group_3__0__Impl : ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1611:1: rule__EMappingEntity__Group_3__0__Impl : ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) ) ;
     public final void rule__EMappingEntity__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1714:1: ( ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1715:1: ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1615:1: ( ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1616:1: ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1715:1: ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1716:1: ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1616:1: ( ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1617:1: ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEMappingEntityAccess().getExtensionTypeAssignment_3_0()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1717:1: ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1717:2: rule__EMappingEntity__ExtensionTypeAssignment_3_0
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1618:1: ( rule__EMappingEntity__ExtensionTypeAssignment_3_0 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1618:2: rule__EMappingEntity__ExtensionTypeAssignment_3_0
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__ExtensionTypeAssignment_3_0_in_rule__EMappingEntity__Group_3__0__Impl3478);
+            pushFollow(FOLLOW_rule__EMappingEntity__ExtensionTypeAssignment_3_0_in_rule__EMappingEntity__Group_3__0__Impl3286);
             rule__EMappingEntity__ExtensionTypeAssignment_3_0();
 
             state._fsp--;
@@ -5116,16 +4879,16 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group_3__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1727:1: rule__EMappingEntity__Group_3__1 : rule__EMappingEntity__Group_3__1__Impl ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1628:1: rule__EMappingEntity__Group_3__1 : rule__EMappingEntity__Group_3__1__Impl ;
     public final void rule__EMappingEntity__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1731:1: ( rule__EMappingEntity__Group_3__1__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1732:2: rule__EMappingEntity__Group_3__1__Impl
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1632:1: ( rule__EMappingEntity__Group_3__1__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1633:2: rule__EMappingEntity__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__1__Impl_in_rule__EMappingEntity__Group_3__13508);
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_3__1__Impl_in_rule__EMappingEntity__Group_3__13316);
             rule__EMappingEntity__Group_3__1__Impl();
 
             state._fsp--;
@@ -5149,25 +4912,25 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EMappingEntity__Group_3__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1738:1: rule__EMappingEntity__Group_3__1__Impl : ( ( rule__EMappingEntity__ParentAssignment_3_1 ) ) ;
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1639:1: rule__EMappingEntity__Group_3__1__Impl : ( ( rule__EMappingEntity__ParentAssignment_3_1 ) ) ;
     public final void rule__EMappingEntity__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1742:1: ( ( ( rule__EMappingEntity__ParentAssignment_3_1 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1743:1: ( ( rule__EMappingEntity__ParentAssignment_3_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1643:1: ( ( ( rule__EMappingEntity__ParentAssignment_3_1 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1644:1: ( ( rule__EMappingEntity__ParentAssignment_3_1 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1743:1: ( ( rule__EMappingEntity__ParentAssignment_3_1 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1744:1: ( rule__EMappingEntity__ParentAssignment_3_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1644:1: ( ( rule__EMappingEntity__ParentAssignment_3_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1645:1: ( rule__EMappingEntity__ParentAssignment_3_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getEMappingEntityAccess().getParentAssignment_3_1()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1745:1: ( rule__EMappingEntity__ParentAssignment_3_1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1745:2: rule__EMappingEntity__ParentAssignment_3_1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1646:1: ( rule__EMappingEntity__ParentAssignment_3_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1646:2: rule__EMappingEntity__ParentAssignment_3_1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__ParentAssignment_3_1_in_rule__EMappingEntity__Group_3__1__Impl3535);
+            pushFollow(FOLLOW_rule__EMappingEntity__ParentAssignment_3_1_in_rule__EMappingEntity__Group_3__1__Impl3343);
             rule__EMappingEntity__ParentAssignment_3_1();
 
             state._fsp--;
@@ -5199,107 +4962,23 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__EMappingEntity__Group_3__1__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1759:1: rule__EMappingEntity__Group_8__0 : rule__EMappingEntity__Group_8__0__Impl rule__EMappingEntity__Group_8__1 ;
-    public final void rule__EMappingEntity__Group_8__0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6__0"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1660:1: rule__EMappingEntity__Group_6__0 : rule__EMappingEntity__Group_6__0__Impl rule__EMappingEntity__Group_6__1 ;
+    public final void rule__EMappingEntity__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1763:1: ( rule__EMappingEntity__Group_8__0__Impl rule__EMappingEntity__Group_8__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1764:2: rule__EMappingEntity__Group_8__0__Impl rule__EMappingEntity__Group_8__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1664:1: ( rule__EMappingEntity__Group_6__0__Impl rule__EMappingEntity__Group_6__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1665:2: rule__EMappingEntity__Group_6__0__Impl rule__EMappingEntity__Group_6__1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8__0__Impl_in_rule__EMappingEntity__Group_8__03569);
-            rule__EMappingEntity__Group_8__0__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__0__Impl_in_rule__EMappingEntity__Group_6__03377);
+            rule__EMappingEntity__Group_6__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8__1_in_rule__EMappingEntity__Group_8__03572);
-            rule__EMappingEntity__Group_8__1();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group_8__0"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group_8__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1771:1: rule__EMappingEntity__Group_8__0__Impl : ( ( rule__EMappingEntity__AttributesAssignment_8_0 ) ) ;
-    public final void rule__EMappingEntity__Group_8__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1775:1: ( ( ( rule__EMappingEntity__AttributesAssignment_8_0 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1776:1: ( ( rule__EMappingEntity__AttributesAssignment_8_0 ) )
-            {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1776:1: ( ( rule__EMappingEntity__AttributesAssignment_8_0 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1777:1: ( rule__EMappingEntity__AttributesAssignment_8_0 )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_8_0()); 
-            }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1778:1: ( rule__EMappingEntity__AttributesAssignment_8_0 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1778:2: rule__EMappingEntity__AttributesAssignment_8_0
-            {
-            pushFollow(FOLLOW_rule__EMappingEntity__AttributesAssignment_8_0_in_rule__EMappingEntity__Group_8__0__Impl3599);
-            rule__EMappingEntity__AttributesAssignment_8_0();
-
-            state._fsp--;
-            if (state.failed) return ;
-
-            }
-
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_8_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__EMappingEntity__Group_8__0__Impl"
-
-
-    // $ANTLR start "rule__EMappingEntity__Group_8__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1788:1: rule__EMappingEntity__Group_8__1 : rule__EMappingEntity__Group_8__1__Impl ;
-    public final void rule__EMappingEntity__Group_8__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1792:1: ( rule__EMappingEntity__Group_8__1__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1793:2: rule__EMappingEntity__Group_8__1__Impl
-            {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8__1__Impl_in_rule__EMappingEntity__Group_8__13629);
-            rule__EMappingEntity__Group_8__1__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__1_in_rule__EMappingEntity__Group_6__03380);
+            rule__EMappingEntity__Group_6__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5318,26 +4997,273 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8__1"
+    // $ANTLR end "rule__EMappingEntity__Group_6__0"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1799:1: rule__EMappingEntity__Group_8__1__Impl : ( ( rule__EMappingEntity__Group_8_1__0 )* ) ;
-    public final void rule__EMappingEntity__Group_8__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6__0__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1672:1: rule__EMappingEntity__Group_6__0__Impl : ( 'attributes' ) ;
+    public final void rule__EMappingEntity__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1803:1: ( ( ( rule__EMappingEntity__Group_8_1__0 )* ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1804:1: ( ( rule__EMappingEntity__Group_8_1__0 )* )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1676:1: ( ( 'attributes' ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1677:1: ( 'attributes' )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1804:1: ( ( rule__EMappingEntity__Group_8_1__0 )* )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1805:1: ( rule__EMappingEntity__Group_8_1__0 )*
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1677:1: ( 'attributes' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1678:1: 'attributes'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getGroup_8_1()); 
+               before(grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6_0()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1806:1: ( rule__EMappingEntity__Group_8_1__0 )*
+            match(input,24,FOLLOW_24_in_rule__EMappingEntity__Group_6__0__Impl3408); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__0__Impl"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1691:1: rule__EMappingEntity__Group_6__1 : rule__EMappingEntity__Group_6__1__Impl rule__EMappingEntity__Group_6__2 ;
+    public final void rule__EMappingEntity__Group_6__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1695:1: ( rule__EMappingEntity__Group_6__1__Impl rule__EMappingEntity__Group_6__2 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1696:2: rule__EMappingEntity__Group_6__1__Impl rule__EMappingEntity__Group_6__2
+            {
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__1__Impl_in_rule__EMappingEntity__Group_6__13439);
+            rule__EMappingEntity__Group_6__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__2_in_rule__EMappingEntity__Group_6__13442);
+            rule__EMappingEntity__Group_6__2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__1"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__1__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1703:1: rule__EMappingEntity__Group_6__1__Impl : ( '{' ) ;
+    public final void rule__EMappingEntity__Group_6__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1707:1: ( ( '{' ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1708:1: ( '{' )
+            {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1708:1: ( '{' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1709:1: '{'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_6_1()); 
+            }
+            match(input,17,FOLLOW_17_in_rule__EMappingEntity__Group_6__1__Impl3470); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_6_1()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__1__Impl"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__2"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1722:1: rule__EMappingEntity__Group_6__2 : rule__EMappingEntity__Group_6__2__Impl rule__EMappingEntity__Group_6__3 ;
+    public final void rule__EMappingEntity__Group_6__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1726:1: ( rule__EMappingEntity__Group_6__2__Impl rule__EMappingEntity__Group_6__3 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1727:2: rule__EMappingEntity__Group_6__2__Impl rule__EMappingEntity__Group_6__3
+            {
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__2__Impl_in_rule__EMappingEntity__Group_6__23501);
+            rule__EMappingEntity__Group_6__2__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__3_in_rule__EMappingEntity__Group_6__23504);
+            rule__EMappingEntity__Group_6__3();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__2"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__2__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1734:1: rule__EMappingEntity__Group_6__2__Impl : ( ( rule__EMappingEntity__AttributesAssignment_6_2 ) ) ;
+    public final void rule__EMappingEntity__Group_6__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1738:1: ( ( ( rule__EMappingEntity__AttributesAssignment_6_2 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1739:1: ( ( rule__EMappingEntity__AttributesAssignment_6_2 ) )
+            {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1739:1: ( ( rule__EMappingEntity__AttributesAssignment_6_2 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1740:1: ( rule__EMappingEntity__AttributesAssignment_6_2 )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_6_2()); 
+            }
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1741:1: ( rule__EMappingEntity__AttributesAssignment_6_2 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1741:2: rule__EMappingEntity__AttributesAssignment_6_2
+            {
+            pushFollow(FOLLOW_rule__EMappingEntity__AttributesAssignment_6_2_in_rule__EMappingEntity__Group_6__2__Impl3531);
+            rule__EMappingEntity__AttributesAssignment_6_2();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_6_2()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__2__Impl"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__3"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1751:1: rule__EMappingEntity__Group_6__3 : rule__EMappingEntity__Group_6__3__Impl rule__EMappingEntity__Group_6__4 ;
+    public final void rule__EMappingEntity__Group_6__3() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1755:1: ( rule__EMappingEntity__Group_6__3__Impl rule__EMappingEntity__Group_6__4 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1756:2: rule__EMappingEntity__Group_6__3__Impl rule__EMappingEntity__Group_6__4
+            {
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__3__Impl_in_rule__EMappingEntity__Group_6__33561);
+            rule__EMappingEntity__Group_6__3__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__4_in_rule__EMappingEntity__Group_6__33564);
+            rule__EMappingEntity__Group_6__4();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__3"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6__3__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1763:1: rule__EMappingEntity__Group_6__3__Impl : ( ( rule__EMappingEntity__Group_6_3__0 )* ) ;
+    public final void rule__EMappingEntity__Group_6__3__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1767:1: ( ( ( rule__EMappingEntity__Group_6_3__0 )* ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1768:1: ( ( rule__EMappingEntity__Group_6_3__0 )* )
+            {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1768:1: ( ( rule__EMappingEntity__Group_6_3__0 )* )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1769:1: ( rule__EMappingEntity__Group_6_3__0 )*
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getEMappingEntityAccess().getGroup_6_3()); 
+            }
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1770:1: ( rule__EMappingEntity__Group_6_3__0 )*
             loop18:
             do {
                 int alt18=2;
@@ -5350,10 +5276,10 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
                 switch (alt18) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1806:2: rule__EMappingEntity__Group_8_1__0
+            	    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1770:2: rule__EMappingEntity__Group_6_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__EMappingEntity__Group_8_1__0_in_rule__EMappingEntity__Group_8__1__Impl3656);
-            	    rule__EMappingEntity__Group_8_1__0();
+            	    pushFollow(FOLLOW_rule__EMappingEntity__Group_6_3__0_in_rule__EMappingEntity__Group_6__3__Impl3591);
+            	    rule__EMappingEntity__Group_6_3__0();
 
             	    state._fsp--;
             	    if (state.failed) return ;
@@ -5367,7 +5293,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getGroup_8_1()); 
+               after(grammarAccess.getEMappingEntityAccess().getGroup_6_3()); 
             }
 
             }
@@ -5387,26 +5313,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8__1__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_6__3__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8_1__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1820:1: rule__EMappingEntity__Group_8_1__0 : rule__EMappingEntity__Group_8_1__0__Impl rule__EMappingEntity__Group_8_1__1 ;
-    public final void rule__EMappingEntity__Group_8_1__0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6__4"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1780:1: rule__EMappingEntity__Group_6__4 : rule__EMappingEntity__Group_6__4__Impl ;
+    public final void rule__EMappingEntity__Group_6__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1824:1: ( rule__EMappingEntity__Group_8_1__0__Impl rule__EMappingEntity__Group_8_1__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1825:2: rule__EMappingEntity__Group_8_1__0__Impl rule__EMappingEntity__Group_8_1__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1784:1: ( rule__EMappingEntity__Group_6__4__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1785:2: rule__EMappingEntity__Group_6__4__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8_1__0__Impl_in_rule__EMappingEntity__Group_8_1__03691);
-            rule__EMappingEntity__Group_8_1__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8_1__1_in_rule__EMappingEntity__Group_8_1__03694);
-            rule__EMappingEntity__Group_8_1__1();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6__4__Impl_in_rule__EMappingEntity__Group_6__43622);
+            rule__EMappingEntity__Group_6__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5425,12 +5346,91 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8_1__0"
+    // $ANTLR end "rule__EMappingEntity__Group_6__4"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8_1__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1832:1: rule__EMappingEntity__Group_8_1__0__Impl : ( ',' ) ;
-    public final void rule__EMappingEntity__Group_8_1__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6__4__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1791:1: rule__EMappingEntity__Group_6__4__Impl : ( '}' ) ;
+    public final void rule__EMappingEntity__Group_6__4__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1795:1: ( ( '}' ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1796:1: ( '}' )
+            {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1796:1: ( '}' )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1797:1: '}'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_6_4()); 
+            }
+            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group_6__4__Impl3650); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_6_4()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6__4__Impl"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6_3__0"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1820:1: rule__EMappingEntity__Group_6_3__0 : rule__EMappingEntity__Group_6_3__0__Impl rule__EMappingEntity__Group_6_3__1 ;
+    public final void rule__EMappingEntity__Group_6_3__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1824:1: ( rule__EMappingEntity__Group_6_3__0__Impl rule__EMappingEntity__Group_6_3__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1825:2: rule__EMappingEntity__Group_6_3__0__Impl rule__EMappingEntity__Group_6_3__1
+            {
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6_3__0__Impl_in_rule__EMappingEntity__Group_6_3__03691);
+            rule__EMappingEntity__Group_6_3__0__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6_3__1_in_rule__EMappingEntity__Group_6_3__03694);
+            rule__EMappingEntity__Group_6_3__1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__EMappingEntity__Group_6_3__0"
+
+
+    // $ANTLR start "rule__EMappingEntity__Group_6_3__0__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1832:1: rule__EMappingEntity__Group_6_3__0__Impl : ( ',' ) ;
+    public final void rule__EMappingEntity__Group_6_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -5442,11 +5442,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1838:1: ','
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getCommaKeyword_8_1_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getCommaKeyword_6_3_0()); 
             }
-            match(input,19,FOLLOW_19_in_rule__EMappingEntity__Group_8_1__0__Impl3722); if (state.failed) return ;
+            match(input,19,FOLLOW_19_in_rule__EMappingEntity__Group_6_3__0__Impl3722); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getCommaKeyword_8_1_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getCommaKeyword_6_3_0()); 
             }
 
             }
@@ -5466,21 +5466,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8_1__0__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_6_3__0__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8_1__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1851:1: rule__EMappingEntity__Group_8_1__1 : rule__EMappingEntity__Group_8_1__1__Impl ;
-    public final void rule__EMappingEntity__Group_8_1__1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6_3__1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1851:1: rule__EMappingEntity__Group_6_3__1 : rule__EMappingEntity__Group_6_3__1__Impl ;
+    public final void rule__EMappingEntity__Group_6_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1855:1: ( rule__EMappingEntity__Group_8_1__1__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1856:2: rule__EMappingEntity__Group_8_1__1__Impl
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1855:1: ( rule__EMappingEntity__Group_6_3__1__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1856:2: rule__EMappingEntity__Group_6_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_8_1__1__Impl_in_rule__EMappingEntity__Group_8_1__13753);
-            rule__EMappingEntity__Group_8_1__1__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_6_3__1__Impl_in_rule__EMappingEntity__Group_6_3__13753);
+            rule__EMappingEntity__Group_6_3__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5499,30 +5499,30 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8_1__1"
+    // $ANTLR end "rule__EMappingEntity__Group_6_3__1"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_8_1__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1862:1: rule__EMappingEntity__Group_8_1__1__Impl : ( ( rule__EMappingEntity__AttributesAssignment_8_1_1 ) ) ;
-    public final void rule__EMappingEntity__Group_8_1__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_6_3__1__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1862:1: rule__EMappingEntity__Group_6_3__1__Impl : ( ( rule__EMappingEntity__AttributesAssignment_6_3_1 ) ) ;
+    public final void rule__EMappingEntity__Group_6_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1866:1: ( ( ( rule__EMappingEntity__AttributesAssignment_8_1_1 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1867:1: ( ( rule__EMappingEntity__AttributesAssignment_8_1_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1866:1: ( ( ( rule__EMappingEntity__AttributesAssignment_6_3_1 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1867:1: ( ( rule__EMappingEntity__AttributesAssignment_6_3_1 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1867:1: ( ( rule__EMappingEntity__AttributesAssignment_8_1_1 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1868:1: ( rule__EMappingEntity__AttributesAssignment_8_1_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1867:1: ( ( rule__EMappingEntity__AttributesAssignment_6_3_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1868:1: ( rule__EMappingEntity__AttributesAssignment_6_3_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_8_1_1()); 
+               before(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_6_3_1()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1869:1: ( rule__EMappingEntity__AttributesAssignment_8_1_1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1869:2: rule__EMappingEntity__AttributesAssignment_8_1_1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1869:1: ( rule__EMappingEntity__AttributesAssignment_6_3_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1869:2: rule__EMappingEntity__AttributesAssignment_6_3_1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__AttributesAssignment_8_1_1_in_rule__EMappingEntity__Group_8_1__1__Impl3780);
-            rule__EMappingEntity__AttributesAssignment_8_1_1();
+            pushFollow(FOLLOW_rule__EMappingEntity__AttributesAssignment_6_3_1_in_rule__EMappingEntity__Group_6_3__1__Impl3780);
+            rule__EMappingEntity__AttributesAssignment_6_3_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5530,7 +5530,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_8_1_1()); 
+               after(grammarAccess.getEMappingEntityAccess().getAttributesAssignment_6_3_1()); 
             }
 
             }
@@ -5550,26 +5550,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_8_1__1__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_6_3__1__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1883:1: rule__EMappingEntity__Group_10__0 : rule__EMappingEntity__Group_10__0__Impl rule__EMappingEntity__Group_10__1 ;
-    public final void rule__EMappingEntity__Group_10__0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__0"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1883:1: rule__EMappingEntity__Group_7__0 : rule__EMappingEntity__Group_7__0__Impl rule__EMappingEntity__Group_7__1 ;
+    public final void rule__EMappingEntity__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1887:1: ( rule__EMappingEntity__Group_10__0__Impl rule__EMappingEntity__Group_10__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1888:2: rule__EMappingEntity__Group_10__0__Impl rule__EMappingEntity__Group_10__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1887:1: ( rule__EMappingEntity__Group_7__0__Impl rule__EMappingEntity__Group_7__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1888:2: rule__EMappingEntity__Group_7__0__Impl rule__EMappingEntity__Group_7__1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__0__Impl_in_rule__EMappingEntity__Group_10__03814);
-            rule__EMappingEntity__Group_10__0__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__0__Impl_in_rule__EMappingEntity__Group_7__03814);
+            rule__EMappingEntity__Group_7__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__1_in_rule__EMappingEntity__Group_10__03817);
-            rule__EMappingEntity__Group_10__1();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__1_in_rule__EMappingEntity__Group_7__03817);
+            rule__EMappingEntity__Group_7__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5588,12 +5588,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__0"
+    // $ANTLR end "rule__EMappingEntity__Group_7__0"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1895:1: rule__EMappingEntity__Group_10__0__Impl : ( 'queries' ) ;
-    public final void rule__EMappingEntity__Group_10__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__0__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1895:1: rule__EMappingEntity__Group_7__0__Impl : ( 'queries' ) ;
+    public final void rule__EMappingEntity__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -5605,11 +5605,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1901:1: 'queries'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getQueriesKeyword_10_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getQueriesKeyword_7_0()); 
             }
-            match(input,25,FOLLOW_25_in_rule__EMappingEntity__Group_10__0__Impl3845); if (state.failed) return ;
+            match(input,25,FOLLOW_25_in_rule__EMappingEntity__Group_7__0__Impl3845); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getQueriesKeyword_10_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getQueriesKeyword_7_0()); 
             }
 
             }
@@ -5629,26 +5629,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__0__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7__0__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1914:1: rule__EMappingEntity__Group_10__1 : rule__EMappingEntity__Group_10__1__Impl rule__EMappingEntity__Group_10__2 ;
-    public final void rule__EMappingEntity__Group_10__1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1914:1: rule__EMappingEntity__Group_7__1 : rule__EMappingEntity__Group_7__1__Impl rule__EMappingEntity__Group_7__2 ;
+    public final void rule__EMappingEntity__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1918:1: ( rule__EMappingEntity__Group_10__1__Impl rule__EMappingEntity__Group_10__2 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1919:2: rule__EMappingEntity__Group_10__1__Impl rule__EMappingEntity__Group_10__2
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1918:1: ( rule__EMappingEntity__Group_7__1__Impl rule__EMappingEntity__Group_7__2 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1919:2: rule__EMappingEntity__Group_7__1__Impl rule__EMappingEntity__Group_7__2
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__1__Impl_in_rule__EMappingEntity__Group_10__13876);
-            rule__EMappingEntity__Group_10__1__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__1__Impl_in_rule__EMappingEntity__Group_7__13876);
+            rule__EMappingEntity__Group_7__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__2_in_rule__EMappingEntity__Group_10__13879);
-            rule__EMappingEntity__Group_10__2();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__2_in_rule__EMappingEntity__Group_7__13879);
+            rule__EMappingEntity__Group_7__2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5667,12 +5667,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__1"
+    // $ANTLR end "rule__EMappingEntity__Group_7__1"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1926:1: rule__EMappingEntity__Group_10__1__Impl : ( '{' ) ;
-    public final void rule__EMappingEntity__Group_10__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__1__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1926:1: rule__EMappingEntity__Group_7__1__Impl : ( '{' ) ;
+    public final void rule__EMappingEntity__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -5684,11 +5684,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1932:1: '{'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_10_1()); 
+               before(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7_1()); 
             }
-            match(input,17,FOLLOW_17_in_rule__EMappingEntity__Group_10__1__Impl3907); if (state.failed) return ;
+            match(input,17,FOLLOW_17_in_rule__EMappingEntity__Group_7__1__Impl3907); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_10_1()); 
+               after(grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7_1()); 
             }
 
             }
@@ -5708,26 +5708,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__1__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7__1__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__2"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1945:1: rule__EMappingEntity__Group_10__2 : rule__EMappingEntity__Group_10__2__Impl rule__EMappingEntity__Group_10__3 ;
-    public final void rule__EMappingEntity__Group_10__2() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__2"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1945:1: rule__EMappingEntity__Group_7__2 : rule__EMappingEntity__Group_7__2__Impl rule__EMappingEntity__Group_7__3 ;
+    public final void rule__EMappingEntity__Group_7__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1949:1: ( rule__EMappingEntity__Group_10__2__Impl rule__EMappingEntity__Group_10__3 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1950:2: rule__EMappingEntity__Group_10__2__Impl rule__EMappingEntity__Group_10__3
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1949:1: ( rule__EMappingEntity__Group_7__2__Impl rule__EMappingEntity__Group_7__3 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1950:2: rule__EMappingEntity__Group_7__2__Impl rule__EMappingEntity__Group_7__3
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__2__Impl_in_rule__EMappingEntity__Group_10__23938);
-            rule__EMappingEntity__Group_10__2__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__2__Impl_in_rule__EMappingEntity__Group_7__23938);
+            rule__EMappingEntity__Group_7__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__3_in_rule__EMappingEntity__Group_10__23941);
-            rule__EMappingEntity__Group_10__3();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__3_in_rule__EMappingEntity__Group_7__23941);
+            rule__EMappingEntity__Group_7__3();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5746,30 +5746,30 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__2"
+    // $ANTLR end "rule__EMappingEntity__Group_7__2"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__2__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1957:1: rule__EMappingEntity__Group_10__2__Impl : ( ( rule__EMappingEntity__NamedQueriesAssignment_10_2 ) ) ;
-    public final void rule__EMappingEntity__Group_10__2__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__2__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1957:1: rule__EMappingEntity__Group_7__2__Impl : ( ( rule__EMappingEntity__NamedQueriesAssignment_7_2 ) ) ;
+    public final void rule__EMappingEntity__Group_7__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1961:1: ( ( ( rule__EMappingEntity__NamedQueriesAssignment_10_2 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1962:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_10_2 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1961:1: ( ( ( rule__EMappingEntity__NamedQueriesAssignment_7_2 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1962:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_7_2 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1962:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_10_2 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1963:1: ( rule__EMappingEntity__NamedQueriesAssignment_10_2 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1962:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_7_2 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1963:1: ( rule__EMappingEntity__NamedQueriesAssignment_7_2 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_10_2()); 
+               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_2()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1964:1: ( rule__EMappingEntity__NamedQueriesAssignment_10_2 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1964:2: rule__EMappingEntity__NamedQueriesAssignment_10_2
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1964:1: ( rule__EMappingEntity__NamedQueriesAssignment_7_2 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1964:2: rule__EMappingEntity__NamedQueriesAssignment_7_2
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_10_2_in_rule__EMappingEntity__Group_10__2__Impl3968);
-            rule__EMappingEntity__NamedQueriesAssignment_10_2();
+            pushFollow(FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_7_2_in_rule__EMappingEntity__Group_7__2__Impl3968);
+            rule__EMappingEntity__NamedQueriesAssignment_7_2();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5777,7 +5777,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_10_2()); 
+               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_2()); 
             }
 
             }
@@ -5797,26 +5797,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__2__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7__2__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__3"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1974:1: rule__EMappingEntity__Group_10__3 : rule__EMappingEntity__Group_10__3__Impl rule__EMappingEntity__Group_10__4 ;
-    public final void rule__EMappingEntity__Group_10__3() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__3"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1974:1: rule__EMappingEntity__Group_7__3 : rule__EMappingEntity__Group_7__3__Impl rule__EMappingEntity__Group_7__4 ;
+    public final void rule__EMappingEntity__Group_7__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1978:1: ( rule__EMappingEntity__Group_10__3__Impl rule__EMappingEntity__Group_10__4 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1979:2: rule__EMappingEntity__Group_10__3__Impl rule__EMappingEntity__Group_10__4
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1978:1: ( rule__EMappingEntity__Group_7__3__Impl rule__EMappingEntity__Group_7__4 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1979:2: rule__EMappingEntity__Group_7__3__Impl rule__EMappingEntity__Group_7__4
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__3__Impl_in_rule__EMappingEntity__Group_10__33998);
-            rule__EMappingEntity__Group_10__3__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__3__Impl_in_rule__EMappingEntity__Group_7__33998);
+            rule__EMappingEntity__Group_7__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__4_in_rule__EMappingEntity__Group_10__34001);
-            rule__EMappingEntity__Group_10__4();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__4_in_rule__EMappingEntity__Group_7__34001);
+            rule__EMappingEntity__Group_7__4();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5835,26 +5835,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__3"
+    // $ANTLR end "rule__EMappingEntity__Group_7__3"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__3__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1986:1: rule__EMappingEntity__Group_10__3__Impl : ( ( rule__EMappingEntity__Group_10_3__0 )* ) ;
-    public final void rule__EMappingEntity__Group_10__3__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__3__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1986:1: rule__EMappingEntity__Group_7__3__Impl : ( ( rule__EMappingEntity__Group_7_3__0 )* ) ;
+    public final void rule__EMappingEntity__Group_7__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1990:1: ( ( ( rule__EMappingEntity__Group_10_3__0 )* ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1991:1: ( ( rule__EMappingEntity__Group_10_3__0 )* )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1990:1: ( ( ( rule__EMappingEntity__Group_7_3__0 )* ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1991:1: ( ( rule__EMappingEntity__Group_7_3__0 )* )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1991:1: ( ( rule__EMappingEntity__Group_10_3__0 )* )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1992:1: ( rule__EMappingEntity__Group_10_3__0 )*
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1991:1: ( ( rule__EMappingEntity__Group_7_3__0 )* )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1992:1: ( rule__EMappingEntity__Group_7_3__0 )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getGroup_10_3()); 
+               before(grammarAccess.getEMappingEntityAccess().getGroup_7_3()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1993:1: ( rule__EMappingEntity__Group_10_3__0 )*
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1993:1: ( rule__EMappingEntity__Group_7_3__0 )*
             loop19:
             do {
                 int alt19=2;
@@ -5867,10 +5867,10 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
                 switch (alt19) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1993:2: rule__EMappingEntity__Group_10_3__0
+            	    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:1993:2: rule__EMappingEntity__Group_7_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__EMappingEntity__Group_10_3__0_in_rule__EMappingEntity__Group_10__3__Impl4028);
-            	    rule__EMappingEntity__Group_10_3__0();
+            	    pushFollow(FOLLOW_rule__EMappingEntity__Group_7_3__0_in_rule__EMappingEntity__Group_7__3__Impl4028);
+            	    rule__EMappingEntity__Group_7_3__0();
 
             	    state._fsp--;
             	    if (state.failed) return ;
@@ -5884,7 +5884,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getGroup_10_3()); 
+               after(grammarAccess.getEMappingEntityAccess().getGroup_7_3()); 
             }
 
             }
@@ -5904,21 +5904,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__3__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7__3__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__4"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2003:1: rule__EMappingEntity__Group_10__4 : rule__EMappingEntity__Group_10__4__Impl ;
-    public final void rule__EMappingEntity__Group_10__4() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__4"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2003:1: rule__EMappingEntity__Group_7__4 : rule__EMappingEntity__Group_7__4__Impl ;
+    public final void rule__EMappingEntity__Group_7__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2007:1: ( rule__EMappingEntity__Group_10__4__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2008:2: rule__EMappingEntity__Group_10__4__Impl
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2007:1: ( rule__EMappingEntity__Group_7__4__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2008:2: rule__EMappingEntity__Group_7__4__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10__4__Impl_in_rule__EMappingEntity__Group_10__44059);
-            rule__EMappingEntity__Group_10__4__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7__4__Impl_in_rule__EMappingEntity__Group_7__44059);
+            rule__EMappingEntity__Group_7__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -5937,12 +5937,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__4"
+    // $ANTLR end "rule__EMappingEntity__Group_7__4"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10__4__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2014:1: rule__EMappingEntity__Group_10__4__Impl : ( '}' ) ;
-    public final void rule__EMappingEntity__Group_10__4__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7__4__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2014:1: rule__EMappingEntity__Group_7__4__Impl : ( '}' ) ;
+    public final void rule__EMappingEntity__Group_7__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -5954,11 +5954,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2020:1: '}'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_10_4()); 
+               before(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_7_4()); 
             }
-            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group_10__4__Impl4087); if (state.failed) return ;
+            match(input,18,FOLLOW_18_in_rule__EMappingEntity__Group_7__4__Impl4087); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_10_4()); 
+               after(grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_7_4()); 
             }
 
             }
@@ -5978,26 +5978,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10__4__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7__4__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10_3__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2043:1: rule__EMappingEntity__Group_10_3__0 : rule__EMappingEntity__Group_10_3__0__Impl rule__EMappingEntity__Group_10_3__1 ;
-    public final void rule__EMappingEntity__Group_10_3__0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7_3__0"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2043:1: rule__EMappingEntity__Group_7_3__0 : rule__EMappingEntity__Group_7_3__0__Impl rule__EMappingEntity__Group_7_3__1 ;
+    public final void rule__EMappingEntity__Group_7_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2047:1: ( rule__EMappingEntity__Group_10_3__0__Impl rule__EMappingEntity__Group_10_3__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2048:2: rule__EMappingEntity__Group_10_3__0__Impl rule__EMappingEntity__Group_10_3__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2047:1: ( rule__EMappingEntity__Group_7_3__0__Impl rule__EMappingEntity__Group_7_3__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2048:2: rule__EMappingEntity__Group_7_3__0__Impl rule__EMappingEntity__Group_7_3__1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10_3__0__Impl_in_rule__EMappingEntity__Group_10_3__04128);
-            rule__EMappingEntity__Group_10_3__0__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7_3__0__Impl_in_rule__EMappingEntity__Group_7_3__04128);
+            rule__EMappingEntity__Group_7_3__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10_3__1_in_rule__EMappingEntity__Group_10_3__04131);
-            rule__EMappingEntity__Group_10_3__1();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7_3__1_in_rule__EMappingEntity__Group_7_3__04131);
+            rule__EMappingEntity__Group_7_3__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6016,12 +6016,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10_3__0"
+    // $ANTLR end "rule__EMappingEntity__Group_7_3__0"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10_3__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2055:1: rule__EMappingEntity__Group_10_3__0__Impl : ( ',' ) ;
-    public final void rule__EMappingEntity__Group_10_3__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7_3__0__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2055:1: rule__EMappingEntity__Group_7_3__0__Impl : ( ',' ) ;
+    public final void rule__EMappingEntity__Group_7_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -6033,11 +6033,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2061:1: ','
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getCommaKeyword_10_3_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getCommaKeyword_7_3_0()); 
             }
-            match(input,19,FOLLOW_19_in_rule__EMappingEntity__Group_10_3__0__Impl4159); if (state.failed) return ;
+            match(input,19,FOLLOW_19_in_rule__EMappingEntity__Group_7_3__0__Impl4159); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getCommaKeyword_10_3_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getCommaKeyword_7_3_0()); 
             }
 
             }
@@ -6057,21 +6057,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10_3__0__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7_3__0__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10_3__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2074:1: rule__EMappingEntity__Group_10_3__1 : rule__EMappingEntity__Group_10_3__1__Impl ;
-    public final void rule__EMappingEntity__Group_10_3__1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7_3__1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2074:1: rule__EMappingEntity__Group_7_3__1 : rule__EMappingEntity__Group_7_3__1__Impl ;
+    public final void rule__EMappingEntity__Group_7_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2078:1: ( rule__EMappingEntity__Group_10_3__1__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2079:2: rule__EMappingEntity__Group_10_3__1__Impl
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2078:1: ( rule__EMappingEntity__Group_7_3__1__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2079:2: rule__EMappingEntity__Group_7_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_10_3__1__Impl_in_rule__EMappingEntity__Group_10_3__14190);
-            rule__EMappingEntity__Group_10_3__1__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_7_3__1__Impl_in_rule__EMappingEntity__Group_7_3__14190);
+            rule__EMappingEntity__Group_7_3__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6090,30 +6090,30 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10_3__1"
+    // $ANTLR end "rule__EMappingEntity__Group_7_3__1"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_10_3__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2085:1: rule__EMappingEntity__Group_10_3__1__Impl : ( ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 ) ) ;
-    public final void rule__EMappingEntity__Group_10_3__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_7_3__1__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2085:1: rule__EMappingEntity__Group_7_3__1__Impl : ( ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 ) ) ;
+    public final void rule__EMappingEntity__Group_7_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2089:1: ( ( ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2090:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2089:1: ( ( ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2090:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2090:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2091:1: ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2090:1: ( ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2091:1: ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_10_3_1()); 
+               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_3_1()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2092:1: ( rule__EMappingEntity__NamedQueriesAssignment_10_3_1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2092:2: rule__EMappingEntity__NamedQueriesAssignment_10_3_1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2092:1: ( rule__EMappingEntity__NamedQueriesAssignment_7_3_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2092:2: rule__EMappingEntity__NamedQueriesAssignment_7_3_1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_10_3_1_in_rule__EMappingEntity__Group_10_3__1__Impl4217);
-            rule__EMappingEntity__NamedQueriesAssignment_10_3_1();
+            pushFollow(FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_7_3_1_in_rule__EMappingEntity__Group_7_3__1__Impl4217);
+            rule__EMappingEntity__NamedQueriesAssignment_7_3_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6121,7 +6121,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_10_3_1()); 
+               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_3_1()); 
             }
 
             }
@@ -6141,26 +6141,26 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_10_3__1__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_7_3__1__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_12__0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2106:1: rule__EMappingEntity__Group_12__0 : rule__EMappingEntity__Group_12__0__Impl rule__EMappingEntity__Group_12__1 ;
-    public final void rule__EMappingEntity__Group_12__0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_9__0"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2106:1: rule__EMappingEntity__Group_9__0 : rule__EMappingEntity__Group_9__0__Impl rule__EMappingEntity__Group_9__1 ;
+    public final void rule__EMappingEntity__Group_9__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2110:1: ( rule__EMappingEntity__Group_12__0__Impl rule__EMappingEntity__Group_12__1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2111:2: rule__EMappingEntity__Group_12__0__Impl rule__EMappingEntity__Group_12__1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2110:1: ( rule__EMappingEntity__Group_9__0__Impl rule__EMappingEntity__Group_9__1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2111:2: rule__EMappingEntity__Group_9__0__Impl rule__EMappingEntity__Group_9__1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_12__0__Impl_in_rule__EMappingEntity__Group_12__04251);
-            rule__EMappingEntity__Group_12__0__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_9__0__Impl_in_rule__EMappingEntity__Group_9__04251);
+            rule__EMappingEntity__Group_9__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_12__1_in_rule__EMappingEntity__Group_12__04254);
-            rule__EMappingEntity__Group_12__1();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_9__1_in_rule__EMappingEntity__Group_9__04254);
+            rule__EMappingEntity__Group_9__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6179,12 +6179,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_12__0"
+    // $ANTLR end "rule__EMappingEntity__Group_9__0"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_12__0__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2118:1: rule__EMappingEntity__Group_12__0__Impl : ( 'as' ) ;
-    public final void rule__EMappingEntity__Group_12__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_9__0__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2118:1: rule__EMappingEntity__Group_9__0__Impl : ( 'as' ) ;
+    public final void rule__EMappingEntity__Group_9__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -6196,11 +6196,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2124:1: 'as'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAsKeyword_12_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getAsKeyword_9_0()); 
             }
-            match(input,26,FOLLOW_26_in_rule__EMappingEntity__Group_12__0__Impl4282); if (state.failed) return ;
+            match(input,26,FOLLOW_26_in_rule__EMappingEntity__Group_9__0__Impl4282); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAsKeyword_12_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getAsKeyword_9_0()); 
             }
 
             }
@@ -6220,21 +6220,21 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_12__0__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_9__0__Impl"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_12__1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2137:1: rule__EMappingEntity__Group_12__1 : rule__EMappingEntity__Group_12__1__Impl ;
-    public final void rule__EMappingEntity__Group_12__1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_9__1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2137:1: rule__EMappingEntity__Group_9__1 : rule__EMappingEntity__Group_9__1__Impl ;
+    public final void rule__EMappingEntity__Group_9__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2141:1: ( rule__EMappingEntity__Group_12__1__Impl )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2142:2: rule__EMappingEntity__Group_12__1__Impl
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2141:1: ( rule__EMappingEntity__Group_9__1__Impl )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2142:2: rule__EMappingEntity__Group_9__1__Impl
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__Group_12__1__Impl_in_rule__EMappingEntity__Group_12__14313);
-            rule__EMappingEntity__Group_12__1__Impl();
+            pushFollow(FOLLOW_rule__EMappingEntity__Group_9__1__Impl_in_rule__EMappingEntity__Group_9__14313);
+            rule__EMappingEntity__Group_9__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6253,30 +6253,30 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_12__1"
+    // $ANTLR end "rule__EMappingEntity__Group_9__1"
 
 
-    // $ANTLR start "rule__EMappingEntity__Group_12__1__Impl"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2148:1: rule__EMappingEntity__Group_12__1__Impl : ( ( rule__EMappingEntity__TableNameAssignment_12_1 ) ) ;
-    public final void rule__EMappingEntity__Group_12__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__Group_9__1__Impl"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2148:1: rule__EMappingEntity__Group_9__1__Impl : ( ( rule__EMappingEntity__TableNameAssignment_9_1 ) ) ;
+    public final void rule__EMappingEntity__Group_9__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2152:1: ( ( ( rule__EMappingEntity__TableNameAssignment_12_1 ) ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2153:1: ( ( rule__EMappingEntity__TableNameAssignment_12_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2152:1: ( ( ( rule__EMappingEntity__TableNameAssignment_9_1 ) ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2153:1: ( ( rule__EMappingEntity__TableNameAssignment_9_1 ) )
             {
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2153:1: ( ( rule__EMappingEntity__TableNameAssignment_12_1 ) )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2154:1: ( rule__EMappingEntity__TableNameAssignment_12_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2153:1: ( ( rule__EMappingEntity__TableNameAssignment_9_1 ) )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2154:1: ( rule__EMappingEntity__TableNameAssignment_9_1 )
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_12_1()); 
+               before(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_9_1()); 
             }
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2155:1: ( rule__EMappingEntity__TableNameAssignment_12_1 )
-            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2155:2: rule__EMappingEntity__TableNameAssignment_12_1
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2155:1: ( rule__EMappingEntity__TableNameAssignment_9_1 )
+            // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:2155:2: rule__EMappingEntity__TableNameAssignment_9_1
             {
-            pushFollow(FOLLOW_rule__EMappingEntity__TableNameAssignment_12_1_in_rule__EMappingEntity__Group_12__1__Impl4340);
-            rule__EMappingEntity__TableNameAssignment_12_1();
+            pushFollow(FOLLOW_rule__EMappingEntity__TableNameAssignment_9_1_in_rule__EMappingEntity__Group_9__1__Impl4340);
+            rule__EMappingEntity__TableNameAssignment_9_1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -6284,7 +6284,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_12_1()); 
+               after(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_9_1()); 
             }
 
             }
@@ -6304,7 +6304,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__Group_12__1__Impl"
+    // $ANTLR end "rule__EMappingEntity__Group_9__1__Impl"
 
 
     // $ANTLR start "rule__EAttribute__Group__0"
@@ -14260,9 +14260,9 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__EMappingEntity__EtypeAssignment_5"
 
 
-    // $ANTLR start "rule__EMappingEntity__AttributesAssignment_8_0"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5052:1: rule__EMappingEntity__AttributesAssignment_8_0 : ( ruleEAttribute ) ;
-    public final void rule__EMappingEntity__AttributesAssignment_8_0() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__AttributesAssignment_6_2"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5052:1: rule__EMappingEntity__AttributesAssignment_6_2 : ( ruleEAttribute ) ;
+    public final void rule__EMappingEntity__AttributesAssignment_6_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -14274,15 +14274,15 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5058:1: ruleEAttribute
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_0_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_2_0()); 
             }
-            pushFollow(FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_8_010083);
+            pushFollow(FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_6_210083);
             ruleEAttribute();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_0_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_2_0()); 
             }
 
             }
@@ -14302,12 +14302,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__AttributesAssignment_8_0"
+    // $ANTLR end "rule__EMappingEntity__AttributesAssignment_6_2"
 
 
-    // $ANTLR start "rule__EMappingEntity__AttributesAssignment_8_1_1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5067:1: rule__EMappingEntity__AttributesAssignment_8_1_1 : ( ruleEAttribute ) ;
-    public final void rule__EMappingEntity__AttributesAssignment_8_1_1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__AttributesAssignment_6_3_1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5067:1: rule__EMappingEntity__AttributesAssignment_6_3_1 : ( ruleEAttribute ) ;
+    public final void rule__EMappingEntity__AttributesAssignment_6_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -14319,15 +14319,15 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5073:1: ruleEAttribute
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_1_1_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_8_1_110114);
+            pushFollow(FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_6_3_110114);
             ruleEAttribute();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_8_1_1_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_3_1_0()); 
             }
 
             }
@@ -14347,12 +14347,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__AttributesAssignment_8_1_1"
+    // $ANTLR end "rule__EMappingEntity__AttributesAssignment_6_3_1"
 
 
-    // $ANTLR start "rule__EMappingEntity__NamedQueriesAssignment_10_2"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5082:1: rule__EMappingEntity__NamedQueriesAssignment_10_2 : ( ruleENamedQuery ) ;
-    public final void rule__EMappingEntity__NamedQueriesAssignment_10_2() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__NamedQueriesAssignment_7_2"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5082:1: rule__EMappingEntity__NamedQueriesAssignment_7_2 : ( ruleENamedQuery ) ;
+    public final void rule__EMappingEntity__NamedQueriesAssignment_7_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -14364,15 +14364,15 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5088:1: ruleENamedQuery
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_2_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_2_0()); 
             }
-            pushFollow(FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_10_210145);
+            pushFollow(FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_7_210145);
             ruleENamedQuery();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_2_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_2_0()); 
             }
 
             }
@@ -14392,12 +14392,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__NamedQueriesAssignment_10_2"
+    // $ANTLR end "rule__EMappingEntity__NamedQueriesAssignment_7_2"
 
 
-    // $ANTLR start "rule__EMappingEntity__NamedQueriesAssignment_10_3_1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5097:1: rule__EMappingEntity__NamedQueriesAssignment_10_3_1 : ( ruleENamedQuery ) ;
-    public final void rule__EMappingEntity__NamedQueriesAssignment_10_3_1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__NamedQueriesAssignment_7_3_1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5097:1: rule__EMappingEntity__NamedQueriesAssignment_7_3_1 : ( ruleENamedQuery ) ;
+    public final void rule__EMappingEntity__NamedQueriesAssignment_7_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -14409,15 +14409,15 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5103:1: ruleENamedQuery
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_3_1_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_10_3_110176);
+            pushFollow(FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_7_3_110176);
             ruleENamedQuery();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_10_3_1_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_3_1_0()); 
             }
 
             }
@@ -14437,12 +14437,12 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__NamedQueriesAssignment_10_3_1"
+    // $ANTLR end "rule__EMappingEntity__NamedQueriesAssignment_7_3_1"
 
 
-    // $ANTLR start "rule__EMappingEntity__TableNameAssignment_12_1"
-    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5112:1: rule__EMappingEntity__TableNameAssignment_12_1 : ( RULE_ID ) ;
-    public final void rule__EMappingEntity__TableNameAssignment_12_1() throws RecognitionException {
+    // $ANTLR start "rule__EMappingEntity__TableNameAssignment_9_1"
+    // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5112:1: rule__EMappingEntity__TableNameAssignment_9_1 : ( RULE_ID ) ;
+    public final void rule__EMappingEntity__TableNameAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -14454,11 +14454,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // ../at.bestsolution.persistence.emap.ui/src-gen/at/bestsolution/persistence/emap/ui/contentassist/antlr/internal/InternalEMap.g:5118:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_12_1_0()); 
+               before(grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_9_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EMappingEntity__TableNameAssignment_12_110207); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__EMappingEntity__TableNameAssignment_9_110207); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_12_1_0()); 
+               after(grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_9_1_0()); 
             }
 
             }
@@ -14478,7 +14478,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__EMappingEntity__TableNameAssignment_12_1"
+    // $ANTLR end "rule__EMappingEntity__TableNameAssignment_9_1"
 
 
     // $ANTLR start "rule__EAttribute__PkAssignment_0"
@@ -16480,68 +16480,68 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__EMappingEntity__Group__4__Impl_in_rule__EMappingEntity__Group__42872 = new BitSet(new long[]{0x0000002000000000L});
     public static final BitSet FOLLOW_rule__EMappingEntity__Group__5_in_rule__EMappingEntity__Group__42875 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_17_in_rule__EMappingEntity__Group__4__Impl2903 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__5__Impl_in_rule__EMappingEntity__Group__52934 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__5__Impl_in_rule__EMappingEntity__Group__52934 = new BitSet(new long[]{0x0000000003040000L});
     public static final BitSet FOLLOW_rule__EMappingEntity__Group__6_in_rule__EMappingEntity__Group__52937 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__EMappingEntity__EtypeAssignment_5_in_rule__EMappingEntity__Group__5__Impl2964 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__6__Impl_in_rule__EMappingEntity__Group__62994 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__6__Impl_in_rule__EMappingEntity__Group__62994 = new BitSet(new long[]{0x0000000003040000L});
     public static final BitSet FOLLOW_rule__EMappingEntity__Group__7_in_rule__EMappingEntity__Group__62997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__EMappingEntity__Group__6__Impl3025 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__7__Impl_in_rule__EMappingEntity__Group__73056 = new BitSet(new long[]{0x0000040000040020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__8_in_rule__EMappingEntity__Group__73059 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__EMappingEntity__Group__7__Impl3087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__8__Impl_in_rule__EMappingEntity__Group__83118 = new BitSet(new long[]{0x0000040000040020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__9_in_rule__EMappingEntity__Group__83121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8__0_in_rule__EMappingEntity__Group__8__Impl3148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__9__Impl_in_rule__EMappingEntity__Group__93179 = new BitSet(new long[]{0x0000000002040000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__10_in_rule__EMappingEntity__Group__93182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group__9__Impl3210 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__10__Impl_in_rule__EMappingEntity__Group__103241 = new BitSet(new long[]{0x0000000002040000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__11_in_rule__EMappingEntity__Group__103244 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__0_in_rule__EMappingEntity__Group__10__Impl3271 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__11__Impl_in_rule__EMappingEntity__Group__113302 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__12_in_rule__EMappingEntity__Group__113305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group__11__Impl3333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group__12__Impl_in_rule__EMappingEntity__Group__123364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_12__0_in_rule__EMappingEntity__Group__12__Impl3391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__0__Impl_in_rule__EMappingEntity__Group_3__03448 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__1_in_rule__EMappingEntity__Group_3__03451 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__ExtensionTypeAssignment_3_0_in_rule__EMappingEntity__Group_3__0__Impl3478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__1__Impl_in_rule__EMappingEntity__Group_3__13508 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__ParentAssignment_3_1_in_rule__EMappingEntity__Group_3__1__Impl3535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8__0__Impl_in_rule__EMappingEntity__Group_8__03569 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8__1_in_rule__EMappingEntity__Group_8__03572 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__AttributesAssignment_8_0_in_rule__EMappingEntity__Group_8__0__Impl3599 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8__1__Impl_in_rule__EMappingEntity__Group_8__13629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8_1__0_in_rule__EMappingEntity__Group_8__1__Impl3656 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8_1__0__Impl_in_rule__EMappingEntity__Group_8_1__03691 = new BitSet(new long[]{0x0000040000000020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8_1__1_in_rule__EMappingEntity__Group_8_1__03694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__EMappingEntity__Group_8_1__0__Impl3722 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_8_1__1__Impl_in_rule__EMappingEntity__Group_8_1__13753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__AttributesAssignment_8_1_1_in_rule__EMappingEntity__Group_8_1__1__Impl3780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__0__Impl_in_rule__EMappingEntity__Group_10__03814 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__1_in_rule__EMappingEntity__Group_10__03817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__EMappingEntity__Group_10__0__Impl3845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__1__Impl_in_rule__EMappingEntity__Group_10__13876 = new BitSet(new long[]{0x000000000000C020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__2_in_rule__EMappingEntity__Group_10__13879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__EMappingEntity__Group_10__1__Impl3907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__2__Impl_in_rule__EMappingEntity__Group_10__23938 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__3_in_rule__EMappingEntity__Group_10__23941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_10_2_in_rule__EMappingEntity__Group_10__2__Impl3968 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__3__Impl_in_rule__EMappingEntity__Group_10__33998 = new BitSet(new long[]{0x00000000000C0000L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__4_in_rule__EMappingEntity__Group_10__34001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10_3__0_in_rule__EMappingEntity__Group_10__3__Impl4028 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10__4__Impl_in_rule__EMappingEntity__Group_10__44059 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group_10__4__Impl4087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10_3__0__Impl_in_rule__EMappingEntity__Group_10_3__04128 = new BitSet(new long[]{0x000000000000C020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10_3__1_in_rule__EMappingEntity__Group_10_3__04131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__EMappingEntity__Group_10_3__0__Impl4159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_10_3__1__Impl_in_rule__EMappingEntity__Group_10_3__14190 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_10_3_1_in_rule__EMappingEntity__Group_10_3__1__Impl4217 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_12__0__Impl_in_rule__EMappingEntity__Group_12__04251 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_12__1_in_rule__EMappingEntity__Group_12__04254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__EMappingEntity__Group_12__0__Impl4282 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__Group_12__1__Impl_in_rule__EMappingEntity__Group_12__14313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__EMappingEntity__TableNameAssignment_12_1_in_rule__EMappingEntity__Group_12__1__Impl4340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__0_in_rule__EMappingEntity__Group__6__Impl3024 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__7__Impl_in_rule__EMappingEntity__Group__73055 = new BitSet(new long[]{0x0000000003040000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__8_in_rule__EMappingEntity__Group__73058 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__0_in_rule__EMappingEntity__Group__7__Impl3085 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__8__Impl_in_rule__EMappingEntity__Group__83116 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__9_in_rule__EMappingEntity__Group__83119 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group__8__Impl3147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group__9__Impl_in_rule__EMappingEntity__Group__93178 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_9__0_in_rule__EMappingEntity__Group__9__Impl3205 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__0__Impl_in_rule__EMappingEntity__Group_3__03256 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__1_in_rule__EMappingEntity__Group_3__03259 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__ExtensionTypeAssignment_3_0_in_rule__EMappingEntity__Group_3__0__Impl3286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_3__1__Impl_in_rule__EMappingEntity__Group_3__13316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__ParentAssignment_3_1_in_rule__EMappingEntity__Group_3__1__Impl3343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__0__Impl_in_rule__EMappingEntity__Group_6__03377 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__1_in_rule__EMappingEntity__Group_6__03380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__EMappingEntity__Group_6__0__Impl3408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__1__Impl_in_rule__EMappingEntity__Group_6__13439 = new BitSet(new long[]{0x0000040000000020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__2_in_rule__EMappingEntity__Group_6__13442 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__EMappingEntity__Group_6__1__Impl3470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__2__Impl_in_rule__EMappingEntity__Group_6__23501 = new BitSet(new long[]{0x00000000000C0000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__3_in_rule__EMappingEntity__Group_6__23504 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__AttributesAssignment_6_2_in_rule__EMappingEntity__Group_6__2__Impl3531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__3__Impl_in_rule__EMappingEntity__Group_6__33561 = new BitSet(new long[]{0x00000000000C0000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__4_in_rule__EMappingEntity__Group_6__33564 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6_3__0_in_rule__EMappingEntity__Group_6__3__Impl3591 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6__4__Impl_in_rule__EMappingEntity__Group_6__43622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group_6__4__Impl3650 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6_3__0__Impl_in_rule__EMappingEntity__Group_6_3__03691 = new BitSet(new long[]{0x0000040000000020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6_3__1_in_rule__EMappingEntity__Group_6_3__03694 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__EMappingEntity__Group_6_3__0__Impl3722 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_6_3__1__Impl_in_rule__EMappingEntity__Group_6_3__13753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__AttributesAssignment_6_3_1_in_rule__EMappingEntity__Group_6_3__1__Impl3780 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__0__Impl_in_rule__EMappingEntity__Group_7__03814 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__1_in_rule__EMappingEntity__Group_7__03817 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__EMappingEntity__Group_7__0__Impl3845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__1__Impl_in_rule__EMappingEntity__Group_7__13876 = new BitSet(new long[]{0x000000000000C020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__2_in_rule__EMappingEntity__Group_7__13879 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__EMappingEntity__Group_7__1__Impl3907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__2__Impl_in_rule__EMappingEntity__Group_7__23938 = new BitSet(new long[]{0x00000000000C0000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__3_in_rule__EMappingEntity__Group_7__23941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_7_2_in_rule__EMappingEntity__Group_7__2__Impl3968 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__3__Impl_in_rule__EMappingEntity__Group_7__33998 = new BitSet(new long[]{0x00000000000C0000L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__4_in_rule__EMappingEntity__Group_7__34001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7_3__0_in_rule__EMappingEntity__Group_7__3__Impl4028 = new BitSet(new long[]{0x0000000000080002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7__4__Impl_in_rule__EMappingEntity__Group_7__44059 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__EMappingEntity__Group_7__4__Impl4087 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7_3__0__Impl_in_rule__EMappingEntity__Group_7_3__04128 = new BitSet(new long[]{0x000000000000C020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7_3__1_in_rule__EMappingEntity__Group_7_3__04131 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__EMappingEntity__Group_7_3__0__Impl4159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_7_3__1__Impl_in_rule__EMappingEntity__Group_7_3__14190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__NamedQueriesAssignment_7_3_1_in_rule__EMappingEntity__Group_7_3__1__Impl4217 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_9__0__Impl_in_rule__EMappingEntity__Group_9__04251 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_9__1_in_rule__EMappingEntity__Group_9__04254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__EMappingEntity__Group_9__0__Impl4282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__Group_9__1__Impl_in_rule__EMappingEntity__Group_9__14313 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__EMappingEntity__TableNameAssignment_9_1_in_rule__EMappingEntity__Group_9__1__Impl4340 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__EAttribute__Group__0__Impl_in_rule__EAttribute__Group__04374 = new BitSet(new long[]{0x0000040000000020L});
     public static final BitSet FOLLOW_rule__EAttribute__Group__1_in_rule__EAttribute__Group__04377 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__EAttribute__PkAssignment_0_in_rule__EAttribute__Group__0__Impl4404 = new BitSet(new long[]{0x0000000000000002L});
@@ -16781,11 +16781,11 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__EMappingEntity__ExtensionTypeAlternatives_3_0_0_in_rule__EMappingEntity__ExtensionTypeAssignment_3_09980 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_rule__EMappingEntity__ParentAssignment_3_110017 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleEType_in_rule__EMappingEntity__EtypeAssignment_510052 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_8_010083 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_8_1_110114 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_10_210145 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_10_3_110176 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__EMappingEntity__TableNameAssignment_12_110207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_6_210083 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleEAttribute_in_rule__EMappingEntity__AttributesAssignment_6_3_110114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_7_210145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleENamedQuery_in_rule__EMappingEntity__NamedQueriesAssignment_7_3_110176 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__EMappingEntity__TableNameAssignment_9_110207 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_42_in_rule__EAttribute__PkAssignment_010243 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__EAttribute__PropertyAssignment_110282 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__EAttribute__ColumnNameAssignment_3_0_010313 = new BitSet(new long[]{0x0000000000000002L});
