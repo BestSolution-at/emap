@@ -74,8 +74,8 @@
         <elements xsi:type="xtext:Keyword" value="import"/>
         <elements xsi:type="xtext:Assignment" feature="importedNamespace" operator="=">
           <terminal xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
             <elements xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
-            <elements xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
           </terminal>
         </elements>
       </alternatives>
@@ -87,7 +87,7 @@
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="package"/>
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -116,13 +116,13 @@
               <type metamodel="/0/@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://www.bestsolution.at/persistence/emap/EMap#//EMappingEntity"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
             </terminal>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
         <elements xsi:type="xtext:Assignment" feature="etype" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="attributes"/>
         <elements xsi:type="xtext:Keyword" value="{"/>
@@ -140,12 +140,12 @@
           <elements xsi:type="xtext:Keyword" value="queries"/>
           <elements xsi:type="xtext:Keyword" value="{"/>
           <elements xsi:type="xtext:Assignment" feature="namedQueries" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
           </elements>
           <elements xsi:type="xtext:Group" cardinality="*">
             <elements xsi:type="xtext:Keyword" value=","/>
             <elements xsi:type="xtext:Assignment" feature="namedQueries" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
             </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value="}"/>
@@ -177,26 +177,15 @@
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
             </elements>
             <elements xsi:type="xtext:Group" cardinality="?">
-              <elements xsi:type="xtext:Keyword" value="keygen"/>
+              <elements xsi:type="xtext:Keyword" value="generatedby"/>
               <elements xsi:type="xtext:Keyword" value="{"/>
-              <elements xsi:type="xtext:Assignment" feature="dbType" operator="=">
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+              <elements xsi:type="xtext:Assignment" feature="valueGenerators" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
               </elements>
-              <elements xsi:type="xtext:Alternatives">
-                <elements xsi:type="xtext:Assignment" feature="auto" operator="?=">
-                  <terminal xsi:type="xtext:Keyword" value="auto"/>
-                </elements>
-                <elements xsi:type="xtext:Group">
-                  <elements xsi:type="xtext:Keyword" value="query"/>
-                  <elements xsi:type="xtext:Assignment" feature="keygenquery" operator="=">
-                    <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
-                  </elements>
-                </elements>
-                <elements xsi:type="xtext:Group">
-                  <elements xsi:type="xtext:Keyword" value="seq"/>
-                  <elements xsi:type="xtext:Assignment" feature="sequence" operator="=">
-                    <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
-                  </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="valueGenerators" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
                 </elements>
               </elements>
               <elements xsi:type="xtext:Keyword" value="}"/>
@@ -211,7 +200,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.bestsolution.at/persistence/emap/EMap#//ENamedQuery"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
               </terminal>
             </elements>
             <elements xsi:type="xtext:Keyword" value="("/>
@@ -223,13 +212,40 @@
         </elements>
       </alternatives>
     </rules>
+    <rules xsi:type="xtext:ParserRule" name="EValueGenerator">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.bestsolution.at/persistence/emap/EMap#//EValueGenerator"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Assignment" feature="dbType" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+        </elements>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Assignment" feature="autokey" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="autokey"/>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="query"/>
+            <elements xsi:type="xtext:Assignment" feature="query" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="seqnext"/>
+            <elements xsi:type="xtext:Assignment" feature="sequence" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+            </elements>
+          </elements>
+        </elements>
+      </alternatives>
+    </rules>
     <rules xsi:type="xtext:ParserRule" name="ENamedQuery">
       <type metamodel="/0/@metamodelDeclarations.0">
         <classifier xsi:type="ecore:EClass" href="http://www.bestsolution.at/persistence/emap/EMap#//ENamedQuery"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="returnType" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.9"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
@@ -237,18 +253,18 @@
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Assignment" cardinality="*" feature="parameters" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.9"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
         <elements xsi:type="xtext:Assignment" feature="queries" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="queries" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="}"/>
@@ -294,7 +310,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="mapping" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
         </elements>
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:Group">
@@ -347,12 +363,12 @@
           <elements xsi:type="xtext:Group" cardinality="?">
             <elements xsi:type="xtext:Keyword" value="{"/>
             <elements xsi:type="xtext:Assignment" feature="attributes" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
             </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
               <elements xsi:type="xtext:Keyword" value=","/>
               <elements xsi:type="xtext:Assignment" feature="attributes" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
               </elements>
             </elements>
             <elements xsi:type="xtext:Keyword" value="}"/>
@@ -369,7 +385,7 @@
           <terminal xsi:type="xtext:Keyword" value="primarykey"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="property" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="=>"/>
         <elements xsi:type="xtext:Alternatives">
@@ -385,7 +401,7 @@
                 <type metamodel="/0/@metamodelDeclarations.0">
                   <classifier xsi:type="ecore:EClass" href="http://www.bestsolution.at/persistence/emap/EMap#//ENamedQuery"/>
                 </type>
-                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
               </terminal>
             </elements>
             <elements xsi:type="xtext:Keyword" value="("/>
@@ -399,7 +415,7 @@
               <terminal xsi:type="xtext:Keyword" value="map"/>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="map" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
             </elements>
           </elements>
         </elements>
@@ -437,7 +453,7 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
         <elements xsi:type="xtext:Keyword" value="."/>
         <elements xsi:type="xtext:Keyword" value="*"/>
       </alternatives>

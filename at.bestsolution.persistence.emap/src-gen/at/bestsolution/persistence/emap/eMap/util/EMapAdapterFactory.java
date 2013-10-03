@@ -110,6 +110,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEAttributeAdapter();
       }
       @Override
+      public Adapter caseEValueGenerator(EValueGenerator object)
+      {
+        return createEValueGeneratorAdapter();
+      }
+      @Override
       public Adapter caseENamedQuery(ENamedQuery object)
       {
         return createENamedQueryAdapter();
@@ -262,6 +267,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEAttributeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator <em>EValue Generator</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator
+   * @generated
+   */
+  public Adapter createEValueGeneratorAdapter()
   {
     return null;
   }

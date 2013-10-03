@@ -121,6 +121,13 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.EVALUE_GENERATOR:
+      {
+        EValueGenerator eValueGenerator = (EValueGenerator)theEObject;
+        T result = caseEValueGenerator(eValueGenerator);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.ENAMED_QUERY:
       {
         ENamedQuery eNamedQuery = (ENamedQuery)theEObject;
@@ -275,6 +282,22 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEAttribute(EAttribute object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EValue Generator</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EValue Generator</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEValueGenerator(EValueGenerator object)
   {
     return null;
   }

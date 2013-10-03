@@ -44,13 +44,16 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/pk"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/property"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/columnName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/dbType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/auto"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/keygenquery"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/sequence"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/valueGenerators"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/resolved"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/query"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EValueGenerator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/dbType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/autokey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/sequence"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ENamedQuery">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedQuery/returnType"/>

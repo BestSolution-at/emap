@@ -362,40 +362,13 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__COLUMN_NAME = 2;
 
   /**
-   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * The feature id for the '<em><b>Value Generators</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__DB_TYPE = 3;
-
-  /**
-   * The feature id for the '<em><b>Auto</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EATTRIBUTE__AUTO = 4;
-
-  /**
-   * The feature id for the '<em><b>Keygenquery</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EATTRIBUTE__KEYGENQUERY = 5;
-
-  /**
-   * The feature id for the '<em><b>Sequence</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EATTRIBUTE__SEQUENCE = 6;
+  int EATTRIBUTE__VALUE_GENERATORS = 3;
 
   /**
    * The feature id for the '<em><b>Resolved</b></em>' attribute.
@@ -404,7 +377,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__RESOLVED = 7;
+  int EATTRIBUTE__RESOLVED = 4;
 
   /**
    * The feature id for the '<em><b>Query</b></em>' reference.
@@ -413,7 +386,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__QUERY = 8;
+  int EATTRIBUTE__QUERY = 5;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -422,7 +395,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__PARAMETERS = 9;
+  int EATTRIBUTE__PARAMETERS = 6;
 
   /**
    * The number of structural features of the '<em>EAttribute</em>' class.
@@ -431,7 +404,62 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 10;
+  int EATTRIBUTE_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueGenerator()
+   * @generated
+   */
+  int EVALUE_GENERATOR = 7;
+
+  /**
+   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_GENERATOR__DB_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Autokey</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_GENERATOR__AUTOKEY = 1;
+
+  /**
+   * The feature id for the '<em><b>Query</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_GENERATOR__QUERY = 2;
+
+  /**
+   * The feature id for the '<em><b>Sequence</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_GENERATOR__SEQUENCE = 3;
+
+  /**
+   * The number of structural features of the '<em>EValue Generator</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_GENERATOR_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl <em>ENamed Query</em>}' class.
@@ -441,7 +469,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedQuery()
    * @generated
    */
-  int ENAMED_QUERY = 7;
+  int ENAMED_QUERY = 8;
 
   /**
    * The feature id for the '<em><b>Return Type</b></em>' attribute.
@@ -496,7 +524,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEParameter()
    * @generated
    */
-  int EPARAMETER = 8;
+  int EPARAMETER = 9;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -533,7 +561,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQuery()
    * @generated
    */
-  int EQUERY = 9;
+  int EQUERY = 10;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -615,7 +643,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEObjectSection()
    * @generated
    */
-  int EOBJECT_SECTION = 10;
+  int EOBJECT_SECTION = 11;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -661,7 +689,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingAttribute()
    * @generated
    */
-  int EMAPPING_ATTRIBUTE = 11;
+  int EMAPPING_ATTRIBUTE = 12;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -752,7 +780,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEType()
    * @generated
    */
-  int ETYPE = 12;
+  int ETYPE = 13;
 
   /**
    * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -789,7 +817,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 13;
+  int RETURN_TYPE = 14;
 
 
   /**
@@ -1083,48 +1111,15 @@ public interface EMapPackage extends EPackage
   EAttribute getEAttribute_ColumnName();
 
   /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getDbType <em>Db Type</em>}'.
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getValueGenerators <em>Value Generators</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Db Type</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getDbType()
+   * @return the meta object for the containment reference list '<em>Value Generators</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getValueGenerators()
    * @see #getEAttribute()
    * @generated
    */
-  EAttribute getEAttribute_DbType();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isAuto <em>Auto</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Auto</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#isAuto()
-   * @see #getEAttribute()
-   * @generated
-   */
-  EAttribute getEAttribute_Auto();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery <em>Keygenquery</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Keygenquery</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery()
-   * @see #getEAttribute()
-   * @generated
-   */
-  EAttribute getEAttribute_Keygenquery();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getSequence <em>Sequence</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Sequence</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getSequence()
-   * @see #getEAttribute()
-   * @generated
-   */
-  EAttribute getEAttribute_Sequence();
+  EReference getEAttribute_ValueGenerators();
 
   /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}'.
@@ -1158,6 +1153,60 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEAttribute_Parameters();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator <em>EValue Generator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EValue Generator</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator
+   * @generated
+   */
+  EClass getEValueGenerator();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator#getDbType <em>Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator#getDbType()
+   * @see #getEValueGenerator()
+   * @generated
+   */
+  EAttribute getEValueGenerator_DbType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator#isAutokey <em>Autokey</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Autokey</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator#isAutokey()
+   * @see #getEValueGenerator()
+   * @generated
+   */
+  EAttribute getEValueGenerator_Autokey();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator#getQuery <em>Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator#getQuery()
+   * @see #getEValueGenerator()
+   * @generated
+   */
+  EAttribute getEValueGenerator_Query();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator#getSequence <em>Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Sequence</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueGenerator#getSequence()
+   * @see #getEValueGenerator()
+   * @generated
+   */
+  EAttribute getEValueGenerator_Sequence();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ENamedQuery <em>ENamed Query</em>}'.
@@ -1769,36 +1818,12 @@ public interface EMapPackage extends EPackage
     EAttribute EATTRIBUTE__COLUMN_NAME = eINSTANCE.getEAttribute_ColumnName();
 
     /**
-     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Value Generators</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EATTRIBUTE__DB_TYPE = eINSTANCE.getEAttribute_DbType();
-
-    /**
-     * The meta object literal for the '<em><b>Auto</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EATTRIBUTE__AUTO = eINSTANCE.getEAttribute_Auto();
-
-    /**
-     * The meta object literal for the '<em><b>Keygenquery</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EATTRIBUTE__KEYGENQUERY = eINSTANCE.getEAttribute_Keygenquery();
-
-    /**
-     * The meta object literal for the '<em><b>Sequence</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EATTRIBUTE__SEQUENCE = eINSTANCE.getEAttribute_Sequence();
+    EReference EATTRIBUTE__VALUE_GENERATORS = eINSTANCE.getEAttribute_ValueGenerators();
 
     /**
      * The meta object literal for the '<em><b>Resolved</b></em>' attribute feature.
@@ -1823,6 +1848,48 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__PARAMETERS = eINSTANCE.getEAttribute_Parameters();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueGenerator()
+     * @generated
+     */
+    EClass EVALUE_GENERATOR = eINSTANCE.getEValueGenerator();
+
+    /**
+     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_GENERATOR__DB_TYPE = eINSTANCE.getEValueGenerator_DbType();
+
+    /**
+     * The meta object literal for the '<em><b>Autokey</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_GENERATOR__AUTOKEY = eINSTANCE.getEValueGenerator_Autokey();
+
+    /**
+     * The meta object literal for the '<em><b>Query</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_GENERATOR__QUERY = eINSTANCE.getEValueGenerator_Query();
+
+    /**
+     * The meta object literal for the '<em><b>Sequence</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_GENERATOR__SEQUENCE = eINSTANCE.getEValueGenerator_Sequence();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl <em>ENamed Query</em>}' class.

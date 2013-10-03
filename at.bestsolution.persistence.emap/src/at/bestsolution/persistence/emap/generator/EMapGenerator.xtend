@@ -21,6 +21,7 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import java.util.Map
 import java.util.HashMap
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
+import org.osgi.framework.FrameworkUtil
 
 /**
  * Generates code from your model files on save.
@@ -28,6 +29,7 @@ import at.bestsolution.persistence.emap.eMap.EMappingBundle
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class EMapGenerator implements IGenerator {
+	static Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val root = resource.contents.head as EMapping
@@ -118,37 +120,24 @@ class EMapGenerator implements IGenerator {
 	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
 		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
 	</resultMap>
-	<insert id="insert" parameterType="«eClass.instanceClassName»">
-		INSERT INTO «entityDef.tableName»
-		(
-			<trim suffixOverrides=','>
-				«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
-					«IF a.columnName != null»
-					«a.columnName»,
-					«ELSEIF a.isSingle(eClass)»
-					«a.parameters.head»,
-					«ENDIF»
-				«ENDFOR»
-			</trim>
-		)
-		VALUES
-		(
-			<trim suffixOverrides=','>
-				«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
-					«IF a.columnName != null»
-						#{«a.property»},
-					«ELSEIF a.isSingle(eClass)»
-						#{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},
-					«ENDIF»
-				«ENDFOR»
-			</trim>
-		)
-	</insert>
+	«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
+«««	is null if it is a extended object
+	«IF pkAttribute == null»
+		«generateInsert(entityDef,eClass,null,null)»
+	«ELSE»
+		«val dbSupport = pkAttribute.findDatabaseSupport»
+		«IF dbSupport != null»
+			«FOR d : dbSupport»
+				«generateInsert(entityDef,eClass,pkAttribute,d)»
+			«ENDFOR»
+		«ENDIF»
+	«ENDIF»
+	
 	<update id="update">
 		UPDATE
 			«entityDef.tableName»
 		<set>
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 					«a.columnName» = #{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
@@ -161,6 +150,77 @@ class EMapGenerator implements IGenerator {
 	</update>
 </mapper>
 	'''
+	
+	def static generateInsert(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
+	<insert id="insert" parameterType="«eClass.instanceClassName»" 
+		«IF dbSupport != null»databaseId="«dbSupport.databaseId»" «IF dbSupport.supportsGeneratedKeys»useGeneratedKeys="true" keyProperty="«pkAttribute.property»"«ENDIF»«ENDIF»>
+		«IF dbSupport != null»
+			«dbSupport.processInsert(pkAttribute,insertSQL(entityDef,eClass,pkAttribute,dbSupport).toString)»
+		«ELSE»
+			«insertSQL(entityDef,eClass,pkAttribute,dbSupport)»
+		«ENDIF»
+	</insert>
+	'''
+	
+	def static insertSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
+	«val gen = if(pkAttribute == null) null else pkAttribute.valueGenerators.findFirst[dbType==dbSupport.databaseId]»
+	INSERT INTO «entityDef.tableName»
+	(
+		<trim suffixOverrides=','>
+			«IF pkAttribute != null && gen.sequence != null»
+				«pkAttribute.columnName»,
+			«ENDIF»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
+				«IF a.columnName != null»
+				«a.columnName»,
+				«ELSEIF a.isSingle(eClass)»
+				«a.parameters.head»,
+				«ENDIF»
+			«ENDFOR»
+		</trim>
+	)
+	VALUES
+	(
+		<trim suffixOverrides=','>
+			«IF pkAttribute != null»
+				«IF gen.sequence != null»
+					«dbSupport.getSequenceStatement(pkAttribute)»,
+				«ENDIF»
+			«ENDIF»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
+				«IF a.columnName != null»
+					#{«a.property»},
+				«ELSEIF a.isSingle(eClass)»
+					#{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},
+				«ENDIF»
+			«ENDFOR»
+		</trim>
+	)
+	'''
+	
+	def static List<DatabaseSupport> findDatabaseSupport(EAttribute attribute) {
+		if( attribute == null ) {
+			return null;
+		}
+		val rv = new ArrayList
+		for( v : attribute.valueGenerators ) {
+			if( DB_SUPPORTS.containsKey(v.dbType) ) {
+				rv.add(DB_SUPPORTS.get(v.dbType))
+			} else {
+				val bundle = FrameworkUtil::getBundle(typeof(EMapGenerator))
+				val serviceRef = bundle.bundleContext.getServiceReferences(typeof(DatabaseSupport),null)
+				for( sr : serviceRef ) {
+					val s = bundle.bundleContext.getService(sr)
+					if( v.dbType == s.databaseId ) {
+						DB_SUPPORTS.put(v.dbType, s);
+						rv.add(s);	
+					}
+				}
+			}
+		}
+		
+		return rv;
+	}
 	
 	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 	«FOR a : attributes»

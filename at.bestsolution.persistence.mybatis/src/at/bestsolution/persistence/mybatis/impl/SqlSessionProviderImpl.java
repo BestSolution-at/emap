@@ -231,6 +231,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				}
 			}
 		};
+		cfg.setDatabaseId(environment.getDatabaseType());
 		final ObjectFactory objFactory = cfg.getObjectFactory();
 		cfg.setObjectFactory(new ObjectFactory() {
 			

@@ -72,6 +72,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
       case EMapPackage.EMAPPING_ENTITY: return createEMappingEntity();
       case EMapPackage.EATTRIBUTE: return createEAttribute();
+      case EMapPackage.EVALUE_GENERATOR: return createEValueGenerator();
       case EMapPackage.ENAMED_QUERY: return createENamedQuery();
       case EMapPackage.EPARAMETER: return createEParameter();
       case EMapPackage.EQUERY: return createEQuery();
@@ -192,6 +193,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EAttributeImpl eAttribute = new EAttributeImpl();
     return eAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EValueGenerator createEValueGenerator()
+  {
+    EValueGeneratorImpl eValueGenerator = new EValueGeneratorImpl();
+    return eValueGenerator;
   }
 
   /**

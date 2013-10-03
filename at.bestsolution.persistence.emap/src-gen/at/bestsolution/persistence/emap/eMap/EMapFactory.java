@@ -86,6 +86,15 @@ public interface EMapFactory extends EFactory
   EAttribute createEAttribute();
 
   /**
+   * Returns a new object of class '<em>EValue Generator</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EValue Generator</em>'.
+   * @generated
+   */
+  EValueGenerator createEValueGenerator();
+
+  /**
    * Returns a new object of class '<em>ENamed Query</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

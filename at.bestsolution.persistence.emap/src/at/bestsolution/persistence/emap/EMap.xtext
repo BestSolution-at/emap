@@ -40,7 +40,11 @@ EMappingEntity:
 ;
 
 EAttribute:
-	pk?='primarykey'? property=ID '=>' ( columnName=ID ('keygen' '{' dbType=STRING (auto?='auto' | 'query' keygenquery = STRING | 'seq' sequence = STRING ) '}')? | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+	pk?='primarykey'? property=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+;
+
+EValueGenerator:
+	dbType=STRING (autokey?='autokey' | 'query' query = STRING | 'seqnext' sequence = STRING )
 ;
 
 ENamedQuery:

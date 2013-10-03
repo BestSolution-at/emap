@@ -12,6 +12,7 @@ import at.bestsolution.persistence.emap.eMap.EObjectSection;
 import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EType;
+import at.bestsolution.persistence.emap.eMap.EValueGenerator;
 import at.bestsolution.persistence.emap.eMap.Import;
 import at.bestsolution.persistence.emap.eMap.PackageDeclaration;
 import at.bestsolution.persistence.emap.services.EMapGrammarAccess;
@@ -103,6 +104,12 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case EMapPackage.EVALUE_GENERATOR:
+				if(context == grammarAccess.getEValueGeneratorRule()) {
+					sequence_EValueGenerator(context, (EValueGenerator) semanticObject); 
+					return; 
+				}
+				else break;
 			case EMapPackage.IMPORT:
 				if(context == grammarAccess.getImportRule()) {
 					sequence_Import(context, (Import) semanticObject); 
@@ -125,7 +132,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         pk?='primarykey'? 
 	 *         property=ID 
 	 *         (
-	 *             (columnName=ID (dbType=STRING (auto?='auto' | keygenquery=STRING | sequence=STRING))?) | 
+	 *             (columnName=ID (valueGenerators+=EValueGenerator valueGenerators+=EValueGenerator*)?) | 
 	 *             (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID)
 	 *         )
 	 *     )
@@ -255,6 +262,15 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getETypeAccess().getUrlSTRINGTerminalRuleCall_1_0(), semanticObject.getUrl());
 		feeder.accept(grammarAccess.getETypeAccess().getNameIDTerminalRuleCall_3_0(), semanticObject.getName());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (dbType=STRING (autokey?='autokey' | query=STRING | sequence=STRING))
+	 */
+	protected void sequence_EValueGenerator(EObject context, EValueGenerator semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

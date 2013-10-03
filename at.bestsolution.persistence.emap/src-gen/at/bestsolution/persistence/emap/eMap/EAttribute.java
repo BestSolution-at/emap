@@ -17,10 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getProperty <em>Property</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getColumnName <em>Column Name</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getDbType <em>Db Type</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isAuto <em>Auto</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery <em>Keygenquery</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getSequence <em>Sequence</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getValueGenerators <em>Value Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getParameters <em>Parameters</em>}</li>
@@ -112,108 +109,20 @@ public interface EAttribute extends EObject
   void setColumnName(String value);
 
   /**
-   * Returns the value of the '<em><b>Db Type</b></em>' attribute.
+   * Returns the value of the '<em><b>Value Generators</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EValueGenerator}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Db Type</em>' attribute isn't clear,
+   * If the meaning of the '<em>Value Generators</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Db Type</em>' attribute.
-   * @see #setDbType(String)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_DbType()
-   * @model
+   * @return the value of the '<em>Value Generators</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_ValueGenerators()
+   * @model containment="true"
    * @generated
    */
-  String getDbType();
-
-  /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getDbType <em>Db Type</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Db Type</em>' attribute.
-   * @see #getDbType()
-   * @generated
-   */
-  void setDbType(String value);
-
-  /**
-   * Returns the value of the '<em><b>Auto</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Auto</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Auto</em>' attribute.
-   * @see #setAuto(boolean)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Auto()
-   * @model
-   * @generated
-   */
-  boolean isAuto();
-
-  /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isAuto <em>Auto</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Auto</em>' attribute.
-   * @see #isAuto()
-   * @generated
-   */
-  void setAuto(boolean value);
-
-  /**
-   * Returns the value of the '<em><b>Keygenquery</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Keygenquery</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Keygenquery</em>' attribute.
-   * @see #setKeygenquery(String)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Keygenquery()
-   * @model
-   * @generated
-   */
-  String getKeygenquery();
-
-  /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery <em>Keygenquery</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Keygenquery</em>' attribute.
-   * @see #getKeygenquery()
-   * @generated
-   */
-  void setKeygenquery(String value);
-
-  /**
-   * Returns the value of the '<em><b>Sequence</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Sequence</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Sequence</em>' attribute.
-   * @see #setSequence(String)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Sequence()
-   * @model
-   * @generated
-   */
-  String getSequence();
-
-  /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getSequence <em>Sequence</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Sequence</em>' attribute.
-   * @see #getSequence()
-   * @generated
-   */
-  void setSequence(String value);
+  EList<EValueGenerator> getValueGenerators();
 
   /**
    * Returns the value of the '<em><b>Resolved</b></em>' attribute.
