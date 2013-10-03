@@ -470,7 +470,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEAttribute_Resolved()
+  public EAttribute getEAttribute_DbType()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(3);
   }
@@ -480,9 +480,49 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEAttribute_Auto()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEAttribute_Keygenquery()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEAttribute_Sequence()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEAttribute_Resolved()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getEAttribute_Query()
   {
-    return (EReference)eAttributeEClass.getEStructuralFeatures().get(4);
+    return (EReference)eAttributeEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -492,7 +532,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEAttribute_Parameters()
   {
-    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -888,6 +928,10 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eAttributeEClass, EATTRIBUTE__PK);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PROPERTY);
     createEAttribute(eAttributeEClass, EATTRIBUTE__COLUMN_NAME);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__DB_TYPE);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__AUTO);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__KEYGENQUERY);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__SEQUENCE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__RESOLVED);
     createEReference(eAttributeEClass, EATTRIBUTE__QUERY);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PARAMETERS);
@@ -998,6 +1042,10 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEAttribute_Pk(), ecorePackage.getEBoolean(), "pk", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Property(), ecorePackage.getEString(), "property", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_ColumnName(), ecorePackage.getEString(), "columnName", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_Auto(), ecorePackage.getEBoolean(), "auto", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_Keygenquery(), ecorePackage.getEString(), "keygenquery", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_Sequence(), ecorePackage.getEString(), "sequence", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Resolved(), ecorePackage.getEBoolean(), "resolved", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEAttribute_Query(), this.getENamedQuery(), null, "query", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

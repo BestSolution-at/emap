@@ -40,7 +40,7 @@ EMappingEntity:
 ;
 
 EAttribute:
-	pk?='primarykey'? property=ID '=>' ( columnName=ID | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+	pk?='primarykey'? property=ID '=>' ( columnName=ID ('keygen' '{' dbType=STRING (auto?='auto' | 'query' keygenquery = STRING | 'seq' sequence = STRING ) '}')? | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
 ;
 
 ENamedQuery:
@@ -62,9 +62,10 @@ EQuery:
 ;
 
 EObjectSection:
+//	noreferences?='noreferences'? 
 	entity=[EMappingEntity|ID] (prefix=ID ('{'
 		attributes+=EMappingAttribute (',' attributes += EMappingAttribute)*
-	'}')?)?
+	'}')?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
 ;
 
 EMappingAttribute:

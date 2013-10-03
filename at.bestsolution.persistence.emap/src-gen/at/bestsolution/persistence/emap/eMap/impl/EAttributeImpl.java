@@ -30,6 +30,10 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getProperty <em>Property</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getColumnName <em>Column Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getDbType <em>Db Type</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isAuto <em>Auto</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getKeygenquery <em>Keygenquery</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getSequence <em>Sequence</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isResolved <em>Resolved</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getParameters <em>Parameters</em>}</li>
@@ -99,6 +103,86 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * @ordered
    */
   protected String columnName = COLUMN_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDbType() <em>Db Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbType()
+   * @generated
+   * @ordered
+   */
+  protected static final String DB_TYPE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDbType() <em>Db Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDbType()
+   * @generated
+   * @ordered
+   */
+  protected String dbType = DB_TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isAuto() <em>Auto</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAuto()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean AUTO_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAuto() <em>Auto</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAuto()
+   * @generated
+   * @ordered
+   */
+  protected boolean auto = AUTO_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getKeygenquery() <em>Keygenquery</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getKeygenquery()
+   * @generated
+   * @ordered
+   */
+  protected static final String KEYGENQUERY_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getKeygenquery() <em>Keygenquery</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getKeygenquery()
+   * @generated
+   * @ordered
+   */
+  protected String keygenquery = KEYGENQUERY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSequence() <em>Sequence</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSequence()
+   * @generated
+   * @ordered
+   */
+  protected static final String SEQUENCE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSequence() <em>Sequence</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSequence()
+   * @generated
+   * @ordered
+   */
+  protected String sequence = SEQUENCE_EDEFAULT;
 
   /**
    * The default value of the '{@link #isResolved() <em>Resolved</em>}' attribute.
@@ -235,6 +319,98 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDbType()
+  {
+    return dbType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDbType(String newDbType)
+  {
+    String oldDbType = dbType;
+    dbType = newDbType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__DB_TYPE, oldDbType, dbType));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAuto()
+  {
+    return auto;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAuto(boolean newAuto)
+  {
+    boolean oldAuto = auto;
+    auto = newAuto;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__AUTO, oldAuto, auto));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getKeygenquery()
+  {
+    return keygenquery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setKeygenquery(String newKeygenquery)
+  {
+    String oldKeygenquery = keygenquery;
+    keygenquery = newKeygenquery;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__KEYGENQUERY, oldKeygenquery, keygenquery));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getSequence()
+  {
+    return sequence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSequence(String newSequence)
+  {
+    String oldSequence = sequence;
+    sequence = newSequence;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__SEQUENCE, oldSequence, sequence));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isResolved()
   {
     return resolved;
@@ -326,6 +502,14 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return getProperty();
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return getColumnName();
+      case EMapPackage.EATTRIBUTE__DB_TYPE:
+        return getDbType();
+      case EMapPackage.EATTRIBUTE__AUTO:
+        return isAuto();
+      case EMapPackage.EATTRIBUTE__KEYGENQUERY:
+        return getKeygenquery();
+      case EMapPackage.EATTRIBUTE__SEQUENCE:
+        return getSequence();
       case EMapPackage.EATTRIBUTE__RESOLVED:
         return isResolved();
       case EMapPackage.EATTRIBUTE__QUERY:
@@ -356,6 +540,18 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return;
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName((String)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__DB_TYPE:
+        setDbType((String)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__AUTO:
+        setAuto((Boolean)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__KEYGENQUERY:
+        setKeygenquery((String)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__SEQUENCE:
+        setSequence((String)newValue);
         return;
       case EMapPackage.EATTRIBUTE__RESOLVED:
         setResolved((Boolean)newValue);
@@ -390,6 +586,18 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName(COLUMN_NAME_EDEFAULT);
         return;
+      case EMapPackage.EATTRIBUTE__DB_TYPE:
+        setDbType(DB_TYPE_EDEFAULT);
+        return;
+      case EMapPackage.EATTRIBUTE__AUTO:
+        setAuto(AUTO_EDEFAULT);
+        return;
+      case EMapPackage.EATTRIBUTE__KEYGENQUERY:
+        setKeygenquery(KEYGENQUERY_EDEFAULT);
+        return;
+      case EMapPackage.EATTRIBUTE__SEQUENCE:
+        setSequence(SEQUENCE_EDEFAULT);
+        return;
       case EMapPackage.EATTRIBUTE__RESOLVED:
         setResolved(RESOLVED_EDEFAULT);
         return;
@@ -419,6 +627,14 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return COLUMN_NAME_EDEFAULT == null ? columnName != null : !COLUMN_NAME_EDEFAULT.equals(columnName);
+      case EMapPackage.EATTRIBUTE__DB_TYPE:
+        return DB_TYPE_EDEFAULT == null ? dbType != null : !DB_TYPE_EDEFAULT.equals(dbType);
+      case EMapPackage.EATTRIBUTE__AUTO:
+        return auto != AUTO_EDEFAULT;
+      case EMapPackage.EATTRIBUTE__KEYGENQUERY:
+        return KEYGENQUERY_EDEFAULT == null ? keygenquery != null : !KEYGENQUERY_EDEFAULT.equals(keygenquery);
+      case EMapPackage.EATTRIBUTE__SEQUENCE:
+        return SEQUENCE_EDEFAULT == null ? sequence != null : !SEQUENCE_EDEFAULT.equals(sequence);
       case EMapPackage.EATTRIBUTE__RESOLVED:
         return resolved != RESOLVED_EDEFAULT;
       case EMapPackage.EATTRIBUTE__QUERY:
@@ -446,6 +662,14 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     result.append(property);
     result.append(", columnName: ");
     result.append(columnName);
+    result.append(", dbType: ");
+    result.append(dbType);
+    result.append(", auto: ");
+    result.append(auto);
+    result.append(", keygenquery: ");
+    result.append(keygenquery);
+    result.append(", sequence: ");
+    result.append(sequence);
     result.append(", resolved: ");
     result.append(resolved);
     result.append(", parameters: ");

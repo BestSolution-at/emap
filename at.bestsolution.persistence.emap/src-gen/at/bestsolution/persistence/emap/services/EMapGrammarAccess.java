@@ -405,8 +405,26 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPropertyIDTerminalRuleCall_1_0 = (RuleCall)cPropertyAssignment_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Assignment cColumnNameAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
-		private final RuleCall cColumnNameIDTerminalRuleCall_3_0_0 = (RuleCall)cColumnNameAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
+		private final Assignment cColumnNameAssignment_3_0_0 = (Assignment)cGroup_3_0.eContents().get(0);
+		private final RuleCall cColumnNameIDTerminalRuleCall_3_0_0_0 = (RuleCall)cColumnNameAssignment_3_0_0.eContents().get(0);
+		private final Group cGroup_3_0_1 = (Group)cGroup_3_0.eContents().get(1);
+		private final Keyword cKeygenKeyword_3_0_1_0 = (Keyword)cGroup_3_0_1.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_3_0_1_1 = (Keyword)cGroup_3_0_1.eContents().get(1);
+		private final Assignment cDbTypeAssignment_3_0_1_2 = (Assignment)cGroup_3_0_1.eContents().get(2);
+		private final RuleCall cDbTypeSTRINGTerminalRuleCall_3_0_1_2_0 = (RuleCall)cDbTypeAssignment_3_0_1_2.eContents().get(0);
+		private final Alternatives cAlternatives_3_0_1_3 = (Alternatives)cGroup_3_0_1.eContents().get(3);
+		private final Assignment cAutoAssignment_3_0_1_3_0 = (Assignment)cAlternatives_3_0_1_3.eContents().get(0);
+		private final Keyword cAutoAutoKeyword_3_0_1_3_0_0 = (Keyword)cAutoAssignment_3_0_1_3_0.eContents().get(0);
+		private final Group cGroup_3_0_1_3_1 = (Group)cAlternatives_3_0_1_3.eContents().get(1);
+		private final Keyword cQueryKeyword_3_0_1_3_1_0 = (Keyword)cGroup_3_0_1_3_1.eContents().get(0);
+		private final Assignment cKeygenqueryAssignment_3_0_1_3_1_1 = (Assignment)cGroup_3_0_1_3_1.eContents().get(1);
+		private final RuleCall cKeygenquerySTRINGTerminalRuleCall_3_0_1_3_1_1_0 = (RuleCall)cKeygenqueryAssignment_3_0_1_3_1_1.eContents().get(0);
+		private final Group cGroup_3_0_1_3_2 = (Group)cAlternatives_3_0_1_3.eContents().get(2);
+		private final Keyword cSeqKeyword_3_0_1_3_2_0 = (Keyword)cGroup_3_0_1_3_2.eContents().get(0);
+		private final Assignment cSequenceAssignment_3_0_1_3_2_1 = (Assignment)cGroup_3_0_1_3_2.eContents().get(1);
+		private final RuleCall cSequenceSTRINGTerminalRuleCall_3_0_1_3_2_1_0 = (RuleCall)cSequenceAssignment_3_0_1_3_2_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3_0_1_4 = (Keyword)cGroup_3_0_1.eContents().get(4);
 		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
 		private final Assignment cResolvedAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
 		private final Keyword cResolvedResolveKeyword_3_1_0_0 = (Keyword)cResolvedAssignment_3_1_0.eContents().get(0);
@@ -420,14 +438,16 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EAttribute:
 		//
-		//	pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
+		//	pk?="primarykey"? property=ID "=>" (columnName=ID ("keygen" "{" dbType=STRING (auto?="auto" | "query"
+		//
+		//	keygenquery=STRING | "seq" sequence=STRING) "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
 		//
 		//	parameters+=ID ")");
 		public ParserRule getRule() { return rule; }
 
-		//pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
+		//pk?="primarykey"? property=ID "=>" (columnName=ID ("keygen" "{" dbType=STRING (auto?="auto" | "query" keygenquery=STRING
 		//
-		//parameters+=ID ")")
+		//| "seq" sequence=STRING) "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")")
 		public Group getGroup() { return cGroup; }
 
 		//pk?="primarykey"?
@@ -445,14 +465,70 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//"=>"
 		public Keyword getEqualsSignGreaterThanSignKeyword_2() { return cEqualsSignGreaterThanSignKeyword_2; }
 
-		//columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
+		//columnName=ID ("keygen" "{" dbType=STRING (auto?="auto" | "query" keygenquery=STRING | "seq" sequence=STRING) "}")? |
+		//
+		//resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
+		//columnName=ID ("keygen" "{" dbType=STRING (auto?="auto" | "query" keygenquery=STRING | "seq" sequence=STRING) "}")?
+		public Group getGroup_3_0() { return cGroup_3_0; }
+
 		//columnName=ID
-		public Assignment getColumnNameAssignment_3_0() { return cColumnNameAssignment_3_0; }
+		public Assignment getColumnNameAssignment_3_0_0() { return cColumnNameAssignment_3_0_0; }
 
 		//ID
-		public RuleCall getColumnNameIDTerminalRuleCall_3_0_0() { return cColumnNameIDTerminalRuleCall_3_0_0; }
+		public RuleCall getColumnNameIDTerminalRuleCall_3_0_0_0() { return cColumnNameIDTerminalRuleCall_3_0_0_0; }
+
+		//("keygen" "{" dbType=STRING (auto?="auto" | "query" keygenquery=STRING | "seq" sequence=STRING) "}")?
+		public Group getGroup_3_0_1() { return cGroup_3_0_1; }
+
+		//"keygen"
+		public Keyword getKeygenKeyword_3_0_1_0() { return cKeygenKeyword_3_0_1_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_3_0_1_1() { return cLeftCurlyBracketKeyword_3_0_1_1; }
+
+		//dbType=STRING
+		public Assignment getDbTypeAssignment_3_0_1_2() { return cDbTypeAssignment_3_0_1_2; }
+
+		//STRING
+		public RuleCall getDbTypeSTRINGTerminalRuleCall_3_0_1_2_0() { return cDbTypeSTRINGTerminalRuleCall_3_0_1_2_0; }
+
+		//auto?="auto" | "query" keygenquery=STRING | "seq" sequence=STRING
+		public Alternatives getAlternatives_3_0_1_3() { return cAlternatives_3_0_1_3; }
+
+		//auto?="auto"
+		public Assignment getAutoAssignment_3_0_1_3_0() { return cAutoAssignment_3_0_1_3_0; }
+
+		//"auto"
+		public Keyword getAutoAutoKeyword_3_0_1_3_0_0() { return cAutoAutoKeyword_3_0_1_3_0_0; }
+
+		//"query" keygenquery=STRING
+		public Group getGroup_3_0_1_3_1() { return cGroup_3_0_1_3_1; }
+
+		//"query"
+		public Keyword getQueryKeyword_3_0_1_3_1_0() { return cQueryKeyword_3_0_1_3_1_0; }
+
+		//keygenquery=STRING
+		public Assignment getKeygenqueryAssignment_3_0_1_3_1_1() { return cKeygenqueryAssignment_3_0_1_3_1_1; }
+
+		//STRING
+		public RuleCall getKeygenquerySTRINGTerminalRuleCall_3_0_1_3_1_1_0() { return cKeygenquerySTRINGTerminalRuleCall_3_0_1_3_1_1_0; }
+
+		//"seq" sequence=STRING
+		public Group getGroup_3_0_1_3_2() { return cGroup_3_0_1_3_2; }
+
+		//"seq"
+		public Keyword getSeqKeyword_3_0_1_3_2_0() { return cSeqKeyword_3_0_1_3_2_0; }
+
+		//sequence=STRING
+		public Assignment getSequenceAssignment_3_0_1_3_2_1() { return cSequenceAssignment_3_0_1_3_2_1; }
+
+		//STRING
+		public RuleCall getSequenceSTRINGTerminalRuleCall_3_0_1_3_2_1_0() { return cSequenceSTRINGTerminalRuleCall_3_0_1_3_2_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3_0_1_4() { return cRightCurlyBracketKeyword_3_0_1_4; }
 
 		//resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")"
 		public Group getGroup_3_1() { return cGroup_3_1; }
@@ -731,14 +807,20 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAttributesEMappingAttributeParserRuleCall_1_1_2_1_0 = (RuleCall)cAttributesAssignment_1_1_2_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_1_1_3 = (Keyword)cGroup_1_1.eContents().get(3);
 		
-		//EObjectSection:
+		//EObjectSection: //	noreferences?='noreferences'? 
 		//
-		//	entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)?;
+		//	entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
+		//
+		//;
 		public ParserRule getRule() { return rule; }
 
-		//entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)?
+		////	noreferences?='noreferences'? 
+		//
+		//entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )?
 		public Group getGroup() { return cGroup; }
 
+		////	noreferences?='noreferences'? 
+		//
 		//entity=[EMappingEntity]
 		public Assignment getEntityAssignment_0() { return cEntityAssignment_0; }
 
@@ -1144,7 +1226,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EAttribute:
 	//
-	//	pk?="primarykey"? property=ID "=>" (columnName=ID | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
+	//	pk?="primarykey"? property=ID "=>" (columnName=ID ("keygen" "{" dbType=STRING (auto?="auto" | "query"
+	//
+	//	keygenquery=STRING | "seq" sequence=STRING) "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "("
 	//
 	//	parameters+=ID ")");
 	public EAttributeElements getEAttributeAccess() {
@@ -1201,9 +1285,11 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		return getEQueryAccess().getRule();
 	}
 
-	//EObjectSection:
+	//EObjectSection: //	noreferences?='noreferences'? 
 	//
-	//	entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)?;
+	//	entity=[EMappingEntity] (prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
+	//
+	//;
 	public EObjectSectionElements getEObjectSectionAccess() {
 		return (pEObjectSection != null) ? pEObjectSection : (pEObjectSection = new EObjectSectionElements());
 	}

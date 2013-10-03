@@ -709,11 +709,11 @@ ruleEAttribute returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getEAttributeAccess().getEqualsSignGreaterThanSignKeyword_2());
     }
-((
+(((
 (
 		lv_columnName_3_0=RULE_ID
 		{
-			newLeafNode(lv_columnName_3_0, grammarAccess.getEAttributeAccess().getColumnNameIDTerminalRuleCall_3_0_0()); 
+			newLeafNode(lv_columnName_3_0, grammarAccess.getEAttributeAccess().getColumnNameIDTerminalRuleCall_3_0_0_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -727,12 +727,103 @@ ruleEAttribute returns [EObject current=null]
 	    }
 
 )
+)(	otherlv_4='keygen' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getEAttributeAccess().getKeygenKeyword_3_0_1_0());
+    }
+	otherlv_5='{' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getEAttributeAccess().getLeftCurlyBracketKeyword_3_0_1_1());
+    }
+(
+(
+		lv_dbType_6_0=RULE_STRING
+		{
+			newLeafNode(lv_dbType_6_0, grammarAccess.getEAttributeAccess().getDbTypeSTRINGTerminalRuleCall_3_0_1_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"dbType",
+        		lv_dbType_6_0, 
+        		"STRING");
+	    }
+
 )
+)((
+(
+		lv_auto_7_0=	'auto' 
+    {
+        newLeafNode(lv_auto_7_0, grammarAccess.getEAttributeAccess().getAutoAutoKeyword_3_0_1_3_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed($current, "auto", true, "auto");
+	    }
+
+)
+)
+    |(	otherlv_8='query' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getEAttributeAccess().getQueryKeyword_3_0_1_3_1_0());
+    }
+(
+(
+		lv_keygenquery_9_0=RULE_STRING
+		{
+			newLeafNode(lv_keygenquery_9_0, grammarAccess.getEAttributeAccess().getKeygenquerySTRINGTerminalRuleCall_3_0_1_3_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"keygenquery",
+        		lv_keygenquery_9_0, 
+        		"STRING");
+	    }
+
+)
+))
+    |(	otherlv_10='seq' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getEAttributeAccess().getSeqKeyword_3_0_1_3_2_0());
+    }
+(
+(
+		lv_sequence_11_0=RULE_STRING
+		{
+			newLeafNode(lv_sequence_11_0, grammarAccess.getEAttributeAccess().getSequenceSTRINGTerminalRuleCall_3_0_1_3_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"sequence",
+        		lv_sequence_11_0, 
+        		"STRING");
+	    }
+
+)
+)))	otherlv_12='}' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getEAttributeAccess().getRightCurlyBracketKeyword_3_0_1_4());
+    }
+)?)
     |((
 (
-		lv_resolved_4_0=	'resolve' 
+		lv_resolved_13_0=	'resolve' 
     {
-        newLeafNode(lv_resolved_4_0, grammarAccess.getEAttributeAccess().getResolvedResolveKeyword_3_1_0_0());
+        newLeafNode(lv_resolved_13_0, grammarAccess.getEAttributeAccess().getResolvedResolveKeyword_3_1_0_0());
     }
  
 	    {
@@ -758,15 +849,15 @@ ruleEAttribute returns [EObject current=null]
 	    }
 
 )
-)	otherlv_6='(' 
+)	otherlv_15='(' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getEAttributeAccess().getLeftParenthesisKeyword_3_1_2());
+    	newLeafNode(otherlv_15, grammarAccess.getEAttributeAccess().getLeftParenthesisKeyword_3_1_2());
     }
 (
 (
-		lv_parameters_7_0=RULE_ID
+		lv_parameters_16_0=RULE_ID
 		{
-			newLeafNode(lv_parameters_7_0, grammarAccess.getEAttributeAccess().getParametersIDTerminalRuleCall_3_1_3_0()); 
+			newLeafNode(lv_parameters_16_0, grammarAccess.getEAttributeAccess().getParametersIDTerminalRuleCall_3_1_3_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -775,14 +866,14 @@ ruleEAttribute returns [EObject current=null]
        		addWithLastConsumed(
        			$current, 
        			"parameters",
-        		lv_parameters_7_0, 
+        		lv_parameters_16_0, 
         		"ID");
 	    }
 
 )
-)	otherlv_8=')' 
+)	otherlv_17=')' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getEAttributeAccess().getRightParenthesisKeyword_3_1_4());
+    	newLeafNode(otherlv_17, grammarAccess.getEAttributeAccess().getRightParenthesisKeyword_3_1_4());
     }
 )))
 ;

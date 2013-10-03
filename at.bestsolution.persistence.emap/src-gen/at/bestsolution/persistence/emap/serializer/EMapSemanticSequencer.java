@@ -121,7 +121,14 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (pk?='primarykey'? property=ID (columnName=ID | (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID)))
+	 *     (
+	 *         pk?='primarykey'? 
+	 *         property=ID 
+	 *         (
+	 *             (columnName=ID (dbType=STRING (auto?='auto' | keygenquery=STRING | sequence=STRING))?) | 
+	 *             (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID)
+	 *         )
+	 *     )
 	 */
 	protected void sequence_EAttribute(EObject context, EAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

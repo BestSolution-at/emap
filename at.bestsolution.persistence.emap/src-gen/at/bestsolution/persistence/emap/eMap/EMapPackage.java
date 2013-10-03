@@ -362,13 +362,49 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__COLUMN_NAME = 2;
 
   /**
+   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__DB_TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Auto</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__AUTO = 4;
+
+  /**
+   * The feature id for the '<em><b>Keygenquery</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__KEYGENQUERY = 5;
+
+  /**
+   * The feature id for the '<em><b>Sequence</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__SEQUENCE = 6;
+
+  /**
    * The feature id for the '<em><b>Resolved</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__RESOLVED = 3;
+  int EATTRIBUTE__RESOLVED = 7;
 
   /**
    * The feature id for the '<em><b>Query</b></em>' reference.
@@ -377,7 +413,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__QUERY = 4;
+  int EATTRIBUTE__QUERY = 8;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -386,7 +422,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__PARAMETERS = 5;
+  int EATTRIBUTE__PARAMETERS = 9;
 
   /**
    * The number of structural features of the '<em>EAttribute</em>' class.
@@ -395,7 +431,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 6;
+  int EATTRIBUTE_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl <em>ENamed Query</em>}' class.
@@ -1047,6 +1083,50 @@ public interface EMapPackage extends EPackage
   EAttribute getEAttribute_ColumnName();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getDbType <em>Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getDbType()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_DbType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isAuto <em>Auto</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Auto</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#isAuto()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_Auto();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery <em>Keygenquery</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Keygenquery</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getKeygenquery()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_Keygenquery();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getSequence <em>Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Sequence</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getSequence()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_Sequence();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1687,6 +1767,38 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__COLUMN_NAME = eINSTANCE.getEAttribute_ColumnName();
+
+    /**
+     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__DB_TYPE = eINSTANCE.getEAttribute_DbType();
+
+    /**
+     * The meta object literal for the '<em><b>Auto</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__AUTO = eINSTANCE.getEAttribute_Auto();
+
+    /**
+     * The meta object literal for the '<em><b>Keygenquery</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__KEYGENQUERY = eINSTANCE.getEAttribute_Keygenquery();
+
+    /**
+     * The meta object literal for the '<em><b>Sequence</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__SEQUENCE = eINSTANCE.getEAttribute_Sequence();
 
     /**
      * The meta object literal for the '<em><b>Resolved</b></em>' attribute feature.

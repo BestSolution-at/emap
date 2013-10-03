@@ -32,4 +32,5 @@ Export-Package: at.bestsolution.persistence.emap,
  at.bestsolution.persistence.emap.scoping,
  at.bestsolution.persistence.emap.generator,
  at.bestsolution.persistence.emap.formatting
+Service-Component: OSGI-INF/services/firebirdsupport.xml
 

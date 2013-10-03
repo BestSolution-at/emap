@@ -77,7 +77,7 @@ class EMapGenerator implements IGenerator {
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
 	
-	public interface «entityDef.entity.name»Mapper {
+	public interface «entityDef.entity.name»Mapper extends at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»> {
 		«FOR query : entityDef.entity.namedQueries»
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»
@@ -152,7 +152,7 @@ class EMapGenerator implements IGenerator {
 				«IF a.columnName != null»
 					«a.columnName» = #{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
-					<if test="_isModified_«a.property»">«a.parameters.head» = #{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},</if>
+					<if test="_isResolved_«a.property»">«a.parameters.head» = #{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},</if>
 				«ENDIF»
 			«ENDFOR»
 		</set>

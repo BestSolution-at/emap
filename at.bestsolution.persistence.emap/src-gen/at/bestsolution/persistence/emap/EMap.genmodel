@@ -44,6 +44,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/pk"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/property"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/columnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/dbType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/auto"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/keygenquery"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/sequence"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/resolved"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/query"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
