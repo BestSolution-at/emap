@@ -1,2 +1,4 @@
 /.FirebirdDatabaseSupport.java._trace
 /.MSSQLServerDatabaseSupport.java._trace
+/FirebirdDatabaseSupport.java
+/MSSQLServerDatabaseSupport.java
