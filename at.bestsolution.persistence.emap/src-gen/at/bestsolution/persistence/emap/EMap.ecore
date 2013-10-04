@@ -12,6 +12,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="entities" unique="false"
         upperBound="-1" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="databases" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMappingEntityDef">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" eType="#//PackageDeclaration"
@@ -85,6 +87,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EObjectSection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="descriminatedTypes" unique="false"
+        upperBound="-1" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="descrimatorColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//EMappingAttribute" containment="true"/>

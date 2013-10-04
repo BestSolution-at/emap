@@ -10,9 +10,9 @@ class EcoreToEMapGenerator {
 	}
 	
 	def generate() '''
-	package «eclass.packageName»;
+	package Â«eclass.packageNameÂ»;
 	
-	«IF eclass.abstract»abstract«ENDIF» entity «eclass.name»«IF ! eclass.ESuperTypes.empty» derives «eclass.ESuperTypes.head.name»«ENDIF» {
+	Â«IF eclass.abstractÂ»abstractÂ«ENDIFÂ» entity Â«eclass.nameÂ»Â«IF ! eclass.ESuperTypes.emptyÂ» derives Â«eclass.ESuperTypes.head.nameÂ»Â«ENDIFÂ» {
 	}
 	'''
 	

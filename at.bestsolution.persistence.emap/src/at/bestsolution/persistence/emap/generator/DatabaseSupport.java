@@ -1,10 +1,15 @@
 package at.bestsolution.persistence.emap.generator;
 
+import org.eclipse.emf.ecore.EDataType;
+
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 
-public interface DatabaseSupport {
-	public String getDatabaseId();
-	public boolean supportsGeneratedKeys();
-	public String getSequenceStatement(EAttribute primaryKey);
-	public String processInsert(EAttribute primaryKey, String insert);
+public abstract class DatabaseSupport {
+	public abstract String getDatabaseId();
+	public abstract boolean supportsGeneratedKeys();
+	public abstract String getSequenceStatement(EAttribute primaryKey);
+	public abstract String processInsert(EAttribute primaryKey, String insert);
+	public abstract String getDatabaseType(EDataType dataType);
+	public abstract String getAutokeyDefinition(EAttribute primaryKey); 
+	public abstract boolean isPrimaryKeyPartOfColDef(EAttribute primaryKey);
 }

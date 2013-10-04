@@ -31,7 +31,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     try
     {
-      EMapFactory theEMapFactory = (EMapFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.bestsolution.at/persistence/emap/EMap"); 
+      EMapFactory theEMapFactory = (EMapFactory)EPackage.Registry.INSTANCE.getEFactory(EMapPackage.eNS_URI);
       if (theEMapFactory != null)
       {
         return theEMapFactory;

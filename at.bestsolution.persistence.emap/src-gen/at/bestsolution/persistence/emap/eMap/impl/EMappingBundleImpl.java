@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -34,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getEntities <em>Entities</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getDatabases <em>Databases</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,6 +82,16 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EList<EMappingEntity> entities;
+
+  /**
+   * The cached value of the '{@link #getDatabases() <em>Databases</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDatabases()
+   * @generated
+   * @ordered
+   */
+  protected EList<String> databases;
 
   /**
    * <!-- begin-user-doc -->
@@ -158,6 +170,20 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<String> getDatabases()
+  {
+    if (databases == null)
+    {
+      databases = new EDataTypeEList<String>(String.class, this, EMapPackage.EMAPPING_BUNDLE__DATABASES);
+    }
+    return databases;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -185,6 +211,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return getName();
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         return getEntities();
+      case EMapPackage.EMAPPING_BUNDLE__DATABASES:
+        return getDatabases();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -211,6 +239,10 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         getEntities().clear();
         getEntities().addAll((Collection<? extends EMappingEntity>)newValue);
         return;
+      case EMapPackage.EMAPPING_BUNDLE__DATABASES:
+        getDatabases().clear();
+        getDatabases().addAll((Collection<? extends String>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -234,6 +266,9 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         getEntities().clear();
         return;
+      case EMapPackage.EMAPPING_BUNDLE__DATABASES:
+        getDatabases().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -254,6 +289,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         return entities != null && !entities.isEmpty();
+      case EMapPackage.EMAPPING_BUNDLE__DATABASES:
+        return databases != null && !databases.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -271,6 +308,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", databases: ");
+    result.append(databases);
     result.append(')');
     return result.toString();
   }

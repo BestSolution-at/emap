@@ -4,7 +4,7 @@
     editorDirectory="/at.bestsolution.persistence.emap.editor/src" modelPluginID="at.bestsolution.persistence.emap"
     forceOverwrite="true" modelName="EMap" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="at.bestsolution.persistence.emap.edit"
-    editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.8">
+    editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.9">
   <genPackages prefix="EMap" basePackage="at.bestsolution.persistence.emap" disposableProviderFactory="true"
       fileExtensions="emap" ecorePackage="EMap.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMap.ecore#//ReturnType">
@@ -18,6 +18,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/imports"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/entities"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/databases"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EMappingEntityDef">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/package"/>
@@ -76,6 +77,8 @@
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EObjectSection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/entity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/descriminatedTypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EObjectSection/descrimatorColumn"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EObjectSection/prefix"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/attributes"/>
     </genClasses>

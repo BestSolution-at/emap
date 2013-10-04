@@ -9,7 +9,7 @@ EMappingBundle:
 	imports+=Import*
 	'bundle' name=ID '{'
 		entities += [EMappingEntity|ID] (',' entities += [EMappingEntity|ID])*
-	'}'
+	'}' ('databases' databases+=STRING (',' databases+=STRING)*)?
 ;
 
 EMappingEntityDef:
@@ -67,7 +67,7 @@ EQuery:
 
 EObjectSection:
 //	noreferences?='noreferences'? 
-	entity=[EMappingEntity|ID] (prefix=ID ('{'
+	entity=[EMappingEntity|ID] ('(' descriminatedTypes+=[EMappingEntity|ID] (',' descriminatedTypes+=[EMappingEntity|ID])+ 'descriminatedby' descrimatorColumn=ID ')')? (prefix=ID ('{'
 		attributes+=EMappingAttribute (',' attributes += EMappingAttribute)*
 	'}')?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
 ;

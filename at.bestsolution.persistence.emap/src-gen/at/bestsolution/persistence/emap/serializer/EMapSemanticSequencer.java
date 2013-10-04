@@ -157,7 +157,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (imports+=Import* name=ID entities+=[EMappingEntity|ID] entities+=[EMappingEntity|ID]*)
+	 *     (imports+=Import* name=ID entities+=[EMappingEntity|ID] entities+=[EMappingEntity|ID]* (databases+=STRING databases+=STRING*)?)
 	 */
 	protected void sequence_EMappingBundle(EObject context, EMappingBundle semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -210,7 +210,11 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (entity=[EMappingEntity|ID] (prefix=ID (attributes+=EMappingAttribute attributes+=EMappingAttribute*)?)?)
+	 *     (
+	 *         entity=[EMappingEntity|ID] 
+	 *         (descriminatedTypes+=[EMappingEntity|ID] descriminatedTypes+=[EMappingEntity|ID]+ descrimatorColumn=ID)? 
+	 *         (prefix=ID (attributes+=EMappingAttribute attributes+=EMappingAttribute*)?)?
+	 *     )
 	 */
 	protected void sequence_EObjectSection(EObject context, EObjectSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

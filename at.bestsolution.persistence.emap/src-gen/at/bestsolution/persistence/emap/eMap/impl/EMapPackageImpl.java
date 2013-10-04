@@ -268,6 +268,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEMappingBundle_Databases()
+  {
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getEMappingEntityDef()
   {
     return eMappingEntityDefEClass;
@@ -748,9 +758,29 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getEObjectSection_DescriminatedTypes()
+  {
+    return (EReference)eObjectSectionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEObjectSection_DescrimatorColumn()
+  {
+    return (EAttribute)eObjectSectionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getEObjectSection_Prefix()
   {
-    return (EAttribute)eObjectSectionEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)eObjectSectionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -760,7 +790,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EReference getEObjectSection_Attributes()
   {
-    return (EReference)eObjectSectionEClass.getEStructuralFeatures().get(2);
+    return (EReference)eObjectSectionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -930,6 +960,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__IMPORTS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__NAME);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__ENTITIES);
+    createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__DATABASES);
 
     eMappingEntityDefEClass = createEClass(EMAPPING_ENTITY_DEF);
     createEReference(eMappingEntityDefEClass, EMAPPING_ENTITY_DEF__PACKAGE);
@@ -988,6 +1019,8 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     eObjectSectionEClass = createEClass(EOBJECT_SECTION);
     createEReference(eObjectSectionEClass, EOBJECT_SECTION__ENTITY);
+    createEReference(eObjectSectionEClass, EOBJECT_SECTION__DESCRIMINATED_TYPES);
+    createEAttribute(eObjectSectionEClass, EOBJECT_SECTION__DESCRIMATOR_COLUMN);
     createEAttribute(eObjectSectionEClass, EOBJECT_SECTION__PREFIX);
     createEReference(eObjectSectionEClass, EOBJECT_SECTION__ATTRIBUTES);
 
@@ -1047,6 +1080,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEMappingBundle_Imports(), this.getImport(), null, "imports", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Name(), ecorePackage.getEString(), "name", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_Entities(), this.getEMappingEntity(), null, "entities", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEMappingBundle_Databases(), ecorePackage.getEString(), "databases", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eMappingEntityDefEClass, EMappingEntityDef.class, "EMappingEntityDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMappingEntityDef_Package(), this.getPackageDeclaration(), null, "package", null, 0, 1, EMappingEntityDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1105,6 +1139,8 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     initEClass(eObjectSectionEClass, EObjectSection.class, "EObjectSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEObjectSection_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEObjectSection_DescriminatedTypes(), this.getEMappingEntity(), null, "descriminatedTypes", null, 0, -1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEObjectSection_DescrimatorColumn(), ecorePackage.getEString(), "descrimatorColumn", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEObjectSection_Prefix(), ecorePackage.getEString(), "prefix", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEObjectSection_Attributes(), this.getEMappingAttribute(), null, "attributes", null, 0, -1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

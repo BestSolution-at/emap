@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities <em>Entities</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getDatabases <em>Databases</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,5 +84,21 @@ public interface EMappingBundle extends EObject
    * @generated
    */
   EList<EMappingEntity> getEntities();
+
+  /**
+   * Returns the value of the '<em><b>Databases</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Databases</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Databases</em>' attribute list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_Databases()
+   * @model unique="false"
+   * @generated
+   */
+  EList<String> getDatabases();
 
 } // EMappingBundle

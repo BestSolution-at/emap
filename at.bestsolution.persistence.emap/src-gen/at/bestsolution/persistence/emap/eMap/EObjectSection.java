@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getEntity <em>Entity</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getDescriminatedTypes <em>Descriminated Types</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getDescrimatorColumn <em>Descrimator Column</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getAttributes <em>Attributes</em>}</li>
  * </ul>
@@ -51,6 +53,48 @@ public interface EObjectSection extends EObject
    * @generated
    */
   void setEntity(EMappingEntity value);
+
+  /**
+   * Returns the value of the '<em><b>Descriminated Types</b></em>' reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EMappingEntity}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Descriminated Types</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Descriminated Types</em>' reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEObjectSection_DescriminatedTypes()
+   * @model
+   * @generated
+   */
+  EList<EMappingEntity> getDescriminatedTypes();
+
+  /**
+   * Returns the value of the '<em><b>Descrimator Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Descrimator Column</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Descrimator Column</em>' attribute.
+   * @see #setDescrimatorColumn(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEObjectSection_DescrimatorColumn()
+   * @model
+   * @generated
+   */
+  String getDescrimatorColumn();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getDescrimatorColumn <em>Descrimator Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Descrimator Column</em>' attribute.
+   * @see #getDescrimatorColumn()
+   * @generated
+   */
+  void setDescrimatorColumn(String value);
 
   /**
    * Returns the value of the '<em><b>Prefix</b></em>' attribute.

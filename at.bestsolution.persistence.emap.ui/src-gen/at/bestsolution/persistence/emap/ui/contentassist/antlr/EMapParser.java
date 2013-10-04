@@ -48,6 +48,8 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReturnTypeAccess().getAlternatives(), "rule__ReturnType__Alternatives");
 					put(grammarAccess.getEMappingBundleAccess().getGroup(), "rule__EMappingBundle__Group__0");
 					put(grammarAccess.getEMappingBundleAccess().getGroup_5(), "rule__EMappingBundle__Group_5__0");
+					put(grammarAccess.getEMappingBundleAccess().getGroup_7(), "rule__EMappingBundle__Group_7__0");
+					put(grammarAccess.getEMappingBundleAccess().getGroup_7_2(), "rule__EMappingBundle__Group_7_2__0");
 					put(grammarAccess.getEMappingEntityDefAccess().getGroup(), "rule__EMappingEntityDef__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
 					put(grammarAccess.getPackageDeclarationAccess().getGroup(), "rule__PackageDeclaration__Group__0");
@@ -77,8 +79,10 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQueryAccess().getGroup_2_0_4(), "rule__EQuery__Group_2_0_4__0");
 					put(grammarAccess.getEObjectSectionAccess().getGroup(), "rule__EObjectSection__Group__0");
 					put(grammarAccess.getEObjectSectionAccess().getGroup_1(), "rule__EObjectSection__Group_1__0");
-					put(grammarAccess.getEObjectSectionAccess().getGroup_1_1(), "rule__EObjectSection__Group_1_1__0");
-					put(grammarAccess.getEObjectSectionAccess().getGroup_1_1_2(), "rule__EObjectSection__Group_1_1_2__0");
+					put(grammarAccess.getEObjectSectionAccess().getGroup_1_2(), "rule__EObjectSection__Group_1_2__0");
+					put(grammarAccess.getEObjectSectionAccess().getGroup_2(), "rule__EObjectSection__Group_2__0");
+					put(grammarAccess.getEObjectSectionAccess().getGroup_2_1(), "rule__EObjectSection__Group_2_1__0");
+					put(grammarAccess.getEObjectSectionAccess().getGroup_2_1_2(), "rule__EObjectSection__Group_2_1_2__0");
 					put(grammarAccess.getEMappingAttributeAccess().getGroup(), "rule__EMappingAttribute__Group__0");
 					put(grammarAccess.getEMappingAttributeAccess().getGroup_3_1(), "rule__EMappingAttribute__Group_3_1__0");
 					put(grammarAccess.getEMappingAttributeAccess().getGroup_3_2(), "rule__EMappingAttribute__Group_3_2__0");
@@ -91,6 +95,8 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingBundleAccess().getNameAssignment_2(), "rule__EMappingBundle__NameAssignment_2");
 					put(grammarAccess.getEMappingBundleAccess().getEntitiesAssignment_4(), "rule__EMappingBundle__EntitiesAssignment_4");
 					put(grammarAccess.getEMappingBundleAccess().getEntitiesAssignment_5_1(), "rule__EMappingBundle__EntitiesAssignment_5_1");
+					put(grammarAccess.getEMappingBundleAccess().getDatabasesAssignment_7_1(), "rule__EMappingBundle__DatabasesAssignment_7_1");
+					put(grammarAccess.getEMappingBundleAccess().getDatabasesAssignment_7_2_1(), "rule__EMappingBundle__DatabasesAssignment_7_2_1");
 					put(grammarAccess.getEMappingEntityDefAccess().getPackageAssignment_0(), "rule__EMappingEntityDef__PackageAssignment_0");
 					put(grammarAccess.getEMappingEntityDefAccess().getImportsAssignment_1(), "rule__EMappingEntityDef__ImportsAssignment_1");
 					put(grammarAccess.getEMappingEntityDefAccess().getEntityAssignment_2(), "rule__EMappingEntityDef__EntityAssignment_2");
@@ -133,9 +139,12 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEQueryAccess().getOrderbyAssignment_2_0_4_1(), "rule__EQuery__OrderbyAssignment_2_0_4_1");
 					put(grammarAccess.getEQueryAccess().getAllAssignment_2_1(), "rule__EQuery__AllAssignment_2_1");
 					put(grammarAccess.getEObjectSectionAccess().getEntityAssignment_0(), "rule__EObjectSection__EntityAssignment_0");
-					put(grammarAccess.getEObjectSectionAccess().getPrefixAssignment_1_0(), "rule__EObjectSection__PrefixAssignment_1_0");
-					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_1_1_1(), "rule__EObjectSection__AttributesAssignment_1_1_1");
-					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_1_1_2_1(), "rule__EObjectSection__AttributesAssignment_1_1_2_1");
+					put(grammarAccess.getEObjectSectionAccess().getDescriminatedTypesAssignment_1_1(), "rule__EObjectSection__DescriminatedTypesAssignment_1_1");
+					put(grammarAccess.getEObjectSectionAccess().getDescriminatedTypesAssignment_1_2_1(), "rule__EObjectSection__DescriminatedTypesAssignment_1_2_1");
+					put(grammarAccess.getEObjectSectionAccess().getDescrimatorColumnAssignment_1_4(), "rule__EObjectSection__DescrimatorColumnAssignment_1_4");
+					put(grammarAccess.getEObjectSectionAccess().getPrefixAssignment_2_0(), "rule__EObjectSection__PrefixAssignment_2_0");
+					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_2_1_1(), "rule__EObjectSection__AttributesAssignment_2_1_1");
+					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_2_1_2_1(), "rule__EObjectSection__AttributesAssignment_2_1_2_1");
 					put(grammarAccess.getEMappingAttributeAccess().getPkAssignment_0(), "rule__EMappingAttribute__PkAssignment_0");
 					put(grammarAccess.getEMappingAttributeAccess().getPropertyAssignment_1(), "rule__EMappingAttribute__PropertyAssignment_1");
 					put(grammarAccess.getEMappingAttributeAccess().getColumnNameAssignment_3_0(), "rule__EMappingAttribute__ColumnNameAssignment_3_0");

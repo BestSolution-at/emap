@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -31,6 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getEntity <em>Entity</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getDescriminatedTypes <em>Descriminated Types</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getDescrimatorColumn <em>Descrimator Column</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
@@ -49,6 +52,36 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EMappingEntity entity;
+
+  /**
+   * The cached value of the '{@link #getDescriminatedTypes() <em>Descriminated Types</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescriminatedTypes()
+   * @generated
+   * @ordered
+   */
+  protected EList<EMappingEntity> descriminatedTypes;
+
+  /**
+   * The default value of the '{@link #getDescrimatorColumn() <em>Descrimator Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescrimatorColumn()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIMATOR_COLUMN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescrimatorColumn() <em>Descrimator Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescrimatorColumn()
+   * @generated
+   * @ordered
+   */
+  protected String descrimatorColumn = DESCRIMATOR_COLUMN_EDEFAULT;
 
   /**
    * The default value of the '{@link #getPrefix() <em>Prefix</em>}' attribute.
@@ -149,6 +182,43 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EMappingEntity> getDescriminatedTypes()
+  {
+    if (descriminatedTypes == null)
+    {
+      descriminatedTypes = new EObjectResolvingEList<EMappingEntity>(EMappingEntity.class, this, EMapPackage.EOBJECT_SECTION__DESCRIMINATED_TYPES);
+    }
+    return descriminatedTypes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getDescrimatorColumn()
+  {
+    return descrimatorColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescrimatorColumn(String newDescrimatorColumn)
+  {
+    String oldDescrimatorColumn = descrimatorColumn;
+    descrimatorColumn = newDescrimatorColumn;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EOBJECT_SECTION__DESCRIMATOR_COLUMN, oldDescrimatorColumn, descrimatorColumn));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getPrefix()
   {
     return prefix;
@@ -210,6 +280,10 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EOBJECT_SECTION__ENTITY:
         if (resolve) return getEntity();
         return basicGetEntity();
+      case EMapPackage.EOBJECT_SECTION__DESCRIMINATED_TYPES:
+        return getDescriminatedTypes();
+      case EMapPackage.EOBJECT_SECTION__DESCRIMATOR_COLUMN:
+        return getDescrimatorColumn();
       case EMapPackage.EOBJECT_SECTION__PREFIX:
         return getPrefix();
       case EMapPackage.EOBJECT_SECTION__ATTRIBUTES:
@@ -231,6 +305,13 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
     {
       case EMapPackage.EOBJECT_SECTION__ENTITY:
         setEntity((EMappingEntity)newValue);
+        return;
+      case EMapPackage.EOBJECT_SECTION__DESCRIMINATED_TYPES:
+        getDescriminatedTypes().clear();
+        getDescriminatedTypes().addAll((Collection<? extends EMappingEntity>)newValue);
+        return;
+      case EMapPackage.EOBJECT_SECTION__DESCRIMATOR_COLUMN:
+        setDescrimatorColumn((String)newValue);
         return;
       case EMapPackage.EOBJECT_SECTION__PREFIX:
         setPrefix((String)newValue);
@@ -256,6 +337,12 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EOBJECT_SECTION__ENTITY:
         setEntity((EMappingEntity)null);
         return;
+      case EMapPackage.EOBJECT_SECTION__DESCRIMINATED_TYPES:
+        getDescriminatedTypes().clear();
+        return;
+      case EMapPackage.EOBJECT_SECTION__DESCRIMATOR_COLUMN:
+        setDescrimatorColumn(DESCRIMATOR_COLUMN_EDEFAULT);
+        return;
       case EMapPackage.EOBJECT_SECTION__PREFIX:
         setPrefix(PREFIX_EDEFAULT);
         return;
@@ -278,6 +365,10 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
     {
       case EMapPackage.EOBJECT_SECTION__ENTITY:
         return entity != null;
+      case EMapPackage.EOBJECT_SECTION__DESCRIMINATED_TYPES:
+        return descriminatedTypes != null && !descriminatedTypes.isEmpty();
+      case EMapPackage.EOBJECT_SECTION__DESCRIMATOR_COLUMN:
+        return DESCRIMATOR_COLUMN_EDEFAULT == null ? descrimatorColumn != null : !DESCRIMATOR_COLUMN_EDEFAULT.equals(descrimatorColumn);
       case EMapPackage.EOBJECT_SECTION__PREFIX:
         return PREFIX_EDEFAULT == null ? prefix != null : !PREFIX_EDEFAULT.equals(prefix);
       case EMapPackage.EOBJECT_SECTION__ATTRIBUTES:
@@ -297,7 +388,9 @@ public class EObjectSectionImpl extends MinimalEObjectImpl.Container implements 
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (prefix: ");
+    result.append(" (descrimatorColumn: ");
+    result.append(descrimatorColumn);
+    result.append(", prefix: ");
     result.append(prefix);
     result.append(')');
     return result.toString();

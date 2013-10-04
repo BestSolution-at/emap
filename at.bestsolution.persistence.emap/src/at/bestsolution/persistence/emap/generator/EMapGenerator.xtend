@@ -43,6 +43,9 @@ class EMapGenerator implements IGenerator {
 		} else {
 			val bundleDef = root.root as EMappingBundle
 			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
+			for( d : bundleDef.databases ) {
+				fsa.generateFile("ddls/create_"+d+".sql",DDLGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
+			}
 		}
 	}
 	
@@ -203,22 +206,29 @@ class EMapGenerator implements IGenerator {
 		}
 		val rv = new ArrayList
 		for( v : attribute.valueGenerators ) {
-			if( DB_SUPPORTS.containsKey(v.dbType) ) {
-				rv.add(DB_SUPPORTS.get(v.dbType))
-			} else {
-				val bundle = FrameworkUtil::getBundle(typeof(EMapGenerator))
-				val serviceRef = bundle.bundleContext.getServiceReferences(typeof(DatabaseSupport),null)
-				for( sr : serviceRef ) {
-					val s = bundle.bundleContext.getService(sr)
-					if( v.dbType == s.databaseId ) {
-						DB_SUPPORTS.put(v.dbType, s);
-						rv.add(s);	
-					}
-				}
+			val s = getDatabaseSupport(v.dbType)
+			if( s != null ) {
+				rv.add(s);
 			}
 		}
 		
 		return rv;
+	}
+	
+	def static getDatabaseSupport(String name) {
+		if( DB_SUPPORTS.containsKey(name) ) {
+			return DB_SUPPORTS.get(name)
+		} else {
+			val bundle = FrameworkUtil::getBundle(typeof(EMapGenerator))
+			val serviceRef = bundle.bundleContext.getServiceReferences(typeof(DatabaseSupport),null)
+			for( sr : serviceRef ) {
+				val s = bundle.bundleContext.getService(sr)
+				if( name == s.databaseId ) {
+					DB_SUPPORTS.put(name, s);
+					return s;
+				}
+			}
+		}
 	}
 	
 	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
