@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getNamedQueries <em>Named Queries</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getTableName <em>Table Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getDescriminationColumn <em>Descrimination Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -165,6 +166,26 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected String tableName = TABLE_NAME_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getDescriminationColumn() <em>Descrimination Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescriminationColumn()
+   * @generated
+   * @ordered
+   */
+  protected static final String DESCRIMINATION_COLUMN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getDescriminationColumn() <em>Descrimination Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDescriminationColumn()
+   * @generated
+   * @ordered
+   */
+  protected String descriminationColumn = DESCRIMINATION_COLUMN_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -403,6 +424,29 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getDescriminationColumn()
+  {
+    return descriminationColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDescriminationColumn(String newDescriminationColumn)
+  {
+    String oldDescriminationColumn = descriminationColumn;
+    descriminationColumn = newDescriminationColumn;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN, oldDescriminationColumn, descriminationColumn));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -445,6 +489,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         return getNamedQueries();
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         return getTableName();
+      case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:
+        return getDescriminationColumn();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -486,6 +532,9 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         setTableName((String)newValue);
         return;
+      case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:
+        setDescriminationColumn((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -524,6 +573,9 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         setTableName(TABLE_NAME_EDEFAULT);
         return;
+      case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:
+        setDescriminationColumn(DESCRIMINATION_COLUMN_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -554,6 +606,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         return namedQueries != null && !namedQueries.isEmpty();
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         return TABLE_NAME_EDEFAULT == null ? tableName != null : !TABLE_NAME_EDEFAULT.equals(tableName);
+      case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:
+        return DESCRIMINATION_COLUMN_EDEFAULT == null ? descriminationColumn != null : !DESCRIMINATION_COLUMN_EDEFAULT.equals(descriminationColumn);
     }
     return super.eIsSet(featureID);
   }
@@ -577,6 +631,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
     result.append(extensionType);
     result.append(", tableName: ");
     result.append(tableName);
+    result.append(", descriminationColumn: ");
+    result.append(descriminationColumn);
     result.append(')');
     return result.toString();
   }

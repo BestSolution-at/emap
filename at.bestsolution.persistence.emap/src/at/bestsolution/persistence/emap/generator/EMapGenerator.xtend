@@ -98,7 +98,7 @@ class EMapGenerator implements IGenerator {
 	«FOR query : entityDef.entity.namedQueries»
 		<select id="«query.name»" 
 			«IF ! query.parameters.empty»parameterType="«IF query.parameters.size > 1»HashMap«ELSE»«query.parameters.head.type»«ENDIF»"«ENDIF»
-			«IF query.queries.head.mapping.attributes.empty»resultMap="Default_«eClass.name»Map"«ELSE»resultMap="«query.name»_«eClass.name»Map"«ENDIF»>
+			«IF query.queries.head.mapping.attributes.empty && entityDef.entity.descriminationColumn == null»resultMap="Default_«eClass.name»Map"«ELSE»resultMap="«query.name»_«eClass.name»Map"«ENDIF»>
 			SELECT 
 				«IF query.queries.head.mapping.attributes.empty»
 					*
@@ -117,6 +117,15 @@ class EMapGenerator implements IGenerator {
 		«IF !query.queries.head.mapping.attributes.empty»
 		<resultMap id="«query.name»_«eClass.name»Map" type="«eClass.instanceClassName»">
 			«query.queries.head.mapping.objectSectionMap»
+		</resultMap>
+		«ELSEIF entityDef.entity.descriminationColumn != null»
+		<resultMap id="«query.name»_«eClass.name»Map" type="«eClass.instanceClassName»">
+			«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
+			<discriminator javaType="java.lang.String" column="«entityDef.entity.descriminationColumn»">
+				«FOR d : query.queries.head.mapping.descriminatedTypes»
+				<subMap value="«d.name»" resultMap="«d.fqn».Default_«d.name»Map" />
+				«ENDFOR»
+			</discriminator>
 		</resultMap>
 		«ENDIF»
 	«ENDFOR»
@@ -355,6 +364,15 @@ class EMapGenerator implements IGenerator {
 		return "NOX DA"
 	}
 	
+	def static fqn(EMappingEntity e) {
+		val r = (e.eResource.contents.head as EMapping).root
+		if( r instanceof EMappingEntityDef ) {
+			val d = r as EMappingEntityDef;
+			return d.package.name + "." + d.entity.name + "Mapper"
+		}
+		return "NOX DA"
+	}
+	
 	def static isSingle(EAttribute attribute, EClass eclass) {
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
@@ -368,6 +386,13 @@ class EMapGenerator implements IGenerator {
 			return JavaHelper::getEClass(entityDef.entity.etype).name.toUpperCase
 		}
 		return entityDef.entity.tableName
+	}
+	
+	def static calcTableName(EMappingEntity entity) { 
+		if( entity.tableName == null ) {
+			return JavaHelper::getEClass(entity.etype).name.toUpperCase
+		}
+		return entity.tableName
 	}
 	
 	def static sortAttributes(EClass eClass, EAttribute a, EAttribute b) {

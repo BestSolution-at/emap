@@ -36,7 +36,7 @@ EMappingEntity:
 		 '{'
 		 	namedQueries += ENamedQuery (',' namedQueries+=ENamedQuery)*
 		 '}')?
-	'}' ('as' tableName=ID)?
+	'}' ('as' tableName=ID)? ('descriminatedby' descriminationColumn=ID)?
 ;
 
 EAttribute:
@@ -67,7 +67,7 @@ EQuery:
 
 EObjectSection:
 //	noreferences?='noreferences'? 
-	entity=[EMappingEntity|ID] ('(' descriminatedTypes+=[EMappingEntity|ID] (',' descriminatedTypes+=[EMappingEntity|ID])+ 'descriminatedby' descrimatorColumn=ID ')')? (prefix=ID ('{'
+	entity=[EMappingEntity|ID] ('(' descriminatedTypes+=[EMappingEntity|ID] (',' descriminatedTypes+=[EMappingEntity|ID])+ ')')? (prefix=ID ('{'
 		attributes+=EMappingAttribute (',' attributes += EMappingAttribute)*
 	'}')?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
 ;

@@ -387,10 +387,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:26:7: ( 'primarykey' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:26:9: 'primarykey'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:26:7: ( 'descriminatedby' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:26:9: 'descriminatedby'
             {
-            match("primarykey"); 
+            match("descriminatedby"); 
 
 
             }
@@ -408,10 +408,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:27:7: ( '=>' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:27:9: '=>'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:27:7: ( 'primarykey' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:27:9: 'primarykey'
             {
-            match("=>"); 
+            match("primarykey"); 
 
 
             }
@@ -429,10 +429,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:28:7: ( 'generatedby' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:28:9: 'generatedby'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:28:7: ( '=>' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:28:9: '=>'
             {
-            match("generatedby"); 
+            match("=>"); 
 
 
             }
@@ -450,10 +450,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:29:7: ( 'resolve' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:29:9: 'resolve'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:29:7: ( 'generatedby' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:29:9: 'generatedby'
             {
-            match("resolve"); 
+            match("generatedby"); 
 
 
             }
@@ -471,10 +471,11 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:30:7: ( '(' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:30:9: '('
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:30:7: ( 'resolve' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:30:9: 'resolve'
             {
-            match('('); 
+            match("resolve"); 
+
 
             }
 
@@ -491,10 +492,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:31:7: ( ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:31:9: ')'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:31:7: ( '(' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:31:9: '('
             {
-            match(')'); 
+            match('('); 
 
             }
 
@@ -511,11 +512,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:32:7: ( 'autokey' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:32:9: 'autokey'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:32:7: ( ')' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:32:9: ')'
             {
-            match("autokey"); 
-
+            match(')'); 
 
             }
 
@@ -532,10 +532,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:33:7: ( 'query' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:33:9: 'query'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:33:7: ( 'autokey' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:33:9: 'autokey'
             {
-            match("query"); 
+            match("autokey"); 
 
 
             }
@@ -553,10 +553,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:34:7: ( 'seqnext' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:34:9: 'seqnext'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:34:7: ( 'query' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:34:9: 'query'
             {
-            match("seqnext"); 
+            match("query"); 
 
 
             }
@@ -574,10 +574,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:35:7: ( 'default' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:35:9: 'default'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:35:7: ( 'seqnext' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:35:9: 'seqnext'
             {
-            match("default"); 
+            match("seqnext"); 
 
 
             }
@@ -595,10 +595,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:36:7: ( 'FROM' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:36:9: 'FROM'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:36:7: ( 'default' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:36:9: 'default'
             {
-            match("FROM"); 
+            match("default"); 
 
 
             }
@@ -616,10 +616,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:37:7: ( 'WHERE' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:37:9: 'WHERE'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:37:7: ( 'FROM' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:37:9: 'FROM'
             {
-            match("WHERE"); 
+            match("FROM"); 
 
 
             }
@@ -637,10 +637,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:38:7: ( 'GROUP BY' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:38:9: 'GROUP BY'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:38:7: ( 'WHERE' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:38:9: 'WHERE'
             {
-            match("GROUP BY"); 
+            match("WHERE"); 
 
 
             }
@@ -658,10 +658,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:39:7: ( 'ORDER BY' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:39:9: 'ORDER BY'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:39:7: ( 'GROUP BY' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:39:9: 'GROUP BY'
             {
-            match("ORDER BY"); 
+            match("GROUP BY"); 
 
 
             }
@@ -679,10 +679,10 @@ public class InternalEMapLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:40:7: ( 'descriminatedby' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:40:9: 'descriminatedby'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:40:7: ( 'ORDER BY' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:40:9: 'ORDER BY'
             {
-            match("descriminatedby"); 
+            match("ORDER BY"); 
 
 
             }
@@ -1680,9 +1680,9 @@ public class InternalEMapLexer extends Lexer {
         "\12\44\1\uffff\15\44\1\174\24\44\1\u0092\3\44\1\uffff\1\u0096\15"+
         "\44\1\u00a4\1\44\1\u00a6\4\44\1\uffff\1\u00ab\2\44\1\uffff\1\u00ae"+
         "\4\44\1\u00b3\5\44\1\u00b9\1\44\1\uffff\1\44\1\uffff\3\44\1\u00bf"+
-        "\4\uffff\1\44\1\u00c1\1\u00c2\1\44\1\uffff\1\u00c4\3\44\1\u00c8"+
-        "\1\uffff\1\u00c9\1\u00ca\1\44\1\u00cc\1\u00cd\1\uffff\1\44\2\uffff"+
-        "\1\44\1\uffff\1\44\1\u00d1\1\44\3\uffff\1\44\2\uffff\1\u00d4\2\44"+
+        "\4\uffff\1\44\1\u00c1\1\44\1\u00c3\1\uffff\1\u00c4\3\44\1\u00c8"+
+        "\1\uffff\1\u00c9\1\u00ca\1\44\1\u00cc\1\u00cd\1\uffff\1\44\1\uffff"+
+        "\1\44\2\uffff\1\44\1\u00d1\1\44\3\uffff\1\44\2\uffff\1\u00d4\2\44"+
         "\1\uffff\2\44\1\uffff\1\44\1\u00da\1\u00db\2\44\2\uffff\1\u00de"+
         "\1\44\1\uffff\2\44\1\u00e2\1\uffff";
     static final String DFA12_eofS =
@@ -1693,52 +1693,52 @@ public class InternalEMapLexer extends Lexer {
         "\101\2\uffff\2\0\1\52\2\uffff\1\156\4\uffff\1\164\1\146\1\160\1"+
         "\143\1\151\1\uffff\1\163\1\164\1\60\3\164\1\171\1\145\1\uffff\1"+
         "\156\1\163\2\uffff\1\161\1\156\1\117\1\105\1\117\1\104\1\160\3\uffff"+
-        "\1\163\5\uffff\1\144\1\141\1\151\1\141\1\143\1\157\1\153\1\155\1"+
+        "\1\163\5\uffff\1\144\1\141\1\151\1\143\1\141\1\157\1\153\1\155\1"+
         "\164\1\162\1\uffff\1\157\1\151\1\145\1\160\1\162\1\145\1\157\1\156"+
-        "\1\147\1\115\1\122\1\125\1\105\1\60\1\164\1\154\1\142\1\166\1\165"+
-        "\2\162\2\141\1\162\1\151\1\153\1\164\1\156\1\145\1\151\1\162\1\154"+
-        "\1\145\1\154\1\60\1\105\1\120\1\122\1\uffff\1\60\1\145\1\141\1\145"+
-        "\1\154\1\151\1\164\1\147\1\162\1\141\1\142\1\145\1\171\1\144\1\60"+
-        "\1\145\1\60\1\141\1\166\1\170\1\145\1\uffff\1\60\2\40\1\uffff\1"+
-        "\60\1\163\1\144\1\164\1\155\1\60\1\145\1\171\1\143\1\165\1\171\1"+
-        "\60\1\163\1\uffff\1\163\1\uffff\1\164\1\145\1\164\1\60\4\uffff\1"+
-        "\145\2\60\1\151\1\uffff\1\60\1\153\2\164\1\60\1\uffff\2\60\1\145"+
-        "\2\60\1\uffff\1\163\2\uffff\1\156\1\uffff\1\145\1\60\1\145\3\uffff"+
-        "\1\144\2\uffff\1\60\1\141\1\171\1\uffff\1\163\1\142\1\uffff\1\164"+
-        "\2\60\1\171\1\145\2\uffff\1\60\1\144\1\uffff\1\142\1\171\1\60\1"+
-        "\uffff";
+        "\1\147\1\115\1\122\1\125\1\105\1\60\1\164\1\154\1\142\1\166\1\162"+
+        "\1\165\1\162\2\141\1\162\1\151\1\153\1\164\1\156\1\145\1\151\1\162"+
+        "\1\154\1\145\1\154\1\60\1\105\1\120\1\122\1\uffff\1\60\1\145\1\141"+
+        "\1\145\1\151\1\154\1\164\1\147\1\162\1\141\1\142\1\145\1\171\1\144"+
+        "\1\60\1\145\1\60\1\141\1\166\1\170\1\145\1\uffff\1\60\2\40\1\uffff"+
+        "\1\60\1\163\1\144\1\155\1\164\1\60\1\145\1\171\1\143\1\165\1\171"+
+        "\1\60\1\163\1\uffff\1\163\1\uffff\1\164\1\145\1\164\1\60\4\uffff"+
+        "\1\145\1\60\1\151\1\60\1\uffff\1\60\1\153\2\164\1\60\1\uffff\2\60"+
+        "\1\145\2\60\1\uffff\1\163\1\uffff\1\156\2\uffff\1\145\1\60\1\145"+
+        "\3\uffff\1\144\2\uffff\1\60\1\141\1\171\1\uffff\1\163\1\142\1\uffff"+
+        "\1\164\2\60\1\171\1\145\2\uffff\1\60\1\144\1\uffff\1\142\1\171\1"+
+        "\60\1\uffff";
     static final String DFA12_maxS =
         "\1\uffff\1\165\3\uffff\1\145\1\155\1\162\1\uffff\1\165\1\170\1\165"+
         "\1\76\2\145\2\uffff\1\151\1\122\1\110\2\122\1\141\3\uffff\1\151"+
         "\1\172\2\uffff\2\uffff\1\57\2\uffff\1\156\4\uffff\1\164\1\163\1"+
         "\160\1\143\1\151\1\uffff\1\163\1\164\1\172\3\164\1\171\1\145\1\uffff"+
         "\1\156\1\163\2\uffff\1\161\1\156\1\117\1\105\1\117\1\104\1\160\3"+
-        "\uffff\1\163\5\uffff\1\144\1\141\1\151\1\141\1\143\1\157\1\153\1"+
+        "\uffff\1\163\5\uffff\1\144\1\141\1\151\1\143\1\141\1\157\1\153\1"+
         "\155\1\164\1\162\1\uffff\1\157\1\151\1\145\1\160\1\162\1\145\1\157"+
         "\1\156\1\147\1\115\1\122\1\125\1\105\1\172\1\164\1\154\1\142\1\166"+
-        "\1\165\2\162\2\141\1\162\1\151\1\153\1\164\1\156\1\145\1\171\1\162"+
-        "\1\154\1\145\1\154\1\172\1\105\1\120\1\122\1\uffff\1\172\1\145\1"+
-        "\141\1\145\1\154\1\151\1\164\1\147\1\162\1\141\1\142\1\145\1\171"+
-        "\1\144\1\172\1\145\1\172\1\141\1\166\1\170\1\145\1\uffff\1\172\2"+
-        "\40\1\uffff\1\172\1\163\1\144\1\164\1\155\1\172\1\145\1\171\1\143"+
-        "\1\165\1\171\1\172\1\163\1\uffff\1\163\1\uffff\1\164\1\145\1\164"+
-        "\1\172\4\uffff\1\145\2\172\1\151\1\uffff\1\172\1\153\2\164\1\172"+
-        "\1\uffff\2\172\1\145\2\172\1\uffff\1\163\2\uffff\1\156\1\uffff\1"+
-        "\145\1\172\1\145\3\uffff\1\144\2\uffff\1\172\1\141\1\171\1\uffff"+
-        "\1\163\1\142\1\uffff\1\164\2\172\1\171\1\145\2\uffff\1\172\1\144"+
-        "\1\uffff\1\142\1\171\1\172\1\uffff";
+        "\1\162\1\165\1\162\2\141\1\162\1\151\1\153\1\164\1\156\1\145\1\171"+
+        "\1\162\1\154\1\145\1\154\1\172\1\105\1\120\1\122\1\uffff\1\172\1"+
+        "\145\1\141\1\145\1\151\1\154\1\164\1\147\1\162\1\141\1\142\1\145"+
+        "\1\171\1\144\1\172\1\145\1\172\1\141\1\166\1\170\1\145\1\uffff\1"+
+        "\172\2\40\1\uffff\1\172\1\163\1\144\1\155\1\164\1\172\1\145\1\171"+
+        "\1\143\1\165\1\171\1\172\1\163\1\uffff\1\163\1\uffff\1\164\1\145"+
+        "\1\164\1\172\4\uffff\1\145\1\172\1\151\1\172\1\uffff\1\172\1\153"+
+        "\2\164\1\172\1\uffff\2\172\1\145\2\172\1\uffff\1\163\1\uffff\1\156"+
+        "\2\uffff\1\145\1\172\1\145\3\uffff\1\144\2\uffff\1\172\1\141\1\171"+
+        "\1\uffff\1\163\1\142\1\uffff\1\164\2\172\1\171\1\145\2\uffff\1\172"+
+        "\1\144\1\uffff\1\142\1\171\1\172\1\uffff";
     static final String DFA12_acceptS =
-        "\2\uffff\1\2\1\3\1\4\3\uffff\1\10\6\uffff\1\24\1\25\6\uffff\1\41"+
+        "\2\uffff\1\2\1\3\1\4\3\uffff\1\10\6\uffff\1\25\1\26\6\uffff\1\41"+
         "\1\42\1\43\2\uffff\1\46\1\47\3\uffff\1\53\1\54\1\uffff\1\46\1\2"+
-        "\1\3\1\4\5\uffff\1\10\10\uffff\1\21\2\uffff\1\24\1\25\7\uffff\1"+
+        "\1\3\1\4\5\uffff\1\10\10\uffff\1\22\2\uffff\1\25\1\26\7\uffff\1"+
         "\41\1\42\1\43\1\uffff\1\47\1\50\1\51\1\52\1\53\12\uffff\1\17\46"+
-        "\uffff\1\37\25\uffff\1\32\3\uffff\1\44\15\uffff\1\40\1\uffff\1\27"+
-        "\4\uffff\1\33\1\34\1\35\1\1\4\uffff\1\6\5\uffff\1\12\5\uffff\1\45"+
-        "\1\uffff\1\14\1\31\1\uffff\1\7\3\uffff\1\26\1\13\1\16\1\uffff\1"+
-        "\23\1\30\3\uffff\1\11\2\uffff\1\5\5\uffff\1\20\1\15\2\uffff\1\22"+
-        "\3\uffff\1\36";
+        "\uffff\1\37\25\uffff\1\33\3\uffff\1\44\15\uffff\1\40\1\uffff\1\30"+
+        "\4\uffff\1\34\1\35\1\36\1\1\4\uffff\1\6\5\uffff\1\12\5\uffff\1\45"+
+        "\1\uffff\1\14\1\uffff\1\32\1\7\3\uffff\1\27\1\13\1\16\1\uffff\1"+
+        "\24\1\31\3\uffff\1\11\2\uffff\1\5\5\uffff\1\21\1\15\2\uffff\1\23"+
+        "\3\uffff\1\20";
     static final String DFA12_specialS =
-        "\1\2\35\uffff\1\0\1\1\u00c3\uffff}>";
+        "\1\0\35\uffff\1\1\1\2\u00c3\uffff}>";
     static final String[] DFA12_transitionS = {
             "\11\42\2\41\2\42\1\41\22\42\1\41\1\42\1\36\1\27\3\42\1\37\1"+
             "\17\1\20\1\31\1\42\1\3\1\42\1\30\1\40\12\35\1\42\1\10\1\42\1"+
@@ -1785,7 +1785,7 @@ public class InternalEMapLexer extends Lexer {
             "",
             "",
             "\1\114",
-            "\1\116\13\uffff\1\115\1\117",
+            "\1\117\13\uffff\1\115\1\116",
             "\1\120",
             "\1\121",
             "\1\122",
@@ -1921,8 +1921,8 @@ public class InternalEMapLexer extends Lexer {
             "",
             "\1\u00c0",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
+            "\1\u00c2",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
-            "\1\u00c3",
             "",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
             "\1\u00c5",
@@ -1938,8 +1938,8 @@ public class InternalEMapLexer extends Lexer {
             "",
             "\1\u00ce",
             "",
-            "",
             "\1\u00cf",
+            "",
             "",
             "\1\u00d0",
             "\12\44\7\uffff\32\44\4\uffff\1\44\1\uffff\32\44",
@@ -2010,26 +2010,6 @@ public class InternalEMapLexer extends Lexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_30 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_30>='\u0000' && LA12_30<='\uFFFF')) ) {s = 71;}
-
-                        else s = 34;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA12_31 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_31>='\u0000' && LA12_31<='\uFFFF')) ) {s = 71;}
-
-                        else s = 34;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
@@ -2100,6 +2080,26 @@ public class InternalEMapLexer extends Lexer {
                         else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 33;}
 
                         else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='$' && LA12_0<='&')||LA12_0=='+'||LA12_0=='-'||LA12_0==':'||LA12_0=='<'||(LA12_0>='>' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||LA12_0=='|'||(LA12_0>='~' && LA12_0<='\uFFFF')) ) {s = 34;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA12_30 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_30>='\u0000' && LA12_30<='\uFFFF')) ) {s = 71;}
+
+                        else s = 34;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA12_31 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_31>='\u0000' && LA12_31<='\uFFFF')) ) {s = 71;}
+
+                        else s = 34;
 
                         if ( s>=0 ) return s;
                         break;

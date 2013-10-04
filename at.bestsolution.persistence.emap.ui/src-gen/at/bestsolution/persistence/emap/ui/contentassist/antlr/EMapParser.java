@@ -60,6 +60,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getGroup_7(), "rule__EMappingEntity__Group_7__0");
 					put(grammarAccess.getEMappingEntityAccess().getGroup_7_3(), "rule__EMappingEntity__Group_7_3__0");
 					put(grammarAccess.getEMappingEntityAccess().getGroup_9(), "rule__EMappingEntity__Group_9__0");
+					put(grammarAccess.getEMappingEntityAccess().getGroup_10(), "rule__EMappingEntity__Group_10__0");
 					put(grammarAccess.getEAttributeAccess().getGroup(), "rule__EAttribute__Group__0");
 					put(grammarAccess.getEAttributeAccess().getGroup_3_0(), "rule__EAttribute__Group_3_0__0");
 					put(grammarAccess.getEAttributeAccess().getGroup_3_0_1(), "rule__EAttribute__Group_3_0_1__0");
@@ -112,6 +113,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_2(), "rule__EMappingEntity__NamedQueriesAssignment_7_2");
 					put(grammarAccess.getEMappingEntityAccess().getNamedQueriesAssignment_7_3_1(), "rule__EMappingEntity__NamedQueriesAssignment_7_3_1");
 					put(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_9_1(), "rule__EMappingEntity__TableNameAssignment_9_1");
+					put(grammarAccess.getEMappingEntityAccess().getDescriminationColumnAssignment_10_1(), "rule__EMappingEntity__DescriminationColumnAssignment_10_1");
 					put(grammarAccess.getEAttributeAccess().getPkAssignment_0(), "rule__EAttribute__PkAssignment_0");
 					put(grammarAccess.getEAttributeAccess().getPropertyAssignment_1(), "rule__EAttribute__PropertyAssignment_1");
 					put(grammarAccess.getEAttributeAccess().getColumnNameAssignment_3_0_0(), "rule__EAttribute__ColumnNameAssignment_3_0_0");
@@ -141,7 +143,6 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEObjectSectionAccess().getEntityAssignment_0(), "rule__EObjectSection__EntityAssignment_0");
 					put(grammarAccess.getEObjectSectionAccess().getDescriminatedTypesAssignment_1_1(), "rule__EObjectSection__DescriminatedTypesAssignment_1_1");
 					put(grammarAccess.getEObjectSectionAccess().getDescriminatedTypesAssignment_1_2_1(), "rule__EObjectSection__DescriminatedTypesAssignment_1_2_1");
-					put(grammarAccess.getEObjectSectionAccess().getDescrimatorColumnAssignment_1_4(), "rule__EObjectSection__DescrimatorColumnAssignment_1_4");
 					put(grammarAccess.getEObjectSectionAccess().getPrefixAssignment_2_0(), "rule__EObjectSection__PrefixAssignment_2_0");
 					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_2_1_1(), "rule__EObjectSection__AttributesAssignment_2_1_1");
 					put(grammarAccess.getEObjectSectionAccess().getAttributesAssignment_2_1_2_1(), "rule__EObjectSection__AttributesAssignment_2_1_2_1");

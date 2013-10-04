@@ -41,6 +41,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedQueries" upperBound="-1"
         eType="#//ENamedQuery" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="descriminationColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EAttribute">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pk" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -89,7 +90,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//EMappingEntity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="descriminatedTypes" unique="false"
         upperBound="-1" eType="#//EMappingEntity"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="descrimatorColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="prefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//EMappingAttribute" containment="true"/>

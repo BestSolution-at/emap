@@ -182,7 +182,8 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         etype=EType 
 	 *         (attributes+=EAttribute attributes+=EAttribute*)? 
 	 *         (namedQueries+=ENamedQuery namedQueries+=ENamedQuery*)? 
-	 *         tableName=ID?
+	 *         tableName=ID? 
+	 *         descriminationColumn=ID?
 	 *     )
 	 */
 	protected void sequence_EMappingEntity(EObject context, EMappingEntity semanticObject) {
@@ -212,7 +213,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         entity=[EMappingEntity|ID] 
-	 *         (descriminatedTypes+=[EMappingEntity|ID] descriminatedTypes+=[EMappingEntity|ID]+ descrimatorColumn=ID)? 
+	 *         (descriminatedTypes+=[EMappingEntity|ID] descriminatedTypes+=[EMappingEntity|ID]+)? 
 	 *         (prefix=ID (attributes+=EMappingAttribute attributes+=EMappingAttribute*)?)?
 	 *     )
 	 */

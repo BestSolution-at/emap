@@ -325,13 +325,22 @@ public interface EMapPackage extends EPackage
   int EMAPPING_ENTITY__TABLE_NAME = 7;
 
   /**
+   * The feature id for the '<em><b>Descrimination Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_ENTITY__DESCRIMINATION_COLUMN = 8;
+
+  /**
    * The number of structural features of the '<em>EMapping Entity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMAPPING_ENTITY_FEATURE_COUNT = 8;
+  int EMAPPING_ENTITY_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl <em>EAttribute</em>}' class.
@@ -673,22 +682,13 @@ public interface EMapPackage extends EPackage
   int EOBJECT_SECTION__DESCRIMINATED_TYPES = 1;
 
   /**
-   * The feature id for the '<em><b>Descrimator Column</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EOBJECT_SECTION__DESCRIMATOR_COLUMN = 2;
-
-  /**
    * The feature id for the '<em><b>Prefix</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EOBJECT_SECTION__PREFIX = 3;
+  int EOBJECT_SECTION__PREFIX = 2;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -697,7 +697,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EOBJECT_SECTION__ATTRIBUTES = 4;
+  int EOBJECT_SECTION__ATTRIBUTES = 3;
 
   /**
    * The number of structural features of the '<em>EObject Section</em>' class.
@@ -706,7 +706,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EOBJECT_SECTION_FEATURE_COUNT = 5;
+  int EOBJECT_SECTION_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl <em>EMapping Attribute</em>}' class.
@@ -1106,6 +1106,17 @@ public interface EMapPackage extends EPackage
   EAttribute getEMappingEntity_TableName();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getDescriminationColumn <em>Descrimination Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Descrimination Column</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingEntity#getDescriminationColumn()
+   * @see #getEMappingEntity()
+   * @generated
+   */
+  EAttribute getEMappingEntity_DescriminationColumn();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EAttribute <em>EAttribute</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1450,17 +1461,6 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EReference getEObjectSection_DescriminatedTypes();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getDescrimatorColumn <em>Descrimator Column</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Descrimator Column</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EObjectSection#getDescrimatorColumn()
-   * @see #getEObjectSection()
-   * @generated
-   */
-  EAttribute getEObjectSection_DescrimatorColumn();
 
   /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getPrefix <em>Prefix</em>}'.
@@ -1852,6 +1852,14 @@ public interface EMapPackage extends EPackage
     EAttribute EMAPPING_ENTITY__TABLE_NAME = eINSTANCE.getEMappingEntity_TableName();
 
     /**
+     * The meta object literal for the '<em><b>Descrimination Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMAPPING_ENTITY__DESCRIMINATION_COLUMN = eINSTANCE.getEMappingEntity_DescriminationColumn();
+
+    /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl <em>EAttribute</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2118,14 +2126,6 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EReference EOBJECT_SECTION__DESCRIMINATED_TYPES = eINSTANCE.getEObjectSection_DescriminatedTypes();
-
-    /**
-     * The meta object literal for the '<em><b>Descrimator Column</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute EOBJECT_SECTION__DESCRIMATOR_COLUMN = eINSTANCE.getEObjectSection_DescrimatorColumn();
 
     /**
      * The meta object literal for the '<em><b>Prefix</b></em>' attribute feature.

@@ -448,6 +448,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEMappingEntity_DescriminationColumn()
+  {
+    return (EAttribute)eMappingEntityEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getEAttribute()
   {
     return eAttributeEClass;
@@ -768,7 +778,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEObjectSection_DescrimatorColumn()
+  public EAttribute getEObjectSection_Prefix()
   {
     return (EAttribute)eObjectSectionEClass.getEStructuralFeatures().get(2);
   }
@@ -778,19 +788,9 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEObjectSection_Prefix()
-  {
-    return (EAttribute)eObjectSectionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getEObjectSection_Attributes()
   {
-    return (EReference)eObjectSectionEClass.getEStructuralFeatures().get(4);
+    return (EReference)eObjectSectionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -982,6 +982,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eMappingEntityEClass, EMAPPING_ENTITY__ATTRIBUTES);
     createEReference(eMappingEntityEClass, EMAPPING_ENTITY__NAMED_QUERIES);
     createEAttribute(eMappingEntityEClass, EMAPPING_ENTITY__TABLE_NAME);
+    createEAttribute(eMappingEntityEClass, EMAPPING_ENTITY__DESCRIMINATION_COLUMN);
 
     eAttributeEClass = createEClass(EATTRIBUTE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PK);
@@ -1020,7 +1021,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     eObjectSectionEClass = createEClass(EOBJECT_SECTION);
     createEReference(eObjectSectionEClass, EOBJECT_SECTION__ENTITY);
     createEReference(eObjectSectionEClass, EOBJECT_SECTION__DESCRIMINATED_TYPES);
-    createEAttribute(eObjectSectionEClass, EOBJECT_SECTION__DESCRIMATOR_COLUMN);
     createEAttribute(eObjectSectionEClass, EOBJECT_SECTION__PREFIX);
     createEReference(eObjectSectionEClass, EOBJECT_SECTION__ATTRIBUTES);
 
@@ -1102,6 +1102,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEMappingEntity_Attributes(), this.getEAttribute(), null, "attributes", null, 0, -1, EMappingEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingEntity_NamedQueries(), this.getENamedQuery(), null, "namedQueries", null, 0, -1, EMappingEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingEntity_TableName(), ecorePackage.getEString(), "tableName", null, 0, 1, EMappingEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEMappingEntity_DescriminationColumn(), ecorePackage.getEString(), "descriminationColumn", null, 0, 1, EMappingEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eAttributeEClass, at.bestsolution.persistence.emap.eMap.EAttribute.class, "EAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEAttribute_Pk(), ecorePackage.getEBoolean(), "pk", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1140,7 +1141,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eObjectSectionEClass, EObjectSection.class, "EObjectSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEObjectSection_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEObjectSection_DescriminatedTypes(), this.getEMappingEntity(), null, "descriminatedTypes", null, 0, -1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEObjectSection_DescrimatorColumn(), ecorePackage.getEString(), "descrimatorColumn", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEObjectSection_Prefix(), ecorePackage.getEString(), "prefix", null, 0, 1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEObjectSection_Attributes(), this.getEMappingAttribute(), null, "attributes", null, 0, -1, EObjectSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

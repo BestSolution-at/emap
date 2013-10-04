@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getNamedQueries <em>Named Queries</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getTableName <em>Table Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getDescriminationColumn <em>Descrimination Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -218,5 +219,31 @@ public interface EMappingEntity extends EObject
    * @generated
    */
   void setTableName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Descrimination Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Descrimination Column</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Descrimination Column</em>' attribute.
+   * @see #setDescriminationColumn(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingEntity_DescriminationColumn()
+   * @model
+   * @generated
+   */
+  String getDescriminationColumn();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getDescriminationColumn <em>Descrimination Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Descrimination Column</em>' attribute.
+   * @see #getDescriminationColumn()
+   * @generated
+   */
+  void setDescriminationColumn(String value);
 
 } // EMappingEntity
