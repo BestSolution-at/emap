@@ -43,7 +43,7 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   
   public String getDatabaseType(final EDataType dataType) {
     if ((dataType instanceof EEnum)) {
-      return "integer";
+      return "varchar(255)";
     } else {
       boolean _or = false;
       String _name = dataType.getName();

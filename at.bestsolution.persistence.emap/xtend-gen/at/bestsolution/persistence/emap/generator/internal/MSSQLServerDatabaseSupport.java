@@ -26,7 +26,7 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
   
   public String getDatabaseType(final EDataType dataType) {
     if ((dataType instanceof EEnum)) {
-      return "int";
+      return "nvarchar(255)";
     } else {
       boolean _or = false;
       String _name = dataType.getName();

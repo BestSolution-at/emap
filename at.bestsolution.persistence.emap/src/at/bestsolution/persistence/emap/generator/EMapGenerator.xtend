@@ -22,6 +22,7 @@ import java.util.Map
 import java.util.HashMap
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.osgi.framework.FrameworkUtil
+import org.eclipse.emf.ecore.EReference
 
 /**
  * Generates code from your model files on save.
@@ -133,7 +134,7 @@ class EMapGenerator implements IGenerator {
 		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
 	</resultMap>
 	«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
-	«IF pkAttribute == null»
+	«IF pkAttribute == null || entityDef.entity.extensionType == "extends"»
 		«generateInsert(entityDef,eClass,null,null)»
 	«ELSE»
 		«val dbSupport = pkAttribute.findDatabaseSupport»
@@ -148,7 +149,19 @@ class EMapGenerator implements IGenerator {
 		UPDATE
 			«entityDef.tableName»
 		<set>
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+					if( pk ) {
+						return false;
+					} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+						val r = eClass.getEStructuralFeature(property) as EReference;
+						if( r.containment ) {
+							return false;
+						}
+						return true;
+					} else {
+						return true;
+					}
+				].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 					«a.columnName» = #{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
@@ -181,13 +194,28 @@ class EMapGenerator implements IGenerator {
 			«IF pkAttribute != null && gen.sequence != null»
 				«pkAttribute.columnName»,
 			«ENDIF»
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+					if( pk && entityDef.entity.extensionType != "extends" ) {
+						return false;
+					} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+						val r = eClass.getEStructuralFeature(property) as EReference;
+						if( r.containment ) {
+							return false;
+						}
+						return true;
+					} else {
+						return true;
+					}
+			].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 				«a.columnName»,
 				«ELSEIF a.isSingle(eClass)»
 				«a.parameters.head»,
 				«ENDIF»
 			«ENDFOR»
+			«IF entityDef.entity.descriminationColumn != null»
+				«entityDef.entity.descriminationColumn»
+			«ENDIF»
 		</trim>
 	)
 	VALUES
@@ -196,15 +224,31 @@ class EMapGenerator implements IGenerator {
 			«IF pkAttribute != null»
 				«IF gen.sequence != null»
 					«dbSupport.getSequenceStatement(pkAttribute)»,
-				«ENDIF»
+				«ENDIF»			
+			«ELSEIF entityDef.entity.extensionType == "extends"»
+				#{«entityDef.entity.attributes.findFirst[pk].property»},
 			«ENDIF»
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[!pk].sort([a,b|return sortAttributes(eClass,a,b)])»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[if( pk ) {
+						return false;
+					} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+						val r = eClass.getEStructuralFeature(property) as EReference;
+						if( r.containment ) {
+							return false;
+						}
+						return true;
+					} else {
+						return true;
+					}
+				].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 					#{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
 					#{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},
 				«ENDIF»
 			«ENDFOR»
+			«IF entityDef.entity.descriminationColumn != null»
+				#{_classname}
+			«ENDIF»
 		</trim>
 	)
 	'''
