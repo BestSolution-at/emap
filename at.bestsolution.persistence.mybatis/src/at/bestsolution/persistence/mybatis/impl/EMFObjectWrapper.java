@@ -19,6 +19,7 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	private EObject object;
 	private boolean isFilled;
 	private static final String MODIFIED_PREFIX = "_isResolved_";
+	private static final String CLASSNAME = "_classname";
 	
 	public EMFObjectWrapper(MetaObject metaObject, EObject object) {
 		this.wrapper = new BeanWrapper(metaObject, object);
@@ -46,7 +47,9 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 	@Override
 	public Object get(PropertyTokenizer arg0) {
-		if( arg0.getName().startsWith(MODIFIED_PREFIX) ) {
+		if( arg0.getName().equals(CLASSNAME) ) {
+			return object.eClass().getName();
+		} else if( arg0.getName().startsWith(MODIFIED_PREFIX) ) {
 			if( object instanceof PersistedEObject ) {
 				EReference f = (EReference) object.eClass().getEStructuralFeature(arg0.getName().substring(MODIFIED_PREFIX.length()));
 				PersistedEObject peo = (PersistedEObject) object;
