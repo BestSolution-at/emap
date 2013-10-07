@@ -25,7 +25,7 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 	
 	override getDatabaseType(EDataType dataType) {
 		if( dataType instanceof EEnum ) {
-			return "int";
+			return "nvarchar(255)";
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "int";	
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {

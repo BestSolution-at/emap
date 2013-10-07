@@ -25,7 +25,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 	
 	override getDatabaseType(EDataType dataType) {
 		if( dataType instanceof EEnum ) {
-			return "integer";
+			return "varchar(255)";
 		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";	
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
