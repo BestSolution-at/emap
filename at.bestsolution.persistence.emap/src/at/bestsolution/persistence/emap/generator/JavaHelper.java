@@ -10,6 +10,13 @@ public class JavaHelper {
 	public static EClass getEClass(EType type) {
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
 //		System.err.println(type + " => " + ePackage);
-		return (EClass) ePackage.getEClassifier(type.getName());
+		
+		EClass eClass = (EClass) ePackage.getEClassifier(type.getName());
+		
+		if( eClass == null ) {
+			throw new IllegalStateException("Could not find class '"+type.getName()+"' in package '"+ePackage.getName()+"'");
+		}
+		
+		return eClass;
 	}
 }

@@ -374,6 +374,9 @@ class EMapGenerator implements IGenerator {
 	}
 	
 	def static isSingle(EAttribute attribute, EClass eclass) {
+		if( eclass.getEStructuralFeature(attribute.property) == null ) {
+			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
+		}
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
 	
