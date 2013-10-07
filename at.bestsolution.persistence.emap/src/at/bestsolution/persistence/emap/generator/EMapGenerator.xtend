@@ -123,7 +123,7 @@ class EMapGenerator implements IGenerator {
 			«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
 			<discriminator javaType="java.lang.String" column="«entityDef.entity.descriminationColumn»">
 				«FOR d : query.queries.head.mapping.descriminatedTypes»
-				<subMap value="«d.name»" resultMap="«d.fqn».Default_«d.name»Map" />
+				<case value="«d.name»" resultMap="«d.fqn».Default_«d.name»Map" />
 				«ENDFOR»
 			</discriminator>
 		</resultMap>
