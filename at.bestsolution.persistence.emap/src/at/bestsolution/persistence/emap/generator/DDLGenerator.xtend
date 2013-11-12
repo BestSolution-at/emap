@@ -2,12 +2,12 @@ package at.bestsolution.persistence.emap.generator
 
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EDataType
-import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.* 
-import org.eclipse.emf.ecore.EcorePackage 
+import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.*
+import org.eclipse.emf.ecore.EcorePackage
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 
 class DDLGenerator {
-	def static generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
+	def static CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
 	«FOR e : bundleDef.entities»
 	«val eClass = JavaHelper::getEClass(e.etype)»
 	CREATE TABLE «e.calcTableName»
@@ -24,26 +24,26 @@ class DDLGenerator {
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
-		
+
 		«IF e.descriminationColumn != null»
-			, «e.descriminationColumn» «db.getDatabaseType(EcorePackage.eINSTANCE.EString)»
+			, «e.descriminationColumn» «db.getDatabaseType(EcorePackage::eINSTANCE.EString)»
 		«ENDIF»
 		«IF ! db.isPrimaryKeyPartOfColDef(pk)»
 		, PRIMARY KEY(«pk.columnName»)
 		«ENDIF»
 	);
-	
-	
+
+
 	«ENDFOR»
-	
+
 	«FOR e : bundleDef.entities»
 		«val eClass = JavaHelper::getEClass(e.etype)»
 		«val pk = e.collectDerivedAttributes.values.findFirst[pk].columnName»
 		«FOR a : e.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
 			ALTER TABLE «e.calcTableName»
 				ADD FOREIGN KEY («a.parameters.head») REFERENCES «(a.query.eContainer as EMappingEntity).calcTableName» («(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].columnName»);
-			
-			
+
+
 		«ENDFOR»
 		«IF e.extensionType == "extends"»
 		ALTER TABLE «e.calcTableName»
@@ -51,8 +51,8 @@ class DDLGenerator {
 		«ENDIF»
 	«ENDFOR»
 	'''
-	
+
 	def static void dummy(boolean b) {
-		
+
 	}
 }

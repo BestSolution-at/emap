@@ -7,3 +7,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: at.bestsolution.persistence,
  org.osgi.framework
+Export-Package: at.bestsolution.persistence.emap.junit

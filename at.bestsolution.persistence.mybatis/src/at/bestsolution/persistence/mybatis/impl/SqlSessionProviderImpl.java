@@ -7,6 +7,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -60,39 +61,55 @@ import at.bestsolution.persistence.model.LazyEObject;
 import at.bestsolution.persistence.model.ResolveDelegate;
 import at.bestsolution.persistence.mybatis.EnvironmentProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider;
+import at.bestsolution.persistence.mybatis.SqlMetaDataProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider.MappingUnit;
+import at.bestsolution.persistence.mybatis.SqlMetaDataProvider.Table;
 import at.bestsolution.persistence.mybatis.SqlSessionProvider;
 
 public class SqlSessionProviderImpl implements SqlSessionProvider {
 	static ThreadLocal<Boolean> IN_PROXY_RESOLVE = new ThreadLocal<Boolean>();
 
 	private List<MappingProvider> mappingProviders = new ArrayList<MappingProvider>();
+	private List<SqlMetaDataProvider> metaDataProviders = new ArrayList<SqlMetaDataProvider>();
 	//TODO We need to support multi configurations
 	private SqlSessionFactory sessionFactory;
 	private Map<Class<?>, EClass> eClassCache = new HashMap<Class<?>, EClass>();
 	private Map<Executor, Map<String, EObject>> sessionObjectCache = new HashMap<Executor, Map<String,EObject>>();
 	private Map<EObject, EObject> proxyCache = new HashMap<EObject, EObject>();
-	
+
 	private EnvironmentProvider environment;
-	
+	private Map<String, Table> tableMap = new HashMap<String, SqlMetaDataProvider.Table>();
+
 	public SqlSession createSession() {
 		return bootstrap().openSession();
 	}
-	
+
 	public void setEnvironmentProvider(EnvironmentProvider environment) {
 		this.environment = environment;
 	}
-	
+
 	public void unsetEnvironmentProvider(EnvironmentProvider environment) {
 		this.environment = null;
 	}
-	
+
 	public void addMappingProvider(MappingProvider provider) {
 		this.mappingProviders.add(provider);
 	}
-	
+
 	public void removeMappingProvider(MappingProvider provider) {
 		this.mappingProviders.remove(provider);
+	}
+
+	public void addSqlMetaDataProvider(SqlMetaDataProvider provider) {
+		this.metaDataProviders.add(provider);
+		for( Table t : provider.getTables() ) {
+			System.err.println("Mapping: " + t.getName());
+			tableMap.put(t.getName().toUpperCase(), t);
+		}
+	}
+
+	public void removeSqlMetaDataProvider(SqlMetaDataProvider provider) {
+		this.metaDataProviders.remove(provider);
 	}
 
 	private synchronized SqlSessionFactory bootstrap() {
@@ -104,7 +121,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			public Transaction newTransaction(Connection conn) {
 				throw new UnsupportedOperationException();
 			}
-			
+
 			@Override
 			public Transaction newTransaction(DataSource ds,
 					TransactionIsolationLevel desiredLevel, boolean desiredAutoCommit) {
@@ -114,26 +131,26 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 					protected void openConnection() throws SQLException {
 						super.openConnection();
 					}
-					
+
 					@Override
 					public Connection getConnection() throws SQLException {
 						i++;
 						return super.getConnection();
 					}
-					
+
 					@Override
 					public void close() throws SQLException {
 						i--;
 						if( i == 0 ) {
 							super.close();
-							connection = null;	
+							connection = null;
 						}
 					}
 				};
 			}
 		};
 		//TODO We need to support multi configurations
-		PooledDataSource dataSource = new PooledDataSource(environment.getDriverClass(), environment.getJDBCUrl(), environment.getUsername(), environment.getPassword());
+		final PooledDataSource dataSource = new PooledDataSource(environment.getDriverClass(), environment.getJDBCUrl(), environment.getUsername(), environment.getPassword());
 		Environment env = new Environment(environment.getEnvironmentId(), transactionFactory, dataSource);
 		Configuration cfg = new Configuration(env) {
 			@Override
@@ -162,7 +179,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				}
 				return super.newExecutor(arg0, arg1, arg2);
 			}
-			
+
 			@Override
 			public ResultSetHandler newResultSetHandler(Executor executor,
 					MappedStatement mappedStatement, RowBounds rowBounds,
@@ -196,15 +213,15 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 //								System.err.println("CREATING: " + rv.getClass() + " => " + rv.hashCode());
 								if( rv instanceof EObject ) {
 									fobjectCache.put(key, (EObject) rv);
-//									System.err.println("CACHING IT"); 
+//									System.err.println("CACHING IT");
 								}
 							} else {
 //								System.err.println("I AM CACHED: " + rv.hashCode());
 							}
-							
+
 							return rv;
 						}
-						
+
 						@Override
 						protected Object createParameterizedResultObject(
 								ResultSet arg0, Class<?> arg1,
@@ -216,7 +233,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 							return super.createParameterizedResultObject(arg0, arg1, arg2, arg3, arg4,
 									arg5, arg6);
 						}
-						
+
 						@Override
 						protected Object instantiateParameterObject(
 								Class<?> parameterType) {
@@ -244,15 +261,15 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 //							System.err.println("CREATING: " + rv.getClass() + " => " + rv.hashCode());
 							if( rv instanceof EObject ) {
 								fobjectCache.put(key, (EObject) rv);
-//								System.err.println("CACHING IT"); 
+//								System.err.println("CACHING IT");
 							}
 						} else {
 //							System.err.println("I AM CACHED: " + rv.hashCode());
 						}
-						
+
 						return rv;
 					}
-					
+
 					@Override
 					protected Object createParameterizedResultObject(
 							ResultSet arg0, Class<?> arg1,
@@ -264,7 +281,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 						return super.createParameterizedResultObject(arg0, arg1, arg2, arg3, arg4,
 								arg5, arg6);
 					}
-					
+
 					@Override
 					protected Object instantiateParameterObject(
 							Class<?> parameterType) {
@@ -279,27 +296,27 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		cfg.setDatabaseId(environment.getDatabaseType());
 		final ObjectFactory objFactory = cfg.getObjectFactory();
 		cfg.setObjectFactory(new ObjectFactory() {
-			
+
 			public void setProperties(Properties arg0) {
 			}
-			
+
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public boolean isCollection(Class arg0) {
 				return objFactory.isCollection(arg0);
 			}
-			
+
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public Object create(Class arg0, List arg1, List arg2) {
 				return null;
 			}
-			
+
 			@SuppressWarnings({ "unchecked", "rawtypes" })
 			public Object create(Class arg0) {
 				EClass e = eClassCache.get(arg0);
 				if( e != null ) {
-					return EcoreUtil.create(e);	
+					return EcoreUtil.create(e);
 				}
-				
+
 				return objFactory.create(arg0);
 			}
 		});
@@ -319,7 +336,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				// TODO Auto-generated method stub
 				return orig.hasWrapperFor(arg0);
 			}
-			
+
 			@Override
 			public ObjectWrapper getWrapperFor(MetaObject arg0, Object arg1) {
 //				System.err.println("getWrapperFor: " +arg0 + " => " + arg1);
@@ -341,27 +358,48 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			  @Override
 			  public Blob getNullableResult(ResultSet rs, String columnName)
 			      throws SQLException {
-			    return rs.getBlob(columnName);
+				  if( rs.getBlob(columnName) == null ) {
+					 return null;
+				  }
+
+				  ResultSetMetaData data = rs.getMetaData();
+				  int idx = rs.findColumn(columnName);
+
+				  String tableName = data.getTableName(idx);
+				  Table t = tableMap.get(tableName.toUpperCase());
+				  return new LazyBlob(dataSource, tableName, columnName, t.getPrimaryKeyColumn().getName(), rs.getObject(t.getPrimaryKeyColumn().getName()));
 			  }
 
 			  @Override
 			  public Blob getNullableResult(ResultSet rs, int columnIndex)
 			      throws SQLException {
-			    return rs.getBlob(columnIndex);
+				  if( rs.getBlob(columnIndex) == null ) {
+					  return null;
+				  }
+				  ResultSetMetaData data = rs.getMetaData();
+				  String tableName = data.getTableName(columnIndex);
+				  Table t = tableMap.get(tableName.toUpperCase());
+				  return new LazyBlob(dataSource, tableName, data.getCatalogName(columnIndex), t.getPrimaryKeyColumn().getName(), rs.getObject(t.getPrimaryKeyColumn().getName()));
 			  }
 
 			  @Override
 			  public Blob getNullableResult(CallableStatement cs, int columnIndex)
 			      throws SQLException {
-			    return cs.getBlob(columnIndex);
+				  if( cs.getBlob(columnIndex) == null ) {
+					  return null;
+				  }
+				  ResultSetMetaData data = cs.getMetaData();
+				  String tableName = data.getTableName(columnIndex);
+				  Table t = tableMap.get(tableName.toUpperCase());
+				  return new LazyBlob(dataSource, tableName, data.getCatalogName(columnIndex), t.getPrimaryKeyColumn().getName(), cs.getObject(t.getPrimaryKeyColumn().getName()));
 			  }
-			
+
 		});
 		for( MappingProvider p : mappingProviders ) {
 			for( MappingUnit u : p.getMappingUnits() ) {
 				cfg.getTypeAliasRegistry().registerAlias(u.getModelInterface().getName(),u.getModelInterface());
 				cfg.addMapper(u.getMapperInterface());
-				eClassCache.put(u.getModelInterface(), u.getEClass());				
+				eClassCache.put(u.getModelInterface(), u.getEClass());
 			}
 		}
 
@@ -386,17 +424,17 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			}
 		}
 		sessionFactory = new SqlSessionFactoryBuilder().build(cfg);
-		
+
 		return sessionFactory;
 	}
-	
+
 	class EObjectProxy implements ProxyFactory {
 		private ProxyFactory original;
-		
+
 		public EObjectProxy(ProxyFactory original) {
 			this.original = original;
 		}
-		
+
 		@Override
 		public Object createProxy(Object arg0, final ResultLoaderMap arg1,
 				Configuration arg2, ObjectFactory arg3, List<Class<?>> arg4,
@@ -407,7 +445,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				LazyEObject leo = (LazyEObject) arg0;
 				if( ! leo.isEnhanced() ) {
 					leo.setProxyDelegate(new ResolveDelegate() {
-						
+
 						@Override
 						public boolean resolve(LazyEObject eo, EStructuralFeature f) {
 							if( IN_PROXY_RESOLVE.get() == Boolean.TRUE ) {
@@ -423,7 +461,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-								}								
+								}
 							} finally {
 								IN_PROXY_RESOLVE.set(Boolean.FALSE);
 							}
@@ -439,7 +477,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
 						proxyCache.put((EObject) arg0, rv);
 					}
-					return rv;	
+					return rv;
 				}
 				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
 			}
@@ -448,7 +486,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 		@Override
 		public void setProperties(Properties arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 	}
 }

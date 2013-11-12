@@ -6,4 +6,5 @@
    </service>
    <reference bind="setEnvironmentProvider" cardinality="1..1" interface="at.bestsolution.persistence.mybatis.EnvironmentProvider" name="EnvironmentProvider" policy="dynamic" unbind="unsetEnvironmentProvider"/>
    <reference bind="addMappingProvider" cardinality="1..n" interface="at.bestsolution.persistence.mybatis.MappingProvider" name="MappingProvider" policy="dynamic" unbind="removeMappingProvider"/>
+   <reference bind="addSqlMetaDataProvider" cardinality="1..n" interface="at.bestsolution.persistence.mybatis.SqlMetaDataProvider" name="SqlMetaDataProvider" policy="dynamic" unbind="removeSqlMetaDataProvider"/>
 </scr:component>

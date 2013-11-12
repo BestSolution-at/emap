@@ -14,7 +14,7 @@ public class URLMappingUnit implements MappingUnit {
 	private final Class<?> mapperInterface;
 	private final EClass eclass;
 	private URL xmlURL;
-	
+
 	public URLMappingUnit(String id, Class<?> modelInterface, Class<?> mapperInterface, EClass eclass, URL xmlURL) {
 		this.id = id;
 		this.modelInterface = modelInterface;
@@ -22,7 +22,7 @@ public class URLMappingUnit implements MappingUnit {
 		this.eclass = eclass;
 		this.xmlURL = xmlURL;
 	}
-	
+
 	@Override
 	public Class<?> getModelInterface() {
 		return modelInterface;
@@ -40,6 +40,7 @@ public class URLMappingUnit implements MappingUnit {
 
 	@Override
 	public InputStream getMappingXML() throws IOException {
+		System.err.println("Working for : " + eclass);
 		return xmlURL.openStream();
 	}
 

@@ -19,13 +19,13 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   public String getSequenceStatement(final EAttribute primaryKey) {
     EList<EValueGenerator> _valueGenerators = primaryKey.getValueGenerators();
     final Function1<EValueGenerator,Boolean> _function = new Function1<EValueGenerator,Boolean>() {
-        public Boolean apply(final EValueGenerator it) {
-          String _dbType = it.getDbType();
-          String _databaseId = FirebirdDatabaseSupport.this.getDatabaseId();
-          boolean _equals = Objects.equal(_dbType, _databaseId);
-          return Boolean.valueOf(_equals);
-        }
-      };
+      public Boolean apply(final EValueGenerator it) {
+        String _dbType = it.getDbType();
+        String _databaseId = FirebirdDatabaseSupport.this.getDatabaseId();
+        boolean _equals = Objects.equal(_dbType, _databaseId);
+        return Boolean.valueOf(_equals);
+      }
+    };
     EValueGenerator _findFirst = IterableExtensions.<EValueGenerator>findFirst(_valueGenerators, _function);
     String _sequence = _findFirst.getSequence();
     return ("NEXT VALUE FOR " + _sequence);

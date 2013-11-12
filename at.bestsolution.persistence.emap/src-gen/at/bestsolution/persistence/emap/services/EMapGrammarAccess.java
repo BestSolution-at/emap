@@ -892,21 +892,17 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		
 		//EObjectSection: //	noreferences?='noreferences'? 
-		//
 		//	entity=[EMappingEntity] ("(" descriminatedTypes+=[EMappingEntity] ("," descriminatedTypes+=[EMappingEntity])+ ")")?
 		//	(prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
-		//
 		//;
 		public ParserRule getRule() { return rule; }
 
 		////	noreferences?='noreferences'? 
-		//
 		//entity=[EMappingEntity] ("(" descriminatedTypes+=[EMappingEntity] ("," descriminatedTypes+=[EMappingEntity])+ ")")?
 		//(prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )?
 		public Group getGroup() { return cGroup; }
 
 		////	noreferences?='noreferences'? 
-		//
 		//entity=[EMappingEntity]
 		public Assignment getEntityAssignment_0() { return cEntityAssignment_0; }
 
@@ -1394,10 +1390,8 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EObjectSection: //	noreferences?='noreferences'? 
-	//
 	//	entity=[EMappingEntity] ("(" descriminatedTypes+=[EMappingEntity] ("," descriminatedTypes+=[EMappingEntity])+ ")")?
 	//	(prefix=ID ("{" attributes+=EMappingAttribute ("," attributes+=EMappingAttribute)* "}")?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
-	//
 	//;
 	public EObjectSectionElements getEObjectSectionAccess() {
 		return (pEObjectSection != null) ? pEObjectSection : (pEObjectSection = new EObjectSectionElements());

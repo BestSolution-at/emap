@@ -1,9 +1,16 @@
 package at.bestsolution.persistence.emap.ecore;
 
+import at.bestsolution.persistence.emap.ecore.NamingStrategy;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtend2.lib.StringConcatenation;
+import org.eclipse.xtext.xbase.lib.Extension;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
 public class EcoreToEMapGenerator {
@@ -13,7 +20,7 @@ public class EcoreToEMapGenerator {
     this.eclass = eclass;
   }
   
-  public CharSequence generate() {
+  public CharSequence generate(@Extension final NamingStrategy namingStrategy) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
     String _packageName = EcoreToEMapGenerator.packageName(this.eclass);
@@ -44,6 +51,56 @@ public class EcoreToEMapGenerator {
     }
     _builder.append(" {");
     _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("etype \"");
+    EPackage _ePackage = this.eclass.getEPackage();
+    String _nsURI = _ePackage.getNsURI();
+    _builder.append(_nsURI, "	");
+    _builder.append("\"#");
+    String _name_2 = this.eclass.getName();
+    _builder.append(_name_2, "	");
+    _builder.newLineIfNotEmpty();
+    _builder.append("\t");
+    _builder.append("attributes {");
+    _builder.newLine();
+    {
+      EList<EAttribute> _eAttributes = this.eclass.getEAttributes();
+      for(final EAttribute a : _eAttributes) {
+        _builder.append("\t\t");
+        String _name_3 = a.getName();
+        _builder.append(_name_3, "		");
+        _builder.append(" => ");
+        String _columnName = namingStrategy.getColumnName(a, this.eclass);
+        _builder.append(_columnName, "		");
+        _builder.newLineIfNotEmpty();
+      }
+    }
+    {
+      EList<EReference> _eReferences = this.eclass.getEReferences();
+      for(final EReference r : _eReferences) {
+        {
+          boolean _isContainment = r.isContainment();
+          if (_isContainment) {
+            _builder.append("\t\t");
+            String _name_4 = r.getName();
+            _builder.append(_name_4, "		");
+            _builder.append(" => resolve ");
+            EClassifier _eType = r.getEType();
+            String _name_5 = _eType.getName();
+            _builder.append(_name_5, "		");
+            _builder.append(".selectAllFor");
+            String _name_6 = this.eclass.getName();
+            String _firstUpper = StringExtensions.toFirstUpper(_name_6);
+            _builder.append(_firstUpper, "		");
+            _builder.append("()");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+      }
+    }
+    _builder.append("\t");
+    _builder.append("}");
+    _builder.newLine();
     _builder.append("}");
     _builder.newLine();
     return _builder;
