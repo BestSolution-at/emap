@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -54,6 +55,7 @@ import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -63,8 +65,10 @@ import at.bestsolution.persistence.mybatis.EnvironmentProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider;
 import at.bestsolution.persistence.mybatis.SqlMetaDataProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider.MappingUnit;
+import at.bestsolution.persistence.mybatis.SqlMetaDataProvider.Column;
 import at.bestsolution.persistence.mybatis.SqlMetaDataProvider.Table;
 import at.bestsolution.persistence.mybatis.SqlSessionProvider;
+import at.bestsolution.persistence.mybatis.impl.CGLibObjectProxyInterceptor.CGLibProxyResolve;
 
 public class SqlSessionProviderImpl implements SqlSessionProvider {
 	static ThreadLocal<Boolean> IN_PROXY_RESOLVE = new ThreadLocal<Boolean>();
@@ -75,7 +79,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 	private SqlSessionFactory sessionFactory;
 	private Map<Class<?>, EClass> eClassCache = new HashMap<Class<?>, EClass>();
 	private Map<Executor, Map<String, EObject>> sessionObjectCache = new HashMap<Executor, Map<String,EObject>>();
-	private Map<EObject, EObject> proxyCache = new HashMap<EObject, EObject>();
+	private Map<EObject, EnhancedEObject> proxyCache = new HashMap<EObject, EnhancedEObject>();
 
 	private EnvironmentProvider environment;
 	private Map<String, Table> tableMap = new HashMap<String, SqlMetaDataProvider.Table>();
@@ -228,7 +232,6 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 								List<ResultMapping> arg2, List<Class<?>> arg3,
 								List<Object> arg4, String arg5,
 								ResultColumnCache arg6) throws SQLException {
-							System.err.println("createParameterizedResultObject");
 							// TODO Auto-generated method stub
 							return super.createParameterizedResultObject(arg0, arg1, arg2, arg3, arg4,
 									arg5, arg6);
@@ -237,7 +240,6 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 						@Override
 						protected Object instantiateParameterObject(
 								Class<?> parameterType) {
-							System.err.println("instantiateParameterObject");
 							// TODO Auto-generated method stub
 							return super.instantiateParameterObject(parameterType);
 						}
@@ -348,7 +350,6 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			}
 		});
 		cfg.getTypeHandlerRegistry().register(Blob.class, new BaseTypeHandler<Blob>() {
-
 			@Override
 			  public void setNonNullParameter(PreparedStatement ps, int i, Blob parameter, JdbcType jdbcType)
 			      throws SQLException {
@@ -364,10 +365,19 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 
 				  ResultSetMetaData data = rs.getMetaData();
 				  int idx = rs.findColumn(columnName);
-
 				  String tableName = data.getTableName(idx);
 				  Table t = tableMap.get(tableName.toUpperCase());
-				  return new LazyBlob(dataSource, tableName, columnName, t.getPrimaryKeyColumn().getName(), rs.getObject(t.getPrimaryKeyColumn().getName()));
+
+				  String primaryKeyColumn = t.getPrimaryKeyColumn().getName();
+				  String localPrimaryKeyColumn = primaryKeyColumn;
+
+				  // Looks like we deal with alias stuff
+				  if( t.getColumn(columnName) == null ) {
+					  localPrimaryKeyColumn = columnName.substring(0,columnName.indexOf('_')) + "_" + localPrimaryKeyColumn;
+					  columnName = columnName.substring(columnName.indexOf('_')+1);
+				  }
+
+				  return new LazyBlob(dataSource, tableName, columnName, primaryKeyColumn, rs.getObject(localPrimaryKeyColumn));
 			  }
 
 			  @Override
@@ -376,10 +386,11 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				  if( rs.getBlob(columnIndex) == null ) {
 					  return null;
 				  }
+
 				  ResultSetMetaData data = rs.getMetaData();
-				  String tableName = data.getTableName(columnIndex);
-				  Table t = tableMap.get(tableName.toUpperCase());
-				  return new LazyBlob(dataSource, tableName, data.getCatalogName(columnIndex), t.getPrimaryKeyColumn().getName(), rs.getObject(t.getPrimaryKeyColumn().getName()));
+				  String columnName = data.getColumnName(columnIndex);
+
+				  return getNullableResult(rs, columnName);
 			  }
 
 			  @Override
@@ -391,7 +402,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				  ResultSetMetaData data = cs.getMetaData();
 				  String tableName = data.getTableName(columnIndex);
 				  Table t = tableMap.get(tableName.toUpperCase());
-				  return new LazyBlob(dataSource, tableName, data.getCatalogName(columnIndex), t.getPrimaryKeyColumn().getName(), cs.getObject(t.getPrimaryKeyColumn().getName()));
+				  return new LazyBlob(dataSource, tableName, data.getColumnName(columnIndex), t.getPrimaryKeyColumn().getName(), cs.getObject(t.getPrimaryKeyColumn().getName()));
 			  }
 
 		});
@@ -472,12 +483,51 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 				return arg0;
 			} else {
 				if( arg0 instanceof EObject ) {
-					EObject rv = proxyCache.get(arg0);
+					EnhancedEObject rv = proxyCache.get(arg0);
 					if( rv == null ) {
-						rv = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+						final EnhancedEObject fRv = new EnhancedEObject();
+						rv = fRv;
+//						rv.enhancedObject = (EObject) original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
+						rv.enhancedObject = CGLibObjectProxyInterceptor.newInstance((EObject) arg0, new CGLibProxyResolve() {
+
+							@Override
+							public boolean isResolved(EObject object,
+									EStructuralFeature f) {
+								return fRv.resolved.containsKey(f);
+							}
+
+							@Override
+							public void markResolved(EObject object,
+									EStructuralFeature f) {
+								fRv.resolved.put((EReference) f, Boolean.TRUE);
+							}
+
+							@Override
+							public boolean resolve(EObject object,
+									EStructuralFeature f) {
+								if( IN_PROXY_RESOLVE.get() == Boolean.TRUE ) {
+									return false;
+								}
+								try {
+									IN_PROXY_RESOLVE.set(Boolean.TRUE);
+									if( arg1.hasLoader(f.getName()) ) {
+										try {
+											arg1.load(f.getName());
+											return true;
+										} catch (SQLException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								} finally {
+									IN_PROXY_RESOLVE.set(Boolean.FALSE);
+								}
+								return false;
+							}
+						});
 						proxyCache.put((EObject) arg0, rv);
 					}
-					return rv;
+					return rv.enhancedObject;
 				}
 				return original.createProxy(arg0, arg1, arg2, arg3, arg4, arg5);
 			}
@@ -488,5 +538,10 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			// TODO Auto-generated method stub
 
 		}
+	}
+
+	static class EnhancedEObject {
+		EObject enhancedObject;
+		Map<EReference, Boolean> resolved = new HashMap<EReference, Boolean>();
 	}
 }

@@ -5,5 +5,5 @@ import org.eclipse.emf.ecore.EReference;
 
 public interface PersistedEObject extends EObject {
 	public boolean isResolved(EReference f);
-	public Object getPrimaryKey();
+//	public Object getPrimaryKey();
 }

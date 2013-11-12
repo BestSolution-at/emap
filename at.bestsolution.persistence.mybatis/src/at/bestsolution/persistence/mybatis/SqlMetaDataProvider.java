@@ -1,7 +1,9 @@
 package at.bestsolution.persistence.mybatis;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public interface SqlMetaDataProvider {
@@ -11,6 +13,7 @@ public interface SqlMetaDataProvider {
 		private final String name;
 		private final Set<Column> columns;
 		private Column primaryKeyColumn;
+		private Map<String, Column> columnMap;
 
 		public Table(String name, Set<Column> columns) {
 			this.name = name;
@@ -35,6 +38,16 @@ public interface SqlMetaDataProvider {
 				}
 			}
 			return primaryKeyColumn;
+		}
+
+		public Column getColumn(String columnName) {
+			if( columnMap == null ) {
+				columnMap = new HashMap<String, Column>();
+				for( Column c : columns ) {
+					columnMap.put(c.name, c);
+				}
+			}
+			return columnMap.get(columnName);
 		}
 	}
 

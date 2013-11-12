@@ -17,19 +17,20 @@ import at.bestsolution.persistence.model.PersistedEObject;
 public class EMFObjectWrapper implements ObjectWrapper {
 	private BeanWrapper wrapper;
 	private EObject object;
-	private boolean isFilled;
+//	private boolean isFilled;
 	private static final String MODIFIED_PREFIX = "_isResolved_";
 	private static final String CLASSNAME = "_classname";
-	
+
 	public EMFObjectWrapper(MetaObject metaObject, EObject object) {
 		this.wrapper = new BeanWrapper(metaObject, object);
 		this.object = object;
-		
-		if( object instanceof PersistedEObject ) {
-			this.isFilled = ((PersistedEObject)object).getPrimaryKey() != null;	
-		}
+
+//		if( object instanceof PersistedEObject ) {
+//			System.err.println("PERSISTED EObject");
+//			this.isFilled = ((PersistedEObject)object).getPrimaryKey() != null;
+//		}
 	}
-	
+
 	@Override
 	public void add(Object arg0) {
 		wrapper.add(arg0);
@@ -110,28 +111,28 @@ public class EMFObjectWrapper implements ObjectWrapper {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void set(PropertyTokenizer arg0, Object arg1) {
-		if( isFilled ) {
-			return;
-		}
+//		if( isFilled ) {
+//			return;
+//		}
 		EStructuralFeature feature = object.eClass().getEStructuralFeature(arg0.getName());
-		
+
 		if( feature == null ) {
 			System.err.println(object.eClass().getName() + " no feature " + arg0.getName());
 		}
-		
+
 		if( feature.isMany() ) {
 			List<Object> l = (List<Object>)object.eGet(feature);
-			System.err.println("Current:   " + l.size());
-			System.err.println("Attaching: " + ((Collection<?>)arg1).size());
+//			System.err.println("Current:   " + l.size());
+//			System.err.println("Attaching: " + ((Collection<?>)arg1).size());
 			l.addAll((Collection<? extends Object>) arg1);
-			System.err.println("AFTER:   " + l.size());
+//			System.err.println("AFTER:   " + l.size());
 		} else {
 			if( feature instanceof EReference ) {
 				object.eSet(feature, arg1);
 			} else {
-				object.eSet(feature, arg1);	
+				object.eSet(feature, arg1);
 			}
-			
+
 		}
 	}
 }
