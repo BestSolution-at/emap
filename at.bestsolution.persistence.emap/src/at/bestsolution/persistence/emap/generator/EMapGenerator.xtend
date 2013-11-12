@@ -426,7 +426,7 @@ class EMapGenerator implements IGenerator {
 	}
 
 	def static String mapColumns(EObjectSection s) {
-		val atts = s.entity.collectAttributes
+		val atts = s.entity.collectAllAttributes
 		val id = atts.findFirst[a|a.pk]
 
 		val StringBuilder b = new StringBuilder;
@@ -442,7 +442,12 @@ class EMapGenerator implements IGenerator {
 	def static String prefix(EObjectSection s, EAttribute attribute) {
 		val allDerivedAttributes = s.entity.collectDerivedAttributes
 		if( allDerivedAttributes.containsKey(attribute.property) ) {
-			return s.prefix;
+			if( ! attribute.pk || s.entity == attribute.eContainer ) {
+				return s.prefix;
+			} else {
+				val ownerType = getDbOwnerType(attribute.eContainer as EMappingEntity, attribute)
+				return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
+			}
 		}
 		val ownerType = getDbOwnerType(s.entity, attribute)
 		return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
@@ -539,6 +544,21 @@ class EMapGenerator implements IGenerator {
 		l.addAll(entity.attributes.filter[! skipPrimary || ! pk ])
 		if( entity.parent != null ) {
 			entity.parent.allAttributes(l, true)
+		}
+	}
+
+	def static collectAllAttributes(EMappingEntity entity) {
+		val l = new ArrayList<EAttribute>
+		entity.allAttributes(l)
+		val eClass = JavaHelper::getEClass(entity.etype);
+		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
+		return l
+	}
+
+	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
+		l.addAll(entity.attributes)
+		if( entity.parent != null ) {
+			entity.parent.allAttributes(l)
 		}
 	}
 
