@@ -1,14 +1,19 @@
 package at.bestsolution.persistence.mybatis.impl;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
+import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
 import at.bestsolution.persistence.ObjectMapper;
@@ -19,7 +24,8 @@ import at.bestsolution.persistence.mybatis.SqlSessionProvider;
 public class SessionFactoryImpl implements SessionFactory {
 	private SqlSessionProvider sqlSessionProvider;
 	private EventAdmin eventAdmin;
-	public static ThreadLocal<Connection> TRANSACTION_CONNECTION = new ThreadLocal<Connection>();
+	public static ThreadLocal<Stack<Connection>> TRANSACTION_CONNECTION = new ThreadLocal<Stack<Connection>>();
+	public static ThreadLocal<Boolean> TRANSACTION_CONNECTION_RETRIEVAL = new ThreadLocal<Boolean>();
 	private static final Logger LOGGER = Logger.getLogger(SessionFactoryImpl.class);
 
 	public void setSqlSessionProvider(SqlSessionProvider sqlSessionProvider) {
@@ -45,6 +51,12 @@ public class SessionFactoryImpl implements SessionFactory {
 
 	class SessionImpl implements Session  {
 		private SqlSession session;
+		private String id = UUID.randomUUID().toString();
+
+		@Override
+		public String getId() {
+			return id;
+		}
 
 		public SessionImpl(SqlSession session) {
 			this.session = session;
@@ -80,9 +92,28 @@ public class SessionFactoryImpl implements SessionFactory {
 		@Override
 		public void runInTransaction(Transaction transaction) {
 			LOGGER.debug("Starting transaction");
-			Connection connection = session.getConnection();
-			TRANSACTION_CONNECTION.set(connection);
+
+			Connection connection;
+			// Make sure when we are in a nested transaction that it gets a new
+			// connection
 			try {
+				TRANSACTION_CONNECTION_RETRIEVAL.set(Boolean.TRUE);
+				connection = session.getConnection();
+			} finally {
+				TRANSACTION_CONNECTION_RETRIEVAL.set(Boolean.FALSE);
+			}
+
+			LOGGER.debug("Connection fetched");
+			if( TRANSACTION_CONNECTION.get() == null ) {
+				TRANSACTION_CONNECTION.set(new Stack<Connection>());
+			}
+			TRANSACTION_CONNECTION.get().push(connection);
+			try {
+				if( eventAdmin != null ) {
+					Map<String, String> data = new HashMap<String, String>();
+					data.put(Session.DATA_SESSION_ID_TOPIC_TRANSACTION_START, getId());
+					eventAdmin.sendEvent(new Event("at/bestsolution/persistence/transaction/start", data));
+				}
 				if( transaction.execute() ) {
 					LOGGER.debug("Committing transaction");
 					connection.commit();
@@ -98,7 +129,11 @@ public class SessionFactoryImpl implements SessionFactory {
 				}
 				throw new RuntimeException("An error occured while executing the transaction", e);
 			} finally {
-				TRANSACTION_CONNECTION.set(null);
+				Stack<Connection> stack = TRANSACTION_CONNECTION.get();
+				stack.pop();
+				if( stack.isEmpty() ) {
+					TRANSACTION_CONNECTION.set(null);
+				}
 				try {
 					connection.close();
 				} catch (SQLException e) {

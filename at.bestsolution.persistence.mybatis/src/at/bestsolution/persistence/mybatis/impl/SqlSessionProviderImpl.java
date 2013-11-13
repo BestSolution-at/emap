@@ -127,7 +127,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			@Override
 			public Transaction newTransaction(DataSource ds,
 					TransactionIsolationLevel desiredLevel, boolean desiredAutoCommit) {
-				return new ConditionalTransaction(new AutoCloseJDBCTransaction(ds,desiredLevel,desiredAutoCommit));
+				return new ConditionalTransaction(ds, desiredLevel, new AutoCloseJDBCTransaction(ds,desiredLevel,desiredAutoCommit));
 //				return new JdbcTransaction(ds, desiredLevel, desiredAutoCommit) {
 //					private int i = 0;
 //					@Override
@@ -546,13 +546,22 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 
 	static class ConditionalTransaction implements Transaction {
 		private Transaction originalTransaction;
+		private final DataSource ds;
+		private final TransactionIsolationLevel desiredLevel;
 
-		public ConditionalTransaction(Transaction originalTransaction) {
+		public ConditionalTransaction(DataSource ds,
+				TransactionIsolationLevel desiredLevel, Transaction originalTransaction) {
 			this.originalTransaction = originalTransaction;
+			this.ds = ds;
+			this.desiredLevel = desiredLevel;
 		}
 
 		private boolean inTransaction() {
 			return SessionFactoryImpl.TRANSACTION_CONNECTION.get() != null;
+		}
+
+		private boolean connectionRetrivial() {
+			return SessionFactoryImpl.TRANSACTION_CONNECTION_RETRIEVAL.get() == Boolean.TRUE;
 		}
 
 		@Override
@@ -571,11 +580,19 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 
 		@Override
 		public Connection getConnection() throws SQLException {
+			if( connectionRetrivial() ) {
+				Connection connection = ds.getConnection();
+				connection.setAutoCommit(false);
+			    if (desiredLevel != null) {
+			    	connection.setTransactionIsolation(desiredLevel.getLevel());
+			    }
+			    return connection;
+			}
+
 			if( ! inTransaction() ) {
 				return originalTransaction.getConnection();
 			}
-			System.err.println("USING TRANSACTION CONNECTION!!!!!!");
-			return SessionFactoryImpl.TRANSACTION_CONNECTION.get();
+			return SessionFactoryImpl.TRANSACTION_CONNECTION.get().peek();
 		}
 
 		@Override
