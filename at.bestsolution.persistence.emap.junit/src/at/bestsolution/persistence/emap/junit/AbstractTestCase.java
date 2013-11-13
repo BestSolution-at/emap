@@ -24,7 +24,7 @@ public class AbstractTestCase<M extends ObjectMapper<?>> {
 		return session;
 	}
 
-	private SessionFactory getSessionFactory() {
+	public SessionFactory getSessionFactory() {
 		if( factory == null ) {
 			BundleContext bundleContext = FrameworkUtil.getBundle(getClass()).getBundleContext();
 			ServiceReference<SessionFactory> reference = bundleContext.getServiceReference(SessionFactory.class);
