@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -63,9 +62,8 @@ import at.bestsolution.persistence.model.LazyEObject;
 import at.bestsolution.persistence.model.ResolveDelegate;
 import at.bestsolution.persistence.mybatis.EnvironmentProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider;
-import at.bestsolution.persistence.mybatis.SqlMetaDataProvider;
 import at.bestsolution.persistence.mybatis.MappingProvider.MappingUnit;
-import at.bestsolution.persistence.mybatis.SqlMetaDataProvider.Column;
+import at.bestsolution.persistence.mybatis.SqlMetaDataProvider;
 import at.bestsolution.persistence.mybatis.SqlMetaDataProvider.Table;
 import at.bestsolution.persistence.mybatis.SqlSessionProvider;
 import at.bestsolution.persistence.mybatis.impl.CGLibObjectProxyInterceptor.CGLibProxyResolve;
@@ -129,28 +127,29 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 			@Override
 			public Transaction newTransaction(DataSource ds,
 					TransactionIsolationLevel desiredLevel, boolean desiredAutoCommit) {
-				return new JdbcTransaction(ds, desiredLevel, desiredAutoCommit) {
-					private int i = 0;
-					@Override
-					protected void openConnection() throws SQLException {
-						super.openConnection();
-					}
-
-					@Override
-					public Connection getConnection() throws SQLException {
-						i++;
-						return super.getConnection();
-					}
-
-					@Override
-					public void close() throws SQLException {
-						i--;
-						if( i == 0 ) {
-							super.close();
-							connection = null;
-						}
-					}
-				};
+				return new ConditionalTransaction(new AutoCloseJDBCTransaction(ds,desiredLevel,desiredAutoCommit));
+//				return new JdbcTransaction(ds, desiredLevel, desiredAutoCommit) {
+//					private int i = 0;
+//					@Override
+//					protected void openConnection() throws SQLException {
+//						super.openConnection();
+//					}
+//
+//					@Override
+//					public Connection getConnection() throws SQLException {
+//						i++;
+//						return super.getConnection();
+//					}
+//
+//					@Override
+//					public void close() throws SQLException {
+//						i--;
+//						if( i == 0 ) {
+//							super.close();
+//							connection = null;
+//						}
+//					}
+//				};
 			}
 		};
 		//TODO We need to support multi configurations
@@ -543,5 +542,76 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 	static class EnhancedEObject {
 		EObject enhancedObject;
 		Map<EReference, Boolean> resolved = new HashMap<EReference, Boolean>();
+	}
+
+	static class ConditionalTransaction implements Transaction {
+		private Transaction originalTransaction;
+
+		public ConditionalTransaction(Transaction originalTransaction) {
+			this.originalTransaction = originalTransaction;
+		}
+
+		private boolean inTransaction() {
+			return SessionFactoryImpl.TRANSACTION_CONNECTION.get() != null;
+		}
+
+		@Override
+		public void close() throws SQLException {
+			if( ! inTransaction() ) {
+				originalTransaction.close();
+			}
+		}
+
+		@Override
+		public void commit() throws SQLException {
+			if( ! inTransaction() ) {
+				originalTransaction.commit();
+			}
+		}
+
+		@Override
+		public Connection getConnection() throws SQLException {
+			if( ! inTransaction() ) {
+				return originalTransaction.getConnection();
+			}
+			System.err.println("USING TRANSACTION CONNECTION!!!!!!");
+			return SessionFactoryImpl.TRANSACTION_CONNECTION.get();
+		}
+
+		@Override
+		public void rollback() throws SQLException {
+			if( ! inTransaction() ) {
+				originalTransaction.rollback();
+			}
+		}
+	}
+
+	static class AutoCloseJDBCTransaction extends JdbcTransaction {
+		private int i = 0;
+
+		public AutoCloseJDBCTransaction(DataSource ds,
+				TransactionIsolationLevel desiredLevel, boolean desiredAutoCommit) {
+			super(ds, desiredLevel, desiredAutoCommit);
+		}
+
+		@Override
+		protected void openConnection() throws SQLException {
+			super.openConnection();
+		}
+
+		@Override
+		public Connection getConnection() throws SQLException {
+			i++;
+			return super.getConnection();
+		}
+
+		@Override
+		public void close() throws SQLException {
+			i--;
+			if( i == 0 ) {
+				super.close();
+				connection = null;
+			}
+		}
 	}
 }

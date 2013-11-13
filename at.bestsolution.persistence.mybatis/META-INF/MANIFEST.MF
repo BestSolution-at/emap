@@ -24,3 +24,4 @@ Bundle-ClassPath: libs/asm-3.3.1.jar,
  libs/javassist-3.17.1-GA.jar,
  libs/mybatis-3.2.2.jar,
  .
+Import-Package: org.osgi.service.event;version="1.3.0"
