@@ -8,3 +8,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: lib/org.antlr.runtime_3.2.0.v201101311130.jar,
  lib/org.firebirdsql.jdbc.FBDriver_2.2.0.jar,
  .
+Require-Bundle: com.bizerba.basic.model;bundle-version="1.7.5",
+ com.bizerba.retail.model;bundle-version="1.7.5"

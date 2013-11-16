@@ -53,19 +53,19 @@ public class EClassMapper {
     _builder.append("\" WHERE \"");
     EList<EAttribute> _eAllAttributes = this.eClass.getEAllAttributes();
     final Function1<EAttribute,Boolean> _function = new Function1<EAttribute,Boolean>() {
-        public Boolean apply(final EAttribute it) {
-          boolean _isTransient = it.isTransient();
-          boolean _not = (!_isTransient);
-          return Boolean.valueOf(_not);
-        }
-      };
+      public Boolean apply(final EAttribute it) {
+        boolean _isTransient = it.isTransient();
+        boolean _not = (!_isTransient);
+        return Boolean.valueOf(_not);
+      }
+    };
     Iterable<EAttribute> _filter = IterableExtensions.<EAttribute>filter(_eAllAttributes, _function);
     final Function1<EAttribute,Boolean> _function_1 = new Function1<EAttribute,Boolean>() {
-        public Boolean apply(final EAttribute e) {
-          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-          return Boolean.valueOf(_isPrimaryKey);
-        }
-      };
+      public Boolean apply(final EAttribute e) {
+        boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+        return Boolean.valueOf(_isPrimaryKey);
+      }
+    };
     EAttribute _findFirst = IterableExtensions.<EAttribute>findFirst(_filter, _function_1);
     String _columnName = columnNameProvider.getColumnName(_findFirst, this.eClass);
     _builder.append(_columnName, "    ");
@@ -101,11 +101,11 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_1 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_2 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            return Boolean.valueOf(_isPrimaryKey);
-          }
-        };
+        public Boolean apply(final EAttribute e) {
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          return Boolean.valueOf(_isPrimaryKey);
+        }
+      };
       Iterable<EAttribute> _filter_1 = IterableExtensions.<EAttribute>filter(_eAllAttributes_1, _function_2);
       for(final EAttribute f : _filter_1) {
         _builder.append("  \t");
@@ -122,28 +122,28 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_2 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_3 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _and = false;
-            boolean _and_1 = false;
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            boolean _not = (!_isPrimaryKey);
-            if (!_not) {
-              _and_1 = false;
-            } else {
-              boolean _isDerived = e.isDerived();
-              boolean _not_1 = (!_isDerived);
-              _and_1 = (_not && _not_1);
-            }
-            if (!_and_1) {
-              _and = false;
-            } else {
-              boolean _isTransient = e.isTransient();
-              boolean _not_2 = (!_isTransient);
-              _and = (_and_1 && _not_2);
-            }
-            return Boolean.valueOf(_and);
+        public Boolean apply(final EAttribute e) {
+          boolean _and = false;
+          boolean _and_1 = false;
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          boolean _not = (!_isPrimaryKey);
+          if (!_not) {
+            _and_1 = false;
+          } else {
+            boolean _isDerived = e.isDerived();
+            boolean _not_1 = (!_isDerived);
+            _and_1 = (_not && _not_1);
           }
-        };
+          if (!_and_1) {
+            _and = false;
+          } else {
+            boolean _isTransient = e.isTransient();
+            boolean _not_2 = (!_isTransient);
+            _and = (_and_1 && _not_2);
+          }
+          return Boolean.valueOf(_and);
+        }
+      };
       Iterable<EAttribute> _filter_2 = IterableExtensions.<EAttribute>filter(_eAllAttributes_2, _function_3);
       for(final EAttribute f_1 : _filter_2) {
         _builder.append("  \t");
@@ -178,11 +178,11 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_3 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_4 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            return Boolean.valueOf(_isPrimaryKey);
-          }
-        };
+        public Boolean apply(final EAttribute e) {
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          return Boolean.valueOf(_isPrimaryKey);
+        }
+      };
       Iterable<EAttribute> _filter_3 = IterableExtensions.<EAttribute>filter(_eAllAttributes_3, _function_4);
       for(final EAttribute f_2 : _filter_3) {
         _builder.append("  \t\t");
@@ -194,28 +194,28 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_4 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_5 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _and = false;
-            boolean _and_1 = false;
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            boolean _not = (!_isPrimaryKey);
-            if (!_not) {
-              _and_1 = false;
-            } else {
-              boolean _isDerived = e.isDerived();
-              boolean _not_1 = (!_isDerived);
-              _and_1 = (_not && _not_1);
-            }
-            if (!_and_1) {
-              _and = false;
-            } else {
-              boolean _isTransient = e.isTransient();
-              boolean _not_2 = (!_isTransient);
-              _and = (_and_1 && _not_2);
-            }
-            return Boolean.valueOf(_and);
+        public Boolean apply(final EAttribute e) {
+          boolean _and = false;
+          boolean _and_1 = false;
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          boolean _not = (!_isPrimaryKey);
+          if (!_not) {
+            _and_1 = false;
+          } else {
+            boolean _isDerived = e.isDerived();
+            boolean _not_1 = (!_isDerived);
+            _and_1 = (_not && _not_1);
           }
-        };
+          if (!_and_1) {
+            _and = false;
+          } else {
+            boolean _isTransient = e.isTransient();
+            boolean _not_2 = (!_isTransient);
+            _and = (_and_1 && _not_2);
+          }
+          return Boolean.valueOf(_and);
+        }
+      };
       Iterable<EAttribute> _filter_4 = IterableExtensions.<EAttribute>filter(_eAllAttributes_4, _function_5);
       for(final EAttribute f_3 : _filter_4) {
         _builder.append("  \t\t");
@@ -228,11 +228,11 @@ public class EClassMapper {
     {
       EList<EReference> _eAllReferences = this.eClass.getEAllReferences();
       final Function1<EReference,Boolean> _function_6 = new Function1<EReference,Boolean>() {
-          public Boolean apply(final EReference e) {
-            boolean _isRelation = EClassMapper.this.isRelation(e);
-            return Boolean.valueOf(_isRelation);
-          }
-        };
+        public Boolean apply(final EReference e) {
+          boolean _isRelation = EClassMapper.this.isRelation(e);
+          return Boolean.valueOf(_isRelation);
+        }
+      };
       Iterable<EReference> _filter_5 = IterableExtensions.<EReference>filter(_eAllReferences, _function_6);
       for(final EReference f_4 : _filter_5) {
         _builder.append("  \t\t");
@@ -254,11 +254,11 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_5 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_7 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            return Boolean.valueOf(_isPrimaryKey);
-          }
-        };
+        public Boolean apply(final EAttribute e) {
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          return Boolean.valueOf(_isPrimaryKey);
+        }
+      };
       Iterable<EAttribute> _filter_6 = IterableExtensions.<EAttribute>filter(_eAllAttributes_5, _function_7);
       for(final EAttribute f_5 : _filter_6) {
         _builder.append("  \t\t");
@@ -272,28 +272,28 @@ public class EClassMapper {
     {
       EList<EAttribute> _eAllAttributes_6 = this.eClass.getEAllAttributes();
       final Function1<EAttribute,Boolean> _function_8 = new Function1<EAttribute,Boolean>() {
-          public Boolean apply(final EAttribute e) {
-            boolean _and = false;
-            boolean _and_1 = false;
-            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-            boolean _not = (!_isPrimaryKey);
-            if (!_not) {
-              _and_1 = false;
-            } else {
-              boolean _isDerived = e.isDerived();
-              boolean _not_1 = (!_isDerived);
-              _and_1 = (_not && _not_1);
-            }
-            if (!_and_1) {
-              _and = false;
-            } else {
-              boolean _isTransient = e.isTransient();
-              boolean _not_2 = (!_isTransient);
-              _and = (_and_1 && _not_2);
-            }
-            return Boolean.valueOf(_and);
+        public Boolean apply(final EAttribute e) {
+          boolean _and = false;
+          boolean _and_1 = false;
+          boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+          boolean _not = (!_isPrimaryKey);
+          if (!_not) {
+            _and_1 = false;
+          } else {
+            boolean _isDerived = e.isDerived();
+            boolean _not_1 = (!_isDerived);
+            _and_1 = (_not && _not_1);
           }
-        };
+          if (!_and_1) {
+            _and = false;
+          } else {
+            boolean _isTransient = e.isTransient();
+            boolean _not_2 = (!_isTransient);
+            _and = (_and_1 && _not_2);
+          }
+          return Boolean.valueOf(_and);
+        }
+      };
       Iterable<EAttribute> _filter_7 = IterableExtensions.<EAttribute>filter(_eAllAttributes_6, _function_8);
       for(final EAttribute f_6 : _filter_7) {
         _builder.append("  \t\t");
@@ -307,11 +307,11 @@ public class EClassMapper {
     {
       EList<EReference> _eAllReferences_1 = this.eClass.getEAllReferences();
       final Function1<EReference,Boolean> _function_9 = new Function1<EReference,Boolean>() {
-          public Boolean apply(final EReference e) {
-            boolean _isRelation = EClassMapper.this.isRelation(e);
-            return Boolean.valueOf(_isRelation);
-          }
-        };
+        public Boolean apply(final EReference e) {
+          boolean _isRelation = EClassMapper.this.isRelation(e);
+          return Boolean.valueOf(_isRelation);
+        }
+      };
       Iterable<EReference> _filter_8 = IterableExtensions.<EReference>filter(_eAllReferences_1, _function_9);
       for(final EReference f_7 : _filter_8) {
         _builder.append("  \t\t");
@@ -321,11 +321,11 @@ public class EClassMapper {
         _builder.append(".");
         EList<EAttribute> _eAllAttributes_7 = this.eClass.getEAllAttributes();
         final Function1<EAttribute,Boolean> _function_10 = new Function1<EAttribute,Boolean>() {
-            public Boolean apply(final EAttribute e) {
-              boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
-              return Boolean.valueOf(_isPrimaryKey);
-            }
-          };
+          public Boolean apply(final EAttribute e) {
+            boolean _isPrimaryKey = columnNameProvider.isPrimaryKey(e, EClassMapper.this.eClass);
+            return Boolean.valueOf(_isPrimaryKey);
+          }
+        };
         EAttribute _findFirst_1 = IterableExtensions.<EAttribute>findFirst(_eAllAttributes_7, _function_10);
         String _name_7 = _findFirst_1.getName();
         _builder.append(_name_7, "  		");

@@ -457,7 +457,7 @@ public class SqlSessionProviderImpl implements SqlSessionProvider {
 					leo.setProxyDelegate(new ResolveDelegate() {
 
 						@Override
-						public boolean resolve(LazyEObject eo, EStructuralFeature f) {
+						public boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
 							if( IN_PROXY_RESOLVE.get() == Boolean.TRUE ) {
 								return false;
 							}

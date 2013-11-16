@@ -40,6 +40,13 @@ class EMapGenerator implements IGenerator {
 				return;
 			}
 			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype)))
+			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", JavaObjectMapperGenerator::generateJava(edef,JavaHelper::getEClass(edef.entity.etype)));
+			for( namedQuery : edef.entity.namedQueries ) {
+				for( query : namedQuery.queries ) {
+					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + namedQuery.name + "_" + query.dbType +".sql", JavaObjectMapperGenerator::generateSQL(namedQuery,query));
+				}
+			}
+
 //			println("Generating " + edef.entity.name+"Mapper.xml");
 			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, JavaHelper::getEClass(edef.entity.etype)))
 		} else {
@@ -470,6 +477,10 @@ class EMapGenerator implements IGenerator {
 			return d.package.name + "." + d.entity.name + "Mapper." + e.name
 		}
 		return "NOX DA"
+	}
+
+	def static fqn(EMappingEntityDef e) {
+		return e.package.name + "." + e.entity.name + "Mapper";
 	}
 
 	def static fqn(EMappingEntity e) {

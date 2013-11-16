@@ -30,40 +30,41 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 
 
 	public static EObject newInstance(EObject object, CGLibProxyResolve delegate) {
-		CGLibObjectProxyInterceptor interceptor = new CGLibObjectProxyInterceptor();
-		interceptor.delegate = delegate;
-		Enhancer h = new Enhancer();
-
-		ClassLoader c = HOOKED_CLASSLOADERS.get(object.getClass().getClassLoader());
-		if( c == null ) {
-			c = new MultiParentClassloader(object.getClass().getClassLoader(), CGLibObjectProxyInterceptor.class.getClassLoader());
-			HOOKED_CLASSLOADERS.put(object.getClass().getClassLoader(), c);
-		}
-
-		h.setClassLoader(c);
-		h.setSuperclass(object.getClass());
-		h.setInterfaces(new Class[] { PersistedEObject.class });
-		h.setCallback(interceptor);
-		h.setUseCache(true);
-		EObject o = (EObject) h.create();
-//		EObject o = (EObject) Enhancer.create(object.getClass(),new Class[] { PersistedEObject.class },interceptor);
-
-		EClass eClass = o.eClass();
-		Map<String,EReference> methods = INTERCEPTED_METHODS.get(eClass);
-
-		if( methods == null ) {
-			methods = new HashMap<String,EReference>();
-			for( EReference r : eClass.getEAllReferences() ) {
-				String name = Character.toUpperCase(r.getName().charAt(0))+ r.getName().substring(1);
-				methods.put("get" + name, r);
-				if( ! r.isMany() ) {
-					methods.put("set" + name, r);
-				}
-			}
-			INTERCEPTED_METHODS.put(eClass, methods);
-		}
-
-		return o;
+//		CGLibObjectProxyInterceptor interceptor = new CGLibObjectProxyInterceptor();
+//		interceptor.delegate = delegate;
+//		Enhancer h = new Enhancer();
+//
+//		ClassLoader c = HOOKED_CLASSLOADERS.get(object.getClass().getClassLoader());
+//		if( c == null ) {
+//			c = new MultiParentClassloader(object.getClass().getClassLoader(), CGLibObjectProxyInterceptor.class.getClassLoader());
+//			HOOKED_CLASSLOADERS.put(object.getClass().getClassLoader(), c);
+//		}
+//
+//		h.setClassLoader(c);
+//		h.setSuperclass(object.getClass());
+//		h.setInterfaces(new Class[] { PersistedEObject.class });
+//		h.setCallback(interceptor);
+//		h.setUseCache(true);
+//		EObject o = (EObject) h.create();
+////		EObject o = (EObject) Enhancer.create(object.getClass(),new Class[] { PersistedEObject.class },interceptor);
+//
+//		EClass eClass = o.eClass();
+//		Map<String,EReference> methods = INTERCEPTED_METHODS.get(eClass);
+//
+//		if( methods == null ) {
+//			methods = new HashMap<String,EReference>();
+//			for( EReference r : eClass.getEAllReferences() ) {
+//				String name = Character.toUpperCase(r.getName().charAt(0))+ r.getName().substring(1);
+//				methods.put("get" + name, r);
+//				if( ! r.isMany() ) {
+//					methods.put("set" + name, r);
+//				}
+//			}
+//			INTERCEPTED_METHODS.put(eClass, methods);
+//		}
+//
+//		return o;
+		return object;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
 import org.apache.ibatis.reflection.wrapper.BeanWrapper;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapper;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -20,10 +21,12 @@ public class EMFObjectWrapper implements ObjectWrapper {
 //	private boolean isFilled;
 	private static final String MODIFIED_PREFIX = "_isResolved_";
 	private static final String CLASSNAME = "_classname";
+	private EClass eClass;
 
 	public EMFObjectWrapper(MetaObject metaObject, EObject object) {
 		this.wrapper = new BeanWrapper(metaObject, object);
 		this.object = object;
+		this.eClass = object.eClass();
 
 //		if( object instanceof PersistedEObject ) {
 //			System.err.println("PERSISTED EObject");
@@ -135,4 +138,8 @@ public class EMFObjectWrapper implements ObjectWrapper {
 
 		}
 	}
+
+//	private EStructuralFeature getStructuralFeature(String name) {
+//		eClass.getEStructuralFeature(name);
+//	}
 }
