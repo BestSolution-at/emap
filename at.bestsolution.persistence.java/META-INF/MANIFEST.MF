@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Java
+Bundle-SymbolicName: at.bestsolution.persistence.java
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: at.bestsolution.persistence;bundle-version="1.0.0",
+ org.eclipse.emf.ecore;bundle-version="2.9.1",
+ at.bestsolution.persistence.model;bundle-version="1.0.0"
+Bundle-ClassPath: libs/c3p0-0.9.2.1.jar,
+ libs/cglib-2.2.2.jar,
+ .
+Export-Package: at.bestsolution.persistence.java
+Import-Package: org.apache.commons.lang.text;version="2.6.0"
