@@ -14,10 +14,40 @@ import java.util.List
 import java.util.ArrayList
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
-import java.util.Set
 import java.util.HashSet
+import at.bestsolution.persistence.emap.eMap.EMappingBundle
 
 class JavaObjectMapperGenerator {
+
+	static def generateMapperRegistry(EMappingBundle bundleDef) '''
+	package mappings;
+
+	import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
+	import at.bestsolution.persistence.ObjectMapper;
+	import at.bestsolution.persistence.java.ObjectMapperFactory;
+	import java.util.HashMap;
+	import java.util.Map;
+
+	public final class «bundleDef.name»ObjectMapperFactoriesProvider implements ObjectMapperFactoriesProvider {
+		private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>>();
+		public «bundleDef.name»ObjectMapperFactoriesProvider() {
+			«FOR e : bundleDef.entities»
+				factories.put(«JavaHelper::getEClass(e.etype).instanceClassName»Mapper.class, new «JavaHelper::getEClass(e.etype).mapperName»());
+			«ENDFOR»
+		}
+
+		public Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>> getMapperFactories() {
+			return factories;
+		}
+	}
+	'''
+
+	static def mapperName(EClass eClass) {
+		return
+			eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf('.'))
+			+ ".java"+eClass.instanceClassName.substring(eClass.instanceClassName.lastIndexOf('.'))+"MapperFactory"
+	}
+
 	static def generateJava(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name».java;
 
@@ -45,13 +75,13 @@ class JavaObjectMapperGenerator {
 	import java.util.Map;
 	import java.util.HashMap;
 
-	public class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper> {
+	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper> {
 		@Override
 		public «entityDef.package.name».«entityDef.entity.name»Mapper createMapper(JavaSession session) {
 			return new «entityDef.entity.name»MapperImpl(session);
 		}
 
-		static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, ResolveDelegate {
+		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, ResolveDelegate {
 			private final JavaSession session;
 			private boolean inAutoResolve;
 
@@ -105,10 +135,13 @@ class JavaObjectMapperGenerator {
 									«ENDFOR»
 									while(set.next()) {
 										current_«eClass.name» = map_«query.name»_«eClass.name»(set);
+										((EObject)current_«eClass.name»).eSetDeliver(false);
 										«FOR section : query.queries.head.mapping.attributes.collectMappings»
 											current_«JavaHelper::getEClass(section.entity.etype).name» = map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(set);
+
 											if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
 											{
+												((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(false);
 												«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
 												current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«JavaHelper::getEClass(section.entity.etype).name»);
 												«ELSE»
@@ -116,6 +149,14 @@ class JavaObjectMapperGenerator {
 												«ENDIF»
 											}
 										«ENDFOR»
+										«FOR section : query.queries.head.mapping.attributes.collectMappings»
+											if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
+											{
+												((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(true);
+											}
+										«ENDFOR»
+
+										((EObject)current_«eClass.name»).eSetDeliver(true);
 
 										// fill final list
 										if(!rootSet.contains(current_«eClass.name»)) {
@@ -154,7 +195,10 @@ class JavaObjectMapperGenerator {
 							return rv;
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
+						((EObject)rv).eSetDeliver(false);
 						«attrib_resultMapContent("rv",query.queries.head.mapping,JavaHelper::getEClass(query.queries.head.mapping.entity.etype),query.queries.head.mapping.prefix+"_")»
+						((EObject)rv).eSetDeliver(true);
+						session.getCache().putObject((EObject)rv,id);
 						return rv;
 					}
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
@@ -169,7 +213,9 @@ class JavaObjectMapperGenerator {
 							return rv;
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
+						((EObject)rv).eSetDeliver(false);
 						«attrib_resultMapContent("rv",section,JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
+						((EObject)rv).eSetDeliver(true);
 						session.getCache().putObject((EObject)rv,id);
 						return rv;
 					}
@@ -263,9 +309,8 @@ class JavaObjectMapperGenerator {
 	'''
 
 	static def createProxyData(EMappingEntity entity, EClass eClass) '''
-««« PERFORMANCE better directly compare the structurable feature
 	«IF entity.collectAttributes.findFirst[resolved && isSingle(eClass)] != null»
-		static class ProxyData_«eClass.name» {
+		final static class ProxyData_«eClass.name» {
 			«FOR a : entity.collectAttributes.filter[resolved && isSingle(eClass)]»
 				public final «a.query.parameters.head.type» «a.property»;
 			«ENDFOR»
@@ -309,7 +354,7 @@ class JavaObjectMapperGenerator {
 			val iB = b.sortValue(eClass)
 			return Integer.compare(iA,iB)
 		]).filter[!resolved]»
-			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass)»("«columnPrefix»«a.columnName»"));
+			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
 		«ENDFOR»
 		«IF section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved] != null»
 			«IF section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved && isSingle(eClass)] != null»
@@ -325,7 +370,7 @@ class JavaObjectMapperGenerator {
 			val iB = b.sortValue(eClass)
 			return Integer.compare(iA,iB)
 		]).filter[!resolved]»
-			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass)»("«columnPrefix»«a.columnName»"));
+			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
 		«ENDFOR»
 		«IF attributes.findFirst[resolved] != null»
 			«IF attributes.findFirst[resolved && isSingle(eClass)] != null»
@@ -349,18 +394,20 @@ class JavaObjectMapperGenerator {
 		}
 	}
 
-	static def resultMethod(EAttribute attribute, String varName, EClass eClass) {
+	static def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
 		val f = eClass.getEStructuralFeature(attribute.property)
 		if( "java.lang.String" == f.EType.instanceClassName ) {
-			return varName + ".getString"
+			return varName + '.getString("'+keyName+'")'
 		} else if( "long" == f.EType.instanceClassName ) {
-			return varName + ".getLong"
+			return varName + '.getLong("'+keyName+'")'
 		} else if( "int" == f.EType.instanceClassName ) {
-			return varName + ".getInt";
+			return varName + '.getInt("'+keyName+'")'
 		} else if( "boolean" == f.EType.instanceClassName ) {
-			return varName + ".getBoolean";
-		}else {
-			return "("+f.EType.instanceClassName+")" + varName + ".getObject"
+			return varName + '.getBoolean("'+keyName+'")'
+		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
+			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).collectAllAttributes.findFirst[pk].columnName+'",' +varName +')'
+		} else {
+			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject("'+keyName+'"))'
 		}
 	}
 
@@ -384,12 +431,20 @@ class JavaObjectMapperGenerator {
 			«query.mapping.mapColumns»
 		«ENDIF»
 	FROM
-		«query.from.replaceParameters(namedQuery.parameters)»
+		«query.from.replaceSqlParameters(namedQuery.parameters)»
 		«IF query.where != null»WHERE
-			«query.where.replaceParameters(namedQuery.parameters)»«ENDIF»
+			«query.where.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 		«IF query.groupBy != null»GROUP BY
-			«query.groupBy.replaceParameters(namedQuery.parameters)»«ENDIF»
+			«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 		«IF query.orderby != null»ORDER BY
-			«query.orderby.replaceParameters(namedQuery.parameters)»«ENDIF»
+			«query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 	'''
+
+	def static replaceSqlParameters(String v, List<EParameter> parameters) {
+		if( parameters.empty ){
+			return v;
+		} else {
+			return v.replace("${","#{");
+		}
+	}
 }

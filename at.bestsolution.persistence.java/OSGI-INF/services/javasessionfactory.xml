@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.bestsolution.persistence.java.javasessionfactory">
+   <implementation class="at.bestsolution.persistence.java.internal.JavaSessionFactory"/>
+   <property name="service.ranking" type="Integer" value="1000"/>
+   <reference bind="registerConfiguration" cardinality="1..1" interface="at.bestsolution.persistence.java.JDBCConnectionProvider" name="JDBCConnectionProvider" policy="dynamic" unbind="unregisterConfiguration"/>
+   <reference bind="registerMapperFactoriesProvider" cardinality="1..n" interface="at.bestsolution.persistence.java.ObjectMapperFactoriesProvider" name="ObjectMapperFactoriesProvider" policy="dynamic" unbind="unregisterMapperFactoriesProvider"/>
+   <reference bind="registerProxyFactory" cardinality="1..1" interface="at.bestsolution.persistence.java.ProxyFactory" name="ProxyFactory" policy="dynamic" unbind="unregisterProxyFactory"/>
+   <reference bind="registerSessionCacheFactory" cardinality="1..1" interface="at.bestsolution.persistence.java.SessionCacheFactory" name="SessionCacheFactory" policy="dynamic" unbind="unregisterSessionCacheFactory"/>
+   <service>
+      <provide interface="at.bestsolution.persistence.SessionFactory"/>
+   </service>
+</scr:component>
