@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.bestsolution.persistence.java.cglib.cglibproxy">
+   <implementation class="at.bestsolution.persistence.java.cglib.CGLibProxyFactory"/>
+   <service>
+      <provide interface="at.bestsolution.persistence.java.ProxyFactory"/>
+   </service>
+   <property name="service.ranking" type="Integer" value="1000"/>
+</scr:component>
