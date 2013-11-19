@@ -46,8 +46,7 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 
 	@Override
 	public String getDatabaseType() {
-		// TODO Auto-generated method stub
-		return null;
+		return configuration.getDatabaseType();
 	}
 
 	@Override

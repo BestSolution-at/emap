@@ -10,14 +10,75 @@ import org.apache.commons.lang.text.StrSubstitutor;
 
 public class Util {
 	public static class ProcessedSQL {
-		public String sql;
-		public List<String> dynamicParameterNames = new ArrayList<>();
+		public final String sql;
+		public final List<String> dynamicParameterNames;
 
 		public ProcessedSQL(String sql, List<String> dynamicParameterNames) {
 			this.sql = sql;
 			this.dynamicParameterNames = dynamicParameterNames;
 		}
 	}
+
+	public static class SimpleQueryBuilder {
+		private final String tableName;
+		private final List<Column> columns = new ArrayList<Util.Column>();
+
+		public SimpleQueryBuilder(String tableName) {
+			this.tableName = tableName;
+		}
+
+		public final void addColumn(String columnName, String dynamicParameter) {
+			columns.add(new Column(columnName, dynamicParameter));
+		}
+
+		public final ProcessedSQL buildUpdate(String pkColumn, String pkColumnParameter) {
+			List<String> dynamicValues = new ArrayList<String>();
+			StringBuilder b = new StringBuilder();
+			for( Column c : columns ) {
+				if( b.length() != 0 ) {
+					b.append("\n,");
+				}
+				b.append( c.columnName + " = ?");
+				dynamicValues.add(c.dynamicParameter);
+			}
+			dynamicValues.add(pkColumnParameter);
+			return new ProcessedSQL("UPDATE " + tableName + " SET " + b + " WHERE " + pkColumn + " = ?",dynamicValues);
+		}
+
+		public final ProcessedSQL buildInsert(String pkColumn, String valueExpression) {
+			StringBuilder col = new StringBuilder();
+			StringBuilder val = new StringBuilder();
+			List<String> dynamicValues = new ArrayList<String>();
+
+			if( pkColumn != null ) {
+				col.append(pkColumn);
+				val.append(valueExpression);
+			}
+
+			for( Column c : columns ) {
+				if( col.length() != 0 ) {
+					col.append("\n,");
+					val.append("\n,");
+				}
+				col.append(c.columnName);
+				val.append("?");
+				dynamicValues.add(c.dynamicParameter);
+			}
+
+			return new ProcessedSQL("INSERT INTO " + tableName + "("+col+") VALUES ("+val+")",dynamicValues);
+		}
+	}
+
+	public static class Column {
+		final String columnName;
+		final String dynamicParameter;
+
+		public Column(final String columnName, final String dynamicParameter) {
+			this.columnName = columnName;
+			this.dynamicParameter = dynamicParameter;
+		}
+	}
+
 	public static final String loadFile(Class<?> clazz, String name) {
 		InputStream inputStream = clazz.getResourceAsStream(name);
 		if( inputStream == null ) {
@@ -48,5 +109,9 @@ public class Util {
 			}
 		},"#{","}",'#').replace(sql);
 		return new ProcessedSQL(s, dynamicParameterNames);
+	}
+
+	public static final SimpleQueryBuilder createQueryBuilder(String tableName) {
+		return new SimpleQueryBuilder(tableName);
 	}
 }

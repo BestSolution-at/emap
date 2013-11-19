@@ -10,6 +10,6 @@ public abstract class DatabaseSupport {
 	public abstract String getSequenceStatement(EAttribute primaryKey);
 	public abstract String processInsert(EAttribute primaryKey, String insert);
 	public abstract String getDatabaseType(EDataType dataType);
-	public abstract String getAutokeyDefinition(EAttribute primaryKey); 
+	public abstract String getAutokeyDefinition(EAttribute primaryKey);
 	public abstract boolean isPrimaryKeyPartOfColDef(EAttribute primaryKey);
 }

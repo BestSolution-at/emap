@@ -12,6 +12,7 @@ import java.util.UUID;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaSession;
 import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
@@ -25,10 +26,7 @@ public class JavaSessionFactory implements SessionFactory {
 	ProxyFactory proxyFactory;
 	SessionCacheFactory cacheFactory;
 	Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>>();
-
-	public JavaSessionFactory() {
-		System.err.println("THIS IS A FACTORY");
-	}
+	Map<String,DatabaseSupport> databaseSupports = new HashMap<>();
 
 	public void registerConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = connectionProvider;
@@ -62,6 +60,14 @@ public class JavaSessionFactory implements SessionFactory {
 		this.cacheFactory = null;
 	}
 
+	public void registerDatabaseSupport(DatabaseSupport databaseSupport) {
+		databaseSupports.put(databaseSupport.getDatabaseType(), databaseSupport);
+	}
+
+	public void unregisterDatabaseSupport(DatabaseSupport databaseSupport) {
+		databaseSupports.remove(databaseSupport.getDatabaseType());
+	}
+
 	@Override
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
@@ -80,6 +86,11 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public String getId() {
 			return id;
+		}
+
+		@Override
+		public DatabaseSupport getDatabaseSupport() {
+			return databaseSupports.get(getDatabaseType());
 		}
 
 		@Override

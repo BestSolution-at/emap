@@ -5,4 +5,5 @@ public interface JDBCConfiguration {
 	public String getPassword();
 	public String getConnectionURL();
 	public Class<?> getJDBCDriver();
+	public String getDatabaseType();
 }

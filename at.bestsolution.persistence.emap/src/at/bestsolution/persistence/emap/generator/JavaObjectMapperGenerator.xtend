@@ -16,6 +16,8 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import java.util.HashSet
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EStructuralFeature
 
 class JavaObjectMapperGenerator {
 
@@ -74,6 +76,8 @@ class JavaObjectMapperGenerator {
 	import java.util.HashSet;
 	import java.util.Map;
 	import java.util.HashMap;
+	import at.bestsolution.persistence.java.Util;
+	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
 
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper> {
 		@Override
@@ -239,10 +243,167 @@ class JavaObjectMapperGenerator {
 
 			@Override
 			public void update(«eClass.name» object) {
+				QueryBuilder b = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»");
+				final LazyEObject leo = object instanceof LazyEObject ? (LazyEObject)object : null;
+				«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+					if( pk ) {
+						return false;
+					} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+						val r = eClass.getEStructuralFeature(property) as EReference;
+						if( r.containment ) {
+							return false;
+						}
+						return true;
+					} else {
+						return true;
+					}
+				].sort([a,b|return sortAttributes(eClass,a,b)])»
+					«IF a.columnName != null»
+						b.addColumn("«a.columnName»", "«a.property»");
+					«ELSEIF a.isSingle(eClass)»
+						«val ownerClass = eClass.getEStructuralFeature(a.property).EContainingClass»
+						if( leo == null || leo.isResolved(«ownerClass.packageName».«ownerClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ownerClass.name»_«a.property.toFirstUpper»()) ) {
+							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»");
+						}
+					«ENDIF»
+				«ENDFOR»
+				ProcessedSQL psql = b.buildUpdate("«entityDef.entity.collectAttributes.findFirst[pk].columnName»","«entityDef.entity.collectAttributes.findFirst[pk].property»");
+				Connection connection = session.checkoutConnection();
+				try {
+					PreparedStatement pstmt = connection.prepareStatement(psql.sql);
+					for( int i = 0; i < psql.dynamicParameterNames.size(); i++ ) {
+						«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+								if( pk ) {
+									return false;
+								} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+									val r = eClass.getEStructuralFeature(property) as EReference;
+									if( r.containment ) {
+										return false;
+									}
+									return true;
+								} else {
+									return true;
+								}
+							].sort([a,b|return sortAttributes(eClass,a,b)])»
+							«IF a.columnName != null»
+								if("«a.property»".equals(psql.dynamicParameterNames.get(i))) {
+									pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»());
+								}
+							«ELSEIF a.isSingle(eClass)»
+								if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
+									if( object.get«a.property.toFirstUpper»() == null ) {
+										pstmt.setObject(i+1,null);
+									} else {
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+									}
+								}
+							«ENDIF»
+						«ENDFOR»
+					}
+					pstmt.execute();
+				} catch(SQLException e) {
+					throw new PersistanceException(e);
+				} finally {
+					session.returnConnection(connection);
+				}
 			}
 
 			@Override
 			public void insert(«eClass.name» object) {
+				«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
+				«IF pkAttribute == null || entityDef.entity.extensionType == "extends"»
+					// TODO WHAT TO GENERATE
+				«ELSE»
+					QueryBuilder b = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»");
+					«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+						if( pk ) {
+							return false;
+						} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+							val r = eClass.getEStructuralFeature(property) as EReference;
+							if( r.containment ) {
+								return false;
+							}
+							return true;
+						} else {
+							return true;
+						}
+					].sort([a,b|return sortAttributes(eClass,a,b)])»
+						«IF a.columnName != null»
+							b.addColumn("«a.columnName»", "«a.property»");
+						«ELSEIF a.isSingle(eClass)»
+							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»");
+						«ENDIF»
+					«ENDFOR»
+					b.addColumn("e_version","##e_version##");
+					«val dbSupport = pkAttribute.findDatabaseSupport»
+					ProcessedSQL psql = null;
+					«IF dbSupport != null»
+						«FOR d : dbSupport»
+							if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
+								psql = b.buildInsert("«pkAttribute.columnName»","«d.getSequenceStatement(pkAttribute)»");
+							}
+						«ENDFOR»
+					«ELSE»
+					ProcessedSQL psql = b.buildInsert("«pkAttribute.columnName»","");
+					«ENDIF»
+
+					Connection connection = session.checkoutConnection();
+					try {
+						PreparedStatement pstmt = connection.prepareStatement(psql.sql);
+						for( int i = 0; i < psql.dynamicParameterNames.size(); i++ ) {
+							if( "##e_version##".equals(psql.dynamicParameterNames.get(i)) ) {
+								pstmt.setLong(i+1,0);
+							}
+							«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+								if( pk ) {
+									return false;
+								} if(eClass.getEStructuralFeature(property) instanceof EReference) {
+									val r = eClass.getEStructuralFeature(property) as EReference;
+									if( r.containment ) {
+										return false;
+									}
+									return true;
+								} else {
+									return true;
+								}
+							].sort([a,b|return sortAttributes(eClass,a,b)])»
+							«IF a.columnName != null»
+								else if("«a.property»".equals(psql.dynamicParameterNames.get(i))) {
+									pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»());
+								}
+							«ELSEIF a.isSingle(eClass)»
+								else if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
+									if( object.get«a.property.toFirstUpper»() == null ) {
+										pstmt.setObject(i+1,null);
+									} else {
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+									}
+								}
+							«ENDIF»
+						«ENDFOR»
+						}
+						«IF dbSupport != null»
+							«FOR d : dbSupport»
+								if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
+									«IF d.supportsGeneratedKeys»
+										ResultSet set = pstmt.executeQuery();
+										if( set.next() ) {
+											//TODO We need to get the correct type
+											object.set«pkAttribute.property.toFirstUpper»(set.getLong(1));
+										} else {
+											//TODO Throw exception
+«««											throw new PersitenceException();
+										}
+									«ENDIF»
+								}
+							«ENDFOR»
+						«ENDIF»
+					} catch(SQLException e) {
+						throw new PersistanceException(e);
+					} finally {
+						session.returnConnection(connection);
+					}
+				«ENDIF»
 			}
 
 			public boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
@@ -267,6 +428,10 @@ class JavaObjectMapperGenerator {
 		«createProxyData(e,JavaHelper::getEClass(e.etype))»
 		«ENDFOR»
 	}
+	'''
+
+	def static generateJavaInsert(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
+
 	'''
 
 	static def submapName(EObjectSection section) {
@@ -388,6 +553,30 @@ class JavaObjectMapperGenerator {
 		} else if( p.type == "int" ) {
 			return "setInt";
 		} else if( p.type == "boolean" ) {
+			return "setBoolean";
+		} else {
+			return "setObject";
+		}
+	}
+
+	static def pstmtMethod(EAttribute p, EClass eClass) {
+		val f = eClass.getEStructuralFeature(p.property);
+		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
+			return (f as org.eclipse.emf.ecore.EAttribute).pstmtMethod
+		} else {
+			val c = (f as EReference).EType as EClass
+			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute).pstmtMethod;
+		}
+	}
+
+	static def pstmtMethod(org.eclipse.emf.ecore.EAttribute f) {
+		if( f.EType.instanceClassName == "java.lang.String" ) {
+			return "setString";
+		} else if( f.EType.instanceClassName == "long" ) {
+			return "setLong";
+		} else if( f.EType.instanceClassName == "int" ) {
+			return "setInt";
+		} else if( f.EType.instanceClassName == "boolean" ) {
 			return "setBoolean";
 		} else {
 			return "setObject";

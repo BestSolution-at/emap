@@ -11,6 +11,7 @@ public interface JavaSession extends Session {
 	public Connection checkoutConnection();
 	public void returnConnection(Connection connection);
 	public String getDatabaseType();
+	public DatabaseSupport getDatabaseSupport();
 	public SessionCache getCache();
 	public ProxyFactory getProxyFactory();
 	public Object convertType(Class<?> targetType, Object value);

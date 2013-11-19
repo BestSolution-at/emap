@@ -9,4 +9,5 @@
    <service>
       <provide interface="at.bestsolution.persistence.SessionFactory"/>
    </service>
+   <reference bind="registerDatabaseSupport" cardinality="1..n" interface="at.bestsolution.persistence.java.DatabaseSupport" name="DatabaseSupport" policy="dynamic" unbind="unregisterDatabaseSupport"/>
 </scr:component>
