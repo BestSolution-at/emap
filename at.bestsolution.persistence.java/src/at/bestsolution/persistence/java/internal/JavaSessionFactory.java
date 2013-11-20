@@ -9,7 +9,12 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+
 import at.bestsolution.persistence.ObjectMapper;
+import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.java.DatabaseSupport;
@@ -27,6 +32,8 @@ public class JavaSessionFactory implements SessionFactory {
 	SessionCacheFactory cacheFactory;
 	Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?>>();
 	Map<String,DatabaseSupport> databaseSupports = new HashMap<>();
+	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
+	EventAdmin eventAdmin;
 
 	public void registerConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = connectionProvider;
@@ -68,6 +75,14 @@ public class JavaSessionFactory implements SessionFactory {
 		databaseSupports.remove(databaseSupport.getDatabaseType());
 	}
 
+	public void registerEventAdmin(EventAdmin eventAdmin) {
+		this.eventAdmin = eventAdmin;
+	}
+
+	public void unregisterEventAdmin(EventAdmin eventAdmin) {
+		this.eventAdmin = null;
+	}
+
 	@Override
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
@@ -104,39 +119,87 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public boolean isTransaction() {
+			return transactionQueue != null;
+		}
+
+		@Override
 		public void runInTransaction(Transaction transaction) {
+			String transactionId = UUID.randomUUID().toString();
+
+			LOGGER.debug("Started transaction '"+transactionId+"'");
+
 			Connection connection = connectionProvider.checkoutConnection();
+			try {
+				connection.setAutoCommit(false);
+			} catch (SQLException e2) {
+				LOGGER.error("Failed to turn off auto commit", e2);
+				throw new PersistanceException(e2);
+			}
+
+			if( eventAdmin != null ) {
+				Map<String, Object> properties = new HashMap<String, Object>();
+				properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_START, transactionId);
+				eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_START, properties));
+			}
+
 			if( transactionQueue == null ) {
 				transactionQueue = new Stack<>();
 			}
+
 			transactionQueue.add(connection);
 			try {
 				if( transaction.execute() ) {
 					try {
 						connection.commit();
+						if( eventAdmin != null ) {
+							Map<String, Object> properties = new HashMap<String, Object>();
+							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
+							properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_COMMIT);
+							eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
+						}
 					} catch( SQLException e ) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOGGER.error("Failed to commit transaction",e);
+						throw new PersistanceException(e);
 					}
 				} else {
 					try {
 						connection.rollback();
+						if( eventAdmin != null ) {
+							Map<String, Object> properties = new HashMap<String, Object>();
+							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
+							properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_ROLLBACK);
+							eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
+						}
 					} catch( SQLException e ) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						LOGGER.error("Failed to rollback transaction",e);
+						throw new PersistanceException(e);
 					}
 				}
 			} catch (Throwable e) {
+				LOGGER.error("Error while executing transactional code", e);
 				try {
 					connection.rollback();
+					if( eventAdmin != null ) {
+						Map<String, Object> properties = new HashMap<String, Object>();
+						properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
+						properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_ROLLBACK);
+						eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
+					}
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					LOGGER.error("Failed to rollback transaction. Swallowing and rethrowing original connection.",e1);
 				}
 				throw e;
 			} finally {
+				try {
+					connection.setAutoCommit(true);
+				} catch (SQLException e) {
+					LOGGER.error("Failed to set back auto commit", e);
+					throw new PersistanceException(e);
+				}
 				connectionProvider.returnConnection(transactionQueue.pop());
 			}
+			LOGGER.debug("Finished transaction '"+transactionId+"'");
 		}
 
 		@Override

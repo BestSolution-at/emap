@@ -16,4 +16,5 @@ public interface JavaSession extends Session {
 	public ProxyFactory getProxyFactory();
 	public Object convertType(Class<?> targetType, Object value);
 	public Blob handleBlob(String tableName, String blobColumnName, String idColumnName, ResultSet set) throws SQLException;
+	public boolean isTransaction();
 }

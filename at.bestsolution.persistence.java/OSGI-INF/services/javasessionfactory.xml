@@ -10,4 +10,5 @@
       <provide interface="at.bestsolution.persistence.SessionFactory"/>
    </service>
    <reference bind="registerDatabaseSupport" cardinality="1..n" interface="at.bestsolution.persistence.java.DatabaseSupport" name="DatabaseSupport" policy="dynamic" unbind="unregisterDatabaseSupport"/>
+   <reference bind="registerEventAdmin" cardinality="0..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unregisterEventAdmin"/>
 </scr:component>
