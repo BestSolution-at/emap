@@ -8,6 +8,10 @@ public interface Session {
 	public static final String TOPIC_TRANSACTION_END = TOPIC_ROOT + "/end";
 
 	public static final String DATA_SESSION_ID_TOPIC_TRANSACTION_START = "session-id";
+	public static final String DATA_SESSION_ID_TOPIC_TRANSACTION_END = "session-id";
+	public static final String DATA_STATUS_TOPIC_TRANSACTION_END = "status";
+	public static final String VALUE_COMMIT = "commit";
+	public static final String VALUE_ROLLBACK = "rollback";
 
 	public String getId();
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
