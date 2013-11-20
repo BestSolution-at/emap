@@ -78,6 +78,7 @@ class JavaObjectMapperGenerator {
 	import java.util.HashMap;
 	import at.bestsolution.persistence.java.Util;
 	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
+	import org.apache.log4j.Logger;
 
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper> {
 		@Override
@@ -88,6 +89,7 @@ class JavaObjectMapperGenerator {
 		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, ResolveDelegate {
 			private final JavaSession session;
 			private boolean inAutoResolve;
+			private static final Logger LOGGER = Logger.getLogger(«entityDef.entity.name»MapperImpl.class);
 
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
@@ -96,26 +98,45 @@ class JavaObjectMapperGenerator {
 			«FOR query : entityDef.entity.namedQueries»
 				@Override
 				public «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
+					LOGGER.debug("Executing «query.name»");
 					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
 					if( query == null ) {
 						query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
 					}
+
+					if( LOGGER.isDebugEnabled() ) {
+						LOGGER.debug("	Plain-Query: " + query);
+					}
+
 					Connection connection = session.checkoutConnection();
 					try {
 
 						«IF ! query.parameters.empty»
 							final ProcessedSQL processedSQL = Util.processSQL(query);
+							if( LOGGER.isDebugEnabled() ) {
+								LOGGER.debug("	Processed-Query: " + processedSQL.sql);
+							}
 							final PreparedStatement pStmt = connection.prepareStatement(processedSQL.sql);
 
+							List<String> debugParams = new ArrayList<String>();
 							for(int i = 0; i < processedSQL.dynamicParameterNames.size(); i++) {
 								if( "«query.parameters.head.name»".equals(processedSQL.dynamicParameterNames.get(i)) ) {
+									if( LOGGER.isDebugEnabled() ) {
+										debugParams.add("«query.parameters.head.name» = " + «query.parameters.head.name»);
+									}
 									pStmt.«query.parameters.head.pstmtMethod»(i+1,«query.parameters.head.name»);
 								}
 								«FOR p : query.parameters.filter[it!=query.parameters.head]»
 								else if("«p.name»".equals(processedSQL.dynamicParameterNames.get(i))) {
+									if( LOGGER.isDebugEnabled() ) {
+										debugParams.add("«p.name» = " + «p.name»);
+									}
 									pStmt.«p.pstmtMethod»(i+1,«p.name»);
 								}
 								«ENDFOR»
+							}
+							if( LOGGER.isDebugEnabled() ) {
+								LOGGER.debug(" Dynamic-Parameters: " + debugParams);
 							}
 						«ELSE»
 							final PreparedStatement pStmt = connection.prepareStatement(query);
