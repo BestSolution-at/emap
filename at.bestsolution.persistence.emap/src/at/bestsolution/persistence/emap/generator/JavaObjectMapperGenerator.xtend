@@ -653,6 +653,8 @@ class JavaObjectMapperGenerator {
 			return varName + '.getLong("'+keyName+'")'
 		} else if( "int" == f.EType.instanceClassName ) {
 			return varName + '.getInt("'+keyName+'")'
+		} else if( "double" == f.EType.instanceClassName ) {
+			return varName + '.getDouble("'+keyName+'")'
 		} else if( "boolean" == f.EType.instanceClassName ) {
 			return varName + '.getBoolean("'+keyName+'")'
 		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
