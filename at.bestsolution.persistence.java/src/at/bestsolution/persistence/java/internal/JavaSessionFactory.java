@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -32,7 +34,7 @@ public class JavaSessionFactory implements SessionFactory {
 	JDBCConnectionProvider connectionProvider;
 	ProxyFactory proxyFactory;
 	SessionCacheFactory cacheFactory;
-	Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
+	Map<String, ObjectMapperFactory<?,?>> factories = new HashMap<String, ObjectMapperFactory<?,?>>();
 	Map<String,DatabaseSupport> databaseSupports = new HashMap<String,DatabaseSupport>();
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
@@ -46,7 +48,9 @@ public class JavaSessionFactory implements SessionFactory {
 	}
 
 	public void registerMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
-		factories.putAll(provider.getMapperFactories());
+		for( Entry<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?, ?>> e : provider.getMapperFactories().entrySet() ) {
+			factories.put(e.getKey().getName(), e.getValue());
+		}
 	}
 
 	public void unregisterMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
@@ -92,7 +96,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 	class JavaSessionImpl implements JavaSession {
 		private String id = UUID.randomUUID().toString();
-		private Map<String, ObjectMapper<?>> mapperInstances = new HashMap<String, ObjectMapper<?>>();
+		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
 		private Stack<Connection> transactionQueue;
 		private SessionCache sessionCache;
 
@@ -113,10 +117,10 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		@SuppressWarnings("unchecked")
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
-			M m = (M) mapperInstances.get(mapper.getName());
+			M m = (M) mapperInstances.get(mapper);
 			if( m == null ) {
-				m = (M) factories.get(mapper).createMapper(this);
-				mapperInstances.put(mapper.getName(), m);
+				m = (M) factories.get(mapper.getName()).createMapper(this);
+				mapperInstances.put(mapper, m);
 			}
 			return m;
 		}
@@ -125,8 +129,12 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> List<O> queryForList(String fqnMapper, String queryName,
 				Object... parameters) {
-			NamedQuery<O> q = (NamedQuery<O>) factories.get(fqnMapper).createNamedQuery(this, queryName);
-			return q.queryForList(parameters);
+			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
+			if( factory != null ) {
+				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
+				return q.queryForList(parameters);
+			}
+			throw new IllegalArgumentException("The mapper '"+fqnMapper+"' is not known.");
 		}
 
 		@SuppressWarnings("unchecked")
