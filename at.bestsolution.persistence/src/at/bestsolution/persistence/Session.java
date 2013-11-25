@@ -1,5 +1,7 @@
 package at.bestsolution.persistence;
 
+import java.util.List;
+
 public interface Session {
 	public static final String TOPIC_ROOT = "at/bestsolution/persistence";
 
@@ -15,6 +17,8 @@ public interface Session {
 
 	public String getId();
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
+	public <O> List<O> queryForList(String fqnMapper, String queryName, Object... parameters);
+	public <O> O queryForOne(String fqnMapper, String queryName, Object... parameters);
 	public void runInTransaction(Transaction transaction);
 	public void close();
 
