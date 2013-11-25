@@ -350,7 +350,14 @@ class EMapGenerator implements IGenerator {
 	«FOR a : attributes.sort([a,b|
 		val iA = a.sortValue(eClass)
 		val iB = b.sortValue(eClass)
-		return Integer.compare(iA,iB)
+		if(iA < iB) {
+			return -1
+		}
+		else if(iA == iB) {
+			return 0
+		} else {
+			return 1;
+		}
 	])»
 		«IF a.pk»
 			<id property="«a.property»" column="«columnPrefix»«a.columnName»" />

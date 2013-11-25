@@ -33,7 +33,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		public void putObject(EObject object, Object id) {
 			Map<Object, EObject> map = cacheMap.get(object.eClass());
 			if( map == null ) {
-				map = new HashMap<>();
+				map = new HashMap<Object, EObject>();
 				cacheMap.put(object.eClass(), map);
 			}
 			map.put(id, object);

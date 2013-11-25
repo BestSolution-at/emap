@@ -3,5 +3,5 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Persistence
 Bundle-SymbolicName: at.bestsolution.persistence
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence

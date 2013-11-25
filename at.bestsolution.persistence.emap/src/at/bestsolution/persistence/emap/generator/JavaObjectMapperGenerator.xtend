@@ -17,7 +17,6 @@ import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import java.util.HashSet
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EStructuralFeature
 
 class JavaObjectMapperGenerator {
 
@@ -510,7 +509,7 @@ class JavaObjectMapperGenerator {
 		«val first = entity.collectAttributes.sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
-			return Integer.compare(iA,iB)
+			return compare(iA,iB);
 		]).findFirst[resolved]»
 		«IF first != null»
 			switch(f.getFeatureID()) {
@@ -522,7 +521,7 @@ class JavaObjectMapperGenerator {
 				«FOR a : entity.collectAttributes.sort([a,b|
 					val iA = a.sortValue(eClass)
 					val iB = b.sortValue(eClass)
-					return Integer.compare(iA,iB)
+					return compare(iA,iB);
 				]).filter[resolved && it != first]»
 					case «eClass.getEStructuralFeature(a.property).featureID»: {
 						«a.createResolveText(eClass,pk)»
@@ -580,7 +579,7 @@ class JavaObjectMapperGenerator {
 		«FOR a : section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
-			return Integer.compare(iA,iB)
+			return compare(iA,iB);
 		]).filter[!resolved]»
 			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
 		«ENDFOR»
@@ -596,7 +595,7 @@ class JavaObjectMapperGenerator {
 		«FOR a : attributes.sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
-			return Integer.compare(iA,iB)
+			return compare(iA,iB);
 		]).filter[!resolved]»
 			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
 		«ENDFOR»
@@ -697,6 +696,17 @@ class JavaObjectMapperGenerator {
 			return v;
 		} else {
 			return v.replace("${","#{");
+		}
+	}
+
+	def static compare(int x, int y) {
+		if(x < y) {
+			return -1
+		}
+		else if(x == y) {
+			return 0
+		} else {
+			return 1;
 		}
 	}
 }

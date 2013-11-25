@@ -33,7 +33,7 @@ public class JavaSessionFactory implements SessionFactory {
 	ProxyFactory proxyFactory;
 	SessionCacheFactory cacheFactory;
 	Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
-	Map<String,DatabaseSupport> databaseSupports = new HashMap<>();
+	Map<String,DatabaseSupport> databaseSupports = new HashMap<String,DatabaseSupport>();
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 
@@ -92,7 +92,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 	class JavaSessionImpl implements JavaSession {
 		private String id = UUID.randomUUID().toString();
-		private Map<String, ObjectMapper<?>> mapperInstances = new HashMap<>();
+		private Map<String, ObjectMapper<?>> mapperInstances = new HashMap<String, ObjectMapper<?>>();
 		private Stack<Connection> transactionQueue;
 		private SessionCache sessionCache;
 
@@ -163,7 +163,7 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 
 			if( transactionQueue == null ) {
-				transactionQueue = new Stack<>();
+				transactionQueue = new Stack<Connection>();
 			}
 
 			transactionQueue.add(connection);
@@ -208,7 +208,7 @@ public class JavaSessionFactory implements SessionFactory {
 				} catch (SQLException e1) {
 					LOGGER.error("Failed to rollback transaction. Swallowing and rethrowing original connection.",e1);
 				}
-				throw e;
+				throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e);
 			} finally {
 				try {
 					connection.setAutoCommit(true);

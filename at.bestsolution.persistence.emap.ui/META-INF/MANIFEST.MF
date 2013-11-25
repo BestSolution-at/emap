@@ -18,7 +18,7 @@ Require-Bundle: at.bestsolution.persistence.emap;visibility:=reexport,
  org.eclipse.compare
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence.emap.ui.quickfix,
  at.bestsolution.persistence.emap.ui.contentassist,
  at.bestsolution.persistence.emap.ui.contentassist.antlr,
