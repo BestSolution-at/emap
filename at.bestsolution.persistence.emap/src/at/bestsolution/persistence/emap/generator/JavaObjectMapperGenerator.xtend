@@ -313,7 +313,7 @@ class JavaObjectMapperGenerator {
 							].sort([a,b|return sortAttributes(eClass,a,b)])»
 							«IF a.columnName != null»
 								if("«a.property»".equals(psql.dynamicParameterNames.get(i))) {
-									pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»());
+									pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.property.toFirstUpper»());
 								}
 							«ELSEIF a.isSingle(eClass)»
 								if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
@@ -395,7 +395,7 @@ class JavaObjectMapperGenerator {
 							].sort([a,b|return sortAttributes(eClass,a,b)])»
 							«IF a.columnName != null»
 								else if("«a.property»".equals(psql.dynamicParameterNames.get(i))) {
-									pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»());
+									pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.property.toFirstUpper»());
 								}
 							«ELSEIF a.isSingle(eClass)»
 								else if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {

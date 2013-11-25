@@ -507,6 +507,13 @@ class EMapGenerator implements IGenerator {
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
 
+	def static isBoolean(EAttribute attribute, EClass eclass) {
+		if( eclass.getEStructuralFeature(attribute.property) == null ) {
+			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
+		}
+		return eclass.getEStructuralFeature(attribute.property).EType.name == "EBoolean"
+	}
+
 	def static isSingle(EMappingAttribute attribute, EClass eclass) {
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
