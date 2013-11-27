@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Emap
+Bundle-SymbolicName: at.bestsolution.persistence.sample.model.emap
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: at.bestsolution.persistence.sample.model;bundle-version="0.1.0"
