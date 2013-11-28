@@ -1,0 +1,13 @@
+package sample;
+
+entity ContactBook derived BaseObject {
+	etype "http://www.bestsolution.at/sample/1.0"#ContactBook
+	attributes {
+		primarykey id => CB_ID generatedby { "h2" autokey }
+	}
+	queries {
+		single selectById(long id) {
+			default ContactBook FROM "CONTACT_BOOK" WHERE "CB_ID = ${id}"
+		}
+	}
+}

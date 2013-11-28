@@ -1,0 +1,22 @@
+package sample;
+
+entity Address derived BaseObject {
+	etype "http://www.bestsolution.at/sample/1.0"#Address
+	
+	attributes {
+		primarykey id 	=> AD_ID generatedby { "h2" autokey },
+		street 			=> AD_STREET,
+		city			=> AD_CITY,
+		zip				=> AD_ZIP,
+		person			=> resolve Person.selectById(AD_FK_PERSON),
+		country			=> resolve Country.selectById(AD_FK_COUNTRY)
+	}
+	queries {
+		single selectById(long id) {
+			default Address FROM "ADDRESS" WHERE "AD_ID = ${id}"
+		},
+		selectAllForPerson(long personId) {
+			default Address FROM "ADDRESS" WHERE "AD_FK_PERSON = ${personId}"
+		}
+	}
+}

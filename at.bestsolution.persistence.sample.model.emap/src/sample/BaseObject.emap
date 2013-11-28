@@ -1,0 +1,5 @@
+package sample;
+
+abstract entity BaseObject {
+	etype "http://www.bestsolution.at/sample/1.0"#BaseObject
+}

@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	PERSON
+	WHERE
+		P_ID = #{id}

@@ -4,4 +4,12 @@ Bundle-Name: Emap
 Bundle-SymbolicName: at.bestsolution.persistence.sample.model.emap
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: at.bestsolution.persistence.sample.model;bundle-version="0.1.0"
+Require-Bundle: at.bestsolution.persistence.sample.model;bundle-version="0.1.0",
+ at.bestsolution.persistence;bundle-version="1.0.0",
+ at.bestsolution.persistence.java;bundle-version="1.0.0",
+ at.bestsolution.persistence.model;bundle-version="1.0.0",
+ org.eclipse.emf.ecore;bundle-version="2.9.1",
+ org.apache.log4j;bundle-version="1.2.15"
+Service-Component: OSGI-INF/services/samplefactories.xml
+Bundle-ActivationPolicy: lazy
+Export-Package: sample

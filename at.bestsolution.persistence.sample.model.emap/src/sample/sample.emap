@@ -1,0 +1,6 @@
+bundle Sample {
+	Address,
+	ContactBook,
+	Country,
+	Person
+} 

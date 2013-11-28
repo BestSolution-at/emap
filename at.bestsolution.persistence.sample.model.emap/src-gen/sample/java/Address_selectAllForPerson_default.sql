@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	ADDRESS
+	WHERE
+		AD_FK_PERSON = #{personId}

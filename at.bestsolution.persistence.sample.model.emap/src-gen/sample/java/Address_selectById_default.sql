@@ -1,0 +1,6 @@
+SELECT
+	*
+FROM
+	ADDRESS
+	WHERE
+		AD_ID = #{id}
