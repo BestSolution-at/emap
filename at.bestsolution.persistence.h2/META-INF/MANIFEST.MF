@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: H2
 Bundle-SymbolicName: at.bestsolution.persistence.h2
 Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: lib/org.h2_1.3.168.v201212121212.jar,
  .
 Export-Package: org.h2,
