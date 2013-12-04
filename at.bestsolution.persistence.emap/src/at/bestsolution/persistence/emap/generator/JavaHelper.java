@@ -20,27 +20,43 @@ public class JavaHelper {
 	public static EClass getEClass(EType type) {
 		// Look in the local workspace first
 		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(true);
-		
+
 		URI uri = map.get(type.getUrl());
-		
+
 		if( uri != null ) {
-			ResourceSet s = new ResourceSetImpl();
-			Resource resource = s.getResource(uri, true);
-			GenModel m = (GenModel) resource.getContents().get(0);
-			for( GenPackage gp : m.getAllGenPackagesWithClassifiers() ) {
-				if( gp.getNSURI().equals(type.getUrl()) ) {
-					EClass e = (EClass) gp.getEcorePackage().getEClassifier(type.getName());
-					for( GenClassifier c : gp.getGenClassifiers() ) {
-						if( c.getName().equals(e.getName()) ) {
-							e.setInstanceClassName(c.getImportedInstanceClassName());
-							return e;
+			try {
+				ResourceSet s = new ResourceSetImpl();
+				Resource resource = s.getResource(uri, true);
+				GenModel m = (GenModel) resource.getContents().get(0);
+				for( GenPackage gp : m.getAllGenPackagesWithClassifiers() ) {
+					if( gp.getNSURI().equals(type.getUrl()) ) {
+						EClass e = (EClass) gp.getEcorePackage().getEClassifier(type.getName());
+						for( GenClassifier c : gp.getGenClassifiers() ) {
+							if( c.getName().equals(e.getName()) ) {
+								e.setInstanceClassName(c.getImportedInstanceClassName());
+								System.err.println("FOUND IN TARGET!!!!");
+								return e;
+							}
 						}
 					}
 				}
+			} catch(Throwable t ) {
 			}
 		}
-		
+
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
+//		List<EPackage.Descriptor> l = new ArrayList<EPackage.Descriptor>();
+//		for( Object o : EPackage.Registry.INSTANCE.values() ) {
+//			if( o instanceof EPackage.Descriptor ) {
+//				l.add((Descriptor) o);
+//			}
+////			System.err.println(o);
+//		}
+//
+//		for( Descriptor d : l ) {
+//			System.err.println(d.getEPackage().getNsURI());
+//		}
+
 		if( ePackage == null ) {
 			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
 		}
@@ -53,7 +69,7 @@ public class JavaHelper {
 
 		return eClass;
 	}
-	
+
 //	private static GenClass getGenClass(EClass eClass) {
 //		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(true);
 //		URI uri = map.get(eClass.getEPackage().getNsURI());
@@ -68,7 +84,7 @@ public class JavaHelper {
 //		}
 //		return null;
 //	}
-//	
+//
 //	public static String calcInstanceClassName(EClass eClass) {
 //		String rv = eClass.getInstanceClassName();
 //		if( rv == null ) {
