@@ -225,6 +225,9 @@ public class JavaSessionFactory implements SessionFactory {
 					throw new PersistanceException(e);
 				}
 				connectionProvider.returnConnection(transactionQueue.pop());
+				if( transactionQueue.isEmpty() ) {
+					transactionQueue = null;
+				}
 			}
 			LOGGER.debug("Finished transaction '"+transactionId+"'");
 		}
