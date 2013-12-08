@@ -78,6 +78,8 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.java.Util;
 	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
 	import org.apache.log4j.Logger;
+	import java.util.Arrays;
+	import java.sql.Statement;
 
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«entityDef.package.name».«entityDef.entity.name»> {
 		@Override
@@ -208,7 +210,9 @@ class JavaObjectMapperGenerator {
 								}
 							«ENDIF»
 						«ENDIF»
-
+						set.close();
+						pStmt.close();
+						
 						return rv;
 					} catch(SQLException e) {
 						throw new PersistanceException(e);
@@ -349,6 +353,7 @@ class JavaObjectMapperGenerator {
 						LOGGER.debug(" Dynamic-Parameters: " + debugParams);
 					}
 					pstmt.executeUpdate();
+					pstmt.close();
 				} catch(SQLException e) {
 					throw new PersistanceException(e);
 				} finally {
@@ -395,11 +400,11 @@ class JavaObjectMapperGenerator {
 					«IF dbSupport != null»
 						«FOR d : dbSupport»
 							if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
-								psql = b.buildInsert("«pkAttribute.columnName»","«d.getSequenceStatement(pkAttribute)»");
+								psql = b.buildInsert("«pkAttribute.columnName»",«IF d.getSequenceStatement(pkAttribute)!=null»"«d.getSequenceStatement(pkAttribute)»"«ELSE»null«ENDIF»);
 							}
 						«ENDFOR»
 					«ELSE»
-					ProcessedSQL psql = b.buildInsert("«pkAttribute.columnName»","");
+					ProcessedSQL psql = b.buildInsert("«pkAttribute.columnName»",null);
 					if( isDebug ) {
 						LOGGER.debug("The query: " + psql.sql);
 					}
@@ -479,10 +484,12 @@ class JavaObjectMapperGenerator {
 											//TODO Throw exception
 «««											throw new PersitenceException();
 										}
+										set.close();
 									«ENDIF»
 								}
 							«ENDFOR»
 						«ENDIF»
+						pstmt.close();
 					} catch(SQLException e) {
 						throw new PersistanceException(e);
 					} finally {
@@ -492,6 +499,56 @@ class JavaObjectMapperGenerator {
 						session.returnConnection(connection);
 					}
 				«ENDIF»
+			}
+			
+			public void deleteById(Object... id) {
+				boolean isDebug = LOGGER.isDebugEnabled();
+				
+				if( isDebug ) {
+					LOGGER.debug("Started deleteById the following objects '"+Arrays.toString(id)+"'");
+				}
+				
+				StringBuilder b = new StringBuilder();
+				for(Object t : id) {
+					if(b.length() != 0 ) {
+						b.append(",");
+					}
+					b.append(t);
+				}
+«««	TODO We should create more clever SQL e.g. using ranges
+				String sql = "DELETE FROM «entityDef.tableName» WHERE «entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName» IN ("+b+")";
+				Connection connection = session.checkoutConnection();
+				try {
+					Statement stmt = connection.createStatement();
+					stmt.executeQuery(sql);
+					stmt.close();
+					stmt = null;
+				} catch(SQLException e) {
+					throw new PersistanceException(e);
+				} finally {
+					if( isDebug ) {
+						LOGGER.debug("Finished deleteById");
+					}
+					session.returnConnection(connection);
+				}
+			}
+			
+			public void delete(«eClass.name»... object) {
+				boolean isDebug = LOGGER.isDebugEnabled();
+				
+				if( isDebug ) {
+					LOGGER.debug("Started delete the following objects '"+Arrays.toString(object)+"'");
+				}
+				
+				
+				List<Object> l = new ArrayList<Object>(object.length);
+				for(«eClass.name» o : object) {
+					l.add(o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].property.toFirstUpper»());
+				}
+				deleteById(l.toArray());
+				if( isDebug ) {
+					LOGGER.debug("Finished delete");
+				}
 			}
 
 			public boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
