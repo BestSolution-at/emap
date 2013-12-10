@@ -38,6 +38,7 @@ public class JavaSessionFactory implements SessionFactory {
 	Map<String,DatabaseSupport> databaseSupports = new HashMap<String,DatabaseSupport>();
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
+	String factoryId;
 
 	public void registerConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = connectionProvider;
@@ -92,6 +93,14 @@ public class JavaSessionFactory implements SessionFactory {
 	@Override
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
+	}
+
+	@Override
+	public String getFactoryId() {
+		if( factoryId == null ) {
+			factoryId = UUID.randomUUID().toString();
+		}
+		return factoryId;
 	}
 
 	class JavaSessionImpl implements JavaSession {
