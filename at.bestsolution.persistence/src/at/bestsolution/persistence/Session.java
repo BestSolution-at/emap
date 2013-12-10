@@ -21,6 +21,7 @@ public interface Session {
 	public <O> O queryForOne(String fqnMapper, String queryName, Object... parameters);
 	public void runInTransaction(Transaction transaction);
 	public void close();
+	public void clear();
 
 	public interface Transaction {
 		public boolean execute();

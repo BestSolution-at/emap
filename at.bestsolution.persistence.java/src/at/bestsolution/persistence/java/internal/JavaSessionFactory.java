@@ -248,6 +248,11 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public void clear() {
+			sessionCache.clear();
+		}
+
+		@Override
 		public Connection checkoutConnection() {
 			if( transactionQueue != null ) {
 				return transactionQueue.peek();
