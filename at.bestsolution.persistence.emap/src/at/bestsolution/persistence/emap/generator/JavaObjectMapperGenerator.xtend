@@ -17,6 +17,7 @@ import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import java.util.HashSet
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EStructuralFeature
 
 class JavaObjectMapperGenerator {
 
@@ -76,7 +77,14 @@ class JavaObjectMapperGenerator {
 	import java.util.Map;
 	import java.util.HashMap;
 	import at.bestsolution.persistence.java.Util;
+	import at.bestsolution.persistence.Criteria;
 	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
+	import at.bestsolution.persistence.java.query.DBCriteria;
+	import at.bestsolution.persistence.java.query.ListDelegate;
+	import at.bestsolution.persistence.java.query.ColumnDelegate;
+	import at.bestsolution.persistence.java.query.TypeDelegate;
+	import at.bestsolution.persistence.java.query.TypedValue;
+	import at.bestsolution.persistence.java.query.JDBCType;
 	import org.apache.log4j.Logger;
 	import java.util.Arrays;
 	import java.sql.Statement;
@@ -100,7 +108,8 @@ class JavaObjectMapperGenerator {
 				@Override
 				public «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
 					boolean isDebug = LOGGER.isDebugEnabled();
-					LOGGER.debug("Executing «query.name»");
+					if( isDebug ) LOGGER.debug("Executing «query.name»");
+
 					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
 					if( query == null ) {
 						query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
@@ -149,57 +158,7 @@ class JavaObjectMapperGenerator {
 
 						«IF query.returnType == ReturnType.LIST»
 							final List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
-							«IF query.queries.head.mapping.attributes.empty»
-								if( isDebug ) LOGGER.debug("Mapping results started");
-								while(set.next()) {
-									rv.add(map_default_«eClass.name»(set));
-								}
-								if( isDebug ) LOGGER.debug("Mapping results ended. Mapped '"+rv.size()+"' objects.");
-							«ELSE»
-								try {
-									inAutoResolve = true;
-									Set<«eClass.name»> rootSet = new HashSet<«eClass.name»>();
-									«eClass.name» current_«eClass.name»;
-									«FOR section : query.queries.head.mapping.attributes.collectMappings»
-										«JavaHelper::getEClass(section.entity.etype).instanceClassName» current_«JavaHelper::getEClass(section.entity.etype).name»;
-									«ENDFOR»
-									if( isDebug ) LOGGER.debug("Mapping with nested results started");
-									while(set.next()) {
-										current_«eClass.name» = map_«query.name»_«eClass.name»(set);
-										((EObject)current_«eClass.name»).eSetDeliver(false);
-										«FOR section : query.queries.head.mapping.attributes.collectMappings»
-											current_«JavaHelper::getEClass(section.entity.etype).name» = map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(set);
-
-											if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
-											{
-												((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(false);
-												«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-												current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«JavaHelper::getEClass(section.entity.etype).name»);
-												«ELSE»
-												current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«JavaHelper::getEClass(section.entity.etype).name»);
-												«ENDIF»
-											}
-										«ENDFOR»
-										«FOR section : query.queries.head.mapping.attributes.collectMappings»
-											if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
-											{
-												((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(true);
-											}
-										«ENDFOR»
-
-										((EObject)current_«eClass.name»).eSetDeliver(true);
-
-										// fill final list
-										if(!rootSet.contains(current_«eClass.name»)) {
-											rv.add(current_«eClass.name»);
-											rootSet.add(current_«eClass.name»);
-										}
-									}
-									if( isDebug ) LOGGER.debug("Mapping with nested results ended. Mapped '"+rv.size()+"' objects.");
-								} finally {
-									inAutoResolve = false;
-								}
-							«ENDIF»
+							«resultMapCode(query,eClass)»
 						«ELSE»
 							final «eClass.name» rv;
 							«IF query.queries.head.mapping.attributes.empty»
@@ -212,7 +171,7 @@ class JavaObjectMapperGenerator {
 						«ENDIF»
 						set.close();
 						pStmt.close();
-						
+
 						return rv;
 					} catch(SQLException e) {
 						throw new PersistanceException(e);
@@ -255,7 +214,69 @@ class JavaObjectMapperGenerator {
 					}
 					«ENDFOR»
 				«ENDIF»
+				«IF query.parameters.empty»
+				public Criteria<«eClass.name»> «query.name»ByCriteria() {
+					final Map<String,String> colnameMapping = new HashMap<String,String>();
 
+					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
+						«IF a.resolved»
+							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»«a.parameters.head»");
+						«ELSE»
+							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»«a.columnName»");
+						«ENDIF»
+					«ENDFOR»
+
+					final Map<String,EStructuralFeature> refValue = new HashMap<String,EStructuralFeature>();
+					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved]»
+						refValue.put("«a.property»",«a.getRefEAttribute(eClass).EContainingClass.packageName».«a.getRefEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getRefEAttribute(eClass).EContainingClass.name»_«a.getRefEAttribute(eClass).name.toFirstUpper»());
+					«ENDFOR»
+
+					final Map<String,JDBCType> typeMapping = new HashMap<String,JDBCType>();
+					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
+						typeMapping.put("«a.property»",JDBCType.«a.jdbcType(eClass)»);
+					«ENDFOR»
+
+					return session.getDatabaseSupport().createCriteria(
+						new ColumnDelegate() { public String get(String propertyName) { return colnameMapping.get(propertyName); } },
+						new TypeDelegate() { public TypedValue get(String propertyName, Object value) { return new TypedValue( refValue.containsKey(propertyName) ? ((EObject)value).eGet(refValue.get(propertyName)) :  value,typeMapping.get(propertyName)); } },
+						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(DBCriteria<«eClass.name»> criteria) { return «query.name»(criteria); } }
+					);
+				}
+
+				List<«eClass.name»> «query.name»(DBCriteria<«eClass.name»> criteria) {
+					boolean isDebug = LOGGER.isDebugEnabled();
+					if( isDebug ) LOGGER.debug("Executing «query.name»");
+
+					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
+					if( query == null ) {
+						query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default.sql");
+					}
+
+					if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
+
+					query += " WHERE " + criteria.getCriteria();
+
+					if( isDebug ) LOGGER.debug("	Final query: " + query);
+
+					Connection connection = session.checkoutConnection();
+					try {
+						PreparedStatement pstmt = connection.prepareStatement(query);
+						int idx = 1;
+						for(TypedValue t : criteria.getParameters()) {
+							Util.setValue(pstmt,idx++,t);
+						}
+
+						ResultSet set = pstmt.executeQuery();
+						List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
+						«resultMapCode(query,eClass)»
+						return rv;
+					} catch(SQLException e) {
+						throw new PersistanceException(e);
+					} finally {
+						session.returnConnection(connection);
+					}
+				}
+				«ENDIF»
 			«ENDFOR»
 
 			public «eClass.name» map_default_«eClass.name»(ResultSet set) throws SQLException {
@@ -500,14 +521,14 @@ class JavaObjectMapperGenerator {
 					}
 				«ENDIF»
 			}
-			
+
 			public void deleteById(Object... id) {
 				boolean isDebug = LOGGER.isDebugEnabled();
-				
+
 				if( isDebug ) {
 					LOGGER.debug("Started deleteById the following objects '"+Arrays.toString(id)+"'");
 				}
-				
+
 				StringBuilder b = new StringBuilder();
 				for(Object t : id) {
 					if(b.length() != 0 ) {
@@ -532,15 +553,15 @@ class JavaObjectMapperGenerator {
 					session.returnConnection(connection);
 				}
 			}
-			
+
 			public void delete(«eClass.name»... object) {
 				boolean isDebug = LOGGER.isDebugEnabled();
-				
+
 				if( isDebug ) {
 					LOGGER.debug("Started delete the following objects '"+Arrays.toString(object)+"'");
 				}
-				
-				
+
+
 				List<Object> l = new ArrayList<Object>(object.length);
 				for(«eClass.name» o : object) {
 					l.add(o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].property.toFirstUpper»());
@@ -599,6 +620,93 @@ class JavaObjectMapperGenerator {
 		«ENDFOR»
 	}
 	'''
+
+	static def resultMapCode(ENamedQuery query, EClass eClass) '''
+		«IF query.queries.head.mapping.attributes.empty»
+			if( isDebug ) LOGGER.debug("Mapping results started");
+			while(set.next()) {
+				rv.add(map_default_«eClass.name»(set));
+			}
+			if( isDebug ) LOGGER.debug("Mapping results ended. Mapped '"+rv.size()+"' objects.");
+		«ELSE»
+			try {
+				inAutoResolve = true;
+				Set<«eClass.name»> rootSet = new HashSet<«eClass.name»>();
+				«eClass.name» current_«eClass.name»;
+				«FOR section : query.queries.head.mapping.attributes.collectMappings»
+					«JavaHelper::getEClass(section.entity.etype).instanceClassName» current_«JavaHelper::getEClass(section.entity.etype).name»;
+				«ENDFOR»
+				if( isDebug ) LOGGER.debug("Mapping with nested results started");
+				while(set.next()) {
+					current_«eClass.name» = map_«query.name»_«eClass.name»(set);
+					((EObject)current_«eClass.name»).eSetDeliver(false);
+					«FOR section : query.queries.head.mapping.attributes.collectMappings»
+						current_«JavaHelper::getEClass(section.entity.etype).name» = map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(set);
+
+						if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
+						{
+							((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(false);
+							«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
+							current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«JavaHelper::getEClass(section.entity.etype).name»);
+							«ELSE»
+							current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«JavaHelper::getEClass(section.entity.etype).name»);
+							«ENDIF»
+						}
+					«ENDFOR»
+					«FOR section : query.queries.head.mapping.attributes.collectMappings»
+						if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
+						{
+							((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(true);
+						}
+					«ENDFOR»
+
+					((EObject)current_«eClass.name»).eSetDeliver(true);
+
+					// fill final list
+					if(!rootSet.contains(current_«eClass.name»)) {
+						rv.add(current_«eClass.name»);
+						rootSet.add(current_«eClass.name»);
+					}
+				}
+				if( isDebug ) LOGGER.debug("Mapping with nested results ended. Mapped '"+rv.size()+"' objects.");
+			} finally {
+				inAutoResolve = false;
+			}
+		«ENDIF»
+	'''
+
+	static def jdbcType(EAttribute p, EClass eClass) {
+		val f = eClass.getEStructuralFeature(p.property);
+		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
+			return (f as org.eclipse.emf.ecore.EAttribute).jdbcType
+		} else {
+			return getRefEAttribute(p,eClass).jdbcType;
+		}
+	}
+
+	static def getRefEAttribute(EAttribute p, EClass eClass) {
+		val f = eClass.getEStructuralFeature(p.property);
+		val c = (f as EReference).EType as EClass
+		return c.getEStructuralFeature((p.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute;
+	}
+
+	static def jdbcType(org.eclipse.emf.ecore.EAttribute f) {
+		if( f.EType.instanceClassName == "java.lang.String" ) {
+			return "STRING";
+		} else if( f.EType.instanceClassName == "long" ) {
+			return "LONG";
+		} else if( f.EType.instanceClassName == "double" ) {
+			return "DOUBLE";
+		} else if( f.EType.instanceClassName == "double" ) {
+			return "FLOAT";
+		} else if( f.EType.instanceClassName == "int" ) {
+			return "INT";
+		} else if( f.EType.instanceClassName == "boolean" ) {
+			return "BOOLEAN";
+		} else {
+			return "UNKNOWN";
+		}
+	}
 
 	def static parameterConversion(EParameter p, String name) {
 		if( p.type == "long" ) {
@@ -813,6 +921,19 @@ class JavaObjectMapperGenerator {
 			«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 		«IF query.orderby != null»ORDER BY
 			«query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+	'''
+
+	static def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
+	SELECT
+		«IF query.mapping.attributes.empty»
+			*
+		«ELSE»
+			«query.mapping.mapColumns»
+		«ENDIF»
+	FROM
+		«query.from.replaceSqlParameters(namedQuery.parameters)»
+		«IF query.groupBy != null»GROUP BY
+			«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 	'''
 
 	def static replaceSqlParameters(String v, List<EParameter> parameters) {

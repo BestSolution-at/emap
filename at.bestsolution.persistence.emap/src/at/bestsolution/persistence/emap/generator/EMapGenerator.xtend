@@ -38,25 +38,28 @@ class EMapGenerator implements IGenerator {
 			val edef = root.root as EMappingEntityDef
 			if( edef.entity.abstract ) {
 				return;
-			} 
-			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype))) 
-			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", JavaObjectMapperGenerator::generateJava(edef,JavaHelper::getEClass(edef.entity.etype)));    
+			}
+			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype)))
+			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", JavaObjectMapperGenerator::generateJava(edef,JavaHelper::getEClass(edef.entity.etype)));
 			for( namedQuery : edef.entity.namedQueries ) {
 				for( query : namedQuery.queries ) {
 					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", JavaObjectMapperGenerator::generateSQL(namedQuery,query));
+					if( namedQuery.parameters.empty ) {
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", JavaObjectMapperGenerator::generateCriteriaSQL(namedQuery,query));
+					}
 				}
-			} 
- 
+			}
+
 //			println("Generating " + edef.entity.name+"Mapper.xml");
 //			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, JavaHelper::getEClass(edef.entity.etype)))
-		} else {   
+		} else {
 			val bundleDef = root.root as EMappingBundle
 //			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
 //			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
 			fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",JavaObjectMapperGenerator::generateMapperRegistry(bundleDef))
 			for( d : bundleDef.databases ) {
 				fsa.generateFile("ddls/create_"+d+".sql",DDLGenerator::generatedDDL(bundleDef,getDatabaseSupport(d)));
-			}  
+			}
 		}
 	}
 
@@ -130,7 +133,7 @@ class EMapGenerator implements IGenerator {
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
 
-	public interface «entityDef.entity.name»Mapper extends at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»> {
+	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
 		«FOR query : entityDef.entity.namedQueries»
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»

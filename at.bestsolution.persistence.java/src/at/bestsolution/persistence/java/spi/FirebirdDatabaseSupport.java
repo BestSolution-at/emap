@@ -4,6 +4,10 @@ import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
+import at.bestsolution.persistence.java.query.DBCriteria;
+import at.bestsolution.persistence.java.query.ColumnDelegate;
+import at.bestsolution.persistence.java.query.ListDelegate;
+import at.bestsolution.persistence.java.query.TypeDelegate;
 
 public class FirebirdDatabaseSupport implements DatabaseSupport {
 
@@ -20,6 +24,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	@Override
 	public PrimaryKeyGenType getPrimaryKeyType() {
 		return PrimaryKeyGenType.SEQUENCE;
+	}
+
+	@Override
+	public <O> DBCriteria<O> createCriteria(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
+		return new DBCriteria<O>(columnDelegate, typeDelegate, listDelegate);
 	}
 
 	static class FirebirdQueryBuilder implements QueryBuilder {

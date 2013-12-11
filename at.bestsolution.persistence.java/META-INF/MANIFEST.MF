@@ -9,7 +9,9 @@ Require-Bundle: at.bestsolution.persistence;bundle-version="1.0.0",
  at.bestsolution.persistence.model;bundle-version="1.0.0",
  org.apache.log4j;bundle-version="1.2.15"
 Bundle-ClassPath: .
-Export-Package: at.bestsolution.persistence.java
+Export-Package: at.bestsolution.persistence.java,
+ at.bestsolution.persistence.java.query,
+ at.bestsolution.persistence.java.spi;x-internal:=true
 Import-Package: org.apache.commons.lang;version="2.6.0",
  org.apache.commons.lang.text;version="2.6.0",
  org.osgi.service.event;version="1.3.0"

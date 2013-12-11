@@ -4,6 +4,10 @@ import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
+import at.bestsolution.persistence.java.query.ColumnDelegate;
+import at.bestsolution.persistence.java.query.DBCriteria;
+import at.bestsolution.persistence.java.query.ListDelegate;
+import at.bestsolution.persistence.java.query.TypeDelegate;
 
 public class H2DatabaseSupport implements DatabaseSupport {
 
@@ -22,13 +26,18 @@ public class H2DatabaseSupport implements DatabaseSupport {
 		return PrimaryKeyGenType.AUTO;
 	}
 
+	@Override
+	public <O> DBCriteria<O> createCriteria(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
+		return new DBCriteria<O>(columnDelegate, typeDelegate, listDelegate);
+	}
+
 	static class H2QueryBuilder implements QueryBuilder {
 		private SimpleQueryBuilder b;
-		
+
 		public H2QueryBuilder(String tableName) {
 			b = Util.createQueryBuilder(tableName);
 		}
-		
+
 		@Override
 		public void addColumn(String columnName, String dynamicParameter) {
 			b.addColumn(columnName, dynamicParameter);
@@ -45,6 +54,5 @@ public class H2DatabaseSupport implements DatabaseSupport {
 				String primaryKeyExpression) {
 			return b.buildUpdate(pkColumn, primaryKeyExpression);
 		}
-		
 	}
 }
