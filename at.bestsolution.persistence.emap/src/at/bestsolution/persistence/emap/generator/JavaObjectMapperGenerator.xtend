@@ -18,6 +18,7 @@ import java.util.HashSet
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.EStructuralFeature
+import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
 class JavaObjectMapperGenerator {
 
@@ -215,7 +216,7 @@ class JavaObjectMapperGenerator {
 					«ENDFOR»
 				«ENDIF»
 				«IF query.parameters.empty»
-				public Criteria<«eClass.name»> «query.name»ByCriteria() {
+				public «eClass.name»Criteria «query.name»ByCriteria() {
 					final Map<String,String> colnameMapping = new HashMap<String,String>();
 
 					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
@@ -236,11 +237,12 @@ class JavaObjectMapperGenerator {
 						typeMapping.put("«a.property»",JDBCType.«a.jdbcType(eClass)»);
 					«ENDFOR»
 
-					return session.getDatabaseSupport().createCriteria(
+					DBCriteria<«eClass.name»> dbCriteria = session.getDatabaseSupport().createCriteria(
 						new ColumnDelegate() { public String get(String propertyName) { return colnameMapping.get(propertyName); } },
 						new TypeDelegate() { public TypedValue get(String propertyName, Object value) { return new TypedValue( refValue.containsKey(propertyName) ? ((EObject)value).eGet(refValue.get(propertyName)) :  value,typeMapping.get(propertyName)); } },
 						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(DBCriteria<«eClass.name»> criteria) { return «query.name»(criteria); } }
 					);
+					return new «eClass.name»CriteriaImpl(dbCriteria);
 				}
 
 				List<«eClass.name»> «query.name»(DBCriteria<«eClass.name»> criteria) {
@@ -618,6 +620,40 @@ class JavaObjectMapperGenerator {
 		«FOR e : entityDef.entity.collectEnities»
 		«createProxyData(e,JavaHelper::getEClass(e.etype))»
 		«ENDFOR»
+		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
+		static class «eClass.name»CriteriaImpl implements «eClass.name»Mapper.«eClass.name»Criteria {
+			private final DBCriteria<«eClass.name»> dbCriteria;
+
+			«eClass.name»CriteriaImpl(DBCriteria<«eClass.name»> dbCriteria) {
+				this.dbCriteria = dbCriteria;
+			}
+
+			public «eClass.name»Mapper.«eClass.name»Criteria eq(String propertyName, Object value) {
+				dbCriteria.eq(propertyName,value);
+				return this;
+			}
+
+			public List<«eClass.name»> list() {
+				return dbCriteria.list();
+			}
+
+			«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
+				«IF a.resolved»
+					public «eClass.name»Mapper.«eClass.name»Criteria «a.property»_eq(«a.getResolvedType(eClass)» value) {
+						eq("«a.property»",value);
+						return this;
+					}
+				«ELSE»
+					«val eAttribute = a.getEAttribute(eClass)»
+					public «eClass.name»Mapper.«eClass.name»Criteria «a.property»_eq(«eAttribute.EType.instanceClassName» value) {
+						eq("«a.property»",value);
+						return this;
+					}
+
+				«ENDIF»
+			«ENDFOR»
+		}
+		«ENDIF»
 	}
 	'''
 

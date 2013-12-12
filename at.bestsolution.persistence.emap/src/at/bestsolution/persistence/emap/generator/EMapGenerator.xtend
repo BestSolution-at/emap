@@ -23,6 +23,7 @@ import java.util.HashMap
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.osgi.framework.FrameworkUtil
 import org.eclipse.emf.ecore.EReference
+import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
 /**
  * Generates code from your model files on save.
@@ -41,6 +42,8 @@ class EMapGenerator implements IGenerator {
 			}
 			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype)))
 			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", JavaObjectMapperGenerator::generateJava(edef,JavaHelper::getEClass(edef.entity.etype)));
+
+
 			for( namedQuery : edef.entity.namedQueries ) {
 				for( query : namedQuery.queries ) {
 					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", JavaObjectMapperGenerator::generateSQL(namedQuery,query));
@@ -133,10 +136,27 @@ class EMapGenerator implements IGenerator {
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
 
-	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
+	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,«entityDef.entity.name»Mapper.«eClass.name»Criteria>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
 		«FOR query : entityDef.entity.namedQueries»
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»
+
+		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
+			public interface «eClass.name»Criteria extends at.bestsolution.persistence.Criteria<«eClass.instanceClassName»> {
+				public «eClass.name»Criteria eq(String propertyName, Object value);
+				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
+					«IF a.resolved»
+							public «eClass.name»Criteria «a.property»_eq(«a.getResolvedType(eClass)» value);
+					«ELSE»
+						«val eAttribute = a.getEAttribute(eClass)»
+						public «eClass.name»Criteria «a.property»_eq(«eAttribute.EType.instanceClassName» value);
+					«ENDIF»
+				«ENDFOR»
+			}
+			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
+				public «eClass.name»Criteria «query.name»ByCriteria();
+			«ENDFOR»
+		«ENDIF»
 	}
 	'''
 
