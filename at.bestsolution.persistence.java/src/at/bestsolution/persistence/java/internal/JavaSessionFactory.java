@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
+import at.bestsolution.persistence.Criteria;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.Session;
@@ -152,6 +153,12 @@ public class JavaSessionFactory implements SessionFactory {
 				Object... parameters) {
 			NamedQuery<O> q = (NamedQuery<O>) factories.get(fqnMapper).createNamedQuery(this, queryName);
 			return q.queryForOne(parameters);
+		}
+
+		@Override
+		public <O> Criteria<O> criteriaQuery(String fqnMapper, String queryName) {
+//			return (Criteria<O>) factories.get(fqnMapper).createCriteriaQuery(this, queryName);
+			return null;
 		}
 
 		@Override

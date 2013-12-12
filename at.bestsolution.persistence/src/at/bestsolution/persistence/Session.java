@@ -19,6 +19,7 @@ public interface Session {
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Object... parameters);
 	public <O> O queryForOne(String fqnMapper, String queryName, Object... parameters);
+	public <O> Criteria<O> criteriaQuery(String fqnMapper, String queryName);
 	public void runInTransaction(Transaction transaction);
 	public void close();
 	public void clear();

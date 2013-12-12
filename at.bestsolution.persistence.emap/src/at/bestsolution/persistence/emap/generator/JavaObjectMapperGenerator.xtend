@@ -637,19 +637,69 @@ class JavaObjectMapperGenerator {
 				return dbCriteria.list();
 			}
 
+			«val criteriaString = eClass.name + "Mapper."+eClass.name+"Criteria"»
 			«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 				«IF a.resolved»
-					public «eClass.name»Mapper.«eClass.name»Criteria «a.property»_eq(«a.getResolvedType(eClass)» value) {
-						eq("«a.property»",value);
-						return this;
-					}
+						public at.bestsolution.persistence.expressions.GenericExpression<«criteriaString»,«a.getResolvedType(eClass)»> «a.property»() {
+							return new at.bestsolution.persistence.java.query.expr.GenericExpressionImpl<«criteriaString»,«a.getResolvedType(eClass)»>(this,"«a.property»");
+						}
 				«ELSE»
 					«val eAttribute = a.getEAttribute(eClass)»
-					public «eClass.name»Mapper.«eClass.name»Criteria «a.property»_eq(«eAttribute.EType.instanceClassName» value) {
-						eq("«a.property»",value);
-						return this;
-					}
-
+						«IF eAttribute.boolean»
+							«IF eAttribute.primitive»
+								public at.bestsolution.persistence.expressions.BooleanExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.BooleanExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ELSE»
+								public at.bestsolution.persistence.expressions.BooleanObjectExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.BooleanObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ENDIF»
+						«ELSEIF eAttribute.integer»
+							«IF eAttribute.primitive»
+								public at.bestsolution.persistence.expressions.IntegerExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.IntegerExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ELSE»
+								public at.bestsolution.persistence.expressions.IntegerObjectExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.IntegerObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ENDIF»
+						«ELSEIF eAttribute.long»
+							«IF eAttribute.primitive»
+								public at.bestsolution.persistence.expressions.LongExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.LongExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ELSE»
+								public at.bestsolution.persistence.expressions.LongObjectExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.LongObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ENDIF»
+						«ELSEIF eAttribute.double»
+							«IF eAttribute.primitive»
+								public at.bestsolution.persistence.expressions.DoubleExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.DoubleExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ELSE»
+								public at.bestsolution.persistence.expressions.DoubleObjectExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.DoubleObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ENDIF»
+						«ELSEIF eAttribute.float»
+							«IF eAttribute.primitive»
+								public at.bestsolution.persistence.expressions.FloatExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.FloatExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ELSE»
+								public at.bestsolution.persistence.expressions.FloatObjectExpression<«criteriaString»> «a.property»() {
+									return new at.bestsolution.persistence.java.query.expr.FloatObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
+								}
+							«ENDIF»
+						«ELSE»
+							public at.bestsolution.persistence.expressions.GenericExpression<«criteriaString»,«eAttribute.EType.instanceClassName»> «a.property»() {
+								return new at.bestsolution.persistence.java.query.expr.GenericExpressionImpl<«criteriaString»,«eAttribute.EType.instanceClassName»>(this,"«a.property»");
+							}
+						«ENDIF»
 				«ENDIF»
 			«ENDFOR»
 		}

@@ -47,6 +47,9 @@ public class DBCriteria<O> implements Criteria<O> {
 	public String getCriteria() {
 		StringBuilder b = new StringBuilder();
 		for (SimpleExpression e : getSegments()) {
+			if( b.length() > 0 ) {
+				b.append(" AND ");
+			}
 			appendCriteria(b, e);
 		}
 		return b.toString();

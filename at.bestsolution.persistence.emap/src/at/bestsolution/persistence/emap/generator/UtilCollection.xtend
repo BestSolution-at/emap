@@ -37,6 +37,26 @@ class UtilCollection {
 		return newArrayList("int","long","double","float","java.lang.Integer","java.lang.Long","java.lang.Double","java.lang.Float").contains(e.EType.instanceClassName)
 	}
 
+	def static isString(EStructuralFeature e) {
+		return "java.lang.String" == e.EType.instanceClassName;
+	}
+
+	def static isDouble(EStructuralFeature e) {
+		return e.EType.instanceClassName == "double" || e.EType.instanceClassName == "java.lang.Double"
+	}
+
+	def static isInteger(EStructuralFeature e) {
+		return e.EType.instanceClassName == "int" || e.EType.instanceClassName == "java.lang.Integer"
+	}
+
+	def static isLong(EStructuralFeature e) {
+		return e.EType.instanceClassName == "long" || e.EType.instanceClassName == "java.lang.Long"
+	}
+
+	def static isFloat(EStructuralFeature e) {
+		return e.EType.instanceClassName == "float" || e.EType.instanceClassName == "java.lang.Float"
+	}
+
 	def static getResolvedType(EAttribute attribute, EClass eClass) {
 		val f = eClass.getEStructuralFeature(attribute.property)
 		return f.EType.instanceClassName
