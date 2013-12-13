@@ -65,6 +65,16 @@ public class PropertyExpressionFactory<O> {
 		}
 	}
 
+	public static class RelationExpressionFactory<O,T,J> extends PropertyExpressionFactory<O> {
+		public final J join;
+
+		public RelationExpressionFactory(String property, J join) {
+			super(property);
+			this.join = join;
+		}
+	}
+
+
 	public static class IntegerObjectExpressionFactory<O> extends GenericExpressionFactory<O,Integer> {
 
 		public IntegerObjectExpressionFactory(String property) {

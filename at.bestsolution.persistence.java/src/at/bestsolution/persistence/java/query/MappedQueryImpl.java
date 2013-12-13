@@ -3,30 +3,24 @@ package at.bestsolution.persistence.java.query;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
+
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
+import at.bestsolution.persistence.java.JavaObjectMapper;
 
 public class MappedQueryImpl<O> implements MappedQuery<O> {
-	private final ColumnDelegate columnDelegate;
-	private final TypeDelegate typeDelegate;
 	private final ListDelegate<O> listDelegate;
 	private Expression<O> expression;
+	private final JavaObjectMapper<O> rootMapper;
+	private final String rootPrefix;
 
-	public MappedQueryImpl(ColumnDelegate columnDelegate,
-			TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
-		this.columnDelegate = columnDelegate;
-		this.typeDelegate = typeDelegate;
+	public MappedQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+		this.rootMapper = rootMapper;
+		this.rootPrefix = rootPrefix;
 		this.listDelegate = listDelegate;
-	}
-
-	public TypeDelegate getTypeDelegate() {
-		return typeDelegate;
-	}
-
-	public ColumnDelegate getColumnDelegate() {
-		return columnDelegate;
 	}
 
 	@Override
@@ -49,7 +43,7 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 	public String getCriteria() {
 		StringBuilder b = new StringBuilder();
 		if (expression != null) {
-			appendCriteria(b, expression);
+			appendCriteria(b, rootMapper, rootPrefix == null ? "" : rootPrefix + ".", expression);
 		}
 		return b.toString();
 	}
@@ -57,29 +51,29 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 	public TypedValue[] getParameters() {
 		List<TypedValue> rv = new ArrayList<TypedValue>();
 		if( expression != null) {
-			appendValue(rv, expression);
+			appendValue(rv, rootMapper, expression);
 		}
 		return rv.toArray(new TypedValue[0]);
 	}
 
-	protected void appendValue(List<TypedValue> rv, Expression<O> expression) {
+	protected void appendValue(List<TypedValue> rv, JavaObjectMapper<O> mapper, Expression<O> expression) {
 		switch (expression.type) {
 		case AND:
 		case OR:
 			for (Expression<O> e : ((GroupExpression<O>) expression).expressions) {
-				appendValue(rv, e);
+				appendValue(rv, mapper, e);
 			}
 			break;
 		default:
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			for( Object data : e.data ) {
-				rv.add(typeDelegate.get(e.property, data));
+				rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, mapper.getJDBCType(e.property)));
 			}
 			break;
 		}
 	}
 
-	protected void appendCriteria(StringBuilder b, Expression<O> expression) {
+	protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix, Expression<O> expression) {
 		switch (expression.type) {
 		case AND: {
 			b.append("(");
@@ -88,7 +82,7 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 				if (flag) {
 					b.append(" AND ");
 				}
-				appendCriteria(b, e);
+				appendCriteria(b, mapper, colPrefix, e);
 				flag = true;
 			}
 			b.append(")");
@@ -101,25 +95,25 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 				if (flag) {
 					b.append(" OR ");
 				}
-				appendCriteria(b, e);
+				appendCriteria(b, mapper, colPrefix, e);
 				flag = true;
 			}
 			b.append(")");
 			break;
 		case EQUALS:
-			b.append(columnDelegate.get(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" = ?");
 			break;
 		case NOT_EQUALS:
-			b.append(columnDelegate.get(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" <> ?");
 			break;
 		case ILIKE:
-			b.append(columnDelegate.get(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" ILIKE ?");
 			break;
 		case LIKE:
-			b.append(columnDelegate.get(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" LIKE ?");
 			break;
 		default:

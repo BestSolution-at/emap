@@ -141,12 +141,12 @@ class EMapGenerator implements IGenerator {
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»
 
-		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
+«««		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
 			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.instanceClassName»> {
 				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 					«IF a.resolved»
-						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«a.getResolvedType(eClass)»> «a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory("«a.property»");
+						public static final «a.getResolvedType(eClass)»Mapper.Join<«eClass.name»> «a.property» = new «a.getResolvedType(eClass)»Mapper.Join<«eClass.name»>("«a.property»");
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»
 							«IF eAttribute.boolean»
@@ -187,10 +187,99 @@ class EMapGenerator implements IGenerator {
 					«ENDIF»
 				«ENDFOR»
 			}
+
+			public static final class Join<O> {
+				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
+					«IF a.resolved»
+						public final «a.getResolvedType(eClass)»Mapper.Join<O> «a.property»;
+					«ELSE»
+						«val eAttribute = a.getEAttribute(eClass)»
+						«IF eAttribute.boolean»
+							«IF eAttribute.primitive»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<O> «a.property»;
+							«ELSE»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<O> «a.property»;
+							«ENDIF»
+						«ELSEIF eAttribute.integer»
+							«IF eAttribute.primitive»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<O> «a.property»;
+							«ELSE»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<O> «a.property»;
+							«ENDIF»
+						«ELSEIF eAttribute.long»
+							«IF eAttribute.primitive»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<O> «a.property»;
+							«ELSE»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<O> «a.property»;
+							«ENDIF»
+						«ELSEIF eAttribute.double»
+							«IF eAttribute.primitive»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<O> «a.property»;
+							«ELSE»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<O> «a.property»;
+							«ENDIF»
+						«ELSEIF eAttribute.float»
+							«IF eAttribute.primitive»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<O> «a.property»;
+							«ELSE»
+								public final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<O> «a.property»;
+							«ENDIF»
+						«ELSEIF eAttribute.string»
+							public final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<O> «a.property»;
+						«ELSE»
+							public final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<O,«eAttribute.EType.instanceClassName»> «a.property»;
+						«ENDIF»
+					«ENDIF»
+				«ENDFOR»
+				public Join(String path) {
+					«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
+						«IF a.resolved»
+							this.«a.property» = new «a.getResolvedType(eClass)»Mapper.Join<O>(path+".«a.property»");
+						«ELSE»
+							«val eAttribute = a.getEAttribute(eClass)»
+							«IF eAttribute.boolean»
+								«IF eAttribute.primitive»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<O>(path+".«a.property»");
+								«ELSE»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<O>(path+".«a.property»");
+								«ENDIF»
+							«ELSEIF eAttribute.integer»
+								«IF eAttribute.primitive»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<O>(path+".«a.property»");
+								«ELSE»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<O>(path+".«a.property»");
+								«ENDIF»
+							«ELSEIF eAttribute.long»
+								«IF eAttribute.primitive»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<O>(path+".«a.property»");
+								«ELSE»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<O>(path+".«a.property»");
+								«ENDIF»
+							«ELSEIF eAttribute.double»
+								«IF eAttribute.primitive»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<O>(path+".«a.property»");
+								«ELSE»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<O>(path+".«a.property»");
+								«ENDIF»
+							«ELSEIF eAttribute.float»
+								«IF eAttribute.primitive»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<O>(path+".«a.property»");
+								«ELSE»
+									this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<O>(path+".«a.property»");
+								«ENDIF»
+							«ELSEIF eAttribute.string»
+								this.«a.property» =  new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<O>(path+".«a.property»");
+							«ELSE»
+								this.«a.property» = new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<O,«eAttribute.EType.instanceClassName»>(path+".«a.property»");
+							«ENDIF»
+						«ENDIF»
+					«ENDFOR»
+				}
+			}
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 				public «eClass.name»MappedQuery «query.name»MappedQuery();
 			«ENDFOR»
-		«ENDIF»
+«««		«ENDIF»
 	}
 	'''
 

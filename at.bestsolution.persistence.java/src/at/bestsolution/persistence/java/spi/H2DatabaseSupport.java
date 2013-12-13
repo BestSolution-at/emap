@@ -2,13 +2,12 @@ package at.bestsolution.persistence.java.spi;
 
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
-import at.bestsolution.persistence.java.query.ColumnDelegate;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
-import at.bestsolution.persistence.java.query.TypeDelegate;
 
 public class H2DatabaseSupport implements DatabaseSupport {
 
@@ -28,8 +27,8 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> MappedQuery<O> createMappedQuery(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
-		return new MappedQueryImpl<O>(columnDelegate, typeDelegate, listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+		return new MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
 	static class H2QueryBuilder implements QueryBuilder {

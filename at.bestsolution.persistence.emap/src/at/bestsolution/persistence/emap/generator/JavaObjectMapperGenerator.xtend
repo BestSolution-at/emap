@@ -82,8 +82,6 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.MappedQuery;
 	import at.bestsolution.persistence.java.query.MappedQueryImpl;
 	import at.bestsolution.persistence.java.query.ListDelegate;
-	import at.bestsolution.persistence.java.query.ColumnDelegate;
-	import at.bestsolution.persistence.java.query.TypeDelegate;
 	import at.bestsolution.persistence.java.query.TypedValue;
 	import at.bestsolution.persistence.java.query.JDBCType;
 	import org.apache.log4j.Logger;
@@ -96,7 +94,7 @@ class JavaObjectMapperGenerator {
 			return new «entityDef.entity.name»MapperImpl(session);
 		}
 
-		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, ResolveDelegate {
+		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, at.bestsolution.persistence.java.JavaObjectMapper<«eClass.name»>, ResolveDelegate {
 			private final JavaSession session;
 			private boolean inAutoResolve;
 			private static final Logger LOGGER = Logger.getLogger(«entityDef.entity.name»MapperImpl.class);
@@ -217,29 +215,8 @@ class JavaObjectMapperGenerator {
 				«ENDIF»
 				«IF query.parameters.empty»
 				public «eClass.name»MappedQuery «query.name»MappedQuery() {
-					final Map<String,String> colnameMapping = new HashMap<String,String>();
-
-					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
-						«IF a.resolved»
-							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»\"«a.parameters.head»\"");
-						«ELSE»
-							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»\"«a.columnName»\"");
-						«ENDIF»
-					«ENDFOR»
-
-					final Map<String,EStructuralFeature> refValue = new HashMap<String,EStructuralFeature>();
-					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved]»
-						refValue.put("«a.property»",«a.getRefEAttribute(eClass).EContainingClass.packageName».«a.getRefEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getRefEAttribute(eClass).EContainingClass.name»_«a.getRefEAttribute(eClass).name.toFirstUpper»());
-					«ENDFOR»
-
-					final Map<String,JDBCType> typeMapping = new HashMap<String,JDBCType>();
-					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
-						typeMapping.put("«a.property»",JDBCType.«a.jdbcType(eClass)»);
-					«ENDFOR»
-
 					MappedQuery<«eClass.name»> dbQuery = session.getDatabaseSupport().createMappedQuery(
-						new ColumnDelegate() { public String get(String propertyName) { return colnameMapping.get(propertyName); } },
-						new TypeDelegate() { public TypedValue get(String propertyName, Object value) { return new TypedValue( refValue.containsKey(propertyName) ? ((EObject)value).eGet(refValue.get(propertyName)) :  value,typeMapping.get(propertyName)); } },
+						this, «IF query.queries.head.mapping.prefix != null»"«query.queries.head.mapping.prefix»"«ELSE»null«ENDIF»,
 						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(MappedQuery<«eClass.name»> criteria) { return «query.name»((MappedQueryImpl<«eClass.name»>)criteria); } }
 					);
 					return new «eClass.name»MappedQueryImpl(dbQuery);
@@ -588,6 +565,44 @@ class JavaObjectMapperGenerator {
 				}
 				«ENDFOR»
 				return false;
+			}
+
+			public String getTableName() {
+				return "«entityDef.tableName»";
+			}
+
+			private static Map<String,String> PROPERTY_COL_MAPPING = new HashMap<String,String>();
+			private static Map<String,JDBCType> TYPE_MAPPING = new HashMap<String,JDBCType>();
+			private static Map<String,EStructuralFeature> REF_ID_FEATURES = new HashMap<String,EStructuralFeature>();
+
+			static {
+				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
+					«IF a.resolved»
+						PROPERTY_COL_MAPPING.put("«a.property»","«a.parameters.head»");
+					«ELSE»
+						PROPERTY_COL_MAPPING.put("«a.property»","«a.columnName»");
+					«ENDIF»
+				«ENDFOR»
+
+				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
+					TYPE_MAPPING.put("«a.property»",JDBCType.«a.jdbcType(eClass)»);
+				«ENDFOR»
+
+				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved]»
+					REF_ID_FEATURES.put("«a.property»",«a.getRefEAttribute(eClass).EContainingClass.packageName».«a.getRefEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getRefEAttribute(eClass).EContainingClass.name»_«a.getRefEAttribute(eClass).name.toFirstUpper»());
+				«ENDFOR»
+			}
+
+			public String getColumnName(String propertyName) {
+				return PROPERTY_COL_MAPPING.get(propertyName);
+			}
+
+			public JDBCType getJDBCType(String property) {
+				return TYPE_MAPPING.get(property);
+			}
+
+			public EStructuralFeature getReferenceId(String property) {
+				return REF_ID_FEATURES.get(property);
 			}
 		}
 

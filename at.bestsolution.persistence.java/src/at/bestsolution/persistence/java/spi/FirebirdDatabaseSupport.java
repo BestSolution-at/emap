@@ -4,14 +4,12 @@ import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
-import at.bestsolution.persistence.java.query.ColumnDelegate;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
-import at.bestsolution.persistence.java.query.SimpleExpression;
-import at.bestsolution.persistence.java.query.TypeDelegate;
 
 public class FirebirdDatabaseSupport implements DatabaseSupport {
 
@@ -31,26 +29,25 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> MappedQuery<O> createMappedQuery(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
-		return new FirebirdMappedQuery<O>(columnDelegate, typeDelegate, listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public FirebirdMappedQuery(ColumnDelegate columnDelegate,
-				TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
-			super(columnDelegate, typeDelegate, listDelegate);
+		public FirebirdMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+			super(rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
-		protected void appendCriteria(StringBuilder b,
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix,
 				Expression<O> expression) {
 			switch (expression.type) {
 			case ILIKE:
-				b.append("lower(" +getColumnDelegate().get(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
 				return;
 			default:
-				super.appendCriteria(b, expression);
+				super.appendCriteria(b, mapper, colPrefix, expression);
 			}
 
 		}
