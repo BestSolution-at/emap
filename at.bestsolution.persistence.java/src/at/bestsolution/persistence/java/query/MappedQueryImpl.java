@@ -66,6 +66,9 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 		switch (expression.type) {
 		case AND:
 		case OR:
+			for (Expression<O> e : ((GroupExpression<O>) expression).expressions) {
+				appendValue(rv, e);
+			}
 			break;
 		default:
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;

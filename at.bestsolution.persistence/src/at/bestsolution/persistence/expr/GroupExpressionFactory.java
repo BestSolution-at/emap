@@ -3,8 +3,8 @@ package at.bestsolution.persistence.expr;
 import java.util.Arrays;
 import java.util.Collection;
 
-public final class GroupExpressions {
-	GroupExpressions() {
+public final class GroupExpressionFactory {
+	GroupExpressionFactory() {
 	}
 
 	@SuppressWarnings("unchecked")
