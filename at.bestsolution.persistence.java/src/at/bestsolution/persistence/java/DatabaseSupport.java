@@ -1,7 +1,7 @@
 package at.bestsolution.persistence.java;
 
+import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
-import at.bestsolution.persistence.java.query.DBCriteria;
 import at.bestsolution.persistence.java.query.ColumnDelegate;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.TypeDelegate;
@@ -11,7 +11,7 @@ public interface DatabaseSupport {
 	public String getDatabaseType();
 	public QueryBuilder createQueryBuilder(String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
-	public <O> DBCriteria<O> createCriteria(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate);
 
 	public enum PrimaryKeyGenType {
 		AUTO,

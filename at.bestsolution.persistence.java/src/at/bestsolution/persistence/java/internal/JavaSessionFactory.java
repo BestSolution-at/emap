@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -16,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
-import at.bestsolution.persistence.Criteria;
+import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.Session;
@@ -156,7 +155,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public <O> Criteria<O> criteriaQuery(String fqnMapper, String queryName) {
+		public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName) {
 //			return (Criteria<O>) factories.get(fqnMapper).createCriteriaQuery(this, queryName);
 			return null;
 		}

@@ -1,12 +1,16 @@
 package at.bestsolution.persistence.java.spi;
 
+import at.bestsolution.persistence.MappedQuery;
+import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
-import at.bestsolution.persistence.java.query.DBCriteria;
 import at.bestsolution.persistence.java.query.ColumnDelegate;
 import at.bestsolution.persistence.java.query.ListDelegate;
+import at.bestsolution.persistence.java.query.MappedQueryImpl;
+import at.bestsolution.persistence.java.query.SimpleExpression;
 import at.bestsolution.persistence.java.query.TypeDelegate;
 
 public class FirebirdDatabaseSupport implements DatabaseSupport {
@@ -27,8 +31,29 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> DBCriteria<O> createCriteria(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
-		return new DBCriteria<O>(columnDelegate, typeDelegate, listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(ColumnDelegate columnDelegate, TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
+		return new FirebirdMappedQuery<O>(columnDelegate, typeDelegate, listDelegate);
+	}
+
+	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
+
+		public FirebirdMappedQuery(ColumnDelegate columnDelegate,
+				TypeDelegate typeDelegate, ListDelegate<O> listDelegate) {
+			super(columnDelegate, typeDelegate, listDelegate);
+		}
+
+		@Override
+		protected void appendCriteria(StringBuilder b,
+				Expression<O> expression) {
+			switch (expression.type) {
+			case ILIKE:
+				b.append("lower(" +getColumnDelegate().get(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
+				return;
+			default:
+				super.appendCriteria(b, expression);
+			}
+
+		}
 	}
 
 	static class FirebirdQueryBuilder implements QueryBuilder {

@@ -5,4 +5,4 @@ Bundle-SymbolicName: at.bestsolution.persistence
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence,
- at.bestsolution.persistence.expressions
+ at.bestsolution.persistence.expr

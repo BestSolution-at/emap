@@ -2,7 +2,6 @@ package at.bestsolution.persistence.java;
 
 import java.util.List;
 
-import at.bestsolution.persistence.Criteria;
 import at.bestsolution.persistence.ObjectMapper;
 
 public interface ObjectMapperFactory<M extends ObjectMapper<?>, O> {

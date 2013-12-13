@@ -1,23 +1,23 @@
 package at.bestsolution.persistence.emap.generator
 
-import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
-import org.eclipse.emf.ecore.EClass
-import at.bestsolution.persistence.emap.eMap.ReturnType
-import at.bestsolution.persistence.emap.eMap.EQuery
-import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.*
-import at.bestsolution.persistence.emap.eMap.ENamedQuery
-import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EMapping
-import at.bestsolution.persistence.emap.eMap.EObjectSection
-import java.util.List
-import java.util.ArrayList
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
-import at.bestsolution.persistence.emap.eMap.EMappingEntity
-import java.util.HashSet
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
+import at.bestsolution.persistence.emap.eMap.EMappingEntity
+import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.ENamedQuery
+import at.bestsolution.persistence.emap.eMap.EObjectSection
+import at.bestsolution.persistence.emap.eMap.EParameter
+import at.bestsolution.persistence.emap.eMap.EQuery
+import at.bestsolution.persistence.emap.eMap.ReturnType
+import java.util.ArrayList
+import java.util.HashSet
+import java.util.List
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EStructuralFeature
+
+import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.*
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
 class JavaObjectMapperGenerator {
@@ -78,9 +78,9 @@ class JavaObjectMapperGenerator {
 	import java.util.Map;
 	import java.util.HashMap;
 	import at.bestsolution.persistence.java.Util;
-	import at.bestsolution.persistence.Criteria;
 	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
-	import at.bestsolution.persistence.java.query.DBCriteria;
+	import at.bestsolution.persistence.MappedQuery;
+	import at.bestsolution.persistence.java.query.MappedQueryImpl;
 	import at.bestsolution.persistence.java.query.ListDelegate;
 	import at.bestsolution.persistence.java.query.ColumnDelegate;
 	import at.bestsolution.persistence.java.query.TypeDelegate;
@@ -216,14 +216,14 @@ class JavaObjectMapperGenerator {
 					«ENDFOR»
 				«ENDIF»
 				«IF query.parameters.empty»
-				public «eClass.name»Criteria «query.name»ByCriteria() {
+				public «eClass.name»MappedQuery «query.name»MappedQuery() {
 					final Map<String,String> colnameMapping = new HashMap<String,String>();
 
 					«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
 						«IF a.resolved»
-							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»«a.parameters.head»");
+							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»\"«a.parameters.head»\"");
 						«ELSE»
-							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»«a.columnName»");
+							colnameMapping.put("«a.property»","«IF query.queries.head.mapping.prefix != null»«query.queries.head.mapping.prefix».«ENDIF»\"«a.columnName»\"");
 						«ENDIF»
 					«ENDFOR»
 
@@ -237,15 +237,15 @@ class JavaObjectMapperGenerator {
 						typeMapping.put("«a.property»",JDBCType.«a.jdbcType(eClass)»);
 					«ENDFOR»
 
-					DBCriteria<«eClass.name»> dbCriteria = session.getDatabaseSupport().createCriteria(
+					MappedQuery<«eClass.name»> dbQuery = session.getDatabaseSupport().createMappedQuery(
 						new ColumnDelegate() { public String get(String propertyName) { return colnameMapping.get(propertyName); } },
 						new TypeDelegate() { public TypedValue get(String propertyName, Object value) { return new TypedValue( refValue.containsKey(propertyName) ? ((EObject)value).eGet(refValue.get(propertyName)) :  value,typeMapping.get(propertyName)); } },
-						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(DBCriteria<«eClass.name»> criteria) { return «query.name»(criteria); } }
+						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(MappedQuery<«eClass.name»> criteria) { return «query.name»((MappedQueryImpl<«eClass.name»>)criteria); } }
 					);
-					return new «eClass.name»CriteriaImpl(dbCriteria);
+					return new «eClass.name»MappedQueryImpl(dbQuery);
 				}
 
-				List<«eClass.name»> «query.name»(DBCriteria<«eClass.name»> criteria) {
+				List<«eClass.name»> «query.name»(MappedQueryImpl<«eClass.name»> criteria) {
 					boolean isDebug = LOGGER.isDebugEnabled();
 					if( isDebug ) LOGGER.debug("Executing «query.name»");
 
@@ -616,92 +616,39 @@ class JavaObjectMapperGenerator {
 			throw new UnsupportedOperationException("Unknown query '"+getClass().getSimpleName()+"."+name+"'");
 		}
 
+		public MappedQuery<«eClass.name»> createCriteriaQuery(JavaSession session, String name) {
+			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
+			if("«query.name»".equals(name)) {
+				return createMapper(session).«query.name»MappedQuery();
+			}
+			«ENDFOR»
+			throw new UnsupportedOperationException("Unknown criteria query '"+getClass().getSimpleName()+"."+name+"'");
+		}
+
 		«createProxyData(entityDef.entity,eClass)»
 		«FOR e : entityDef.entity.collectEnities»
 		«createProxyData(e,JavaHelper::getEClass(e.etype))»
 		«ENDFOR»
 		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
-		static class «eClass.name»CriteriaImpl implements «eClass.name»Mapper.«eClass.name»Criteria {
-			private final DBCriteria<«eClass.name»> dbCriteria;
+		static class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
+			private final MappedQuery<«eClass.name»> dbQuery;
 
-			«eClass.name»CriteriaImpl(DBCriteria<«eClass.name»> dbCriteria) {
-				this.dbCriteria = dbCriteria;
+			«eClass.name»MappedQueryImpl(MappedQuery<«eClass.name»> dbQuery) {
+				this.dbQuery = dbQuery;
 			}
 
-			public «eClass.name»Mapper.«eClass.name»Criteria eq(String propertyName, Object value) {
-				dbCriteria.eq(propertyName,value);
+			public «eClass.name» unique() {
+				return dbQuery.unique();
+			}
+
+			public «eClass.name»Mapper.«eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression) {
+				dbQuery.where(expression);
 				return this;
 			}
 
 			public List<«eClass.name»> list() {
-				return dbCriteria.list();
+				return dbQuery.list();
 			}
-
-			«val criteriaString = eClass.name + "Mapper."+eClass.name+"Criteria"»
-			«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
-				«IF a.resolved»
-						public at.bestsolution.persistence.expressions.GenericExpression<«criteriaString»,«a.getResolvedType(eClass)»> «a.property»() {
-							return new at.bestsolution.persistence.java.query.expr.GenericExpressionImpl<«criteriaString»,«a.getResolvedType(eClass)»>(this,"«a.property»");
-						}
-				«ELSE»
-					«val eAttribute = a.getEAttribute(eClass)»
-						«IF eAttribute.boolean»
-							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.expressions.BooleanExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.BooleanExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ELSE»
-								public at.bestsolution.persistence.expressions.BooleanObjectExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.BooleanObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ENDIF»
-						«ELSEIF eAttribute.integer»
-							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.expressions.IntegerExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.IntegerExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ELSE»
-								public at.bestsolution.persistence.expressions.IntegerObjectExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.IntegerObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ENDIF»
-						«ELSEIF eAttribute.long»
-							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.expressions.LongExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.LongExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ELSE»
-								public at.bestsolution.persistence.expressions.LongObjectExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.LongObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ENDIF»
-						«ELSEIF eAttribute.double»
-							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.expressions.DoubleExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.DoubleExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ELSE»
-								public at.bestsolution.persistence.expressions.DoubleObjectExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.DoubleObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ENDIF»
-						«ELSEIF eAttribute.float»
-							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.expressions.FloatExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.FloatExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ELSE»
-								public at.bestsolution.persistence.expressions.FloatObjectExpression<«criteriaString»> «a.property»() {
-									return new at.bestsolution.persistence.java.query.expr.FloatObjectExpressionImpl<«criteriaString»>(this,"«a.property»");
-								}
-							«ENDIF»
-						«ELSE»
-							public at.bestsolution.persistence.expressions.GenericExpression<«criteriaString»,«eAttribute.EType.instanceClassName»> «a.property»() {
-								return new at.bestsolution.persistence.java.query.expr.GenericExpressionImpl<«criteriaString»,«eAttribute.EType.instanceClassName»>(this,"«a.property»");
-							}
-						«ENDIF»
-				«ENDIF»
-			«ENDFOR»
 		}
 		«ENDIF»
 	}
