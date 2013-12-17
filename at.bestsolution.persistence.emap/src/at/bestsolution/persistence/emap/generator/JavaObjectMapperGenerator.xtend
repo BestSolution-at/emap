@@ -772,9 +772,9 @@ class JavaObjectMapperGenerator {
 		if( p.type == "long" ) {
 			return "((Long)" + name + ").longValue()"
 		} else if( p.type == "int" ) {
-			return "(String)" + name;
+			return "((Integer)" + name + ").intValue()";
 		} else if( p.type == "boolean" ) {
-			return "((Boolean)" + name + ").intValue()";
+			return "((Boolean)" + name + ").booleanValue()";
 		}
 		return "("+p.type+")" + name;
 	}
