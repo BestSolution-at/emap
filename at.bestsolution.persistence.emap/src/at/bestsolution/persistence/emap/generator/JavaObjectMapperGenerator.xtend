@@ -11,13 +11,10 @@ import at.bestsolution.persistence.emap.eMap.EObjectSection
 import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EQuery
 import at.bestsolution.persistence.emap.eMap.ReturnType
-import java.util.ArrayList
-import java.util.HashSet
 import java.util.List
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 
-import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.*
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
 class JavaObjectMapperGenerator {
@@ -180,7 +177,7 @@ class JavaObjectMapperGenerator {
 				}
 				«IF !query.queries.head.mapping.attributes.empty»
 					public «eClass.name» map_«query.name»_«eClass.name»(ResultSet set) throws SQLException {
-						Object id = set.getObject("«query.queries.head.mapping.prefix+"_"»«entityDef.entity.collectAttributes.findFirst[pk].columnName»");
+						Object id = set.getObject("«query.queries.head.mapping.prefix+"_"»«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 						EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 						«eClass.name» rv = session.getCache().getObject(eClass,id);
 						if( rv != null ) {
@@ -195,7 +192,7 @@ class JavaObjectMapperGenerator {
 					}
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					public «JavaHelper::getEClass(section.entity.etype).instanceClassName» map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(ResultSet set) throws SQLException {
-						Object id = set.getObject("«section.prefix+"_"»«section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[pk].columnName»");
+						Object id = set.getObject("«section.prefix+"_"»«section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[pk].columnName»");
 						if( id == null ) {
 							return null;
 						}
@@ -262,14 +259,14 @@ class JavaObjectMapperGenerator {
 			«ENDFOR»
 
 			public «eClass.name» map_default_«eClass.name»(ResultSet set) throws SQLException {
-				Object id = set.getObject("«entityDef.entity.collectAttributes.findFirst[pk].columnName»");
+				Object id = set.getObject("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 				EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 				«eClass.name» rv = session.getCache().getObject(eClass,id);
 				if( rv != null ) {
 					return rv;
 				}
 				rv = session.getProxyFactory().createProxy(eClass);
-				«attrib_resultMapContent("rv",entityDef.entity.collectAttributes, eClass, "")»
+				«attrib_resultMapContent("rv",entityDef.entity.allAttributes, eClass, "")»
 				session.getCache().putObject((EObject)rv,id);
 				return rv;
 			}
@@ -304,11 +301,11 @@ class JavaObjectMapperGenerator {
 					«ELSEIF a.isSingle(eClass)»
 						«val ownerClass = eClass.getEStructuralFeature(a.property).EContainingClass»
 						if( leo == null || leo.isResolved(«ownerClass.packageName».«ownerClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ownerClass.name»_«a.property.toFirstUpper»()) ) {
-							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»");
+							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»");
 						}
 					«ENDIF»
 				«ENDFOR»
-				ProcessedSQL psql = b.buildUpdate("«entityDef.entity.collectAttributes.findFirst[pk].columnName»","«entityDef.entity.collectAttributes.findFirst[pk].property»");
+				ProcessedSQL psql = b.buildUpdate("«entityDef.entity.allAttributes.findFirst[pk].columnName»","«entityDef.entity.allAttributes.findFirst[pk].property»");
 				if( isDebug ) {
 					LOGGER.debug("The processed SQL: " + psql.sql);
 				}
@@ -336,16 +333,16 @@ class JavaObjectMapperGenerator {
 									}
 								}
 							«ELSEIF a.isSingle(eClass)»
-								if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
+								if("«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
 									if( object.get«a.property.toFirstUpper»() == null ) {
 										pstmt.setObject(i+1,null);
 										if( isDebug ) {
 											debugParams.add("«a.parameters.head» = NULL");
 										}
 									} else {
-										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property.toFirstUpper»());
 										if( isDebug ) {
-											debugParams.add("«a.parameters.head» = " + object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+											debugParams.add("«a.parameters.head» = " + object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property.toFirstUpper»());
 										}
 									}
 								}
@@ -394,7 +391,7 @@ class JavaObjectMapperGenerator {
 						«IF a.columnName != null»
 							b.addColumn("«a.columnName»", "«a.property»");
 						«ELSEIF a.isSingle(eClass)»
-							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»");
+							b.addColumn("«a.parameters.head»","«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»");
 						«ENDIF»
 					«ENDFOR»
 					b.addColumn("e_version","##e_version##");
@@ -445,16 +442,16 @@ class JavaObjectMapperGenerator {
 									}
 								}
 							«ELSEIF a.isSingle(eClass)»
-								else if("«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
+								else if("«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»".equals(psql.dynamicParameterNames.get(i))) {
 									if( object.get«a.property.toFirstUpper»() == null ) {
 										pstmt.setObject(i+1,null);
 										if( isDebug ) {
 											debugParams.add("«a.parameters.head» = NULL");
 										}
 									} else {
-										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property.toFirstUpper»());
 										if( isDebug ) {
-											debugParams.add("«a.parameters.head» = " + object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property.toFirstUpper»());
+											debugParams.add("«a.parameters.head» = " + object.get«a.property.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property.toFirstUpper»());
 										}
 									}
 								}
@@ -592,7 +589,7 @@ class JavaObjectMapperGenerator {
 				«ENDFOR»
 
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved]»
-					REF_ID_FEATURES.put("«a.property»",«a.getRefEAttribute(eClass).EContainingClass.packageName».«a.getRefEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getRefEAttribute(eClass).EContainingClass.name»_«a.getRefEAttribute(eClass).name.toFirstUpper»());
+					REF_ID_FEATURES.put("«a.property»",«a.getEAttribute(eClass).EContainingClass.packageName».«a.getEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getEAttribute(eClass).EContainingClass.name»_«a.getEAttribute(eClass).name.toFirstUpper»());
 				«ENDFOR»
 			}
 
@@ -735,54 +732,6 @@ class JavaObjectMapperGenerator {
 		«ENDIF»
 	'''
 
-	static def jdbcType(EAttribute p, EClass eClass) {
-		val f = eClass.getEStructuralFeature(p.property);
-		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
-			return (f as org.eclipse.emf.ecore.EAttribute).jdbcType
-		} else {
-			return getRefEAttribute(p,eClass).jdbcType;
-		}
-	}
-
-	static def getRefEAttribute(EAttribute p, EClass eClass) {
-		val f = eClass.getEStructuralFeature(p.property);
-		val c = (f as EReference).EType as EClass
-		return c.getEStructuralFeature((p.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute;
-	}
-
-	static def jdbcType(org.eclipse.emf.ecore.EAttribute f) {
-		if( f.EType.instanceClassName == "java.lang.String" ) {
-			return "STRING";
-		} else if( f.EType.instanceClassName == "long" ) {
-			return "LONG";
-		} else if( f.EType.instanceClassName == "double" ) {
-			return "DOUBLE";
-		} else if( f.EType.instanceClassName == "double" ) {
-			return "FLOAT";
-		} else if( f.EType.instanceClassName == "int" ) {
-			return "INT";
-		} else if( f.EType.instanceClassName == "boolean" ) {
-			return "BOOLEAN";
-		} else {
-			return "UNKNOWN";
-		}
-	}
-
-	def static parameterConversion(EParameter p, String name) {
-		if( p.type == "long" ) {
-			return "((Long)" + name + ").longValue()"
-		} else if( p.type == "int" ) {
-			return "((Integer)" + name + ").intValue()";
-		} else if( p.type == "boolean" ) {
-			return "((Boolean)" + name + ").booleanValue()";
-		}
-		return "("+p.type+")" + name;
-	}
-
-	def static generateJavaInsert(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
-
-	'''
-
 	static def submapName(EObjectSection section) {
 		return section.submapOwner + "_" + (section.eContainer as EMappingAttribute).property
 	}
@@ -793,19 +742,19 @@ class JavaObjectMapperGenerator {
 
 	static def resolve(EMappingEntity entity, EClass eClass) '''
 		«eClass.instanceClassName» target = («eClass.instanceClassName»)eo;
-		«val first = entity.collectAttributes.sort([a,b|
+		«val first = entity.allAttributes.sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
 			return compare(iA,iB);
 		]).findFirst[resolved]»
 		«IF first != null»
 			switch(f.getFeatureID()) {
-				«val pk = entity.collectAttributes.findFirst[pk]»
+				«val pk = entity.allAttributes.findFirst[pk]»
 				case «eClass.getEStructuralFeature(first.property).featureID»: {
 					«first.createResolveText(eClass,pk)»
 					return true;
 				}
-				«FOR a : entity.collectAttributes.sort([a,b|
+				«FOR a : entity.allAttributes.sort([a,b|
 					val iA = a.sortValue(eClass)
 					val iB = b.sortValue(eClass)
 					return compare(iA,iB);
@@ -823,36 +772,19 @@ class JavaObjectMapperGenerator {
 	'''
 
 	static def createProxyData(EMappingEntity entity, EClass eClass) '''
-	«IF entity.collectAttributes.findFirst[resolved && isSingle(eClass)] != null»
+	«IF entity.allAttributes.findFirst[resolved && isSingle(eClass)] != null»
 		final static class ProxyData_«eClass.name» {
-			«FOR a : entity.collectAttributes.filter[resolved && isSingle(eClass)]»
+			«FOR a : entity.allAttributes.filter[resolved && isSingle(eClass)]»
 				public final «a.query.parameters.head.type» «a.property»;
 			«ENDFOR»
-			public ProxyData_«eClass.name»(«entity.collectAttributes.filter[resolved && isSingle(eClass)].map[ query.parameters.head.type + " " + property].join(",")») {
-				«FOR a : entity.collectAttributes.filter[resolved && isSingle(eClass)]»
+			public ProxyData_«eClass.name»(«entity.allAttributes.filter[resolved && isSingle(eClass)].map[ query.parameters.head.type + " " + property].join(",")») {
+				«FOR a : entity.allAttributes.filter[resolved && isSingle(eClass)]»
 				this.«a.property» = «a.property»;
 				«ENDFOR»
 			}
 		}
 	«ENDIF»
 	'''
-
-	static def collectMappings(Iterable<EMappingAttribute> attributeList) {
-		val l = new ArrayList<EObjectSection>;
-		attributeList.forEach[it.map.collectMappingsRec(l)]
-		return l;
-	}
-
-	static def void collectMappingsRec(EObjectSection section, List<EObjectSection> list) {
-		list.add(section);
-		section.attributes.forEach[it.map.collectMappingsRec(list)]
-	}
-
-	static def collectEnities(EMappingEntity rootEntity) {
-		val entities = new HashSet<EMappingEntity>;
-		rootEntity.namedQueries.forEach[entities.addAll(it.queries.head.mapping.attributes.collectMappings.map[it.entity])]
-		return entities;
-	}
 
 	static def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
 	«IF attribute.isSingle(eClass)»
@@ -863,16 +795,16 @@ class JavaObjectMapperGenerator {
 	'''
 
 	static def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
-		«FOR a : section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].sort([a,b|
+		«FOR a : section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
 			return compare(iA,iB);
 		]).filter[!resolved]»
 			«varName».set«a.property.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
 		«ENDFOR»
-		«IF section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved] != null»
-			«IF section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved && isSingle(eClass)] != null»
-				((LazyEObject)rv).setProxyData(new ProxyData_«eClass.name»(«section.entity.collectAttributes.filter[resolved && isSingle(eClass)].map['set.'+query.parameters.head.resultMethodType+'("'+columnPrefix+parameters.head+'")'].join(",")»));
+		«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved] != null»
+			«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[resolved && isSingle(eClass)] != null»
+				((LazyEObject)rv).setProxyData(new ProxyData_«eClass.name»(«section.entity.allAttributes.filter[resolved && isSingle(eClass)].map['set.'+query.parameters.head.resultMethodType+'("'+columnPrefix+parameters.head+'")'].join(",")»));
 			«ENDIF»
 			((LazyEObject)rv).setProxyDelegate(this);
 		«ENDIF»
@@ -893,78 +825,6 @@ class JavaObjectMapperGenerator {
 			((LazyEObject)rv).setProxyDelegate(this);
 		«ENDIF»
 	'''
-
-	static def pstmtMethod(EParameter p) {
-		if( p.type == "String" ) {
-			return "setString";
-		} else if( p.type == "long" ) {
-			return "setLong";
-		} else if( p.type == "int" ) {
-			return "setInt";
-		} else if( p.type == "boolean" ) {
-			return "setBoolean";
-		} else {
-			return "setObject";
-		}
-	}
-
-	static def pstmtMethod(EAttribute p, EClass eClass) {
-		val f = eClass.getEStructuralFeature(p.property);
-		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
-			return (f as org.eclipse.emf.ecore.EAttribute).pstmtMethod
-		} else {
-			val c = (f as EReference).EType as EClass
-			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute).pstmtMethod;
-		}
-	}
-
-	static def pstmtMethod(org.eclipse.emf.ecore.EAttribute f) {
-		if( f.EType.instanceClassName == "java.lang.String" ) {
-			return "setString";
-		} else if( f.EType.instanceClassName == "long" ) {
-			return "setLong";
-		} else if( f.EType.instanceClassName == "int" ) {
-			return "setInt";
-		} else if( f.EType.instanceClassName == "boolean" ) {
-			return "setBoolean";
-		} else {
-			return "setObject";
-		}
-	}
-
-	static def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
-		val f = eClass.getEStructuralFeature(attribute.property)
-		if( f == null ) {
-			throw new IllegalStateException("Unknown attribute '"+attribute.property+"'")
-		}
-		if( "java.lang.String" == f.EType.instanceClassName ) {
-			return varName + '.getString("'+keyName+'")'
-		} else if( "long" == f.EType.instanceClassName ) {
-			return varName + '.getLong("'+keyName+'")'
-		} else if( "int" == f.EType.instanceClassName ) {
-			return varName + '.getInt("'+keyName+'")'
-		} else if( "double" == f.EType.instanceClassName ) {
-			return varName + '.getDouble("'+keyName+'")'
-		} else if( "boolean" == f.EType.instanceClassName ) {
-			return varName + '.getBoolean("'+keyName+'")'
-		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
-			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).collectAllAttributes.findFirst[pk].columnName+'",' +varName +')'
-		} else {
-			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject("'+keyName+'"))'
-		}
-	}
-
-	static def resultMethodType(EParameter p) {
-		if( "String" == p.type ) {
-			return "getString"
-		} else if( "long" == p.type ) {
-			return "getLong"
-		} else if( "int" == p.type ) {
-			return "getInt"
-		} else {
-			return "getObject"
-		}
-	}
 
 	static def generateSQL(ENamedQuery namedQuery, EQuery query) '''
 	SELECT
@@ -1001,17 +861,6 @@ class JavaObjectMapperGenerator {
 			return v;
 		} else {
 			return v.replace("${","#{");
-		}
-	}
-
-	def static compare(int x, int y) {
-		if(x < y) {
-			return -1
-		}
-		else if(x == y) {
-			return 0
-		} else {
-			return 1;
 		}
 	}
 }

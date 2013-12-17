@@ -2,9 +2,9 @@ package at.bestsolution.persistence.emap.generator
 
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EDataType
-import static extension at.bestsolution.persistence.emap.generator.EMapGenerator.*
 import org.eclipse.emf.ecore.EcorePackage
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
+import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
 class DDLGenerator {
 	def static CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''

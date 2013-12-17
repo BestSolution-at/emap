@@ -7,8 +7,6 @@ import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EMapping
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
-import at.bestsolution.persistence.emap.eMap.ENamedQuery
-import java.util.ArrayList
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
@@ -18,10 +16,7 @@ import at.bestsolution.persistence.emap.eMap.EObjectSection
 import java.util.List
 import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
-import java.util.Map
-import java.util.HashMap
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
-import org.osgi.framework.FrameworkUtil
 import org.eclipse.emf.ecore.EReference
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 
@@ -31,7 +26,6 @@ import static extension at.bestsolution.persistence.emap.generator.UtilCollectio
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class EMapGenerator implements IGenerator {
-	static Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val root = resource.contents.head as EMapping
@@ -314,7 +308,7 @@ class EMapGenerator implements IGenerator {
 		</resultMap>
 		«ELSEIF entityDef.entity.descriminationColumn != null»
 		<resultMap id="«query.name»_«eClass.name»Map" type="«eClass.instanceClassName»">
-			«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
+			«attrib_resultMapContent(entityDef.entity.allAttributes, eClass, "")»
 			<discriminator javaType="java.lang.String" column="«entityDef.entity.descriminationColumn»">
 				«FOR d : query.queries.head.mapping.descriminatedTypes»
 				<case value="«d.name»" resultMap="«d.fqn».Default_«d.name»Map" />
@@ -324,7 +318,7 @@ class EMapGenerator implements IGenerator {
 		«ENDIF»
 	«ENDFOR»
 	<resultMap id="Default_«eClass.name»Map" type="«eClass.instanceClassName»">
-		«attrib_resultMapContent(entityDef.entity.collectAttributes, eClass, "")»
+		«attrib_resultMapContent(entityDef.entity.allAttributes, eClass, "")»
 	</resultMap>
 	«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 	«IF pkAttribute == null || entityDef.entity.extensionType == "extends"»
@@ -358,12 +352,12 @@ class EMapGenerator implements IGenerator {
 				«IF a.columnName != null»
 					«a.columnName» = #{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
-					<if test="_isResolved_«a.property»">«a.parameters.head» = #{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},</if>
+					<if test="_isResolved_«a.property»">«a.parameters.head» = #{«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»},</if>
 				«ENDIF»
 			«ENDFOR»
 		</set>
 		WHERE
-			«entityDef.entity.collectAttributes.findFirst[pk].columnName» = #{«entityDef.entity.collectAttributes.findFirst[pk].property»}
+			«entityDef.entity.allAttributes.findFirst[pk].columnName» = #{«entityDef.entity.allAttributes.findFirst[pk].property»}
 	</update>
 </mapper>
 	'''
@@ -436,7 +430,7 @@ class EMapGenerator implements IGenerator {
 				«IF a.columnName != null»
 					#{«a.property»},
 				«ELSEIF a.isSingle(eClass)»
-					#{«a.property».«(a.query.eContainer as EMappingEntity).collectAttributes.findFirst[pk].property»},
+					#{«a.property».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property»},
 				«ENDIF»
 			«ENDFOR»
 			«IF entityDef.entity.descriminationColumn != null»
@@ -445,51 +439,6 @@ class EMapGenerator implements IGenerator {
 		</trim>
 	)
 	'''
-
-	def static List<DatabaseSupport> findDatabaseSupport(EAttribute attribute) {
-		if( attribute == null ) {
-			return null;
-		}
-		val rv = new ArrayList
-		for( v : attribute.valueGenerators ) {
-			val s = getDatabaseSupport(v.dbType)
-			if( s != null ) {
-				rv.add(s);
-			}
-		}
-
-		return rv;
-	}
-
-	def static getDatabaseSupport(String name) {
-		if( DB_SUPPORTS.containsKey(name) ) {
-			return DB_SUPPORTS.get(name)
-		} else {
-			val bundle = FrameworkUtil::getBundle(typeof(EMapGenerator))
-			val serviceRef = bundle.bundleContext.getServiceReferences(typeof(DatabaseSupport),null)
-			for( sr : serviceRef ) {
-				val s = bundle.bundleContext.getService(sr)
-				if( name == s.databaseId ) {
-					DB_SUPPORTS.put(name, s);
-					return s;
-				}
-			}
-		}
-	}
-
-	def static sortValue(EAttribute a, EClass eClass) {
-		if( a.pk ) {
-			return 0;
-		} else if( a.resolved ) {
-			if( a.isSingle(eClass) ) {
-				return 2;
-			} else {
-				return 3;
-			}
-		} else {
-			return 1;
-		}
-	}
 
 	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 	<!-- Default mapping -->
@@ -551,7 +500,7 @@ class EMapGenerator implements IGenerator {
 	'''
 
 	def static CharSequence objectSectionMap(EObjectSection section) '''
-	«attrib_resultMapContent(section.entity.collectAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null],JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
+	«attrib_resultMapContent(section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null],JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
 	«mappedattrib_resultMapContent(section.attributes, JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
 	'''
 //	{
@@ -578,178 +527,6 @@ class EMapGenerator implements IGenerator {
 		}
 	}
 
-	def static isPrimitive(String type) {
-		switch(type) {
-			case "long": return true
-			case "int": return true
-		}
-		return false;
-	}
 
-	def static String mapColumns(EObjectSection s) {
-		val atts = s.entity.collectAllAttributes
-		val id = atts.findFirst[a|a.pk]
 
-		val StringBuilder b = new StringBuilder;
-		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head else a.columnName) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
-
-		for( es : s.attributes.filter[a|a.map!=null] ) {
-			b.append(",\n\n" + es.map.mapColumns)
-		}
-
-		return b.toString;
-	}
-
-	def static String prefix(EObjectSection s, EAttribute attribute) {
-		val allDerivedAttributes = s.entity.collectDerivedAttributes
-		if( allDerivedAttributes.containsKey(attribute.property) ) {
-			if( ! attribute.pk || s.entity == attribute.eContainer ) {
-				return s.prefix;
-			} else {
-				val ownerType = getDbOwnerType(attribute.eContainer as EMappingEntity, attribute)
-				return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
-			}
-		}
-		val ownerType = getDbOwnerType(s.entity, attribute)
-		return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
-	}
-
-	def static EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
-		val allDerivedAttributes = childEntity.collectDerivedAttributes
-		if( allDerivedAttributes.containsKey(attribute.property) ) {
-			return JavaHelper::getEClass(childEntity.etype)
-		} else if( childEntity.parent != null && childEntity.extensionType == "extends" ) {
-			return getDbOwnerType(childEntity.parent, attribute)
-		}
-		return null;
-	}
-
-	def static fqn(ENamedQuery e) {
-		val r = (e.eResource.contents.head as EMapping).root
-		if( r instanceof EMappingEntityDef ) {
-			val d = r as EMappingEntityDef;
-			return d.package.name + "." + d.entity.name + "Mapper." + e.name
-		}
-		return "NOX DA"
-	}
-
-	def static fqn(EMappingEntityDef e) {
-		return e.package.name + "." + e.entity.name + "Mapper";
-	}
-
-	def static fqn(EMappingEntity e) {
-		val r = (e.eResource.contents.head as EMapping).root
-		if( r instanceof EMappingEntityDef ) {
-			val d = r as EMappingEntityDef;
-			return d.package.name + "." + d.entity.name + "Mapper"
-		}
-		return "NOX DA"
-	}
-
-	def static isSingle(EAttribute attribute, EClass eclass) {
-		if( eclass.getEStructuralFeature(attribute.property) == null ) {
-			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
-		}
-		return ! eclass.getEStructuralFeature(attribute.property).many
-	}
-
-	def static isBoolean(EAttribute attribute, EClass eclass) {
-		if( eclass.getEStructuralFeature(attribute.property) == null ) {
-			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
-		}
-		return eclass.getEStructuralFeature(attribute.property).EType.name == "EBoolean"
-	}
-
-	def static isSingle(EMappingAttribute attribute, EClass eclass) {
-		return ! eclass.getEStructuralFeature(attribute.property).many
-	}
-
-	def static tableName(EMappingEntityDef entityDef) {
-		if( entityDef.entity.tableName == null ) {
-			return JavaHelper::getEClass(entityDef.entity.etype).name.toUpperCase
-		}
-		return entityDef.entity.tableName
-	}
-
-	def static calcTableName(EMappingEntity entity) {
-		if( entity.tableName == null ) {
-			return JavaHelper::getEClass(entity.etype).name.toUpperCase
-		}
-		return entity.tableName
-	}
-
-	def static sortAttributes(EClass eClass, EAttribute a, EAttribute b) {
-		if (a.pk)
-			return -1
-		else if (b.pk)
-			return 1
-		else
-			if ( a.resolved && b.resolved ) {
-				if( a.isSingle(eClass) && b.isSingle(eClass) ) {
-					return a.property.compareToIgnoreCase(b.property)
-				} else if( a.isSingle(eClass) ) {
-					return -1;
-				} else if( b.isSingle(eClass) ) {
-					return 1;
-				}
-				return a.property.compareToIgnoreCase(b.property)
-			}
-			else if( ! a.resolved && !  b.resolved )
-				return a.property.compareToIgnoreCase(b.property)
-			else if( ! a.resolved )
-				return -1
-			else if( ! b.resolved )
-				return 1
-			else
-				return a.property.compareToIgnoreCase(b.property)
-	}
-
-	def static collectAttributes(EMappingEntity entity) {
-		val l = new ArrayList<EAttribute>
-		entity.allAttributes(l,false)
-		val eClass = JavaHelper::getEClass(entity.etype);
-		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
-		return l
-	}
-
-	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l, boolean skipPrimary) {
-		l.addAll(entity.attributes.filter[! skipPrimary || ! pk ])
-		if( entity.parent != null ) {
-			entity.parent.allAttributes(l, true)
-		}
-	}
-
-	def static collectAllAttributes(EMappingEntity entity) {
-		val l = new ArrayList<EAttribute>
-		entity.allAttributes(l)
-		val eClass = JavaHelper::getEClass(entity.etype);
-		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
-		return l
-	}
-
-	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
-		l.addAll(entity.attributes)
-		if( entity.parent != null ) {
-			entity.parent.allAttributes(l)
-		}
-	}
-
-	def static collectDerivedAttributes(EMappingEntity entity) {
-		val map = new HashMap<String,EAttribute>
-		entity.allDerivedAttributes(map)
-		return map
-	}
-
-	def static void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
-		for( a : entity.attributes ) {
-			map.put(a.property,a);
-		}
-		if( entity.parent != null && entity.extensionType == "derived" ) {
-			entity.parent.allDerivedAttributes(map)
-		}
-	}
-
-	static def packageName(EClass eClass) {
-		return eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf("."))
-	}
 }
