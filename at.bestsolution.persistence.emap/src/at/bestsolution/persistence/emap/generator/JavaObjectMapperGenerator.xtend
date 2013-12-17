@@ -233,7 +233,10 @@ class JavaObjectMapperGenerator {
 
 					if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
-					query += " WHERE " + criteria.getCriteria();
+					String criteriaStr = criteria.getCriteria();
+					if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+						query += " WHERE " + criteriaStr;
+					}
 
 					if( isDebug ) LOGGER.debug("	Final query: " + query);
 
@@ -625,13 +628,22 @@ class JavaObjectMapperGenerator {
 							return createMapper(session).«query.name»(«IF !query.parameters.empty»«query.parameters.map[it.parameterConversion("parameters["+query.parameters.indexOf(it)+"]")].join(",")»«ENDIF»);
 						«ENDIF»
 					}
+
+					public String[] getParameterNames() {
+						String[] rv = new String[«query.parameters.size»];
+						int i = 0;
+						«FOR p : query.parameters»
+						rv[i++] = "«p.name»";
+						«ENDFOR»
+						return rv;
+					}
 				};
 			}
 			«ENDFOR»
 			throw new UnsupportedOperationException("Unknown query '"+getClass().getSimpleName()+"."+name+"'");
 		}
 
-		public MappedQuery<«eClass.name»> createCriteriaQuery(JavaSession session, String name) {
+		public MappedQuery<«eClass.name»> mappedQuery(JavaSession session, String name) {
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 			if("«query.name»".equals(name)) {
 				return createMapper(session).«query.name»MappedQuery();

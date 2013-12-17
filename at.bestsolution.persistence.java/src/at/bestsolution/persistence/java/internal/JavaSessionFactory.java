@@ -148,16 +148,52 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@SuppressWarnings("unchecked")
 		@Override
+		public <O> List<O> queryForList(String fqnMapper, String queryName,
+				Map<String, Object> parameterMap) {
+			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
+			if( factory != null ) {
+				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
+				String[] params = q.getParameterNames();
+				Object[] objs = new Object[params.length];
+				for( int i = 0; i < params.length; i++ ) {
+					objs[i] = parameterMap.get(params[i]);
+				}
+
+				return q.queryForList(objs);
+			}
+			throw new IllegalArgumentException("The mapper '"+fqnMapper+"' is not known.");
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
 		public <O> O queryForOne(String fqnMapper, String queryName,
 				Object... parameters) {
 			NamedQuery<O> q = (NamedQuery<O>) factories.get(fqnMapper).createNamedQuery(this, queryName);
 			return q.queryForOne(parameters);
 		}
 
+		@SuppressWarnings("unchecked")
+		@Override
+		public <O> O queryForOne(String fqnMapper, String queryName,
+				Map<String, Object> parameterMap) {
+			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
+			if( factory != null ) {
+				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
+				String[] params = q.getParameterNames();
+				Object[] objs = new Object[params.length];
+				for( int i = 0; i < params.length; i++ ) {
+					objs[i] = parameterMap.get(params[i]);
+				}
+
+				return q.queryForOne(objs);
+			}
+			throw new IllegalArgumentException("The mapper '"+fqnMapper+"' is not known.");
+		}
+
+		@SuppressWarnings("unchecked")
 		@Override
 		public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName) {
-//			return (Criteria<O>) factories.get(fqnMapper).createCriteriaQuery(this, queryName);
-			return null;
+			return (MappedQuery<O>) factories.get(fqnMapper).mappedQuery(this, queryName);
 		}
 
 		@Override
