@@ -102,8 +102,8 @@ class JavaObjectMapperGenerator {
 
 			«FOR query : entityDef.entity.namedQueries»
 				@Override
-				public «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
-					boolean isDebug = LOGGER.isDebugEnabled();
+				public final «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
+					final boolean isDebug = LOGGER.isDebugEnabled();
 					if( isDebug ) LOGGER.debug("Executing «query.name»");
 
 					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
@@ -176,7 +176,7 @@ class JavaObjectMapperGenerator {
 					}
 				}
 				«IF !query.queries.head.mapping.attributes.empty»
-					public «eClass.name» map_«query.name»_«eClass.name»(ResultSet set) throws SQLException {
+					public final «eClass.name» map_«query.name»_«eClass.name»(ResultSet set) throws SQLException {
 						Object id = set.getObject("«query.queries.head.mapping.prefix+"_"»«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 						EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 						«eClass.name» rv = session.getCache().getObject(eClass,id);
@@ -191,7 +191,7 @@ class JavaObjectMapperGenerator {
 						return rv;
 					}
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
-					public «JavaHelper::getEClass(section.entity.etype).instanceClassName» map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(ResultSet set) throws SQLException {
+					public final «JavaHelper::getEClass(section.entity.etype).instanceClassName» map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(ResultSet set) throws SQLException {
 						Object id = set.getObject("«section.prefix+"_"»«section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.property] == null].findFirst[pk].columnName»");
 						if( id == null ) {
 							return null;
@@ -211,7 +211,7 @@ class JavaObjectMapperGenerator {
 					«ENDFOR»
 				«ENDIF»
 				«IF query.parameters.empty»
-				public «eClass.name»MappedQuery «query.name»MappedQuery() {
+				public final «eClass.name»MappedQuery «query.name»MappedQuery() {
 					MappedQuery<«eClass.name»> dbQuery = session.getDatabaseSupport().createMappedQuery(
 						this, «IF query.queries.head.mapping.prefix != null»"«query.queries.head.mapping.prefix»"«ELSE»null«ENDIF»,
 						new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(MappedQuery<«eClass.name»> criteria) { return «query.name»((MappedQueryImpl<«eClass.name»>)criteria); } }
@@ -219,8 +219,8 @@ class JavaObjectMapperGenerator {
 					return new «eClass.name»MappedQueryImpl(dbQuery);
 				}
 
-				List<«eClass.name»> «query.name»(MappedQueryImpl<«eClass.name»> criteria) {
-					boolean isDebug = LOGGER.isDebugEnabled();
+				final List<«eClass.name»> «query.name»(MappedQueryImpl<«eClass.name»> criteria) {
+					final boolean isDebug = LOGGER.isDebugEnabled();
 					if( isDebug ) LOGGER.debug("Executing «query.name»");
 
 					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
@@ -258,7 +258,7 @@ class JavaObjectMapperGenerator {
 				«ENDIF»
 			«ENDFOR»
 
-			public «eClass.name» map_default_«eClass.name»(ResultSet set) throws SQLException {
+			public final «eClass.name» map_default_«eClass.name»(ResultSet set) throws SQLException {
 				Object id = set.getObject("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 				EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 				«eClass.name» rv = session.getCache().getObject(eClass,id);
@@ -272,8 +272,8 @@ class JavaObjectMapperGenerator {
 			}
 
 			@Override
-			public void update(«eClass.name» object) {
-				boolean isDebug = LOGGER.isDebugEnabled();
+			public final void update(«eClass.name» object) {
+				final boolean isDebug = LOGGER.isDebugEnabled();
 				if( isDebug ) {
 					LOGGER.debug("Starting update of '"+object+"'");
 				}
@@ -365,8 +365,8 @@ class JavaObjectMapperGenerator {
 			}
 
 			@Override
-			public void insert(«eClass.name» object) {
-				boolean isDebug = LOGGER.isDebugEnabled();
+			public final void insert(«eClass.name» object) {
+				final boolean isDebug = LOGGER.isDebugEnabled();
 				if( isDebug ) {
 					LOGGER.debug("Starting insert of '"+object+"'");
 				}
@@ -501,8 +501,8 @@ class JavaObjectMapperGenerator {
 				«ENDIF»
 			}
 
-			public void deleteById(Object... id) {
-				boolean isDebug = LOGGER.isDebugEnabled();
+			public final void deleteById(Object... id) {
+				final boolean isDebug = LOGGER.isDebugEnabled();
 
 				if( isDebug ) {
 					LOGGER.debug("Started deleteById the following objects '"+Arrays.toString(id)+"'");
@@ -533,8 +533,8 @@ class JavaObjectMapperGenerator {
 				}
 			}
 
-			public void delete(«eClass.name»... object) {
-				boolean isDebug = LOGGER.isDebugEnabled();
+			public final void delete(«eClass.name»... object) {
+				final boolean isDebug = LOGGER.isDebugEnabled();
 
 				if( isDebug ) {
 					LOGGER.debug("Started delete the following objects '"+Arrays.toString(object)+"'");
@@ -551,7 +551,7 @@ class JavaObjectMapperGenerator {
 				}
 			}
 
-			public boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
+			public final boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
 				if( inAutoResolve ) {
 					return true;
 				}
@@ -567,7 +567,7 @@ class JavaObjectMapperGenerator {
 				return false;
 			}
 
-			public String getTableName() {
+			public final String getTableName() {
 				return "«entityDef.tableName»";
 			}
 
@@ -593,24 +593,24 @@ class JavaObjectMapperGenerator {
 				«ENDFOR»
 			}
 
-			public String getColumnName(String propertyName) {
+			public final String getColumnName(String propertyName) {
 				return PROPERTY_COL_MAPPING.get(propertyName);
 			}
 
-			public JDBCType getJDBCType(String property) {
+			public final JDBCType getJDBCType(String property) {
 				return TYPE_MAPPING.get(property);
 			}
 
-			public EStructuralFeature getReferenceId(String property) {
+			public final EStructuralFeature getReferenceId(String property) {
 				return REF_ID_FEATURES.get(property);
 			}
 		}
 
-		public NamedQuery<«eClass.instanceClassName»> createNamedQuery(final JavaSession session, String name) {
+		public final NamedQuery<«eClass.instanceClassName»> createNamedQuery(final JavaSession session, String name) {
 			«FOR query : entityDef.entity.namedQueries»
 			if( "«query.name»".equals(name) ) {
 				return new NamedQuery<«eClass.instanceClassName»>() {
-					public List<«eClass.instanceClassName»> queryForList(Object... parameters) {
+					public final List<«eClass.instanceClassName»> queryForList(Object... parameters) {
 						«IF query.returnType == ReturnType.LIST»
 							return createMapper(session).«query.name»(«IF !query.parameters.empty»«query.parameters.map[it.parameterConversion("parameters["+query.parameters.indexOf(it)+"]")].join(",")»«ENDIF»);
 						«ELSE»
@@ -618,7 +618,7 @@ class JavaObjectMapperGenerator {
 						«ENDIF»
 					}
 
-					public «eClass.instanceClassName» queryForOne(Object... parameters) {
+					public final «eClass.instanceClassName» queryForOne(Object... parameters) {
 						«IF query.returnType == ReturnType.LIST»
 							throw new UnsupportedOperationException("This is a list value query");
 						«ELSE»
@@ -626,7 +626,7 @@ class JavaObjectMapperGenerator {
 						«ENDIF»
 					}
 
-					public String[] getParameterNames() {
+					public final String[] getParameterNames() {
 						String[] rv = new String[«query.parameters.size»];
 						int i = 0;
 						«FOR p : query.parameters»
@@ -640,7 +640,7 @@ class JavaObjectMapperGenerator {
 			throw new UnsupportedOperationException("Unknown query '"+getClass().getSimpleName()+"."+name+"'");
 		}
 
-		public MappedQuery<«eClass.name»> mappedQuery(JavaSession session, String name) {
+		public final MappedQuery<«eClass.name»> mappedQuery(JavaSession session, String name) {
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 			if("«query.name»".equals(name)) {
 				return createMapper(session).«query.name»MappedQuery();
@@ -654,23 +654,23 @@ class JavaObjectMapperGenerator {
 		«createProxyData(e,JavaHelper::getEClass(e.etype))»
 		«ENDFOR»
 		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
-		static class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
+		static final class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
 			private final MappedQuery<«eClass.name»> dbQuery;
 
 			«eClass.name»MappedQueryImpl(MappedQuery<«eClass.name»> dbQuery) {
 				this.dbQuery = dbQuery;
 			}
 
-			public «eClass.name» unique() {
+			public final «eClass.name» unique() {
 				return dbQuery.unique();
 			}
 
-			public «eClass.name»Mapper.«eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression) {
+			public final «eClass.name»Mapper.«eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression) {
 				dbQuery.where(expression);
 				return this;
 			}
 
-			public List<«eClass.name»> list() {
+			public final List<«eClass.name»> list() {
 				return dbQuery.list();
 			}
 		}
