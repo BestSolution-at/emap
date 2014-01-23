@@ -30,7 +30,12 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 
 	@Override
 	public O unique() {
-		// TODO Auto-generated method stub
+		List<O> l = list();
+		if( l.size() == 1 ) {
+			return l.get(0);
+		} else if( l.size() > 1 ) {
+			throw new IllegalStateException("More than one result");
+		}
 		return null;
 	}
 
