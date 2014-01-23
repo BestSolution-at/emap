@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import at.bestsolution.persistence.java.JavaSession;
 
 public class LazyBlob implements Blob {
@@ -19,7 +21,13 @@ public class LazyBlob implements Blob {
     private Connection connection;
     private JavaSession session;
 
+    private static final Logger LOGGER = Logger.getLogger(LazyBlob.class);
+
     public LazyBlob(JavaSession session, String table, String blobColumn, String idColumn, Object id) {
+    	if( LOGGER.isDebugEnabled() ) {
+    		LOGGER.debug("LazyBlob Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
+    	}
+
         this.session = session;
         this.table = table;
         this.blobColumn = blobColumn;
@@ -39,14 +47,25 @@ public class LazyBlob implements Blob {
 
     private Blob getOrCreateNativeBlob() throws SQLException {
         if( nativeBlob == null ) {
+        	boolean debug = LOGGER.isDebugEnabled();
+        	if( debug ) {
+        		LOGGER.debug("Start loading blob data Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
+        	}
+
             connection = session.checkoutConnection();
             String query = "SELECT \"" + blobColumn + "\" FROM " + table + " WHERE " + idColumn + " = ?";
+            if( debug ) {
+            	LOGGER.debug("Query:" + query);
+            	LOGGER.debug("Parameter: " + id);
+            }
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setObject(1, id);
             ResultSet set = stmt.executeQuery();
             if( set.next() ) {
                 nativeBlob = set.getBlob(1);
             }
+
+            LOGGER.debug("End loading blob data '"+nativeBlob+"'");
         }
         return nativeBlob;
     }
