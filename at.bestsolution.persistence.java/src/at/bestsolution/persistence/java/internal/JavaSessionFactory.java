@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
 import at.bestsolution.persistence.java.ProxyFactory;
+import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
 
@@ -107,9 +109,10 @@ public class JavaSessionFactory implements SessionFactory {
 	class JavaSessionImpl implements JavaSession {
 		private String id = UUID.randomUUID().toString();
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
-		private Stack<Connection> transactionQueue;
+		private Stack<Connection> transactionConnectionQueue;
+		private Stack<Transaction> transactionQueue;
 		private SessionCache sessionCache;
-		private ObjectMapperFactory<?, ?> objectMapperFactory;
+		private Map<Transaction, List<RelationSQL>> relationSQLStorage = new HashMap<Session.Transaction, List<RelationSQL>>();
 
 		public JavaSessionImpl(SessionCache sessionCache) {
 			this.sessionCache = sessionCache;
@@ -200,7 +203,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public boolean isTransaction() {
-			return transactionQueue != null;
+			return transactionConnectionQueue != null;
 		}
 
 		@Override
@@ -223,14 +226,25 @@ public class JavaSessionFactory implements SessionFactory {
 				eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_START, properties));
 			}
 
+			if( transactionConnectionQueue == null ) {
+				transactionConnectionQueue = new Stack<Connection>();
+			}
 			if( transactionQueue == null ) {
-				transactionQueue = new Stack<Connection>();
+				transactionQueue = new Stack<Session.Transaction>();
 			}
 
-			transactionQueue.add(connection);
+			transactionQueue.add(transaction);
+			transactionConnectionQueue.add(connection);
 			try {
 				if( transaction.execute() ) {
 					try {
+						List<RelationSQL> list = relationSQLStorage.get(transaction);
+						if( list != null ) {
+							RelationSQL[] tmpList = list.toArray(new RelationSQL[0]);
+							for( RelationSQL s : tmpList ) {
+								s.execute();
+							}
+						}
 						connection.commit();
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
@@ -277,12 +291,59 @@ public class JavaSessionFactory implements SessionFactory {
 					LOGGER.error("Failed to set back auto commit", e);
 					throw new PersistanceException(e);
 				}
-				connectionProvider.returnConnection(transactionQueue.pop());
+				connectionProvider.returnConnection(transactionConnectionQueue.pop());
+				if( transactionConnectionQueue.isEmpty() ) {
+					transactionConnectionQueue = null;
+				}
+
+				transactionQueue.pop();
 				if( transactionQueue.isEmpty() ) {
 					transactionQueue = null;
 				}
 			}
 			LOGGER.debug("Finished transaction '"+transactionId+"'");
+		}
+
+		@Override
+		public Transaction getTransaction() {
+			return transactionQueue == null ? null : transactionQueue.peek();
+		}
+
+		@Override
+		public void addRelationSQL(Transaction transaction, RelationSQL sql) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("Trying to register: " + sql);
+			}
+			List<RelationSQL> list = relationSQLStorage.get(transaction);
+			if( list == null ) {
+				list = new ArrayList<RelationSQL>();
+				relationSQLStorage.put(transaction, list);
+			}
+
+			// Check that we are not adding duplicate inserts for relations
+			for( RelationSQL r : list ) {
+				if( r.getAction() == sql.getAction() && r.getTableName().equals(sql.getTableName()) ) {
+					if( r.getSelf() == sql.getSelf() &&
+						r.getOpposite() == r.getOpposite()	) {
+						if( isDebug ) {
+							LOGGER.debug("Skiping registration because same is already registered");
+						}
+						return;
+					} else if( r.getSelf() == sql.getOpposite() &&
+							r.getOpposite() == sql.getSelf() ) {
+						if( isDebug ) {
+							LOGGER.debug("Skiping registration because opposite is already registered");
+						}
+						return;
+					}
+				}
+			}
+
+			if( isDebug ) {
+				LOGGER.debug("Register RelationSQL");
+			}
+			list.add(sql);
 		}
 
 		@Override
@@ -298,15 +359,15 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public Connection checkoutConnection() {
-			if( transactionQueue != null ) {
-				return transactionQueue.peek();
+			if( transactionConnectionQueue != null ) {
+				return transactionConnectionQueue.peek();
 			}
 			return connectionProvider.checkoutConnection();
 		}
 
 		@Override
 		public void returnConnection(Connection connection) {
-			if( transactionQueue != null ) {
+			if( transactionConnectionQueue != null ) {
 				return;
 			}
 			connectionProvider.returnConnection(connection);

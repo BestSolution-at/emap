@@ -15,12 +15,14 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isPk <em>Pk</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getProperty <em>Property</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getColumnName <em>Column Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getValueGenerators <em>Value Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isResolved <em>Resolved</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getOpposite <em>Opposite</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationTable <em>Relation Table</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,30 +59,30 @@ public interface EAttribute extends EObject
   void setPk(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Property</b></em>' attribute.
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Property</em>' attribute isn't clear,
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' attribute.
-   * @see #setProperty(String)
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Property()
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Name()
    * @model
    * @generated
    */
-  String getProperty();
+  String getName();
 
   /**
-   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getProperty <em>Property</em>}' attribute.
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getName <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' attribute.
-   * @see #getProperty()
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
    * @generated
    */
-  void setProperty(String value);
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Column Name</b></em>' attribute.
@@ -191,5 +193,57 @@ public interface EAttribute extends EObject
    * @generated
    */
   EList<String> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Opposite</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Opposite</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Opposite</em>' reference.
+   * @see #setOpposite(EAttribute)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_Opposite()
+   * @model
+   * @generated
+   */
+  EAttribute getOpposite();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getOpposite <em>Opposite</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Opposite</em>' reference.
+   * @see #getOpposite()
+   * @generated
+   */
+  void setOpposite(EAttribute value);
+
+  /**
+   * Returns the value of the '<em><b>Relation Table</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Relation Table</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Relation Table</em>' attribute.
+   * @see #setRelationTable(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_RelationTable()
+   * @model
+   * @generated
+   */
+  String getRelationTable();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationTable <em>Relation Table</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Relation Table</em>' attribute.
+   * @see #getRelationTable()
+   * @generated
+   */
+  void setRelationTable(String value);
 
 } // EAttribute

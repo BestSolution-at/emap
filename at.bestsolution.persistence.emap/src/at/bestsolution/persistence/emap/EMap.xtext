@@ -28,7 +28,7 @@ PackageDeclaration:
 EMappingEntity:
 	abstract?='abstract'? 'entity' name=ID (extensionType=('extends'|'derived') parent=[EMappingEntity|QualifiedName])? '{'
 		 etype=EType
-		 ('attributes' 
+		 ('attributes'
 		 '{'
 		 	attributes += EAttribute (',' attributes += EAttribute)*
 		 '}')?
@@ -40,7 +40,7 @@ EMappingEntity:
 ;
 
 EAttribute:
-	pk?='primarykey'? property=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' )
+	pk?='primarykey'? name=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' ( opposite=[EAttribute|QualifiedName] 'on' relationTable=ID)?) )
 ;
 
 EValueGenerator:
@@ -50,7 +50,7 @@ EValueGenerator:
 ENamedQuery:
 	returnType=ReturnType? name=ID ('(' parameters+=EParameter* ')')? '{'
 		queries += EQuery (',' queries += EQuery)*
-	'}' 
+	'}'
 ;
 
 enum ReturnType:
@@ -62,18 +62,18 @@ EParameter:
 ;
 
 EQuery:
-	dbType=('default'|STRING) mapping = EObjectSection (('FROM' from=STRING ('WHERE' where=STRING)? ('GROUP BY' groupBy=STRING)? ('ORDER BY' orderby=STRING)? ) | all=STRING) 
+	dbType=('default'|STRING) mapping = EObjectSection (('FROM' from=STRING ('WHERE' where=STRING)? ('GROUP BY' groupBy=STRING)? ('ORDER BY' orderby=STRING)? ) | all=STRING)
 ;
 
 EObjectSection:
-//	noreferences?='noreferences'? 
+//	noreferences?='noreferences'?
 	entity=[EMappingEntity|ID] ('(' descriminatedTypes+=[EMappingEntity|ID] (',' descriminatedTypes+=[EMappingEntity|ID])+ ')')? (prefix=ID ('{'
 		attributes+=EMappingAttribute (',' attributes += EMappingAttribute)*
-	'}')?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )? 
+	'}')?)? // ('exclude' '{' excludedProperties+=QualifiedName (',' excludedProperties+=QualifiedName)* '}' )?
 ;
 
 EMappingAttribute:
-	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' | mapped?='map' map=EObjectSection )
+	pk?='primarykey'? property=QualifiedName '=>' ( columnName=ID | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')') | (mapped?='map' map=EObjectSection) )
 ;
 
 
@@ -83,6 +83,6 @@ EType:
 
 QualifiedName:
   ID (=>'.' ID)*;
- 
+
 QualifiedNameWithWildcard :
 	QualifiedName  '.' '*';

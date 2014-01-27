@@ -71,15 +71,15 @@ class UtilCollection {
 	}
 
 	def static getResolvedType(EAttribute attribute, EClass eClass) {
-		val f = eClass.getEStructuralFeature(attribute.property)
+		val f = eClass.getEStructuralFeature(attribute.name)
 		return f.EType.instanceClassName
 	}
 
 	def static getEAttribute(EAttribute attribute, EClass eClass) {
-		val f = eClass.getEStructuralFeature(attribute.property)
+		val f = eClass.getEStructuralFeature(attribute.name)
 		if( f instanceof EReference && attribute.resolved ) {
 			val c = (f as EReference).EType as EClass
-			return c.getEStructuralFeature((attribute.query.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute
+			return c.getEStructuralFeature((attribute.query.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute
 		}
 
 		return f as org.eclipse.emf.ecore.EAttribute
@@ -108,29 +108,29 @@ class UtilCollection {
 		else
 			if ( a.resolved && b.resolved ) {
 				if( a.isSingleAttribute(eClass) && b.isSingleAttribute(eClass) ) {
-					return a.property.compareToIgnoreCase(b.property)
+					return a.name.compareToIgnoreCase(b.name)
 				} else if( a.isSingleAttribute(eClass) ) {
 					return -1;
 				} else if( b.isSingleAttribute(eClass) ) {
 					return 1;
 				}
-				return a.property.compareToIgnoreCase(b.property)
+				return a.name.compareToIgnoreCase(b.name)
 			}
 			else if( ! a.resolved && !  b.resolved )
-				return a.property.compareToIgnoreCase(b.property)
+				return a.name.compareToIgnoreCase(b.name)
 			else if( ! a.resolved )
 				return -1
 			else if( ! b.resolved )
 				return 1
 			else
-				return a.property.compareToIgnoreCase(b.property)
+				return a.name.compareToIgnoreCase(b.name)
 	}
 
 	def static isSingleAttribute(EAttribute attribute, EClass eclass) {
-		if( eclass.getEStructuralFeature(attribute.property) == null ) {
-			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
+		if( eclass.getEStructuralFeature(attribute.name) == null ) {
+			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
-		return ! eclass.getEStructuralFeature(attribute.property).many
+		return ! eclass.getEStructuralFeature(attribute.name).many
 	}
 
 	def static parameterConversion(EParameter p, String name) {
@@ -209,9 +209,9 @@ class UtilCollection {
 	}
 
 	static def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
-		val f = eClass.getEStructuralFeature(attribute.property)
+		val f = eClass.getEStructuralFeature(attribute.name)
 		if( f == null ) {
-			throw new IllegalStateException("Unknown attribute '"+attribute.property+"'")
+			throw new IllegalStateException("Unknown attribute '"+attribute.name+"'")
 		}
 		if( "java.lang.String" == f.EType.instanceClassName ) {
 			return varName + '.getString("'+keyName+'")'
@@ -271,12 +271,12 @@ class UtilCollection {
 	}
 
 	static def pstmtMethod(EAttribute p, EClass eClass) {
-		val f = eClass.getEStructuralFeature(p.property);
+		val f = eClass.getEStructuralFeature(p.name);
 		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
 			return (f as org.eclipse.emf.ecore.EAttribute).pstmtMethod
 		} else {
 			val c = (f as EReference).EType as EClass
-			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].property) as org.eclipse.emf.ecore.EAttribute).pstmtMethod;
+			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).pstmtMethod;
 		}
 	}
 
@@ -307,7 +307,7 @@ class UtilCollection {
 
 	def static void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
 		for( a : entity.attributes ) {
-			map.put(a.property,a);
+			map.put(a.name,a);
 		}
 		if( entity.parent != null && entity.extensionType == "derived" ) {
 			entity.parent.allDerivedAttributes(map)
@@ -315,17 +315,17 @@ class UtilCollection {
 	}
 
 	def static isSingle(EAttribute attribute, EClass eclass) {
-		if( eclass.getEStructuralFeature(attribute.property) == null ) {
-			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
+		if( eclass.getEStructuralFeature(attribute.name) == null ) {
+			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
-		return ! eclass.getEStructuralFeature(attribute.property).many
+		return ! eclass.getEStructuralFeature(attribute.name).many
 	}
 
 	def static isBoolean(EAttribute attribute, EClass eclass) {
-		if( eclass.getEStructuralFeature(attribute.property) == null ) {
-			throw new IllegalStateException("Could not find attribute '"+attribute.property+"' in '"+eclass.name+"'")
+		if( eclass.getEStructuralFeature(attribute.name) == null ) {
+			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
-		return eclass.getEStructuralFeature(attribute.property).EType.name == "EBoolean"
+		return eclass.getEStructuralFeature(attribute.name).EType.name == "EBoolean"
 	}
 
 	def static isSingle(EMappingAttribute attribute, EClass eclass) {
@@ -423,7 +423,7 @@ class UtilCollection {
 
 	def static String prefix(EObjectSection s, EAttribute attribute) {
 		val allDerivedAttributes = s.entity.collectDerivedAttributes
-		if( allDerivedAttributes.containsKey(attribute.property) ) {
+		if( allDerivedAttributes.containsKey(attribute.name) ) {
 			if( ! attribute.pk || s.entity == attribute.eContainer ) {
 				return s.prefix;
 			} else {
@@ -437,7 +437,7 @@ class UtilCollection {
 
 	def static EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
 		val allDerivedAttributes = childEntity.collectDerivedAttributes
-		if( allDerivedAttributes.containsKey(attribute.property) ) {
+		if( allDerivedAttributes.containsKey(attribute.name) ) {
 			return JavaHelper::getEClass(childEntity.etype)
 		} else if( childEntity.parent != null && childEntity.extensionType == "extends" ) {
 			return getDbOwnerType(childEntity.parent, attribute)
@@ -445,4 +445,13 @@ class UtilCollection {
 		return null;
 	}
 
+	def static getOpposite(EAttribute a, EClass owner) {
+		val r = owner.getEStructuralFeature(a.name) as EReference
+		return r.EOpposite
+	}
+
+	def static getEntity(EAttribute a) {
+		val r = a.eResource.contents.get(0) as EMapping
+		return (r.root as EMappingEntityDef).entity
+	}
 }

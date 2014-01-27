@@ -16,11 +16,11 @@ class DDLGenerator {
 		«val pk = e.collectDerivedAttributes.values.findFirst[pk]»
 		«FOR a : e.collectDerivedAttributes.values.sort[a,b|sortAttributes(eClass,a,b)]»
 			«IF a.columnName != null»
-				«IF flag», «ENDIF»«a.columnName» «db.getDatabaseType(eClass.getEStructuralFeature(a.property).EType as EDataType)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
+				«IF flag», «ENDIF»«a.columnName» «db.getDatabaseType(eClass.getEStructuralFeature(a.name).EType as EDataType)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
 				«dummy(flag = true)»
 			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 				«val pkEClass = JavaHelper::getEClass((a.query.eContainer as EMappingEntity).etype)»
-				«IF flag», «ENDIF» «a.parameters.head» «db.getDatabaseType(pkEClass.getEStructuralFeature((a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].property).EType as EDataType)» NOT NULL
+				«IF flag», «ENDIF» «a.parameters.head» «db.getDatabaseType(pkEClass.getEStructuralFeature((a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].name).EType as EDataType)» NOT NULL
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»

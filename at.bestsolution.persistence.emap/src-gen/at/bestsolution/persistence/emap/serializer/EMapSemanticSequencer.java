@@ -130,10 +130,10 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         pk?='primarykey'? 
-	 *         property=ID 
+	 *         name=ID 
 	 *         (
 	 *             (columnName=ID (valueGenerators+=EValueGenerator valueGenerators+=EValueGenerator*)?) | 
-	 *             (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID)
+	 *             (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID (opposite=[EAttribute|QualifiedName] relationTable=ID)?)
 	 *         )
 	 *     )
 	 */

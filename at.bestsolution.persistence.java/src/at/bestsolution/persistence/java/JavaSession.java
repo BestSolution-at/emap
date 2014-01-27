@@ -17,4 +17,6 @@ public interface JavaSession extends Session {
 	public Object convertType(Class<?> targetType, Object value);
 	public Blob handleBlob(String tableName, String blobColumnName, String idColumnName, ResultSet set) throws SQLException;
 	public boolean isTransaction();
+	public Transaction getTransaction();
+	public void addRelationSQL(Transaction transaction, RelationSQL sql);
 }

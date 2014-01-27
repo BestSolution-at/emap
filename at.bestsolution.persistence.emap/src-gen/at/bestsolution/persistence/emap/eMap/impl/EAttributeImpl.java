@@ -32,12 +32,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isPk <em>Pk</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getProperty <em>Property</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getColumnName <em>Column Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getValueGenerators <em>Value Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isResolved <em>Resolved</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getOpposite <em>Opposite</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationTable <em>Relation Table</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,24 +68,24 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
   protected boolean pk = PK_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getProperty() <em>Property</em>}' attribute.
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getProperty()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected static final String PROPERTY_EDEFAULT = null;
+  protected static final String NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getProperty() <em>Property</em>}' attribute.
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getProperty()
+   * @see #getName()
    * @generated
    * @ordered
    */
-  protected String property = PROPERTY_EDEFAULT;
+  protected String name = NAME_EDEFAULT;
 
   /**
    * The default value of the '{@link #getColumnName() <em>Column Name</em>}' attribute.
@@ -156,6 +158,36 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
   protected EList<String> parameters;
 
   /**
+   * The cached value of the '{@link #getOpposite() <em>Opposite</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOpposite()
+   * @generated
+   * @ordered
+   */
+  protected EAttribute opposite;
+
+  /**
+   * The default value of the '{@link #getRelationTable() <em>Relation Table</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationTable()
+   * @generated
+   * @ordered
+   */
+  protected static final String RELATION_TABLE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRelationTable() <em>Relation Table</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationTable()
+   * @generated
+   * @ordered
+   */
+  protected String relationTable = RELATION_TABLE_EDEFAULT;
+
+  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -204,9 +236,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getProperty()
+  public String getName()
   {
-    return property;
+    return name;
   }
 
   /**
@@ -214,12 +246,12 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setProperty(String newProperty)
+  public void setName(String newName)
   {
-    String oldProperty = property;
-    property = newProperty;
+    String oldName = name;
+    name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__PROPERTY, oldProperty, property));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__NAME, oldName, name));
   }
 
   /**
@@ -344,6 +376,72 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOpposite()
+  {
+    if (opposite != null && opposite.eIsProxy())
+    {
+      InternalEObject oldOpposite = (InternalEObject)opposite;
+      opposite = (EAttribute)eResolveProxy(oldOpposite);
+      if (opposite != oldOpposite)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.EATTRIBUTE__OPPOSITE, oldOpposite, opposite));
+      }
+    }
+    return opposite;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute basicGetOpposite()
+  {
+    return opposite;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOpposite(EAttribute newOpposite)
+  {
+    EAttribute oldOpposite = opposite;
+    opposite = newOpposite;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__OPPOSITE, oldOpposite, opposite));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getRelationTable()
+  {
+    return relationTable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRelationTable(String newRelationTable)
+  {
+    String oldRelationTable = relationTable;
+    relationTable = newRelationTable;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__RELATION_TABLE, oldRelationTable, relationTable));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -367,8 +465,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     {
       case EMapPackage.EATTRIBUTE__PK:
         return isPk();
-      case EMapPackage.EATTRIBUTE__PROPERTY:
-        return getProperty();
+      case EMapPackage.EATTRIBUTE__NAME:
+        return getName();
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return getColumnName();
       case EMapPackage.EATTRIBUTE__VALUE_GENERATORS:
@@ -380,6 +478,11 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return basicGetQuery();
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         return getParameters();
+      case EMapPackage.EATTRIBUTE__OPPOSITE:
+        if (resolve) return getOpposite();
+        return basicGetOpposite();
+      case EMapPackage.EATTRIBUTE__RELATION_TABLE:
+        return getRelationTable();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -398,8 +501,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__PK:
         setPk((Boolean)newValue);
         return;
-      case EMapPackage.EATTRIBUTE__PROPERTY:
-        setProperty((String)newValue);
+      case EMapPackage.EATTRIBUTE__NAME:
+        setName((String)newValue);
         return;
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName((String)newValue);
@@ -418,6 +521,12 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         getParameters().clear();
         getParameters().addAll((Collection<? extends String>)newValue);
         return;
+      case EMapPackage.EATTRIBUTE__OPPOSITE:
+        setOpposite((EAttribute)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__RELATION_TABLE:
+        setRelationTable((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -435,8 +544,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__PK:
         setPk(PK_EDEFAULT);
         return;
-      case EMapPackage.EATTRIBUTE__PROPERTY:
-        setProperty(PROPERTY_EDEFAULT);
+      case EMapPackage.EATTRIBUTE__NAME:
+        setName(NAME_EDEFAULT);
         return;
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         setColumnName(COLUMN_NAME_EDEFAULT);
@@ -452,6 +561,12 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return;
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         getParameters().clear();
+        return;
+      case EMapPackage.EATTRIBUTE__OPPOSITE:
+        setOpposite((EAttribute)null);
+        return;
+      case EMapPackage.EATTRIBUTE__RELATION_TABLE:
+        setRelationTable(RELATION_TABLE_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -469,8 +584,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     {
       case EMapPackage.EATTRIBUTE__PK:
         return pk != PK_EDEFAULT;
-      case EMapPackage.EATTRIBUTE__PROPERTY:
-        return PROPERTY_EDEFAULT == null ? property != null : !PROPERTY_EDEFAULT.equals(property);
+      case EMapPackage.EATTRIBUTE__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
         return COLUMN_NAME_EDEFAULT == null ? columnName != null : !COLUMN_NAME_EDEFAULT.equals(columnName);
       case EMapPackage.EATTRIBUTE__VALUE_GENERATORS:
@@ -481,6 +596,10 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return query != null;
       case EMapPackage.EATTRIBUTE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case EMapPackage.EATTRIBUTE__OPPOSITE:
+        return opposite != null;
+      case EMapPackage.EATTRIBUTE__RELATION_TABLE:
+        return RELATION_TABLE_EDEFAULT == null ? relationTable != null : !RELATION_TABLE_EDEFAULT.equals(relationTable);
     }
     return super.eIsSet(featureID);
   }
@@ -498,14 +617,16 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (pk: ");
     result.append(pk);
-    result.append(", property: ");
-    result.append(property);
+    result.append(", name: ");
+    result.append(name);
     result.append(", columnName: ");
     result.append(columnName);
     result.append(", resolved: ");
     result.append(resolved);
     result.append(", parameters: ");
     result.append(parameters);
+    result.append(", relationTable: ");
+    result.append(relationTable);
     result.append(')');
     return result.toString();
   }

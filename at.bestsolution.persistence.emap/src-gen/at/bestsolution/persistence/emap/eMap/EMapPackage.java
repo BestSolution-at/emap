@@ -362,13 +362,13 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__PK = 0;
 
   /**
-   * The feature id for the '<em><b>Property</b></em>' attribute.
+   * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__PROPERTY = 1;
+  int EATTRIBUTE__NAME = 1;
 
   /**
    * The feature id for the '<em><b>Column Name</b></em>' attribute.
@@ -416,13 +416,31 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__PARAMETERS = 6;
 
   /**
+   * The feature id for the '<em><b>Opposite</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__OPPOSITE = 7;
+
+  /**
+   * The feature id for the '<em><b>Relation Table</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__RELATION_TABLE = 8;
+
+  /**
    * The number of structural features of the '<em>EAttribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 7;
+  int EATTRIBUTE_FEATURE_COUNT = 9;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
@@ -1138,15 +1156,15 @@ public interface EMapPackage extends EPackage
   EAttribute getEAttribute_Pk();
 
   /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getProperty <em>Property</em>}'.
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Property</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getProperty()
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getName()
    * @see #getEAttribute()
    * @generated
    */
-  EAttribute getEAttribute_Property();
+  EAttribute getEAttribute_Name();
 
   /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getColumnName <em>Column Name</em>}'.
@@ -1202,6 +1220,28 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEAttribute_Parameters();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getOpposite <em>Opposite</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Opposite</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getOpposite()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EReference getEAttribute_Opposite();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationTable <em>Relation Table</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Relation Table</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getRelationTable()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_RelationTable();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator <em>EValue Generator</em>}'.
@@ -1878,12 +1918,12 @@ public interface EMapPackage extends EPackage
     EAttribute EATTRIBUTE__PK = eINSTANCE.getEAttribute_Pk();
 
     /**
-     * The meta object literal for the '<em><b>Property</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute EATTRIBUTE__PROPERTY = eINSTANCE.getEAttribute_Property();
+    EAttribute EATTRIBUTE__NAME = eINSTANCE.getEAttribute_Name();
 
     /**
      * The meta object literal for the '<em><b>Column Name</b></em>' attribute feature.
@@ -1924,6 +1964,22 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__PARAMETERS = eINSTANCE.getEAttribute_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Opposite</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EATTRIBUTE__OPPOSITE = eINSTANCE.getEAttribute_Opposite();
+
+    /**
+     * The meta object literal for the '<em><b>Relation Table</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__RELATION_TABLE = eINSTANCE.getEAttribute_RelationTable();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.

@@ -478,7 +478,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEAttribute_Property()
+  public EAttribute getEAttribute_Name()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(1);
   }
@@ -531,6 +531,26 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EAttribute getEAttribute_Parameters()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEAttribute_Opposite()
+  {
+    return (EReference)eAttributeEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEAttribute_RelationTable()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -986,12 +1006,14 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     eAttributeEClass = createEClass(EATTRIBUTE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PK);
-    createEAttribute(eAttributeEClass, EATTRIBUTE__PROPERTY);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__NAME);
     createEAttribute(eAttributeEClass, EATTRIBUTE__COLUMN_NAME);
     createEReference(eAttributeEClass, EATTRIBUTE__VALUE_GENERATORS);
     createEAttribute(eAttributeEClass, EATTRIBUTE__RESOLVED);
     createEReference(eAttributeEClass, EATTRIBUTE__QUERY);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PARAMETERS);
+    createEReference(eAttributeEClass, EATTRIBUTE__OPPOSITE);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__RELATION_TABLE);
 
     eValueGeneratorEClass = createEClass(EVALUE_GENERATOR);
     createEAttribute(eValueGeneratorEClass, EVALUE_GENERATOR__DB_TYPE);
@@ -1106,12 +1128,14 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     initEClass(eAttributeEClass, at.bestsolution.persistence.emap.eMap.EAttribute.class, "EAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEAttribute_Pk(), ecorePackage.getEBoolean(), "pk", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEAttribute_Property(), ecorePackage.getEString(), "property", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_ColumnName(), ecorePackage.getEString(), "columnName", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEAttribute_ValueGenerators(), this.getEValueGenerator(), null, "valueGenerators", null, 0, -1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Resolved(), ecorePackage.getEBoolean(), "resolved", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEAttribute_Query(), this.getENamedQuery(), null, "query", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEAttribute_Opposite(), this.getEAttribute(), null, "opposite", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_RelationTable(), ecorePackage.getEString(), "relationTable", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eValueGeneratorEClass, EValueGenerator.class, "EValueGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEValueGenerator_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, EValueGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

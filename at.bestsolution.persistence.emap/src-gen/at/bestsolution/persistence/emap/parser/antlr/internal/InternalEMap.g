@@ -755,9 +755,9 @@ ruleEAttribute returns [EObject current=null]
 )
 )?(
 (
-		lv_property_1_0=RULE_ID
+		lv_name_1_0=RULE_ID
 		{
-			newLeafNode(lv_property_1_0, grammarAccess.getEAttributeAccess().getPropertyIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_1_0, grammarAccess.getEAttributeAccess().getNameIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -765,8 +765,8 @@ ruleEAttribute returns [EObject current=null]
 	        }
        		setWithLastConsumed(
        			$current, 
-       			"property",
-        		lv_property_1_0, 
+       			"name",
+        		lv_name_1_0, 
         		"ID");
 	    }
 
@@ -902,7 +902,44 @@ ruleEAttribute returns [EObject current=null]
     {
     	newLeafNode(otherlv_14, grammarAccess.getEAttributeAccess().getRightParenthesisKeyword_3_1_4());
     }
-)))
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEAttributeAccess().getOppositeEAttributeCrossReference_3_1_5_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_16='on' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getEAttributeAccess().getOnKeyword_3_1_5_1());
+    }
+(
+(
+		lv_relationTable_17_0=RULE_ID
+		{
+			newLeafNode(lv_relationTable_17_0, grammarAccess.getEAttributeAccess().getRelationTableIDTerminalRuleCall_3_1_5_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"relationTable",
+        		lv_relationTable_17_0, 
+        		"ID");
+	    }
+
+)
+))?)))
 ;
 
 

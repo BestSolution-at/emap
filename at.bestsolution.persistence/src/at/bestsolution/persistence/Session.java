@@ -34,4 +34,8 @@ public interface Session {
 	public interface Transaction {
 		public boolean execute();
 	}
+
+	public interface ExecutableSQL {
+		public void execute() throws PersistanceException;
+	}
 }
