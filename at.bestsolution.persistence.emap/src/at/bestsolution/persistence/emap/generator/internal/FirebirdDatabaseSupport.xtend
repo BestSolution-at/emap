@@ -20,6 +20,10 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 	}
 
 	override supportsGeneratedKeys() {
+		return false;
+	}
+
+	override supportsGeneratedKeyAsResultSet() {
 		return true;
 	}
 

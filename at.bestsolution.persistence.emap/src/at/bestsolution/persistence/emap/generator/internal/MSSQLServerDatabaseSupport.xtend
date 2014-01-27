@@ -54,4 +54,8 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 		return true;
 	}
 
+	override supportsGeneratedKeyAsResultSet() {
+		return false;
+	}
+
 }

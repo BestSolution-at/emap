@@ -6,15 +6,15 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
 
 class H2DatabaseSupport extends DatabaseSupport {
-	
+
 	override getAutokeyDefinition(EAttribute primaryKey) {
 		return "IDENTITY";
 	}
-	
+
 	override getDatabaseId() {
 		return "h2"
 	}
-	
+
 	override getDatabaseType(EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "varchar(255)";
@@ -37,21 +37,25 @@ class H2DatabaseSupport extends DatabaseSupport {
 		}
 		return "***UNKOWN "+dataType.name+"***";
 	}
-	
+
 	override getSequenceStatement(EAttribute primaryKey) {
 		return null
 	}
-	
+
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true
 	}
-	
+
 	override processInsert(EAttribute primaryKey, String insert) {
 		return insert;
 	}
-	
+
 	override supportsGeneratedKeys() {
 		return true
 	}
-	
+
+	override supportsGeneratedKeyAsResultSet() {
+		return false;
+	}
+
 }

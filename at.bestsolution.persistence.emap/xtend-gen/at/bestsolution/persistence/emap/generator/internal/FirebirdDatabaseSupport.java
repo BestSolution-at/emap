@@ -38,6 +38,10 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   }
   
   public boolean supportsGeneratedKeys() {
+    return false;
+  }
+  
+  public boolean supportsGeneratedKeyAsResultSet() {
     return true;
   }
   

@@ -128,4 +128,8 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
   public boolean isPrimaryKeyPartOfColDef(final EAttribute primaryKey) {
     return true;
   }
+  
+  public boolean supportsGeneratedKeyAsResultSet() {
+    return false;
+  }
 }

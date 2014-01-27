@@ -404,11 +404,11 @@ class JavaObjectMapperGenerator {
 							}
 						«ENDFOR»
 					«ELSE»
-					ProcessedSQL psql = b.buildInsert("«pkAttribute.columnName»",null);
+					psql = b.buildInsert("«pkAttribute.columnName»",null);
+					«ENDIF»
 					if( isDebug ) {
 						LOGGER.debug("The query: " + psql.sql);
 					}
-					«ENDIF»
 
 					Connection connection = session.checkoutConnection();
 					try {
@@ -485,6 +485,20 @@ class JavaObjectMapperGenerator {
 «««											throw new PersitenceException();
 										}
 										set.close();
+									«ELSEIF d.supportsGeneratedKeyAsResultSet»
+										if( isDebug ) {
+											LOGGER.debug("Useing a generated key with result-set");
+										}
+										ResultSet set = pstmt.executeQuery();
+										if( set.next() ) {
+											//TODO We need to get the correct type
+											if( isDebug ) {
+												LOGGER.debug("The generated key is '"+set.getLong(1)+"'");
+											}
+											object.set«pkAttribute.property.toFirstUpper»(set.getLong(1));
+										} else {
+											//TODO Throw exception
+										}
 									«ENDIF»
 								}
 							«ENDFOR»
