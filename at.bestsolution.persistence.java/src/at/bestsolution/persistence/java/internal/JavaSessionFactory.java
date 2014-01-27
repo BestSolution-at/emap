@@ -12,6 +12,7 @@ import java.util.Stack;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
@@ -108,6 +109,7 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
 		private Stack<Connection> transactionQueue;
 		private SessionCache sessionCache;
+		private ObjectMapperFactory<?, ?> objectMapperFactory;
 
 		public JavaSessionImpl(SessionCache sessionCache) {
 			this.sessionCache = sessionCache;
@@ -339,6 +341,45 @@ public class JavaSessionFactory implements SessionFactory {
 		public Blob handleBlob(String tableName, String blobColumnName,
 				String idColumnName, ResultSet set) throws SQLException {
 			return new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
+		}
+
+		@Override
+		public void delete(Object... entities) {
+			for( Object e : entities ) {
+				if( e instanceof EObject ) {
+					EObject eo = (EObject) e;
+					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+					if( f == null ) {
+						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+					}
+					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+					m.delete(e);
+				} else {
+					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
+				}
+			}
+		}
+
+		@Override
+		public void persist(Object... entities) {
+			for( Object e : entities ) {
+				if( e instanceof EObject ) {
+					EObject eo = (EObject) e;
+					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+					if( f == null ) {
+						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+					}
+					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+					Object l = m.getPrimaryKeyValue(e);
+					if( l == null || (l instanceof Number && ((Number)l).longValue() == 0) ) {
+						m.insert(e);
+					} else {
+						m.update(e);
+					}
+				} else {
+					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
+				}
+			}
 		}
 	}
 }

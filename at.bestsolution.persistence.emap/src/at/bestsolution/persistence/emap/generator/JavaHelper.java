@@ -18,31 +18,31 @@ import at.bestsolution.persistence.emap.eMap.EType;
 public class JavaHelper {
 
 	public static EClass getEClass(EType type) {
-		// Look in the local workspace first
-		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(true);
-
-		URI uri = map.get(type.getUrl());
-
-		if( uri != null ) {
-			try {
-				ResourceSet s = new ResourceSetImpl();
-				Resource resource = s.getResource(uri, true);
-				GenModel m = (GenModel) resource.getContents().get(0);
-				for( GenPackage gp : m.getAllGenPackagesWithClassifiers() ) {
-					if( gp.getNSURI().equals(type.getUrl()) ) {
-						EClass e = (EClass) gp.getEcorePackage().getEClassifier(type.getName());
-						for( GenClassifier c : gp.getGenClassifiers() ) {
-							if( c.getName().equals(e.getName()) ) {
-								e.setInstanceClassName(c.getImportedInstanceClassName());
-								System.err.println("FOUND IN TARGET!!!!");
-								return e;
-							}
-						}
-					}
-				}
-			} catch(Throwable t ) {
-			}
-		}
+//		// Look in the local workspace first
+//		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(true);
+//
+//		URI uri = map.get(type.getUrl());
+//
+//		if( uri != null ) {
+//			try {
+//				ResourceSet s = new ResourceSetImpl();
+//				Resource resource = s.getResource(uri, true);
+//				GenModel m = (GenModel) resource.getContents().get(0);
+//				for( GenPackage gp : m.getAllGenPackagesWithClassifiers() ) {
+//					if( gp.getNSURI().equals(type.getUrl()) ) {
+//						EClass e = (EClass) gp.getEcorePackage().getEClassifier(type.getName());
+//						for( GenClassifier c : gp.getGenClassifiers() ) {
+//							if( c.getName().equals(e.getName()) ) {
+//								e.setInstanceClassName(c.getImportedInstanceClassName());
+//								System.err.println("FOUND IN TARGET!!!!");
+//								return e;
+//							}
+//						}
+//					}
+//				}
+//			} catch(Throwable t ) {
+//			}
+//		}
 
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
 //		List<EPackage.Descriptor> l = new ArrayList<EPackage.Descriptor>();

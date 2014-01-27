@@ -604,6 +604,10 @@ class JavaObjectMapperGenerator {
 			public final EStructuralFeature getReferenceId(String property) {
 				return REF_ID_FEATURES.get(property);
 			}
+
+			public final <P> P getPrimaryKeyValue(«eClass.name» o) {
+				return (P)(Object)o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].property.toFirstUpper»();
+			}
 		}
 
 		public final NamedQuery<«eClass.instanceClassName»> createNamedQuery(final JavaSession session, String name) {

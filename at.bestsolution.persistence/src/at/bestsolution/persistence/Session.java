@@ -28,6 +28,8 @@ public interface Session {
 	public void runInTransaction(Transaction transaction);
 	public void close();
 	public void clear();
+	public void persist(Object... o);
+	public void delete(Object... o);
 
 	public interface Transaction {
 		public boolean execute();
