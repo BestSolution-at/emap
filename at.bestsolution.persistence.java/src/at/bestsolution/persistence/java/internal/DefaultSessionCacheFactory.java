@@ -30,6 +30,14 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
+		public void evitObject(EObject object) {
+			Map<Object, EObject> map = cacheMap.get(object.eClass());
+			if( map != null ) {
+				map.values().remove(object);
+			}
+		}
+
+		@Override
 		public void putObject(EObject object, Object id) {
 			Map<Object, EObject> map = cacheMap.get(object.eClass());
 			if( map == null ) {

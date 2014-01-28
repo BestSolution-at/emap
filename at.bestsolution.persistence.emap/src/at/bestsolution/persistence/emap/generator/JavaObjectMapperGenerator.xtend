@@ -87,6 +87,7 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.java.RelationSQL;
 	import at.bestsolution.persistence.java.RelationSQL.Action;
 	import at.bestsolution.persistence.Session.Transaction;
+	import at.bestsolution.persistence.Callback;
 
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«entityDef.package.name».«entityDef.entity.name»> {
 		@Override
@@ -159,18 +160,20 @@ class JavaObjectMapperGenerator {
 							final List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
 							«resultMapCode(query,eClass)»
 						«ELSE»
+							if( isDebug ) LOGGER.debug("Mapping result started");
 							final «eClass.name» rv;
 							«IF query.queries.head.mapping.attributes.empty»
 								if( set.next() ) {
 									rv = map_default_«eClass.name»(set);
 								} else {
+									if( isDebug ) LOGGER.debug("No result for query");
 									rv = null;
 								}
 							«ENDIF»
 						«ENDIF»
 						set.close();
 						pStmt.close();
-
+						if( isDebug ) LOGGER.debug("Mapping result ended");
 						return rv;
 					} catch(SQLException e) {
 						throw new PersistanceException(e);
@@ -184,13 +187,16 @@ class JavaObjectMapperGenerator {
 						EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 						«eClass.name» rv = session.getCache().getObject(eClass,id);
 						if( rv != null ) {
+							if( LOGGER.isDebugEnabled() ) {
+								LOGGER.debug("Using cached version");
+							}
 							return rv;
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
 						((EObject)rv).eSetDeliver(false);
 						«attrib_resultMapContent("rv",query.queries.head.mapping,JavaHelper::getEClass(query.queries.head.mapping.entity.etype),query.queries.head.mapping.prefix+"_")»
 						((EObject)rv).eSetDeliver(true);
-						session.getCache().putObject((EObject)rv,id);
+						session.registerObject(rv,getPrimaryKeyValue(rv));
 						return rv;
 					}
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
@@ -202,13 +208,16 @@ class JavaObjectMapperGenerator {
 						EClass eClass = «JavaHelper::getEClass(section.entity.etype).packageName».«JavaHelper::getEClass(section.entity.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«JavaHelper::getEClass(section.entity.etype).name.toFirstUpper»();
 						«JavaHelper::getEClass(section.entity.etype).instanceClassName» rv = session.getCache().getObject(eClass,id);
 						if( rv != null) {
+							if( LOGGER.isDebugEnabled() ) {
+								LOGGER.debug("Using cached version");
+							}
 							return rv;
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
 						((EObject)rv).eSetDeliver(false);
 						«attrib_resultMapContent("rv",section,JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
 						((EObject)rv).eSetDeliver(true);
-						session.getCache().putObject((EObject)rv,id);
+						session.registerObject(rv, id);
 						return rv;
 					}
 					«ENDFOR»
@@ -266,11 +275,16 @@ class JavaObjectMapperGenerator {
 				EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
 				«eClass.name» rv = session.getCache().getObject(eClass,id);
 				if( rv != null ) {
+					if( LOGGER.isDebugEnabled() ) {
+						LOGGER.debug("Using cached version");
+					}
 					return rv;
 				}
 				rv = session.getProxyFactory().createProxy(eClass);
+				((EObject)rv).eSetDeliver(false);
 				«attrib_resultMapContent("rv",entityDef.entity.allAttributes, eClass, "")»
-				session.getCache().putObject((EObject)rv,id);
+				((EObject)rv).eSetDeliver(true);
+				session.registerObject(rv,getPrimaryKeyValue(rv));
 				return rv;
 			}
 
@@ -279,6 +293,10 @@ class JavaObjectMapperGenerator {
 				final boolean isDebug = LOGGER.isDebugEnabled();
 				if( isDebug ) {
 					LOGGER.debug("Starting update of '"+object+"'");
+				}
+
+				if( session.getTransaction() == null ) {
+					throw new PersistanceException("You can only modify data while in a transaction");
 				}
 
 				QueryBuilder b = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»");
@@ -357,6 +375,7 @@ class JavaObjectMapperGenerator {
 					}
 					pstmt.executeUpdate();
 					pstmt.close();
+					session.clearChangeDescription(object);
 				} catch(SQLException e) {
 					throw new PersistanceException(e);
 				} finally {
@@ -373,6 +392,11 @@ class JavaObjectMapperGenerator {
 				if( isDebug ) {
 					LOGGER.debug("Starting insert of '"+object+"'");
 				}
+
+				if( session.getTransaction() == null ) {
+					throw new PersistanceException("You can only modify data while in a transaction");
+				}
+
 				«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 				«IF pkAttribute == null || entityDef.entity.extensionType == "extends"»
 					// TODO WHAT TO GENERATE
@@ -510,12 +534,11 @@ class JavaObjectMapperGenerator {
 						«IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
 							«FOR e : entityDef.entity.collectAllAttributes.filter[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ]»
 							for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
-								RelationSQL s = createInsertRelationSQL_«e.name»(connection,object,e);
-								Transaction t = session.getTransaction();
-								session.addRelationSQL(t,s);
+								session.scheduleRelationSQL(createInsertRelationSQL_«e.name»(connection,object,e));
 							}
 							«ENDFOR»
 						«ENDIF»
+						session.registerObject(object,getPrimaryKeyValue(object));
 					} catch(SQLException e) {
 						throw new PersistanceException(e);
 					} finally {
@@ -528,10 +551,18 @@ class JavaObjectMapperGenerator {
 			}
 
 			public final void deleteById(Object... id) {
+				deleteById(true, id);
+			}
+
+			private final void deleteById(boolean cacheClearance, Object... id) {
 				final boolean isDebug = LOGGER.isDebugEnabled();
 
 				if( isDebug ) {
 					LOGGER.debug("Started deleteById the following objects '"+Arrays.toString(id)+"'");
+				}
+
+				if( session.getTransaction() == null ) {
+					throw new PersistanceException("You can only modify data while in a transaction");
 				}
 
 				StringBuilder b = new StringBuilder();
@@ -549,6 +580,10 @@ class JavaObjectMapperGenerator {
 					stmt.executeQuery(sql);
 					stmt.close();
 					stmt = null;
+
+					if( cacheClearance ) {
+					}
+
 				} catch(SQLException e) {
 					throw new PersistanceException(e);
 				} finally {
@@ -566,22 +601,38 @@ class JavaObjectMapperGenerator {
 					LOGGER.debug("Started delete the following objects '"+Arrays.toString(object)+"'");
 				}
 
+				if( session.getTransaction() == null ) {
+					throw new PersistanceException("You can only modify data while in a transaction");
+				}
 
 				List<Object> l = new ArrayList<Object>(object.length);
 				for(«eClass.name» o : object) {
 					l.add(o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+					session.unregisterObject(o,getPrimaryKeyValue(o));
 				}
-				deleteById(l.toArray());
+				deleteById(false, l.toArray());
 				if( isDebug ) {
 					LOGGER.debug("Finished delete");
 				}
 			}
 
-			public final boolean resolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
+			public final boolean resolve(final LazyEObject eo, final Object proxyData, final EStructuralFeature f) {
 				if( inAutoResolve ) {
 					return true;
 				}
 
+				return session.runWithoutChangeTracking(new Callback<Boolean>() {
+					public Boolean call() {
+						return doResolve(eo,proxyData,f);
+					}
+				}).booleanValue();
+			}
+
+			final boolean doResolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
+				boolean isDebug = LOGGER.isDebugEnabled();
+				if( isDebug ) {
+					LOGGER.debug("Lazy resolving " + f + " from " + eo + " using " + proxyData);
+				}
 				if(eo instanceof «eClass.name») {
 					«resolve(entityDef.entity,eClass)»
 				}
@@ -974,7 +1025,19 @@ class JavaObjectMapperGenerator {
 
 	static def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
 	«IF attribute.isSingle(eClass)»
-		target.set«attribute.name.toFirstUpper»(session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name»));
+		{
+			«val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
+			EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
+			«attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name»);
+			if( o == null ) {
+				o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name»);
+			} else {
+				if( LOGGER.isDebugEnabled() ) {
+					LOGGER.debug("Using cached version");
+				}
+			}
+			target.set«attribute.name.toFirstUpper»(o);
+		}
 	«ELSE»
 		target.get«attribute.name.toFirstUpper»().addAll(session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(target.get«pkAttribute.name.toFirstUpper»()));
 	«ENDIF»

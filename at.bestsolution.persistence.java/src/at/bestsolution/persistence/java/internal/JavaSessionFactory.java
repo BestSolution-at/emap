@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -13,10 +15,15 @@ import java.util.Stack;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
+import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistanceException;
@@ -25,6 +32,7 @@ import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaSession;
+import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
@@ -32,6 +40,8 @@ import at.bestsolution.persistence.java.ProxyFactory;
 import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
+
+import com.google.common.base.Objects;
 
 public class JavaSessionFactory implements SessionFactory {
 	JDBCConnectionProvider connectionProvider;
@@ -112,7 +122,17 @@ public class JavaSessionFactory implements SessionFactory {
 		private Stack<Connection> transactionConnectionQueue;
 		private Stack<Transaction> transactionQueue;
 		private SessionCache sessionCache;
+		private int changeTrackingCount = 0;
 		private Map<Transaction, List<RelationSQL>> relationSQLStorage = new HashMap<Session.Transaction, List<RelationSQL>>();
+
+		private Adapter objectAdapter = new AdapterImpl() {
+			@Override
+			public void notifyChanged(Notification msg) {
+				handleNotify(msg);
+			}
+		};
+
+		private Map<EObject, List<FeatureChange>> changeStorage = new HashMap<EObject, List<FeatureChange>>();
 
 		public JavaSessionImpl(SessionCache sessionCache) {
 			this.sessionCache = sessionCache;
@@ -209,8 +229,11 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public void runInTransaction(Transaction transaction) {
 			String transactionId = UUID.randomUUID().toString();
+			boolean isDebug = LOGGER.isDebugEnabled();
 
-			LOGGER.debug("Started transaction '"+transactionId+"'");
+			if( isDebug ) {
+				LOGGER.debug("Started transaction '"+transactionId+"'");
+			}
 
 			Connection connection = connectionProvider.checkoutConnection();
 			try {
@@ -236,13 +259,25 @@ public class JavaSessionFactory implements SessionFactory {
 			transactionQueue.add(transaction);
 			transactionConnectionQueue.add(connection);
 			try {
+				if( isDebug ) {
+					LOGGER.debug("Executing transaction");
+				}
 				if( transaction.execute() ) {
+					if( isDebug ) {
+						LOGGER.debug("Successfully executed the transaction");
+					}
 					try {
 						List<RelationSQL> list = relationSQLStorage.get(transaction);
 						if( list != null ) {
+							if( isDebug ) {
+								LOGGER.debug("Executing relation sqls: " + list.size());
+							}
 							RelationSQL[] tmpList = list.toArray(new RelationSQL[0]);
 							for( RelationSQL s : tmpList ) {
 								s.execute();
+							}
+							if( isDebug ) {
+								LOGGER.debug("Finished relational sqls");
 							}
 						}
 						connection.commit();
@@ -301,7 +336,10 @@ public class JavaSessionFactory implements SessionFactory {
 					transactionQueue = null;
 				}
 			}
-			LOGGER.debug("Finished transaction '"+transactionId+"'");
+
+			if( isDebug ) {
+				LOGGER.debug("Finished transaction '"+transactionId+"'");
+			}
 		}
 
 		@Override
@@ -310,11 +348,18 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public void addRelationSQL(Transaction transaction, RelationSQL sql) {
+		public void scheduleRelationSQL(RelationSQL sql) {
 			boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("Trying to register: " + sql);
 			}
+
+			Transaction transaction = getTransaction();
+
+			if( transaction == null ) {
+				throw new PersistanceException("Unable to schedule relation sql without a transaction");
+			}
+
 			List<RelationSQL> list = relationSQLStorage.get(transaction);
 			if( list == null ) {
 				list = new ArrayList<RelationSQL>();
@@ -350,11 +395,13 @@ public class JavaSessionFactory implements SessionFactory {
 		public void close() {
 			mapperInstances.clear();
 			sessionCache.release();
+			changeStorage.clear();
 		}
 
 		@Override
 		public void clear() {
 			sessionCache.clear();
+			changeStorage.clear();
 		}
 
 		@Override
@@ -406,7 +453,15 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void delete(Object... entities) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("Start deleting of " + entities.length + " entities");
+			}
+
 			for( Object e : entities ) {
+				if( isDebug ) {
+					LOGGER.debug("Deleteing " + e);
+				}
 				if( e instanceof EObject ) {
 					EObject eo = (EObject) e;
 					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
@@ -419,11 +474,22 @@ public class JavaSessionFactory implements SessionFactory {
 					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
 				}
 			}
+
+			if( isDebug ) {
+				LOGGER.debug("Ended deleting entities");
+			}
 		}
 
 		@Override
 		public void persist(Object... entities) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("Start persisting of " + entities.length + " entities");
+			}
 			for( Object e : entities ) {
+				if( isDebug ) {
+					LOGGER.debug("Persisting of " + e);
+				}
 				if( e instanceof EObject ) {
 					EObject eo = (EObject) e;
 					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
@@ -433,14 +499,243 @@ public class JavaSessionFactory implements SessionFactory {
 					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
 					Object l = m.getPrimaryKeyValue(e);
 					if( l == null || (l instanceof Number && ((Number)l).longValue() == 0) ) {
+						LOGGER.debug("New object insert");
 						m.insert(e);
 					} else {
+						LOGGER.debug("Existing object update");
 						m.update(e);
 					}
 				} else {
 					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
 				}
 			}
+
+			if( isDebug ) {
+				LOGGER.debug("Finished persisting of entities");
+			}
 		}
+
+		void handleNotify(Notification notification) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			if(changeTrackingCount > 0 ){
+				if( isDebug ) {
+					LOGGER.debug("Skip change tracking for '"+notification.getFeature()+"' of '"+notification.getNotifier()+"'" );
+				}
+				return;
+			}
+
+			if( isDebug ) {
+				LOGGER.debug("Attribute '"+notification.getFeature()+"' of '"+notification.getNotifier()+"' is modified");
+			}
+
+			if( notification.getEventType() == Notification.SET ) {
+				if( isDebug ) {
+					LOGGER.debug("Single valued attribute is to set from '"+notification.getOldValue()+"' to '"+notification.getNewValue()+"'");
+				}
+				FeatureChange c = new FeatureChange();
+				c.type = Type.SET;
+				c.newValue = notification.getNewValue();
+				c.oldValue = notification.getOldValue();
+				List<FeatureChange> list = changeStorage.get(notification.getNotifier());
+				list.add(c);
+			} else if(
+					notification.getEventType() == Notification.ADD ||
+					notification.getEventType() == Notification.ADD_MANY) {
+				if( isDebug ) {
+					LOGGER.debug("Addition on multi value attribute");
+				}
+				List<FeatureChange> list = changeStorage.get(notification.getNotifier());
+				if( notification.getNewValue() instanceof List<?> ) {
+					for( EObject o : (List<EObject>)notification.getNewValue() ) {
+						FeatureChange c = new FeatureChange();
+						c.type = Type.ADD;
+						c.newValue = o;
+						list.add(c);
+
+						if( isDebug ) {
+							LOGGER.debug("The value '"+c.newValue+"' is added");
+						}
+					}
+				} else {
+					FeatureChange c = new FeatureChange();
+					c.type = Type.ADD;
+					c.newValue = notification.getNewValue();
+					if( isDebug ) {
+						LOGGER.debug("The value '"+c.newValue+"' is added");
+					}
+				}
+			} else if( notification.getEventType() == Notification.REMOVE ||
+					notification.getEventType() == Notification.REMOVE_MANY	) {
+				if( isDebug ) {
+					LOGGER.debug("Removal on multi value attribute");
+				}
+				List<FeatureChange> list = changeStorage.get(notification.getNotifier());
+				if( notification.getOldValue() instanceof List<?> ) {
+					for( EObject o : (List<EObject>)notification.getOldValue() ) {
+						FeatureChange c = new FeatureChange();
+						c.type = Type.REMOVE;
+						c.oldValue = o;
+						list.add(c);
+						if( isDebug ) {
+							LOGGER.debug("The value '"+c.oldValue+"' is removed");
+						}
+					}
+				} else {
+					FeatureChange c = new FeatureChange();
+					c.type = Type.REMOVE;
+					c.oldValue = notification.getOldValue();
+					if( isDebug ) {
+						LOGGER.debug("The value '"+c.oldValue+"' is removed");
+					}
+				}
+			}
+		}
+
+		@Override
+		public void registerObject(Object object, Object id) {
+			EObject eo = (EObject) object;
+			if( ! changeStorage.containsKey(eo) ) {
+				changeStorage.put(eo, new ArrayList<FeatureChange>());
+				eo.eAdapters().add(objectAdapter);
+				getCache().putObject(eo,id);
+			}
+		}
+
+		@Override
+		public void unregisterObject(Object object, Object id) {
+			EObject eo = (EObject) object;
+			if( changeStorage.remove(eo) != null ) {
+				eo.eAdapters().remove(objectAdapter);
+				getCache().evitObject(eo);
+			}
+		}
+
+		@Override
+		public void clearChangeDescription(Object object) {
+			List<FeatureChange> list = changeStorage.get(object);
+			if( list != null ) {
+				list.clear();
+			}
+		}
+
+		@Override
+		public List<ChangeDescription> getChangeDescription(Object object) {
+			List<FeatureChange> list = changeStorage.get(object);
+
+			if( list != null ) {
+				Map<EStructuralFeature, ChangeDescriptionImpl> description = new HashMap<EStructuralFeature, ChangeDescriptionImpl>();
+				for( FeatureChange c : list ) {
+					ChangeDescriptionImpl d = description.get( c.feature);
+					if( d == null ) {
+						d = new ChangeDescriptionImpl(c.feature);
+						description.put(c.feature, d);
+
+						if( ! c.feature.isMany() ) {
+							d.oldValue = c.oldValue;
+						}
+					}
+
+					if( c.feature.isMany() ) {
+						if( c.type == Type.ADD ) {
+							if( ! d.removals.remove(c.newValue) ) {
+								d.additions.add(c.newValue);
+							}
+						} else if( c.type == Type.REMOVE ) {
+							if( ! d.additions.remove(c.oldValue) ) {
+								d.removals.add(c.oldValue);
+							}
+						}
+					} else {
+						d.newValue = c.newValue;
+					}
+				}
+
+				Iterator<ChangeDescriptionImpl> iterator = description.values().iterator();
+				while( iterator.hasNext() ) {
+					ChangeDescriptionImpl desc = iterator.next();
+					if( desc.feature.isMany() ) {
+						if( desc.removals.isEmpty() && desc.additions.isEmpty() ) {
+							iterator.remove();
+						}
+					} else {
+						if( Objects.equal(desc.newValue, desc.oldValue) ) {
+							iterator.remove();
+						}
+					}
+				}
+				return Collections.unmodifiableList(new ArrayList<JavaSession.ChangeDescription>(description.values()));
+			}
+
+			return Collections.emptyList();
+		}
+
+		@Override
+		public Boolean runWithoutChangeTracking(Callback<Boolean> runnable) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("Pauseing change tracking: " + changeTrackingCount);
+			}
+			changeTrackingCount++;
+			try {
+				return runnable.call();
+			} finally {
+				changeTrackingCount--;
+				if( isDebug ) {
+					LOGGER.debug("Release change tracking: " + changeTrackingCount);
+				}
+			}
+		}
+	}
+
+	public static class ChangeDescriptionImpl implements ChangeDescription {
+		public final EStructuralFeature feature;
+		public List<Object> additions;
+		public List<Object> removals;
+		public Object oldValue;
+		public Object newValue;
+
+		public ChangeDescriptionImpl(EStructuralFeature feature) {
+			this.feature = feature;
+			this.additions = new ArrayList<Object>();
+			this.removals = new ArrayList<Object>();
+		}
+
+		@Override
+		public EStructuralFeature getFeature() {
+			return feature;
+		}
+
+		@Override
+		public List<Object> getAdditions() {
+			return additions;
+		}
+
+		@Override
+		public List<Object> getRemovals() {
+			return removals;
+		}
+
+		@Override
+		public Object getNewValue() {
+			return newValue;
+		}
+
+		@Override
+		public Object geOldValue() {
+			return oldValue;
+		}
+	}
+
+	static class FeatureChange {
+		EStructuralFeature feature;
+		Object newValue;
+		Object oldValue;
+		Type type;
+	}
+
+	enum Type {
+		ADD,
+		REMOVE,
+		SET
 	}
 }
