@@ -597,6 +597,10 @@ class JavaObjectMapperGenerator {
 				}
 			}
 
+			public final void delete(«eClass.name» object) {
+				delete(new «eClass.name»[] { object });
+			}
+
 			public final void delete(«eClass.name»... object) {
 				final boolean isDebug = LOGGER.isDebugEnabled();
 

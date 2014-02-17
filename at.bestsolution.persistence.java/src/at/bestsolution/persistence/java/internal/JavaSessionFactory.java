@@ -1,5 +1,6 @@
 package at.bestsolution.persistence.java.internal;
 
+import java.lang.reflect.Array;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -492,7 +493,10 @@ public class JavaSessionFactory implements SessionFactory {
 						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
 					}
 					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
-					m.delete(e);
+
+					Object[] ar = (Object[]) Array.newInstance(e.getClass(), 1);
+					Array.set(ar, 0, e);
+					m.delete(ar);
 				} else {
 					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
 				}
