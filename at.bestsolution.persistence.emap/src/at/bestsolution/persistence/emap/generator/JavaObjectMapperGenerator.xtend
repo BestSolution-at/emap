@@ -580,7 +580,7 @@ class JavaObjectMapperGenerator {
 				Connection connection = session.checkoutConnection();
 				try {
 					Statement stmt = connection.createStatement();
-					stmt.executeQuery(sql);
+					stmt.execute(sql);
 					stmt.close();
 					stmt = null;
 
