@@ -493,10 +493,7 @@ public class JavaSessionFactory implements SessionFactory {
 						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
 					}
 					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
-
-					Object[] ar = (Object[]) Array.newInstance(e.getClass(), 1);
-					Array.set(ar, 0, e);
-					m.delete(ar);
+					m.delete(e);
 				} else {
 					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
 				}
