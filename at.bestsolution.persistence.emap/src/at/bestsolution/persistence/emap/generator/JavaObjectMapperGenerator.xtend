@@ -68,6 +68,7 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.model.ResolveDelegate;
 	import at.bestsolution.persistence.model.LazyEObject;
 	import org.eclipse.emf.ecore.EStructuralFeature;
+	import org.eclipse.emf.ecore.EReference;
 	import org.eclipse.emf.ecore.EObject;
 	import org.eclipse.emf.ecore.EClass;
 	import java.util.Set;
@@ -88,6 +89,8 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.java.RelationSQL.Action;
 	import at.bestsolution.persistence.Session.Transaction;
 	import at.bestsolution.persistence.Callback;
+	import java.util.Collections;
+	import java.util.Collection;
 
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«entityDef.package.name».«entityDef.entity.name»> {
 		@Override
@@ -651,6 +654,7 @@ class JavaObjectMapperGenerator {
 			private static Map<String,String> PROPERTY_COL_MAPPING = new HashMap<String,String>();
 			private static Map<String,JDBCType> TYPE_MAPPING = new HashMap<String,JDBCType>();
 			private static Map<String,EStructuralFeature> REF_ID_FEATURES = new HashMap<String,EStructuralFeature>();
+			private static Set<EReference> REFERENCE_FEATURES = new HashSet<EReference>();
 
 			static {
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
@@ -666,7 +670,13 @@ class JavaObjectMapperGenerator {
 				«ENDFOR»
 
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved]»
-					REF_ID_FEATURES.put("«a.name»",«a.getEAttribute(eClass).EContainingClass.packageName».«a.getEAttribute(eClass).EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«a.getEAttribute(eClass).EContainingClass.name»_«a.getEAttribute(eClass).name.toFirstUpper»());
+					«val att = a.getEAttribute(eClass)»
+					REF_ID_FEATURES.put("«a.name»",«att.EContainingClass.packageName».«att.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«att.EContainingClass.name»_«att.name.toFirstUpper»());
+				«ENDFOR»
+				«val primaryKey = entityDef.entity.collectAllAttributes.findFirst[pk].columnName»
+				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved && parameters.head != primaryKey]»
+					«val ref = eClass.getEStructuralFeature(a.name) as EReference»
+					REFERENCE_FEATURES.add(«ref.EContainingClass.packageName».«ref.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ref.EContainingClass.name»_«a.name.toFirstUpper»());
 				«ENDFOR»
 			}
 
@@ -680,6 +690,10 @@ class JavaObjectMapperGenerator {
 
 			public final EStructuralFeature getReferenceId(String property) {
 				return REF_ID_FEATURES.get(property);
+			}
+
+			public final Set<EReference> getReferenceFeatures() {
+				return Collections.unmodifiableSet(REFERENCE_FEATURES);
 			}
 
 			public final <P> P getPrimaryKeyValue(«eClass.name» o) {

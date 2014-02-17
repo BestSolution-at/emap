@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
@@ -36,10 +39,12 @@ import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
+import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.ProxyFactory;
 import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
+import at.bestsolution.persistence.model.LazyEObject;
 
 import com.google.common.base.Objects;
 
@@ -116,6 +121,10 @@ public class JavaSessionFactory implements SessionFactory {
 		return factoryId;
 	}
 
+	static final boolean isNewObject(Object idValue) {
+		return idValue == null || (idValue instanceof Number && ((Number)idValue).longValue() == 0);
+	}
+
 	class JavaSessionImpl implements JavaSession {
 		private String id = UUID.randomUUID().toString();
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
@@ -166,6 +175,10 @@ public class JavaSessionFactory implements SessionFactory {
 			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
+				String[] params = q.getParameterNames();
+				if( params.length != parameters.length ) {
+					throw new IllegalArgumentException("The query does not accept parameters. Use Session#mappedQuery to build a dynamic query!");
+				}
 				return q.queryForList(parameters);
 			}
 			throw new IllegalArgumentException("The mapper '"+fqnMapper+"' is not known.");
@@ -179,6 +192,9 @@ public class JavaSessionFactory implements SessionFactory {
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
 				String[] params = q.getParameterNames();
+				if( params.length == 0 && parameterMap.size() > 0 ) {
+					throw new IllegalArgumentException("The query does not accept parameters. Use Session#mappedQuery to build a dynamic query!");
+				}
 				Object[] objs = new Object[params.length];
 				for( int i = 0; i < params.length; i++ ) {
 					objs[i] = parameterMap.get(params[i]);
@@ -194,6 +210,10 @@ public class JavaSessionFactory implements SessionFactory {
 		public <O> O queryForOne(String fqnMapper, String queryName,
 				Object... parameters) {
 			NamedQuery<O> q = (NamedQuery<O>) factories.get(fqnMapper).createNamedQuery(this, queryName);
+			String[] params = q.getParameterNames();
+			if( params.length != parameters.length ) {
+				throw new IllegalArgumentException("The query does not accept parameters. Use Session#mappedQuery to build a dynamic query!");
+			}
 			return q.queryForOne(parameters);
 		}
 
@@ -205,6 +225,9 @@ public class JavaSessionFactory implements SessionFactory {
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
 				String[] params = q.getParameterNames();
+				if( params.length == 0 && parameterMap.size() > 0 ) {
+					throw new IllegalArgumentException("The query does not accept parameters. Use Session#mappedQuery to build a dynamic query!");
+				}
 				Object[] objs = new Object[params.length];
 				for( int i = 0; i < params.length; i++ ) {
 					objs[i] = parameterMap.get(params[i]);
@@ -486,33 +509,85 @@ public class JavaSessionFactory implements SessionFactory {
 			if( isDebug ) {
 				LOGGER.debug("Start persisting of " + entities.length + " entities");
 			}
+
+			List<EObject> savePlan = new ArrayList<EObject>();
 			for( Object e : entities ) {
+				if( e instanceof EObject ) {
+					savePlan.addAll(buildSavePlan((EObject) e));
+				} else {
+					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
+				}
+			}
+
+			Set<Object> processed = new HashSet<Object>();
+			for( EObject e : savePlan ) {
+				if( processed.contains(e) ) {
+					continue;
+				}
+
+				processed.add(e);
+
 				if( isDebug ) {
 					LOGGER.debug("Persisting of " + e);
 				}
-				if( e instanceof EObject ) {
-					EObject eo = (EObject) e;
-					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
-					if( f == null ) {
-						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
-					}
-					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
-					Object l = m.getPrimaryKeyValue(e);
-					if( l == null || (l instanceof Number && ((Number)l).longValue() == 0) ) {
-						LOGGER.debug("New object insert");
-						m.insert(e);
-					} else {
-						LOGGER.debug("Existing object update");
-						m.update(e);
-					}
+
+				final EObject eo = (EObject) e;
+				final ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+				if( f == null ) {
+					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+				}
+				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+				final Object l = m.getPrimaryKeyValue(e);
+
+				if( isNewObject(l) ) {
+					LOGGER.debug("New object insert");
+					m.insert(e);
 				} else {
-					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
+					LOGGER.debug("Existing object update");
+					m.update(e);
 				}
 			}
 
 			if( isDebug ) {
 				LOGGER.debug("Finished persisting of entities");
 			}
+		}
+
+		private List<EObject> buildSavePlan(EObject sourceObject) {
+			List<EObject> list = new ArrayList<EObject>();
+			list.add(sourceObject);
+			final ObjectMapperFactory<?, ?> f = factories.get(sourceObject.eClass().getInstanceClassName()+"Mapper");
+			if( f == null ) {
+				throw new IllegalStateException("There's no mapper known for '"+sourceObject.eClass().getInstanceClassName()+"'");
+			}
+			//TODO Move the META stuff to the factory so that we don't need to create an instance
+			final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+
+			for( EStructuralFeature rf : ((JavaObjectMapper<?>)m).getReferenceFeatures() ) {
+				EReference r = (EReference) rf;
+
+				if( ! (sourceObject instanceof LazyEObject) || ((LazyEObject)sourceObject).isResolved(r) ) {
+					EObject refInstance = (EObject) sourceObject.eGet(rf);
+					if( refInstance != null ) {
+						ObjectMapperFactory<?, ?> tmpFactory = factories.get(refInstance.eClass().getInstanceClassName()+"Mapper");
+						if( tmpFactory == null ) {
+							throw new IllegalStateException("There's no mapper known for '"+refInstance.eClass().getInstanceClassName()+"'");
+						}
+						ObjectMapper<Object> tmpMapper = (ObjectMapper<Object>) tmpFactory.createMapper(this);
+						Object tmpValue = tmpMapper.getPrimaryKeyValue(refInstance);
+
+						if( isNewObject(tmpValue) ) {
+							if( LOGGER.isDebugEnabled() ) {
+								LOGGER.debug("Found reference who not yet has assigned a primary key: "+tmpValue+"");
+								LOGGER.debug("Saving reference first.");
+							}
+
+							list.addAll(0,buildSavePlan(refInstance));
+						}
+					}
+				}
+			}
+			return list;
 		}
 
 		void handleNotify(Notification notification) {
