@@ -3,9 +3,26 @@
  */
 package at.bestsolution.persistence.emap;
 
+import at.bestsolution.persistence.emap.generator.DDLGenerator;
+import at.bestsolution.persistence.emap.generator.JavaHelper;
+import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator;
+import at.bestsolution.persistence.emap.generator.UtilCollection;
+
+import com.google.inject.Binder;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class EMapRuntimeModule extends at.bestsolution.persistence.emap.AbstractEMapRuntimeModule {
 
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		
+		binder.bind(JavaHelper.class).asEagerSingleton();
+		binder.bind(DDLGenerator.class).asEagerSingleton();
+		binder.bind(UtilCollection.class).asEagerSingleton();
+		binder.bind(JavaObjectMapperGenerator.class).asEagerSingleton();
+	}
+	
 }

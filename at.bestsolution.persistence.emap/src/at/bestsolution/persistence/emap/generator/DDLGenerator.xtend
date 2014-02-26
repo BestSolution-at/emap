@@ -5,11 +5,20 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EcorePackage
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
+import com.google.inject.Inject
 
 class DDLGenerator {
-	def static CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
+	
+	@Inject extension
+	var UtilCollection util;
+	
+	@Inject
+	private JavaHelper javaHelper;
+	
+	
+	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
 	«FOR e : bundleDef.entities»
-	«val eClass = JavaHelper::getEClass(e.etype)»
+	«val eClass = javaHelper.getEClass(e.etype)»
 	CREATE TABLE «e.calcTableName»
 	(
 		«var flag = false»
@@ -19,7 +28,7 @@ class DDLGenerator {
 				«IF flag», «ENDIF»«a.columnName» «db.getDatabaseType(eClass.getEStructuralFeature(a.name).EType as EDataType)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
 				«dummy(flag = true)»
 			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
-				«val pkEClass = JavaHelper::getEClass((a.query.eContainer as EMappingEntity).etype)»
+				«val pkEClass = javaHelper.getEClass((a.query.eContainer as EMappingEntity).etype)»
 				«IF flag», «ENDIF» «a.parameters.head» «db.getDatabaseType(pkEClass.getEStructuralFeature((a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].name).EType as EDataType)» NOT NULL
 				«dummy(flag = true)»
 			«ENDIF»
@@ -37,7 +46,7 @@ class DDLGenerator {
 	«ENDFOR»
 
 	«FOR e : bundleDef.entities»
-		«val eClass = JavaHelper::getEClass(e.etype)»
+		«val eClass = javaHelper.getEClass(e.etype)»
 		«val pk = e.collectDerivedAttributes.values.findFirst[pk].columnName»
 		«FOR a : e.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
 			ALTER TABLE «e.calcTableName»
@@ -52,7 +61,7 @@ class DDLGenerator {
 	«ENDFOR»
 	'''
 
-	def static void dummy(boolean b) {
+	def void dummy(boolean b) {
 
 	}
 }

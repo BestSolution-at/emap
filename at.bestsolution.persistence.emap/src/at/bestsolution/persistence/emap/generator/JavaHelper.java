@@ -1,23 +1,37 @@
 package at.bestsolution.persistence.emap.generator;
 
-import java.util.Map;
-
-import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 
 import at.bestsolution.persistence.emap.eMap.EType;
 
+import com.google.inject.Inject;
+
 public class JavaHelper {
 
-	public static EClass getEClass(EType type) {
+	@Inject
+	private ResourceDescriptionsProvider resourceDescriptionsProvider;
+	
+	public EClass getEClass(ResourceDescriptionsProvider provider, EType type) {
+		
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
+		
+		
+		if( ePackage == null ) {
+			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
+		}
+
+		EClass eClass = (EClass) ePackage.getEClassifier(type.getName());
+
+		if( eClass == null ) {
+			throw new IllegalStateException("Could not find class '"+type.getName()+"' in package '"+ePackage.getName()+"'");
+		}
+
+		return eClass;
+	}
+	
+	public EClass getEClass(EType type) {
 //		// Look in the local workspace first
 //		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(true);
 //
@@ -44,6 +58,29 @@ public class JavaHelper {
 //			}
 //		}
 
+		System.err.println("looking for package: " + type.getUrl());
+		System.err.println("known packages:");
+		for (String key : EPackage.Registry.INSTANCE.keySet()) {
+			System.err.println(" * " + key);
+		}
+		
+//		IResourceVisitor visitor = new IResourceVisitor() {
+//			public boolean visit(IResource res) { 
+//				System.err.println("RES: " + res);
+//				return true;
+//			}
+//		};
+//		
+//		
+//		IResource root = ResourcesPlugin.getWorkspace().getRoot();
+//		try {
+//			root.accept(visitor);
+//			
+//			
+//		} catch (CoreException e) {
+//			e.printStackTrace();
+//		}
+		
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
 //		List<EPackage.Descriptor> l = new ArrayList<EPackage.Descriptor>();
 //		for( Object o : EPackage.Registry.INSTANCE.values() ) {
@@ -56,8 +93,11 @@ public class JavaHelper {
 //		for( Descriptor d : l ) {
 //			System.err.println(d.getEPackage().getNsURI());
 //		}
+		
 
 		if( ePackage == null ) {
+			
+			
 			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
 		}
 

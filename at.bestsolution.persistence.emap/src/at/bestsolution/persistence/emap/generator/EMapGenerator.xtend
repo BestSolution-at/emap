@@ -19,6 +19,7 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EReference
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
+import com.google.inject.Inject
 
 /**
  * Generates code from your model files on save.
@@ -27,6 +28,18 @@ import static extension at.bestsolution.persistence.emap.generator.UtilCollectio
  */
 class EMapGenerator implements IGenerator {
 
+	@Inject extension
+	var UtilCollection util;
+
+	@Inject
+	var DDLGenerator ddlGenerator;
+	
+	@Inject
+	var JavaHelper javaHelper;
+	
+	@Inject
+	var JavaObjectMapperGenerator javaObjectMapperGenerator;
+	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val root = resource.contents.head as EMapping
 		if( root.root instanceof EMappingEntityDef ) {
@@ -34,28 +47,28 @@ class EMapGenerator implements IGenerator {
 			if( edef.entity.abstract ) {
 				return;
 			}
-			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, JavaHelper::getEClass(edef.entity.etype)))
-			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", JavaObjectMapperGenerator::generateJava(edef,JavaHelper::getEClass(edef.entity.etype)));
+			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, javaHelper.getEClass(edef.entity.etype)))
+			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", javaObjectMapperGenerator.generateJava(edef,javaHelper.getEClass(edef.entity.etype)));
 
 
 			for( namedQuery : edef.entity.namedQueries ) {
 				for( query : namedQuery.queries ) {
-					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", JavaObjectMapperGenerator::generateSQL(namedQuery,query));
+					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query));
 					if( namedQuery.parameters.empty ) {
-						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", JavaObjectMapperGenerator::generateCriteriaSQL(namedQuery,query));
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query));
 					}
 				}
 			}
 
 //			println("Generating " + edef.entity.name+"Mapper.xml");
-//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, JavaHelper::getEClass(edef.entity.etype)))
+//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))
 		} else {
 			val bundleDef = root.root as EMappingBundle
 //			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
 //			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
-			fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",JavaObjectMapperGenerator::generateMapperRegistry(bundleDef))
+			fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",javaObjectMapperGenerator.generateMapperRegistry(bundleDef))
 			for( d : bundleDef.databases ) {
-				fsa.generateFile("ddls/create_"+d+".sql",DDLGenerator::generatedDDL(bundleDef,getDatabaseSupport(d)));
+				fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
 			}
 		}
 	}
@@ -115,9 +128,9 @@ class EMapGenerator implements IGenerator {
 				units = new ArrayList<MappingUnit>();
 				«FOR e : bundleDef.entities»
 					units.add(new URLMappingUnit("mappers/«e.name»Mapper.xml",
-						«JavaHelper::getEClass(e.etype).instanceClassName».class,
-						«JavaHelper::getEClass(e.etype).instanceClassName»Mapper.class,
-						«JavaHelper::getEClass(e.etype).packageName».«JavaHelper::getEClass(e.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«JavaHelper::getEClass(e.etype).name»(),getClass().getClassLoader().getResource("mappers/«e.name»Mapper.xml")));
+						«javaHelper.getEClass(e.etype).instanceClassName».class,
+						«javaHelper.getEClass(e.etype).instanceClassName»Mapper.class,
+						«javaHelper.getEClass(e.etype).packageName».«javaHelper.getEClass(e.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«javaHelper.getEClass(e.etype).name»(),getClass().getClassLoader().getResource("mappers/«e.name»Mapper.xml")));
 				«ENDFOR»
 			}
 
@@ -362,7 +375,7 @@ class EMapGenerator implements IGenerator {
 </mapper>
 	'''
 
-	def static generateInsert(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
+	def generateInsert(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
 	<insert id="insert" parameterType="«eClass.instanceClassName»"
 		«IF dbSupport != null»databaseId="«dbSupport.databaseId»" «IF dbSupport.supportsGeneratedKeys»useGeneratedKeys="true" keyProperty="«pkAttribute.name»"«ENDIF»«ENDIF»>
 		«IF dbSupport != null»
@@ -373,7 +386,7 @@ class EMapGenerator implements IGenerator {
 	</insert>
 	'''
 
-	def static insertSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
+	def insertSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute pkAttribute, DatabaseSupport dbSupport) '''
 	«val gen = if(pkAttribute == null) null else pkAttribute.valueGenerators.findFirst[dbType==dbSupport.databaseId]»
 	INSERT INTO «entityDef.tableName»
 	(
@@ -440,7 +453,7 @@ class EMapGenerator implements IGenerator {
 	)
 	'''
 
-	def static attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
+	def attrib_resultMapContent(Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 	<!-- Default mapping -->
 	«FOR a : attributes.sort([a,b|
 		val iA = a.sortValue(eClass)
@@ -470,7 +483,7 @@ class EMapGenerator implements IGenerator {
 	«ENDFOR»
 	'''
 
-	def static mappedattrib_resultMapContent(Iterable<EMappingAttribute> attributes, EClass eClass, String columnPrefix) '''
+	def mappedattrib_resultMapContent(Iterable<EMappingAttribute> attributes, EClass eClass, String columnPrefix) '''
 	<!-- MAPPED -->
 	«FOR a : attributes»
 		«IF a.pk»
@@ -484,11 +497,11 @@ class EMapGenerator implements IGenerator {
 				«ENDIF»
 			«ELSEIF a.mapped»
 				«IF a.isSingle(eClass)»
-					<association property="«a.property»" javaType="«JavaHelper::getEClass(a.map.entity.etype).instanceClassName»">
+					<association property="«a.property»" javaType="«javaHelper.getEClass(a.map.entity.etype).instanceClassName»">
 						«a.map.objectSectionMap»
 					</association>
 				«ELSE»
-					<collection property="«a.property»" ofType="«JavaHelper::getEClass(a.map.entity.etype).instanceClassName»">
+					<collection property="«a.property»" ofType="«javaHelper.getEClass(a.map.entity.etype).instanceClassName»">
 						«a.map.objectSectionMap»
 					</collection>
 				«ENDIF»
@@ -499,9 +512,9 @@ class EMapGenerator implements IGenerator {
 	«ENDFOR»
 	'''
 
-	def static CharSequence objectSectionMap(EObjectSection section) '''
-	«attrib_resultMapContent(section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null],JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
-	«mappedattrib_resultMapContent(section.attributes, JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
+	def CharSequence objectSectionMap(EObjectSection section) '''
+	«attrib_resultMapContent(section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null],javaHelper.getEClass(section.entity.etype),section.prefix+"_")»
+	«mappedattrib_resultMapContent(section.attributes, javaHelper.getEClass(section.entity.etype),section.prefix+"_")»
 	'''
 //	{
 //		val attrs = section.entity.collectAttributes
@@ -514,7 +527,7 @@ class EMapGenerator implements IGenerator {
 //		return "";
 //	}
 
-	def static replaceParameters(String v, List<EParameter> parameters) {
+	def replaceParameters(String v, List<EParameter> parameters) {
 		if( parameters.empty ){
 			return v;
 		} else if( parameters.size == 1 ) {
