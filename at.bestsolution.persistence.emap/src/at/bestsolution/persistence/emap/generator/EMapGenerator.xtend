@@ -143,13 +143,15 @@ class EMapGenerator implements IGenerator {
 	def generateJavaMapper(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name»;
 
+	import «eClass.instanceClassName»;
+
 	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,«entityDef.entity.name»Mapper.«eClass.name»MappedQuery>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
 		«FOR query : entityDef.entity.namedQueries»
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»
 
 «««		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
-			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.instanceClassName»> {
+			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.name»> {
 				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 					«IF a.resolved»

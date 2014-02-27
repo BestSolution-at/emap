@@ -96,7 +96,7 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.Session.Transaction;
 	import at.bestsolution.persistence.Callback;
 
-	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«entityDef.package.name».«entityDef.entity.name»> {
+	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«eClass.name»> {
 		@Override
 		public «entityDef.package.name».«entityDef.entity.name»Mapper createMapper(JavaSession session) {
 			return new «entityDef.entity.name»MapperImpl(session);
