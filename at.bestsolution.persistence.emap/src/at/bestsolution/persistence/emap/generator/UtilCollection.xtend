@@ -19,17 +19,16 @@ import java.util.Map
 import org.osgi.framework.FrameworkUtil
 import at.bestsolution.persistence.emap.eMap.ENamedQuery
 import at.bestsolution.persistence.emap.eMap.EMapping
+import com.google.inject.Inject
 
 class UtilCollection {
-	static Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
+	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 
-	private EClass eClass;
-
-	new(EClass eClass) {
-		this.eClass = eClass;
-	}
-
-	def static <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
+	@Inject
+	var JavaHelper javaHelper;
+	
+	
+	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
 		val s = new TreeSet<T>([T t1, T t2| if( equals.apply(t1,t2) ) return 0 else return 1 ] );
 		val i = unfiltered.iterator;
 		while( i.hasNext ) {
@@ -37,45 +36,45 @@ class UtilCollection {
 		}
 		return s;
 	}
-
-	def static isBoolean(EStructuralFeature e) {
+ 
+	def isBoolean(EStructuralFeature e) {
 		return e.EType.instanceClassName == "boolean" || e.EType.instanceClassName == "java.lang.Boolean"
 	}
 
-	def static isPrimitive(EStructuralFeature e) {
+	def isPrimitive(EStructuralFeature e) {
 		return newArrayList("int","long","double","float","boolean").contains(e.EType.instanceClassName)
 	}
 
-	def static isNumeric(EStructuralFeature e) {
+	def isNumeric(EStructuralFeature e) {
 		return newArrayList("int","long","double","float","java.lang.Integer","java.lang.Long","java.lang.Double","java.lang.Float").contains(e.EType.instanceClassName)
 	}
 
-	def static isString(EStructuralFeature e) {
+	def isString(EStructuralFeature e) {
 		return "java.lang.String" == e.EType.instanceClassName;
 	}
 
-	def static isDouble(EStructuralFeature e) {
+	def isDouble(EStructuralFeature e) {
 		return e.EType.instanceClassName == "double" || e.EType.instanceClassName == "java.lang.Double"
 	}
 
-	def static isInteger(EStructuralFeature e) {
+	def isInteger(EStructuralFeature e) {
 		return e.EType.instanceClassName == "int" || e.EType.instanceClassName == "java.lang.Integer"
 	}
 
-	def static isLong(EStructuralFeature e) {
+	def isLong(EStructuralFeature e) {
 		return e.EType.instanceClassName == "long" || e.EType.instanceClassName == "java.lang.Long"
 	}
 
-	def static isFloat(EStructuralFeature e) {
+	def isFloat(EStructuralFeature e) {
 		return e.EType.instanceClassName == "float" || e.EType.instanceClassName == "java.lang.Float"
 	}
 
-	def static getResolvedType(EAttribute attribute, EClass eClass) {
+	def getResolvedType(EAttribute attribute, EClass eClass) {
 		val f = eClass.getEStructuralFeature(attribute.name)
 		return f.EType.instanceClassName
 	}
 
-	def static getEAttribute(EAttribute attribute, EClass eClass) {
+	def getEAttribute(EAttribute attribute, EClass eClass) {
 		val f = eClass.getEStructuralFeature(attribute.name)
 		if( f instanceof EReference && attribute.resolved ) {
 			val c = (f as EReference).EType as EClass
@@ -85,22 +84,22 @@ class UtilCollection {
 		return f as org.eclipse.emf.ecore.EAttribute
 	}
 
-	def static getAllAttributes(EMappingEntity entity) {
+	def getAllAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
 		entity.findAllAttributes(l,false)
-		val eClass = JavaHelper::getEClass(entity.etype)
+		val eClass = javaHelper.getEClass(entity.etype)
 		l.sort([ a,b | return sortAttributes(eClass,a,b)])
 		return l
 	}
 
-	def static void findAllAttributes(EMappingEntity entity, ArrayList<EAttribute> l, boolean skipPrimary) {
+	def void findAllAttributes(EMappingEntity entity, ArrayList<EAttribute> l, boolean skipPrimary) {
 		l.addAll(entity.attributes.filter[! skipPrimary || ! pk ])
 		if( entity.parent != null ) {
 			entity.parent.findAllAttributes(l, true)
 		}
 	}
 
-	def static sortAttributes(EClass eClass, EAttribute a, EAttribute b) {
+	def sortAttributes(EClass eClass, EAttribute a, EAttribute b) {
 		if (a.pk)
 			return -1
 		else if (b.pk)
@@ -126,14 +125,14 @@ class UtilCollection {
 				return a.name.compareToIgnoreCase(b.name)
 	}
 
-	def static isSingleAttribute(EAttribute attribute, EClass eclass) {
+	def isSingleAttribute(EAttribute attribute, EClass eclass) {
 		if( eclass.getEStructuralFeature(attribute.name) == null ) {
 			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
 		return ! eclass.getEStructuralFeature(attribute.name).many
 	}
 
-	def static parameterConversion(EParameter p, String name) {
+	def parameterConversion(EParameter p, String name) {
 		if( p.type == "long" ) {
 			return "((Long)" + name + ").longValue()"
 		} else if( p.type == "int" ) {
@@ -144,7 +143,7 @@ class UtilCollection {
 		return "("+p.type+")" + name;
 	}
 
-	static def jdbcType(org.eclipse.emf.ecore.EAttribute f) {
+	def jdbcType(org.eclipse.emf.ecore.EAttribute f) {
 		if( f.EType.instanceClassName == "java.lang.String" ) {
 			return "STRING";
 		} else if( f.EType.instanceClassName == "long" ) {
@@ -162,28 +161,28 @@ class UtilCollection {
 		}
 	}
 
-	static def jdbcType(EAttribute p, EClass eClass) {
+	def jdbcType(EAttribute p, EClass eClass) {
 		return getEAttribute(p,eClass).jdbcType;
 	}
 
-	static def collectMappings(Iterable<EMappingAttribute> attributeList) {
+	def collectMappings(Iterable<EMappingAttribute> attributeList) {
 		val l = new ArrayList<EObjectSection>;
 		attributeList.forEach[it.map.collectMappingsRec(l)]
 		return l;
 	}
 
-	static def void collectMappingsRec(EObjectSection section, List<EObjectSection> list) {
+	def void collectMappingsRec(EObjectSection section, List<EObjectSection> list) {
 		list.add(section);
 		section.attributes.forEach[it.map.collectMappingsRec(list)]
 	}
 
-	static def collectEnities(EMappingEntity rootEntity) {
+	def collectEnities(EMappingEntity rootEntity) {
 		val entities = new HashSet<EMappingEntity>;
 		rootEntity.namedQueries.forEach[entities.addAll(it.queries.head.mapping.attributes.collectMappings.map[it.entity])]
 		return entities;
 	}
 
-	def static compare(int x, int y) {
+	def compare(int x, int y) {
 		if(x < y) {
 			return -1
 		}
@@ -194,7 +193,7 @@ class UtilCollection {
 		}
 	}
 
-	static def pstmtMethod(org.eclipse.emf.ecore.EAttribute f) {
+	def pstmtMethod(org.eclipse.emf.ecore.EAttribute f) {
 		if( f.EType.instanceClassName == "java.lang.String" ) {
 			return "setString";
 		} else if( f.EType.instanceClassName == "long" ) {
@@ -208,7 +207,7 @@ class UtilCollection {
 		}
 	}
 
-	static def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
+	def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
 		val f = eClass.getEStructuralFeature(attribute.name)
 		if( f == null ) {
 			throw new IllegalStateException("Unknown attribute '"+attribute.name+"'")
@@ -230,7 +229,7 @@ class UtilCollection {
 		}
 	}
 
-	static def resultMethodType(EParameter p) {
+	def resultMethodType(EParameter p) {
 		if( "String" == p.type ) {
 			return "getString"
 		} else if( "long" == p.type ) {
@@ -242,21 +241,21 @@ class UtilCollection {
 		}
 	}
 
-	def static tableName(EMappingEntityDef entityDef) {
+	def tableName(EMappingEntityDef entityDef) {
 		if( entityDef.entity.tableName == null ) {
-			return JavaHelper::getEClass(entityDef.entity.etype).name.toUpperCase
+			return javaHelper.getEClass(entityDef.entity.etype).name.toUpperCase
 		}
 		return entityDef.entity.tableName
 	}
 
-	def static calcTableName(EMappingEntity entity) {
+	def calcTableName(EMappingEntity entity) {
 		if( entity.tableName == null ) {
-			return JavaHelper::getEClass(entity.etype).name.toUpperCase
+			return javaHelper.getEClass(entity.etype).name.toUpperCase
 		}
 		return entity.tableName
 	}
 
-	static def pstmtMethod(EParameter p) {
+	def pstmtMethod(EParameter p) {
 		if( p.type == "String" ) {
 			return "setString";
 		} else if( p.type == "long" ) {
@@ -270,7 +269,7 @@ class UtilCollection {
 		}
 	}
 
-	static def pstmtMethod(EAttribute p, EClass eClass) {
+	def pstmtMethod(EAttribute p, EClass eClass) {
 		val f = eClass.getEStructuralFeature(p.name);
 		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
 			return (f as org.eclipse.emf.ecore.EAttribute).pstmtMethod
@@ -280,32 +279,32 @@ class UtilCollection {
 		}
 	}
 
-	static def packageName(EClass eClass) {
+	def packageName(EClass eClass) {
 		return eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf("."))
 	}
 
-	def static collectAllAttributes(EMappingEntity entity) {
+	def collectAllAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
 		entity.allAttributes(l)
-		val eClass = JavaHelper::getEClass(entity.etype);
+		val eClass = javaHelper.getEClass(entity.etype);
 		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
 		return l
 	}
 
-	def static void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
+	def void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
 		l.addAll(entity.attributes)
 		if( entity.parent != null ) {
 			entity.parent.allAttributes(l)
 		}
 	}
 
-	def static collectDerivedAttributes(EMappingEntity entity) {
+	def collectDerivedAttributes(EMappingEntity entity) {
 		val map = new HashMap<String,EAttribute>
 		entity.allDerivedAttributes(map)
 		return map
 	}
 
-	def static void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
+	def void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
 		for( a : entity.attributes ) {
 			map.put(a.name,a);
 		}
@@ -314,25 +313,25 @@ class UtilCollection {
 		}
 	}
 
-	def static isSingle(EAttribute attribute, EClass eclass) {
+	def isSingle(EAttribute attribute, EClass eclass) {
 		if( eclass.getEStructuralFeature(attribute.name) == null ) {
 			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
 		return ! eclass.getEStructuralFeature(attribute.name).many
 	}
 
-	def static isBoolean(EAttribute attribute, EClass eclass) {
+	def isBoolean(EAttribute attribute, EClass eclass) {
 		if( eclass.getEStructuralFeature(attribute.name) == null ) {
 			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
 		return eclass.getEStructuralFeature(attribute.name).EType.name == "EBoolean"
 	}
 
-	def static isSingle(EMappingAttribute attribute, EClass eclass) {
+	def isSingle(EMappingAttribute attribute, EClass eclass) {
 		return ! eclass.getEStructuralFeature(attribute.property).many
 	}
 
-	def static List<DatabaseSupport> findDatabaseSupport(EAttribute attribute) {
+	def List<DatabaseSupport> findDatabaseSupport(EAttribute attribute) {
 		if( attribute == null ) {
 			return null;
 		}
@@ -347,7 +346,8 @@ class UtilCollection {
 		return rv;
 	}
 
-		def static getDatabaseSupport(String name) {
+		
+	def getDatabaseSupport(String name) {
 		if( DB_SUPPORTS.containsKey(name) ) {
 			return DB_SUPPORTS.get(name)
 		} else {
@@ -363,7 +363,7 @@ class UtilCollection {
 		}
 	}
 
-	def static sortValue(EAttribute a, EClass eClass) {
+	def sortValue(EAttribute a, EClass eClass) {
 		if( a.pk ) {
 			return 0;
 		} else if( a.resolved ) {
@@ -377,7 +377,7 @@ class UtilCollection {
 		}
 	}
 
-	def static fqn(ENamedQuery e) {
+	def fqn(ENamedQuery e) {
 		val r = (e.eResource.contents.head as EMapping).root
 		if( r instanceof EMappingEntityDef ) {
 			val d = r as EMappingEntityDef;
@@ -386,11 +386,11 @@ class UtilCollection {
 		return "NOX DA"
 	}
 
-	def static fqn(EMappingEntityDef e) {
+	def fqn(EMappingEntityDef e) {
 		return e.package.name + "." + e.entity.name + "Mapper";
 	}
 
-	def static fqn(EMappingEntity e) {
+	def fqn(EMappingEntity e) {
 		val r = (e.eResource.contents.head as EMapping).root
 		if( r instanceof EMappingEntityDef ) {
 			val d = r as EMappingEntityDef;
@@ -399,7 +399,7 @@ class UtilCollection {
 		return "NOX DA"
 	}
 
-		def static isPrimitive(String type) {
+	def isPrimitive(String type) {
 		switch(type) {
 			case "long": return true
 			case "int": return true
@@ -407,7 +407,7 @@ class UtilCollection {
 		return false;
 	}
 
-	def static String mapColumns(EObjectSection s) {
+	def String mapColumns(EObjectSection s) {
 		val atts = s.entity.collectAllAttributes
 		val id = atts.findFirst[a|a.pk]
 
@@ -421,7 +421,7 @@ class UtilCollection {
 		return b.toString;
 	}
 
-	def static String prefix(EObjectSection s, EAttribute attribute) {
+	def String prefix(EObjectSection s, EAttribute attribute) {
 		val allDerivedAttributes = s.entity.collectDerivedAttributes
 		if( allDerivedAttributes.containsKey(attribute.name) ) {
 			if( ! attribute.pk || s.entity == attribute.eContainer ) {
@@ -435,22 +435,22 @@ class UtilCollection {
 		return s.prefix + if (ownerType == null) "__UNKNOWN__" else "_" + ownerType.name.toLowerCase
 	}
 
-	def static EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
+	def EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
 		val allDerivedAttributes = childEntity.collectDerivedAttributes
 		if( allDerivedAttributes.containsKey(attribute.name) ) {
-			return JavaHelper::getEClass(childEntity.etype)
+			return javaHelper.getEClass(childEntity.etype)
 		} else if( childEntity.parent != null && childEntity.extensionType == "extends" ) {
 			return getDbOwnerType(childEntity.parent, attribute)
 		}
 		return null;
 	}
 
-	def static getOpposite(EAttribute a, EClass owner) {
+	def getOpposite(EAttribute a, EClass owner) {
 		val r = owner.getEStructuralFeature(a.name) as EReference
 		return r.EOpposite
 	}
 
-	def static getEntity(EAttribute a) {
+	def getEntity(EAttribute a) {
 		val r = a.eResource.contents.get(0) as EMapping
 		return (r.root as EMappingEntityDef).entity
 	}

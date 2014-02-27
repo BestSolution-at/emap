@@ -16,10 +16,17 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 
 import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
+import com.google.inject.Inject
 
 class JavaObjectMapperGenerator {
 
-	static def generateMapperRegistry(EMappingBundle bundleDef) '''
+	@Inject extension
+	var UtilCollection util;
+	
+	@Inject
+	var JavaHelper javaHelper
+
+	def generateMapperRegistry(EMappingBundle bundleDef) '''
 	package mappings;
 
 	import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
@@ -32,7 +39,7 @@ class JavaObjectMapperGenerator {
 		private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
 		public «bundleDef.name»ObjectMapperFactoriesProvider() {
 			«FOR e : bundleDef.entities»
-				factories.put(«JavaHelper::getEClass(e.etype).instanceClassName»Mapper.class, new «JavaHelper::getEClass(e.etype).mapperName»());
+				factories.put(«javaHelper.getEClass(e.etype).instanceClassName»Mapper.class, new «javaHelper.getEClass(e.etype).mapperName»());
 			«ENDFOR»
 		}
 
@@ -42,13 +49,13 @@ class JavaObjectMapperGenerator {
 	}
 	'''
 
-	static def mapperName(EClass eClass) {
+	def mapperName(EClass eClass) {
 		return
 			eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf('.'))
 			+ ".java"+eClass.instanceClassName.substring(eClass.instanceClassName.lastIndexOf('.'))+"MapperFactory"
 	}
 
-	static def generateJava(EMappingEntityDef entityDef, EClass eClass) '''
+	def generateJava(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name».java;
 
 	import «entityDef.package.name».«entityDef.entity.name»Mapper;
@@ -63,7 +70,7 @@ class JavaObjectMapperGenerator {
 	import java.sql.SQLException;
 	import java.sql.PreparedStatement;
 	import at.bestsolution.persistence.PersistanceException;
-	import «JavaHelper::getEClass(entityDef.entity.etype).packageName».«eClass.EPackage.name.toFirstUpper»Factory;
+	import «javaHelper.getEClass(entityDef.entity.etype).packageName».«eClass.EPackage.name.toFirstUpper»Factory;
 	import «eClass.instanceClassName»;
 	import at.bestsolution.persistence.model.ResolveDelegate;
 	import at.bestsolution.persistence.model.LazyEObject;
@@ -92,7 +99,7 @@ class JavaObjectMapperGenerator {
 	import java.util.Collections;
 	import java.util.Collection;
 
-	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«entityDef.package.name».«entityDef.entity.name»> {
+	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«eClass.name»> {
 		@Override
 		public «entityDef.package.name».«entityDef.entity.name»Mapper createMapper(JavaSession session) {
 			return new «entityDef.entity.name»MapperImpl(session);
@@ -197,19 +204,19 @@ class JavaObjectMapperGenerator {
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
 						((EObject)rv).eSetDeliver(false);
-						«attrib_resultMapContent("rv",query.queries.head.mapping,JavaHelper::getEClass(query.queries.head.mapping.entity.etype),query.queries.head.mapping.prefix+"_")»
+						«attrib_resultMapContent("rv",query.queries.head.mapping,javaHelper.getEClass(query.queries.head.mapping.entity.etype),query.queries.head.mapping.prefix+"_")»
 						((EObject)rv).eSetDeliver(true);
 						session.registerObject(rv,getPrimaryKeyValue(rv));
 						return rv;
 					}
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
-					public final «JavaHelper::getEClass(section.entity.etype).instanceClassName» map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(ResultSet set) throws SQLException {
+					public final «javaHelper.getEClass(section.entity.etype).instanceClassName» map_«query.name»_«javaHelper.getEClass(section.entity.etype).name»(ResultSet set) throws SQLException {
 						Object id = set.getObject("«section.prefix+"_"»«section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[pk].columnName»");
 						if( id == null ) {
 							return null;
 						}
-						EClass eClass = «JavaHelper::getEClass(section.entity.etype).packageName».«JavaHelper::getEClass(section.entity.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«JavaHelper::getEClass(section.entity.etype).name.toFirstUpper»();
-						«JavaHelper::getEClass(section.entity.etype).instanceClassName» rv = session.getCache().getObject(eClass,id);
+						EClass eClass = «javaHelper.getEClass(section.entity.etype).packageName».«javaHelper.getEClass(section.entity.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«javaHelper.getEClass(section.entity.etype).name.toFirstUpper»();
+						«javaHelper.getEClass(section.entity.etype).instanceClassName» rv = session.getCache().getObject(eClass,id);
 						if( rv != null) {
 							if( LOGGER.isDebugEnabled() ) {
 								LOGGER.debug("Using cached version");
@@ -218,7 +225,7 @@ class JavaObjectMapperGenerator {
 						}
 						rv = session.getProxyFactory().createProxy(eClass);
 						((EObject)rv).eSetDeliver(false);
-						«attrib_resultMapContent("rv",section,JavaHelper::getEClass(section.entity.etype),section.prefix+"_")»
+						«attrib_resultMapContent("rv",section,javaHelper.getEClass(section.entity.etype),section.prefix+"_")»
 						((EObject)rv).eSetDeliver(true);
 						session.registerObject(rv, id);
 						return rv;
@@ -644,8 +651,8 @@ class JavaObjectMapperGenerator {
 					«resolve(entityDef.entity,eClass)»
 				}
 				«FOR e : entityDef.entity.collectEnities»
-				else if(eo instanceof «JavaHelper::getEClass(e.etype).instanceClassName») {
-					«resolve(e,JavaHelper::getEClass(e.etype))»
+				else if(eo instanceof «javaHelper.getEClass(e.etype).instanceClassName») {
+					«resolve(e,javaHelper.getEClass(e.etype))»
 				}
 				«ENDFOR»
 				return false;
@@ -906,7 +913,7 @@ class JavaObjectMapperGenerator {
 
 		«createProxyData(entityDef.entity,eClass)»
 		«FOR e : entityDef.entity.collectEnities»
-		«createProxyData(e,JavaHelper::getEClass(e.etype))»
+		«createProxyData(e,javaHelper.getEClass(e.etype))»
 		«ENDFOR»
 		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
 		static final class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
@@ -933,7 +940,7 @@ class JavaObjectMapperGenerator {
 	}
 	'''
 
-	static def resultMapCode(ENamedQuery query, EClass eClass) '''
+	def resultMapCode(ENamedQuery query, EClass eClass) '''
 		«IF query.queries.head.mapping.attributes.empty»
 			if( isDebug ) LOGGER.debug("Mapping results started");
 			while(set.next()) {
@@ -946,29 +953,29 @@ class JavaObjectMapperGenerator {
 				Set<«eClass.name»> rootSet = new HashSet<«eClass.name»>();
 				«eClass.name» current_«eClass.name»;
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
-					«JavaHelper::getEClass(section.entity.etype).instanceClassName» current_«JavaHelper::getEClass(section.entity.etype).name»;
+					«javaHelper.getEClass(section.entity.etype).instanceClassName» current_«javaHelper.getEClass(section.entity.etype).name»;
 				«ENDFOR»
 				if( isDebug ) LOGGER.debug("Mapping with nested results started");
 				while(set.next()) {
 					current_«eClass.name» = map_«query.name»_«eClass.name»(set);
 					((EObject)current_«eClass.name»).eSetDeliver(false);
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
-						current_«JavaHelper::getEClass(section.entity.etype).name» = map_«query.name»_«JavaHelper::getEClass(section.entity.etype).name»(set);
+						current_«javaHelper.getEClass(section.entity.etype).name» = map_«query.name»_«javaHelper.getEClass(section.entity.etype).name»(set);
 
-						if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
+						if( current_«javaHelper.getEClass(section.entity.etype).name» != null )
 						{
-							((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(false);
+							((EObject)current_«javaHelper.getEClass(section.entity.etype).name»).eSetDeliver(false);
 							«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-							current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«JavaHelper::getEClass(section.entity.etype).name»);
+							current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«javaHelper.getEClass(section.entity.etype).name»);
 							«ELSE»
-							current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«JavaHelper::getEClass(section.entity.etype).name»);
+							current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«javaHelper.getEClass(section.entity.etype).name»);
 							«ENDIF»
 						}
 					«ENDFOR»
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
-						if( current_«JavaHelper::getEClass(section.entity.etype).name» != null )
+						if( current_«javaHelper.getEClass(section.entity.etype).name» != null )
 						{
-							((EObject)current_«JavaHelper::getEClass(section.entity.etype).name»).eSetDeliver(true);
+							((EObject)current_«javaHelper.getEClass(section.entity.etype).name»).eSetDeliver(true);
 						}
 					«ENDFOR»
 
@@ -987,15 +994,15 @@ class JavaObjectMapperGenerator {
 		«ENDIF»
 	'''
 
-	static def submapName(EObjectSection section) {
+	def submapName(EObjectSection section) {
 		return section.submapOwner + "_" + (section.eContainer as EMappingAttribute).property
 	}
 
-	static def submapOwner(EObjectSection section) {
-		return JavaHelper::getEClass((section.eContainer.eContainer as EObjectSection).entity.etype);
+	def submapOwner(EObjectSection section) {
+		return javaHelper.getEClass((section.eContainer.eContainer as EObjectSection).entity.etype);
 	}
 
-	static def resolve(EMappingEntity entity, EClass eClass) '''
+	def resolve(EMappingEntity entity, EClass eClass) '''
 		«eClass.instanceClassName» target = («eClass.instanceClassName»)eo;
 		«val first = entity.allAttributes.sort([a,b|
 			val iA = a.sortValue(eClass)
@@ -1026,7 +1033,7 @@ class JavaObjectMapperGenerator {
 		«ENDIF»
 	'''
 
-	static def createProxyData(EMappingEntity entity, EClass eClass) '''
+	def createProxyData(EMappingEntity entity, EClass eClass) '''
 	«IF entity.allAttributes.findFirst[resolved && isSingle(eClass)] != null»
 		final static class ProxyData_«eClass.name» {
 			«FOR a : entity.allAttributes.filter[resolved && isSingle(eClass)]»
@@ -1041,7 +1048,7 @@ class JavaObjectMapperGenerator {
 	«ENDIF»
 	'''
 
-	static def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
+	def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
 	«IF attribute.isSingle(eClass)»
 		{
 			«val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
@@ -1061,7 +1068,7 @@ class JavaObjectMapperGenerator {
 	«ENDIF»
 	'''
 
-	static def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
+	def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
 		«FOR a : section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
@@ -1077,7 +1084,7 @@ class JavaObjectMapperGenerator {
 		«ENDIF»
 	'''
 
-	static def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
+	def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
 		«FOR a : attributes.sort([a,b|
 			val iA = a.sortValue(eClass)
 			val iB = b.sortValue(eClass)
@@ -1093,7 +1100,7 @@ class JavaObjectMapperGenerator {
 		«ENDIF»
 	'''
 
-	static def generateSQL(ENamedQuery namedQuery, EQuery query) '''
+	def generateSQL(ENamedQuery namedQuery, EQuery query) '''
 	SELECT
 		«IF query.mapping.attributes.empty»
 			*
@@ -1110,7 +1117,7 @@ class JavaObjectMapperGenerator {
 			«query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 	'''
 
-	static def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
+	def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
 	SELECT
 		«IF query.mapping.attributes.empty»
 			*
@@ -1123,7 +1130,7 @@ class JavaObjectMapperGenerator {
 			«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 	'''
 
-	def static replaceSqlParameters(String v, List<EParameter> parameters) {
+	def replaceSqlParameters(String v, List<EParameter> parameters) {
 		if( parameters.empty ){
 			return v;
 		} else {
