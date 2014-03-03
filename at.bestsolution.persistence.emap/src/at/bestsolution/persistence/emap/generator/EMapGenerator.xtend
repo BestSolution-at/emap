@@ -18,7 +18,6 @@ import at.bestsolution.persistence.emap.eMap.EParameter
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
 import org.eclipse.emf.ecore.EReference
-import static extension at.bestsolution.persistence.emap.generator.UtilCollection.*
 import com.google.inject.Inject
 
 /**
@@ -35,9 +34,6 @@ class EMapGenerator implements IGenerator {
 	var DDLGenerator ddlGenerator;
 	
 	@Inject
-	var JavaHelper javaHelper;
-	
-	@Inject
 	var JavaObjectMapperGenerator javaObjectMapperGenerator;
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
@@ -47,8 +43,8 @@ class EMapGenerator implements IGenerator {
 			if( edef.entity.abstract ) {
 				return;
 			}
-			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, javaHelper.getEClass(edef.entity.etype)))
-			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", javaObjectMapperGenerator.generateJava(edef,javaHelper.getEClass(edef.entity.etype)));
+			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", generateJavaMapper(edef, edef.entity.etype.lookupEClass))
+			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", javaObjectMapperGenerator.generateJava(edef, edef.lookupEClass));
 
 
 			for( namedQuery : edef.entity.namedQueries ) {
@@ -127,10 +123,11 @@ class EMapGenerator implements IGenerator {
 			public «bundleDef.name»MappingUnitProvider() {
 				units = new ArrayList<MappingUnit>();
 				«FOR e : bundleDef.entities»
+					«var eClass = e.lookupEClass»
 					units.add(new URLMappingUnit("mappers/«e.name»Mapper.xml",
-						«javaHelper.getEClass(e.etype).instanceClassName».class,
-						«javaHelper.getEClass(e.etype).instanceClassName»Mapper.class,
-						«javaHelper.getEClass(e.etype).packageName».«javaHelper.getEClass(e.etype).EPackage.name.toFirstUpper»Package.eINSTANCE.get«javaHelper.getEClass(e.etype).name»(),getClass().getClassLoader().getResource("mappers/«e.name»Mapper.xml")));
+						«eClass.instanceClassName».class,
+						«eClass.instanceClassName»Mapper.class,
+						«eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name»(),getClass().getClassLoader().getResource("mappers/«e.name»Mapper.xml")));
 				«ENDFOR»
 			}
 
@@ -499,11 +496,11 @@ class EMapGenerator implements IGenerator {
 				«ENDIF»
 			«ELSEIF a.mapped»
 				«IF a.isSingle(eClass)»
-					<association property="«a.property»" javaType="«javaHelper.getEClass(a.map.entity.etype).instanceClassName»">
+					<association property="«a.property»" javaType="«a.map.entity.lookupEClass.instanceClassName»">
 						«a.map.objectSectionMap»
 					</association>
 				«ELSE»
-					<collection property="«a.property»" ofType="«javaHelper.getEClass(a.map.entity.etype).instanceClassName»">
+					<collection property="«a.property»" ofType="«a.map.entity.lookupEClass.instanceClassName»">
 						«a.map.objectSectionMap»
 					</collection>
 				«ENDIF»
@@ -515,8 +512,8 @@ class EMapGenerator implements IGenerator {
 	'''
 
 	def CharSequence objectSectionMap(EObjectSection section) '''
-	«attrib_resultMapContent(section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null],javaHelper.getEClass(section.entity.etype),section.prefix+"_")»
-	«mappedattrib_resultMapContent(section.attributes, javaHelper.getEClass(section.entity.etype),section.prefix+"_")»
+	«attrib_resultMapContent(section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null], section.entity.lookupEClass, section.prefix+"_")»
+	«mappedattrib_resultMapContent(section.attributes, section.entity.lookupEClass,section.prefix+"_")»
 	'''
 //	{
 //		val attrs = section.entity.collectAttributes

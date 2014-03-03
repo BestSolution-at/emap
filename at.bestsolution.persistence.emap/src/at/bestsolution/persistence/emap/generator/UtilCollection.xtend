@@ -20,13 +20,25 @@ import org.osgi.framework.FrameworkUtil
 import at.bestsolution.persistence.emap.eMap.ENamedQuery
 import at.bestsolution.persistence.emap.eMap.EMapping
 import com.google.inject.Inject
+import at.bestsolution.persistence.emap.eMap.EType
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 
 	@Inject
-	var JavaHelper javaHelper;
+	var EClassLookup eClassLookup;
 	
+	def lookupEClass(EType type) {
+		 eClassLookup.getEClass(type);
+	}
+	
+	def lookupEClass(EMappingEntity entity) {
+		entity.etype.lookupEClass
+	}
+	
+	def lookupEClass(EMappingEntityDef entityDef) {
+		entityDef.entity.lookupEClass
+	}
 	
 	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
 		val s = new TreeSet<T>([T t1, T t2| if( equals.apply(t1,t2) ) return 0 else return 1 ] );
@@ -87,7 +99,7 @@ class UtilCollection {
 	def getAllAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
 		entity.findAllAttributes(l,false)
-		val eClass = javaHelper.getEClass(entity.etype)
+		val eClass = entity.etype.lookupEClass
 		l.sort([ a,b | return sortAttributes(eClass,a,b)])
 		return l
 	}
@@ -243,14 +255,14 @@ class UtilCollection {
 
 	def tableName(EMappingEntityDef entityDef) {
 		if( entityDef.entity.tableName == null ) {
-			return javaHelper.getEClass(entityDef.entity.etype).name.toUpperCase
+			return entityDef.lookupEClass.name.toUpperCase
 		}
 		return entityDef.entity.tableName
 	}
 
 	def calcTableName(EMappingEntity entity) {
 		if( entity.tableName == null ) {
-			return javaHelper.getEClass(entity.etype).name.toUpperCase
+			return entity.etype.lookupEClass.name.toUpperCase
 		}
 		return entity.tableName
 	}
@@ -286,7 +298,7 @@ class UtilCollection {
 	def collectAllAttributes(EMappingEntity entity) {
 		val l = new ArrayList<EAttribute>
 		entity.allAttributes(l)
-		val eClass = javaHelper.getEClass(entity.etype);
+		val eClass = entity.etype.lookupEClass;
 		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
 		return l
 	}
@@ -438,7 +450,7 @@ class UtilCollection {
 	def EClass getDbOwnerType(EMappingEntity childEntity, EAttribute attribute) {
 		val allDerivedAttributes = childEntity.collectDerivedAttributes
 		if( allDerivedAttributes.containsKey(attribute.name) ) {
-			return javaHelper.getEClass(childEntity.etype)
+			return childEntity.lookupEClass
 		} else if( childEntity.parent != null && childEntity.extensionType == "extends" ) {
 			return getDbOwnerType(childEntity.parent, attribute)
 		}
