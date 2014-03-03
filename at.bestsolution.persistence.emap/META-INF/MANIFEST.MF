@@ -6,12 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: at.bestsolution.persistence.emap; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;visibility:=reexport,
- org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
- org.eclipse.xtext.generator;resolution:=optional,
- org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
- org.eclipse.emf.codegen.ecore;resolution:=optional,
- org.eclipse.emf.mwe.utils;resolution:=optional,
- org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.xbase;visibility:=reexport,
+ org.eclipse.xtext.generator,
+ org.apache.commons.logging;bundle-version="1.0.4",
+ org.eclipse.emf.codegen.ecore,
+ org.eclipse.emf.mwe.utils,
+ org.eclipse.emf.mwe2.launch,
  org.eclipse.xtext.util,
  org.eclipse.emf.ecore,
  org.eclipse.emf.common,
@@ -33,6 +33,4 @@ Export-Package: at.bestsolution.persistence.emap,
  at.bestsolution.persistence.emap.scoping,
  at.bestsolution.persistence.emap.generator,
  at.bestsolution.persistence.emap.formatting
-Service-Component: OSGI-INF/services/firebirdsupport.xml,OSGI-INF/services/mssqlsupport.xml,
- OSGI-INF/services/h2support.xml
-
+Service-Component: OSGI-INF/services/firebirdsupport.xml,OSGI-INF/services/mssqlsupport.xml,OSGI-INF/services/h2support.xml

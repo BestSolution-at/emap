@@ -21,7 +21,7 @@ class JavaObjectMapperGenerator {
 
 	@Inject extension
 	var UtilCollection util;
-	 
+
 	def generateMapperRegistry(EMappingBundle bundleDef) '''
 	package mappings;
 
@@ -368,10 +368,12 @@ class JavaObjectMapperGenerator {
 							].sort([a,b|return sortAttributes(eClass,a,b)])»
 							«IF a.columnName != null»
 								«IF eClass.getEStructuralFeature(a.name).many»
-									if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-										// TODO CONVERT TO ARRAY AND STORE
-									} else {
-										// TODO DELETE OLD ENTRIES / STORE NEW ONES
+									if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
+										if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+											// TODO CONVERT TO ARRAY AND STORE
+										} else {
+											// TODO DELETE OLD ENTRIES / STORE NEW ONES
+										}
 									}
 								«ELSE»
 									if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {

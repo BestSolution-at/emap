@@ -202,7 +202,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (returnType=ReturnType? name=ID parameters+=EParameter* queries+=EQuery queries+=EQuery*)
+	 *     (returnType=ReturnType? name=ID (parameters+=EParameter parameters+=EParameter*)? queries+=EQuery queries+=EQuery*)
 	 */
 	protected void sequence_ENamedQuery(EObject context, ENamedQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

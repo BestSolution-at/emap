@@ -8,6 +8,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -20,11 +21,11 @@ public class EClassLookup {
 	public EClassLookup() {
 		System.err.println("<--- LIFE OF LOOKUP STARTS HERE");
 	}
-	
+
 	private Map<EType, EClass> localCache = new HashMap<EType, EClass>();
-	
+
 	private EClass findEClass(EType type, boolean targetPlatform) {
-		
+
 		Map<String, URI> map = EcorePlugin.getEPackageNsURIToGenModelLocationMap(targetPlatform);
 		URI uri = map.get(type.getUrl());
 		if( uri != null ) {
@@ -48,31 +49,31 @@ public class EClassLookup {
 		}
 		return null;
 	}
-	
+
 	public EClass getEClass(EType type) {
 		// TODO disable cache until lifecycle is correctly managed
-		localCache.clear();
-				
-				
-		// first hit the cache
-		if (localCache.containsKey(type)) {
-			return localCache.get(type);
-		}
-		
-		// frist we search the target platform (=workspace)
-		EClass result = findEClass(type, true);
-		
-		// then we search the installation
-		if (result == null) {
-			result = findEClass(type, false);
-		}
-
-//		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
-//		if( ePackage == null ) {
-//			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
+//		localCache.clear();
+//
+//
+//		// first hit the cache
+//		if (localCache.containsKey(type)) {
+//			return localCache.get(type);
 //		}
 //
-//		EClass eClass = (EClass) ePackage.getEClassifier(type.getName());
+//		// frist we search the target platform (=workspace)
+//		EClass result = findEClass(type, true);
+//
+//		// then we search the installation
+//		if (result == null) {
+//			result = findEClass(type, false);
+//		}
+
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
+		if( ePackage == null ) {
+			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
+		}
+
+		EClass result = (EClass) ePackage.getEClassifier(type.getName());
 
 		if( result == null ) {
 			throw new IllegalStateException("Could not find class '"+type.getName());
@@ -81,5 +82,5 @@ public class EClassLookup {
 
 		return result;
 	}
-	
+
 }
