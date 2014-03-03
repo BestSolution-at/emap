@@ -205,6 +205,7 @@ class JavaObjectMapperGenerator {
 						session.registerObject(rv,getPrimaryKeyValue(rv));
 						return rv;
 					}
+
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
 					public final «entityEClass.instanceClassName» map_«query.name»_«entityEClass.name»(ResultSet set) throws SQLException {
@@ -295,6 +296,12 @@ class JavaObjectMapperGenerator {
 				return rv;
 			}
 
+			«FOR a : entityDef.entity.collectAllAttributes.filter[!resolved && eClass.getEStructuralFeature(name).many]»
+			public Collection<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»> load_«eClass.name»_«a.name»(ResultSet set, String columnPrefix) {
+				return Collections.emptyList();
+			}
+			«ENDFOR»
+
 			@Override
 			public final void update(«eClass.name» object) {
 				final boolean isDebug = LOGGER.isDebugEnabled();
@@ -325,7 +332,13 @@ class JavaObjectMapperGenerator {
 					}
 				].sort([a,b|return sortAttributes(eClass,a,b)])»
 					«IF a.columnName != null»
-						b.addColumn("«a.columnName»", "«a.name»");
+						«IF eClass.getEStructuralFeature(a.name).many»
+							if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+								b.addColumn("«a.columnName»", "«a.name»");
+							}
+						«ELSE»
+							b.addColumn("«a.columnName»", "«a.name»");
+						«ENDIF»
 					«ELSEIF a.isSingle(eClass)»
 						«val ownerClass = eClass.getEStructuralFeature(a.name).EContainingClass»
 						if( leo == null || leo.isResolved(«ownerClass.packageName».«ownerClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ownerClass.name»_«a.name.toFirstUpper»()) ) {
@@ -354,12 +367,20 @@ class JavaObjectMapperGenerator {
 								}
 							].sort([a,b|return sortAttributes(eClass,a,b)])»
 							«IF a.columnName != null»
-								if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
-									pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-									if( isDebug ) {
-										debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+								«IF eClass.getEStructuralFeature(a.name).many»
+									if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+										// TODO CONVERT TO ARRAY AND STORE
+									} else {
+										// TODO DELETE OLD ENTRIES / STORE NEW ONES
 									}
-								}
+								«ELSE»
+									if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+										if( isDebug ) {
+											debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+										}
+									}
+								«ENDIF»
 							«ELSEIF a.isSingle(eClass)»
 								if("«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»".equals(psql.dynamicParameterNames.get(i))) {
 									if( object.get«a.name.toFirstUpper»() == null ) {
@@ -1073,7 +1094,11 @@ class JavaObjectMapperGenerator {
 			val iB = b.sortValue(eClass)
 			return compare(iA,iB);
 		]).filter[!resolved]»
-			«varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+			«IF eClass.getEStructuralFeature(a.name).many»
+				«varName».get«a.name.toFirstUpper»().addAll(load_«eClass.name»_«a.name»(set,"«columnPrefix»"));
+			«ELSE»
+				«varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+			«ENDIF»
 		«ENDFOR»
 		«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved] != null»
 			«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved && isSingle(eClass)] != null»
@@ -1089,7 +1114,11 @@ class JavaObjectMapperGenerator {
 			val iB = b.sortValue(eClass)
 			return compare(iA,iB);
 		]).filter[!resolved]»
-			«varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+			«IF eClass.getEStructuralFeature(a.name).many»
+				«varName».get«a.name.toFirstUpper»().addAll(load_«eClass.name»_«a.name»(set,"«columnPrefix»"));
+			«ELSE»
+				«varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+			«ENDIF»
 		«ENDFOR»
 		«IF attributes.findFirst[resolved] != null»
 			«IF attributes.findFirst[resolved && isSingle(eClass)] != null»
