@@ -90,7 +90,6 @@ class JavaObjectMapperGenerator {
 	import java.sql.Statement;
 	import at.bestsolution.persistence.java.RelationSQL;
 	import at.bestsolution.persistence.java.RelationSQL.Action;
-	import at.bestsolution.persistence.Session.Transaction;
 	import at.bestsolution.persistence.Callback;
 	import java.util.Collections;
 	import java.util.Collection;
