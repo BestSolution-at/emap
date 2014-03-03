@@ -446,7 +446,13 @@ class JavaObjectMapperGenerator {
 						}
 					].sort([a,b|return sortAttributes(eClass,a,b)])»
 						«IF a.columnName != null»
-							b.addColumn("«a.columnName»", "«a.name»");
+							«IF eClass.getEStructuralFeature(a.name).many»
+								if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+									b.addColumn("«a.columnName»", "«a.name»");
+								}
+							«ELSE»
+								b.addColumn("«a.columnName»", "«a.name»");
+							«ENDIF»
 						«ELSEIF a.isSingle(eClass)»
 							b.addColumn("«a.parameters.head»","«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»");
 						«ENDIF»
@@ -492,12 +498,22 @@ class JavaObjectMapperGenerator {
 								}
 							].sort([a,b|return sortAttributes(eClass,a,b)])»
 							«IF a.columnName != null»
-								else if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
-									pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-									if( isDebug ) {
-										debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+								«IF eClass.getEStructuralFeature(a.name).many»
+									if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
+										if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+											// TODO CONVERT TO ARRAY AND STORE
+										} else {
+											// TODO DELETE OLD ENTRIES / STORE NEW ONES
+										}
 									}
-								}
+								«ELSE»
+									else if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
+										pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+										if( isDebug ) {
+											debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+										}
+									}
+								«ENDIF»
 							«ELSEIF a.isSingle(eClass)»
 								else if("«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»".equals(psql.dynamicParameterNames.get(i))) {
 									if( object.get«a.name.toFirstUpper»() == null ) {

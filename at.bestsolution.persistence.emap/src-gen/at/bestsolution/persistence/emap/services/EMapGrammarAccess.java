@@ -678,13 +678,14 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cParametersAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cParametersEParameterParserRuleCall_2_1_0 = (RuleCall)cParametersAssignment_2_1.eContents().get(0);
-		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cCommaKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
-		private final Assignment cParametersAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
-		private final RuleCall cParametersEParameterParserRuleCall_2_2_1_0 = (RuleCall)cParametersAssignment_2_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_2_3 = (Keyword)cGroup_2.eContents().get(3);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Assignment cParametersAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cParametersEParameterParserRuleCall_2_1_0_0 = (RuleCall)cParametersAssignment_2_1_0.eContents().get(0);
+		private final Group cGroup_2_1_1 = (Group)cGroup_2_1.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_1_0 = (Keyword)cGroup_2_1_1.eContents().get(0);
+		private final Assignment cParametersAssignment_2_1_1_1 = (Assignment)cGroup_2_1_1.eContents().get(1);
+		private final RuleCall cParametersEParameterParserRuleCall_2_1_1_1_0 = (RuleCall)cParametersAssignment_2_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cQueriesAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cQueriesEQueryParserRuleCall_4_0 = (RuleCall)cQueriesAssignment_4.eContents().get(0);
@@ -695,12 +696,12 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ENamedQuery:
-		//	returnType=ReturnType? name=ID ("(" parameters+=EParameter ("," parameters+=EParameter)* ")")? "{" queries+=EQuery
+		//	returnType=ReturnType? name=ID ("(" (parameters+=EParameter ("," parameters+=EParameter)*)? ")")? "{" queries+=EQuery
 		//	("," queries+=EQuery)* "}";
 		public ParserRule getRule() { return rule; }
 
-		//returnType=ReturnType? name=ID ("(" parameters+=EParameter ("," parameters+=EParameter)* ")")? "{" queries+=EQuery (","
-		//queries+=EQuery)* "}"
+		//returnType=ReturnType? name=ID ("(" (parameters+=EParameter ("," parameters+=EParameter)*)? ")")? "{" queries+=EQuery
+		//("," queries+=EQuery)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//returnType=ReturnType?
@@ -715,32 +716,35 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//("(" parameters+=EParameter ("," parameters+=EParameter)* ")")?
+		//("(" (parameters+=EParameter ("," parameters+=EParameter)*)? ")")?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
+		//(parameters+=EParameter ("," parameters+=EParameter)*)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
 		//parameters+=EParameter
-		public Assignment getParametersAssignment_2_1() { return cParametersAssignment_2_1; }
+		public Assignment getParametersAssignment_2_1_0() { return cParametersAssignment_2_1_0; }
 
 		//EParameter
-		public RuleCall getParametersEParameterParserRuleCall_2_1_0() { return cParametersEParameterParserRuleCall_2_1_0; }
+		public RuleCall getParametersEParameterParserRuleCall_2_1_0_0() { return cParametersEParameterParserRuleCall_2_1_0_0; }
 
 		//("," parameters+=EParameter)*
-		public Group getGroup_2_2() { return cGroup_2_2; }
+		public Group getGroup_2_1_1() { return cGroup_2_1_1; }
 
 		//","
-		public Keyword getCommaKeyword_2_2_0() { return cCommaKeyword_2_2_0; }
+		public Keyword getCommaKeyword_2_1_1_0() { return cCommaKeyword_2_1_1_0; }
 
 		//parameters+=EParameter
-		public Assignment getParametersAssignment_2_2_1() { return cParametersAssignment_2_2_1; }
+		public Assignment getParametersAssignment_2_1_1_1() { return cParametersAssignment_2_1_1_1; }
 
 		//EParameter
-		public RuleCall getParametersEParameterParserRuleCall_2_2_1_0() { return cParametersEParameterParserRuleCall_2_2_1_0; }
+		public RuleCall getParametersEParameterParserRuleCall_2_1_1_1_0() { return cParametersEParameterParserRuleCall_2_1_1_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_2_3() { return cRightParenthesisKeyword_2_3; }
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
@@ -1397,7 +1401,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ENamedQuery:
-	//	returnType=ReturnType? name=ID ("(" parameters+=EParameter ("," parameters+=EParameter)* ")")? "{" queries+=EQuery
+	//	returnType=ReturnType? name=ID ("(" (parameters+=EParameter ("," parameters+=EParameter)*)? ")")? "{" queries+=EQuery
 	//	("," queries+=EQuery)* "}";
 	public ENamedQueryElements getENamedQueryAccess() {
 		return (pENamedQuery != null) ? pENamedQuery : (pENamedQuery = new ENamedQueryElements());

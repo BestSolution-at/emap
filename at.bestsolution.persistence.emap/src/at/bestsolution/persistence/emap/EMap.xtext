@@ -48,7 +48,7 @@ EValueGenerator:
 ;
 
 ENamedQuery:
-	returnType=ReturnType? name=ID ('(' parameters+=EParameter (',' parameters+=EParameter)* ')')? '{'
+	returnType=ReturnType? name=ID ('(' (parameters+=EParameter (',' parameters+=EParameter)*)? ')')? '{'
 		queries += EQuery (',' queries += EQuery)*
 	'}'
 ;
