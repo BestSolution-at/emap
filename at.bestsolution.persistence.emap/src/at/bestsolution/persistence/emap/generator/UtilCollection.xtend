@@ -467,7 +467,7 @@ class UtilCollection {
 		return (r.root as EMappingEntityDef).entity
 	}
 
-	static def objectType(org.eclipse.emf.ecore.EAttribute f) {
+	def objectType(org.eclipse.emf.ecore.EAttribute f) {
 		val s = f.EType.instanceClassName
 		if( s == "long" ) {
 			return "Long";
