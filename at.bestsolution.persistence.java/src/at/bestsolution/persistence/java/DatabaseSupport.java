@@ -10,6 +10,7 @@ public interface DatabaseSupport {
 	public QueryBuilder createQueryBuilder(String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
+	public boolean isArrayStoreSupported(Class<?> type);
 
 	public enum PrimaryKeyGenType {
 		AUTO,

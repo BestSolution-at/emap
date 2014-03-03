@@ -33,6 +33,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
+	@Override
+	public boolean isArrayStoreSupported(Class<?> type) {
+		return false;
+	}
+
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
 
 		public FirebirdMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {

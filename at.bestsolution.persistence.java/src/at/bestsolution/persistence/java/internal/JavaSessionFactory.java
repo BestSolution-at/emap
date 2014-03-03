@@ -465,6 +465,15 @@ public class JavaSessionFactory implements SessionFactory {
 				if( value instanceof Number ) {
 					return ((Number)value).intValue() != 0;
 				}
+			} else if( targetType.isEnum() ) {
+				if( value != null ) {
+					Class<Enum<?>> c = (Class<Enum<?>>) targetType;
+					for( Enum<?> e : c.getEnumConstants() ) {
+						if( e.name().equals(value.toString())) {
+							return e;
+						}
+					}
+				}
 			}
 			return value;
 		}

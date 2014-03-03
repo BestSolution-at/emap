@@ -27,6 +27,11 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
+	public boolean isArrayStoreSupported(Class<?> type) {
+		return false;
+	}
+
+	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
