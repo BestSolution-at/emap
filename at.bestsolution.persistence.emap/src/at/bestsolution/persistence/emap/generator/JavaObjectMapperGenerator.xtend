@@ -467,11 +467,6 @@ class JavaObjectMapperGenerator {
                   if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
                     if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
                       // TODO CONVERT TO ARRAY AND STORE
-                    } else {
-                      if( Util.isModified(session,object,"«a.name»") ) {
-                      	clear_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object));
-                      	insert_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object),object.get«a.name.toFirstUpper»());
-                      }
                     }
                   }
                 «ELSE»
@@ -504,6 +499,28 @@ class JavaObjectMapperGenerator {
           }
           pstmt.executeUpdate();
           pstmt.close();
+          «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+                if(eClass.getEStructuralFeature(name) instanceof EReference) {
+                  val r = eClass.getEStructuralFeature(name) as EReference;
+                  if( r.containment ) {
+                    return false;
+                  }
+                  return true;
+                } else {
+                  return true;
+                }
+              ].sort([a,b|return sortAttributes(eClass,a,b)])»
+              «IF a.columnName != null»
+                «IF eClass.getEStructuralFeature(a.name).many»
+                if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+                	if( Util.isModified(session,object,"«a.name»") ) {
+                		clear_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object));
+                		insert_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object),object.get«a.name.toFirstUpper»());
+                	}
+                }
+				«ENDIF»
+              «ENDIF»
+          «ENDFOR»
           session.clearChangeDescription(object);
         } catch(SQLException e) {
           throw new PersistanceException(e);

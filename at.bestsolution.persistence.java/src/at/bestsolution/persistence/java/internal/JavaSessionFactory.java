@@ -620,6 +620,7 @@ public class JavaSessionFactory implements SessionFactory {
 					LOGGER.debug("Single valued attribute is to set from '"+notification.getOldValue()+"' to '"+notification.getNewValue()+"'");
 				}
 				FeatureChange c = new FeatureChange();
+				c.feature = (EStructuralFeature) notification.getFeature();
 				c.type = Type.SET;
 				c.newValue = notification.getNewValue();
 				c.oldValue = notification.getOldValue();
@@ -633,8 +634,9 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 				List<FeatureChange> list = changeStorage.get(notification.getNotifier());
 				if( notification.getNewValue() instanceof List<?> ) {
-					for( EObject o : (List<EObject>)notification.getNewValue() ) {
+					for( Object o : (List<Object>)notification.getNewValue() ) {
 						FeatureChange c = new FeatureChange();
+						c.feature = (EStructuralFeature) notification.getFeature();
 						c.type = Type.ADD;
 						c.newValue = o;
 						list.add(c);
@@ -645,11 +647,13 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 				} else {
 					FeatureChange c = new FeatureChange();
+					c.feature = (EStructuralFeature) notification.getFeature();
 					c.type = Type.ADD;
 					c.newValue = notification.getNewValue();
 					if( isDebug ) {
 						LOGGER.debug("The value '"+c.newValue+"' is added");
 					}
+					list.add(c);
 				}
 			} else if( notification.getEventType() == Notification.REMOVE ||
 					notification.getEventType() == Notification.REMOVE_MANY	) {
@@ -658,8 +662,9 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 				List<FeatureChange> list = changeStorage.get(notification.getNotifier());
 				if( notification.getOldValue() instanceof List<?> ) {
-					for( EObject o : (List<EObject>)notification.getOldValue() ) {
+					for( Object o : (List<Object>)notification.getOldValue() ) {
 						FeatureChange c = new FeatureChange();
+						c.feature = (EStructuralFeature) notification.getFeature();
 						c.type = Type.REMOVE;
 						c.oldValue = o;
 						list.add(c);
@@ -669,11 +674,13 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 				} else {
 					FeatureChange c = new FeatureChange();
+					c.feature = (EStructuralFeature) notification.getFeature();
 					c.type = Type.REMOVE;
 					c.oldValue = notification.getOldValue();
 					if( isDebug ) {
 						LOGGER.debug("The value '"+c.oldValue+"' is removed");
 					}
+					list.add(c);
 				}
 			}
 		}

@@ -51,7 +51,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		public boolean isCached(EObject object) {
 			Map<Object, EObject> map = cacheMap.get(object.eClass());
 			if( map != null ) {
-				return map.entrySet().contains(object);
+				return map.values().contains(object);
 			}
 			return false;
 		}
