@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
+import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.query.TypedValue;
 
 public class Util {
@@ -177,5 +179,15 @@ public class Util {
 				throw new IllegalStateException("Unknown type");
 			}
 		}
+	}
+
+	public static boolean isModified(JavaSession session, Object object, String attributeName) {
+		for( ChangeDescription d : session.getChangeDescription(object) ) {
+			if( d.getFeature().getName().equals(attributeName) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

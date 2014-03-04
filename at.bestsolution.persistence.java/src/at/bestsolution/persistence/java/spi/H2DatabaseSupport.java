@@ -31,6 +31,10 @@ public class H2DatabaseSupport implements DatabaseSupport {
 		return false;
 	}
 
+	public boolean isNestedResultSetsSupported() {
+		return false;
+	}
+
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);

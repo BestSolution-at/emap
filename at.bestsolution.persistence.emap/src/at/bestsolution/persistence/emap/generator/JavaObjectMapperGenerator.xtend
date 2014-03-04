@@ -476,7 +476,7 @@ class JavaObjectMapperGenerator {
                   }
                 «ELSE»
                   if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
-                    pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+                    pstmt.«a.pstmtMethodCall(eClass,"object")»;
                     if( isDebug ) {
                       debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
                     }
@@ -605,7 +605,7 @@ class JavaObjectMapperGenerator {
                   }
                 «ELSE»
                   else if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
-                    pstmt.«a.pstmtMethod(eClass)»(i+1,object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+                    pstmt.«a.pstmtMethodCall(eClass,"object")»;
                     if( isDebug ) {
                       debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
                     }
@@ -688,9 +688,6 @@ class JavaObjectMapperGenerator {
                 }
               ].sort([a,b|return sortAttributes(eClass,a,b)])»
              «IF a.columnName != null»
-             	if( isDebug ) {
-             		LOGGER.debug("Storing primitive multi valued attributes");
-             	}
              	«IF eClass.getEStructuralFeature(a.name).many»
              		if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
              			insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());

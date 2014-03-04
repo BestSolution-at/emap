@@ -474,6 +474,8 @@ public class JavaSessionFactory implements SessionFactory {
 						}
 					}
 				}
+			} else if( value instanceof Enum<?> ) {
+				return ((Enum<?>)value).name();
 			}
 			return value;
 		}
@@ -674,6 +676,11 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 				}
 			}
+		}
+
+		@Override
+		public boolean isAttached(Object o) {
+			return getCache().isCached((EObject) o);
 		}
 
 		@Override

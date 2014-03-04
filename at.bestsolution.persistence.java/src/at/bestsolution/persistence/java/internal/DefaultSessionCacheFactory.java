@@ -48,6 +48,15 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
+		public boolean isCached(EObject object) {
+			Map<Object, EObject> map = cacheMap.get(object.eClass());
+			if( map != null ) {
+				return map.entrySet().contains(object);
+			}
+			return false;
+		}
+
+		@Override
 		public void release() {
 			cacheMap.clear();
 		}

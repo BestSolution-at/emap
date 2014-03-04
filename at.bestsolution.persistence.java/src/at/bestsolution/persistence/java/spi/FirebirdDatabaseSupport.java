@@ -38,6 +38,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		return false;
 	}
 
+	public boolean isNestedResultSetsSupported() {
+		// See http://stackoverflow.com/questions/935511/how-can-i-avoid-resultset-is-closed-exception-in-java
+		return false;
+	}
+
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
 
 		public FirebirdMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {

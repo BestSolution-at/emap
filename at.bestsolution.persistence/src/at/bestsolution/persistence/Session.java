@@ -31,6 +31,9 @@ public interface Session {
 	public void persist(Object... o);
 	public void delete(Object... o);
 
+	public boolean isAttached(Object o);
+//	public Object getVersion(Object o);
+
 	public interface Transaction {
 		public boolean execute();
 	}

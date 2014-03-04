@@ -11,6 +11,7 @@ public interface DatabaseSupport {
 	public PrimaryKeyGenType getPrimaryKeyType();
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
+	public boolean isNestedResultSetsSupported();
 
 	public enum PrimaryKeyGenType {
 		AUTO,

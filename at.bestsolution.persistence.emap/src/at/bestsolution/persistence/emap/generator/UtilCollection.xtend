@@ -21,25 +21,26 @@ import at.bestsolution.persistence.emap.eMap.ENamedQuery
 import at.bestsolution.persistence.emap.eMap.EMapping
 import com.google.inject.Inject
 import at.bestsolution.persistence.emap.eMap.EType
+import org.eclipse.emf.ecore.EEnum
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 
 	@Inject
 	var EClassLookup eClassLookup;
-	
+
 	def lookupEClass(EType type) {
 		 eClassLookup.getEClass(type);
 	}
-	
+
 	def lookupEClass(EMappingEntity entity) {
 		entity.etype.lookupEClass
 	}
-	
+
 	def lookupEClass(EMappingEntityDef entityDef) {
 		entityDef.entity.lookupEClass
 	}
-	
+
 	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
 		val s = new TreeSet<T>([T t1, T t2| if( equals.apply(t1,t2) ) return 0 else return 1 ] );
 		val i = unfiltered.iterator;
@@ -48,7 +49,7 @@ class UtilCollection {
 		}
 		return s;
 	}
- 
+
 	def isBoolean(EStructuralFeature e) {
 		return e.EType.instanceClassName == "boolean" || e.EType.instanceClassName == "java.lang.Boolean"
 	}
@@ -281,6 +282,19 @@ class UtilCollection {
 		}
 	}
 
+	def pstmtMethodCall(EAttribute p, EClass eClass, String varName ) {
+		val rv = new StringBuilder(p.pstmtMethod(eClass)+"(i+1,")
+		if( p.isBoolean(eClass) ) {
+			rv.append(varName+".is"+p.name.toFirstUpper+"()");
+		} else if(eClass.getEStructuralFeature(p.name).EType instanceof EEnum) {
+			rv.append("session.convertType(String.class,"+varName+".get"+p.name.toFirstUpper+"())");
+		} else {
+			rv.append(varName+".get"+p.name.toFirstUpper+"()");
+		}
+		rv.append(")");
+		return rv;
+	}
+
 	def pstmtMethod(EAttribute p, EClass eClass) {
 		val f = eClass.getEStructuralFeature(p.name);
 		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
@@ -358,7 +372,7 @@ class UtilCollection {
 		return rv;
 	}
 
-		
+
 	def getDatabaseSupport(String name) {
 		if( DB_SUPPORTS.containsKey(name) ) {
 			return DB_SUPPORTS.get(name)
