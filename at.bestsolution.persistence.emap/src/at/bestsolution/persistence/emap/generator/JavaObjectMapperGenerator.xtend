@@ -756,13 +756,37 @@ class JavaObjectMapperGenerator {
 «««	TODO We should create more clever SQL e.g. using ranges
         String sql = "DELETE FROM «entityDef.tableName» WHERE «entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName» IN ("+b+")";
         Connection connection = session.checkoutConnection();
+
         try {
+          «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+                if(eClass.getEStructuralFeature(name) instanceof EReference) {
+                  val r = eClass.getEStructuralFeature(name) as EReference;
+                  if( r.containment ) {
+                    return false;
+                  }
+                  return true;
+                } else {
+                  return true;
+                }
+              ].sort([a,b|return sortAttributes(eClass,a,b)])»
+              «IF a.columnName != null»
+                «IF eClass.getEStructuralFeature(a.name).many»
+                if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+                	for( Object i : id ) {
+                		clear_«eClass.name»_«a.name»(connection,i);
+                	}
+                }
+				«ENDIF»
+              «ENDIF»
+          «ENDFOR»
+
           Statement stmt = connection.createStatement();
           stmt.execute(sql);
           stmt.close();
           stmt = null;
 
           if( cacheClearance ) {
+          	//TODO What can we clear at this point??
           }
 
         } catch(SQLException e) {
