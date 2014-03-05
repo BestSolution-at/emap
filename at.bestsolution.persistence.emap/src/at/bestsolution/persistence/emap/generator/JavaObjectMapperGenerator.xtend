@@ -201,7 +201,7 @@ class JavaObjectMapperGenerator {
             ((EObject)rv).eSetDeliver(false);
             «attrib_resultMapContent("rv",query.queries.head.mapping,query.queries.head.mapping.entity.lookupEClass,query.queries.head.mapping.prefix+"_")»
             ((EObject)rv).eSetDeliver(true);
-            session.registerObject(rv,getPrimaryKeyValue(rv));
+            session.registerObject(rv,getPrimaryKeyValue(rv), getLockColumn() != null ? set.getLong("«query.queries.head.mapping.prefix+"_"»"+getLockColumn()) : -1);
             return rv;
           }
 
@@ -224,7 +224,7 @@ class JavaObjectMapperGenerator {
             ((EObject)rv).eSetDeliver(false);
             «attrib_resultMapContent("rv", section, entityEClass, section.prefix+"_")»
             ((EObject)rv).eSetDeliver(true);
-            session.registerObject(rv, id);
+            session.registerObject(rv, id, getLockColumn() != null ? set.getLong("«section.prefix+"_"»"+getLockColumn()) : -1);
             return rv;
           }
           «ENDFOR»
@@ -291,7 +291,7 @@ class JavaObjectMapperGenerator {
         ((EObject)rv).eSetDeliver(false);
         «attrib_resultMapContent("rv",entityDef.entity.allAttributes, eClass, "")»
         ((EObject)rv).eSetDeliver(true);
-        session.registerObject(rv,getPrimaryKeyValue(rv));
+        session.registerObject(rv,getPrimaryKeyValue(rv),getLockColumn() != null ? set.getLong(getLockColumn()) : -1);
         return rv;
       }
 
@@ -712,7 +712,7 @@ class JavaObjectMapperGenerator {
               }
               «ENDFOR»
             «ENDIF»
-            session.registerObject(object,getPrimaryKeyValue(object));
+            session.registerObject(object,getPrimaryKeyValue(object),getLockColumn() != null ? 0 : -1);
           } catch(SQLException e) {
             throw new PersistanceException(e);
           } finally {

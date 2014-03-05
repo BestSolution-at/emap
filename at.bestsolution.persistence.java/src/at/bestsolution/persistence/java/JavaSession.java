@@ -23,7 +23,8 @@ public interface JavaSession extends Session {
 	public boolean isTransaction();
 	public Transaction getTransaction();
 	public void scheduleRelationSQL(RelationSQL sql);
-	public void registerObject(Object object, Object id);
+	public void registerObject(Object object, Object id, long version);
+	public void updateVersion(Object object, Object id, long version);
 	public void unregisterObject(Object object, Object id);
 	public List<ChangeDescription> getChangeDescription(Object object);
 	public void clearChangeDescription(Object object);

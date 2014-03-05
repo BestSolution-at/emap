@@ -691,12 +691,19 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public void registerObject(Object object, Object id) {
+		public void registerObject(Object object, Object id, long version) {
 			EObject eo = (EObject) object;
 			if( ! changeStorage.containsKey(eo) ) {
 				changeStorage.put(eo, new ArrayList<FeatureChange>());
 				eo.eAdapters().add(objectAdapter);
-				getCache().putObject(eo,id);
+				getCache().putObject(eo,id, version);
+			}
+		}
+
+		@Override
+		public void updateVersion(Object object, Object id, long version) {
+			if( ! getCache().updateVersion((EObject) object, id, version) ) {
+				throw new IllegalStateException("Unable to update version of Object '"+object+"'");
 			}
 		}
 

@@ -439,7 +439,7 @@ class UtilCollection {
 
 		val StringBuilder b = new StringBuilder;
 		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head else a.columnName) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
-
+		b.append(",\n"+s.prefix+".\"E_VERSION\"\t"+s.prefix+"_E_VERSION");
 		for( es : s.attributes.filter[a|a.map!=null] ) {
 			b.append(",\n\n" + es.map.mapColumns)
 		}

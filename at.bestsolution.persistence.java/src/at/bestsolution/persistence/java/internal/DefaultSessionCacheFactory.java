@@ -1,6 +1,7 @@
 package at.bestsolution.persistence.java.internal;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
@@ -16,42 +17,91 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		return new SessionCacheImpl();
 	}
 
+	static class VersionedEObject {
+		private final EObject object;
+		private long version;
+
+		public VersionedEObject(EObject object, long version) {
+			this.object = object;
+			this.version = version;
+		}
+	}
+
 	static class SessionCacheImpl implements SessionCache {
-		private Map<EClass, Map<Object,EObject>> cacheMap = new HashMap<EClass, Map<Object,EObject>>();
+		private Map<EClass, Map<Object,VersionedEObject>> cacheMap = new HashMap<EClass, Map<Object,VersionedEObject>>();
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public <O extends EObject> O getObject(EClass eClass, Object id) {
-			Map<Object, EObject> map = cacheMap.get(eClass);
+			Map<Object, VersionedEObject> map = cacheMap.get(eClass);
 			if( map != null ) {
-				return (O) map.get(id);
+				VersionedEObject vo = map.get(id);
+				if( vo != null ) {
+					return (O) vo.object;
+				}
 			}
 			return null;
 		}
 
 		@Override
 		public void evitObject(EObject object) {
-			Map<Object, EObject> map = cacheMap.get(object.eClass());
+			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map != null ) {
-				map.values().remove(object);
+				Iterator<VersionedEObject> it = map.values().iterator();
+				while( it.hasNext() ) {
+					if( it.next().object == object ) {
+						it.remove();
+						break;
+					}
+				}
 			}
 		}
 
 		@Override
-		public void putObject(EObject object, Object id) {
-			Map<Object, EObject> map = cacheMap.get(object.eClass());
+		public void putObject(EObject object, Object id, long version) {
+			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map == null ) {
-				map = new HashMap<Object, EObject>();
+				map = new HashMap<Object, VersionedEObject>();
 				cacheMap.put(object.eClass(), map);
 			}
-			map.put(id, object);
+			map.put(id, new VersionedEObject(object, version));
 		}
 
 		@Override
 		public boolean isCached(EObject object) {
-			Map<Object, EObject> map = cacheMap.get(object.eClass());
+			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map != null ) {
-				return map.values().contains(object);
+				Iterator<VersionedEObject> it = map.values().iterator();
+				while( it.hasNext() ) {
+					if( it.next().object == object ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public long getVersion(EObject object, Object id) {
+			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
+			if( map != null ) {
+				VersionedEObject o = map.get(id);
+				if( o != null ) {
+					return o.version;
+				}
+			}
+			return -1;
+		}
+
+		@Override
+		public boolean updateVersion(EObject object, Object id, long version) {
+			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
+			if( map != null ) {
+				VersionedEObject o = map.get(id);
+				if( o != null ) {
+					o.version = version;
+					return true;
+				}
 			}
 			return false;
 		}
