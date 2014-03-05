@@ -123,6 +123,8 @@ class JavaObjectMapperGenerator {
           if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
           Connection connection = session.checkoutConnection();
+          PreparedStatement pStmt = null;
+          ResultSet set = null;
           try {
 
             «IF ! query.parameters.empty»
@@ -132,7 +134,7 @@ class JavaObjectMapperGenerator {
               }
 
               if( isDebug ) LOGGER.debug("Preparing query");
-              final PreparedStatement pStmt = connection.prepareStatement(processedSQL.sql);
+              pStmt = connection.prepareStatement(processedSQL.sql);
 
               List<String> debugParams = new ArrayList<String>();
               for(int i = 0; i < processedSQL.dynamicParameterNames.size(); i++) {
@@ -156,10 +158,10 @@ class JavaObjectMapperGenerator {
               }
             «ELSE»
               if( isDebug ) LOGGER.debug("Preparing query");
-              final PreparedStatement pStmt = connection.prepareStatement(query);
+              pStmt = connection.prepareStatement(query);
             «ENDIF»
             if( isDebug ) LOGGER.debug("Executing query");
-            ResultSet set = pStmt.executeQuery();
+            set = pStmt.executeQuery();
 
             «IF query.returnType == ReturnType.LIST»
               final List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
@@ -177,13 +179,27 @@ class JavaObjectMapperGenerator {
               «ENDIF»
             «ENDIF»
             set.close();
+            set = null;
             pStmt.close();
+            pStmt = null;
             if( isDebug ) LOGGER.debug("Mapping result ended");
             return rv;
           } catch(SQLException e) {
             throw new PersistanceException(e);
           } finally {
-            session.returnConnection(connection);
+          	try {
+          		if( set != null ) {
+          			set.close();
+          		}
+
+          		if( pStmt != null ) {
+          			pStmt.close();
+          		}
+          	} catch(SQLException e) {
+          		LOGGER.fatal("Unable to clean up resources", e);
+          	} finally {
+          		session.returnConnection(connection);
+          	}
           }
         }
         «IF !query.queries.head.mapping.attributes.empty»
@@ -447,9 +463,10 @@ class JavaObjectMapperGenerator {
           LOGGER.debug("The processed SQL: " + psql.sql);
         }
         Connection connection = session.checkoutConnection();
+        PreparedStatement pstmt = null;
         try {
           List<String> debugParams = new ArrayList<String>();
-          PreparedStatement pstmt = connection.prepareStatement(psql.sql);
+          pstmt = connection.prepareStatement(psql.sql);
           for( int i = 0; i < psql.dynamicParameterNames.size(); i++ ) {
             «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
                 if(eClass.getEStructuralFeature(name) instanceof EReference) {
@@ -497,8 +514,14 @@ class JavaObjectMapperGenerator {
           if( isDebug ) {
             LOGGER.debug(" Dynamic-Parameters: " + debugParams);
           }
-          pstmt.executeUpdate();
+
+          int count = pstmt.executeUpdate();
           pstmt.close();
+          pstmt = null;
+          if( getLockColumn() != null && count == 0 ) {
+          	throw new PersistanceException("The entity '"+object.getClass().getName()+"'");
+          }
+
           «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
                 if(eClass.getEStructuralFeature(name) instanceof EReference) {
                   val r = eClass.getEStructuralFeature(name) as EReference;
@@ -525,10 +548,18 @@ class JavaObjectMapperGenerator {
         } catch(SQLException e) {
           throw new PersistanceException(e);
         } finally {
-          if( isDebug ) {
-            LOGGER.debug("Finished update");
-          }
-          session.returnConnection(connection);
+        	try {
+        		if( pstmt != null ) {
+        			pstmt.close();
+        		}
+        	} catch(SQLException e) {
+          		LOGGER.fatal("Unable to cleanup resources", e);
+        	} finally {
+        		if( isDebug ) {
+        			LOGGER.debug("Finished update");
+        		}
+        		session.returnConnection(connection);
+        	}
         }
       }
 
@@ -589,8 +620,9 @@ class JavaObjectMapperGenerator {
           }
 
           Connection connection = session.checkoutConnection();
+          PreparedStatement pstmt = null;
           try {
-            PreparedStatement pstmt = connection.prepareStatement(psql.sql);
+            pstmt = connection.prepareStatement(psql.sql);
             List<String> debugParams = new ArrayList<String>();
             for( int i = 0; i < psql.dynamicParameterNames.size(); i++ ) {
               «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
@@ -684,6 +716,7 @@ class JavaObjectMapperGenerator {
               «ENDFOR»
             «ENDIF»
             pstmt.close();
+            pstmt = null;
             «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
                 if( pk ) {
                   return false;
@@ -716,10 +749,20 @@ class JavaObjectMapperGenerator {
           } catch(SQLException e) {
             throw new PersistanceException(e);
           } finally {
-            if( isDebug ) {
-              LOGGER.debug("Finished insert");
-            }
-            session.returnConnection(connection);
+          	try {
+          		if( pstmt != null ) {
+          			pstmt.close();
+          		}
+          	} catch(SQLException e) {
+          		LOGGER.fatal("Unable to cleanup resources", e);
+          	} finally {
+          		if( isDebug ) {
+              		LOGGER.debug("Finished insert");
+            	}
+          		session.returnConnection(connection);
+          	}
+
+
           }
         «ENDIF»
       }
