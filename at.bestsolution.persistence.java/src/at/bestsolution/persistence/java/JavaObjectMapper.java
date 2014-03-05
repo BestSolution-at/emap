@@ -10,6 +10,7 @@ import at.bestsolution.persistence.java.query.JDBCType;
 
 public interface JavaObjectMapper<O> extends ObjectMapper<O> {
 	public JDBCType getJDBCType(String property);
+	public String getLockColumn();
 	public EStructuralFeature getReferenceId(String property);
 	public Set<EReference> getReferenceFeatures();
 }

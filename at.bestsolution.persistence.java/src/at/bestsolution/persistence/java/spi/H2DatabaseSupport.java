@@ -54,14 +54,14 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public ProcessedSQL buildUpdate(String pkColumn,
-				String primaryValueParameter) {
-			return b.buildInsert(pkColumn, null);
+				String primaryValueParameter, String lockColumn) {
+			return b.buildInsert(pkColumn, null, lockColumn);
 		}
 
 		@Override
 		public ProcessedSQL buildInsert(String pkColumn,
-				String primaryKeyExpression) {
-			return b.buildUpdate(pkColumn, primaryKeyExpression);
+				String primaryKeyExpression, String lockColumn) {
+			return b.buildUpdate(pkColumn, primaryKeyExpression, lockColumn);
 		}
 	}
 }

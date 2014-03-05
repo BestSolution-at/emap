@@ -39,9 +39,13 @@ public class Util {
 		}
 
 		public final ProcessedSQL buildUpdate(String pkColumn,
-				String pkColumnParameter) {
+				String pkColumnParameter, String lockColumn) {
 			List<String> dynamicValues = new ArrayList<String>();
 			StringBuilder b = new StringBuilder();
+			if( lockColumn != null ) {
+				b.append( lockColumn + " = " + lockColumn + " + 1");
+			}
+
 			for (Column c : columns) {
 				if (b.length() != 0) {
 					b.append("\n,");
@@ -55,7 +59,7 @@ public class Util {
 		}
 
 		public final ProcessedSQL buildInsert(String pkColumn,
-				String valueExpression) {
+				String valueExpression, String lockColumn) {
 			StringBuilder col = new StringBuilder();
 			StringBuilder val = new StringBuilder();
 			List<String> dynamicValues = new ArrayList<String>();
@@ -63,6 +67,15 @@ public class Util {
 			if (pkColumn != null) {
 				col.append(pkColumn);
 				val.append(valueExpression);
+			}
+
+			if( lockColumn != null ) {
+				if (col.length() != 0) {
+					col.append("\n,");
+					val.append("\n,");
+				}
+				col.append(lockColumn);
+				val.append("0");
 			}
 
 			for (Column c : columns) {

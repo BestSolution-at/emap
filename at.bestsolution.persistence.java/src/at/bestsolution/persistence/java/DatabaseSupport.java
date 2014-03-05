@@ -20,7 +20,7 @@ public interface DatabaseSupport {
 
 	public interface QueryBuilder {
 		public void addColumn(String columnName, String dynamicParameter);
-		public ProcessedSQL buildUpdate(String pkColumn, String primaryValueParameter);
-		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression);
+		public ProcessedSQL buildUpdate(String pkColumn, String primaryValueParameter, String lockColumn);
+		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression, String lockColumn);
 	}
 }

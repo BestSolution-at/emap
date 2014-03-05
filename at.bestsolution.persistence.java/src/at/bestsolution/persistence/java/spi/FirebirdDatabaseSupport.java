@@ -77,13 +77,13 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public ProcessedSQL buildUpdate(String pkColumn, String primaryKeyType) {
-			return b.buildUpdate(pkColumn, primaryKeyType);
+		public ProcessedSQL buildUpdate(String pkColumn, String primaryKeyType, String lockColumn) {
+			return b.buildUpdate(pkColumn, primaryKeyType, lockColumn);
 		}
 
 		@Override
-		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression) {
-			ProcessedSQL buildInsert = b.buildInsert(pkColumn, primaryKeyExpression);
+		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression, String lockColumn) {
+			ProcessedSQL buildInsert = b.buildInsert(pkColumn, primaryKeyExpression, lockColumn);
 			return new ProcessedSQL(buildInsert.sql + " RETURNING " + pkColumn, buildInsert.dynamicParameterNames);
 		}
 	}

@@ -442,7 +442,7 @@ class JavaObjectMapperGenerator {
             }
           «ENDIF»
         «ENDFOR»
-        ProcessedSQL psql = b.buildUpdate("«entityDef.entity.allAttributes.findFirst[pk].columnName»","«entityDef.entity.allAttributes.findFirst[pk].name»");
+        ProcessedSQL psql = b.buildUpdate("«entityDef.entity.allAttributes.findFirst[pk].columnName»","«entityDef.entity.allAttributes.findFirst[pk].name»", getLockColumn());
         if( isDebug ) {
           LOGGER.debug("The processed SQL: " + psql.sql);
         }
@@ -573,17 +573,16 @@ class JavaObjectMapperGenerator {
               b.addColumn("«a.parameters.head»","«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»");
             «ENDIF»
           «ENDFOR»
-          b.addColumn("e_version","##e_version##");
           «val dbSupport = pkAttribute.findDatabaseSupport»
           ProcessedSQL psql = null;
           «IF dbSupport != null»
             «FOR d : dbSupport»
               if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
-                psql = b.buildInsert("«pkAttribute.columnName»",«IF d.getSequenceStatement(pkAttribute)!=null»"«d.getSequenceStatement(pkAttribute)»"«ELSE»null«ENDIF»);
+                psql = b.buildInsert("«pkAttribute.columnName»",«IF d.getSequenceStatement(pkAttribute)!=null»"«d.getSequenceStatement(pkAttribute)»"«ELSE»null«ENDIF», getLockColumn());
               }
             «ENDFOR»
           «ELSE»
-          psql = b.buildInsert("«pkAttribute.columnName»",null);
+          psql = b.buildInsert("«pkAttribute.columnName»",null, getLockColumn());
           «ENDIF»
           if( isDebug ) {
             LOGGER.debug("The query: " + psql.sql);
@@ -594,12 +593,6 @@ class JavaObjectMapperGenerator {
             PreparedStatement pstmt = connection.prepareStatement(psql.sql);
             List<String> debugParams = new ArrayList<String>();
             for( int i = 0; i < psql.dynamicParameterNames.size(); i++ ) {
-              if( "##e_version##".equals(psql.dynamicParameterNames.get(i)) ) {
-                pstmt.setLong(i+1,0);
-                if( isDebug ) {
-                  debugParams.add("e_version = 0");
-                }
-              }
               «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
                 if( pk ) {
                   return false;
@@ -621,7 +614,7 @@ class JavaObjectMapperGenerator {
                     }
                   }
                 «ELSE»
-                  else if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
+                  if("«a.name»".equals(psql.dynamicParameterNames.get(i))) {
                     pstmt.«a.pstmtMethodCall(eClass,"object")»;
                     if( isDebug ) {
                       debugParams.add("«a.columnName» = " + object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
@@ -629,7 +622,7 @@ class JavaObjectMapperGenerator {
                   }
                 «ENDIF»
               «ELSEIF a.isSingle(eClass)»
-                else if("«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»".equals(psql.dynamicParameterNames.get(i))) {
+                if("«a.name».«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name»".equals(psql.dynamicParameterNames.get(i))) {
                   if( object.get«a.name.toFirstUpper»() == null ) {
                     pstmt.setObject(i+1,null);
                     if( isDebug ) {
@@ -884,6 +877,10 @@ class JavaObjectMapperGenerator {
           «val ref = eClass.getEStructuralFeature(a.name) as EReference»
           REFERENCE_FEATURES.add(«ref.EContainingClass.packageName».«ref.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ref.EContainingClass.name»_«a.name.toFirstUpper»());
         «ENDFOR»
+      }
+
+      public String getLockColumn() {
+      	return "e_version";
       }
 
       public final String getColumnName(String propertyName) {
