@@ -108,6 +108,29 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 				}
 			}
 			return proxy.invokeSuper(obj, args);
+		}  else if ( method.getName().equals("eGet") && method.getParameterTypes()[0] == EStructuralFeature.class) {
+			final EStructuralFeature f = (EStructuralFeature) args[0];
+			
+			if (f instanceof EReference) {
+				final EReference r = (EReference) f;
+				final LazyEObject eo = (LazyEObject) obj;
+//					System.err.println("R: " + r);
+//					System.err.println(resolvedAttributes);
+				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
+					if( intercepting ) {
+						return proxy.invokeSuper(obj, args);
+					}
+					intercepting = true;
+					try {
+						if( proxyDelegate.resolve(eo, proxyData, r) ) {
+							resolvedAttributes.put(r,Boolean.TRUE);
+						}
+					} finally {
+						intercepting = false;
+					}
+				}
+			}
+			return proxy.invokeSuper(obj, args);
 		} else if(  method.getName().startsWith("set") ) {
 			Map<String, EReference> map = INTERCEPTED_METHODS.get(((EObject)obj).eClass());
 
