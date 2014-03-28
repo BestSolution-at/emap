@@ -1215,9 +1215,24 @@ ruleEParameter returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		lv_type_0_0=RULE_ID
+		lv_id_0_0=	'primarykey' 
+    {
+        newLeafNode(lv_id_0_0, grammarAccess.getEParameterAccess().getIdPrimarykeyKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEParameterRule());
+	        }
+       		setWithLastConsumed($current, "id", true, "primarykey");
+	    }
+
+)
+)?(
+(
+		lv_type_1_0=RULE_ID
 		{
-			newLeafNode(lv_type_0_0, grammarAccess.getEParameterAccess().getTypeIDTerminalRuleCall_0_0()); 
+			newLeafNode(lv_type_1_0, grammarAccess.getEParameterAccess().getTypeIDTerminalRuleCall_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1226,16 +1241,16 @@ ruleEParameter returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"type",
-        		lv_type_0_0, 
+        		lv_type_1_0, 
         		"ID");
 	    }
 
 )
 )(
 (
-		lv_name_1_0=RULE_ID
+		lv_name_2_0=RULE_ID
 		{
-			newLeafNode(lv_name_1_0, grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_1_0()); 
+			newLeafNode(lv_name_2_0, grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -1244,7 +1259,7 @@ ruleEParameter returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_1_0, 
+        		lv_name_2_0, 
         		"ID");
 	    }
 

@@ -668,7 +668,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEParameter_Type()
+  public EAttribute getEParameter_Id()
   {
     return (EAttribute)eParameterEClass.getEStructuralFeatures().get(0);
   }
@@ -678,9 +678,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEParameter_Name()
+  public EAttribute getEParameter_Type()
   {
     return (EAttribute)eParameterEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEParameter_Name()
+  {
+    return (EAttribute)eParameterEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1028,6 +1038,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eNamedQueryEClass, ENAMED_QUERY__QUERIES);
 
     eParameterEClass = createEClass(EPARAMETER);
+    createEAttribute(eParameterEClass, EPARAMETER__ID);
     createEAttribute(eParameterEClass, EPARAMETER__TYPE);
     createEAttribute(eParameterEClass, EPARAMETER__NAME);
 
@@ -1150,6 +1161,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getENamedQuery_Queries(), this.getEQuery(), null, "queries", null, 0, -1, ENamedQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eParameterEClass, EParameter.class, "EParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEParameter_Id(), ecorePackage.getEBoolean(), "id", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEParameter_Type(), ecorePackage.getEString(), "type", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -137,8 +137,9 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getENamedQueryAccess().getParametersAssignment_2_1_1_1(), "rule__ENamedQuery__ParametersAssignment_2_1_1_1");
 					put(grammarAccess.getENamedQueryAccess().getQueriesAssignment_4(), "rule__ENamedQuery__QueriesAssignment_4");
 					put(grammarAccess.getENamedQueryAccess().getQueriesAssignment_5_1(), "rule__ENamedQuery__QueriesAssignment_5_1");
-					put(grammarAccess.getEParameterAccess().getTypeAssignment_0(), "rule__EParameter__TypeAssignment_0");
-					put(grammarAccess.getEParameterAccess().getNameAssignment_1(), "rule__EParameter__NameAssignment_1");
+					put(grammarAccess.getEParameterAccess().getIdAssignment_0(), "rule__EParameter__IdAssignment_0");
+					put(grammarAccess.getEParameterAccess().getTypeAssignment_1(), "rule__EParameter__TypeAssignment_1");
+					put(grammarAccess.getEParameterAccess().getNameAssignment_2(), "rule__EParameter__NameAssignment_2");
 					put(grammarAccess.getEQueryAccess().getDbTypeAssignment_0(), "rule__EQuery__DbTypeAssignment_0");
 					put(grammarAccess.getEQueryAccess().getMappingAssignment_1(), "rule__EQuery__MappingAssignment_1");
 					put(grammarAccess.getEQueryAccess().getFromAssignment_2_0_1(), "rule__EQuery__FromAssignment_2_0_1");

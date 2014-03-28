@@ -224,20 +224,10 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (type=ID name=ID)
+	 *     (id?='primarykey'? type=ID name=ID)
 	 */
 	protected void sequence_EParameter(EObject context, EParameter semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPARAMETER__TYPE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPARAMETER__TYPE));
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPARAMETER__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPARAMETER__NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getEParameterAccess().getTypeIDTerminalRuleCall_0_0(), semanticObject.getType());
-		feeder.accept(grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

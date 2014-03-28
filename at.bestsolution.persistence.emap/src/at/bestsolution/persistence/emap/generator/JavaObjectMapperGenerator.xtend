@@ -113,6 +113,17 @@ class JavaObjectMapperGenerator {
         @Override
         public final «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
           final boolean isDebug = LOGGER.isDebugEnabled();
+          «IF query.returnType == ReturnType.SINGLE && query.parameters.size == 1 && query.parameters.head.id»
+          if( isDebug ) LOGGER.debug("Check id cache for object");
+          {
+          	EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
+            final «eClass.name» rv = session.getCache().getObject(eClass,«query.parameters.head.name»);
+          	if( rv != null ) {
+          		if( isDebug ) LOGGER.debug("Using cached object");
+          		return rv;
+          	}
+          }
+          «ENDIF»
           if( isDebug ) LOGGER.debug("Executing «query.name»");
 
           String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");

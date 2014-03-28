@@ -1,5 +1,7 @@
 package at.bestsolution.persistence.java;
 
+import java.util.List;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -12,4 +14,6 @@ public interface SessionCache {
 	public boolean isCached(EObject object);
 	public void clear();
 	public void release();
+	public <O extends EObject> List<O> getQueryResult(String query, Object... parameters);
+	public void putQueryResult(List<EObject> list, String query, Object... parameters);
 }

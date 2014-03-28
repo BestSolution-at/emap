@@ -58,7 +58,7 @@ enum ReturnType:
 ;
 
 EParameter:
-	type=ID name=ID
+	id?='primarykey'? type=ID name=ID
 ;
 
 EQuery:

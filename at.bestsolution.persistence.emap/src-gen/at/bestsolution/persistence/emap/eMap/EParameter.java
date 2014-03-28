@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#isId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#getType <em>Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#getName <em>Name</em>}</li>
  * </ul>
@@ -23,6 +24,32 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface EParameter extends EObject
 {
+  /**
+   * Returns the value of the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Id</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Id</em>' attribute.
+   * @see #setId(boolean)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEParameter_Id()
+   * @model
+   * @generated
+   */
+  boolean isId();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EParameter#isId <em>Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Id</em>' attribute.
+   * @see #isId()
+   * @generated
+   */
+  void setId(boolean value);
+
   /**
    * Returns the value of the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->

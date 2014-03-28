@@ -563,13 +563,22 @@ public interface EMapPackage extends EPackage
   int EPARAMETER = 9;
 
   /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPARAMETER__ID = 0;
+
+  /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EPARAMETER__TYPE = 0;
+  int EPARAMETER__TYPE = 1;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -578,7 +587,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EPARAMETER__NAME = 1;
+  int EPARAMETER__NAME = 2;
 
   /**
    * The number of structural features of the '<em>EParameter</em>' class.
@@ -587,7 +596,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EPARAMETER_FEATURE_COUNT = 2;
+  int EPARAMETER_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl <em>EQuery</em>}' class.
@@ -1362,6 +1371,17 @@ public interface EMapPackage extends EPackage
   EClass getEParameter();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EParameter#isId <em>Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Id</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EParameter#isId()
+   * @see #getEParameter()
+   * @generated
+   */
+  EAttribute getEParameter_Id();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EParameter#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2074,6 +2094,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EClass EPARAMETER = eINSTANCE.getEParameter();
+
+    /**
+     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EPARAMETER__ID = eINSTANCE.getEParameter_Id();
 
     /**
      * The meta object literal for the '<em><b>Type</b></em>' attribute feature.

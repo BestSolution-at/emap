@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#isId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getType <em>Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getName <em>Name</em>}</li>
  * </ul>
@@ -28,6 +29,26 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  */
 public class EParameterImpl extends MinimalEObjectImpl.Container implements EParameter
 {
+  /**
+   * The default value of the '{@link #isId() <em>Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isId()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ID_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isId() <em>Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isId()
+   * @generated
+   * @ordered
+   */
+  protected boolean id = ID_EDEFAULT;
+
   /**
    * The default value of the '{@link #getType() <em>Type</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -94,6 +115,29 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isId()
+  {
+    return id;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setId(boolean newId)
+  {
+    boolean oldId = id;
+    id = newId;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EPARAMETER__ID, oldId, id));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getType()
   {
     return type;
@@ -145,6 +189,8 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
   {
     switch (featureID)
     {
+      case EMapPackage.EPARAMETER__ID:
+        return isId();
       case EMapPackage.EPARAMETER__TYPE:
         return getType();
       case EMapPackage.EPARAMETER__NAME:
@@ -163,6 +209,9 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
   {
     switch (featureID)
     {
+      case EMapPackage.EPARAMETER__ID:
+        setId((Boolean)newValue);
+        return;
       case EMapPackage.EPARAMETER__TYPE:
         setType((String)newValue);
         return;
@@ -183,6 +232,9 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
   {
     switch (featureID)
     {
+      case EMapPackage.EPARAMETER__ID:
+        setId(ID_EDEFAULT);
+        return;
       case EMapPackage.EPARAMETER__TYPE:
         setType(TYPE_EDEFAULT);
         return;
@@ -203,6 +255,8 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
   {
     switch (featureID)
     {
+      case EMapPackage.EPARAMETER__ID:
+        return id != ID_EDEFAULT;
       case EMapPackage.EPARAMETER__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
       case EMapPackage.EPARAMETER__NAME:
@@ -222,7 +276,9 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (type: ");
+    result.append(" (id: ");
+    result.append(id);
+    result.append(", type: ");
     result.append(type);
     result.append(", name: ");
     result.append(name);

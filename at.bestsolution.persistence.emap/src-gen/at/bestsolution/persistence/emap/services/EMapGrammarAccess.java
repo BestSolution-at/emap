@@ -774,29 +774,37 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	public class EParameterElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EParameter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cTypeAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cTypeIDTerminalRuleCall_0_0 = (RuleCall)cTypeAssignment_0.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
+		private final Assignment cIdAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cIdPrimarykeyKeyword_0_0 = (Keyword)cIdAssignment_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cTypeIDTerminalRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
 		//EParameter:
-		//	type=ID name=ID;
+		//	id?="primarykey"? type=ID name=ID;
 		public ParserRule getRule() { return rule; }
 
-		//type=ID name=ID
+		//id?="primarykey"? type=ID name=ID
 		public Group getGroup() { return cGroup; }
 
+		//id?="primarykey"?
+		public Assignment getIdAssignment_0() { return cIdAssignment_0; }
+
+		//"primarykey"
+		public Keyword getIdPrimarykeyKeyword_0_0() { return cIdPrimarykeyKeyword_0_0; }
+
 		//type=ID
-		public Assignment getTypeAssignment_0() { return cTypeAssignment_0; }
+		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
 
 		//ID
-		public RuleCall getTypeIDTerminalRuleCall_0_0() { return cTypeIDTerminalRuleCall_0_0; }
+		public RuleCall getTypeIDTerminalRuleCall_1_0() { return cTypeIDTerminalRuleCall_1_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 	}
 
 	public class EQueryElements extends AbstractParserRuleElementFinder {
@@ -1422,7 +1430,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EParameter:
-	//	type=ID name=ID;
+	//	id?="primarykey"? type=ID name=ID;
 	public EParameterElements getEParameterAccess() {
 		return (pEParameter != null) ? pEParameter : (pEParameter = new EParameterElements());
 	}

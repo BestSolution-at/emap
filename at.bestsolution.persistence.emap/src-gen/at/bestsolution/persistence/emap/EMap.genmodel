@@ -66,6 +66,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/queries"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/name"/>
     </genClasses>

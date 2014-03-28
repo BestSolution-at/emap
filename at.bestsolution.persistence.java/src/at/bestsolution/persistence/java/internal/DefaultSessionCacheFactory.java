@@ -2,6 +2,7 @@ package at.bestsolution.persistence.java.internal;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
@@ -29,6 +30,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 
 	static class SessionCacheImpl implements SessionCache {
 		private Map<EClass, Map<Object,VersionedEObject>> cacheMap = new HashMap<EClass, Map<Object,VersionedEObject>>();
+		private Map<String, List<EObject>> queryResultCache = new HashMap<String, List<EObject>>();
 
 		@SuppressWarnings("unchecked")
 		@Override
@@ -114,6 +116,31 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		@Override
 		public void clear() {
 			cacheMap.clear();
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public <O extends EObject> List<O> getQueryResult(String query,
+				Object... parameters) {
+			return (List<O>) queryResultCache.get(createQueryKey(query, parameters));
+		}
+
+		@Override
+		public void putQueryResult(List<EObject> list, String query,
+				Object... parameters) {
+			queryResultCache.put(createQueryKey(query, parameters), list);
+		}
+
+		private static String createQueryKey(String query, Object... parameters) {
+			StringBuilder b = new StringBuilder(query);
+			for( Object o : parameters ) {
+				if( o == null ) {
+					b.append("#null");
+				} else {
+					b.append("#"+o);
+				}
+			}
+			return b.toString();
 		}
 	}
 }
