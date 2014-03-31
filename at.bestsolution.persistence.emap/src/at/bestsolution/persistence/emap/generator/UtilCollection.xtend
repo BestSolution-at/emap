@@ -350,7 +350,12 @@ class UtilCollection {
 		if( eclass.getEStructuralFeature(attribute.name) == null ) {
 			throw new IllegalStateException("Could not find attribute '"+attribute.name+"' in '"+eclass.name+"'")
 		}
-		return eclass.getEStructuralFeature(attribute.name).EType.name == "EBoolean"
+//		println("=============> " + eclass.getEStructuralFeature(attribute.name).EType.name)
+		return
+			eclass.getEStructuralFeature(attribute.name).EType.name == "EBoolean"
+			|| eclass.getEStructuralFeature(attribute.name).EType.name == "Boolean" // where does this type come from??
+			|| eclass.getEStructuralFeature(attribute.name).EType.name == "EBooleanObject"
+
 	}
 
 	def isSingle(EMappingAttribute attribute, EClass eclass) {

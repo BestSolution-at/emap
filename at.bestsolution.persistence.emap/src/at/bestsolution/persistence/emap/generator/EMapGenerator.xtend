@@ -32,10 +32,10 @@ class EMapGenerator implements IGenerator {
 
 	@Inject
 	var DDLGenerator ddlGenerator;
-	
+
 	@Inject
 	var JavaObjectMapperGenerator javaObjectMapperGenerator;
-	
+
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val root = resource.contents.head as EMapping
 		if( root.root instanceof EMappingEntityDef ) {
@@ -152,7 +152,7 @@ class EMapGenerator implements IGenerator {
 				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 					«IF a.resolved»
-						public static final «a.getResolvedType(eClass)»Mapper.Join<«eClass.name»> «a.name» = new «a.getResolvedType(eClass)»Mapper.Join<«eClass.name»>("«a.name»");
+						public static final «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «a.name» = new «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»>("«a.name»");
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»
 							«IF eAttribute.boolean»
@@ -197,7 +197,7 @@ class EMapGenerator implements IGenerator {
 			public static final class Join<O> {
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 					«IF a.resolved»
-						public final «a.getResolvedType(eClass)»Mapper.Join<O> «a.name»;
+						public final «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<O> «a.name»;
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»
 						«IF eAttribute.boolean»
@@ -240,7 +240,7 @@ class EMapGenerator implements IGenerator {
 				public Join(String path) {
 					«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
 						«IF a.resolved»
-							this.«a.name» = new «a.getResolvedType(eClass)»Mapper.Join<O>(path+".«a.name»");
+							this.«a.name» = new «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<O>(path+".«a.name»");
 						«ELSE»
 							«val eAttribute = a.getEAttribute(eClass)»
 							«IF eAttribute.boolean»

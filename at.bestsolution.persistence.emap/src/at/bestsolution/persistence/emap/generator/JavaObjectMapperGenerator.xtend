@@ -35,7 +35,7 @@ class JavaObjectMapperGenerator {
     private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
     public «bundleDef.name»ObjectMapperFactoriesProvider() {
       «FOR e : bundleDef.entities»
-        factories.put(«e.lookupEClass.instanceClassName»Mapper.class, new «e.lookupEClass.mapperName»());
+        factories.put(«e.fqn».class, new «e.mapperFactoryName»());
       «ENDFOR»
     }
 
@@ -44,6 +44,11 @@ class JavaObjectMapperGenerator {
     }
   }
   '''
+
+  def mapperFactoryName(EMappingEntity e) {
+  	val factoryInterface = e.fqn
+  	return factoryInterface.substring(0,factoryInterface.lastIndexOf('.')) + ".java"+factoryInterface.substring(factoryInterface.lastIndexOf('.'))+"Factory"
+  }
 
   def mapperName(EClass eClass) {
     return
