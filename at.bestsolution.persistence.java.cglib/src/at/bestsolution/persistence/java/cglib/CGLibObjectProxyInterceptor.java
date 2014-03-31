@@ -33,7 +33,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 	private Object proxyData;
 	private ResolveDelegate proxyDelegate;
 	private Map<EStructuralFeature,Boolean> resolvedAttributes = new HashMap<EStructuralFeature,Boolean>();
-
+	private boolean inverseAddRunning;
 
 	public static EObject newInstance(EClass eClass) {
 		CGLibObjectProxyInterceptor interceptor = new CGLibObjectProxyInterceptor();
@@ -77,6 +77,13 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+		//FIXME We need to detect calls from outside and only resolve if the call
+		// is not from EMF-internal
+		// stop eagerly resolving
+		if( inverseAddRunning ) {
+			return proxy.invokeSuper(obj, args);
+		}
+
 		if( "isResolved".equals(method.getName()) ) {
 			return resolvedAttributes.get(args[0]) == Boolean.TRUE;
 		} else if( method.getName().equals("setProxyData") ) {
@@ -85,6 +92,14 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		} else if( method.getName().equals("setProxyDelegate") ) {
 			proxyDelegate = (ResolveDelegate) args[0];
 			return null;
+		} else if( method.getName().equals("eInverseAdd") ) {
+			try {
+				inverseAddRunning = true;
+				return proxy.invokeSuper(obj, args);
+			} finally {
+				inverseAddRunning = false;
+			}
+
 		} else if( method.getName().startsWith("get") ) {
 			Map<String, EReference> map = INTERCEPTED_METHODS.get(((EObject)obj).eClass());
 
@@ -110,7 +125,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(obj, args);
 		}  else if ( method.getName().equals("eGet") && method.getParameterTypes()[0] == EStructuralFeature.class) {
 			final EStructuralFeature f = (EStructuralFeature) args[0];
-			
+
 			if (f instanceof EReference) {
 				final EReference r = (EReference) f;
 				final LazyEObject eo = (LazyEObject) obj;
