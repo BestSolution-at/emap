@@ -4,7 +4,7 @@
    <property name="service.ranking" type="Integer" value="1000"/>
    <reference bind="registerConfiguration" cardinality="1..1" interface="at.bestsolution.persistence.java.JDBCConnectionProvider" name="JDBCConnectionProvider" policy="dynamic" unbind="unregisterConfiguration"/>
    <reference bind="registerMapperFactoriesProvider" cardinality="1..n" interface="at.bestsolution.persistence.java.ObjectMapperFactoriesProvider" name="ObjectMapperFactoriesProvider" policy="dynamic" unbind="unregisterMapperFactoriesProvider"/>
-   <reference bind="registerProxyFactory" cardinality="1..1" interface="at.bestsolution.persistence.java.ProxyFactory" name="ProxyFactory" policy="dynamic" unbind="unregisterProxyFactory"/>
+   <reference bind="registerProxyFactory" cardinality="1..1" interface="at.bestsolution.persistence.java.ProxyFactory" name="ProxyFactory" policy="static" unbind="unregisterProxyFactory"/>
    <reference bind="registerSessionCacheFactory" cardinality="1..1" interface="at.bestsolution.persistence.java.SessionCacheFactory" name="SessionCacheFactory" policy="dynamic" unbind="unregisterSessionCacheFactory"/>
    <service>
       <provide interface="at.bestsolution.persistence.SessionFactory"/>

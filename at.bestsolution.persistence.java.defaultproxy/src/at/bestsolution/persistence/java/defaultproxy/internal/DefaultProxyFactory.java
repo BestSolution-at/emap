@@ -1,4 +1,4 @@
-package at.bestsolution.persistence.java.internal;
+package at.bestsolution.persistence.java.defaultproxy.internal;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Defaultproxy
+Bundle-SymbolicName: at.bestsolution.persistence.java.defaultproxy
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.9.2",
+ at.bestsolution.persistence.java;bundle-version="1.0.0"
+Service-Component: OSGI-INF/services/defaultproxy.xml
