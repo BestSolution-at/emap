@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMF Model Navigation
+Bundle-SymbolicName: at.bestsolution.emf.navi
+Bundle-Version: 0.0.1
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.9.2"
+Export-Package: at.bestsolution.emf.navi
