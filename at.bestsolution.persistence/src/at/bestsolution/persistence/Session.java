@@ -1,9 +1,10 @@
 package at.bestsolution.persistence;
 
+import java.io.Closeable;
 import java.util.List;
 import java.util.Map;
 
-public interface Session {
+public interface Session extends Closeable {
 	public static final String TOPIC_ROOT = "at/bestsolution/persistence";
 
 	public static final String TOPIC_TRANSACTION = TOPIC_ROOT + "/transaction" ;
