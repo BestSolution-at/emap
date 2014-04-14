@@ -13,8 +13,8 @@ Bundle-ClassPath: .
 Export-Package: at.bestsolution.persistence.java,
  at.bestsolution.persistence.java.query,
  at.bestsolution.persistence.java.spi;x-internal:=true
-Import-Package: org.apache.commons.lang;version="2.6.0",
- org.apache.commons.lang.text;version="2.6.0",
+Import-Package: org.apache.commons.lang;version="2.4.0",
+ org.apache.commons.lang.text;version="2.4.0",
  org.osgi.service.event;version="1.3.0"
 Service-Component: OSGI-INF/services/defaultsessioncache.xml,OSGI-INF/services/javasessionfactory.xml,OSGI-INF/services/firebirddbsupport.xml,
  OSGI-INF/services/h2dbsupport.xml
