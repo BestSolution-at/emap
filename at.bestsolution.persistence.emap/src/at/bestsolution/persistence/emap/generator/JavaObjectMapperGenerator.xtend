@@ -46,8 +46,8 @@ class JavaObjectMapperGenerator {
   '''
 
   def mapperFactoryName(EMappingEntity e) {
-  	val factoryInterface = e.fqn
-  	return factoryInterface.substring(0,factoryInterface.lastIndexOf('.')) + ".java"+factoryInterface.substring(factoryInterface.lastIndexOf('.'))+"Factory"
+    val factoryInterface = e.fqn
+    return factoryInterface.substring(0,factoryInterface.lastIndexOf('.')) + ".java"+factoryInterface.substring(factoryInterface.lastIndexOf('.'))+"Factory"
   }
 
   def mapperName(EClass eClass) {
@@ -121,12 +121,12 @@ class JavaObjectMapperGenerator {
           «IF query.returnType == ReturnType.SINGLE && query.parameters.size == 1 && query.parameters.head.id»
           if( isDebug ) LOGGER.debug("Check id cache for object");
           {
-          	EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
+            EClass eClass = «eClass.packageName».«eClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«eClass.name.toFirstUpper»();
             final «eClass.name» rv = session.getCache().getObject(eClass,«query.parameters.head.name»);
-          	if( rv != null ) {
-          		if( isDebug ) LOGGER.debug("Using cached object");
-          		return rv;
-          	}
+            if( rv != null ) {
+              if( isDebug ) LOGGER.debug("Using cached object");
+              return rv;
+            }
           }
           «ENDIF»
           if( isDebug ) LOGGER.debug("Executing «query.name»");
@@ -203,19 +203,19 @@ class JavaObjectMapperGenerator {
           } catch(SQLException e) {
             throw new PersistanceException(e);
           } finally {
-          	try {
-          		if( set != null ) {
-          			set.close();
-          		}
+            try {
+              if( set != null ) {
+                set.close();
+              }
 
-          		if( pStmt != null ) {
-          			pStmt.close();
-          		}
-          	} catch(SQLException e) {
-          		LOGGER.fatal("Unable to clean up resources", e);
-          	} finally {
-          		session.returnConnection(connection);
-          	}
+              if( pStmt != null ) {
+                pStmt.close();
+              }
+            } catch(SQLException e) {
+              LOGGER.fatal("Unable to clean up resources", e);
+            } finally {
+              session.returnConnection(connection);
+            }
           }
         }
         «IF !query.queries.head.mapping.attributes.empty»
@@ -331,101 +331,101 @@ class JavaObjectMapperGenerator {
       private final Collection<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»> load_«eClass.name»_«a.name»(Connection connection, Object sid) throws SQLException {
         boolean isDebug = LOGGER.isDebugEnabled();
         if( isDebug ) {
-        	LOGGER.debug("Loading primitive multi valued feature «eClass.name»#«a.name» for parent id '"+sid+"'");
+          LOGGER.debug("Loading primitive multi valued feature «eClass.name»#«a.name» for parent id '"+sid+"'");
         }
 
         if(!session.getDatabaseSupport().isNestedResultSetsSupported()) {
-        	if( isDebug ) {
-        		LOGGER.debug("Database does not support nested result sets - opening 2nd connection");
-        		connection = session.checkoutConnection();
-        	}
+          if( isDebug ) {
+            LOGGER.debug("Database does not support nested result sets - opening 2nd connection");
+            connection = session.checkoutConnection();
+          }
         }
 
         PreparedStatement stmt = null;
         ResultSet s = null;
         try {
-        	String sql = "SELECT * FROM «eClass.name.toUpperCase»_«a.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«a.name.toUpperCase» = ?";
-        	if( isDebug ) {
-        		LOGGER.debug("Preparing query: '"+sql+"'");
-        	}
-        	stmt = connection.prepareStatement(sql);
-        	stmt.setObject(1,sid);
-        	s = stmt.executeQuery();
-        	List<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»> rv = new ArrayList<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»>();
-        	while( s.next() ) {
-        		rv.add(«a.resultMethod("s",eClass,"ELT","")»);
-        	}
-        	if( isDebug ) {
-        		LOGGER.debug("Loaded primitive values are: " + rv);
-        	}
-        	return rv;
+          String sql = "SELECT * FROM «eClass.name.toUpperCase»_«a.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«a.name.toUpperCase» = ?";
+          if( isDebug ) {
+            LOGGER.debug("Preparing query: '"+sql+"'");
+          }
+          stmt = connection.prepareStatement(sql);
+          stmt.setObject(1,sid);
+          s = stmt.executeQuery();
+          List<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»> rv = new ArrayList<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»>();
+          while( s.next() ) {
+            rv.add(«a.resultMethod("s",eClass,"ELT","")»);
+          }
+          if( isDebug ) {
+            LOGGER.debug("Loaded primitive values are: " + rv);
+          }
+          return rv;
         } finally {
-        	try {
-        		if( s != null ) {
-        			s.close();
-        		}
+          try {
+            if( s != null ) {
+              s.close();
+            }
 
-        		if( stmt != null ) {
-        			stmt.close();
-        		}
-        	} catch(SQLException e) {
-        		LOGGER.fatal("Failed to clean up resources", e);
-        	} finally {
-        		if(!session.getDatabaseSupport().isNestedResultSetsSupported()) {
-        			session.returnConnection(connection);
-        		}
-        	}
+            if( stmt != null ) {
+              stmt.close();
+            }
+          } catch(SQLException e) {
+            LOGGER.fatal("Failed to clean up resources", e);
+          } finally {
+            if(!session.getDatabaseSupport().isNestedResultSetsSupported()) {
+              session.returnConnection(connection);
+            }
+          }
         }
       }
 
       private final void clear_«eClass.name»_«a.name»(Connection connection, Object sid) throws SQLException {
-      	boolean isDebug = LOGGER.isDebugEnabled();
-      	if( isDebug ) {
-      		LOGGER.debug("Removing all primitive multi values «eClass.name»#«a.name» for parent id '"+sid+"'");
-      	}
+        boolean isDebug = LOGGER.isDebugEnabled();
+        if( isDebug ) {
+          LOGGER.debug("Removing all primitive multi values «eClass.name»#«a.name» for parent id '"+sid+"'");
+        }
         PreparedStatement stmt = null;
         try {
-        	String sql = "DELETE FROM «eClass.name.toUpperCase»_«a.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«a.name.toUpperCase» = ?";
-        	if( isDebug ) {
-        		LOGGER.debug("Preparing statement: " + sql);
-        	}
-        	stmt = connection.prepareStatement(sql);
-          	stmt.setObject(1,sid);
-          	stmt.execute();
-          	if( isDebug ) {
-          		LOGGER.debug("Finished clearing items");
-          	}
+          String sql = "DELETE FROM «eClass.name.toUpperCase»_«a.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«a.name.toUpperCase» = ?";
+          if( isDebug ) {
+            LOGGER.debug("Preparing statement: " + sql);
+          }
+          stmt = connection.prepareStatement(sql);
+            stmt.setObject(1,sid);
+            stmt.execute();
+            if( isDebug ) {
+              LOGGER.debug("Finished clearing items");
+            }
         } finally {
-          	if( stmt != null ) {
-            	stmt.close();
-          	}
+            if( stmt != null ) {
+              stmt.close();
+            }
         }
       }
 
       private final void insert_«eClass.name»_«a.name»(Connection connection, Object sid, Collection<«(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»> data) throws SQLException {
         boolean isDebug = LOGGER.isDebugEnabled();
         if( isDebug ) {
-        	LOGGER.debug("Inserting primitive multi values «eClass.name»#«a.name» for parent id "+sid+" : " + data);
+          LOGGER.debug("Inserting primitive multi values «eClass.name»#«a.name» for parent id "+sid+" : " + data);
         }
         PreparedStatement stmt = null;
         try {
-        	String sql = "INSERT INTO «eClass.name.toUpperCase»_«a.name.toUpperCase» (FK_«eClass.name.toUpperCase»_«a.name.toUpperCase»,ELT) VALUES (?,?)";
-        	if( isDebug ) {
-        		LOGGER.debug("Preparing statement " + sql);
-        	}
-        	stmt = connection.prepareStatement(sql);
-        	stmt.setObject(1,sid);
-        	for( «(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType» o : data ) {
-        		stmt.setObject(2, o);
-        		stmt.execute();
-        	}
-        	if( isDebug ) {
-        		LOGGER.debug("Finished storing items");
-        	}
+          String sql = "INSERT INTO «eClass.name.toUpperCase»_«a.name.toUpperCase» (FK_«eClass.name.toUpperCase»_«a.name.toUpperCase»,ELT) VALUES (?,?)";
+          if( isDebug ) {
+            LOGGER.debug("Preparing statement " + sql);
+          }
+          stmt = connection.prepareStatement(sql);
+          stmt.setObject(1,sid);
+          for( «(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType» o : data ) {
+            stmt.setObject(2, o);
+            stmt.execute();
+          }
+          if( isDebug ) {
+            LOGGER.debug("Finished storing items");
+          }
         } finally {
-        	if( stmt != null ) {
-        		stmt.close();
-        	}
+          if( stmt != null ) {
+            stmt.close();
+          }
         }
       }
       «ENDFOR»
@@ -535,7 +535,7 @@ class JavaObjectMapperGenerator {
           pstmt.close();
           pstmt = null;
           if( getLockColumn() != null && count == 0 ) {
-          	throw new PersistanceException("The entity '"+object.getClass().getName()+"'");
+            throw new PersistanceException("The entity '"+object.getClass().getName()+"'");
           }
 
           «FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
@@ -552,30 +552,30 @@ class JavaObjectMapperGenerator {
               «IF a.columnName != null»
                 «IF eClass.getEStructuralFeature(a.name).many»
                 if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-                	if( Util.isModified(session,object,"«a.name»") ) {
-                		clear_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object));
-                		insert_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object),object.get«a.name.toFirstUpper»());
-                	}
+                  if( Util.isModified(session,object,"«a.name»") ) {
+                    clear_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object));
+                    insert_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object),object.get«a.name.toFirstUpper»());
+                  }
                 }
-				«ENDIF»
+        «ENDIF»
               «ENDIF»
           «ENDFOR»
           session.clearChangeDescription(object);
         } catch(SQLException e) {
           throw new PersistanceException(e);
         } finally {
-        	try {
-        		if( pstmt != null ) {
-        			pstmt.close();
-        		}
-        	} catch(SQLException e) {
-          		LOGGER.fatal("Unable to cleanup resources", e);
-        	} finally {
-        		if( isDebug ) {
-        			LOGGER.debug("Finished update");
-        		}
-        		session.returnConnection(connection);
-        	}
+          try {
+            if( pstmt != null ) {
+              pstmt.close();
+            }
+          } catch(SQLException e) {
+              LOGGER.fatal("Unable to cleanup resources", e);
+          } finally {
+            if( isDebug ) {
+              LOGGER.debug("Finished update");
+            }
+            session.returnConnection(connection);
+          }
         }
       }
 
@@ -747,11 +747,11 @@ class JavaObjectMapperGenerator {
                 }
               ].sort([a,b|return sortAttributes(eClass,a,b)])»
              «IF a.columnName != null»
-             	«IF eClass.getEStructuralFeature(a.name).many»
-             		if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-             			insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
-             		}
-             	«ENDIF»
+               «IF eClass.getEStructuralFeature(a.name).many»
+                 if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+                   insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
+                 }
+               «ENDIF»
             «ENDIF»
             «ENDFOR»
             «IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
@@ -765,18 +765,18 @@ class JavaObjectMapperGenerator {
           } catch(SQLException e) {
             throw new PersistanceException(e);
           } finally {
-          	try {
-          		if( pstmt != null ) {
-          			pstmt.close();
-          		}
-          	} catch(SQLException e) {
-          		LOGGER.fatal("Unable to cleanup resources", e);
-          	} finally {
-          		if( isDebug ) {
-              		LOGGER.debug("Finished insert");
-            	}
-          		session.returnConnection(connection);
-          	}
+            try {
+              if( pstmt != null ) {
+                pstmt.close();
+              }
+            } catch(SQLException e) {
+              LOGGER.fatal("Unable to cleanup resources", e);
+            } finally {
+              if( isDebug ) {
+                  LOGGER.debug("Finished insert");
+              }
+              session.returnConnection(connection);
+            }
 
 
           }
@@ -824,11 +824,11 @@ class JavaObjectMapperGenerator {
               «IF a.columnName != null»
                 «IF eClass.getEStructuralFeature(a.name).many»
                 if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-                	for( Object i : id ) {
-                		clear_«eClass.name»_«a.name»(connection,i);
-                	}
+                  for( Object i : id ) {
+                    clear_«eClass.name»_«a.name»(connection,i);
+                  }
                 }
-				«ENDIF»
+        «ENDIF»
               «ENDIF»
           «ENDFOR»
 
@@ -838,7 +838,7 @@ class JavaObjectMapperGenerator {
           stmt = null;
 
           if( cacheClearance ) {
-          	//TODO What can we clear at this point??
+            //TODO What can we clear at this point??
           }
 
         } catch(SQLException e) {
@@ -875,6 +875,38 @@ class JavaObjectMapperGenerator {
         if( isDebug ) {
           LOGGER.debug("Finished delete");
         }
+      }
+
+      public final void deleteAll() {
+          final boolean isDebug = LOGGER.isDebugEnabled();
+          if( isDebug ) {
+      LOGGER.debug("Started deleting all entities");
+          }
+
+          String sql = "DELETE FROM «entityDef.tableName»";
+          if( isDebug ) {
+            LOGGER.debug("SQL: " + sql);
+          }
+          Connection connection = session.checkoutConnection();
+          Statement stmt = null;
+          try {
+            stmt = connection.createStatement();
+            stmt.execute(sql);
+            stmt.close();
+            stmt = null;
+          } catch(SQLException e) {
+            if( stmt != null ) {
+              try {
+              	stmt.close();
+              } catch(SQLException e1) {
+              	// skip
+              }
+            }
+            throw new PersistanceException(e);
+          } finally {
+            LOGGER.debug("Delete all entities finished");
+            session.returnConnection(connection);
+          }
       }
 
       public final boolean resolve(final LazyEObject eo, final Object proxyData, final EStructuralFeature f) {
@@ -939,7 +971,7 @@ class JavaObjectMapperGenerator {
       }
 
       public String getLockColumn() {
-      	return "e_version";
+        return "e_version";
       }
 
       public final String getColumnName(String propertyName) {

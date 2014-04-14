@@ -6,6 +6,7 @@ public interface ObjectMapper<O> {
 	public void delete(O object);
 	public void delete(O... object);
 	public void deleteById(Object... id);
+	public void deleteAll();
 
 	public String getTableName();
 	public String getColumnName(String propertyName);
