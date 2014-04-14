@@ -2,7 +2,8 @@
 <feature
       id="at.bestsolution.persistence.runtime.feature"
       label="Feature"
-      version="1.0.0.qualifier">
+      version="1.0.0.qualifier"
+      provider-name="BestSolution.at">
 
    <description url="http://www.example.com/description">
       EMap Persistence Runtime
@@ -215,6 +216,20 @@ This Agreement is governed by the laws of the State of New York and the intellec
 
    <plugin
          id="at.bestsolution.persistence.java.defaultproxy.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.bestsolution.emf.navi"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="at.bestsolution.emf.navi.source"
          download-size="0"
          install-size="0"
          version="0.0.0"

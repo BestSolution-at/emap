@@ -21,7 +21,7 @@
 		<mockito-version>1.8.4</mockito-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform-version>[3.7,3.8)</platform-version>
-		<download-publish-path>/home/data/httpd/download.eclipse.org/efxclipse/runtime-nightly</download-publish-path>
+		<download-publish-path>/builds/foss/emap/runtime-nightly</download-publish-path>
 		<eclipse-repo.url>https://repo.eclipse.org/content/repositories/releases/</eclipse-repo.url>
 	</properties>
 
@@ -36,12 +36,15 @@
 		<module>../at.bestsolution.persistence.java.cglib</module>
 		<module>../at.bestsolution.persistence.java.defaultproxy</module>
 
+		<module>../at.bestsolution.emf.navi</module>
+
 		<module>../at.bestsolution.persistence.runtime.feature</module>
+		<module>../at.bestsolution.persistence.emfnavi.feature</module>
 		<module>../at.bestsolution.persistence.runtime.updatesite</module>
 
 		<!-- Tooling -->
-		<!--  >module>../at.bestsolution.persistence.emap</module>
-		<module>../at.bestsolution.persistence.emap.ui</module-->
+		<module>../at.bestsolution.persistence.emap</module>
+		<module>../at.bestsolution.persistence.emap.ui</module>
 	</modules>
 
 	<repositories>
