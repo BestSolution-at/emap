@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.query.TypedValue;
@@ -43,19 +42,19 @@ public class Util {
 			List<String> dynamicValues = new ArrayList<String>();
 			StringBuilder b = new StringBuilder();
 			if( lockColumn != null ) {
-				b.append( lockColumn + " = " + lockColumn + " + 1");
+				b.append( '"' + lockColumn + '"' + " = " + '"' + lockColumn + '"' + " + 1");
 			}
 
 			for (Column c : columns) {
 				if (b.length() != 0) {
 					b.append("\n,");
 				}
-				b.append(c.columnName + " = ?");
+				b.append('"' + c.columnName + '"' + " = ?");
 				dynamicValues.add(c.dynamicParameter);
 			}
 			dynamicValues.add(pkColumnParameter);
-			return new ProcessedSQL("UPDATE " + tableName + " SET " + b
-					+ " WHERE " + pkColumn + " = ?", dynamicValues);
+			return new ProcessedSQL("UPDATE " + '"' + tableName + '"' + " SET " + b
+					+ " WHERE " + '"' + pkColumn + '"' + " = ?", dynamicValues);
 		}
 
 		public final ProcessedSQL buildInsert(String pkColumn,
@@ -65,7 +64,7 @@ public class Util {
 			List<String> dynamicValues = new ArrayList<String>();
 
 			if (pkColumn != null) {
-				col.append(pkColumn);
+				col.append('"'+pkColumn+'"');
 				val.append(valueExpression);
 			}
 
@@ -83,12 +82,12 @@ public class Util {
 					col.append("\n,");
 					val.append("\n,");
 				}
-				col.append(c.columnName);
+				col.append('"'+c.columnName+'"');
 				val.append("?");
 				dynamicValues.add(c.dynamicParameter);
 			}
 
-			return new ProcessedSQL("INSERT INTO " + tableName + "(" + col
+			return new ProcessedSQL("INSERT INTO "+'"' + tableName + '"' +"(" + col
 					+ ") VALUES (" + val + ")", dynamicValues);
 		}
 	}
