@@ -1,8 +1,12 @@
 package at.bestsolution.persistence.java.query;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.persistence.MappedQuery;
@@ -69,6 +73,9 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 				appendValue(rv, mapper, e);
 			}
 			break;
+		case IN:
+			// skip it
+			break;
 		default:
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			for( Object data : e.data ) {
@@ -121,6 +128,10 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" LIKE ?");
 			break;
+		case IN:
+			// We could replace with a BETWEEN or >= & <= QUERY
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
 		default:
 			break;
 		}
