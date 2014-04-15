@@ -11,6 +11,42 @@ public class PropertyExpressionFactory<O> {
 		return new EqualsExpression<O>(property, value);
 	}
 
+	public static <O> InExpression<O> in(String property, Object... values) {
+		return new InExpression<O>(property, values);
+	}
+
+	public static Object[] toObjectArray(int... values) {
+		Integer[] rv = new Integer[values.length];
+		for( int i = 0; i < values.length; i++ ) {
+			rv[i] = values[i];
+		}
+		return rv;
+	}
+
+	public static Object[] toObjectArray(long... values) {
+		Long[] rv = new Long[values.length];
+		for( int i = 0; i < values.length; i++ ) {
+			rv[i] = values[i];
+		}
+		return rv;
+	}
+
+	public static Object[] toObjectArray(double... values) {
+		Double[] rv = new Double[values.length];
+		for( int i = 0; i < values.length; i++ ) {
+			rv[i] = values[i];
+		}
+		return rv;
+	}
+
+	public static Object[] toObjectArray(float... values) {
+		Float[] rv = new Float[values.length];
+		for( int i = 0; i < values.length; i++ ) {
+			rv[i] = values[i];
+		}
+		return rv;
+	}
+
 	public final static class IntegerExpressionFactory<O> extends PropertyExpressionFactory<O> {
 
 		public IntegerExpressionFactory(String property) {
@@ -19,6 +55,10 @@ public class PropertyExpressionFactory<O> {
 
 		public EqualsExpression<O> eq(int value) {
 			return PropertyExpressionFactory.equals(property, value);
+		}
+
+		public InExpression<O> in(int... values) {
+			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 	}
 
@@ -31,6 +71,10 @@ public class PropertyExpressionFactory<O> {
 		public EqualsExpression<O> eq(double value) {
 			return PropertyExpressionFactory.equals(property, value);
 		}
+
+		public InExpression<O> in(double... values) {
+			return PropertyExpressionFactory.in(property, toObjectArray(values));
+		}
 	}
 
 	public final static class LongExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -41,6 +85,10 @@ public class PropertyExpressionFactory<O> {
 
 		public EqualsExpression<O> eq(long value) {
 			return PropertyExpressionFactory.equals(property, value);
+		}
+
+		public InExpression<O> in(long... values) {
+			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 	}
 
@@ -62,6 +110,10 @@ public class PropertyExpressionFactory<O> {
 
 		public EqualsExpression<O> eq(T value) {
 			return PropertyExpressionFactory.equals(property, value);
+		}
+
+		public InExpression<O> in(T... values) {
+			return PropertyExpressionFactory.in(property, values);
 		}
 	}
 

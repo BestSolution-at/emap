@@ -5,6 +5,7 @@ public enum ExpressionType {
 	NOT_EQUALS,
 	LIKE,
 	ILIKE,
+	IN,
 
 	AND,
 	OR
