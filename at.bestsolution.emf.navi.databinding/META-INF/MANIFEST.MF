@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Databinding
+Bundle-SymbolicName: at.bestsolution.emf.navi.databinding
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: at.bestsolution.emf.navi;visibility:=reexport,
+ org.eclipse.emf.databinding.edit,
+ org.eclipse.core.databinding.property
+Export-Package: at.bestsolution.emf.navi.databinding
