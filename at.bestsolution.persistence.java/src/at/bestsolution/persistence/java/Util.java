@@ -42,7 +42,7 @@ public class Util {
 			List<String> dynamicValues = new ArrayList<String>();
 			StringBuilder b = new StringBuilder();
 			if( lockColumn != null ) {
-				b.append( '"' + lockColumn + '"' + " = " + '"' + lockColumn + '"' + " + 1");
+				b.append( '"' + lockColumn.toUpperCase() + '"' + " = " + '"' + lockColumn.toUpperCase() + '"' + " + 1");
 			}
 
 			for (Column c : columns) {
@@ -73,7 +73,7 @@ public class Util {
 					col.append("\n,");
 					val.append("\n,");
 				}
-				col.append(lockColumn);
+				col.append('"'+lockColumn.toUpperCase()+'"');
 				val.append("0");
 			}
 
