@@ -24,29 +24,15 @@
  */
 package at.bestsolution.emf.navi;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
+/**
+ * 
+ * @author Martin Platter
+ *
+ */
+public interface FeaturePathCallback {
+	Object runOnNode( Object memento, EObject node, FeaturePathSegment segment );
 
-public class FeaturePath {
-
-	private final List<FeaturePathSegment> segments;
-	
-	public FeaturePath(FeaturePathSegment... segments) {
-		this.segments = Arrays.asList(segments);
-	}
-	
-	public List<FeaturePathSegment> getSegments() {
-		return Collections.unmodifiableList(segments);
-	}
-
-	public boolean contains( EStructuralFeature eStructuralFeature ) {
-		for ( FeaturePathSegment seg : segments ) {
-			if ( seg.feature == eStructuralFeature) return true;
-		}
-		return false;
-	}
-	
+	Object runOnLeaf( Object memento, EObject leaf, FeaturePathSegment segment );
 }

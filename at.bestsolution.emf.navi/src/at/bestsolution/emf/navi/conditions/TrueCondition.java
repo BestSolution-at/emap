@@ -22,31 +22,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * ----------------------------------------------------------------
  */
-package at.bestsolution.emf.navi;
+package at.bestsolution.emf.navi.conditions;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
+import at.bestsolution.emf.navi.Condition;
 
-public class FeaturePath {
+public class TrueCondition implements Condition {
 
-	private final List<FeaturePathSegment> segments;
-	
-	public FeaturePath(FeaturePathSegment... segments) {
-		this.segments = Arrays.asList(segments);
-	}
-	
-	public List<FeaturePathSegment> getSegments() {
-		return Collections.unmodifiableList(segments);
+	@Override
+	public boolean matches( EObject object ) {
+		return true;
 	}
 
-	public boolean contains( EStructuralFeature eStructuralFeature ) {
-		for ( FeaturePathSegment seg : segments ) {
-			if ( seg.feature == eStructuralFeature) return true;
-		}
-		return false;
-	}
-	
 }
