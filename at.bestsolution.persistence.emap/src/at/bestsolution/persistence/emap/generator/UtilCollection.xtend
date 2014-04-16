@@ -215,6 +215,8 @@ class UtilCollection {
 			return "setInt";
 		} else if( f.EType.instanceClassName == "boolean" ) {
 			return "setBoolean";
+		} else if ( f.EType.instanceClassName == "java.util.Date") {
+			return "setTimestamp";
 		} else {
 			return "setObject";
 		}
@@ -288,6 +290,10 @@ class UtilCollection {
 			rv.append(varName+".is"+p.name.toFirstUpper+"()");
 		} else if(eClass.getEStructuralFeature(p.name).EType instanceof EEnum) {
 			rv.append("session.convertType(String.class,"+varName+".get"+p.name.toFirstUpper+"())");
+		} else if (eClass.getEStructuralFeature(p.name).EType.instanceClassName == "java.util.Date") {
+			val date = varName+".get"+p.name.toFirstUpper+"()";
+			rv.append(date + " == null ? null : ");
+			rv.append("new java.sql.Timestamp("+date+".getTime())");
 		} else {
 			rv.append(varName+".get"+p.name.toFirstUpper+"()");
 		}
