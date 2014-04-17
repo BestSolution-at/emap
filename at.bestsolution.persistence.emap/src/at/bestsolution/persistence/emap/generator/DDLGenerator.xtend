@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2014 BestSolution.at and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *******************************************************************************/
 package at.bestsolution.persistence.emap.generator
 
 import at.bestsolution.persistence.emap.eMap.EMappingBundle
@@ -7,10 +17,10 @@ import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import com.google.inject.Inject
 
 class DDLGenerator {
-	
+
 	@Inject extension
-	var UtilCollection util; 
-	
+	var UtilCollection util;
+
 	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
 	«FOR e : bundleDef.entities»
 	«val eClass = e.lookupEClass»

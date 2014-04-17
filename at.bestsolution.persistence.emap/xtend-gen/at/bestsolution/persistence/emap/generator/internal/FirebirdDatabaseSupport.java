@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2014 BestSolution.at and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ */
 package at.bestsolution.persistence.emap.generator.internal;
 
 import at.bestsolution.persistence.emap.eMap.EAttribute;
@@ -19,13 +29,13 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   public String getSequenceStatement(final EAttribute primaryKey) {
     EList<EValueGenerator> _valueGenerators = primaryKey.getValueGenerators();
     final Function1<EValueGenerator,Boolean> _function = new Function1<EValueGenerator,Boolean>() {
-        public Boolean apply(final EValueGenerator it) {
-          String _dbType = it.getDbType();
-          String _databaseId = FirebirdDatabaseSupport.this.getDatabaseId();
-          boolean _equals = Objects.equal(_dbType, _databaseId);
-          return Boolean.valueOf(_equals);
-        }
-      };
+      public Boolean apply(final EValueGenerator it) {
+        String _dbType = it.getDbType();
+        String _databaseId = FirebirdDatabaseSupport.this.getDatabaseId();
+        boolean _equals = Objects.equal(_dbType, _databaseId);
+        return Boolean.valueOf(_equals);
+      }
+    };
     EValueGenerator _findFirst = IterableExtensions.<EValueGenerator>findFirst(_valueGenerators, _function);
     String _sequence = _findFirst.getSequence();
     return ("NEXT VALUE FOR " + _sequence);
