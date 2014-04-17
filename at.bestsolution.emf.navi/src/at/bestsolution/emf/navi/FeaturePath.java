@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 public class FeaturePath {
 
 	private final List<FeaturePathSegment> segments;
@@ -26,4 +28,11 @@ public class FeaturePath {
 		return Collections.unmodifiableList(segments);
 	}
 
+	public boolean contains( EStructuralFeature eStructuralFeature ) {
+		for ( FeaturePathSegment seg : segments ) {
+			if ( seg.feature == eStructuralFeature) return true;
+		}
+		return false;
+	}
+	
 }

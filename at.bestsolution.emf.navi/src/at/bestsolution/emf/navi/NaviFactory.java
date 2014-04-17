@@ -17,6 +17,7 @@ import at.bestsolution.emf.navi.conditions.FeaturePathEqualsCondition;
 import at.bestsolution.emf.navi.conditions.FeaturePathEqualsIntCondition;
 import at.bestsolution.emf.navi.conditions.FeaturePathEqualsLongCondition;
 import at.bestsolution.emf.navi.conditions.OrCondition;
+import at.bestsolution.emf.navi.conditions.TrueCondition;
 
 public class NaviFactory {
 
@@ -36,7 +37,11 @@ public class NaviFactory {
 	public static Condition or(Condition...conditions) {
 		return new OrCondition(conditions);
 	}
-
+	
+	public static Condition True() {
+		return new TrueCondition();
+	}
+	
 	public static Condition pathEquals(FeaturePath path, Object equals) {
 		return new FeaturePathEqualsCondition(path, equals);
 	}
