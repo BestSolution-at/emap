@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="tasktracker" nsURI="http://www.bestsolution.at/emap/tasktracker/1.0"
+    nsPrefix="tasktracker">
+  <eClassifiers xsi:type="ecore:EClass" name="BaseObject" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TaskRepository" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="personList" upperBound="-1"
+        eType="#//Person" containment="true" eOpposite="#//Person/repository"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="taskList" upperBound="-1"
+        eType="#//Task" eOpposite="#//Task/repository"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRepositoryList" upperBound="-1"
+        eType="#//SourceRepository" containment="true" eOpposite="#//SourceRepository/repository"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="versionList" upperBound="-1"
+        eType="#//Version" containment="true" eOpposite="#//Version/repository"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Person" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//TaskRepository"
+        eOpposite="#//TaskRepository/personList"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Task" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//TaskRepository"
+        eOpposite="#//TaskRepository/taskList"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="commentList" upperBound="-1"
+        eType="#//Comment" containment="true" eOpposite="#//Comment/task"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="changeSetList" upperBound="-1"
+        eType="#//ChangeSet" containment="true" eOpposite="#//ChangeSet/task"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="reporter" eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignee" eType="#//Person"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#//TaskState"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetVersion" eType="#//Version"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="productVersion" eType="#//Version"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attachmentList" eType="#//TaskAttachment"
+        containment="true" eOpposite="#//TaskAttachment/task"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TaskState">
+    <eLiterals name="NEW"/>
+    <eLiterals name="CONFIRMED" value="1"/>
+    <eLiterals name="RESOLVED" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="task" eType="#//Task" eOpposite="#//Task/commentList"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attachmentList" upperBound="-1"
+        eType="#//CommentAttachment" containment="true" eOpposite="#//CommentAttachment/comment"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChangeSet" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="task" eType="#//Task" eOpposite="#//Task/changeSetList"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRepository" eType="#//SourceRepository"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="person" eType="#//Person"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SourceRepository" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="webUrl" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//SourceRepositoryType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//TaskRepository"
+        eOpposite="#//TaskRepository/sourceRepositoryList"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SourceRepositoryType">
+    <eLiterals name="GIT"/>
+    <eLiterals name="SVN" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Version" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codename" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//TaskRepository"
+        eOpposite="#//TaskRepository/versionList"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Attachment" abstract="true" eSuperTypes="#//BaseObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mimetype" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binary" eType="#//Blob"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CommentAttachment" eSuperTypes="#//Attachment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="comment" eType="#//Comment"
+        eOpposite="#//Comment/attachmentList"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TaskAttachment" eSuperTypes="#//Attachment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="task" eType="#//Task" eOpposite="#//Task/attachmentList"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Blob" instanceClassName="java.sql.Blob"/>
+</ecore:EPackage>
