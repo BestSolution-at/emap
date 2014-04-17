@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2014 BestSolution.at and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Christoph Caks <ccaks@bestsolution.at> - initial API and implementation
+ *******************************************************************************/
 package at.bestsolution.emf.navi;
 
 import java.util.Iterator;
@@ -20,7 +30,7 @@ public class FeaturePathUtil {
 				if (many instanceof List) {
 					@SuppressWarnings("unchecked")
 					List<Object> manyList = (List<Object>) many;
-					
+
 					for (Object o : manyList) {
 						if (o instanceof EObject) {
 							EObject eo = (EObject) o;
@@ -35,9 +45,9 @@ public class FeaturePathUtil {
 			else {
 				newCurrent = eCurrent.eGet(segment.feature);
 			}
-			
+
 			current = newCurrent;
-			
+
 			if (it.hasNext()) {
 				if (current instanceof EObject) {
 					eCurrent = (EObject) current;
@@ -48,13 +58,13 @@ public class FeaturePathUtil {
 				else {
 					throw new NullPointerException("could not resolve segment " +segment + " after " + eCurrent);
 				}
-				
+
 			}
-			
+
 		}
 		return current;
 	}
-	
+
 	public static List<Object> filter(EObject owner, FeaturePath path) {
 		// TODO to be implemented
 		return null;
