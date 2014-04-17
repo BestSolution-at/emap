@@ -136,6 +136,12 @@ public class PropertyExpressionFactory<O> {
 		}
 	}
 
+	public static class LongObjectExpressionFactory<O> extends GenericExpressionFactory<O,Long> {
+
+		public LongObjectExpressionFactory(String property) {
+			super(property);
+		}
+	}
 
 	public static class IntegerObjectExpressionFactory<O> extends GenericExpressionFactory<O,Integer> {
 
