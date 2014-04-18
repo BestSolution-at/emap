@@ -1,0 +1,25 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity ChangeSet derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#ChangeSet
+	
+	attributes {
+		primarykey sid 		=> SID_CHANGE_SET generatedby { "H2" autokey },
+		comment				=> COMMENT,
+		id					=> ID,
+		person				=> resolve Person.selectById(FK_PERSON),
+		sourceRepository	=> resolve SourceRepository.selectById(FK_SOURCE_REPOSITORY),
+		task				=> resolve Task.selectById(FK_TASK)
+	}
+	queries {
+		single selectById(long sid) {
+			default ChangeSet FROM "CHANGE_SET" WHERE "SID_CHANGE_SET = ${sid}"
+		},
+		selectAll() {
+			default ChangeSet FROM "CHANGE_SET"
+		},
+		selectAllForTask(long sid) {
+			default ChangeSet FROM "CHANGE_SET" WHERE "FK_TASK = ${sid}"
+		}
+	}
+} as CHANGE_SET

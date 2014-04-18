@@ -1,0 +1,21 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity TaskAttachment extends Attachment {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#TaskAttachment
+	
+	attributes {
+		primarykey sid 	=> SID_TASK_ATTACHMENT,
+		task			=> resolve Task.selectById(FK_TASK)
+	}
+	queries {
+		single selectById(long sid) {
+			default TaskAttachment FROM "TASK_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_TASK_ATTACHMENT AND SID_ATTACHMENT = ${sid}"
+		},
+		selectAll() {
+			default TaskAttachment FROM "TASK_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_TASK_ATTACHMENT"
+		},
+		selectAllForTask(long sid) {
+			default TaskAttachment FROM "TASK_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_TASK_ATTACHMENT AND FK_TASK = ${sid}"
+		}
+	}
+} as TASK_ATTACHMENT

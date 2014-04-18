@@ -1,0 +1,24 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity Version derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#Version
+	
+	attributes {
+		primarykey sid => SID_VERSION generatedby { "H2" autokey },
+		codename		=> CODENAME,
+		date			=> DATE,
+		value			=> VALUE,
+		repository		=> resolve TaskRepository.selectById(FK_REPOSITORY)
+	}
+	queries {
+		single selectById(long sid) {
+			default Version FROM "VERSION" WHERE "SID_VERSION = ${sid}"
+		},
+		selectAll() {
+			default Version FROM "VERSION"
+		},
+		selectAllForTaskRepository(long sid) {
+			default Version FROM "VERSION" WHERE "FK_REPOSITORY = ${sid}"
+		}
+	}
+}

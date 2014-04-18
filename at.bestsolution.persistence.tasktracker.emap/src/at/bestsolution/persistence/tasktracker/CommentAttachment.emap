@@ -1,0 +1,21 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity CommentAttachment extends Attachment {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#CommentAttachment
+	
+	attributes {
+		primarykey sid 	=> SID_COMMENT_ATTACHMENT,
+		comment			=> resolve Comment.selectById(FK_COMMENT)
+	}
+	queries {
+		single selectById(long sid) {
+			default CommentAttachment FROM "COMMENT_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_COMMENT_ATTACHMENT AND SID_ATTACHMENT = ${sid}"
+		},
+		selectAll() {
+			default CommentAttachment FROM "COMMENT_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_COMMENT_ATTACHMENT"
+		},
+		selectAllForComment(long sid) {
+			default CommentAttachment FROM "COMMENT_ATTACHMENT, ATTACHMENT" WHERE "SID_ATTACHMENT = SID_COMMENT_ATTACHMENT AND FK_COMMENT = ${sid}"
+		}
+	}
+} as COMMENT_ATTACHMENT

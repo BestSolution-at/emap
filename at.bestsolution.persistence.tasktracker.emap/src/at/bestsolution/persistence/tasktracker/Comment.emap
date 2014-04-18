@@ -1,0 +1,24 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity Comment derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#Comment
+	
+	attributes {
+		primarykey sid 	=> SID_COMMENT generatedby { "H2" autokey },
+		description		=> DESCRIPTION,
+		title			=> TITLE,
+		attachmentList	=> resolve CommentAttachment.selectAllForComment(SID_COMMENT),
+		task			=> resolve Task.selectById(FK_TASK)
+	}
+	queries {
+		single selectById(long sid) {
+			default Comment FROM "COMMENT" WHERE "SID_COMMENT = ${sid}"
+		},
+		selectAll() {
+			default Comment FROM "COMMENT"
+		},
+		selectAllForTask(long sid) {
+			default Comment FROM "COMMENT" WHERE "FK_TASK = ${sid}"
+		}
+	}
+}
