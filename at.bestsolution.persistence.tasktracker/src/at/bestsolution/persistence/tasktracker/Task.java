@@ -291,7 +291,8 @@ public interface Task extends BaseObject {
 	void setProductVersion(Version value);
 
 	/**
-	 * Returns the value of the '<em><b>Attachment List</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Attachment List</b></em>' containment reference list.
+	 * The list contents are of type {@link at.bestsolution.persistence.tasktracker.TaskAttachment}.
 	 * It is bidirectional and its opposite is '{@link at.bestsolution.persistence.tasktracker.TaskAttachment#getTask <em>Task</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -299,23 +300,12 @@ public interface Task extends BaseObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Attachment List</em>' containment reference.
-	 * @see #setAttachmentList(TaskAttachment)
+	 * @return the value of the '<em>Attachment List</em>' containment reference list.
 	 * @see at.bestsolution.persistence.tasktracker.TasktrackerPackage#getTask_AttachmentList()
 	 * @see at.bestsolution.persistence.tasktracker.TaskAttachment#getTask
 	 * @model opposite="task" containment="true"
 	 * @generated
 	 */
-	TaskAttachment getAttachmentList();
-
-	/**
-	 * Sets the value of the '{@link at.bestsolution.persistence.tasktracker.Task#getAttachmentList <em>Attachment List</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Attachment List</em>' containment reference.
-	 * @see #getAttachmentList()
-	 * @generated
-	 */
-	void setAttachmentList(TaskAttachment value);
+	EList<TaskAttachment> getAttachmentList();
 
 } // Task

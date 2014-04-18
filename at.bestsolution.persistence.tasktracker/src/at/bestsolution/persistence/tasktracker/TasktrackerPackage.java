@@ -370,7 +370,7 @@ public interface TasktrackerPackage extends EPackage {
 	int TASK__PRODUCT_VERSION = BASE_OBJECT_FEATURE_COUNT + 9;
 
 	/**
-	 * The feature id for the '<em><b>Attachment List</b></em>' containment reference.
+	 * The feature id for the '<em><b>Attachment List</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1226,10 +1226,10 @@ public interface TasktrackerPackage extends EPackage {
 	EReference getTask_ProductVersion();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.tasktracker.Task#getAttachmentList <em>Attachment List</em>}'.
+	 * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.tasktracker.Task#getAttachmentList <em>Attachment List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Attachment List</em>'.
+	 * @return the meta object for the containment reference list '<em>Attachment List</em>'.
 	 * @see at.bestsolution.persistence.tasktracker.Task#getAttachmentList()
 	 * @see #getTask()
 	 * @generated
@@ -1814,7 +1814,7 @@ public interface TasktrackerPackage extends EPackage {
 		EReference TASK__PRODUCT_VERSION = eINSTANCE.getTask_ProductVersion();
 
 		/**
-		 * The meta object literal for the '<em><b>Attachment List</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Attachment List</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

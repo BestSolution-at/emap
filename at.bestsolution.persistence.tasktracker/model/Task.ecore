@@ -37,8 +37,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="state" eType="#//TaskState"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetVersion" eType="#//Version"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="productVersion" eType="#//Version"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attachmentList" eType="#//TaskAttachment"
-        containment="true" eOpposite="#//TaskAttachment/task"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attachmentList" upperBound="-1"
+        eType="#//TaskAttachment" containment="true" eOpposite="#//TaskAttachment/task"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TaskState">
     <eLiterals name="NEW"/>

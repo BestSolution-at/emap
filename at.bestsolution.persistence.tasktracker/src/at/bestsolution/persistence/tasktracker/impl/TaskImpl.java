@@ -192,14 +192,14 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 	protected Version productVersion;
 
 	/**
-	 * The cached value of the '{@link #getAttachmentList() <em>Attachment List</em>}' containment reference.
+	 * The cached value of the '{@link #getAttachmentList() <em>Attachment List</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAttachmentList()
 	 * @generated
 	 * @ordered
 	 */
-	protected TaskAttachment attachmentList;
+	protected EList<TaskAttachment> attachmentList;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -524,42 +524,11 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TaskAttachment getAttachmentList() {
+	public EList<TaskAttachment> getAttachmentList() {
+		if (attachmentList == null) {
+			attachmentList = new EObjectContainmentWithInverseEList<TaskAttachment>(TaskAttachment.class, this, TasktrackerPackage.TASK__ATTACHMENT_LIST, TasktrackerPackage.TASK_ATTACHMENT__TASK);
+		}
 		return attachmentList;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetAttachmentList(TaskAttachment newAttachmentList, NotificationChain msgs) {
-		TaskAttachment oldAttachmentList = attachmentList;
-		attachmentList = newAttachmentList;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TasktrackerPackage.TASK__ATTACHMENT_LIST, oldAttachmentList, newAttachmentList);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAttachmentList(TaskAttachment newAttachmentList) {
-		if (newAttachmentList != attachmentList) {
-			NotificationChain msgs = null;
-			if (attachmentList != null)
-				msgs = ((InternalEObject)attachmentList).eInverseRemove(this, TasktrackerPackage.TASK_ATTACHMENT__TASK, TaskAttachment.class, msgs);
-			if (newAttachmentList != null)
-				msgs = ((InternalEObject)newAttachmentList).eInverseAdd(this, TasktrackerPackage.TASK_ATTACHMENT__TASK, TaskAttachment.class, msgs);
-			msgs = basicSetAttachmentList(newAttachmentList, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TasktrackerPackage.TASK__ATTACHMENT_LIST, newAttachmentList, newAttachmentList));
 	}
 
 	/**
@@ -580,9 +549,7 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 			case TasktrackerPackage.TASK__CHANGE_SET_LIST:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChangeSetList()).basicAdd(otherEnd, msgs);
 			case TasktrackerPackage.TASK__ATTACHMENT_LIST:
-				if (attachmentList != null)
-					msgs = ((InternalEObject)attachmentList).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TasktrackerPackage.TASK__ATTACHMENT_LIST, null, msgs);
-				return basicSetAttachmentList((TaskAttachment)otherEnd, msgs);
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getAttachmentList()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -602,7 +569,7 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 			case TasktrackerPackage.TASK__CHANGE_SET_LIST:
 				return ((InternalEList<?>)getChangeSetList()).basicRemove(otherEnd, msgs);
 			case TasktrackerPackage.TASK__ATTACHMENT_LIST:
-				return basicSetAttachmentList(null, msgs);
+				return ((InternalEList<?>)getAttachmentList()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -688,7 +655,8 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 				setProductVersion((Version)newValue);
 				return;
 			case TasktrackerPackage.TASK__ATTACHMENT_LIST:
-				setAttachmentList((TaskAttachment)newValue);
+				getAttachmentList().clear();
+				getAttachmentList().addAll((Collection<? extends TaskAttachment>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -733,7 +701,7 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 				setProductVersion((Version)null);
 				return;
 			case TasktrackerPackage.TASK__ATTACHMENT_LIST:
-				setAttachmentList((TaskAttachment)null);
+				getAttachmentList().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -768,7 +736,7 @@ public class TaskImpl extends BaseObjectImpl implements Task {
 			case TasktrackerPackage.TASK__PRODUCT_VERSION:
 				return productVersion != null;
 			case TasktrackerPackage.TASK__ATTACHMENT_LIST:
-				return attachmentList != null;
+				return attachmentList != null && !attachmentList.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
