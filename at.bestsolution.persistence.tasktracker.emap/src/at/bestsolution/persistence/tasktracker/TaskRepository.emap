@@ -1,0 +1,23 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity TaskRepository derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#TaskRepository
+	
+	attributes {
+		primarykey sid 			=> SID_TASK_REPOSITORY generatedby { "H2" autokey },
+		description				=> DESCRIPTION,
+		name					=> NAME,
+		personList				=> resolve Person.selectAllForTaskRepository(SID_TASK_REPOSITORY),
+		sourceRepositoryList 	=> resolve SourceRepository.selectAllForTaskRepository(SID_TASK_REPOSITORY),
+		taskList				=> resolve Task.selectAllForTaskRepository(SID_TASK_REPOSITORY),
+		versionList				=> resolve Version.selectAllForTaskRepository(SID_TASK_REPOSITORY)
+	}
+	queries {
+		single selectById(long sid) {
+			default TaskRepository FROM "TASK_REPOSITORY" WHERE "SID_TASK_REPOSITORY = ${sid}"
+		},
+		selectAll() {
+			default TaskRepository FROM "TASK_REPOSITORY"
+		}
+	}
+} as TASK_REPOSITORY

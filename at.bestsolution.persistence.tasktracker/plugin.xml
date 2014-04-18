@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Task -->
+      <package
+            uri="http://www.bestsolution.at/emap/tasktracker/1.0"
+            class="at.bestsolution.persistence.tasktracker.TasktrackerPackage"
+            genModel="model/Task.genmodel"/>
+   </extension>
+
+</plugin>

@@ -1,0 +1,23 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity Person derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#Person
+	
+	attributes {
+		primarykey sid 	=> SID_PERSON generatedby { "H2" autokey },
+		firstname		=> FIRSTNAME,
+		lastname		=> LASTNAME,
+		repository		=> resolve TaskRepository.selectById(FK_REPOSITORY)
+	}
+	queries {
+		single selectById(long sid) {
+			default Person FROM "PERSON" WHERE "SID_PERSON = ${sid}"
+		},
+		selectAll() {
+			default Person FROM "PERSON"
+		},
+		selectAllForTaskRepository(long sid) {
+			default Person FROM "PERSON" WHERE "FK_REPOSITORY = ${sid}"
+		}
+	}
+}

@@ -1,0 +1,31 @@
+package at.bestsolution.persistence.tasktracker;
+
+entity Task derived BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#Task
+	
+	attributes {
+		primarykey sid 	=> SID_TASK generatedby { "H2" autokey },
+		description		=> DESCRIPTION,
+		title			=> TITLE,
+		state			=> STATE,
+		assignee		=> resolve Person.selectById(FK_ASSIGNEE),
+		attachmentList	=> resolve TaskAttachment.selectAllForTask(SID_TASK),
+		changeSetList	=> resolve ChangeSet.selectAllForTask(SID_TASK),
+		commentList		=> resolve Comment.selectAllForTask(SID_TASK),
+		productVersion	=> resolve Version.selectById(FK_PRODUCT_VERSION),
+		reporter		=> resolve Person.selectById(FK_REPORTER),
+		repository		=> resolve TaskRepository.selectById(FK_REPOSITORY),
+		targetVersion	=> resolve Version.selectById(FK_TARGET_VERSION)
+	}
+	queries {
+		single selectById(long sid) {
+			default Task FROM "TASK" WHERE "SID_TASK = ${sid}"
+		},
+		selectAll() {
+			default Task FROM "TASK"
+		},
+		selectAllForTaskRepository(long sid) {
+			default Task FROM "TASK" WHERE "FK_REPOSITORY = ${sid}"
+		}
+	}
+}

@@ -1,0 +1,5 @@
+package at.bestsolution.persistence.tasktracker;
+
+abstract entity BaseObject {
+	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#BaseObject
+}

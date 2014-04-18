@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="*****************************************************************************&#xA; Copyright (c) 2014 BestSolution.at and others.&#xA; All rights reserved. This program and the accompanying materials&#xA; are made available under the terms of the Eclipse Public License v1.0&#xA; which accompanies this distribution, and is available at&#xA; http://www.eclipse.org/legal/epl-v10.html&#xA; &#xA; Contributors:&#xA;     Tom Schindl &lt;tom.schindl@bestsolution.at> - initial API and implementation&#xA; *******************************************************************************"
+    modelDirectory="/at.bestsolution.persistence.tasktracker/src" modelPluginID="at.bestsolution.persistence.tasktracker"
+    modelName="Task" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    language="" operationReflection="true" importOrganizing="true">
+  <foreignModel>Task.ecore</foreignModel>
+  <genPackages prefix="Tasktracker" basePackage="at.bestsolution.persistence" disposableProviderFactory="true"
+      ecorePackage="Task.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Task.ecore#//TaskState">
+      <genEnumLiterals ecoreEnumLiteral="Task.ecore#//TaskState/NEW"/>
+      <genEnumLiterals ecoreEnumLiteral="Task.ecore#//TaskState/CONFIRMED"/>
+      <genEnumLiterals ecoreEnumLiteral="Task.ecore#//TaskState/RESOLVED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Task.ecore#//SourceRepositoryType">
+      <genEnumLiterals ecoreEnumLiteral="Task.ecore#//SourceRepositoryType/GIT"/>
+      <genEnumLiterals ecoreEnumLiteral="Task.ecore#//SourceRepositoryType/SVN"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="Task.ecore#//Blob"/>
+    <genClasses image="false" ecoreClass="Task.ecore#//BaseObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//BaseObject/sid"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//TaskRepository">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//TaskRepository/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//TaskRepository/personList"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//TaskRepository/taskList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//TaskRepository/sourceRepositoryList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//TaskRepository/versionList"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//TaskRepository/description"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//Person">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Person/firstname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Person/lastname"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//Person/repository"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//Task">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//Task/repository"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Task/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Task/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//Task/commentList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//Task/changeSetList"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//Task/reporter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//Task/assignee"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Task/state"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//Task/targetVersion"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//Task/productVersion"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//Task/attachmentList"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//Comment">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//Comment/task"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Comment/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Comment/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Task.ecore#//Comment/attachmentList"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//ChangeSet">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//ChangeSet/task"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//ChangeSet/id"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//ChangeSet/sourceRepository"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//ChangeSet/comment"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Task.ecore#//ChangeSet/person"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//SourceRepository">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//SourceRepository/sourceUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//SourceRepository/webUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//SourceRepository/type"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//SourceRepository/repository"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//Version">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Version/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Version/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Version/codename"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//Version/repository"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Task.ecore#//Attachment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Attachment/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Attachment/mimetype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Attachment/binary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Task.ecore#//Attachment/description"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//CommentAttachment">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//CommentAttachment/comment"/>
+    </genClasses>
+    <genClasses ecoreClass="Task.ecore#//TaskAttachment">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Task.ecore#//TaskAttachment/task"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
