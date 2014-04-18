@@ -8,16 +8,14 @@
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  *******************************************************************************/
-package at.bestsolution.persistence;
+package at.bestsolution.persistence.order;
 
-import java.util.List;
+public class OrderColumn<O> {
+	public final String column;
+	public final boolean asc;
 
-import at.bestsolution.persistence.expr.Expression;
-import at.bestsolution.persistence.order.OrderColumn;
-
-public interface MappedQuery<O> {
-	public List<O> list();
-	public O unique();
-	public MappedQuery<O> where(Expression<O> expression);
-	public MappedQuery<O> orderBy(OrderColumn<O>... columns);
+	public OrderColumn(String column, boolean asc) {
+		this.column = column;
+		this.asc = asc;
+	}
 }

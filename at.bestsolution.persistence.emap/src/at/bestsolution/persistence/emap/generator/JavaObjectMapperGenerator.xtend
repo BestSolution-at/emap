@@ -1228,6 +1228,11 @@ class JavaObjectMapperGenerator {
       public final List<«eClass.name»> list() {
         return dbQuery.list();
       }
+
+      public final «eClass.name»Mapper.«eClass.name»MappedQuery orderBy(at.bestsolution.persistence.order.OrderColumn<«eClass.name»>... columns) {
+      	dbQuery.orderBy(columns);
+      	return this;
+      }
     }
     «ENDIF»
   }

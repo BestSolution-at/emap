@@ -6,18 +6,22 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     tom <FIRSTNAME.LASTNAME@bestsolution.at> - initial API and implementation
  *******************************************************************************/
-package at.bestsolution.persistence;
+package at.bestsolution.persistence.order;
 
-import java.util.List;
+public class OrderColumnFactory<O> {
+	private final String column;
 
-import at.bestsolution.persistence.expr.Expression;
-import at.bestsolution.persistence.order.OrderColumn;
+	public OrderColumnFactory(String column) {
+		this.column = column;
+	}
 
-public interface MappedQuery<O> {
-	public List<O> list();
-	public O unique();
-	public MappedQuery<O> where(Expression<O> expression);
-	public MappedQuery<O> orderBy(OrderColumn<O>... columns);
+	public OrderColumn<O> asc() {
+		return new OrderColumn<O>(column, true);
+	}
+
+	public OrderColumn<O> desc() {
+		return new OrderColumn<O>(column, false);
+	}
 }

@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,12 +25,14 @@ import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.order.OrderColumn;
 
 public class MappedQueryImpl<O> implements MappedQuery<O> {
 	private final ListDelegate<O> listDelegate;
 	private Expression<O> expression;
 	private final JavaObjectMapper<O> rootMapper;
 	private final String rootPrefix;
+	private List<OrderColumn> orderColumns;
 
 	public MappedQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		this.rootMapper = rootMapper;
@@ -65,6 +68,21 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 			appendCriteria(b, rootMapper, rootPrefix == null ? "" : rootPrefix + ".", expression);
 		}
 		return b.toString();
+	}
+
+	public String getOrderBy() {
+		StringBuilder b = new StringBuilder();
+		if( orderColumns != null && ! orderColumns.isEmpty() ) {
+
+		}
+		return b.toString();
+	}
+
+	protected void appendOrderColumn(StringBuilder b, OrderColumn column) {
+		if( b.length() != 0 ) {
+			b.append(",");
+		}
+		b.append(column.column + (column.asc ? "ASC" : "DESC"));
 	}
 
 	public TypedValue[] getParameters() {
@@ -145,5 +163,11 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 		default:
 			break;
 		}
+	}
+
+	@Override
+	public MappedQuery<O> orderBy(OrderColumn... columns) {
+		orderColumns = Arrays.asList(columns);
+		return this;
 	}
 }
