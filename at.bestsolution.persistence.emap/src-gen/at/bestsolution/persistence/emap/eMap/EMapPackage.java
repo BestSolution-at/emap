@@ -316,13 +316,22 @@ public interface EMapPackage extends EPackage
   int EMAPPING_ENTITY__NAMED_QUERIES = 6;
 
   /**
+   * The feature id for the '<em><b>Named Custom Queries</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES = 7;
+
+  /**
    * The feature id for the '<em><b>Table Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMAPPING_ENTITY__TABLE_NAME = 7;
+  int EMAPPING_ENTITY__TABLE_NAME = 8;
 
   /**
    * The feature id for the '<em><b>Descrimination Column</b></em>' attribute.
@@ -331,7 +340,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_ENTITY__DESCRIMINATION_COLUMN = 8;
+  int EMAPPING_ENTITY__DESCRIMINATION_COLUMN = 9;
 
   /**
    * The number of structural features of the '<em>EMapping Entity</em>' class.
@@ -340,7 +349,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_ENTITY_FEATURE_COUNT = 9;
+  int EMAPPING_ENTITY_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl <em>EAttribute</em>}' class.
@@ -553,6 +562,191 @@ public interface EMapPackage extends EPackage
   int ENAMED_QUERY_FEATURE_COUNT = 4;
 
   /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl <em>ENamed Custom Query</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedCustomQuery()
+   * @generated
+   */
+  int ENAMED_CUSTOM_QUERY = 9;
+
+  /**
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY__RETURN_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>List</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY__LIST = 1;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY__NAME = 2;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY__PARAMETERS = 3;
+
+  /**
+   * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY__QUERIES = 4;
+
+  /**
+   * The number of structural features of the '<em>ENamed Custom Query</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_CUSTOM_QUERY_FEATURE_COUNT = 5;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EReturnTypeImpl <em>EReturn Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EReturnTypeImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEReturnType()
+   * @generated
+   */
+  int ERETURN_TYPE = 10;
+
+  /**
+   * The number of structural features of the '<em>EReturn Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ERETURN_TYPE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPredefinedTypeImpl <em>EPredefined Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EPredefinedTypeImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefinedType()
+   * @generated
+   */
+  int EPREDEFINED_TYPE = 11;
+
+  /**
+   * The feature id for the '<em><b>Ref</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPREDEFINED_TYPE__REF = ERETURN_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>EPredefined Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPREDEFINED_TYPE_FEATURE_COUNT = ERETURN_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ETypeDefImpl <em>EType Def</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ETypeDefImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getETypeDef()
+   * @generated
+   */
+  int ETYPE_DEF = 12;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ETYPE_DEF__NAME = ERETURN_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ETYPE_DEF__TYPES = ERETURN_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>EType Def</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ETYPE_DEF_FEATURE_COUNT = ERETURN_TYPE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueTypeAttribute()
+   * @generated
+   */
+  int EVALUE_TYPE_ATTRIBUTE = 13;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_TYPE_ATTRIBUTE__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_TYPE_ATTRIBUTE__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>EValue Type Attribute</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EVALUE_TYPE_ATTRIBUTE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl <em>EParameter</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -560,7 +754,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEParameter()
    * @generated
    */
-  int EPARAMETER = 9;
+  int EPARAMETER = 14;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -606,7 +800,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQuery()
    * @generated
    */
-  int EQUERY = 10;
+  int EQUERY = 15;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -681,6 +875,88 @@ public interface EMapPackage extends EPackage
   int EQUERY_FEATURE_COUNT = 7;
 
   /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl <em>ECustom Query</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomQuery()
+   * @generated
+   */
+  int ECUSTOM_QUERY = 16;
+
+  /**
+   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__DB_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Columns</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__COLUMNS = 1;
+
+  /**
+   * The feature id for the '<em><b>From</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__FROM = 2;
+
+  /**
+   * The feature id for the '<em><b>Where</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__WHERE = 3;
+
+  /**
+   * The feature id for the '<em><b>Group By</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__GROUP_BY = 4;
+
+  /**
+   * The feature id for the '<em><b>Orderby</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__ORDERBY = 5;
+
+  /**
+   * The feature id for the '<em><b>All</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY__ALL = 6;
+
+  /**
+   * The number of structural features of the '<em>ECustom Query</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_QUERY_FEATURE_COUNT = 7;
+
+  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl <em>EObject Section</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -688,7 +964,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEObjectSection()
    * @generated
    */
-  int EOBJECT_SECTION = 11;
+  int EOBJECT_SECTION = 17;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -743,7 +1019,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingAttribute()
    * @generated
    */
-  int EMAPPING_ATTRIBUTE = 12;
+  int EMAPPING_ATTRIBUTE = 18;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -834,7 +1110,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEType()
    * @generated
    */
-  int ETYPE = 13;
+  int ETYPE = 19;
 
   /**
    * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -871,7 +1147,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 14;
+  int RETURN_TYPE = 20;
 
 
   /**
@@ -1122,6 +1398,17 @@ public interface EMapPackage extends EPackage
   EReference getEMappingEntity_NamedQueries();
 
   /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getNamedCustomQueries <em>Named Custom Queries</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Named Custom Queries</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingEntity#getNamedCustomQueries()
+   * @see #getEMappingEntity()
+   * @generated
+   */
+  EReference getEMappingEntity_NamedCustomQueries();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getTableName <em>Table Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1361,6 +1648,166 @@ public interface EMapPackage extends EPackage
   EReference getENamedQuery_Queries();
 
   /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery <em>ENamed Custom Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ENamed Custom Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery
+   * @generated
+   */
+  EClass getENamedCustomQuery();
+
+  /**
+   * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getReturnType()
+   * @see #getENamedCustomQuery()
+   * @generated
+   */
+  EReference getENamedCustomQuery_ReturnType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#isList <em>List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>List</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#isList()
+   * @see #getENamedCustomQuery()
+   * @generated
+   */
+  EAttribute getENamedCustomQuery_List();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getName()
+   * @see #getENamedCustomQuery()
+   * @generated
+   */
+  EAttribute getENamedCustomQuery_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getParameters()
+   * @see #getENamedCustomQuery()
+   * @generated
+   */
+  EReference getENamedCustomQuery_Parameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getQueries <em>Queries</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Queries</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery#getQueries()
+   * @see #getENamedCustomQuery()
+   * @generated
+   */
+  EReference getENamedCustomQuery_Queries();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EReturnType <em>EReturn Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EReturn Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EReturnType
+   * @generated
+   */
+  EClass getEReturnType();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EPredefinedType <em>EPredefined Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EPredefined Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EPredefinedType
+   * @generated
+   */
+  EClass getEPredefinedType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EPredefinedType#getRef <em>Ref</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ref</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EPredefinedType#getRef()
+   * @see #getEPredefinedType()
+   * @generated
+   */
+  EAttribute getEPredefinedType_Ref();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ETypeDef <em>EType Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EType Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ETypeDef
+   * @generated
+   */
+  EClass getETypeDef();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ETypeDef#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ETypeDef#getName()
+   * @see #getETypeDef()
+   * @generated
+   */
+  EAttribute getETypeDef_Name();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ETypeDef#getTypes <em>Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Types</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ETypeDef#getTypes()
+   * @see #getETypeDef()
+   * @generated
+   */
+  EReference getETypeDef_Types();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute <em>EValue Type Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EValue Type Attribute</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueTypeAttribute
+   * @generated
+   */
+  EClass getEValueTypeAttribute();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueTypeAttribute#getType()
+   * @see #getEValueTypeAttribute()
+   * @generated
+   */
+  EAttribute getEValueTypeAttribute_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EValueTypeAttribute#getName()
+   * @see #getEValueTypeAttribute()
+   * @generated
+   */
+  EAttribute getEValueTypeAttribute_Name();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EParameter <em>EParameter</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1489,6 +1936,93 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEQuery_All();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery <em>ECustom Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ECustom Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery
+   * @generated
+   */
+  EClass getECustomQuery();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getDbType <em>Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getDbType()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_DbType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getColumns <em>Columns</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Columns</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getColumns()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_Columns();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getFrom <em>From</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>From</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getFrom()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_From();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getWhere <em>Where</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Where</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getWhere()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_Where();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getGroupBy <em>Group By</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Group By</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getGroupBy()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_GroupBy();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getOrderby <em>Orderby</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Orderby</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getOrderby()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_Orderby();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery#getAll <em>All</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>All</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery#getAll()
+   * @see #getECustomQuery()
+   * @generated
+   */
+  EAttribute getECustomQuery_All();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EObjectSection <em>EObject Section</em>}'.
@@ -1904,6 +2438,14 @@ public interface EMapPackage extends EPackage
     EReference EMAPPING_ENTITY__NAMED_QUERIES = eINSTANCE.getEMappingEntity_NamedQueries();
 
     /**
+     * The meta object literal for the '<em><b>Named Custom Queries</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES = eINSTANCE.getEMappingEntity_NamedCustomQueries();
+
+    /**
      * The meta object literal for the '<em><b>Table Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2086,6 +2628,136 @@ public interface EMapPackage extends EPackage
     EReference ENAMED_QUERY__QUERIES = eINSTANCE.getENamedQuery_Queries();
 
     /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl <em>ENamed Custom Query</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedCustomQuery()
+     * @generated
+     */
+    EClass ENAMED_CUSTOM_QUERY = eINSTANCE.getENamedCustomQuery();
+
+    /**
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENAMED_CUSTOM_QUERY__RETURN_TYPE = eINSTANCE.getENamedCustomQuery_ReturnType();
+
+    /**
+     * The meta object literal for the '<em><b>List</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENAMED_CUSTOM_QUERY__LIST = eINSTANCE.getENamedCustomQuery_List();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENAMED_CUSTOM_QUERY__NAME = eINSTANCE.getENamedCustomQuery_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENAMED_CUSTOM_QUERY__PARAMETERS = eINSTANCE.getENamedCustomQuery_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Queries</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENAMED_CUSTOM_QUERY__QUERIES = eINSTANCE.getENamedCustomQuery_Queries();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EReturnTypeImpl <em>EReturn Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EReturnTypeImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEReturnType()
+     * @generated
+     */
+    EClass ERETURN_TYPE = eINSTANCE.getEReturnType();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPredefinedTypeImpl <em>EPredefined Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EPredefinedTypeImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefinedType()
+     * @generated
+     */
+    EClass EPREDEFINED_TYPE = eINSTANCE.getEPredefinedType();
+
+    /**
+     * The meta object literal for the '<em><b>Ref</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EPREDEFINED_TYPE__REF = eINSTANCE.getEPredefinedType_Ref();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ETypeDefImpl <em>EType Def</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ETypeDefImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getETypeDef()
+     * @generated
+     */
+    EClass ETYPE_DEF = eINSTANCE.getETypeDef();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ETYPE_DEF__NAME = eINSTANCE.getETypeDef_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ETYPE_DEF__TYPES = eINSTANCE.getETypeDef_Types();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueTypeAttribute()
+     * @generated
+     */
+    EClass EVALUE_TYPE_ATTRIBUTE = eINSTANCE.getEValueTypeAttribute();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_TYPE_ATTRIBUTE__TYPE = eINSTANCE.getEValueTypeAttribute_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EVALUE_TYPE_ATTRIBUTE__NAME = eINSTANCE.getEValueTypeAttribute_Name();
+
+    /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl <em>EParameter</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2184,6 +2856,72 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EQUERY__ALL = eINSTANCE.getEQuery_All();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl <em>ECustom Query</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomQuery()
+     * @generated
+     */
+    EClass ECUSTOM_QUERY = eINSTANCE.getECustomQuery();
+
+    /**
+     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__DB_TYPE = eINSTANCE.getECustomQuery_DbType();
+
+    /**
+     * The meta object literal for the '<em><b>Columns</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__COLUMNS = eINSTANCE.getECustomQuery_Columns();
+
+    /**
+     * The meta object literal for the '<em><b>From</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__FROM = eINSTANCE.getECustomQuery_From();
+
+    /**
+     * The meta object literal for the '<em><b>Where</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__WHERE = eINSTANCE.getECustomQuery_Where();
+
+    /**
+     * The meta object literal for the '<em><b>Group By</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__GROUP_BY = eINSTANCE.getECustomQuery_GroupBy();
+
+    /**
+     * The meta object literal for the '<em><b>Orderby</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__ORDERBY = eINSTANCE.getECustomQuery_Orderby();
+
+    /**
+     * The meta object literal for the '<em><b>All</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_QUERY__ALL = eINSTANCE.getECustomQuery_All();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl <em>EObject Section</em>}' class.

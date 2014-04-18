@@ -39,6 +39,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/etype"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/attributes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/namedQueries"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntity/namedCustomQueries"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/tableName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingEntity/descriminationColumn"/>
     </genClasses>
@@ -65,6 +66,25 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedQuery/queries"/>
     </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ENamedCustomQuery">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedCustomQuery/returnType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedCustomQuery/list"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedCustomQuery/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedCustomQuery/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedCustomQuery/queries"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EReturnType"/>
+    <genClasses ecoreClass="EMap.ecore#//EPredefinedType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EPredefinedType/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ETypeDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ETypeDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ETypeDef/types"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EValueTypeAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueTypeAttribute/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueTypeAttribute/name"/>
+    </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/type"/>
@@ -78,6 +98,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/groupBy"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/orderby"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EQuery/all"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ECustomQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/dbType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/columns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/from"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/where"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/groupBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/orderby"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomQuery/all"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EObjectSection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EObjectSection/entity"/>

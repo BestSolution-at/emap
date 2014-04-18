@@ -261,6 +261,12 @@ class UtilCollection {
 			return "getLong"
 		} else if( "int" == p.type ) {
 			return "getInt"
+		} else if( "double" == p.type ) {
+			return "getDouble"
+		} else if( "float" == p.type ) {
+			return "getFloat"
+		} else if( "boolean" == p.type ) {
+			return "getBoolean"
 		} else {
 			return "getObject"
 		}
@@ -448,6 +454,9 @@ class UtilCollection {
 		switch(type) {
 			case "long": return true
 			case "int": return true
+			case "boolean": return true
+			case "float": return true
+			case "double": return true
 		}
 		return false;
 	}
@@ -507,4 +516,12 @@ class UtilCollection {
 		}
 		return s
 	}
+
+	def replaceSqlParameters(String v, List<EParameter> parameters) {
+    if( parameters.empty ){
+      return v;
+    } else {
+      return v.replace("${","#{");
+    }
+  }
 }

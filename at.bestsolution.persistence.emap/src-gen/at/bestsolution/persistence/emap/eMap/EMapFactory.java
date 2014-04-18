@@ -104,6 +104,51 @@ public interface EMapFactory extends EFactory
   ENamedQuery createENamedQuery();
 
   /**
+   * Returns a new object of class '<em>ENamed Custom Query</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ENamed Custom Query</em>'.
+   * @generated
+   */
+  ENamedCustomQuery createENamedCustomQuery();
+
+  /**
+   * Returns a new object of class '<em>EReturn Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EReturn Type</em>'.
+   * @generated
+   */
+  EReturnType createEReturnType();
+
+  /**
+   * Returns a new object of class '<em>EPredefined Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EPredefined Type</em>'.
+   * @generated
+   */
+  EPredefinedType createEPredefinedType();
+
+  /**
+   * Returns a new object of class '<em>EType Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EType Def</em>'.
+   * @generated
+   */
+  ETypeDef createETypeDef();
+
+  /**
+   * Returns a new object of class '<em>EValue Type Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EValue Type Attribute</em>'.
+   * @generated
+   */
+  EValueTypeAttribute createEValueTypeAttribute();
+
+  /**
    * Returns a new object of class '<em>EParameter</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -120,6 +165,15 @@ public interface EMapFactory extends EFactory
    * @generated
    */
   EQuery createEQuery();
+
+  /**
+   * Returns a new object of class '<em>ECustom Query</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ECustom Query</em>'.
+   * @generated
+   */
+  ECustomQuery createECustomQuery();
 
   /**
    * Returns a new object of class '<em>EObject Section</em>'.

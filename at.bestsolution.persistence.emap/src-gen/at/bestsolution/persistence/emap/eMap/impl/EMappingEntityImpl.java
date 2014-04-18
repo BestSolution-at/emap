@@ -5,6 +5,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
+import at.bestsolution.persistence.emap.eMap.ENamedCustomQuery;
 import at.bestsolution.persistence.emap.eMap.ENamedQuery;
 import at.bestsolution.persistence.emap.eMap.EType;
 
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getEtype <em>Etype</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getNamedQueries <em>Named Queries</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getNamedCustomQueries <em>Named Custom Queries</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getTableName <em>Table Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getDescriminationColumn <em>Descrimination Column</em>}</li>
  * </ul>
@@ -146,6 +148,16 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EList<ENamedQuery> namedQueries;
+
+  /**
+   * The cached value of the '{@link #getNamedCustomQueries() <em>Named Custom Queries</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNamedCustomQueries()
+   * @generated
+   * @ordered
+   */
+  protected EList<ENamedCustomQuery> namedCustomQueries;
 
   /**
    * The default value of the '{@link #getTableName() <em>Table Name</em>}' attribute.
@@ -401,6 +413,20 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ENamedCustomQuery> getNamedCustomQueries()
+  {
+    if (namedCustomQueries == null)
+    {
+      namedCustomQueries = new EObjectContainmentEList<ENamedCustomQuery>(ENamedCustomQuery.class, this, EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES);
+    }
+    return namedCustomQueries;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getTableName()
   {
     return tableName;
@@ -458,6 +484,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
       case EMapPackage.EMAPPING_ENTITY__NAMED_QUERIES:
         return ((InternalEList<?>)getNamedQueries()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES:
+        return ((InternalEList<?>)getNamedCustomQueries()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -487,6 +515,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         return getAttributes();
       case EMapPackage.EMAPPING_ENTITY__NAMED_QUERIES:
         return getNamedQueries();
+      case EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES:
+        return getNamedCustomQueries();
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         return getTableName();
       case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:
@@ -529,6 +559,10 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         getNamedQueries().clear();
         getNamedQueries().addAll((Collection<? extends ENamedQuery>)newValue);
         return;
+      case EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES:
+        getNamedCustomQueries().clear();
+        getNamedCustomQueries().addAll((Collection<? extends ENamedCustomQuery>)newValue);
+        return;
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         setTableName((String)newValue);
         return;
@@ -570,6 +604,9 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_ENTITY__NAMED_QUERIES:
         getNamedQueries().clear();
         return;
+      case EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES:
+        getNamedCustomQueries().clear();
+        return;
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         setTableName(TABLE_NAME_EDEFAULT);
         return;
@@ -604,6 +641,8 @@ public class EMappingEntityImpl extends MinimalEObjectImpl.Container implements 
         return attributes != null && !attributes.isEmpty();
       case EMapPackage.EMAPPING_ENTITY__NAMED_QUERIES:
         return namedQueries != null && !namedQueries.isEmpty();
+      case EMapPackage.EMAPPING_ENTITY__NAMED_CUSTOM_QUERIES:
+        return namedCustomQueries != null && !namedCustomQueries.isEmpty();
       case EMapPackage.EMAPPING_ENTITY__TABLE_NAME:
         return TABLE_NAME_EDEFAULT == null ? tableName != null : !TABLE_NAME_EDEFAULT.equals(tableName);
       case EMapPackage.EMAPPING_ENTITY__DESCRIMINATION_COLUMN:

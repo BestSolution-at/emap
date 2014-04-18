@@ -74,8 +74,14 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.EATTRIBUTE: return createEAttribute();
       case EMapPackage.EVALUE_GENERATOR: return createEValueGenerator();
       case EMapPackage.ENAMED_QUERY: return createENamedQuery();
+      case EMapPackage.ENAMED_CUSTOM_QUERY: return createENamedCustomQuery();
+      case EMapPackage.ERETURN_TYPE: return createEReturnType();
+      case EMapPackage.EPREDEFINED_TYPE: return createEPredefinedType();
+      case EMapPackage.ETYPE_DEF: return createETypeDef();
+      case EMapPackage.EVALUE_TYPE_ATTRIBUTE: return createEValueTypeAttribute();
       case EMapPackage.EPARAMETER: return createEParameter();
       case EMapPackage.EQUERY: return createEQuery();
+      case EMapPackage.ECUSTOM_QUERY: return createECustomQuery();
       case EMapPackage.EOBJECT_SECTION: return createEObjectSection();
       case EMapPackage.EMAPPING_ATTRIBUTE: return createEMappingAttribute();
       case EMapPackage.ETYPE: return createEType();
@@ -222,6 +228,61 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public ENamedCustomQuery createENamedCustomQuery()
+  {
+    ENamedCustomQueryImpl eNamedCustomQuery = new ENamedCustomQueryImpl();
+    return eNamedCustomQuery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReturnType createEReturnType()
+  {
+    EReturnTypeImpl eReturnType = new EReturnTypeImpl();
+    return eReturnType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EPredefinedType createEPredefinedType()
+  {
+    EPredefinedTypeImpl ePredefinedType = new EPredefinedTypeImpl();
+    return ePredefinedType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ETypeDef createETypeDef()
+  {
+    ETypeDefImpl eTypeDef = new ETypeDefImpl();
+    return eTypeDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EValueTypeAttribute createEValueTypeAttribute()
+  {
+    EValueTypeAttributeImpl eValueTypeAttribute = new EValueTypeAttributeImpl();
+    return eValueTypeAttribute;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EParameter createEParameter()
   {
     EParameterImpl eParameter = new EParameterImpl();
@@ -237,6 +298,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EQueryImpl eQuery = new EQueryImpl();
     return eQuery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ECustomQuery createECustomQuery()
+  {
+    ECustomQueryImpl eCustomQuery = new ECustomQueryImpl();
+    return eCustomQuery;
   }
 
   /**

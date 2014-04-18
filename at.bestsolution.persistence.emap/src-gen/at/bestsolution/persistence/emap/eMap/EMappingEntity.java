@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getEtype <em>Etype</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getNamedQueries <em>Named Queries</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getNamedCustomQueries <em>Named Custom Queries</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getTableName <em>Table Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingEntity#getDescriminationColumn <em>Descrimination Column</em>}</li>
  * </ul>
@@ -193,6 +194,22 @@ public interface EMappingEntity extends EObject
    * @generated
    */
   EList<ENamedQuery> getNamedQueries();
+
+  /**
+   * Returns the value of the '<em><b>Named Custom Queries</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Named Custom Queries</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Named Custom Queries</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingEntity_NamedCustomQueries()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ENamedCustomQuery> getNamedCustomQueries();
 
   /**
    * Returns the value of the '<em><b>Table Name</b></em>' attribute.

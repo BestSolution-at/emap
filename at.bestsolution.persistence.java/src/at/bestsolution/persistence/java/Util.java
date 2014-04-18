@@ -13,10 +13,14 @@ package at.bestsolution.persistence.java;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
@@ -211,5 +215,16 @@ public class Util {
 		}
 
 		return false;
+	}
+
+	public static Map<String, Object> mapResultSet(ResultSet set) throws SQLException {
+		Map<String,Object> map = new HashMap<String, Object>();
+		ResultSetMetaData m = set.getMetaData();
+		int columnCount = m.getColumnCount();
+
+		for( int i = 0; i < columnCount; i++ ) {
+			map.put(m.getColumnName(i),set.getObject(i));
+		}
+		return map;
 	}
 }

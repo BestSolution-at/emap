@@ -26,39 +26,16 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EReference
 
 import com.google.inject.Inject
+import at.bestsolution.persistence.emap.eMap.ECustomQuery
+import at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator
 
 class JavaObjectMapperGenerator {
 
   @Inject extension
   var UtilCollection util;
 
-  def generateMapperRegistry(EMappingBundle bundleDef) '''
-  package mappings;
-
-  import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
-  import at.bestsolution.persistence.ObjectMapper;
-  import at.bestsolution.persistence.java.ObjectMapperFactory;
-  import java.util.HashMap;
-  import java.util.Map;
-
-  public final class «bundleDef.name»ObjectMapperFactoriesProvider implements ObjectMapperFactoriesProvider {
-    private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
-    public «bundleDef.name»ObjectMapperFactoriesProvider() {
-      «FOR e : bundleDef.entities»
-        factories.put(«e.fqn».class, new «e.mapperFactoryName»());
-      «ENDFOR»
-    }
-
-    public Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> getMapperFactories() {
-      return factories;
-    }
-  }
-  '''
-
-  def mapperFactoryName(EMappingEntity e) {
-    val factoryInterface = e.fqn
-    return factoryInterface.substring(0,factoryInterface.lastIndexOf('.')) + ".java"+factoryInterface.substring(factoryInterface.lastIndexOf('.'))+"Factory"
-  }
+  @Inject
+  var CustomQueryGenerator customQueryGen;
 
   def mapperName(EClass eClass) {
     return
@@ -438,6 +415,10 @@ class JavaObjectMapperGenerator {
           }
         }
       }
+      «ENDFOR»
+
+	  «FOR customQuery : entityDef.entity.namedCustomQueries»
+	  «customQueryGen.generateCustomQuery(entityDef,customQuery)»
       «ENDFOR»
 
       @Override
@@ -1439,12 +1420,4 @@ class JavaObjectMapperGenerator {
     «IF query.groupBy != null»GROUP BY
       «query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
   '''
-
-  def replaceSqlParameters(String v, List<EParameter> parameters) {
-    if( parameters.empty ){
-      return v;
-    } else {
-      return v.replace("${","#{");
-    }
-  }
 }

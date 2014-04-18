@@ -135,6 +135,43 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.ENAMED_CUSTOM_QUERY:
+      {
+        ENamedCustomQuery eNamedCustomQuery = (ENamedCustomQuery)theEObject;
+        T result = caseENamedCustomQuery(eNamedCustomQuery);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ERETURN_TYPE:
+      {
+        EReturnType eReturnType = (EReturnType)theEObject;
+        T result = caseEReturnType(eReturnType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EPREDEFINED_TYPE:
+      {
+        EPredefinedType ePredefinedType = (EPredefinedType)theEObject;
+        T result = caseEPredefinedType(ePredefinedType);
+        if (result == null) result = caseEReturnType(ePredefinedType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ETYPE_DEF:
+      {
+        ETypeDef eTypeDef = (ETypeDef)theEObject;
+        T result = caseETypeDef(eTypeDef);
+        if (result == null) result = caseEReturnType(eTypeDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EVALUE_TYPE_ATTRIBUTE:
+      {
+        EValueTypeAttribute eValueTypeAttribute = (EValueTypeAttribute)theEObject;
+        T result = caseEValueTypeAttribute(eValueTypeAttribute);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.EPARAMETER:
       {
         EParameter eParameter = (EParameter)theEObject;
@@ -146,6 +183,13 @@ public class EMapSwitch<T> extends Switch<T>
       {
         EQuery eQuery = (EQuery)theEObject;
         T result = caseEQuery(eQuery);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ECUSTOM_QUERY:
+      {
+        ECustomQuery eCustomQuery = (ECustomQuery)theEObject;
+        T result = caseECustomQuery(eCustomQuery);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -319,6 +363,86 @@ public class EMapSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>ENamed Custom Query</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ENamed Custom Query</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseENamedCustomQuery(ENamedCustomQuery object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EReturn Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EReturn Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEReturnType(EReturnType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EPredefined Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EPredefined Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEPredefinedType(EPredefinedType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EType Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EType Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseETypeDef(ETypeDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EValue Type Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EValue Type Attribute</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEValueTypeAttribute(EValueTypeAttribute object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>EParameter</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -346,6 +470,22 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEQuery(EQuery object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ECustom Query</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ECustom Query</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseECustomQuery(ECustomQuery object)
   {
     return null;
   }

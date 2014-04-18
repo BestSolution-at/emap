@@ -120,6 +120,31 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createENamedQueryAdapter();
       }
       @Override
+      public Adapter caseENamedCustomQuery(ENamedCustomQuery object)
+      {
+        return createENamedCustomQueryAdapter();
+      }
+      @Override
+      public Adapter caseEReturnType(EReturnType object)
+      {
+        return createEReturnTypeAdapter();
+      }
+      @Override
+      public Adapter caseEPredefinedType(EPredefinedType object)
+      {
+        return createEPredefinedTypeAdapter();
+      }
+      @Override
+      public Adapter caseETypeDef(ETypeDef object)
+      {
+        return createETypeDefAdapter();
+      }
+      @Override
+      public Adapter caseEValueTypeAttribute(EValueTypeAttribute object)
+      {
+        return createEValueTypeAttributeAdapter();
+      }
+      @Override
       public Adapter caseEParameter(EParameter object)
       {
         return createEParameterAdapter();
@@ -128,6 +153,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
       public Adapter caseEQuery(EQuery object)
       {
         return createEQueryAdapter();
+      }
+      @Override
+      public Adapter caseECustomQuery(ECustomQuery object)
+      {
+        return createECustomQueryAdapter();
       }
       @Override
       public Adapter caseEObjectSection(EObjectSection object)
@@ -302,6 +332,81 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ENamedCustomQuery <em>ENamed Custom Query</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedCustomQuery
+   * @generated
+   */
+  public Adapter createENamedCustomQueryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EReturnType <em>EReturn Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EReturnType
+   * @generated
+   */
+  public Adapter createEReturnTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPredefinedType <em>EPredefined Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EPredefinedType
+   * @generated
+   */
+  public Adapter createEPredefinedTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ETypeDef <em>EType Def</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ETypeDef
+   * @generated
+   */
+  public Adapter createETypeDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute <em>EValue Type Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EValueTypeAttribute
+   * @generated
+   */
+  public Adapter createEValueTypeAttributeAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EParameter <em>EParameter</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -327,6 +432,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEQueryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ECustomQuery <em>ECustom Query</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomQuery
+   * @generated
+   */
+  public Adapter createECustomQueryAdapter()
   {
     return null;
   }
