@@ -22,7 +22,7 @@ class DDLGenerator {
 	var UtilCollection util;
 
 	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
-	«FOR e : bundleDef.entities»
+	«FOR e : bundleDef.entities.filter([!attributes.empty])»
 	«val eClass = e.lookupEClass»
 	CREATE TABLE «e.calcTableName»
 	(
@@ -50,9 +50,10 @@ class DDLGenerator {
 
 	«ENDFOR»
 
-	«FOR e : bundleDef.entities»
+	«FOR e : bundleDef.entities.filter([!attributes.empty])»
 		«val eClass = e.lookupEClass»
-		«val pk = e.collectDerivedAttributes.values.findFirst[pk].columnName»
+		«val pkCol = e.collectDerivedAttributes.values.findFirst[pk]»
+		«val pk = pkCol?.columnName»
 		«FOR a : e.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
 			ALTER TABLE «e.calcTableName»
 				ADD FOREIGN KEY («a.parameters.head») REFERENCES «(a.query.eContainer as EMappingEntity).calcTableName» («(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].columnName»);
@@ -61,7 +62,10 @@ class DDLGenerator {
 		«ENDFOR»
 		«IF e.extensionType == "extends"»
 		ALTER TABLE «e.calcTableName»
-			ADD FOREIGN KEY(«pk») REFERENCES «e.parent.calcTableName» («e.parent.attributes.findFirst[it.pk].columnName»)
+			ADD FOREIGN KEY(«pk») REFERENCES «e.parent.calcTableName» («e.parent.attributes.findFirst[it.pk].columnName»);
+		«ENDIF»
+		«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
+		CREATE SEQUENCE «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
 		«ENDIF»
 	«ENDFOR»
 	'''
