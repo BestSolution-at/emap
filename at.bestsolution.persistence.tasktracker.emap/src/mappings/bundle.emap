@@ -1,0 +1,13 @@
+bundle Tasktracker {
+	Attachment, 
+	BaseObject,
+	ChangeSet,
+	Comment,
+	CommentAttachment,
+	Person,
+	SourceRepository,
+	Task,
+	TaskAttachment,
+	TaskRepository,
+	Version
+}

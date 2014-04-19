@@ -10,3 +10,4 @@ Require-Bundle: at.bestsolution.persistence.tasktracker,
  org.eclipse.emf.ecore;bundle-version="2.10.0",
  at.bestsolution.persistence.java;bundle-version="1.0.0",
  org.apache.log4j;bundle-version="1.2.15"
+Service-Component: OSGI-INF/services/factoryprovider.xml
