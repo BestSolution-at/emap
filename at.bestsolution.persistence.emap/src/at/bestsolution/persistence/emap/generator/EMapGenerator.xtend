@@ -20,6 +20,8 @@ import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.java.RegistryGenerator
 import at.bestsolution.persistence.emap.generator.java.CustomSQLQueryGenerator
 import at.bestsolution.persistence.emap.generator.java.JavaInterfaceGenerator
+import at.bestsolution.persistence.emap.eMap.ETypeDef
+import at.bestsolution.persistence.emap.generator.java.TypeDefGenerator
 
 /**
  * Generates code from your model files on save.
@@ -46,6 +48,9 @@ class EMapGenerator implements IGenerator {
 	@Inject
 	var JavaInterfaceGenerator javaInterfaceGenerator;
 
+	@Inject
+	var TypeDefGenerator typeDefGenerator;
+
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		val root = resource.contents.head as EMapping
 		if( root.root instanceof EMappingEntityDef ) {
@@ -69,6 +74,12 @@ class EMapGenerator implements IGenerator {
 			for( namedQuery : edef.entity.namedCustomQueries ) {
 				for( query : namedQuery.queries ) {
 					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", customSQLQueryGenerator.generate(namedQuery,query));
+				}
+				if( namedQuery.returnType instanceof ETypeDef ) {
+					val t = namedQuery.returnType as ETypeDef
+					if( t.name.indexOf('.') == -1 ) {
+						fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t));	
+					}					
 				}
 			}
 

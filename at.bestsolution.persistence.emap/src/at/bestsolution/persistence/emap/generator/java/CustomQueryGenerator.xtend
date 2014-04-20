@@ -19,6 +19,7 @@ import at.bestsolution.persistence.emap.generator.UtilCollection
 import at.bestsolution.persistence.emap.eMap.EReturnType
 import at.bestsolution.persistence.emap.eMap.EValueTypeAttribute
 import java.util.List
+import at.bestsolution.persistence.emap.eMap.EMapping
 
 class CustomQueryGenerator {
 	@Inject extension
@@ -86,7 +87,7 @@ class CustomQueryGenerator {
 				«ELSEIF q.returnType.primitive»
 				rv.add((«(q.returnType as EPredefinedType).ref.toObjectType»)set.getObject(1));
 				«ELSEIF q.returnType instanceof ETypeDef»
-				rv.add(new «(q.returnType as ETypeDef).name»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»));
+				rv.add(new «(q.returnType as ETypeDef).handle»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»));
 				«ELSE»
 				rv.add(«(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+""));
 				«ENDIF»
@@ -132,7 +133,7 @@ class CustomQueryGenerator {
 	'''
 
 	def valueAttributeHandle(EValueTypeAttribute a) {
-		return "set." + a.name.resultMethodType() + "(" + (a.eContainer.eGet(a.eContainingFeature) as List<?>).indexOf(a) + ")"
+		return "set." + a.type.resultMethodType() + "(" + ((a.eContainer.eGet(a.eContainingFeature) as List<?>).indexOf(a)+1) + ")"
 	}
 
 	def resultMethodType(EPredefinedType p) {
@@ -188,7 +189,7 @@ class CustomQueryGenerator {
   	}
 
   	def static dispatch handle(ETypeDef e) {
-		return e.name;
+		return if (e.name.indexOf('.') == -1) ((e.eResource.contents.head as EMapping).root as EMappingEntityDef).package.name+"."+e.name else e.name;
   	}
 
   	def static toObjectType(String type) {

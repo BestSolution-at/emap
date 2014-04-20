@@ -65,10 +65,10 @@ public class EcoreToEMapGenerator {
     _builder.append("etype \"");
     EPackage _ePackage = this.eclass.getEPackage();
     String _nsURI = _ePackage.getNsURI();
-    _builder.append(_nsURI, "	");
+    _builder.append(_nsURI, "\t");
     _builder.append("\"#");
     String _name_2 = this.eclass.getName();
-    _builder.append(_name_2, "	");
+    _builder.append(_name_2, "\t");
     _builder.newLineIfNotEmpty();
     _builder.append("\t");
     _builder.append("attributes {");
@@ -78,10 +78,10 @@ public class EcoreToEMapGenerator {
       for(final EAttribute a : _eAttributes) {
         _builder.append("\t\t");
         String _name_3 = a.getName();
-        _builder.append(_name_3, "		");
+        _builder.append(_name_3, "\t\t");
         _builder.append(" => ");
         String _columnName = namingStrategy.getColumnName(a, this.eclass);
-        _builder.append(_columnName, "		");
+        _builder.append(_columnName, "\t\t");
         _builder.newLineIfNotEmpty();
       }
     }
@@ -93,15 +93,15 @@ public class EcoreToEMapGenerator {
           if (_isContainment) {
             _builder.append("\t\t");
             String _name_4 = r.getName();
-            _builder.append(_name_4, "		");
+            _builder.append(_name_4, "\t\t");
             _builder.append(" => resolve ");
             EClassifier _eType = r.getEType();
             String _name_5 = _eType.getName();
-            _builder.append(_name_5, "		");
+            _builder.append(_name_5, "\t\t");
             _builder.append(".selectAllFor");
             String _name_6 = this.eclass.getName();
             String _firstUpper = StringExtensions.toFirstUpper(_name_6);
-            _builder.append(_firstUpper, "		");
+            _builder.append(_firstUpper, "\t\t");
             _builder.append("()");
             _builder.newLineIfNotEmpty();
           }
