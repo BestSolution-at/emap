@@ -10,14 +10,15 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
+import java.util.List;
+
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
-import at.bestsolution.persistence.java.Util;
-import at.bestsolution.persistence.java.Util.ProcessedSQL;
-import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
+import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
+import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 
@@ -74,27 +75,29 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	}
 
 	static class FirebirdQueryBuilder implements QueryBuilder {
-		private SimpleQueryBuilder b;
-
+		private String tableName;
+		
 		public FirebirdQueryBuilder(String tableName) {
-			b = Util.createQueryBuilder(tableName);
+			this.tableName = tableName;
 		}
 
 
 		@Override
-		public void addColumn(String columnName, String dynamicParameter) {
-			b.addColumn(columnName, dynamicParameter);
+		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
+			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
 		}
 
 		@Override
-		public ProcessedSQL buildUpdate(String pkColumn, String primaryKeyType, String lockColumn) {
-			return b.buildUpdate(pkColumn, primaryKeyType, lockColumn);
-		}
-
-		@Override
-		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			ProcessedSQL buildInsert = b.buildInsert(pkColumn, primaryKeyExpression, lockColumn);
-			return new ProcessedSQL(buildInsert.sql + " RETURNING " + '"' + pkColumn + '"', buildInsert.dynamicParameterNames);
+		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
+			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn) {
+				@Override
+				protected String createSQL(String tableName, String pkColumn,
+						String primaryKeyExpression, String lockColumn,
+						List<Column> columnList) {
+					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
+							columnList) + " RETURNING " + '"' + pkColumn + '"';
+				}
+			};
 		}
 	}
 }

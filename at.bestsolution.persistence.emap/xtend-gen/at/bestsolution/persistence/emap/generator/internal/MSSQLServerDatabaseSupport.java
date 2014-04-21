@@ -22,8 +22,12 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
     return "mssql";
   }
   
-  public String getSequenceStatement(final EAttribute primaryKey) {
+  public String getSequenceStatementNextVal(final EAttribute primaryKey) {
     return "";
+  }
+  
+  public String getSequenceStatementCurVal(final EAttribute primaryKey) {
+    return null;
   }
   
   public String processInsert(final EAttribute primaryKey, final String insert) {

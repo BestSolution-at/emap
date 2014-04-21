@@ -231,6 +231,21 @@ class UtilCollection {
 			return "setObject";
 		}
 	}
+	
+	def statementMethod(org.eclipse.emf.ecore.EAttribute f) {
+//		println(f.EType + " ====> " + (f.EType instanceof EEnum))
+		if( f.EType instanceof EEnum ) {
+			return "addEnum"
+		}
+		switch(f.EType.instanceClassName) {
+			case "long": return "addLong"
+			case "int": return "addInt"
+			case "double": return "addDouble"
+			case "boolean": return "addBoolean"
+			case "java.util.Date": return "addTimestamp"
+			case "java.lang.String": return "addString"
+		}
+	}
 
 	def resultMethod(EAttribute attribute, String varName, EClass eClass, String keyName, String prefix) {
 		val f = eClass.getEStructuralFeature(attribute.name)
@@ -324,6 +339,16 @@ class UtilCollection {
 		} else {
 			val c = (f as EReference).EType as EClass
 			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).pstmtMethod;
+		}
+	}
+
+	def statementMethod(EAttribute p, EClass eClass) {
+		val f = eClass.getEStructuralFeature(p.name);
+		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
+			return (f as org.eclipse.emf.ecore.EAttribute).statementMethod
+		} else {
+			val c = (f as EReference).EType as EClass
+			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).statementMethod;
 		}
 	}
 

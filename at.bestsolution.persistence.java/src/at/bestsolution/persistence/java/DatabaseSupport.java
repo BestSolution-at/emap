@@ -10,8 +10,13 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Date;
+
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
+import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.ListDelegate;
 
 
@@ -29,8 +34,27 @@ public interface DatabaseSupport {
 	}
 
 	public interface QueryBuilder {
-		public void addColumn(String columnName, String dynamicParameter);
-		public ProcessedSQL buildUpdate(String pkColumn, String primaryValueParameter, String lockColumn);
-		public ProcessedSQL buildInsert(String pkColumn, String primaryKeyExpression, String lockColumn);
+//		public void addColumn(String columnName, String dynamicParameter);
+		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn);
+		public InsertStatement createInsertStatement(String pkColumn, String sequenceName, String lockColumn);
+	}
+	
+	public interface Statement {
+		public void addInt(String column, int value);
+		public void addDouble(String column, double value);
+		public void addString(String column, String value);
+		public void addTimestamp(String column, Date value);
+		public void addLong(String column, long value);
+		public void addBoolean(String column, boolean value);
+		public void addNull(String column, JDBCType type);
+		public void addEnum(String column, Enum<?> value);
+	}
+	
+	public interface InsertStatement extends Statement {
+		public long execute(Connection connection) throws SQLException;
+	}
+	
+	public interface UpdateStatement extends Statement {
+		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
 	}
 }

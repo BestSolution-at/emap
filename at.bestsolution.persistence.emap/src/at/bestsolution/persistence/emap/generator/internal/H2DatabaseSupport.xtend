@@ -48,10 +48,14 @@ class H2DatabaseSupport extends DatabaseSupport {
 		return "***UNKOWN "+dataType.name+"***";
 	}
 
-	override getSequenceStatement(EAttribute primaryKey) {
+	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return null
 	}
-
+	
+	override getSequenceStatementCurVal(EAttribute primaryKey) {
+		return null;
+	}
+	
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true
 	}

@@ -21,10 +21,14 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 		return "mssql";
 	}
 
-	override getSequenceStatement(EAttribute primaryKey) {
+	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return ""
 	}
-
+	
+	override getSequenceStatementCurVal(EAttribute primaryKey) {
+		return null;
+	}
+	
 	override processInsert(EAttribute primaryKey, String insert) {
 		return insert;
 	}

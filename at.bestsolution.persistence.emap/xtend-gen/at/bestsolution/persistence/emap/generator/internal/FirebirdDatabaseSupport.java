@@ -26,7 +26,7 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
     return "Firebird";
   }
   
-  public String getSequenceStatement(final EAttribute primaryKey) {
+  public String getSequenceStatementNextVal(final EAttribute primaryKey) {
     EList<EValueGenerator> _valueGenerators = primaryKey.getValueGenerators();
     final Function1<EValueGenerator, Boolean> _function = new Function1<EValueGenerator, Boolean>() {
       public Boolean apply(final EValueGenerator it) {
@@ -38,6 +38,10 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
     EValueGenerator _findFirst = IterableExtensions.<EValueGenerator>findFirst(_valueGenerators, _function);
     String _sequence = _findFirst.getSequence();
     return ("NEXT VALUE FOR " + _sequence);
+  }
+  
+  public String getSequenceStatementCurVal(final EAttribute primaryKey) {
+    return null;
   }
   
   public String processInsert(final EAttribute primaryKey, final String insert) {

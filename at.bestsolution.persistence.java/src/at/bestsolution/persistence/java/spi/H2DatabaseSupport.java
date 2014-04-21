@@ -16,6 +16,8 @@ import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
+import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
+import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 
@@ -51,27 +53,21 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	static class H2QueryBuilder implements QueryBuilder {
-		private SimpleQueryBuilder b;
+		private final String tableName;
 
 		public H2QueryBuilder(String tableName) {
-			b = Util.createQueryBuilder(tableName);
+			this.tableName = tableName;
 		}
 
 		@Override
-		public void addColumn(String columnName, String dynamicParameter) {
-			b.addColumn(columnName, dynamicParameter);
+		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
+			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
 		}
 
 		@Override
-		public ProcessedSQL buildUpdate(String pkColumn,
-				String primaryValueParameter, String lockColumn) {
-			return b.buildInsert(pkColumn, null, lockColumn);
-		}
-
-		@Override
-		public ProcessedSQL buildInsert(String pkColumn,
+		public InsertStatement createInsertStatement(String pkColumn,
 				String primaryKeyExpression, String lockColumn) {
-			return b.buildUpdate(pkColumn, primaryKeyExpression, lockColumn);
+			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
 		}
 	}
 }
