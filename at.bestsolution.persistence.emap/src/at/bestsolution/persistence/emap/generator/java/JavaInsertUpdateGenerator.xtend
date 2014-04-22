@@ -171,9 +171,13 @@ class JavaInsertUpdateGenerator {
 							stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
 						}
 					«ELSE»
-						if( object.get«a.name.toFirstUpper»() != null ) {
+						«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
 							stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-						}
+						«ELSE»
+							if( object.get«a.name.toFirstUpper»() != null ) {
+								stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+							}
+						«ENDIF»
 					«ENDIF»
 				«ELSEIF a.isSingle(eClass)»
 					if( object.get«a.name.toFirstUpper»() != null ) {
