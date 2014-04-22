@@ -243,9 +243,13 @@ class UtilCollection {
 		}
 		switch(f.EType.instanceClassName) {
 			case "long": return "addLong"
+			case "java.lang.Long": return "addLong"
 			case "int": return "addInt"
+			case "java.lang.Integer": return "addInt"
 			case "double": return "addDouble"
+			case "java.lang.Double": return "addDouble"
 			case "boolean": return "addBoolean"
+			case "java.lang.Boolean": return "addBoolean"
 			case "java.util.Date": return "addTimestamp"
 			case "java.lang.String": return "addString"
 			case "java.sql.Blob": return "addBlob"
