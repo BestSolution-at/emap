@@ -22,6 +22,10 @@ public class AndCondition implements Condition {
 	private final List<Condition> conditions;
 
 	public AndCondition(Condition... conditions) {
+		if (conditions == null || conditions.length <= 0) {
+			throw new IllegalArgumentException("Invalid conditions: "
+					+ conditions);
+		}
 		this.conditions = Arrays.asList(conditions);
 	}
 

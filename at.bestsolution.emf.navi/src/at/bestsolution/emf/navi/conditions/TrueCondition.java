@@ -29,10 +29,20 @@ import org.eclipse.emf.ecore.EObject;
 import at.bestsolution.emf.navi.Condition;
 
 public class TrueCondition implements Condition {
-
+	private static Condition instance = null;
+	
+	private TrueCondition() {
+	}
+	
+	public static Condition getInstance() {
+		if (instance == null) {
+			instance = new TrueCondition();
+		}
+		return instance;
+	}
+	
 	@Override
 	public boolean matches( EObject object ) {
 		return true;
 	}
-
 }

@@ -39,7 +39,7 @@ public class NaviFactory {
 	}
 	
 	public static Condition True() {
-		return new TrueCondition();
+		return TrueCondition.getInstance();
 	}
 	
 	public static Condition pathEquals(FeaturePath path, Object equals) {

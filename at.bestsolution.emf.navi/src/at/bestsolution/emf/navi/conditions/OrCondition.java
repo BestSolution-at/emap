@@ -22,6 +22,10 @@ public class OrCondition implements Condition {
 	private final List<Condition> conditions;
 
 	public OrCondition(Condition... conditions) {
+		if (conditions == null || conditions.length <= 0) {
+			throw new IllegalArgumentException("Invalid conditions: "
+					+ conditions);
+		}
 		this.conditions = Arrays.asList(conditions);
 	}
 
@@ -34,5 +38,4 @@ public class OrCondition implements Condition {
 		}
 		return false;
 	}
-
 }
