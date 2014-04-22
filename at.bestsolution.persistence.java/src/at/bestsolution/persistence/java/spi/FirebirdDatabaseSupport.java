@@ -10,6 +10,9 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import at.bestsolution.persistence.MappedQuery;
@@ -76,7 +79,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	static class FirebirdQueryBuilder implements QueryBuilder {
 		private String tableName;
-		
+
 		public FirebirdQueryBuilder(String tableName) {
 			this.tableName = tableName;
 		}
@@ -96,6 +99,16 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 						List<Column> columnList) {
 					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
 							columnList) + " RETURNING " + '"' + pkColumn + '"';
+				}
+
+				@Override
+				protected long execute(PreparedStatement pstmt)
+						throws SQLException {
+					ResultSet set = pstmt.executeQuery();
+					if( set.next() ) {
+						return set.getLong(1);
+					}
+					throw new SQLException("Unable to retrieve insert ID");
 				}
 			};
 		}

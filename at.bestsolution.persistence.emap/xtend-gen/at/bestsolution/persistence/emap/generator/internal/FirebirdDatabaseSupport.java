@@ -28,11 +28,12 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   
   public String getSequenceStatementNextVal(final EAttribute primaryKey) {
     EList<EValueGenerator> _valueGenerators = primaryKey.getValueGenerators();
-    final Function1<EValueGenerator, Boolean> _function = new Function1<EValueGenerator, Boolean>() {
+    final Function1<EValueGenerator,Boolean> _function = new Function1<EValueGenerator,Boolean>() {
       public Boolean apply(final EValueGenerator it) {
         String _dbType = it.getDbType();
         String _databaseId = FirebirdDatabaseSupport.this.getDatabaseId();
-        return Boolean.valueOf(Objects.equal(_dbType, _databaseId));
+        boolean _equals = Objects.equal(_dbType, _databaseId);
+        return Boolean.valueOf(_equals);
       }
     };
     EValueGenerator _findFirst = IterableExtensions.<EValueGenerator>findFirst(_valueGenerators, _function);
@@ -45,8 +46,9 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
   }
   
   public String processInsert(final EAttribute primaryKey, final String insert) {
+    String _plus = (insert + " RETURNING ");
     String _columnName = primaryKey.getColumnName();
-    return ((insert + " RETURNING ") + _columnName);
+    return (_plus + _columnName);
   }
   
   public boolean supportsGeneratedKeys() {
@@ -69,7 +71,7 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
       } else {
         String _name_1 = dataType.getName();
         boolean _equals_1 = Objects.equal("EIntegerObject", _name_1);
-        _or = _equals_1;
+        _or = (_equals || _equals_1);
       }
       if (_or) {
         return "integer";
@@ -82,7 +84,7 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
         } else {
           String _name_3 = dataType.getName();
           boolean _equals_3 = Objects.equal("ELongObject", _name_3);
-          _or_1 = _equals_3;
+          _or_1 = (_equals_2 || _equals_3);
         }
         if (_or_1) {
           return "int64";
@@ -96,14 +98,14 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
           } else {
             String _name_5 = dataType.getName();
             boolean _equals_5 = Objects.equal("EDoubleObject", _name_5);
-            _or_3 = _equals_5;
+            _or_3 = (_equals_4 || _equals_5);
           }
           if (_or_3) {
             _or_2 = true;
           } else {
             String _name_6 = dataType.getName();
             boolean _equals_6 = Objects.equal("EBigDecimal", _name_6);
-            _or_2 = _equals_6;
+            _or_2 = (_or_3 || _equals_6);
           }
           if (_or_2) {
             return "decimal";
@@ -131,7 +133,7 @@ public class FirebirdDatabaseSupport extends DatabaseSupport {
                   } else {
                     String _name_9 = dataType.getName();
                     boolean _equals_11 = Objects.equal("EBooleanObject", _name_9);
-                    _or_4 = _equals_11;
+                    _or_4 = (_equals_10 || _equals_11);
                   }
                   if (_or_4) {
                     return "smallint";

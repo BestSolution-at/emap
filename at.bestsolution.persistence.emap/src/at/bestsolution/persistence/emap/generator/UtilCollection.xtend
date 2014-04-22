@@ -183,6 +183,8 @@ class UtilCollection {
 			return "BLOB"
 		} else if (f.EType.instanceClassName == "java.sql.Clob") {
 			return "CLOB"
+		} else if(f.EType.instanceClassName == "java.util.Date") {
+			return "TIMESTAMP"
 		} else {
 			return "UNKNOWN";
 		}
@@ -235,7 +237,7 @@ class UtilCollection {
 			return "setObject";
 		}
 	}
-	
+
 	def statementMethod(org.eclipse.emf.ecore.EAttribute f) {
 //		println(f.EType + " ====> " + (f.EType instanceof EEnum))
 		if( f.EType instanceof EEnum ) {

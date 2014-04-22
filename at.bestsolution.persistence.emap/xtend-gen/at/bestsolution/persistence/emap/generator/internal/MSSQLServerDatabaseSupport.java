@@ -50,7 +50,7 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
       } else {
         String _name_1 = dataType.getName();
         boolean _equals_1 = Objects.equal("EIntegerObject", _name_1);
-        _or = _equals_1;
+        _or = (_equals || _equals_1);
       }
       if (_or) {
         return "int";
@@ -63,7 +63,7 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
         } else {
           String _name_3 = dataType.getName();
           boolean _equals_3 = Objects.equal("ELongObject", _name_3);
-          _or_1 = _equals_3;
+          _or_1 = (_equals_2 || _equals_3);
         }
         if (_or_1) {
           return "bigint";
@@ -77,14 +77,14 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
           } else {
             String _name_5 = dataType.getName();
             boolean _equals_5 = Objects.equal("EDoubleObject", _name_5);
-            _or_3 = _equals_5;
+            _or_3 = (_equals_4 || _equals_5);
           }
           if (_or_3) {
             _or_2 = true;
           } else {
             String _name_6 = dataType.getName();
             boolean _equals_6 = Objects.equal("EBigDecimal", _name_6);
-            _or_2 = _equals_6;
+            _or_2 = (_or_3 || _equals_6);
           }
           if (_or_2) {
             return "real";
@@ -112,7 +112,7 @@ public class MSSQLServerDatabaseSupport extends DatabaseSupport {
                   } else {
                     String _name_9 = dataType.getName();
                     boolean _equals_11 = Objects.equal("EBooleanObject", _name_9);
-                    _or_4 = _equals_11;
+                    _or_4 = (_equals_10 || _equals_11);
                   }
                   if (_or_4) {
                     return "bit";
