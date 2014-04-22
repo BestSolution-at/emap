@@ -41,11 +41,21 @@ public interface DatabaseSupport {
 	
 	public interface Statement {
 		public void addInt(String column, int value);
+		public void addInt(String column, Integer value);
+		
 		public void addDouble(String column, double value);
+		public void addDouble(String column, Double value);
+		
 		public void addString(String column, String value);
+		
 		public void addTimestamp(String column, Date value);
+		
 		public void addLong(String column, long value);
+		public void addLong(String column, Long value);
+		
 		public void addBoolean(String column, boolean value);
+		public void addBoolean(String column, Boolean value);
+		
 		public void addNull(String column, JDBCType type);
 		public void addEnum(String column, Enum<?> value);
 		public void addBlob(String column, Blob value);

@@ -27,10 +27,29 @@ public class PreparedStatement implements Statement {
 	public void addInt(String column, int value) {
 		columnList.add(new IntColumn(columnList.size(), column, value));
 	}
+	
+	@Override
+	public void addInt(String column, Integer value) {
+		if( value == null ) {
+			addNull(column, JDBCType.INT);
+		} else {
+			addInt(column, value.intValue());
+		}
+	}
 
 	@Override
 	public void addDouble(String column, double value) {
 		columnList.add(new DoubleColumn(columnList.size(), column, value));
+	}
+	
+	@Override
+	public void addDouble(String column, Double value) {
+		if( value == null ) {
+			addNull(column, JDBCType.DOUBLE);
+		} else {
+			addDouble(column, value);	
+		}
+		
 	}
 
 	@Override
@@ -40,12 +59,21 @@ public class PreparedStatement implements Statement {
 
 	@Override
 	public void addNull(String column, JDBCType type) {
-		columnList.add(new NullColumn(columnList.size(), column));
+		columnList.add(new NullColumn(columnList.size(), column, type));
 	}
 	
 	@Override
 	public void addBoolean(String column, boolean value) {
 		columnList.add(new BooleanColumn(columnList.size(), column, value));
+	}
+	
+	@Override
+	public void addBoolean(String column, Boolean value) {
+		if( value == null ) {
+			addNull(column, JDBCType.BOOLEAN);
+		} else {
+			addBoolean(column, value);	
+		}
 	}
 	
 	@Override
@@ -56,6 +84,15 @@ public class PreparedStatement implements Statement {
 	@Override
 	public void addLong(String column, long value) {
 		columnList.add(new LongColumn(columnList.size(), column, value));
+	}
+	
+	@Override
+	public void addLong(String column, Long value) {
+		if( value == null ) {
+			addNull(column, JDBCType.LONG);
+		} else {
+			addLong(column, value);	
+		}
 	}
 	
 	@Override
@@ -166,8 +203,11 @@ public class PreparedStatement implements Statement {
 	}
 
 	static class NullColumn extends Column {
-		public NullColumn(int index, String column) {
+		private final JDBCType type;
+		
+		public NullColumn(int index, String column, JDBCType type) {
 			super(index, column);
+			this.type = type;
 		}
 
 		@Override

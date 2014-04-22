@@ -62,15 +62,7 @@ class JavaInsertUpdateGenerator {
 						stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
 					}
 				«ELSE»
-					«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
-						stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-					«ELSE»
-						if( object.get«a.name.toFirstUpper»() != null ) {
-							stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-						} else {
-							stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
-						}
-					«ENDIF»
+					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
 				«ENDIF»
 			«ELSEIF a.isSingle(eClass)»
 				if( object.get«a.name.toFirstUpper»() != null ) {
