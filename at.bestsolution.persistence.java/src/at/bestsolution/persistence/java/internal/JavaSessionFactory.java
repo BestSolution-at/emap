@@ -159,6 +159,11 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public Blob createBlob() {
+			return new LocalBlob();
+		}
+		
+		@Override
 		public String getId() {
 			return id;
 		}

@@ -179,6 +179,10 @@ class UtilCollection {
 			return "INT";
 		} else if( f.EType.instanceClassName == "boolean" ) {
 			return "BOOLEAN";
+		} else if( f.EType.instanceClassName == "java.sql.Blob" ) {
+			return "BLOB"
+		} else if (f.EType.instanceClassName == "java.sql.Clob") {
+			return "CLOB"
 		} else {
 			return "UNKNOWN";
 		}
@@ -244,6 +248,7 @@ class UtilCollection {
 			case "boolean": return "addBoolean"
 			case "java.util.Date": return "addTimestamp"
 			case "java.lang.String": return "addString"
+			case "java.sql.Blob": return "addBlob"
 		}
 	}
 

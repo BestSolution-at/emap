@@ -11,5 +11,13 @@
 package at.bestsolution.persistence.java.query;
 
 public enum JDBCType {
-	LONG, INT, STRING, DOUBLE, BOOLEAN, FLOAT, UNKNOWN
+	LONG, 
+	INT, 
+	STRING, 
+	DOUBLE, 
+	BOOLEAN, 
+	FLOAT, 
+	BLOB,
+	CLOB,
+	UNKNOWN
 }

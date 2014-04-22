@@ -53,6 +53,14 @@ class JavaInsertUpdateGenerator {
 					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 						// TODO Support array storage
 					}
+				«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
+					if( object.get«a.name.toFirstUpper»() != null ) {
+						if( Util.isModified(session, object, "«a.name»") ) {
+							stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
+						}
+					} else {
+						stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
+					}
 				«ELSE»
 					if( object.get«a.name.toFirstUpper»() != null ) {
 						stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
@@ -153,6 +161,10 @@ class JavaInsertUpdateGenerator {
 					«IF eClass.getEStructuralFeature(a.name).many»
 						if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 							//TODO Support array storage
+						}
+					«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
+						if( object.get«a.name.toFirstUpper»() != null ) {
+							stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
 						}
 					«ELSE»
 						if( object.get«a.name.toFirstUpper»() != null ) {

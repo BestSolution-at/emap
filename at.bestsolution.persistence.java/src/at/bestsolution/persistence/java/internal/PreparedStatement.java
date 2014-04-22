@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.internal;
 
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -62,6 +63,11 @@ public class PreparedStatement implements Statement {
 		columnList.add(new StringColumn(columnList.size(), column, value.name()));
 	}
 	
+	@Override
+	public void addBlob(String column, Blob value) {
+		columnList.add(new BlobColumn(columnList.size(), column, value));
+	}
+	
 	public static abstract class Column {
 		final String column;
 		final int index;
@@ -75,7 +81,7 @@ public class PreparedStatement implements Statement {
 	}
 	
 	static class DoubleColumn extends Column {
-		final double value;
+		private final double value;
 		
 		public DoubleColumn(int index, String column, double value) {
 			super(index, column);
@@ -89,7 +95,7 @@ public class PreparedStatement implements Statement {
 	}
 	
 	static class IntColumn extends Column {
-		final int value;
+		private final int value;
 		
 		public IntColumn(int index, String column, int value) {
 			super(index, column);
@@ -103,7 +109,7 @@ public class PreparedStatement implements Statement {
 	}
 
 	static class LongColumn extends Column {
-		final long value;
+		private final long value;
 		
 		public LongColumn(int index, String column, long value) {
 			super(index, column);
@@ -117,7 +123,7 @@ public class PreparedStatement implements Statement {
 	}
 	
 	static class BooleanColumn extends Column {
-		final boolean value;
+		private final boolean value;
 		
 		public BooleanColumn(int index, String column, boolean value) {
 			super(index, column);
@@ -131,7 +137,7 @@ public class PreparedStatement implements Statement {
 	}
 
 	static class TimestampColumn extends Column {
-		final Date value;
+		private final Date value;
 		
 		public TimestampColumn(int index, String column, Date value) {
 			super(index, column);
@@ -146,7 +152,7 @@ public class PreparedStatement implements Statement {
 
 	
 	static class StringColumn extends Column {
-		final String value;
+		private final String value;
 		
 		public StringColumn(int index, String column, String value) {
 			super(index, column);
@@ -168,5 +174,20 @@ public class PreparedStatement implements Statement {
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
 			pstmt.setObject(index+1, null);
 		}
+	}
+	
+	static class BlobColumn extends Column {
+		private final Blob blob;
+		
+		public BlobColumn(int index, String column, Blob blob) {
+			super(index, column);
+			this.blob = blob;
+		}
+
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			pstmt.setBinaryStream(index+1, blob.getBinaryStream());
+		}
+		
 	}
 }

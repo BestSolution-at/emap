@@ -55,7 +55,7 @@ class EMapGenerator implements IGenerator {
 		val root = resource.contents.head as EMapping
 		if( root.root instanceof EMappingEntityDef ) {
 			val edef = root.root as EMappingEntityDef
-			if( edef.entity.abstract ) {
+			if( edef.entity.allAttributes.findFirst[pk] == null ) {
 				return;
 			}
 			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
@@ -82,6 +82,9 @@ class EMapGenerator implements IGenerator {
 					}					
 				}
 			}
+			
+			val projectName = resource.URI.segment(0)
+			
 
 //			println("Generating " + edef.entity.name+"Mapper.xml");
 //			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))

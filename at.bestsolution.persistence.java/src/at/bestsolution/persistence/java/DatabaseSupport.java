@@ -10,12 +10,13 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
 import at.bestsolution.persistence.MappedQuery;
-import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.ListDelegate;
 
@@ -34,7 +35,6 @@ public interface DatabaseSupport {
 	}
 
 	public interface QueryBuilder {
-//		public void addColumn(String columnName, String dynamicParameter);
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn);
 		public InsertStatement createInsertStatement(String pkColumn, String sequenceName, String lockColumn);
 	}
@@ -48,6 +48,7 @@ public interface DatabaseSupport {
 		public void addBoolean(String column, boolean value);
 		public void addNull(String column, JDBCType type);
 		public void addEnum(String column, Enum<?> value);
+		public void addBlob(String column, Blob value);
 	}
 	
 	public interface InsertStatement extends Statement {

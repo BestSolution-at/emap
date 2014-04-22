@@ -174,6 +174,11 @@ public class Util {
 			case STRING:
 				sqlType = Types.VARCHAR;
 				break;
+			case BLOB:
+				sqlType = Types.BLOB;
+				break;
+			case CLOB:
+				sqlType = Types.CLOB;
 			default:
 				sqlType = Types.OTHER;
 				break;

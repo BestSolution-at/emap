@@ -8,7 +8,7 @@
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  *******************************************************************************/
-package at.bestsolution.persistence.emap.generator
+package at.bestsolution.persistence.emap.generator.java
 
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
 import org.eclipse.emf.ecore.EClass
@@ -19,8 +19,8 @@ class JUnitGenerator {
 //	@Inject extension
 //  	var UtilCollection util;
 
-	def assertClassGen(EMappingEntityDef entityDef, EClass eClass) '''
-	package «entityDef.package.name».test;
+	def getAssertHelpers(EMappingEntityDef entityDef, EClass eClass) '''
+	package «entityDef.package.name».gen;
 
 	import org.eclipse.emf.ecore.EObject;
 	import org.junit.Assert;
@@ -93,6 +93,15 @@ class JUnitGenerator {
 				session.close();
 			}
 		}
+		«ENDFOR»
+	}
+	'''
+	
+	def generateBasicJUnit(EMappingEntityDef entityDef, EClass eClass) '''
+	package «entityDef.package.name».gen;
+	
+	public class Abstract«eClass.name»Test {
+		«FOR query : entityDef.entity.namedQueries.filter[q|q.returnType==ReturnType::SINGLE]»
 		«ENDFOR»
 	}
 	'''

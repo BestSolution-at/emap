@@ -11,6 +11,7 @@
 package at.bestsolution.persistence;
 
 import java.io.Closeable;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public interface Session extends Closeable {
 	public void delete(Object... o);
 
 	public boolean isAttached(Object o);
+	public Blob createBlob();
 //	public Object getVersion(Object o);
 
 	public interface Transaction {
