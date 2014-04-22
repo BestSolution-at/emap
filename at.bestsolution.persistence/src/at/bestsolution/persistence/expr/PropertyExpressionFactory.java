@@ -176,5 +176,13 @@ public class PropertyExpressionFactory<O> {
 		public StringExpressionFactory(String property) {
 			super(property);
 		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
+		}
+
+		public LikeExpression<O> ilike(String value) {
+			return LikeExpression.ilike(property, value);
+		}
 	}
 }
