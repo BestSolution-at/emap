@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  COMMENT
+  WHERE
+    FK_TASK = #{sid}

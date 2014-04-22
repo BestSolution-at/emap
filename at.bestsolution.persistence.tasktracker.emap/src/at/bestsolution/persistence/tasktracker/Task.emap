@@ -4,7 +4,7 @@ entity Task derived BaseObject {
 	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#Task
 	
 	attributes {
-		primarykey sid 	=> SID_TASK generatedby { "H2" autokey },
+		primarykey sid 	=> SID_TASK generatedby { "h2" autokey, "Firebird" seqnext "SEQ_SID_TASK" },
 		description		=> DESCRIPTION,
 		title			=> TITLE,
 		state			=> STATE,
@@ -18,7 +18,7 @@ entity Task derived BaseObject {
 		targetVersion	=> resolve Version.selectById(FK_TARGET_VERSION)
 	}
 	queries {
-		single selectById(long sid) {
+		single selectById(long sid) { 
 			default Task FROM "TASK" WHERE "SID_TASK = ${sid}"
 		},
 		selectAll() {
@@ -26,6 +26,12 @@ entity Task derived BaseObject {
 		},
 		selectAllForTaskRepository(long sid) {
 			default Task FROM "TASK" WHERE "FK_REPOSITORY = ${sid}"
+		},
+		long countTasks() {
+			default "count(*)" FROM "TASK"
+		},
+		[typedef TaskAndPerson(String title, String assigneeName)] selectTaskAndPerson {
+			default "TITLE, CONTACT(LASTNAME, ' ', FIRSTNAME)" FROM "TASK, PERSON" WHERE "FK_ASSIGNEE = SID_PERSON" 
 		}
 	}
 }

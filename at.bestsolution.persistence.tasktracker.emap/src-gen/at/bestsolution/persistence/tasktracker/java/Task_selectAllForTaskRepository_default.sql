@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  TASK
+  WHERE
+    FK_REPOSITORY = #{sid}

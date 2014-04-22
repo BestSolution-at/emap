@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  VERSION
+  WHERE
+    FK_REPOSITORY = #{sid}

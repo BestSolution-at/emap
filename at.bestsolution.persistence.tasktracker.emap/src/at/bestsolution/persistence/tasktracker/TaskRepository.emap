@@ -4,7 +4,7 @@ entity TaskRepository derived BaseObject {
 	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#TaskRepository
 	
 	attributes {
-		primarykey sid 			=> SID_TASK_REPOSITORY generatedby { "H2" autokey },
+		primarykey sid 			=> SID_TASK_REPOSITORY generatedby { "h2" autokey, "Firebird" seqnext "SEQ_SID_TASK_REPOSITORY" },
 		description				=> DESCRIPTION,
 		name					=> NAME,
 		personList				=> resolve Person.selectAllForTaskRepository(SID_TASK_REPOSITORY),

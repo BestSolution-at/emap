@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  COMMENT
+  WHERE
+    SID_COMMENT = #{sid}

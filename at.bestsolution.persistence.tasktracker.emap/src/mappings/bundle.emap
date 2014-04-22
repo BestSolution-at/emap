@@ -1,6 +1,6 @@
 bundle Tasktracker {
 	Attachment, 
-	BaseObject,
+	BaseObject,  
 	ChangeSet,
 	Comment,
 	CommentAttachment,
@@ -10,4 +10,4 @@ bundle Tasktracker {
 	TaskAttachment,
 	TaskRepository,
 	Version
-}
+} databases "h2", "Firebird" 

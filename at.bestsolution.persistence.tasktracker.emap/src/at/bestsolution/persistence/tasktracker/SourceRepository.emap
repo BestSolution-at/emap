@@ -4,7 +4,7 @@ entity SourceRepository derived BaseObject {
 	etype "http://www.bestsolution.at/emap/tasktracker/1.0"#SourceRepository
 	
 	attributes {
-		primarykey sid 	=> SID_SOURCE_REPOSITORY generatedby { "H2" autokey },
+		primarykey sid 	=> SID_SOURCE_REPOSITORY generatedby { "h2" autokey, "Firebird" seqnext "SEQ_SID_SOURCE_REPOSITORY" },
 		sourceUrl		=> SOURCEURL,
 		type			=> TYPE,	
 		webUrl			=> WEBURL,

@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  CHANGE_SET
+  WHERE
+    SID_CHANGE_SET = #{sid}
