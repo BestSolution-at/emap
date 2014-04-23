@@ -19,11 +19,25 @@ public class FeaturePathBuilder {
 	private List<FeaturePathSegment> segments = new ArrayList<FeaturePathSegment>();
 
 	public FeaturePathBuilder segment(EStructuralFeature feature) {
+		if (feature == null) {
+			throw new IllegalArgumentException("null feature is not allowed"); //$NON-NLS-1$
+		}
 		segments.add(new FeaturePathSegment(feature));
 		return this;
 	}
 
-	public FeaturePathBuilder manySegment(EStructuralFeature feature, Condition condition) {
+	public FeaturePathBuilder manySegment(EStructuralFeature feature,
+			Condition condition) {
+		if (feature == null) {
+			throw new IllegalArgumentException("null feature is not allowed"); //$NON-NLS-1$
+		}
+		if (!feature.isMany()) {
+			throw new IllegalArgumentException(
+					"feature " + feature.getName() + " is not a many feature"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		if (condition == null) {
+			throw new IllegalArgumentException("null condition is not allowed"); //$NON-NLS-1$
+		}
 		segments.add(new FeaturePathSegment(feature, condition));
 		return this;
 	}
