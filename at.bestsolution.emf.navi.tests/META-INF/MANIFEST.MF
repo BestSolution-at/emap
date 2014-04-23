@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EMF Navi Tests
+Bundle-SymbolicName: at.bestsolution.emf.navi.tests
+Bundle-Version: 1.0.0.qualifier
+Fragment-Host: at.bestsolution.emf.navi;bundle-version="1.0.0"
+Require-Bundle: at.bestsolution.emf.navi.tests.model;bundle-version="0.0.1",
+ org.junit,
+ org.eclipse.emf.ecore.xmi
