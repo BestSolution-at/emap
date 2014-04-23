@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="at.bestsolution.persistence.mybatis.sessionfactory">
-   <implementation class="at.bestsolution.persistence.mybatis.impl.SessionFactoryImpl"/>
-   <service>
-      <provide interface="at.bestsolution.persistence.SessionFactory"/>
-   </service>
-   <reference bind="setSqlSessionProvider" cardinality="1..1" interface="at.bestsolution.persistence.mybatis.SqlSessionProvider" name="SqlSessionProvider" policy="dynamic" unbind="unsetSqlSessionProvider"/>
-</scr:component>

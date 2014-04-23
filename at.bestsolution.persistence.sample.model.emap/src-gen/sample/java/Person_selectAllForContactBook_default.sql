@@ -1,6 +1,0 @@
-SELECT
-	*
-FROM
-	PERSON
-	WHERE
-		P_FK_CONTACTBOOK = #{contactBookId}
