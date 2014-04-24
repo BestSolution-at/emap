@@ -55,10 +55,12 @@ class EMapGenerator implements IGenerator {
 		val root = resource.contents.head as EMapping
 		if( root.root instanceof EMappingEntityDef ) {
 			val edef = root.root as EMappingEntityDef
+
+			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
+
 			if( edef.entity.allAttributes.findFirst[pk] == null ) {
 				return;
 			}
-			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
 			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", javaObjectMapperGenerator.generateJava(edef, edef.lookupEClass));
 
 
@@ -78,13 +80,13 @@ class EMapGenerator implements IGenerator {
 				if( namedQuery.returnType instanceof ETypeDef ) {
 					val t = namedQuery.returnType as ETypeDef
 					if( t.name.indexOf('.') == -1 ) {
-						fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t));	
-					}					
+						fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t));
+					}
 				}
 			}
-			
+
 			val projectName = resource.URI.segment(0)
-			
+
 
 //			println("Generating " + edef.entity.name+"Mapper.xml");
 //			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))

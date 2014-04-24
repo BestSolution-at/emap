@@ -42,11 +42,27 @@ class JavaInterfaceGenerator {
 			}
 
 			public static final class Expression {
-				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return t1.getEAttribute(eClass).equals(t2.getEAttribute(eClass))].filter[isSingle(eClass)]»
+				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))].filter[isSingle(eClass)]»
+«««				«val temp = entityDef.entity.collectAllAttributes»
+«««				«val temp2 = temp.filterDups[t1,t2|
+«««					val a1 = eClass.getEStructuralFeature(t1.name)
+«««					val a2 =  eClass.getEStructuralFeature(t2.name)
+«««//					if( t1.name == "sid" || t2.name == "sid" ) {
+«««//						println("T1 " + t1.columnName + " => " + a1)
+«««//						println("T2 " + t2.columnName + " => " + a2)
+«««//					}
+«««					return a1.equals(a2)
+«««				]»
+«««				«println(temp2.map[name])»
+«««				«val temp3 = temp2.filter[isSingle(eClass)]»
+«««				«println(temp3.map[name])»
+«««				«FOR a : temp3»
+«««					«println(a)»
 					«IF a.resolved»
 						public static final «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «a.name»() { return new «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»>("«a.name»");};
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»
+«««						// «a»
 						«IF eAttribute.boolean»
 							«IF eAttribute.primitive»
 								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»> «a.name»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»>("«a.name»");};

@@ -52,12 +52,32 @@ class UtilCollection {
 	}
 
 	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
-		val s = new TreeSet<T>([T t1, T t2| if( equals.apply(t1,t2) ) return 0 else return 1 ] );
-		val i = unfiltered.iterator;
-		while( i.hasNext ) {
-			s.add(i.next)
+		val rv = new ArrayList<T>()
+
+		for( T t : unfiltered ) {
+			if( rv.findFirst[equals.apply(it,t)] == null ) {
+				rv.add(t)
+			}
 		}
-		return s;
+		return rv;
+//
+//		val s = new TreeSet<T>([T t1, T t2|
+////		println("T1 vs T2" + t1 + " => " + t2)
+//		if( equals.apply(t1,t2) ) {
+////			println("Discard")
+//			return 0
+//		} else {
+//			return Integer::valueOf(System::identityHashCode(t1)).compareTo(Integer::valueOf(System::identityHashCode(t2)))
+//		}
+//		] );
+//		val i = unfiltered.iterator;
+//		while( i.hasNext ) {
+//			val o = i.next
+//			println(" ===> Adding " + o )
+//			println(s.add(o))
+//			println(" <=== Ended")
+//		}
+//		return s;
 	}
 
 	def isBoolean(EStructuralFeature e) {
@@ -372,10 +392,13 @@ class UtilCollection {
 		entity.allAttributes(l)
 		val eClass = entity.etype.lookupEClass;
 		l.sort([ a,b | return sortAttributes(eClass,a,b)]);
+//		println("RETURN VALUE: " + l.map[name])
 		return l
 	}
 
 	def void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
+//		println("Collecting for " + entity)
+//		println(entity.attributes)
 		l.addAll(entity.attributes)
 		if( entity.parent != null ) {
 			entity.parent.allAttributes(l)
