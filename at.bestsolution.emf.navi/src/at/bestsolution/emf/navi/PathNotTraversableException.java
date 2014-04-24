@@ -6,24 +6,40 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Martin Bluehweis <martin.bluehweis@bestsolution.at> - initial API and implementation
+ *     ccaks <christoph.caks@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.emf.navi;
 
 @SuppressWarnings("serial")
-public class TooManyResultsException extends NaviException {
-	public TooManyResultsException() {
+public class PathNotTraversableException extends NaviException {
+
+	/**
+	 * 
+	 */
+	public PathNotTraversableException() {
+		super();
 	}
 
-	public TooManyResultsException(String arg0) {
-		super(arg0);
+	/**
+	 * @param message
+	 * @param cause
+	 */
+	public PathNotTraversableException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
-	public TooManyResultsException(Throwable arg0) {
-		super(arg0);
+	/**
+	 * @param message
+	 */
+	public PathNotTraversableException(String message) {
+		super(message);
 	}
 
-	public TooManyResultsException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
+	/**
+	 * @param cause
+	 */
+	public PathNotTraversableException(Throwable cause) {
+		super(cause);
 	}
+
 }
