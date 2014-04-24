@@ -34,7 +34,7 @@ class JavaInsertUpdateGenerator {
 		}
 		
 		// Built the query
-		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", getLockColumn());
+		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", «IF entityDef.isExtended»null«ELSE»getLockColumn()«ENDIF»);
 		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
           if( pk ) {
             return false;
@@ -76,6 +76,9 @@ class JavaInsertUpdateGenerator {
 		// Execute the query
 		Connection connection = session.checkoutConnection();
 		try {
+			«IF entityDef.isExtended»
+			session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
+			«ENDIF»
 			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.toFirstUpper»());
 			if( getLockColumn() != null && ! success ) {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
