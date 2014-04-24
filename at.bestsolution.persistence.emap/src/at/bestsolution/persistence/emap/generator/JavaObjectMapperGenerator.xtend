@@ -33,7 +33,7 @@ class JavaObjectMapperGenerator {
 
   @Inject
   var CustomQueryGenerator customQueryGen;
-  
+
   @Inject
   var JavaInsertUpdateGenerator insertUpdateGen;
 
@@ -85,7 +85,7 @@ class JavaObjectMapperGenerator {
   import at.bestsolution.persistence.Callback;
   import java.util.Collections;
   import java.util.Collection;
-  
+
   @SuppressWarnings("all")
   public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«eClass.name»> {
     @Override
@@ -325,8 +325,8 @@ class JavaObjectMapperGenerator {
         if(!session.getDatabaseSupport().isNestedResultSetsSupported()) {
           if( isDebug ) {
             LOGGER.debug("Database does not support nested result sets - opening 2nd connection");
-            connection = session.checkoutConnection();
           }
+          connection = session.checkoutConnection();
         }
 
         PreparedStatement stmt = null;
@@ -423,7 +423,7 @@ class JavaObjectMapperGenerator {
       «ENDFOR»
 
 	  «insertUpdateGen.generateUpdate(entityDef,eClass)»
-      
+
 	  «insertUpdateGen.generateInsert(entityDef,eClass)»
 
       public final void deleteById(Object... id) {
