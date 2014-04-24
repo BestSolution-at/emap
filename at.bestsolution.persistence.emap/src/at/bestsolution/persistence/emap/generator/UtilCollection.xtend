@@ -51,6 +51,10 @@ class UtilCollection {
 		entityDef.entity.lookupEClass
 	}
 
+	def isExtended(EMappingEntityDef entityDef) {
+		entityDef.entity.extensionType == "extends"
+	}
+
 	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
 		val rv = new ArrayList<T>()
 
