@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Mssql
-Bundle-SymbolicName: at.bestsolution.persistence.mybatis.mssql
-Bundle-Version: 1.0.0.qualifier
-Fragment-Host: at.bestsolution.persistence.mybatis
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: libs/jtds-1.3.1.jar,
- .

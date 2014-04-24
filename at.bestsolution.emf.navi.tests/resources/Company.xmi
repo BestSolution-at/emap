@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sample:Company
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:sample="http://www.bestsolution.at/sample/1.0"
+    xsi:schemaLocation="http://www.bestsolution.at/sample/1.0 ../../at.bestsolution.emf.navi.tests.model/model/Sample.ecore"
+    name="MyCompany">
+  <departments
+      name="Marketing">
+    <groups
+        name="Europe">
+      <persons
+          name="Carl M."/>
+      <persons
+          name="Jennifer L."/>
+      <persons
+          name="Joseph S."/>
+      <persons
+          name="Mary H."/>
+    </groups>
+    <groups
+        name="Worldwide">
+      <persons
+          name="Bernd R."/>
+      <persons
+          name="Mary S."/>
+      <persons
+          name="Carl A."/>
+      <persons
+          name="Jennifer K."/>
+    </groups>
+  </departments>
+  <departments
+      name="Software">
+    <groups
+        name="Open Source">
+      <persons
+          name="Tom S."/>
+      <persons
+          name="Lindsay K."/>
+      <persons
+          name="Udo R."/>
+      <persons
+          name="Betty F."/>
+      <persons
+          name="Martin B."/>
+      <persons
+          name="Betty W."/>
+    </groups>
+    <groups
+        name="Customer projects">
+      <persons
+          name="Christoph C."/>
+      <persons
+          name="Betty G."/>
+      <persons
+          name="Martin P."/>
+      <persons
+          name="Lola I."/>
+    </groups>
+  </departments>
+</sample:Company>

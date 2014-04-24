@@ -21,6 +21,9 @@ public class FeaturePath {
 	private final List<FeaturePathSegment> segments;
 
 	public FeaturePath(FeaturePathSegment... segments) {
+		if (segments == null || segments.length == 0) {
+			throw new IllegalArgumentException("no segments"); //$NON-NLS-1$
+		}
 		this.segments = Arrays.asList(segments);
 	}
 
@@ -28,11 +31,11 @@ public class FeaturePath {
 		return Collections.unmodifiableList(segments);
 	}
 
-	public boolean contains( EStructuralFeature eStructuralFeature ) {
-		for ( FeaturePathSegment seg : segments ) {
-			if ( seg.feature == eStructuralFeature) return true;
+	public boolean contains(EStructuralFeature eStructuralFeature) {
+		for (FeaturePathSegment seg : segments) {
+			if (seg.feature == eStructuralFeature)
+				return true;
 		}
 		return false;
 	}
-	
 }

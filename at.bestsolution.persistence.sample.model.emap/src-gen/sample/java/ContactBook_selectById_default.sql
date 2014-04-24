@@ -1,6 +1,0 @@
-SELECT
-	*
-FROM
-	CONTACT_BOOK
-	WHERE
-		CB_ID = #{id}

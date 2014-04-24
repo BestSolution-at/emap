@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: at.bestsolution.emf.navi.tests.model;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: at.bestsolution.emf.navi.tests.model.sample,
+ at.bestsolution.emf.navi.tests.model.sample.impl,
+ at.bestsolution.emf.navi.tests.model.sample.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport
+Bundle-ActivationPolicy: lazy
