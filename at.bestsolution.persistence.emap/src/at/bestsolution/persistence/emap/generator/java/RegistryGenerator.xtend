@@ -31,7 +31,7 @@ class RegistryGenerator {
   public final class «bundleDef.name»ObjectMapperFactoriesProvider implements ObjectMapperFactoriesProvider {
     private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
     public «bundleDef.name»ObjectMapperFactoriesProvider() {
-      «FOR e : bundleDef.entities.filter[!abstract]»
+      «FOR e : bundleDef.entities.filter[allAttributes.findFirst[pk] != null]»
         factories.put(«e.fqn».class, new «e.mapperFactoryName»());
       «ENDFOR»
     }
