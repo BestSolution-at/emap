@@ -34,5 +34,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface FeaturePathCallback {
 	Object runOnNode( Object memento, EObject node, FeaturePathSegment segment );
 
+	@Deprecated
 	Object runOnLeaf( Object memento, EObject leaf, FeaturePathSegment segment );
+	
+	void runOnLeaf( Object memento, Object leaf );
 }

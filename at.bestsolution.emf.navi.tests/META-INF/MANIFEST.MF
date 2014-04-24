@@ -7,3 +7,4 @@ Fragment-Host: at.bestsolution.emf.navi;bundle-version="1.0.0"
 Require-Bundle: at.bestsolution.emf.navi.tests.model;bundle-version="0.0.1",
  org.junit,
  org.eclipse.emf.ecore.xmi
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

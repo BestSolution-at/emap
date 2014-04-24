@@ -213,6 +213,11 @@ public class FeaturePathDatabindingUtil {
 			}
 
 			@Override
+			public void runOnLeaf(Object memento, Object leaf) {
+				( (FeaturePathNodeListener) memento ).registerChild( leaf );
+			}
+			
+			@Override
 			public Object runOnNode( Object memento, EObject node, FeaturePathSegment segment ) {
 				EList<Adapter> eAdapters = node.eAdapters();
 				// TODO [PM] try to avoid being inclined to register a adapter several times

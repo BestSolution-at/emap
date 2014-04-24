@@ -11,7 +11,7 @@
 package at.bestsolution.emf.navi;
 
 @SuppressWarnings("serial")
-public class TooManyResultsException extends RuntimeException {
+public class TooManyResultsException extends NaviException {
 	public TooManyResultsException() {
 	}
 
@@ -27,7 +27,4 @@ public class TooManyResultsException extends RuntimeException {
 		super(arg0, arg1);
 	}
 
-	public TooManyResultsException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
-	}
 }

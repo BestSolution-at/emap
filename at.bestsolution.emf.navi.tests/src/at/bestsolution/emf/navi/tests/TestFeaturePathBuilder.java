@@ -57,7 +57,6 @@ public class TestFeaturePathBuilder {
 		fail("allowed to create feature path (many) segment for single reference"); //$NON-NLS-1$
 	}
 
-	@Test(expected = IllegalArgumentException.class)
 	public void test3Segments() {
 		EReference ref13 = SamplePackage.Literals.COMPANY__DEPARTMENTS;
 		EReference ref2 = SamplePackage.Literals.DEPARTMENT__COMPANY;

@@ -12,7 +12,7 @@ public class DepartmentNameCondition implements Condition {
 		this.name = name;
 	}
 
-	public boolean matches(EObject object) {
+	public boolean matches(Object object) {
 		if (object instanceof Department) {
 			Department d = (Department) object;
 			if (d.getName() == null) {

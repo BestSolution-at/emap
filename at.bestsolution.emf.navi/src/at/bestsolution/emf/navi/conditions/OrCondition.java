@@ -30,7 +30,7 @@ public class OrCondition implements Condition {
 	}
 
 	@Override
-	public boolean matches(EObject object) {
+	public boolean matches(Object object) {
 		for (Condition c : conditions) {
 			if (c.matches(object)) {
 				return true;

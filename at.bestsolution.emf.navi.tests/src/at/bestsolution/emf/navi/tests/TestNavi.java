@@ -26,6 +26,9 @@ import org.junit.Test;
 import at.bestsolution.emf.navi.FeaturePath;
 import at.bestsolution.emf.navi.FeaturePathBuilder;
 import at.bestsolution.emf.navi.FeaturePathUtil;
+import at.bestsolution.emf.navi.NaviException;
+import at.bestsolution.emf.navi.NaviFactory;
+import at.bestsolution.emf.navi.PathNotTraversableException;
 import at.bestsolution.emf.navi.conditions.TrueCondition;
 import at.bestsolution.emf.navi.tests.conditions.DepartmentNameCondition;
 import at.bestsolution.emf.navi.tests.model.sample.Company;
@@ -48,12 +51,23 @@ public class TestNavi {
 	}
 
 	@Test
+	public void testResolverLookup() throws NaviException {
+		FeaturePath p = new FeaturePathBuilder().manySegment(
+				SamplePackage.Literals.COMPANY__DEPARTMENTS,
+				NaviFactory.True())
+				.manySegment(SamplePackage.Literals.DEPARTMENT__GROUPS, NaviFactory.True())
+				.create();
+		Object o = FeaturePathUtil.doFilter(rootObject, p);
+		System.err.println(o);
+	}
+	
+	@Test
 	public void testRootObject() {
 		assertNotNull(rootObject);
 	}
 
 	@Test
-	public void testNSimpleValue() {
+	public void testNSimpleValue() throws NaviException {
 		for (Department d : rootObject.getDepartments()) {
 			FeaturePath p = new FeaturePathBuilder().manySegment(
 					SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -68,7 +82,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testNNothingFound() {
+	public void testNNothingFound() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder().manySegment(
 				SamplePackage.Literals.COMPANY__DEPARTMENTS,
 				new DepartmentNameCondition("not existing department"))
@@ -81,7 +95,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testNMultipleResults() {
+	public void testNMultipleResults() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder().manySegment(
 				SamplePackage.Literals.COMPANY__DEPARTMENTS,
 				TrueCondition.getInstance()).create();
@@ -94,7 +108,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testN1NMultipleResult() {
+	public void testN1NMultipleResult() throws NaviException {
 		String name = "Marketing";
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -110,8 +124,8 @@ public class TestNavi {
 		// TODO test expected behaviour
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeSegment() {
+	@Test(expected = PathNotTraversableException.class)
+	public void testAttributeSegment() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
 						new DepartmentNameCondition("Marketing"))
@@ -120,8 +134,8 @@ public class TestNavi {
 		fail(); //$NON-NLS-1$
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testReturnIvalidValueOnIncompleteFeatureFath() {
+	@Test(expected = PathNotTraversableException.class)
+	public void testReturnIvalidValueOnIncompleteFeatureFath() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
 						new DepartmentNameCondition("Marketing"))
@@ -129,8 +143,8 @@ public class TestNavi {
 		FeaturePathUtil.get(rootObject, p);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testN1InvalidSegment() {
+	@Test(expected = PathNotTraversableException.class)
+	public void testN1InvalidSegment() throws NaviException {
 		String name = "Marketing"; //$NON-NLS-1$
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -142,7 +156,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testN1BackReference() {
+	public void testN1BackReference() throws NaviException {
 		String name = "Marketing"; //$NON-NLS-1$
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -153,7 +167,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testN1BackReference2Times() {
+	public void testN1BackReference2Times() throws NaviException {
 		String name = "Marketing"; //$NON-NLS-1$
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -167,7 +181,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testN1N() {
+	public void testN1N() throws NaviException {
 		String name = "Marketing"; //$NON-NLS-1$
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
@@ -184,7 +198,7 @@ public class TestNavi {
 	}
 
 	@Test
-	public void testReturnIvalidValueOnInvalidFeatureFath() {
+	public void testReturnIvalidValueOnInvalidFeatureFath() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder()
 				.manySegment(SamplePackage.Literals.COMPANY__DEPARTMENTS,
 						new DepartmentNameCondition("Marketing"))

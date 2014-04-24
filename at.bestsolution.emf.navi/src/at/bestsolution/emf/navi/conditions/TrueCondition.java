@@ -42,7 +42,7 @@ public class TrueCondition implements Condition {
 	}
 	
 	@Override
-	public boolean matches( EObject object ) {
+	public boolean matches( Object object ) {
 		return true;
 	}
 }

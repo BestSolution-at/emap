@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.emf.navi.FeaturePath;
 import at.bestsolution.emf.navi.FeaturePathUtil;
+import at.bestsolution.emf.navi.PathNotTraversableException;
 
 public class FeaturePathEqualsCondition extends FeaturePathCondition {
 
@@ -25,9 +26,19 @@ public class FeaturePathEqualsCondition extends FeaturePathCondition {
 	}
 
 	@Override
-	public boolean matches(EObject object) {
-		final Object obj = FeaturePathUtil.get(object, path);
-		return equals.equals(obj);
+	public boolean matches(Object object) {
+		if (object instanceof EObject) {
+			try {
+				final Object obj = FeaturePathUtil.first((EObject)object, path);
+				return equals.equals(obj);
+			}
+			catch (PathNotTraversableException e) {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
 	}
 
 }

@@ -31,6 +31,8 @@ import org.junit.Test;
 import at.bestsolution.emf.navi.FeaturePath;
 import at.bestsolution.emf.navi.FeaturePathBuilder;
 import at.bestsolution.emf.navi.FeaturePathUtil;
+import at.bestsolution.emf.navi.NaviException;
+import at.bestsolution.emf.navi.PathNotTraversableException;
 import at.bestsolution.emf.navi.conditions.TrueCondition;
 import at.bestsolution.emf.navi.tests.model.sample.Company;
 import at.bestsolution.emf.navi.tests.model.sample.SamplePackage;
@@ -56,20 +58,20 @@ public class TestFilter {
 	}
 
 	@Test(expected=NullPointerException.class)
-	public void testNullFeaturePath() {
+	public void testNullFeaturePath()  throws NaviException{ 
 			FeaturePathUtil.filter(rootObject, null);
 			fail("API accepted null filter"); //$NON-NLS-1$
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testEmptyFeaturePath() {
+	public void testEmptyFeaturePath() throws NaviException {
 			FeaturePathUtil.filter(rootObject,
 					new FeaturePathBuilder().create());
 			fail("API accepted null filter"); //$NON-NLS-1$
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testInvalidFeaturePath() {
+	public void testInvalidFeaturePath() throws NaviException {
 			FeaturePathUtil.filter(
 					rootObject,
 					new FeaturePathBuilder().manySegment(
@@ -79,7 +81,7 @@ public class TestFilter {
 	}
 
 	@Test
-	public void testN() {
+	public void testN() throws NaviException {
 		FeaturePath p = new FeaturePathBuilder().manySegment(
 				SamplePackage.Literals.COMPANY__DEPARTMENTS,
 				TrueCondition.getInstance()).create();
@@ -89,7 +91,7 @@ public class TestFilter {
 	}
 
 	@Test
-	public void testNKeepingAdapter() {
+	public void testNKeepingAdapter() throws NaviException {
 		Adapter a = new AdapterImpl();
 		try {
 			rootObject.eAdapters().add(a);
