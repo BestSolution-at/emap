@@ -101,7 +101,7 @@ class CustomQueryGenerator {
 				«ELSEIF q.returnType.primitive»
 				rv = set.«(q.returnType as EPredefinedType).resultMethodType»(1);
 				«ELSEIF q.returnType instanceof ETypeDef»
-				rv = new «(q.returnType as ETypeDef).name»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»);
+				rv = new «(q.returnType as ETypeDef).fqn(entityDef)»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»);
 				«ELSE»
 				rv = «(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+"");
 				«ENDIF»
@@ -131,6 +131,13 @@ class CustomQueryGenerator {
 		}
 	}
 	'''
+
+	def fqn( ETypeDef d, EMappingEntityDef edf) {
+		if(  d.name.indexOf('.') == -1 ) {
+			return edf.package.name + "." + d.name
+		}
+		return d.name
+	}
 
 	def valueAttributeHandle(EValueTypeAttribute a) {
 		return "set." + a.type.resultMethodType() + "(" + ((a.eContainer.eGet(a.eContainingFeature) as List<?>).indexOf(a)+1) + ")"
