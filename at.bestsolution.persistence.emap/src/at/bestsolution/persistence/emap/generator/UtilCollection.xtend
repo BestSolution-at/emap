@@ -51,7 +51,7 @@ class UtilCollection {
 		entityDef.entity.lookupEClass
 	}
 
-	def isExtended(EMappingEntityDef entityDef) {
+	def isExtendsEntity(EMappingEntityDef entityDef) {
 		entityDef.entity.extensionType == "extends"
 	}
 

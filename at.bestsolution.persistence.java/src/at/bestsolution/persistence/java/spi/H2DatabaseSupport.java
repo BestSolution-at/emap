@@ -16,6 +16,7 @@ import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.java.Util.ProcessedSQL;
 import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
+import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
@@ -68,6 +69,11 @@ public class H2DatabaseSupport implements DatabaseSupport {
 		public InsertStatement createInsertStatement(String pkColumn,
 				String primaryKeyExpression, String lockColumn) {
 			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
+		}
+		
+		@Override
+		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
+			return new PreparedExtendsInsertStatement(pkColumn, pkColumn);
 		}
 	}
 }

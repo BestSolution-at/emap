@@ -37,6 +37,7 @@ public interface DatabaseSupport {
 	public interface QueryBuilder {
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn);
 		public InsertStatement createInsertStatement(String pkColumn, String sequenceName, String lockColumn);
+		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn);
 	}
 	
 	public interface Statement {
@@ -63,6 +64,10 @@ public interface DatabaseSupport {
 	
 	public interface InsertStatement extends Statement {
 		public long execute(Connection connection) throws SQLException;
+	}
+	
+	public interface ExtendsInsertStatement extends Statement {
+		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
 	}
 	
 	public interface UpdateStatement extends Statement {

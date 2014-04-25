@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     Christoph Caks <christoph.caks@bestsolution.at> - added support for extends
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.java
 
@@ -34,7 +35,7 @@ class JavaInsertUpdateGenerator {
 		}
 		
 		// Built the query
-		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", «IF entityDef.isExtended»null«ELSE»getLockColumn()«ENDIF»);
+		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
 		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
           if( pk ) {
             return false;
@@ -76,7 +77,7 @@ class JavaInsertUpdateGenerator {
 		// Execute the query
 		Connection connection = session.checkoutConnection();
 		try {
-			«IF entityDef.isExtended»
+			«IF entityDef.extendsEntity»
 			session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
 			«ENDIF»
 			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.toFirstUpper»());
@@ -129,9 +130,12 @@ class JavaInsertUpdateGenerator {
 		}
 		
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
-		«IF pkAttribute == null || entityDef.entity.extensionType == "extends"»
-			// TODO WHAT TO GENERATE
-		«ELSE»
+«««		«IF pkAttribute == null || entityDef.extended»
+			
+«««			// TODO WHAT TO GENERATE
+			
+			
+«««		«ELSE»
 			// Handle Expressions
 			String sequenceExpression = null;
 			«val dbSupport = pkAttribute.findDatabaseSupport»
@@ -142,7 +146,11 @@ class JavaInsertUpdateGenerator {
 			«ENDFOR»
 			
 			// Build the SQL
+			«IF !entityDef.extendsEntity»
 			at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
+			«ELSE»
+			at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
+			«ENDIF»
 			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
 				if( pk ) {
 					return false;
@@ -184,7 +192,13 @@ class JavaInsertUpdateGenerator {
 			// Execute the query
 			Connection connection = session.checkoutConnection();
 			try {
+				«IF entityDef.extendsEntity»
+				«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
+				session.createMapper(«parentMapper».class).insert(object);
+				stmt.execute(connection, object.getSid());
+				«ELSE»
 				object.set«pkAttribute.name.toFirstUpper»(stmt.execute(connection));
+				«ENDIF»
 				
 				«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
 					if( pk ) {
@@ -215,13 +229,15 @@ class JavaInsertUpdateGenerator {
 					«ENDFOR»
 				«ENDIF»
 				
-				session.registerObject(object,getPrimaryKeyValue(object),getLockColumn() != null ? 0 : -1);
+				«IF !entityDef.extendsEntity»
+				session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
+				«ENDIF»
 			} catch(SQLException e) {
 				throw new PersistanceException(e);
 			} finally {
 				session.returnConnection(connection);
 			}
-		«ENDIF»
+«««		«ENDIF»
 	}
 	'''
 }

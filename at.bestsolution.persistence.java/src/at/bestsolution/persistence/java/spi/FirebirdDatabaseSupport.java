@@ -20,6 +20,7 @@ import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
@@ -88,6 +89,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		@Override
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
 			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
+		}
+		
+		@Override
+		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
+			return new PreparedExtendsInsertStatement(tableName, pkColumn);
 		}
 
 		@Override

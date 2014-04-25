@@ -937,7 +937,7 @@ class JavaObjectMapperGenerator {
 
   def resolve(EMappingEntity entity, EClass eClass) '''
     «eClass.instanceClassName» target = («eClass.instanceClassName»)eo;
-    «val first = entity.allAttributes.sort([a,b|
+    «val first = entity.allAttributes.sortInplace([a,b|
       val iA = a.sortValue(eClass)
       val iB = b.sortValue(eClass)
       return compare(iA,iB);
@@ -949,7 +949,7 @@ class JavaObjectMapperGenerator {
           «first.createResolveText(eClass,pk)»
           return true;
         }
-        «FOR a : entity.allAttributes.sort([a,b|
+        «FOR a : entity.allAttributes.sortInplace([a,b|
           val iA = a.sortValue(eClass)
           val iB = b.sortValue(eClass)
           return compare(iA,iB);
