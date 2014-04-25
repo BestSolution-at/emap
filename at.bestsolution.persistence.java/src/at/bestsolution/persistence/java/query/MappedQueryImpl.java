@@ -102,6 +102,8 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 			}
 			break;
 		case IN:
+		case IS_NOT_NULL:
+		case IS_NULL:
 			// skip it
 			break;
 		default:
@@ -148,6 +150,14 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" <> ?");
 			break;
+		case IS_NOT_NULL:
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append(" IS NOT NULL");
+			break;
+		case IS_NULL:
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append(" IS NULL");
+			break;
 		case ILIKE:
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" ILIKE ?");
@@ -155,6 +165,14 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 		case LIKE:
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" LIKE ?");
+			break;
+		case NOT_ILIKE:
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append(" NOT ILIKE ?");
+			break;
+		case NOT_LIKE:
+			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append(" NOT LIKE ?");
 			break;
 		case IN:
 			// We could replace with a BETWEEN or >= & <= QUERY

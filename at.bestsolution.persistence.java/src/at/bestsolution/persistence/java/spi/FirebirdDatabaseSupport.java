@@ -71,6 +71,9 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 			case ILIKE:
 				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
 				return;
+			case NOT_ILIKE:
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") NOT LIKE lower ( ? )" );
+				return;
 			default:
 				super.appendCriteria(b, mapper, colPrefix, expression);
 			}
@@ -90,7 +93,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
 			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
 		}
-		
+
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
 			return new PreparedExtendsInsertStatement(tableName, pkColumn);
