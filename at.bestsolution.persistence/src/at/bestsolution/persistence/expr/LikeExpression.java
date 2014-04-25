@@ -23,4 +23,12 @@ public class LikeExpression<O> extends PropertyExpression<O> {
 	public static <O> LikeExpression<O> ilike(String property, String data) {
 		return new LikeExpression<O>(ExpressionType.ILIKE, property, data);
 	}
+
+	public static <O> LikeExpression<O> notLike(String property, String data) {
+		return new LikeExpression<O>(ExpressionType.NOT_LIKE, property, data);
+	}
+
+	public static <O> LikeExpression<O> notIlike(String property, String data) {
+		return new LikeExpression<O>(ExpressionType.NOT_ILIKE, property, data);
+	}
 }

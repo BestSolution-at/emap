@@ -6,25 +6,21 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     tom <FIRSTNAME.LASTNAME@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence.expr;
 
-public enum ExpressionType {
-	EQUALS,
-	NOT_EQUALS,
+public class NullExpression<O> extends PropertyExpression<O> {
 
-	IS_NULL,
-	IS_NOT_NULL,
+	private NullExpression(ExpressionType type, String property) {
+		super(type, property);
+	}
 
-	LIKE,
-	ILIKE,
+	public static <O> NullExpression<O> isNull(String property) {
+		return new NullExpression<O>(ExpressionType.IS_NULL, property);
+	}
 
-	NOT_LIKE,
-	NOT_ILIKE,
-
-	IN,
-
-	AND,
-	OR
+	public static <O> NullExpression<O> isNotNull(String property) {
+		return new NullExpression<O>(ExpressionType.IS_NOT_NULL, property);
+	}
 }

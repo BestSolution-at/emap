@@ -17,8 +17,24 @@ public class PropertyExpressionFactory<O> {
 		this.property = property;
 	}
 
+	public NullExpression<O> isNotNull() {
+		return PropertyExpressionFactory.isNotNull(property);
+	}
+
+	public NullExpression<O> isNull() {
+		return PropertyExpressionFactory.isNull(property);
+	}
+
 	public static <O> EqualsExpression<O> equals(String property, Object value) {
 		return new EqualsExpression<O>(property, value);
+	}
+
+	public static <O> NullExpression<O> isNotNull(String property) {
+		return NullExpression.isNotNull(property);
+	}
+
+	public static <O> NullExpression<O> isNull(String property) {
+		return NullExpression.isNull(property);
 	}
 
 	public static <O> InExpression<O> in(String property, Object... values) {
@@ -183,6 +199,14 @@ public class PropertyExpressionFactory<O> {
 
 		public LikeExpression<O> ilike(String value) {
 			return LikeExpression.ilike(property, value);
+		}
+
+		public LikeExpression<O> notLike(String value) {
+			return LikeExpression.notLike(property, value);
+		}
+
+		public LikeExpression<O> notIlike(String value) {
+			return LikeExpression.notIlike(property, value);
 		}
 	}
 }
