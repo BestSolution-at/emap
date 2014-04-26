@@ -126,95 +126,97 @@ class JavaInsertUpdateGenerator {
 
 
 «««		«ELSE»
-			// Handle Expressions
-			String sequenceExpression = null;
-			«val dbSupport = pkAttribute.findDatabaseSupport»
-			«FOR d : dbSupport»
-			if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
-				sequenceExpression = «IF d.getSequenceStatementNextVal(pkAttribute)!=null»"«d.getSequenceStatementNextVal(pkAttribute)»"«ELSE»null«ENDIF»;
-			}
-			«ENDFOR»
 
-			// Build the SQL
-			«IF !entityDef.extendsEntity»
-			at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
-			«ELSE»
-			at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
+
+		«IF !entityDef.extendsEntity»
+		// Handle Expressions
+		String sequenceExpression = null;
+		«val dbSupport = pkAttribute.findDatabaseSupport»
+		«FOR d : dbSupport»
+		if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
+			sequenceExpression = «IF d.getSequenceStatementNextVal(pkAttribute)!=null»"«d.getSequenceStatementNextVal(pkAttribute)»"«ELSE»null«ENDIF»;
+		}
+		«ENDFOR»
+		// Build the SQL
+		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
+		«ELSE»
+		// Build the SQL
+		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
+		«ENDIF»
+		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
+			«IF a.columnName != null»
+				«IF eClass.getEStructuralFeature(a.name).many»
+					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						//TODO Support array storage
+					}
+				«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
+					if( object.get«a.name.toFirstUpper»() != null ) {
+						stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
+					}
+				«ELSE»
+					«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
+						stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+					«ELSE»
+						if( object.get«a.name.toFirstUpper»() != null ) {
+							stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+						}
+					«ENDIF»
+				«ENDIF»
+			«ELSEIF a.isSingle(eClass)»
+				if( object.get«a.name.toFirstUpper»() != null ) {
+					stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+				}
 			«ENDIF»
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
+		«ENDFOR»
+
+		// Execute the query
+		Connection connection = session.checkoutConnection();
+		try {
+			«IF entityDef.extendsEntity»
+			«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
+			session.createMapper(«parentMapper».class).insert(object);
+			stmt.execute(connection, object.getSid());
+			«ELSE»
+			object.set«pkAttribute.name.toFirstUpper»(stmt.execute(connection));
+			«ENDIF»
+
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
+				if( pk ) {
+					return false;
+				} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
+					val r = eClass.getEStructuralFeature(name) as EReference;
+					if( r.containment ) {
+						return false;
+					}
+					return true;
+				} else {
+					return true;
+				}
+			].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 					«IF eClass.getEStructuralFeature(a.name).many»
-						if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-							//TODO Support array storage
+						if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+							insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
 						}
-					«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
-						if( object.get«a.name.toFirstUpper»() != null ) {
-							stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
-						}
-					«ELSE»
-						«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
-							stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-						«ELSE»
-							if( object.get«a.name.toFirstUpper»() != null ) {
-								stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-							}
-						«ENDIF»
 					«ENDIF»
-				«ELSEIF a.isSingle(eClass)»
-					if( object.get«a.name.toFirstUpper»() != null ) {
-						stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
-					}
 				«ENDIF»
 			«ENDFOR»
-
-			// Execute the query
-			Connection connection = session.checkoutConnection();
-			try {
-				«IF entityDef.extendsEntity»
-				«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
-				session.createMapper(«parentMapper».class).insert(object);
-				stmt.execute(connection, object.getSid());
-				«ELSE»
-				object.set«pkAttribute.name.toFirstUpper»(stmt.execute(connection));
-				«ENDIF»
-
-				«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
-					if( pk ) {
-						return false;
-					} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
-						val r = eClass.getEStructuralFeature(name) as EReference;
-						if( r.containment ) {
-							return false;
-						}
-						return true;
-					} else {
-						return true;
+			«IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
+				«FOR e : entityDef.entity.collectAllAttributes.filter[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ]»
+					for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
+						session.scheduleRelationSQL(createInsertRelationSQL_«e.name»(connection,object,e));
 					}
-				].sort([a,b|return sortAttributes(eClass,a,b)])»
-					«IF a.columnName != null»
-						«IF eClass.getEStructuralFeature(a.name).many»
-							if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-								insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
-							}
-						«ENDIF»
-					«ENDIF»
 				«ENDFOR»
-				«IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
-					«FOR e : entityDef.entity.collectAllAttributes.filter[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ]»
-						for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
-							session.scheduleRelationSQL(createInsertRelationSQL_«e.name»(connection,object,e));
-						}
-					«ENDFOR»
-				«ENDIF»
+			«ENDIF»
 
-				«IF !entityDef.extendsEntity»
-				session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
-				«ENDIF»
-			} catch(SQLException e) {
-				throw new PersistanceException(e);
-			} finally {
-				session.returnConnection(connection);
-			}
+			«IF !entityDef.extendsEntity»
+			session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
+			«ENDIF»
+		} catch(SQLException e) {
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
 «««		«ENDIF»
 	}
 	'''
