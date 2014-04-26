@@ -893,6 +893,28 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__EAttribute__Alternatives_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getPkAssignment_0_0()); }
+(rule__EAttribute__PkAssignment_0_0)?
+{ after(grammarAccess.getEAttributeAccess().getPkAssignment_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getEAttributeAccess().getForcedFkAssignment_0_1()); }
+(rule__EAttribute__ForcedFkAssignment_0_1)
+{ after(grammarAccess.getEAttributeAccess().getForcedFkAssignment_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__EAttribute__Alternatives_3
     @init {
 		int stackSize = keepStackSize();
@@ -3056,9 +3078,9 @@ rule__EAttribute__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getEAttributeAccess().getPkAssignment_0()); }
-(rule__EAttribute__PkAssignment_0)?
-{ after(grammarAccess.getEAttributeAccess().getPkAssignment_0()); }
+{ before(grammarAccess.getEAttributeAccess().getAlternatives_0()); }
+(rule__EAttribute__Alternatives_0)
+{ after(grammarAccess.getEAttributeAccess().getAlternatives_0()); }
 )
 
 ;
@@ -7834,22 +7856,45 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__EAttribute__PkAssignment_0
+rule__EAttribute__PkAssignment_0_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0()); }
+{ before(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0_0()); }
 (
-{ before(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0()); }
+{ before(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0_0()); }
 
 	'primarykey' 
 
-{ after(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0()); }
+{ after(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0_0()); }
 )
 
-{ after(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0()); }
+{ after(grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EAttribute__ForcedFkAssignment_0_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getForcedFkForcedFkKeyword_0_1_0()); }
+(
+{ before(grammarAccess.getEAttributeAccess().getForcedFkForcedFkKeyword_0_1_0()); }
+
+	'forced-fk' 
+
+{ after(grammarAccess.getEAttributeAccess().getForcedFkForcedFkKeyword_0_1_0()); }
+)
+
+{ after(grammarAccess.getEAttributeAccess().getForcedFkForcedFkKeyword_0_1_0()); }
 )
 
 ;

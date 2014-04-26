@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isPk <em>Pk</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isForcedFk <em>Forced Fk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getColumnName <em>Column Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getValueGenerators <em>Value Generators</em>}</li>
@@ -66,6 +67,26 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * @ordered
    */
   protected boolean pk = PK_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isForcedFk() <em>Forced Fk</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isForcedFk()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean FORCED_FK_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isForcedFk() <em>Forced Fk</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isForcedFk()
+   * @generated
+   * @ordered
+   */
+  protected boolean forcedFk = FORCED_FK_EDEFAULT;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -229,6 +250,29 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     pk = newPk;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__PK, oldPk, pk));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isForcedFk()
+  {
+    return forcedFk;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setForcedFk(boolean newForcedFk)
+  {
+    boolean oldForcedFk = forcedFk;
+    forcedFk = newForcedFk;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__FORCED_FK, oldForcedFk, forcedFk));
   }
 
   /**
@@ -465,6 +509,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     {
       case EMapPackage.EATTRIBUTE__PK:
         return isPk();
+      case EMapPackage.EATTRIBUTE__FORCED_FK:
+        return isForcedFk();
       case EMapPackage.EATTRIBUTE__NAME:
         return getName();
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
@@ -500,6 +546,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     {
       case EMapPackage.EATTRIBUTE__PK:
         setPk((Boolean)newValue);
+        return;
+      case EMapPackage.EATTRIBUTE__FORCED_FK:
+        setForcedFk((Boolean)newValue);
         return;
       case EMapPackage.EATTRIBUTE__NAME:
         setName((String)newValue);
@@ -544,6 +593,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__PK:
         setPk(PK_EDEFAULT);
         return;
+      case EMapPackage.EATTRIBUTE__FORCED_FK:
+        setForcedFk(FORCED_FK_EDEFAULT);
+        return;
       case EMapPackage.EATTRIBUTE__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -584,6 +636,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     {
       case EMapPackage.EATTRIBUTE__PK:
         return pk != PK_EDEFAULT;
+      case EMapPackage.EATTRIBUTE__FORCED_FK:
+        return forcedFk != FORCED_FK_EDEFAULT;
       case EMapPackage.EATTRIBUTE__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case EMapPackage.EATTRIBUTE__COLUMN_NAME:
@@ -617,6 +671,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (pk: ");
     result.append(pk);
+    result.append(", forcedFk: ");
+    result.append(forcedFk);
     result.append(", name: ");
     result.append(name);
     result.append(", columnName: ");

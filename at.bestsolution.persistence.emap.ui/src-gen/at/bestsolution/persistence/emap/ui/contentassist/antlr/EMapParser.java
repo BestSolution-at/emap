@@ -42,6 +42,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getExtensionTypeAlternatives_3_0_0(), "rule__EMappingEntity__ExtensionTypeAlternatives_3_0_0");
 					put(grammarAccess.getEMappingEntityAccess().getAlternatives_7_2(), "rule__EMappingEntity__Alternatives_7_2");
 					put(grammarAccess.getEMappingEntityAccess().getAlternatives_7_3_1(), "rule__EMappingEntity__Alternatives_7_3_1");
+					put(grammarAccess.getEAttributeAccess().getAlternatives_0(), "rule__EAttribute__Alternatives_0");
 					put(grammarAccess.getEAttributeAccess().getAlternatives_3(), "rule__EAttribute__Alternatives_3");
 					put(grammarAccess.getEValueGeneratorAccess().getAlternatives_1(), "rule__EValueGenerator__Alternatives_1");
 					put(grammarAccess.getEPrimtiveTypeAccess().getAlternatives(), "rule__EPrimtiveType__Alternatives");
@@ -142,7 +143,8 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEMappingEntityAccess().getNamedCustomQueriesAssignment_7_3_1_1(), "rule__EMappingEntity__NamedCustomQueriesAssignment_7_3_1_1");
 					put(grammarAccess.getEMappingEntityAccess().getTableNameAssignment_9_1(), "rule__EMappingEntity__TableNameAssignment_9_1");
 					put(grammarAccess.getEMappingEntityAccess().getDescriminationColumnAssignment_10_1(), "rule__EMappingEntity__DescriminationColumnAssignment_10_1");
-					put(grammarAccess.getEAttributeAccess().getPkAssignment_0(), "rule__EAttribute__PkAssignment_0");
+					put(grammarAccess.getEAttributeAccess().getPkAssignment_0_0(), "rule__EAttribute__PkAssignment_0_0");
+					put(grammarAccess.getEAttributeAccess().getForcedFkAssignment_0_1(), "rule__EAttribute__ForcedFkAssignment_0_1");
 					put(grammarAccess.getEAttributeAccess().getNameAssignment_1(), "rule__EAttribute__NameAssignment_1");
 					put(grammarAccess.getEAttributeAccess().getColumnNameAssignment_3_0_0(), "rule__EAttribute__ColumnNameAssignment_3_0_0");
 					put(grammarAccess.getEAttributeAccess().getValueGeneratorsAssignment_3_0_1_2(), "rule__EAttribute__ValueGeneratorsAssignment_3_0_1_2");

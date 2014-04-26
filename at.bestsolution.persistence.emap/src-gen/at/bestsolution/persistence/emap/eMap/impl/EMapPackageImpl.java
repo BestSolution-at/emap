@@ -536,7 +536,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEAttribute_Name()
+  public EAttribute getEAttribute_ForcedFk()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(1);
   }
@@ -546,7 +546,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEAttribute_ColumnName()
+  public EAttribute getEAttribute_Name()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(2);
   }
@@ -556,9 +556,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEAttribute_ColumnName()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getEAttribute_ValueGenerators()
   {
-    return (EReference)eAttributeEClass.getEStructuralFeatures().get(3);
+    return (EReference)eAttributeEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -568,7 +578,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEAttribute_Resolved()
   {
-    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -578,7 +588,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EReference getEAttribute_Query()
   {
-    return (EReference)eAttributeEClass.getEStructuralFeatures().get(5);
+    return (EReference)eAttributeEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -588,7 +598,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEAttribute_Parameters()
   {
-    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -598,7 +608,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EReference getEAttribute_Opposite()
   {
-    return (EReference)eAttributeEClass.getEStructuralFeatures().get(7);
+    return (EReference)eAttributeEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -608,7 +618,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEAttribute_RelationTable()
   {
-    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(8);
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(9);
   }
 
   /**
@@ -1305,6 +1315,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     eAttributeEClass = createEClass(EATTRIBUTE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__PK);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__FORCED_FK);
     createEAttribute(eAttributeEClass, EATTRIBUTE__NAME);
     createEAttribute(eAttributeEClass, EATTRIBUTE__COLUMN_NAME);
     createEReference(eAttributeEClass, EATTRIBUTE__VALUE_GENERATORS);
@@ -1460,6 +1471,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     initEClass(eAttributeEClass, at.bestsolution.persistence.emap.eMap.EAttribute.class, "EAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEAttribute_Pk(), ecorePackage.getEBoolean(), "pk", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_ForcedFk(), ecorePackage.getEBoolean(), "forcedFk", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_ColumnName(), ecorePackage.getEString(), "columnName", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEAttribute_ValueGenerators(), this.getEValueGenerator(), null, "valueGenerators", null, 0, -1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

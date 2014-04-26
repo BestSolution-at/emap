@@ -17,11 +17,13 @@ import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
 import org.eclipse.emf.ecore.EReference
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
+import at.bestsolution.persistence.emap.eMap.EAttribute
+import at.bestsolution.persistence.emap.eMap.EMapping
 
 class JavaInsertUpdateGenerator {
 	@Inject extension
   	var UtilCollection util;
-	
+
 	def generateUpdate(EMappingEntityDef entityDef, EClass eClass) '''
 	@Override
 	public final void update(«eClass.name» object) {
@@ -33,22 +35,10 @@ class JavaInsertUpdateGenerator {
 		if( session.getTransaction() == null ) {
 			throw new PersistanceException("You can only modify data while in a transaction");
 		}
-		
+
 		// Built the query
 		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
-		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
-          if( pk ) {
-            return false;
-          } if(eClass.getEStructuralFeature(name) instanceof EReference) {
-            val r = eClass.getEStructuralFeature(name) as EReference;
-            if( r.containment ) {
-              return false;
-            }
-            return true;
-          } else {
-            return true;
-          }
-        ].sort([a,b|return sortAttributes(eClass,a,b)])»
+		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
 			«IF a.columnName != null»
 				«IF eClass.getEStructuralFeature(a.name).many»
 					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
@@ -73,7 +63,7 @@ class JavaInsertUpdateGenerator {
 				}
 			«ENDIF»
 		«ENDFOR»
-		
+
 		// Execute the query
 		Connection connection = session.checkoutConnection();
 		try {
@@ -84,7 +74,7 @@ class JavaInsertUpdateGenerator {
 			if( getLockColumn() != null && ! success ) {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
 			}
-			
+
 			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
 				if(eClass.getEStructuralFeature(name) instanceof EReference) {
 					val r = eClass.getEStructuralFeature(name) as EReference;
@@ -107,7 +97,7 @@ class JavaInsertUpdateGenerator {
 					«ENDIF»
 				«ENDIF»
 			«ENDFOR»
-			
+
 			session.clearChangeDescription(object);
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
@@ -116,7 +106,7 @@ class JavaInsertUpdateGenerator {
 		}
 	}
 	'''
-	
+
 	def generateInsert(EMappingEntityDef entityDef, EClass eClass) '''
 	@Override
 	public final void insert(«eClass.name» object) {
@@ -124,17 +114,17 @@ class JavaInsertUpdateGenerator {
 		if( isDebug ) {
 			LOGGER.debug("Starting insert of '"+object+"'");
 		}
-		
+
 		if( session.getTransaction() == null ) {
 			throw new PersistanceException("You can only modify data while in a transaction");
 		}
-		
+
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 «««		«IF pkAttribute == null || entityDef.extended»
-			
+
 «««			// TODO WHAT TO GENERATE
-			
-			
+
+
 «««		«ELSE»
 			// Handle Expressions
 			String sequenceExpression = null;
@@ -144,26 +134,14 @@ class JavaInsertUpdateGenerator {
 				sequenceExpression = «IF d.getSequenceStatementNextVal(pkAttribute)!=null»"«d.getSequenceStatementNextVal(pkAttribute)»"«ELSE»null«ENDIF»;
 			}
 			«ENDFOR»
-			
+
 			// Build the SQL
 			«IF !entityDef.extendsEntity»
 			at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
 			«ELSE»
 			at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
 			«ENDIF»
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
-				if( pk ) {
-					return false;
-				} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
-					val r = eClass.getEStructuralFeature(name) as EReference;
-					if( r.containment ) {
-						return false;
-					}
-					return true;
-				} else {
-					return true;
-				}
-			].sort([a,b|return sortAttributes(eClass,a,b)])»
+			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
 				«IF a.columnName != null»
 					«IF eClass.getEStructuralFeature(a.name).many»
 						if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
@@ -188,7 +166,7 @@ class JavaInsertUpdateGenerator {
 					}
 				«ENDIF»
 			«ENDFOR»
-			
+
 			// Execute the query
 			Connection connection = session.checkoutConnection();
 			try {
@@ -199,7 +177,7 @@ class JavaInsertUpdateGenerator {
 				«ELSE»
 				object.set«pkAttribute.name.toFirstUpper»(stmt.execute(connection));
 				«ENDIF»
-				
+
 				«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
 					if( pk ) {
 						return false;
@@ -228,7 +206,7 @@ class JavaInsertUpdateGenerator {
 						}
 					«ENDFOR»
 				«ENDIF»
-				
+
 				«IF !entityDef.extendsEntity»
 				session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
 				«ENDIF»
@@ -240,4 +218,28 @@ class JavaInsertUpdateGenerator {
 «««		«ENDIF»
 	}
 	'''
+
+	def attributeFilter(EAttribute it, EClass eClass) {
+		if( pk ) {
+			return false;
+		} else if(forcedFk) {
+			return true;
+		} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
+			val r = eClass.getEStructuralFeature(name) as EReference;
+			if( r.containment ) {
+				return false;
+			}
+			// check if the opposite is a forced FK (bug in teneo generated DDL)
+			if( ! r.many && r.EOpposite != null && ! r.EOpposite.many ) {
+				val edef = query.eResource.contents.head as EMapping
+				val opp = (edef.root as EMappingEntityDef).entity.attributes.findFirst[name == r.EOpposite.name]
+				if( opp != null && opp.forcedFk ) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return true;
+		}
+	}
 }

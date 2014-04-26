@@ -498,8 +498,11 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	public class EAttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cPkAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cPkPrimarykeyKeyword_0_0 = (Keyword)cPkAssignment_0.eContents().get(0);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Assignment cPkAssignment_0_0 = (Assignment)cAlternatives_0.eContents().get(0);
+		private final Keyword cPkPrimarykeyKeyword_0_0_0 = (Keyword)cPkAssignment_0_0.eContents().get(0);
+		private final Assignment cForcedFkAssignment_0_1 = (Assignment)cAlternatives_0.eContents().get(1);
+		private final Keyword cForcedFkForcedFkKeyword_0_1_0 = (Keyword)cForcedFkAssignment_0_1.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cEqualsSignGreaterThanSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
@@ -536,21 +539,31 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRelationTableIDTerminalRuleCall_3_1_5_2_0 = (RuleCall)cRelationTableAssignment_3_1_5_2.eContents().get(0);
 		
 		//EAttribute:
-		//	pk?="primarykey"? name=ID "=>" (columnName=ID ("generatedby" "{" valueGenerators+=EValueGenerator (","
-		//	valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID
-		//	")" (opposite=[EAttribute|QualifiedName] "on" relationTable=ID)?);
+		//	(pk?="primarykey"? | forcedFk?="forced-fk") name=ID "=>" (columnName=ID ("generatedby" "{"
+		//	valueGenerators+=EValueGenerator ("," valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve"
+		//	query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")" (opposite=[EAttribute|QualifiedName] "on"
+		//	relationTable=ID)?);
 		public ParserRule getRule() { return rule; }
 
-		//pk?="primarykey"? name=ID "=>" (columnName=ID ("generatedby" "{" valueGenerators+=EValueGenerator (","
-		//valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID
-		//")" (opposite=[EAttribute|QualifiedName] "on" relationTable=ID)?)
+		//(pk?="primarykey"? | forcedFk?="forced-fk") name=ID "=>" (columnName=ID ("generatedby" "{"
+		//valueGenerators+=EValueGenerator ("," valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve"
+		//query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")" (opposite=[EAttribute|QualifiedName] "on" relationTable=ID)?)
 		public Group getGroup() { return cGroup; }
 
+		//pk?="primarykey"? | forcedFk?="forced-fk"
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
 		//pk?="primarykey"?
-		public Assignment getPkAssignment_0() { return cPkAssignment_0; }
+		public Assignment getPkAssignment_0_0() { return cPkAssignment_0_0; }
 
 		//"primarykey"
-		public Keyword getPkPrimarykeyKeyword_0_0() { return cPkPrimarykeyKeyword_0_0; }
+		public Keyword getPkPrimarykeyKeyword_0_0_0() { return cPkPrimarykeyKeyword_0_0_0; }
+
+		//forcedFk?="forced-fk"
+		public Assignment getForcedFkAssignment_0_1() { return cForcedFkAssignment_0_1; }
+
+		//"forced-fk"
+		public Keyword getForcedFkForcedFkKeyword_0_1_0() { return cForcedFkForcedFkKeyword_0_1_0; }
 
 		//name=ID
 		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
@@ -1863,9 +1876,10 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EAttribute:
-	//	pk?="primarykey"? name=ID "=>" (columnName=ID ("generatedby" "{" valueGenerators+=EValueGenerator (","
-	//	valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve" query=[ENamedQuery|QualifiedName] "(" parameters+=ID
-	//	")" (opposite=[EAttribute|QualifiedName] "on" relationTable=ID)?);
+	//	(pk?="primarykey"? | forcedFk?="forced-fk") name=ID "=>" (columnName=ID ("generatedby" "{"
+	//	valueGenerators+=EValueGenerator ("," valueGenerators+=EValueGenerator)* "}")? | resolved?="resolve"
+	//	query=[ENamedQuery|QualifiedName] "(" parameters+=ID ")" (opposite=[EAttribute|QualifiedName] "on"
+	//	relationTable=ID)?);
 	public EAttributeElements getEAttributeAccess() {
 		return (pEAttribute != null) ? pEAttribute : (pEAttribute = new EAttributeElements());
 	}

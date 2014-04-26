@@ -45,6 +45,7 @@
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EAttribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/pk"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/forcedFk"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/columnName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/valueGenerators"/>

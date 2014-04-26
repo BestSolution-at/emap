@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isPk <em>Pk</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#isForcedFk <em>Forced Fk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getColumnName <em>Column Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getValueGenerators <em>Value Generators</em>}</li>
@@ -57,6 +58,32 @@ public interface EAttribute extends EObject
    * @generated
    */
   void setPk(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Forced Fk</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Forced Fk</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Forced Fk</em>' attribute.
+   * @see #setForcedFk(boolean)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_ForcedFk()
+   * @model
+   * @generated
+   */
+  boolean isForcedFk();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isForcedFk <em>Forced Fk</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Forced Fk</em>' attribute.
+   * @see #isForcedFk()
+   * @generated
+   */
+  void setForcedFk(boolean value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

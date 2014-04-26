@@ -371,13 +371,22 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__PK = 0;
 
   /**
+   * The feature id for the '<em><b>Forced Fk</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__FORCED_FK = 1;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__NAME = 1;
+  int EATTRIBUTE__NAME = 2;
 
   /**
    * The feature id for the '<em><b>Column Name</b></em>' attribute.
@@ -386,7 +395,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__COLUMN_NAME = 2;
+  int EATTRIBUTE__COLUMN_NAME = 3;
 
   /**
    * The feature id for the '<em><b>Value Generators</b></em>' containment reference list.
@@ -395,7 +404,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__VALUE_GENERATORS = 3;
+  int EATTRIBUTE__VALUE_GENERATORS = 4;
 
   /**
    * The feature id for the '<em><b>Resolved</b></em>' attribute.
@@ -404,7 +413,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__RESOLVED = 4;
+  int EATTRIBUTE__RESOLVED = 5;
 
   /**
    * The feature id for the '<em><b>Query</b></em>' reference.
@@ -413,7 +422,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__QUERY = 5;
+  int EATTRIBUTE__QUERY = 6;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' attribute list.
@@ -422,7 +431,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__PARAMETERS = 6;
+  int EATTRIBUTE__PARAMETERS = 7;
 
   /**
    * The feature id for the '<em><b>Opposite</b></em>' reference.
@@ -431,7 +440,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__OPPOSITE = 7;
+  int EATTRIBUTE__OPPOSITE = 8;
 
   /**
    * The feature id for the '<em><b>Relation Table</b></em>' attribute.
@@ -440,7 +449,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE__RELATION_TABLE = 8;
+  int EATTRIBUTE__RELATION_TABLE = 9;
 
   /**
    * The number of structural features of the '<em>EAttribute</em>' class.
@@ -449,7 +458,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 9;
+  int EATTRIBUTE_FEATURE_COUNT = 10;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
@@ -1450,6 +1459,17 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEAttribute_Pk();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#isForcedFk <em>Forced Fk</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Forced Fk</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#isForcedFk()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_ForcedFk();
 
   /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getName <em>Name</em>}'.
@@ -2478,6 +2498,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__PK = eINSTANCE.getEAttribute_Pk();
+
+    /**
+     * The meta object literal for the '<em><b>Forced Fk</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__FORCED_FK = eINSTANCE.getEAttribute_ForcedFk();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

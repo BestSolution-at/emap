@@ -166,7 +166,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
-	 *         pk?='primarykey'? 
+	 *         (pk?='primarykey'? | forcedFk?='forced-fk') 
 	 *         name=ID 
 	 *         (
 	 *             (columnName=ID (valueGenerators+=EValueGenerator valueGenerators+=EValueGenerator*)?) | 
