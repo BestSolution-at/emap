@@ -377,6 +377,17 @@ class UtilCollection {
 		}
 	}
 
+	def type(EAttribute p, EClass eClass) {
+		val f = eClass.getEStructuralFeature(p.name);
+		
+		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
+			return f.EType.instanceClassName
+		} else {
+			val c = (f as EReference).EType as EClass
+			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).EType.instanceClassName;
+		}
+	}
+
 	def statementMethod(EAttribute p, EClass eClass) {
 		val f = eClass.getEStructuralFeature(p.name);
 		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {

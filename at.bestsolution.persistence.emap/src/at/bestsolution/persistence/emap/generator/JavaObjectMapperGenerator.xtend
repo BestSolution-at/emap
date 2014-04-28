@@ -512,7 +512,8 @@ class JavaObjectMapperGenerator {
         List<Object> l = new ArrayList<Object>(object.length);
         for(«eClass.name» o : object) {
           l.add(o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
-          session.unregisterObject(o,getPrimaryKeyValue(o));
+          session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
+          //session.unregisterObject(o,getPrimaryKeyValue(o));
         }
         deleteById(false, l.toArray());
         if( isDebug ) {
@@ -609,7 +610,11 @@ class JavaObjectMapperGenerator {
         «val primaryKey = entityDef.entity.collectAllAttributes.findFirst[pk].columnName»
         «FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved && parameters.head != primaryKey]»
           «val ref = eClass.getEStructuralFeature(a.name) as EReference»
+          «val oppositeEntity = (a.query.eContainer as EMappingEntity)»
+          «val oppositeAttribute = oppositeEntity.allAttributes.findFirst[aa|oppositeEntity.lookupEClass.getEStructuralFeature(aa.name) == ref.EOpposite]»
+          «IF oppositeAttribute == null || !oppositeAttribute.forcedFk»
           REFERENCE_FEATURES.add(«ref.EContainingClass.packageName».«ref.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ref.EContainingClass.name»_«a.name.toFirstUpper»());
+          «ENDIF»
         «ENDFOR»
       }
 
@@ -636,7 +641,11 @@ class JavaObjectMapperGenerator {
       public final <P> P getPrimaryKeyValue(«eClass.name» o) {
         return (P)(Object)o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»();
       }
-
+      
+      protected final <P> P getPrimaryKeyForTx(«eClass.name» o) {
+      	return session.getPrimaryKey(this, o);
+      }
+      
       «IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
         «FOR e : entityDef.entity.collectAllAttributes.filter[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ]»
         «val relEntity = e.opposite.getEntity»

@@ -14,12 +14,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement;
 
 public class PreparedUpdateStatement extends PreparedStatement implements UpdateStatement {
 	private final String tableName;
 	private final String pkColumn;
 	private final String lockColumn;
+	
+	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 	
 	public PreparedUpdateStatement(String tableName, String pkColumn, String lockColumn) {
 		this.tableName = tableName;
@@ -46,6 +50,7 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 	@Override
 	public boolean execute(Connection connection, long primaryKeyValue) throws SQLException {
 		String sql = createSQL(tableName, pkColumn, lockColumn, columnList);
+		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
 		for( Column c : columnList ) {
 			c.apply(pstmt);

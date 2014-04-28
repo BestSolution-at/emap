@@ -55,7 +55,7 @@ public class PreparedExtendsInsertStatement extends PreparedStatement implements
 	@Override
 	public final boolean execute(Connection connection, long primaryKeyValue) throws SQLException {
 		final String sql = createSQL(tableName, pkColumn, primaryKeyValue, columnList);
-		LOGGER.debug("Executing statement '"+sql+"'");
+		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		final java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
 		
 		for( final Column c : columnList ) {

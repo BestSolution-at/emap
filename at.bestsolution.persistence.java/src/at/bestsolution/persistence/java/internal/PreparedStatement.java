@@ -17,10 +17,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.bestsolution.persistence.java.DatabaseSupport.Statement;
 import at.bestsolution.persistence.java.query.JDBCType;
 
 public class PreparedStatement implements Statement {
+	
+	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
+	
 	List<Column> columnList = new ArrayList<Column>();
 
 	@Override
@@ -131,6 +136,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setDouble(index+1, value);
 		}
 	}
@@ -145,6 +151,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setInt(index+1, value);
 		}
 	}
@@ -159,6 +166,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setLong(index+1, value);
 		}
 	}
@@ -173,6 +181,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setBoolean(index+1, value);
 		}
 	}
@@ -187,6 +196,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setTimestamp(index+1, new Timestamp(value.getTime()));
 		}
 	}
@@ -202,6 +212,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setString(index+1, value);
 		}
 	}
@@ -216,6 +227,7 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => null");
 			pstmt.setObject(index+1, null);
 		}
 	}
@@ -230,7 +242,8 @@ public class PreparedStatement implements Statement {
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
-			pstmt.setBinaryStream(index+1, blob.getBinaryStream());
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
+			pstmt.setBlob(index+1, blob);
 		}
 
 	}

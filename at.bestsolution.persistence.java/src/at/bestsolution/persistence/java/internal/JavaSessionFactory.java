@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -44,12 +45,14 @@ import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.DatabaseSupport.PrimaryKeyGenType;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaSession;
 import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
+import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.ProxyFactory;
 import at.bestsolution.persistence.java.RelationSQL;
@@ -145,6 +148,10 @@ public class JavaSessionFactory implements SessionFactory {
 		private int changeTrackingCount = 0;
 		private Map<Transaction, List<RelationSQL>> relationSQLStorage = new HashMap<Session.Transaction, List<RelationSQL>>();
 
+		private Map<Transaction, Set<AfterTxRunnable>> afterTransaction = new HashMap<Session.Transaction, Set<AfterTxRunnable>>();
+		private Map<Transaction, Map<Object, Object>> transactionPrimaryKeyCache = new HashMap<Session.Transaction, Map<Object, Object>>();
+		
+		
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
 			public void notifyChanged(Notification msg) {
@@ -259,6 +266,56 @@ public class JavaSessionFactory implements SessionFactory {
 		public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName) {
 			return (MappedQuery<O>) factories.get(fqnMapper).mappedQuery(this, queryName);
 		}
+		
+		@Override
+		public <O, P> void registerPrimaryKey(O object, P key) {
+			final boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("registerPrimaryKey " + object + " => " + key);
+			}
+			
+			final Transaction transaction = getTransaction();
+			if( transaction == null ) {
+				throw new PersistanceException("Unable to schedule after tx callback without a transaction");
+			}
+			Map<Object, Object> map = transactionPrimaryKeyCache.get(transaction);
+			if (map == null) {
+				map = new HashMap<Object, Object>();
+				transactionPrimaryKeyCache.put(transaction, map);
+			}
+			map.put(object, key);
+		}
+		
+		@Override
+		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
+			final boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("getPrimaryKey " + object);
+			}
+			
+			P key = null;
+			
+			final Transaction transaction = getTransaction();
+			if( transaction != null ) {
+				final Map<Object, Object> map = transactionPrimaryKeyCache.get(transaction);
+				if (map != null) {
+					key = (P) map.get(object);
+				}
+				
+				if (key != null) {
+					if( isDebug ) {
+						LOGGER.debug(" found key in tx cache => " + key);
+					}
+					return key;
+				}
+			}
+			
+			key = mapper.getPrimaryKeyValue(object);
+			if( isDebug ) {
+				LOGGER.debug(" got key from object => " + key);
+			}
+			return key;
+		}
 
 		@Override
 		public boolean isTransaction() {
@@ -320,6 +377,24 @@ public class JavaSessionFactory implements SessionFactory {
 							}
 						}
 						connection.commit();
+						
+						// exectue after-tx callbacks
+						if( isDebug ) {
+							LOGGER.debug("Executing After-Tx callbacks");
+						}
+						int counter = 0;
+						final Set<AfterTxRunnable> set = afterTransaction.get(transaction);
+						if (set != null) {
+							for (AfterTxRunnable r : set) {
+								r.runAfterTx(this);
+								counter++;
+							}
+						}
+						if( isDebug ) {
+							LOGGER.debug("Done executing " + counter + " After-Tx callbacks");
+						}
+						
+						
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
 							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
@@ -359,6 +434,13 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 				throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e);
 			} finally {
+				// clear after-tx
+				afterTransaction.remove(transaction);
+				// clear relationSQL 
+				relationSQLStorage.remove(transaction);
+				// clear transaction primary key cache
+				transactionPrimaryKeyCache.remove(transaction);
+				
 				try {
 					connection.setAutoCommit(true);
 				} catch (SQLException e) {
@@ -384,6 +466,32 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public Transaction getTransaction() {
 			return transactionQueue == null ? null : transactionQueue.peek();
+		}
+		
+		@Override
+		public void scheduleAfterTransaction(AfterTxRunnable r) {
+			final boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("schedule After-Tx callback: " + r);
+			}
+			
+			final Transaction transaction = getTransaction();
+			if( transaction == null ) {
+				throw new PersistanceException("Unable to schedule after tx callback without a transaction");
+			}
+			
+			Set<AfterTxRunnable> set = afterTransaction.get(transaction);
+			if (set == null) {
+				// we use a linked hash set to avoid duplicates while preserving the order
+				set = new LinkedHashSet<AfterTxRunnable>();
+				afterTransaction.put(transaction, set);
+			}
+			
+			if (!set.add(r)) {
+				if( isDebug ) {
+					LOGGER.debug("! After-Tx callback was not scheduled -> duplicate!");
+				}
+			}
 		}
 
 		@Override
@@ -627,7 +735,12 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 
 			if( isDebug ) {
-				LOGGER.debug("Attribute '"+notification.getFeature()+"' of '"+notification.getNotifier()+"' is modified");
+				if (notification.getEventType() == Notification.REMOVING_ADAPTER) {
+					LOGGER.debug("Adapter removed ("+notification.getNotifier()+")");
+				}
+				else {
+					LOGGER.debug("Attribute '"+notification.getFeature()+"' of '"+notification.getNotifier()+"' is modified");
+				}
 			}
 
 			if( notification.getEventType() == Notification.SET ) {

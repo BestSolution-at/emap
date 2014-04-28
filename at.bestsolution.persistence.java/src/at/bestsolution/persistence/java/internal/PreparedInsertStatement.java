@@ -79,7 +79,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 	@Override
 	public final long execute(Connection connection) throws SQLException {
 		String sql = createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn, columnList);
-		LOGGER.debug("Executing statement '"+sql+"'");
+		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
 		
 		for( Column c : columnList ) {

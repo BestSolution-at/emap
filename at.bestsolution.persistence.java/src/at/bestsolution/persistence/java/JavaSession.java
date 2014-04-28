@@ -19,6 +19,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.persistence.Callback;
+import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.Session;
 
 public interface JavaSession extends Session {
@@ -33,6 +34,11 @@ public interface JavaSession extends Session {
 	public boolean isTransaction();
 	public Transaction getTransaction();
 	public void scheduleRelationSQL(RelationSQL sql);
+	
+	public void scheduleAfterTransaction(AfterTxRunnable r);
+	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
+	public <O, P> void registerPrimaryKey(O object, P key);
+	
 	public void registerObject(Object object, Object id, long version);
 	public void updateVersion(Object object, Object id, long version);
 	public void unregisterObject(Object object, Object id);

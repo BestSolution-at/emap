@@ -26,7 +26,7 @@ class JavaInsertUpdateGenerator {
 
 	def generateUpdate(EMappingEntityDef entityDef, EClass eClass) '''
 	@Override
-	public final void update(«eClass.name» object) {
+	public final void update(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("Starting insert of '"+object+"'");
@@ -57,7 +57,11 @@ class JavaInsertUpdateGenerator {
 				«ENDIF»
 			«ELSEIF a.isSingle(eClass)»
 				if( object.get«a.name.toFirstUpper»() != null ) {
-					stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+					«val entity = (a.query.eContainer as EMappingEntity)»
+					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
+					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
 				} else {
 					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
 				}
@@ -98,7 +102,7 @@ class JavaInsertUpdateGenerator {
 				«ENDIF»
 			«ENDFOR»
 
-			session.clearChangeDescription(object);
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.ClearChangeDescriptionAfterTx(object));
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
 		} finally {
@@ -109,7 +113,7 @@ class JavaInsertUpdateGenerator {
 
 	def generateInsert(EMappingEntityDef entityDef, EClass eClass) '''
 	@Override
-	public final void insert(«eClass.name» object) {
+	public final void insert(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("Starting insert of '"+object+"'");
@@ -164,20 +168,34 @@ class JavaInsertUpdateGenerator {
 				«ENDIF»
 			«ELSEIF a.isSingle(eClass)»
 				if( object.get«a.name.toFirstUpper»() != null ) {
-					stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+					«val entity = (a.query.eContainer as EMappingEntity)»
+					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
+					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
 				}
 			«ENDIF»
 		«ENDFOR»
 
 		// Execute the query
-		Connection connection = session.checkoutConnection();
+		final Connection connection = session.checkoutConnection();
 		try {
 			«IF entityDef.extendsEntity»
 			«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
+			// This entity extends another one
+			// insert parent
 			session.createMapper(«parentMapper».class).insert(object);
-			stmt.execute(connection, object.getSid());
+			// insert self
+			stmt.execute(connection, (Long)getPrimaryKeyForTx(object));
 			«ELSE»
-			object.set«pkAttribute.name.toFirstUpper»(stmt.execute(connection));
+			final long primaryKey = stmt.execute(connection);
+			session.registerPrimaryKey(object, primaryKey);
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
+				@Override
+				public void runAfterTx(JavaSession session) {
+					object.set«pkAttribute.name.toFirstUpper»(primaryKey);
+				}
+			});
 			«ENDIF»
 
 			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
@@ -210,7 +228,8 @@ class JavaInsertUpdateGenerator {
 			«ENDIF»
 
 			«IF !entityDef.extendsEntity»
-			session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
+			//session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.RegisterObjectAfterTx(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1));
 			«ENDIF»
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
