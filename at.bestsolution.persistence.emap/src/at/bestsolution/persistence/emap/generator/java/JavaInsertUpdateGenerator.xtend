@@ -23,8 +23,16 @@ import at.bestsolution.persistence.emap.eMap.EMapping
 class JavaInsertUpdateGenerator {
 	@Inject extension
   	var UtilCollection util;
+  	
+  	@Inject extension
+  	var JavaUtilGenerator utilGen;
 
 	def generateUpdate(EMappingEntityDef entityDef, EClass eClass) '''
+	«val simpleDirectMappedAttributes = 	entityDef.entity.findSimpleDirectMappedAttributes(eClass)»
+	«val blobDirectMappedAttributes = 		entityDef.entity.findBlobDirectMappedAttributes(eClass)»
+	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
+	«val oneToOneReferences = 				entityDef.entity.findOneToOneReferences(eClass)»
+	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
 	@Override
 	public final void update(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -32,42 +40,59 @@ class JavaInsertUpdateGenerator {
 			LOGGER.debug("Starting insert of '"+object+"'");
 		}
 
-		if( session.getTransaction() == null ) {
-			throw new PersistanceException("You can only modify data while in a transaction");
-		}
+		«checkTx»
 
 		// Built the query
-		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«entityDef.entity.allAttributes.findFirst[pk].columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
-		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
-			«IF a.columnName != null»
-				«IF eClass.getEStructuralFeature(a.name).many»
-					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						// TODO Support array storage
-					}
-				«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
-					if( object.get«a.name.toFirstUpper»() != null ) {
-						if( Util.isModified(session, object, "«a.name»") ) {
-							stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
-						}
-					} else {
-						stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
-					}
-				«ELSE»
-					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-				«ENDIF»
-			«ELSEIF a.isSingle(eClass)»
+		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
+		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
+		// NEW:
+«««		Handle simple direct mapped attributes
+		«IF !simpleDirectMappedAttributes.empty»
+			// simple direct mapped attributes
+			«FOR a : simpleDirectMappedAttributes»
+				// * «a.name»
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+			«ENDFOR»
+		«ENDIF»
+«««		Handle blob direct mapped attributes
+		«IF !blobDirectMappedAttributes.empty»
+			// blob direct mapped attributes
+			«FOR a : blobDirectMappedAttributes»
+				// * «a.name»
 				if( object.get«a.name.toFirstUpper»() != null ) {
+					if( Util.isModified(session, object, "«a.name»") ) {
+						stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
+					}
+				} else {
+					stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
+				}
+			«ENDFOR»
+		«ENDIF»
+«««		Handle primitive multi valued attributes
+		«IF !primitiveMultiValuedAttributes.empty»
+			// primitive multi valued attributes
+			«FOR a : primitiveMultiValuedAttributes»
+				// * «a.name»
+				if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+					// TODO Support array storage
+				}
+			«ENDFOR»
+		«ENDIF»
+«««		Handle one to one references
+		«IF !oneToOneReferences.empty»
+			// one to one references
+			«FOR a : oneToOneReferences»
+			if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
 					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
 					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
-					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
 				} else {
 					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
 				}
-			«ENDIF»
-		«ENDFOR»
-
+			«ENDFOR»
+		«ENDIF»
+		
 		// Execute the query
 		Connection connection = session.checkoutConnection();
 		try {
@@ -79,29 +104,68 @@ class JavaInsertUpdateGenerator {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
 			}
 
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
-				if(eClass.getEStructuralFeature(name) instanceof EReference) {
-					val r = eClass.getEStructuralFeature(name) as EReference;
-					if( r.containment ) {
-						return false;
+««« 		primitive multi value
+			«IF !primitiveMultiValuedAttributes.empty»
+				// handle primitive multi values
+				«FOR a : primitiveMultiValuedAttributes»
+					// * «a.name»
+					if( !session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						if( Util.isModified(session,object,"«a.name»") ) {
+							«utilGen.getClearPrimitiveMultiValueMethodName(eClass, a)»(connection, object);
+							«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection, getPrimaryKeyValue(object), object.get«a.name.toFirstUpper»());
+						}
 					}
-					return true;
-				} else {
-					return true;
-				}
-			].sort([a,b|return sortAttributes(eClass,a,b)])»
-				«IF a.columnName != null»
-					«IF eClass.getEStructuralFeature(a.name).many»
-						if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-							if( Util.isModified(session,object,"«a.name»") ) {
-								clear_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object));
-								insert_«eClass.name»_«a.name»(connection,getPrimaryKeyValue(object),object.get«a.name.toFirstUpper»());
+				«ENDFOR»
+			«ENDIF»
+			
+«««			update many to many references
+			«IF !manyToManyReferences.empty»
+				// update many to many references
+				«FOR a : manyToManyReferences»
+					// * «a.name»
+					«val oppositeA = a.opposite»
+					«val oppositeMapper = oppositeA.entity.fqn»
+					«val eReference = a.getEStructuralFeature(eClass)»
+					«val oppositeType = eReference.EType.instanceClassName»
+					{
+						JavaSession.ChangeDescription delta = null;
+						List<JavaSession.ChangeDescription> changes = session.getChangeDescription(object);
+						for (JavaSession.ChangeDescription change : changes) {
+							if (change.getFeature() == «eReference.toFullQualifiedJavaEStructuralFeature») {
+								delta = change;
+								break;
 							}
 						}
-					«ENDIF»
-				«ENDIF»
-			«ENDFOR»
-
+						
+						if (delta != null) {
+							final «oppositeMapper» oppositeMapper = session.createMapper(«oppositeMapper».class);
+							if (isDebug) {
+								LOGGER.debug("delta: additions=" + delta.getAdditions().size() + " and removals=" + delta.getRemovals().size());
+								LOGGER.trace("additions: " + delta.getAdditions());
+								LOGGER.trace("removals: " + delta.getRemovals());
+							}
+							
+							for (Object addition : delta.getAdditions()) {
+								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)addition);
+								// TODO test for new object?
+								session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, a)»(connection, object, («oppositeType»)addition));
+							}
+							
+							for (Object removal : delta.getRemovals()) {
+								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)removal);
+								// TODO test for new object?
+								session.scheduleRelationSQL(«getCreateDeleteManyToManyRelationSQLMethodName(eClass, a)»(connection, object, («oppositeType»)removal));
+							}
+							
+						}
+						else {
+							if (isDebug) {
+								LOGGER.debug("no delta recorded => nothing to update for «a.name»");
+							}
+						}			
+					}
+				«ENDFOR»
+			«ENDIF»
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.ClearChangeDescriptionAfterTx(object));
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
@@ -112,6 +176,11 @@ class JavaInsertUpdateGenerator {
 	'''
 
 	def generateInsert(EMappingEntityDef entityDef, EClass eClass) '''
+	«val simpleDirectMappedAttributes = 	entityDef.entity.findSimpleDirectMappedAttributes(eClass)»
+	«val blobDirectMappedAttributes = 		entityDef.entity.findBlobDirectMappedAttributes(eClass)»
+	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
+	«val oneToOneReferences = 				entityDef.entity.findOneToOneReferences(eClass)»
+	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
 	@Override
 	public final void insert(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -119,18 +188,9 @@ class JavaInsertUpdateGenerator {
 			LOGGER.debug("Starting insert of '"+object+"'");
 		}
 
-		if( session.getTransaction() == null ) {
-			throw new PersistanceException("You can only modify data while in a transaction");
-		}
+		«checkTx»
 
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
-«««		«IF pkAttribute == null || entityDef.extended»
-
-«««			// TODO WHAT TO GENERATE
-
-
-«««		«ELSE»
-
 
 		«IF !entityDef.extendsEntity»
 		// Handle Expressions
@@ -147,98 +207,114 @@ class JavaInsertUpdateGenerator {
 		// Build the SQL
 		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
 		«ENDIF»
-		«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[attributeFilter(eClass)].sort([a,b|return sortAttributes(eClass,a,b)])»
-			«IF a.columnName != null»
-				«IF eClass.getEStructuralFeature(a.name).many»
-					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						//TODO Support array storage
-					}
-				«ELSEIF "java.sql.Blob" == eClass.getEStructuralFeature(a.name).EType.instanceClassName»
-					if( object.get«a.name.toFirstUpper»() != null ) {
-						stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
-					}
-				«ELSE»
-					«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
-						stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-					«ELSE»
-						if( object.get«a.name.toFirstUpper»() != null ) {
-							stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
-						}
-					«ENDIF»
-				«ENDIF»
-			«ELSEIF a.isSingle(eClass)»
+		
+		
+«««		Handle simple direct mapped attributes
+		«IF !simpleDirectMappedAttributes.empty»
+			// handle simple direct mapped attributes
+			«FOR a : simpleDirectMappedAttributes»
+			// * «a.name»
+			«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+			«ELSE»
 				if( object.get«a.name.toFirstUpper»() != null ) {
-					«val entity = (a.query.eContainer as EMappingEntity)»
-					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
-					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
-					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
 				}
 			«ENDIF»
-		«ENDFOR»
-
+			«ENDFOR»
+		«ENDIF»
+		
+«««		Handle Blob attributes
+		«IF !blobDirectMappedAttributes.empty»
+			// handle blob attributes
+			«FOR a : blobDirectMappedAttributes»
+			// * «a.name»
+			if( object.get«a.name.toFirstUpper»() != null ) {
+				stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
+			}
+			«ENDFOR»
+		«ENDIF»
+		
+«««		Handle primitive multi valued attributes
+		«IF !primitiveMultiValuedAttributes.empty»
+			// handle primitive multi valued attributes
+			«FOR a : primitiveMultiValuedAttributes»
+			// * «a.name»
+			if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+				//TODO Support array storage
+			}
+			«ENDFOR»
+		«ENDIF»	
+		
+«««		Handle one to one references
+		«IF !oneToOneReferences.empty»
+			// handle one to one references
+			«FOR a : oneToOneReferences»
+			// * «a.name»
+			if( object.get«a.name.toFirstUpper»() != null ) {
+				«val entity = (a.query.eContainer as EMappingEntity)»
+				final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
+				final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
+				stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+				//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+			}
+			«ENDFOR»
+		«ENDIF»
+		
 		// Execute the query
 		final Connection connection = session.checkoutConnection();
 		try {
 			«IF entityDef.extendsEntity»
-			«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
-			// This entity extends another one
-			// insert parent
-			session.createMapper(«parentMapper».class).insert(object);
-			// insert self
-			stmt.execute(connection, (Long)getPrimaryKeyForTx(object));
+				«val parentMapper = (entityDef.entity.parent.eContainer as EMappingEntityDef).fqn»
+				// This entity extends another one
+				// insert parent
+				session.createMapper(«parentMapper».class).insert(object);
+				// insert self
+				stmt.execute(connection, (Long)getPrimaryKeyForTx(object));
 			«ELSE»
-			final long primaryKey = stmt.execute(connection);
-			session.registerPrimaryKey(object, primaryKey);
-			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
-				@Override
-				public void runAfterTx(JavaSession session) {
-					object.set«pkAttribute.name.toFirstUpper»(primaryKey);
-				}
-			});
+				final long primaryKey = stmt.execute(connection);
+				session.registerPrimaryKey(object, primaryKey);
+				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
+					@Override
+					public void runAfterTx(JavaSession session) {
+						object.set«pkAttribute.name.toFirstUpper»(primaryKey);
+					}
+				});
 			«ENDIF»
 
-			«FOR a : entityDef.entity.collectDerivedAttributes.values.filter[
-				if( pk ) {
-					return false;
-				} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
-					val r = eClass.getEStructuralFeature(name) as EReference;
-					if( r.containment ) {
-						return false;
-					}
-					return true;
-				} else {
-					return true;
-				}
-			].sort([a,b|return sortAttributes(eClass,a,b)])»
-				«IF a.columnName != null»
-					«IF eClass.getEStructuralFeature(a.name).many»
-						if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-							insert_«eClass.name»_«a.name»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
-						}
-					«ENDIF»
-				«ENDIF»
-			«ENDFOR»
-			«IF entityDef.entity.collectAllAttributes.findFirst[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ] != null»
-				«FOR e : entityDef.entity.collectAllAttributes.filter[!isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null ]»
-					for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
-						session.scheduleRelationSQL(createInsertRelationSQL_«e.name»(connection,object,e));
+«««			Handle primitive multi value
+			«IF !primitiveMultiValuedAttributes.empty»
+				// handle primitive multi value attributes
+				«FOR a : primitiveMultiValuedAttributes»
+					if( !session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
 					}
 				«ENDFOR»
 			«ENDIF»
-
+			
+«««			Handle many to many references
+			«IF !manyToManyReferences.empty»
+				// handle many to many references
+				«FOR e : manyToManyReferences»
+					// «e.name»
+					for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
+						session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, e)»(connection,object,e));
+					}
+				«ENDFOR»
+			«ENDIF»
+			
 			«IF !entityDef.extendsEntity»
-			//session.registerObject(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1);
-			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.RegisterObjectAfterTx(object, getPrimaryKeyValue(object), getLockColumn() != null ? 0 : -1));
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.RegisterObjectAfterTx(object, primaryKey, getLockColumn() != null ? 0 : -1));
 			«ENDIF»
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
 		} finally {
 			session.returnConnection(connection);
 		}
-«««		«ENDIF»
 	}
 	'''
+	
+	
 
 	def attributeFilter(EAttribute it, EClass eClass) {
 		if( pk ) {
@@ -263,4 +339,158 @@ class JavaInsertUpdateGenerator {
 			return true;
 		}
 	}
+	
+	def generateDelete(EMappingEntityDef entityDef, EClass eClass) '''
+	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
+	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
+	@Override
+	public final void delete(«eClass.name» object) {
+		delete(new «eClass.name»[] { object });
+	}
+	
+	@Override
+	public final void deleteAll() {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if( isDebug ) {
+			LOGGER.debug("deleteAll()");
+		}
+		
+		«checkTx»
+		
+		// we need to clean up the session
+		session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterAllObjectsAfterTx(«eClass.toFullQualifiedJavaEClass»));
+		
+		String sql = "DELETE FROM «entityDef.tableName»";
+		
+		final Connection connection = session.checkoutConnection();
+		try {
+			«FOR a : manyToManyReferences»
+				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
+			«ENDFOR»
+			«utilGen.generateExecuteStatement("stmt", "sql")»
+		} catch(SQLException e) {
+			if( isDebug ) {
+				LOGGER.debug("deleteAll() failed", e);
+			}
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
+		
+		if( isDebug ) {
+			LOGGER.debug("deleteAll() done.");
+		}
+	}
+	
+	@Override
+	public void deleteById(Object... id) {
+		deleteById(Arrays.asList(id));
+	}
+	
+	public final void deleteById(List<Object> objectIds) {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if( isDebug ) {
+			LOGGER.debug("deleteById("+objectIds+")");
+		}
+		
+		«checkTx»
+		
+		final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
+		for(Object id : objectIds) {
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
+		}
+		
+		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
+		final Connection connection = session.checkoutConnection();
+		try {
+			
+«««			Handle primitive multi valued attributes
+			«IF !primitiveMultiValuedAttributes.empty»
+				// handle primitive multi valued attributes
+				«FOR a : primitiveMultiValuedAttributes»
+					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						// TODO support for arrays
+					}
+					else {
+						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
+					}
+				«ENDFOR»
+			«ENDIF»
+«««			Handle many to many attributes
+			«IF !manyToManyReferences.empty»
+				// handle many to many attributes
+				«FOR a : entityDef.entity.filterAllAttributes[isManyToManyAttribute(eClass)]»
+					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
+				«ENDFOR»
+			«ENDIF»
+			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+		} catch(SQLException e) {
+			if( isDebug ) {
+				LOGGER.debug("delete() failed", e);
+			}
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
+		
+		if( isDebug ) {
+			LOGGER.debug("delete() done");
+		}
+	}
+	
+	@Override
+	public final void delete(«eClass.name»... object) {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if( isDebug ) {
+			LOGGER.debug("delete("+Arrays.toString(object)+")");
+		}
+	
+		«checkTx»
+		
+		final List<Object> objectIds = extractObjectIds(object);
+
+		for(«eClass.name» o : object) {
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
+		}
+		
+		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
+		final Connection connection = session.checkoutConnection();
+		try {
+			
+«««			Handle primitive multi valued attributes
+			«IF !primitiveMultiValuedAttributes.empty»
+				// handle primitive multi valued attributes
+				«FOR a : primitiveMultiValuedAttributes»
+					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						// TODO support for arrays
+					}
+					else {
+						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
+					}
+				«ENDFOR»
+			«ENDIF»
+«««			Handle many to many attributes
+			«IF !manyToManyReferences.empty»
+				// handle many to many attributes
+				«FOR a : entityDef.entity.filterAllAttributes[isManyToManyAttribute(eClass)]»
+					«utilGen.getClearManyToManyMethodName(eClass, a)»(connection, object);
+				«ENDFOR»
+			«ENDIF»
+			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+		} catch(SQLException e) {
+			if( isDebug ) {
+				LOGGER.debug("delete() failed", e);
+			}
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
+		
+		if( isDebug ) {
+			LOGGER.debug("delete() done");
+		}
+	}
+	'''
+	
+	
 }

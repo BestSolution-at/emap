@@ -32,6 +32,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -842,6 +843,31 @@ public class JavaSessionFactory implements SessionFactory {
 				eo.eAdapters().remove(objectAdapter);
 				getCache().evitObject(eo);
 			}
+		}
+		
+		@Override
+		public void unregisterObject(EClass eClass, Object id) {
+			EObject object = getCache().getObject(eClass, id);
+			if (object != null) {
+				// we need to remove it from our changeStorage
+				if (changeStorage.remove(object) != null) {
+					object.eAdapters().remove(objectAdapter);
+				}
+			}
+			getCache().evictObject(eClass, id);
+		}
+		
+		@Override
+		public void unregisterAllObjects(EClass eClass) {
+			// we need to clean up the changeStorage too
+			Iterator<EObject> iterator = changeStorage.keySet().iterator();
+			while (iterator.hasNext()) {
+				final EObject x = iterator.next();
+				if (x.eClass() == eClass) {
+					iterator.remove();
+				}
+			}
+ 			getCache().evictObjects(eClass);
 		}
 
 		@Override

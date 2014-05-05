@@ -21,6 +21,8 @@ public interface SessionCache {
 	public long getVersion(EObject object, Object id);
 	public boolean updateVersion(EObject object, Object id, long version);
 	public void evitObject(EObject object);
+	public void evictObject(EClass eClass, Object id);
+	public void evictObjects(EClass eClass);
 	public boolean isCached(EObject object);
 	public void clear();
 	public void release();

@@ -1036,7 +1036,29 @@ ruleEAttribute returns [EObject current=null]
 	    }
 
 )
-))?)))
+)(	otherlv_19='.' 
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getEAttributeAccess().getFullStopKeyword_3_1_5_3_0());
+    }
+(
+(
+		lv_relationColumn_20_0=RULE_ID
+		{
+			newLeafNode(lv_relationColumn_20_0, grammarAccess.getEAttributeAccess().getRelationColumnIDTerminalRuleCall_3_1_5_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"relationColumn",
+        		lv_relationColumn_20_0, 
+        		"ID");
+	    }
+
+)
+))?)?)))
 ;
 
 

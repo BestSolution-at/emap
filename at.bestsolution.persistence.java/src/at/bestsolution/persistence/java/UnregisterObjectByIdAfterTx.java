@@ -10,33 +10,35 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import org.eclipse.emf.ecore.EClass;
 
-public class UnregisterObjectAfterTx implements AfterTxRunnable {
 
-	private final Object object;
+public class UnregisterObjectByIdAfterTx implements AfterTxRunnable {
+
+	private final EClass eClass;
 	private final Object id;
 	
-	public UnregisterObjectAfterTx(Object object, Object id) {
-		this.object = object; 
+	public UnregisterObjectByIdAfterTx(EClass eClass, Object id) {
+		this.eClass = eClass; 
 		this.id = id; 
 	}
 	
 	@Override
 	public void runAfterTx(JavaSession session) {
-		 session.unregisterObject(object , id);
+		 session.unregisterObject(eClass , id);
 	}
 	
 	@Override
 	public String toString() {
-		return getClass().getSimpleName()+"(" + object +", " + id + ")";
+		return getClass().getSimpleName()+"(" + eClass +", " + id + ")";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((eClass == null) ? 0 : eClass.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((object == null) ? 0 : object.hashCode());
 		return result;
 	}
 
@@ -48,18 +50,20 @@ public class UnregisterObjectAfterTx implements AfterTxRunnable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UnregisterObjectAfterTx other = (UnregisterObjectAfterTx) obj;
+		UnregisterObjectByIdAfterTx other = (UnregisterObjectByIdAfterTx) obj;
+		if (eClass == null) {
+			if (other.eClass != null)
+				return false;
+		} else if (!eClass.equals(other.eClass))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (object == null) {
-			if (other.object != null)
-				return false;
-		} else if (!object.equals(other.object))
-			return false;
 		return true;
 	}
+
+	
 	
 }

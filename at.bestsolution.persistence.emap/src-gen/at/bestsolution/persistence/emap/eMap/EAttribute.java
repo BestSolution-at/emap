@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getOpposite <em>Opposite</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationTable <em>Relation Table</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationColumn <em>Relation Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -272,5 +273,31 @@ public interface EAttribute extends EObject
    * @generated
    */
   void setRelationTable(String value);
+
+  /**
+   * Returns the value of the '<em><b>Relation Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Relation Column</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Relation Column</em>' attribute.
+   * @see #setRelationColumn(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEAttribute_RelationColumn()
+   * @model
+   * @generated
+   */
+  String getRelationColumn();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationColumn <em>Relation Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Relation Column</em>' attribute.
+   * @see #getRelationColumn()
+   * @generated
+   */
+  void setRelationColumn(String value);
 
 } // EAttribute

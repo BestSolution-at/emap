@@ -54,6 +54,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/opposite"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/relationTable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/relationColumn"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EValueGenerator">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/dbType"/>

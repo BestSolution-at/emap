@@ -32,6 +32,7 @@ import at.bestsolution.persistence.emap.eMap.EMapping
 import com.google.inject.Inject
 import at.bestsolution.persistence.emap.eMap.EType
 import org.eclipse.emf.ecore.EEnum
+import org.eclipse.xtext.xbase.lib.Functions.Function1
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
@@ -121,6 +122,10 @@ class UtilCollection {
 		return f.EType.instanceClassName
 	}
 
+	/**
+	 * 
+	 * returns the PK attribute for references
+	 */
 	def getEAttribute(EAttribute attribute, EClass eClass) {
 		val f = eClass.getEStructuralFeature(attribute.name)
 		if( f instanceof EReference && attribute.resolved ) {
@@ -129,6 +134,11 @@ class UtilCollection {
 		}
 
 		return f as org.eclipse.emf.ecore.EAttribute
+	}
+	
+	def getEStructuralFeature(EAttribute attribute, EClass eClass) {
+		val f = eClass.getEStructuralFeature(attribute.name)
+		return f as org.eclipse.emf.ecore.EStructuralFeature
 	}
 
 	def getAllAttributes(EMappingEntity entity) {
@@ -410,7 +420,7 @@ class UtilCollection {
 //		println("RETURN VALUE: " + l.map[name])
 		return l
 	}
-
+	
 	def void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
 //		println("Collecting for " + entity)
 //		println(entity.attributes)
@@ -418,6 +428,98 @@ class UtilCollection {
 		if( entity.parent != null ) {
 			entity.parent.allAttributes(l)
 		}
+	}
+	
+	// Filter functions
+	
+	def filterDerivedAttributesNoDuplicatesNoKeys(EMappingEntity entity, EClass eClass, Function1<? super EAttribute, Boolean> predicate) {
+		entity.filterDerivedAttributesNoDuplicates(eClass)[isDirectMappedNoPkAttribute(eClass) && predicate.apply(it)]
+	}
+	
+	def findSimpleDirectMappedAttributes(EMappingEntity entity, EClass eClass) {
+		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isSimpleDirectMappedAttribute(eClass)]
+	}
+	
+	def findBlobDirectMappedAttributes(EMappingEntity entity, EClass eClass) {
+		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isBlobDirectMappedAttribute(eClass)]
+	}
+	
+	def findPrimitiveMultiValuedAttributes(EMappingEntity entity, EClass eClass) {
+		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isPrimitiveMultiValuedAttribute(eClass)]
+	}
+	
+	def findOneToOneReferences(EMappingEntity entity, EClass eClass) {
+		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isOneToOneAttribute(eClass)]
+	}
+	
+	def findManyToManyReferences(EMappingEntity entity, EClass eClass) {
+		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isManyToManyAttribute(eClass)]
+	}
+	
+	// Filter predicates
+	
+	def isManyToManyAttribute(EAttribute it, EClass eClass) {
+		return !isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null
+	}
+	
+	def isPrimitiveMultiValuedAttribute(EAttribute it, EClass eClass) {
+		val f = eClass.getEStructuralFeature(name)
+		// no containments
+		if (f instanceof EReference && (f as EReference).containment) return false;
+		// we need a column name
+		if (columnName == null) return false;
+		// we need a many feature
+		if (!f.many) return false;
+		return true;
+	}
+	
+	// TODO need better name for this filter predicate
+	def isDirectMappedNoPkAttribute(EAttribute it, EClass eClass) {
+		if( pk ) {
+			return false;
+		} else if(forcedFk) {
+			return true;
+		} else if(eClass.getEStructuralFeature(name) instanceof EReference) {
+			val r = eClass.getEStructuralFeature(name) as EReference;
+			if( r.containment ) {
+				return false;
+			}
+			// check if the opposite is a forced FK (bug in teneo generated DDL)
+			if( ! r.many && r.EOpposite != null && ! r.EOpposite.many ) {
+				val edef = query.eResource.contents.head as EMapping
+				val opp = (edef.root as EMappingEntityDef).entity.attributes.findFirst[name == r.EOpposite.name]
+				if( opp != null && opp.forcedFk ) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return true;
+		}
+	}
+	
+	def isSimpleDirectMappedAttribute(EAttribute it, EClass eClass) {
+		columnName != null && !isBlobDirectMappedAttribute(eClass) && !eClass.getEStructuralFeature(name).many
+	}
+	
+	def isBlobDirectMappedAttribute(EAttribute it, EClass eClass) {
+		columnName != null && "java.sql.Blob" == eClass.getEStructuralFeature(name).EType.instanceClassName
+	}
+	
+	def isOneToOneAttribute(EAttribute it, EClass eClass) {
+		columnName == null && isSingle(eClass)
+	}
+	
+	def filterAllAttributes(EMappingEntity entity, Function1<? super EAttribute, Boolean> predicate) {
+		entity.collectAllAttributes.filter(predicate)
+	}
+
+	def collectDerivedAttributesNoDuplicates(EMappingEntity entity, EClass eClass) {
+		entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])
+	}
+	
+	def filterDerivedAttributesNoDuplicates(EMappingEntity entity, EClass eClass, Function1<? super EAttribute, Boolean> predicate) {
+		entity.collectDerivedAttributes.values.filter(predicate).sort[a,b|return sortAttributes(eClass,a,b)]
 	}
 
 	def collectDerivedAttributes(EMappingEntity entity) {
@@ -590,6 +692,15 @@ class UtilCollection {
 		}
 		return s
 	}
+	
+	def toFullQualifiedJavaEClass(EClass eClass) {
+		return eClass.packageName + "." + eClass.EPackage.name.toFirstUpper + "Package.eINSTANCE.get" + eClass.name.toFirstUpper + "()";
+	}
+	
+	def toFullQualifiedJavaEStructuralFeature(EStructuralFeature f) {
+		val eClass = f.eContainer as EClass;
+		return eClass.packageName + "." + eClass.EPackage.name.toFirstUpper + "Package.eINSTANCE.get" + eClass.name.toFirstUpper + "_" + f.name.toFirstUpper + "()";
+	}
 
 	def replaceSqlParameters(String v, List<EParameter> parameters) {
     if( parameters.empty ){
@@ -598,4 +709,17 @@ class UtilCollection {
       return v.replace("${","#{");
     }
   }
+  
+	def findRelationTable(EAttribute attribute) {
+		attribute.relationTable
+	}
+	
+	def findRelationColumn(EAttribute attribute) {
+		if (attribute.relationColumn.nullOrEmpty) attribute.parameters.head else attribute.relationColumn
+	}
+	
+	def findOppositeRelationColumn(EAttribute attribute) {
+		if (attribute.opposite.relationColumn.nullOrEmpty) attribute.opposite.parameters.head else attribute.opposite.relationColumn
+	}
+	
 }

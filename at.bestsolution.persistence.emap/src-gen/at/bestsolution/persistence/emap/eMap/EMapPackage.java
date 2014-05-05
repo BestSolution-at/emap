@@ -452,13 +452,22 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__RELATION_TABLE = 9;
 
   /**
+   * The feature id for the '<em><b>Relation Column</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__RELATION_COLUMN = 10;
+
+  /**
    * The number of structural features of the '<em>EAttribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 10;
+  int EATTRIBUTE_FEATURE_COUNT = 11;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
@@ -1560,6 +1569,17 @@ public interface EMapPackage extends EPackage
   EAttribute getEAttribute_RelationTable();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getRelationColumn <em>Relation Column</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Relation Column</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getRelationColumn()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_RelationColumn();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator <em>EValue Generator</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2570,6 +2590,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__RELATION_TABLE = eINSTANCE.getEAttribute_RelationTable();
+
+    /**
+     * The meta object literal for the '<em><b>Relation Column</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__RELATION_COLUMN = eINSTANCE.getEAttribute_RelationColumn();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.

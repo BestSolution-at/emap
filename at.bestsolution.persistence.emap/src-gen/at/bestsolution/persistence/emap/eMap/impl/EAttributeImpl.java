@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getOpposite <em>Opposite</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationTable <em>Relation Table</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationColumn <em>Relation Column</em>}</li>
  * </ul>
  * </p>
  *
@@ -207,6 +208,26 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * @ordered
    */
   protected String relationTable = RELATION_TABLE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getRelationColumn() <em>Relation Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationColumn()
+   * @generated
+   * @ordered
+   */
+  protected static final String RELATION_COLUMN_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getRelationColumn() <em>Relation Column</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationColumn()
+   * @generated
+   * @ordered
+   */
+  protected String relationColumn = RELATION_COLUMN_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -486,6 +507,29 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getRelationColumn()
+  {
+    return relationColumn;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRelationColumn(String newRelationColumn)
+  {
+    String oldRelationColumn = relationColumn;
+    relationColumn = newRelationColumn;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__RELATION_COLUMN, oldRelationColumn, relationColumn));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -529,6 +573,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return basicGetOpposite();
       case EMapPackage.EATTRIBUTE__RELATION_TABLE:
         return getRelationTable();
+      case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
+        return getRelationColumn();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -576,6 +622,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__RELATION_TABLE:
         setRelationTable((String)newValue);
         return;
+      case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
+        setRelationColumn((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -620,6 +669,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__RELATION_TABLE:
         setRelationTable(RELATION_TABLE_EDEFAULT);
         return;
+      case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
+        setRelationColumn(RELATION_COLUMN_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -654,6 +706,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return opposite != null;
       case EMapPackage.EATTRIBUTE__RELATION_TABLE:
         return RELATION_TABLE_EDEFAULT == null ? relationTable != null : !RELATION_TABLE_EDEFAULT.equals(relationTable);
+      case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
+        return RELATION_COLUMN_EDEFAULT == null ? relationColumn != null : !RELATION_COLUMN_EDEFAULT.equals(relationColumn);
     }
     return super.eIsSet(featureID);
   }
@@ -683,6 +737,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     result.append(parameters);
     result.append(", relationTable: ");
     result.append(relationTable);
+    result.append(", relationColumn: ");
+    result.append(relationColumn);
     result.append(')');
     return result.toString();
   }

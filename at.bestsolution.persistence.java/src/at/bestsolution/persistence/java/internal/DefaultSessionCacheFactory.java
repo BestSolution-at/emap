@@ -68,6 +68,17 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 				}
 			}
 		}
+		
+		@Override
+		public void evictObject(EClass eClass, Object id) {
+			Map<Object, VersionedEObject> map = cacheMap.get(eClass);
+			map.remove(id);
+		}
+		
+		@Override
+		public void evictObjects(EClass eClass) {
+			cacheMap.remove(eClass);
+		}
 
 		@Override
 		public void putObject(EObject object, Object id, long version) {

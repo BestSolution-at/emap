@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.persistence.Callback;
@@ -42,6 +43,9 @@ public interface JavaSession extends Session {
 	public void registerObject(Object object, Object id, long version);
 	public void updateVersion(Object object, Object id, long version);
 	public void unregisterObject(Object object, Object id);
+	public void unregisterObject(EClass eClass, Object id);
+	public void unregisterAllObjects(EClass eClass);
+	
 	public List<ChangeDescription> getChangeDescription(Object object);
 	public void clearChangeDescription(Object object);
 	public Boolean runWithoutChangeTracking(Callback<Boolean> runnable);

@@ -54,7 +54,7 @@ EMappingEntity:
 ;
 
 EAttribute:
-	( pk?='primarykey'? | forcedFk?='forced-fk' ) name=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' ( opposite=[EAttribute|QualifiedName] 'on' relationTable=ID)?) )
+	( pk?='primarykey'? | forcedFk?='forced-fk' ) name=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' ( opposite=[EAttribute|QualifiedName] 'on' relationTable=ID ( '.' relationColumn=ID )? )?) )
 ;
 
 EValueGenerator:
