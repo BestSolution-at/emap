@@ -78,6 +78,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEAttributeAccess().getGroup_3_0_1_3(), "rule__EAttribute__Group_3_0_1_3__0");
 					put(grammarAccess.getEAttributeAccess().getGroup_3_1(), "rule__EAttribute__Group_3_1__0");
 					put(grammarAccess.getEAttributeAccess().getGroup_3_1_5(), "rule__EAttribute__Group_3_1_5__0");
+					put(grammarAccess.getEAttributeAccess().getGroup_3_1_5_3(), "rule__EAttribute__Group_3_1_5_3__0");
 					put(grammarAccess.getEValueGeneratorAccess().getGroup(), "rule__EValueGenerator__Group__0");
 					put(grammarAccess.getEValueGeneratorAccess().getGroup_1_1(), "rule__EValueGenerator__Group_1_1__0");
 					put(grammarAccess.getEValueGeneratorAccess().getGroup_1_2(), "rule__EValueGenerator__Group_1_2__0");
@@ -154,6 +155,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEAttributeAccess().getParametersAssignment_3_1_3(), "rule__EAttribute__ParametersAssignment_3_1_3");
 					put(grammarAccess.getEAttributeAccess().getOppositeAssignment_3_1_5_0(), "rule__EAttribute__OppositeAssignment_3_1_5_0");
 					put(grammarAccess.getEAttributeAccess().getRelationTableAssignment_3_1_5_2(), "rule__EAttribute__RelationTableAssignment_3_1_5_2");
+					put(grammarAccess.getEAttributeAccess().getRelationColumnAssignment_3_1_5_3_1(), "rule__EAttribute__RelationColumnAssignment_3_1_5_3_1");
 					put(grammarAccess.getEValueGeneratorAccess().getDbTypeAssignment_0(), "rule__EValueGenerator__DbTypeAssignment_0");
 					put(grammarAccess.getEValueGeneratorAccess().getAutokeyAssignment_1_0(), "rule__EValueGenerator__AutokeyAssignment_1_0");
 					put(grammarAccess.getEValueGeneratorAccess().getQueryAssignment_1_1_1(), "rule__EValueGenerator__QueryAssignment_1_1_1");

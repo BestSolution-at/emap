@@ -26,11 +26,11 @@ Export-Package: at.bestsolution.persistence.emap,
  at.bestsolution.persistence.emap.eMap,
  at.bestsolution.persistence.emap.eMap.impl,
  at.bestsolution.persistence.emap.eMap.util,
- at.bestsolution.persistence.emap.serializer,
  at.bestsolution.persistence.emap.parser.antlr,
  at.bestsolution.persistence.emap.parser.antlr.internal,
  at.bestsolution.persistence.emap.validation,
  at.bestsolution.persistence.emap.scoping,
  at.bestsolution.persistence.emap.generator,
- at.bestsolution.persistence.emap.formatting
+ at.bestsolution.persistence.emap.formatting,
+ at.bestsolution.persistence.emap.serializer
 Service-Component: OSGI-INF/services/firebirdsupport.xml,OSGI-INF/services/mssqlsupport.xml,OSGI-INF/services/h2support.xml

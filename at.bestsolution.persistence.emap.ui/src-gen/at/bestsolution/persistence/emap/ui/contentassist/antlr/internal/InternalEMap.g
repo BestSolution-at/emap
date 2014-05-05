@@ -3724,6 +3724,7 @@ rule__EAttribute__Group_3_1_5__2
     }
 :
 	rule__EAttribute__Group_3_1_5__2__Impl
+	rule__EAttribute__Group_3_1_5__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -3746,6 +3747,99 @@ finally {
 }
 
 
+rule__EAttribute__Group_3_1_5__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EAttribute__Group_3_1_5__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EAttribute__Group_3_1_5__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getGroup_3_1_5_3()); }
+(rule__EAttribute__Group_3_1_5_3__0)?
+{ after(grammarAccess.getEAttributeAccess().getGroup_3_1_5_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
+
+
+rule__EAttribute__Group_3_1_5_3__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EAttribute__Group_3_1_5_3__0__Impl
+	rule__EAttribute__Group_3_1_5_3__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EAttribute__Group_3_1_5_3__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getFullStopKeyword_3_1_5_3_0()); }
+
+	'.' 
+
+{ after(grammarAccess.getEAttributeAccess().getFullStopKeyword_3_1_5_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__EAttribute__Group_3_1_5_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EAttribute__Group_3_1_5_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EAttribute__Group_3_1_5_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getRelationColumnAssignment_3_1_5_3_1()); }
+(rule__EAttribute__RelationColumnAssignment_3_1_5_3_1)
+{ after(grammarAccess.getEAttributeAccess().getRelationColumnAssignment_3_1_5_3_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -8046,6 +8140,21 @@ rule__EAttribute__RelationTableAssignment_3_1_5_2
 (
 { before(grammarAccess.getEAttributeAccess().getRelationTableIDTerminalRuleCall_3_1_5_2_0()); }
 	RULE_ID{ after(grammarAccess.getEAttributeAccess().getRelationTableIDTerminalRuleCall_3_1_5_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EAttribute__RelationColumnAssignment_3_1_5_3_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEAttributeAccess().getRelationColumnIDTerminalRuleCall_3_1_5_3_1_0()); }
+	RULE_ID{ after(grammarAccess.getEAttributeAccess().getRelationColumnIDTerminalRuleCall_3_1_5_3_1_0()); }
 )
 
 ;

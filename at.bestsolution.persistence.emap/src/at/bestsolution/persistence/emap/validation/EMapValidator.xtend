@@ -9,6 +9,14 @@
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence.emap.validation
+
+import org.eclipse.xtext.validation.Check
+import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.EMappingEntity
+import com.google.inject.Inject
+import at.bestsolution.persistence.emap.generator.UtilCollection
+import at.bestsolution.persistence.emap.eMap.EMapPackage
+
 //import org.eclipse.xtext.validation.Check
 
 /**
@@ -18,6 +26,8 @@ package at.bestsolution.persistence.emap.validation
  */
 class EMapValidator extends AbstractEMapValidator {
 
+	@Inject extension
+	UtilCollection util;
 //  public static val INVALID_NAME = 'invalidName'
 
 //	@Check
@@ -28,4 +38,22 @@ class EMapValidator extends AbstractEMapValidator {
 //					INVALID_NAME)
 //		}
 //	}
+
+	public static final String ATTRIBUTE_MISSING = "ATTRIBUTE_MISSING";
+
+	@Check
+	def checkMissingAttributes(EMappingEntity entity) {
+		println("Check: missing attributes")
+		val type = entity.etype;
+		println(" type=" + type);
+		val eClass = type.lookupEClass;
+		println(" eClass=" + eClass);
+		val missing = eClass.EAllStructuralFeatures.filter[f|!f.transient && entity.allAttributes.findFirst[it.name == f.name] == null]
+		println(" missing=" + missing);
+		if (!missing.empty) {
+			for (m : missing) {
+				warning("Missing attribute: '" + m.name + "'", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, ATTRIBUTE_MISSING, m.name);
+			}
+		}
+	}
 }
