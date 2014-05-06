@@ -14,6 +14,9 @@ public enum ExpressionType {
 	EQUALS,
 	NOT_EQUALS,
 
+	IEQUALS,
+	INOT_EQUALS,
+
 	IS_NULL,
 	IS_NOT_NULL,
 

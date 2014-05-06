@@ -10,9 +10,6 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.query;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +30,7 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 	private final JavaObjectMapper<O> rootMapper;
 	private final String rootPrefix;
 	private List<OrderColumn> orderColumns;
+	private int maxRows;
 
 	public MappedQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		this.rootMapper = rootMapper;
@@ -43,6 +41,19 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 	@Override
 	public List<O> list() {
 		return listDelegate.list(this);
+	}
+
+//	@Override
+//	public MappedQuery<O> maxRows(int maxRows) {
+//		this.maxRows = maxRows;
+//		return this;
+//	}
+
+	/**
+	 * @return the maxRows
+	 */
+	public int getMaxRows() {
+		return maxRows;
 	}
 
 	@Override
@@ -146,9 +157,17 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" = ?");
 			break;
+		case IEQUALS:
+			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append(" = lower( ? )");
+			break;
 		case NOT_EQUALS:
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" <> ?");
+			break;
+		case INOT_EQUALS:
+			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append(" <> lower( ? )");
 			break;
 		case IS_NOT_NULL:
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
