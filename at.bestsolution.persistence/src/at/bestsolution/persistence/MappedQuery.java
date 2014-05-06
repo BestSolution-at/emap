@@ -18,6 +18,7 @@ import at.bestsolution.persistence.order.OrderColumn;
 public interface MappedQuery<O> {
 	public List<O> list();
 	public O unique();
+	public MappedQuery<O> maxRows(int maxRows);
 	public MappedQuery<O> where(Expression<O> expression);
 	public MappedQuery<O> orderBy(OrderColumn<O>... columns);
 }

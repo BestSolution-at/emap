@@ -22,15 +22,16 @@ import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.order.OrderColumn;
 
-public class MappedQueryImpl<O> implements MappedQuery<O> {
+public abstract class MappedQueryImpl<O> implements MappedQuery<O> {
 	private final ListDelegate<O> listDelegate;
 	private Expression<O> expression;
 	private final JavaObjectMapper<O> rootMapper;
 	private final String rootPrefix;
-	private List<OrderColumn> orderColumns;
-	private int maxRows;
+	private List<OrderColumn<O>> orderColumns;
+	private int maxRows = -1;
 
 	public MappedQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		this.rootMapper = rootMapper;
@@ -40,14 +41,22 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 
 	@Override
 	public List<O> list() {
-		return listDelegate.list(this);
+		List<O> l = listDelegate.list(this);
+		if( maxRows != -1 ) {
+			if( l.size() > maxRows ) {
+				Util.trimToSize(l, maxRows);
+			}
+		}
+		return l;
 	}
 
-//	@Override
-//	public MappedQuery<O> maxRows(int maxRows) {
-//		this.maxRows = maxRows;
-//		return this;
-//	}
+	@Override
+	public MappedQuery<O> maxRows(int maxRows) {
+		this.maxRows = maxRows;
+		return this;
+	}
+
+	public abstract String processSQL(String sql);
 
 	/**
 	 * @return the maxRows
@@ -89,7 +98,7 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 		return b.toString();
 	}
 
-	protected void appendOrderColumn(StringBuilder b, OrderColumn column) {
+	protected void appendOrderColumn(StringBuilder b, OrderColumn<O> column) {
 		if( b.length() != 0 ) {
 			b.append(",");
 		}
@@ -203,7 +212,7 @@ public class MappedQueryImpl<O> implements MappedQuery<O> {
 	}
 
 	@Override
-	public MappedQuery<O> orderBy(OrderColumn... columns) {
+	public MappedQuery<O> orderBy(OrderColumn<O>... columns) {
 		orderColumns = Arrays.asList(columns);
 		return this;
 	}

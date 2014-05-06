@@ -77,7 +77,14 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 			default:
 				super.appendCriteria(b, mapper, colPrefix, expression);
 			}
+		}
 
+		@Override
+		public String processSQL(String sql) {
+			if( getMaxRows() != -1) {
+				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
+			}
+			return sql;
 		}
 	}
 

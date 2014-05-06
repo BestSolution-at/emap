@@ -13,9 +13,6 @@ package at.bestsolution.persistence.java.spi;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
-import at.bestsolution.persistence.java.Util;
-import at.bestsolution.persistence.java.Util.ProcessedSQL;
-import at.bestsolution.persistence.java.Util.SimpleQueryBuilder;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
@@ -50,7 +47,23 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-		return new MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
+		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
+	}
+
+	static class H2MappedQueryImpl<O> extends MappedQueryImpl<O> {
+
+		public H2MappedQueryImpl(JavaObjectMapper<O> rootMapper,
+				String rootPrefix, ListDelegate<O> listDelegate) {
+			super(rootMapper, rootPrefix, listDelegate);
+		}
+
+		@Override
+		public String processSQL(String sql) {
+			if( getMaxRows() != -1 ) {
+				sql = sql + " LIMIT " + getMaxRows();
+			}
+			return sql;
+		}
 	}
 
 	static class H2QueryBuilder implements QueryBuilder {
@@ -70,7 +83,7 @@ public class H2DatabaseSupport implements DatabaseSupport {
 				String primaryKeyExpression, String lockColumn) {
 			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
 		}
-		
+
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
 			return new PreparedExtendsInsertStatement(pkColumn, pkColumn);

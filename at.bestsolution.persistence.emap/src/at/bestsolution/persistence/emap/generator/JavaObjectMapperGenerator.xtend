@@ -37,7 +37,7 @@ class JavaObjectMapperGenerator {
 
   @Inject
   var JavaInsertUpdateGenerator insertUpdateGen;
-  
+
   @Inject
   var JavaUtilGenerator utilGen;
 
@@ -49,7 +49,7 @@ class JavaObjectMapperGenerator {
 
   def generateJava(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.package.name».java;
-	
+
 	import «entityDef.package.name».«entityDef.entity.name»Mapper;
 	import at.bestsolution.persistence.java.ObjectMapperFactory;
 	import at.bestsolution.persistence.java.JavaSession;
@@ -102,11 +102,11 @@ class JavaObjectMapperGenerator {
 			private final JavaSession session;
 			private boolean inAutoResolve;
 			private static final Logger LOGGER = Logger.getLogger(«entityDef.entity.name»MapperImpl.class);
-	
+
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
 			}
-	
+
 			«FOR query : entityDef.entity.namedQueries»
 				@Override
 				public final «IF query.returnType == ReturnType.LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])») {
@@ -123,14 +123,14 @@ class JavaObjectMapperGenerator {
 						}
 					«ENDIF»
 					if( isDebug ) LOGGER.debug("Executing «query.name»");
-					
+
 					String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
 					if( query == null ) {
 						query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
 					}
-					
+
 					if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
-					
+
 					Connection connection = session.checkoutConnection();
 					PreparedStatement pStmt = null;
 					ResultSet set = null;
@@ -140,10 +140,10 @@ class JavaObjectMapperGenerator {
 						if( isDebug ) {
 							LOGGER.debug("	Processed-Query: " + processedSQL.sql);
 						}
-						
+
 						if( isDebug ) LOGGER.debug("Preparing query");
 						pStmt = connection.prepareStatement(processedSQL.sql);
-						
+
 						List<String> debugParams = new ArrayList<String>();
 						for(int i = 0; i < processedSQL.dynamicParameterNames.size(); i++) {
 							if( "«query.parameters.head.name»".equals(processedSQL.dynamicParameterNames.get(i)) ) {
@@ -170,7 +170,7 @@ class JavaObjectMapperGenerator {
 		        	«ENDIF»
 					if( isDebug ) LOGGER.debug("Executing query");
 					set = pStmt.executeQuery();
-					
+
 					«IF query.returnType == ReturnType.LIST»
 						final List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
 						«resultMapCode(query,eClass)»
@@ -199,7 +199,7 @@ class JavaObjectMapperGenerator {
 							if( set != null ) {
 								set.close();
 							}
-							
+
 							if( pStmt != null ) {
 								pStmt.close();
 							}
@@ -228,7 +228,7 @@ class JavaObjectMapperGenerator {
 						session.registerObject(rv,getPrimaryKeyValue(rv), getLockColumn() != null ? set.getLong("«query.queries.head.mapping.prefix+"_"»"+getLockColumn()) : -1);
 						return rv;
 					}
-					
+
 					«FOR section : query.queries.head.mapping.attributes.collectMappings»
 						«var entityEClass = section.entity.lookupEClass»
 						public final «entityEClass.instanceClassName» map_«query.name»_«entityEClass.name»(Connection connection, ResultSet set) throws SQLException {
@@ -254,32 +254,32 @@ class JavaObjectMapperGenerator {
 					«ENDFOR»
 				«ENDIF»
 		        «IF query.parameters.empty»
-					public final «eClass.name»MappedQuery «query.name»MappedQuery() {
+					public final MappedQuery<«eClass.name»> «query.name»MappedQuery() {
 						MappedQuery<«eClass.name»> dbQuery = session.getDatabaseSupport().createMappedQuery(
 							this, «IF query.queries.head.mapping.prefix != null»"«query.queries.head.mapping.prefix»"«ELSE»null«ENDIF»,
 							new ListDelegate<«eClass.name»>() { public List<«eClass.name»> list(MappedQuery<«eClass.name»> criteria) { return «query.name»((MappedQueryImpl<«eClass.name»>)criteria); } }
 						);
-						return new «eClass.name»MappedQueryImpl(dbQuery);
+						return dbQuery;
 					}
 
 					final List<«eClass.name»> «query.name»(MappedQueryImpl<«eClass.name»> criteria) {
 						final boolean isDebug = LOGGER.isDebugEnabled();
 						if( isDebug ) LOGGER.debug("Executing «query.name»");
-					
+
 						String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
 						if( query == null ) {
 							query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default.sql");
 						}
-					
+
 						if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
-					
+
 						String criteriaStr = criteria.getCriteria();
 						if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 							query += " WHERE " + criteriaStr;
 						}
-					
+
 						if( isDebug ) LOGGER.debug("	Final query: " + query);
-					
+
 						Connection connection = session.checkoutConnection();
 						try {
 							PreparedStatement pstmt = connection.prepareStatement(query);
@@ -287,7 +287,7 @@ class JavaObjectMapperGenerator {
 							for(TypedValue t : criteria.getParameters()) {
 								Util.setValue(pstmt,idx++,t);
 							}
-					
+
 							ResultSet set = pstmt.executeQuery();
 							List<«eClass.name»> rv = new ArrayList<«eClass.name»>();
 							«resultMapCode(query,eClass)»
@@ -300,7 +300,7 @@ class JavaObjectMapperGenerator {
 					}
 				«ENDIF»
 			«ENDFOR»
-			
+
 			public final «eClass.name» map_default_«eClass.name»(Connection connection, ResultSet set) throws SQLException {
 				Object id = set.getObject("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 				final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
@@ -318,36 +318,36 @@ class JavaObjectMapperGenerator {
 				session.registerObject(rv,getPrimaryKeyValue(rv),getLockColumn() != null ? set.getLong(getLockColumn()) : -1);
 				return rv;
 			}
-	
+
 	«««		Generate util methods
 			«utilGen.generate(entityDef, eClass)»
-	
+
 			«FOR customQuery : entityDef.entity.namedCustomQueries»
 				«customQueryGen.generateCustomQuery(entityDef,customQuery)»
 			«ENDFOR»
-	
+
 			// update stuff
 			«insertUpdateGen.generateUpdate(entityDef,eClass)»
-	
+
 			// insert stuff
 			«insertUpdateGen.generateInsert(entityDef,eClass)»
-	
+
 			// delete stuff
 			«insertUpdateGen.generateDelete(entityDef,eClass)»
-	
-	
+
+
 			public final boolean resolve(final LazyEObject eo, final Object proxyData, final EStructuralFeature f) {
 				if( inAutoResolve ) {
 					return true;
 				}
-	
+
 				return session.runWithoutChangeTracking(new Callback<Boolean>() {
 					public Boolean call() {
 						return doResolve(eo,proxyData,f);
 					}
 				}).booleanValue();
 			}
-	
+
 			final boolean doResolve(LazyEObject eo, Object proxyData, EStructuralFeature f) {
 				boolean isDebug = LOGGER.isDebugEnabled();
 				if( isDebug ) {
@@ -363,16 +363,16 @@ class JavaObjectMapperGenerator {
 				«ENDFOR»
 				return false;
 			}
-	
+
 			public final String getTableName() {
 				return "«entityDef.tableName»";
 			}
-	
+
 			private static Map<String,String> PROPERTY_COL_MAPPING = new HashMap<String,String>();
 			private static Map<String,JDBCType> TYPE_MAPPING = new HashMap<String,JDBCType>();
 			private static Map<String,EStructuralFeature> REF_ID_FEATURES = new HashMap<String,EStructuralFeature>();
 			private static Set<EReference> REFERENCE_FEATURES = new HashSet<EReference>();
-	
+
 			static {
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
 					«IF a.resolved»
@@ -398,35 +398,35 @@ class JavaObjectMapperGenerator {
 					«ENDIF»
 				«ENDFOR»
 			}
-	
+
 			public String getLockColumn() {
 				return "E_VERSION";
 			}
-	
+
 			public final String getColumnName(String propertyName) {
 				return PROPERTY_COL_MAPPING.get(propertyName);
 			}
-	
+
 			public final JDBCType getJDBCType(String property) {
 				return TYPE_MAPPING.get(property);
 			}
-	
+
 			public final EStructuralFeature getReferenceId(String property) {
 				return REF_ID_FEATURES.get(property);
 			}
-	
+
 			public final Set<EReference> getReferenceFeatures() {
 				return Collections.unmodifiableSet(REFERENCE_FEATURES);
 			}
-	
+
 			public final <P> P getPrimaryKeyValue(«eClass.name» o) {
 				return (P)(Object)o.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»();
 			}
-		
+
 			protected final <P> P getPrimaryKeyForTx(«eClass.name» o) {
 				return session.getPrimaryKey(this, o);
 			}
-		
+
 		}
 
 	public final NamedQuery<«eClass.instanceClassName»> createNamedQuery(final JavaSession session, String name) {
@@ -476,33 +476,33 @@ class JavaObjectMapperGenerator {
 	«FOR e : entityDef.entity.collectEnities»
 		«createProxyData(e, e.lookupEClass)»
 	«ENDFOR»
-	«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
-		static final class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
-			private final MappedQuery<«eClass.name»> dbQuery;
-
-			«eClass.name»MappedQueryImpl(MappedQuery<«eClass.name»> dbQuery) {
-				this.dbQuery = dbQuery;
-			}
-
-			public final «eClass.name» unique() {
-				return dbQuery.unique();
-			}
-
-			public final «eClass.name»Mapper.«eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression) {
-				dbQuery.where(expression);
-				return this;
-			}
-
-			public final List<«eClass.name»> list() {
-				return dbQuery.list();
-				}
-
-			public final «eClass.name»Mapper.«eClass.name»MappedQuery orderBy(at.bestsolution.persistence.order.OrderColumn<«eClass.name»>... columns) {
-				dbQuery.orderBy(columns);
-				return this;
-			}
-		}
-	«ENDIF»
+«««	«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
+«««		static final class «eClass.name»MappedQueryImpl extends «eClass.name»Mapper.«eClass.name»MappedQuery {
+«««			private final MappedQuery<«eClass.name»> dbQuery;
+«««
+«««			«eClass.name»MappedQueryImpl(MappedQuery<«eClass.name»> dbQuery) {
+«««				this.dbQuery = dbQuery;
+«««			}
+«««
+«««			public final «eClass.name» unique() {
+«««				return dbQuery.unique();
+«««			}
+«««
+«««			public final «eClass.name»Mapper.«eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression) {
+«««				dbQuery.where(expression);
+«««				return this;
+«««			}
+«««
+«««			public final List<«eClass.name»> list() {
+«««				return dbQuery.list();
+«««				}
+«««
+«««			public final «eClass.name»Mapper.«eClass.name»MappedQuery orderBy(at.bestsolution.persistence.order.OrderColumn<«eClass.name»>... columns) {
+«««				dbQuery.orderBy(columns);
+«««				return this;
+«««			}
+«««		}
+«««	«ENDIF»
 	}
 	'''
 

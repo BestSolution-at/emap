@@ -27,7 +27,7 @@ class JavaInterfaceGenerator {
 
 	import «eClass.instanceClassName»;
 
-	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,«entityDef.entity.name»Mapper.«eClass.name»MappedQuery>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
+	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,at.bestsolution.persistence.MappedQuery<«eClass.name»>>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
 		«FOR query : entityDef.entity.namedQueries»
 		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
 		«ENDFOR»
@@ -37,9 +37,9 @@ class JavaInterfaceGenerator {
 		«ENDFOR»
 
 «««		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
-			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.name»> {
-				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
-			}
+«««			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.name»> {
+«««				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
+«««			}
 
 			public static final class Expression {
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))].filter[isSingle(eClass)]»
@@ -160,7 +160,7 @@ class JavaInterfaceGenerator {
 				«ENDFOR»
 			}
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
-				public «eClass.name»MappedQuery «query.name»MappedQuery();
+				public at.bestsolution.persistence.MappedQuery<«eClass.name»> «query.name»MappedQuery();
 			«ENDFOR»
 «««		«ENDIF»
 	}

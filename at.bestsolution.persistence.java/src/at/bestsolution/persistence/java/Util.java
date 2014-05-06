@@ -232,4 +232,8 @@ public class Util {
 		}
 		return map;
 	}
+
+	public static void trimToSize(List<?> listToTrim, int size) {
+		listToTrim.subList(size, listToTrim.size()).clear();
+	}
 }

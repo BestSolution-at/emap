@@ -10,7 +10,6 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
-import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -39,37 +38,37 @@ public interface DatabaseSupport {
 		public InsertStatement createInsertStatement(String pkColumn, String sequenceName, String lockColumn);
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn);
 	}
-	
+
 	public interface Statement {
 		public void addInt(String column, int value);
 		public void addInt(String column, Integer value);
-		
+
 		public void addDouble(String column, double value);
 		public void addDouble(String column, Double value);
-		
+
 		public void addString(String column, String value);
-		
+
 		public void addTimestamp(String column, Date value);
-		
+
 		public void addLong(String column, long value);
 		public void addLong(String column, Long value);
-		
+
 		public void addBoolean(String column, boolean value);
 		public void addBoolean(String column, Boolean value);
-		
+
 		public void addNull(String column, JDBCType type);
 		public void addEnum(String column, Enum<?> value);
 		public void addBlob(String column, Blob value);
 	}
-	
+
 	public interface InsertStatement extends Statement {
 		public long execute(Connection connection) throws SQLException;
 	}
-	
+
 	public interface ExtendsInsertStatement extends Statement {
 		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
 	}
-	
+
 	public interface UpdateStatement extends Statement {
 		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
 	}
