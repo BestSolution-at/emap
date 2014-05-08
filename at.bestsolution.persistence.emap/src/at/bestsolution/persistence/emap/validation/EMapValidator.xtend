@@ -11,7 +11,6 @@
 package at.bestsolution.persistence.emap.validation
 
 import org.eclipse.xtext.validation.Check
-import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.UtilCollection
@@ -45,7 +44,7 @@ class EMapValidator extends AbstractEMapValidator {
 	@Check
 	def checkMissingSelectAllQuery(EMappingEntity entity) {
 		if (!entity.namedQueries.exists[it.name == "selectAll"]) {
-			warning("No 'selectAll' query defined!", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAMED_QUERIES, SELECT_ALL_MISSING);
+			warning("No 'selectAll' query defined!", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, SELECT_ALL_MISSING);
 			
 		}
 	}
@@ -57,7 +56,7 @@ class EMapValidator extends AbstractEMapValidator {
 		val missing = eClass.EAllStructuralFeatures.filter[f|!f.transient && entity.allAttributes.findFirst[it.name == f.name] == null]
 		if (!missing.empty) {
 			for (m : missing) {
-				warning("Missing attribute: '" + m.name + "'", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAMED_QUERIES, ATTRIBUTE_MISSING, m.name);
+				warning("Missing attribute: '" + m.name + "'", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, ATTRIBUTE_MISSING, m.name);
 			}
 		}
 	}
