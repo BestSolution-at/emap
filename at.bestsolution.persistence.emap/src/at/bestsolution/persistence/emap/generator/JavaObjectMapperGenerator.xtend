@@ -236,7 +236,7 @@ class JavaObjectMapperGenerator {
 							if( id == null ) {
 								return null;
 							}
-							final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
+							final EClass eClass = «entityEClass.toFullQualifiedJavaEClass»;
 							«entityEClass.instanceClassName» rv = session.getCache().getObject(eClass,id);
 							if( rv != null) {
 								if( LOGGER.isDebugEnabled() ) {
