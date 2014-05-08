@@ -87,6 +87,10 @@ public class PropertyExpressionFactory<O> {
 			return PropertyExpressionFactory.equals(property, value);
 		}
 
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
+		}
+
 		public InExpression<O> in(int... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
@@ -105,6 +109,10 @@ public class PropertyExpressionFactory<O> {
 		public InExpression<O> in(double... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
+		}
 	}
 
 	public final static class LongExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -120,6 +128,10 @@ public class PropertyExpressionFactory<O> {
 		public InExpression<O> in(long... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
+		}
 	}
 
 	public final static class BooleanExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -130,6 +142,25 @@ public class PropertyExpressionFactory<O> {
 
 		public EqualsExpression<O> eq(boolean value) {
 			return PropertyExpressionFactory.equals(property, value);
+		}
+	}
+
+	public final static class FloatExpressionFactory<O> extends PropertyExpressionFactory<O> {
+
+		public FloatExpressionFactory(String property) {
+			super(property);
+		}
+
+		public EqualsExpression<O> eq(float value) {
+			return PropertyExpressionFactory.equals(property, value);
+		}
+
+		public InExpression<O> in(float... values) {
+			return PropertyExpressionFactory.in(property, toObjectArray(values));
+		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
 		}
 	}
 
@@ -148,6 +179,10 @@ public class PropertyExpressionFactory<O> {
 
 		public InExpression<O> in(T... values) {
 			return PropertyExpressionFactory.in(property, values);
+		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
 		}
 	}
 
