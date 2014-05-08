@@ -40,19 +40,24 @@ class EMapValidator extends AbstractEMapValidator {
 //	}
 
 	public static final String ATTRIBUTE_MISSING = "ATTRIBUTE_MISSING";
+	public static final String SELECT_ALL_MISSING = "SELECT_ALL_MISSING";
+	
+	@Check
+	def checkMissingSelectAllQuery(EMappingEntity entity) {
+		if (!entity.namedQueries.exists[it.name == "selectAll"]) {
+			warning("No 'selectAll' query defined!", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAMED_QUERIES, SELECT_ALL_MISSING);
+			
+		}
+	}
 
 	@Check
 	def checkMissingAttributes(EMappingEntity entity) {
-		println("Check: missing attributes")
 		val type = entity.etype;
-		println(" type=" + type);
 		val eClass = type.lookupEClass;
-		println(" eClass=" + eClass);
 		val missing = eClass.EAllStructuralFeatures.filter[f|!f.transient && entity.allAttributes.findFirst[it.name == f.name] == null]
-		println(" missing=" + missing);
 		if (!missing.empty) {
 			for (m : missing) {
-				warning("Missing attribute: '" + m.name + "'", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, ATTRIBUTE_MISSING, m.name);
+				warning("Missing attribute: '" + m.name + "'", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAMED_QUERIES, ATTRIBUTE_MISSING, m.name);
 			}
 		}
 	}
