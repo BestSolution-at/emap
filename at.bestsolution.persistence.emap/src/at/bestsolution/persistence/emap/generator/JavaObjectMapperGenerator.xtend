@@ -356,7 +356,7 @@ class JavaObjectMapperGenerator {
 				if(eo instanceof «eClass.name») {
 					«resolve(entityDef.entity,eClass)»
 				}
-				«FOR e : entityDef.entity.collectEnities»
+				«FOR e : entityDef.entity.collectEnities.sortBy[it.name]»
 					else if(eo instanceof «e.lookupEClass.instanceClassName») {
 						«resolve(e,e.lookupEClass)»
 					}
@@ -572,23 +572,18 @@ class JavaObjectMapperGenerator {
 
   def resolve(EMappingEntity entity, EClass eClass) '''
     «eClass.instanceClassName» target = («eClass.instanceClassName»)eo;
-    «val first = entity.allAttributes.sortInplace([a,b|
-      val iA = a.sortValue(eClass)
-      val iB = b.sortValue(eClass)
-      return compare(iA,iB);
-    ]).findFirst[resolved]»
+    «val sorted = entity.allAttributes.sortBy[it.name]»
+    «val first = sorted.findFirst[resolved]»
     «IF first != null»
       switch(f.getFeatureID()) {
         «val pk = entity.allAttributes.findFirst[pk]»
+        // «first.name»
         case «eClass.getEStructuralFeature(first.name).featureID»: {
           «first.createResolveText(eClass,pk)»
           return true;
         }
-        «FOR a : entity.allAttributes.sortInplace([a,b|
-          val iA = a.sortValue(eClass)
-          val iB = b.sortValue(eClass)
-          return compare(iA,iB);
-        ]).filter[resolved && it != first]»
+        «FOR a : sorted.filter[resolved && it != first]»
+          // «a.name»
           case «eClass.getEStructuralFeature(a.name).featureID»: {
             «a.createResolveText(eClass,pk)»
             return true;
