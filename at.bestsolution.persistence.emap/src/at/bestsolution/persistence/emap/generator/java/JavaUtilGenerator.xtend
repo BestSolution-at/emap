@@ -160,7 +160,8 @@ class JavaUtilGenerator {
 	
 	def generateCreateInsertManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	«val oppositeEntity = attribute.opposite.getEntity»
-	private final RelationSQL «getCreateInsertManyToManyRelationSQLMethodName(eClass, attribute)»(final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
+	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
+	private final RelationSQL «getCreateInsertManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
 		final String sql = "INSERT INTO «attribute.findRelationTable» (\"«attribute.findRelationColumn»\",\"«attribute.findOppositeRelationColumn»\") VALUES (?,?)";
 			return new RelationSQL() {
 				public EObject getSelf() {
@@ -177,17 +178,24 @@ class JavaUtilGenerator {
 
 				public void execute() throws PersistanceException {
 					boolean isDebug = LOGGER.isDebugEnabled();
-						if( isDebug ) {
-							LOGGER.debug("Started creating relation");
-							LOGGER.debug("Executing Relation Insert SQL: " + sql);
-							LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»()+ "," + opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+					final «entityDef.fqn» selfMapper = session.createMapper(«entityDef.fqn».class);
+					final «oppositeEntityDef.fqn» oppositeMapper = session.createMapper(«oppositeEntityDef.fqn».class);
+					final Object selfId = session.getPrimaryKey(selfMapper, self);
+					final Object oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
+					if( isDebug ) {
+						LOGGER.debug("Started creating relation");
+						LOGGER.debug("Executing Relation Insert SQL: " + sql);
+						LOGGER.debug("Parameter: " + selfId + ", " + oppositeId);
+«««						LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»()+ "," + opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 					}
 					PreparedStatement pstmt = null;
 					try {
 						pstmt = c.prepareStatement(sql);
-						//TODO setLong Needs to be calculated
-						pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
-						pstmt.setLong(2, opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+						pstmt.setLong(1, (Long) selfId);
+						pstmt.setLong(2, (Long) oppositeId);
+						
+«««						pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+«««						pstmt.setLong(2, opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 						pstmt.execute();
 						if( isDebug ) {
 						LOGGER.debug("Finished creating relation");
@@ -217,7 +225,8 @@ class JavaUtilGenerator {
 	
 	def generateCreateDeleteManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	«val oppositeEntity = attribute.opposite.getEntity»
-	private final RelationSQL «getCreateDeleteManyToManyRelationSQLMethodName(eClass, attribute)»(final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
+	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
+	private final RelationSQL «getCreateDeleteManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
 		final String sql = "DELETE FROM «attribute.findRelationTable» WHERE \"«attribute.findRelationColumn»\" = ? AND \"«attribute.findOppositeRelationColumn»\" = ?";
 			return new RelationSQL() {
 				public EObject getSelf() {
@@ -234,18 +243,24 @@ class JavaUtilGenerator {
 			
 				public void execute() throws PersistanceException {
 					boolean isDebug = LOGGER.isDebugEnabled();
+					final «entityDef.fqn» selfMapper = session.createMapper(«entityDef.fqn».class);
+					final «oppositeEntityDef.fqn» oppositeMapper = session.createMapper(«oppositeEntityDef.fqn».class);
+					final Object selfId = session.getPrimaryKey(selfMapper, self);
+					final Object oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
 					if( isDebug ) {
 						LOGGER.debug("Started deleteing relation");
 						LOGGER.debug("Executing Relation SQL: " + sql);
-						LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»()+ "," + opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+						LOGGER.debug("Parameter: " + selfId + ", " + oppositeId);
+«««						LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»()+ "," + opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 					}
 				
 					PreparedStatement pstmt = null;
 					try {
 						pstmt = c.prepareStatement(sql);
-						//TODO setLong Needs to be calculated
-						pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
-						pstmt.setLong(2, opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+						pstmt.setLong(1, (Long) selfId);
+						pstmt.setLong(2, (Long) oppositeId);
+«««						pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+«««						pstmt.setLong(2, opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 						pstmt.execute();
 						if( isDebug ) {
 							LOGGER.debug("Finished deleteing relation");
@@ -274,7 +289,7 @@ class JavaUtilGenerator {
 	}
 	
 	def generateCreateClearManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
-	private final RelationSQL «getCreateClearManyToManyRelationSQLMethodName(eClass, attribute)»(final Connection c, final «eClass.name» self) {
+	private final RelationSQL «getCreateClearManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self) {
 		final String sql = "DELETE FROM «attribute.findRelationTable» WHERE \"«attribute.findRelationColumn»\" = ?";
 		return new RelationSQL() {
 			public EObject getSelf() {
@@ -291,17 +306,20 @@ class JavaUtilGenerator {
 	
 			public void execute() throws PersistanceException {
 				boolean isDebug = LOGGER.isDebugEnabled();
+				final «entityDef.fqn» selfMapper = session.createMapper(«entityDef.fqn».class);
+				final Object selfId = session.getPrimaryKey(selfMapper, self);
 				if( isDebug ) {
 					LOGGER.debug("Started clearing relation");
 					LOGGER.debug("Executing Relation SQL: " + sql);
-					LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+					LOGGER.debug("Parameter: " + selfId );
+«««					LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 				}
 		
 				PreparedStatement pstmt = null;
 				try {
 					pstmt = c.prepareStatement(sql);
-					//TODO setLong Needs to be calculated
-					pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
+					pstmt.setLong(1, (Long) selfId);
+«««					pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 					pstmt.execute();
 					if( isDebug ) {
 						LOGGER.debug("Finished clearing relation");

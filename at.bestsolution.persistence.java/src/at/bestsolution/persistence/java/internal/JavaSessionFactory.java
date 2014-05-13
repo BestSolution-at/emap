@@ -287,6 +287,18 @@ public class JavaSessionFactory implements SessionFactory {
 			map.put(object, key);
 		}
 		
+		private <O,P> P getPrimaryKeyFromTransactionCache(O object) {
+			Transaction transaction = getTransaction();
+			if (transaction == null) {
+				return null;
+			}
+			final Map<Object, Object> map = transactionPrimaryKeyCache.get(transaction);
+			if (map != null) {
+				return (P) map.get(object);
+			}
+			return null;
+		}
+		
 		@Override
 		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -294,21 +306,13 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.debug("getPrimaryKey " + object);
 			}
 			
-			P key = null;
+			P key = getPrimaryKeyFromTransactionCache(object);
 			
-			final Transaction transaction = getTransaction();
-			if( transaction != null ) {
-				final Map<Object, Object> map = transactionPrimaryKeyCache.get(transaction);
-				if (map != null) {
-					key = (P) map.get(object);
+			if (key != null) {
+				if( isDebug ) {
+					LOGGER.debug(" found key in tx cache => " + key);
 				}
-				
-				if (key != null) {
-					if( isDebug ) {
-						LOGGER.debug(" found key in tx cache => " + key);
-					}
-					return key;
-				}
+				return key;
 			}
 			
 			key = mapper.getPrimaryKeyValue(object);
@@ -673,14 +677,21 @@ public class JavaSessionFactory implements SessionFactory {
 					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
 				}
 				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
-				final Object l = m.getPrimaryKeyValue(e);
-
-				if( isNewObject(l) ) {
-					LOGGER.debug("New object insert");
-					m.insert(e);
-				} else {
-					LOGGER.debug("Existing object update");
-					m.update(e);
+//				final Object l = m.getPrimaryKeyValue(e);
+				// WE NEED TO GET THE KEY FROM THE CACHE!
+				final Object txKey = getPrimaryKeyFromTransactionCache(e);
+				if (txKey == null) {
+					final Object l = getPrimaryKey(m, e);
+					if( isNewObject(l) ) {
+						LOGGER.debug("New object insert");
+						m.insert(e);
+					} else {
+						LOGGER.debug("Existing object update");
+						m.update(e);
+					}
+				}
+				else {
+					LOGGER.debug("skipping, was already inserted in this tx");
 				}
 			}
 

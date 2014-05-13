@@ -148,13 +148,13 @@ class JavaInsertUpdateGenerator {
 							for (Object addition : delta.getAdditions()) {
 								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)addition);
 								// TODO test for new object?
-								session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, a)»(connection, object, («oppositeType»)addition));
+								session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)addition));
 							}
 							
 							for (Object removal : delta.getRemovals()) {
 								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)removal);
 								// TODO test for new object?
-								session.scheduleRelationSQL(«getCreateDeleteManyToManyRelationSQLMethodName(eClass, a)»(connection, object, («oppositeType»)removal));
+								session.scheduleRelationSQL(«getCreateDeleteManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)removal));
 							}
 							
 						}
@@ -298,7 +298,7 @@ class JavaInsertUpdateGenerator {
 				«FOR e : manyToManyReferences»
 					// «e.name»
 					for(«e.getOpposite(eClass).EContainingClass.instanceClassName» e : object.get«e.name.toFirstUpper»()) {
-						session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, e)»(connection,object,e));
+						session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, e)»(session, connection, object, e));
 					}
 				«ENDFOR»
 			«ENDIF»
