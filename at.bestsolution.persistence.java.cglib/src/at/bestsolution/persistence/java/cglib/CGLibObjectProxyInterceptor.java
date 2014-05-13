@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -86,6 +87,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+		System.out.println("PROXY " + obj.getClass().getSimpleName() + " " + method.getName() + " " + Arrays.toString(method.getParameterTypes()));
 		//FIXME We need to detect calls from outside and only resolve if the call
 		// is not from EMF-internal
 		// stop eagerly resolving
@@ -132,34 +134,59 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 				}
 			}
 			return proxy.invokeSuper(obj, args);
-		}  
-		else if (method.getName().equals("eContents")) {
-			final LazyEObject eo = (LazyEObject) obj;
-			final EClass eClass = eo.eClass();
-			for (EStructuralFeature f : eClass.getEStructuralFeatures()) {
-				if (f instanceof EReference) {
-					EReference ref = (EReference)f;
-					if (ref.isContainment()) {
-//						System.err.println("eContents resolver: resolving " + ref);
-						if( ref != null && ! (resolvedAttributes.get(ref) == Boolean.TRUE) ) {
-							if( intercepting ) {
-								return proxy.invokeSuper(obj, args);
-							}
-							intercepting = true;
-							try {
-								if( proxyDelegate.resolve(eo, proxyData, ref) ) {
-									resolvedAttributes.put(ref,Boolean.TRUE);
-								}
-							} finally {
-								intercepting = false;
-							}
+		}
+		else if (method.getName().equals("eIsSet") && method.getParameterTypes().length == 1 && method.getParameterTypes()[0] == EStructuralFeature.class) {
+			final EStructuralFeature f = (EStructuralFeature) args[0];
+
+			if (f instanceof EReference && !f.isTransient()) {
+				final EReference r = (EReference) f;
+				final LazyEObject eo = (LazyEObject) obj;
+//					System.err.println("R: " + r);
+//					System.err.println(resolvedAttributes);
+				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
+					if( intercepting ) {
+						return proxy.invokeSuper(obj, args);
+					}
+					intercepting = true;
+					try {
+						if( proxyDelegate.resolve(eo, proxyData, r) ) {
+							resolvedAttributes.put(r,Boolean.TRUE);
 						}
-						
+					} finally {
+						intercepting = false;
 					}
 				}
 			}
 			return proxy.invokeSuper(obj, args);
 		}
+		// eContents is not needed -> it gets correctly resolved if eIsSet and eGet are implemented
+//		else if (method.getName().equals("eContents")) {
+//			final LazyEObject eo = (LazyEObject) obj;
+//			final EClass eClass = eo.eClass();
+//			for (EStructuralFeature f : eClass.getEStructuralFeatures()) {
+//				if (f instanceof EReference) {
+//					EReference ref = (EReference)f;
+//					if (ref.isContainment()) {
+////						System.err.println("eContents resolver: resolving " + ref);
+//						if( ref != null && ! (resolvedAttributes.get(ref) == Boolean.TRUE) ) {
+//							if( intercepting ) {
+//								return proxy.invokeSuper(obj, args);
+//							}
+//							intercepting = true;
+//							try {
+//								if( proxyDelegate.resolve(eo, proxyData, ref) ) {
+//									resolvedAttributes.put(ref,Boolean.TRUE);
+//								}
+//							} finally {
+//								intercepting = false;
+//							}
+//						}
+//						
+//					}
+//				}
+//			}
+//			return proxy.invokeSuper(obj, args);
+//		}
 		else if ( method.getName().equals("eGet") && method.getParameterTypes()[0] == EStructuralFeature.class) {
 			final EStructuralFeature f = (EStructuralFeature) args[0];
 
