@@ -84,7 +84,67 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		return o;
 //		return object;
 	}
+	
+	private EReference getInterceptedReference(EClass eClass, String methodName) {
+		final Map<String, EReference> map = INTERCEPTED_METHODS.get(eClass);
+		if( map != null ) {
+			return map.get(methodName);
+		}
+		return null;
+	}
+	
+	private EReference getInterceptedReference(EStructuralFeature feature) {
+		if (feature instanceof EReference && !feature.isTransient()) {
+			return (EReference) feature;
+		}
+		return null;
+	}
+	
+	private boolean isResolved(EReference reference) {
+		return resolvedAttributes.get(reference) == Boolean.TRUE;
+	}
+	
+	private void markResolved(EReference reference) {
+		resolvedAttributes.put(reference, Boolean.TRUE);
+	}
+	
+	private void interceptResolve(LazyEObject object, EReference reference) {
+		intercepting = true;
+		try {
+			if( proxyDelegate.resolve(object, proxyData, reference) ) {
+				markResolved(reference);
+			}
+		} finally {
+			intercepting = false;
+		}
+	}
 
+	private boolean matches(Method method, String nameRegex, int numArgs) {
+		return method.getName().matches(nameRegex) && method.getParameterTypes().length == numArgs;
+	}
+	
+	private boolean matches(Method method, String name, Class<?>... argTypes) {
+		return method.getName().equals(name) && argsEquals(method.getParameterTypes(), argTypes);
+	}
+	
+	private boolean matchesNoArgCheck(Method method, String name) {
+		return method.getName().equals(name);
+	}
+	
+	private boolean argsEquals(Class<?>[] a, Class<?>[] b) {
+		if (a.length == b.length) {
+			for (int i = 0; i < a.length; i++) {
+				if (a[i] != b[i]) {
+					return false;
+				}
+			}
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		System.out.println("PROXY " + obj.getClass().getSimpleName() + " " + method.getName() + " " + Arrays.toString(method.getParameterTypes()));
@@ -95,166 +155,96 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(obj, args);
 		}
 
-		if( "isResolved".equals(method.getName()) ) {
-			return resolvedAttributes.get(args[0]) == Boolean.TRUE;
-		} else if( method.getName().equals("setProxyData") ) {
+		if (matches(method, "isResolved", EReference.class)) {
+			final EReference reference = (EReference) args[0];
+			
+			return isResolved(reference);
+		}
+		else if (matches(method, "setProxyData", Object.class)) {
 			proxyData = args[0];
 			return null;
-		} else if( method.getName().equals("setProxyDelegate") ) {
+		}
+		else if (matches(method, "setProxyDelegate", ResolveDelegate.class)) {
 			proxyDelegate = (ResolveDelegate) args[0];
 			return null;
-		} else if( method.getName().equals("eInverseAdd") ) {
+		}
+		else if (matchesNoArgCheck(method, "eInverseAdd")) {
 			try {
 				inverseAddRunning = true;
 				return proxy.invokeSuper(obj, args);
 			} finally {
 				inverseAddRunning = false;
 			}
-
-		} else if( method.getName().startsWith("get") ) {
-			Map<String, EReference> map = INTERCEPTED_METHODS.get(((EObject)obj).eClass());
-
-			if( map != null ) {
-				EReference r = map.get(method.getName());
+		}
+		else if (matches(method, "^get.*$", 0)) {
+			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
+			
+			if ( reference != null && !isResolved(reference)) {
 				LazyEObject eo = (LazyEObject) obj;
-//				System.err.println("R: " + r);
-//				System.err.println(resolvedAttributes);
-				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					if( intercepting ) {
-						return proxy.invokeSuper(obj, args);
-					}
-					intercepting = true;
-					try {
-						if( proxyDelegate.resolve(eo, proxyData, r) ) {
-							resolvedAttributes.put(r,Boolean.TRUE);
-						}
-					} finally {
-						intercepting = false;
-					}
-				}
-			}
-			return proxy.invokeSuper(obj, args);
-		}
-		else if (method.getName().equals("eIsSet") && method.getParameterTypes().length == 1 && method.getParameterTypes()[0] == EStructuralFeature.class) {
-			final EStructuralFeature f = (EStructuralFeature) args[0];
-
-			if (f instanceof EReference && !f.isTransient()) {
-				final EReference r = (EReference) f;
-				final LazyEObject eo = (LazyEObject) obj;
-//					System.err.println("R: " + r);
-//					System.err.println(resolvedAttributes);
-				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					if( intercepting ) {
-						return proxy.invokeSuper(obj, args);
-					}
-					intercepting = true;
-					try {
-						if( proxyDelegate.resolve(eo, proxyData, r) ) {
-							resolvedAttributes.put(r,Boolean.TRUE);
-						}
-					} finally {
-						intercepting = false;
-					}
-				}
-			}
-			return proxy.invokeSuper(obj, args);
-		}
-		// eContents is not needed -> it gets correctly resolved if eIsSet and eGet are implemented
-//		else if (method.getName().equals("eContents")) {
-//			final LazyEObject eo = (LazyEObject) obj;
-//			final EClass eClass = eo.eClass();
-//			for (EStructuralFeature f : eClass.getEStructuralFeatures()) {
-//				if (f instanceof EReference) {
-//					EReference ref = (EReference)f;
-//					if (ref.isContainment()) {
-////						System.err.println("eContents resolver: resolving " + ref);
-//						if( ref != null && ! (resolvedAttributes.get(ref) == Boolean.TRUE) ) {
-//							if( intercepting ) {
-//								return proxy.invokeSuper(obj, args);
-//							}
-//							intercepting = true;
-//							try {
-//								if( proxyDelegate.resolve(eo, proxyData, ref) ) {
-//									resolvedAttributes.put(ref,Boolean.TRUE);
-//								}
-//							} finally {
-//								intercepting = false;
-//							}
-//						}
-//						
-//					}
-//				}
-//			}
-//			return proxy.invokeSuper(obj, args);
-//		}
-		else if ( method.getName().equals("eGet") && method.getParameterTypes()[0] == EStructuralFeature.class) {
-			final EStructuralFeature f = (EStructuralFeature) args[0];
-
-			if (f instanceof EReference) {
-				final EReference r = (EReference) f;
-				final LazyEObject eo = (LazyEObject) obj;
-//					System.err.println("R: " + r);
-//					System.err.println(resolvedAttributes);
-				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					if( intercepting ) {
-						return proxy.invokeSuper(obj, args);
-					}
-					intercepting = true;
-					try {
-						if( proxyDelegate.resolve(eo, proxyData, r) ) {
-							resolvedAttributes.put(r,Boolean.TRUE);
-						}
-					} finally {
-						intercepting = false;
-					}
-				}
-			}
-			return proxy.invokeSuper(obj, args);
-		}
-		else if ( method.getName().equals("eGet") && method.getParameterTypes().length == 2 && method.getParameterTypes()[0] == EStructuralFeature.class && method.getParameterTypes()[1] == Boolean.class) {
-			final EStructuralFeature f = (EStructuralFeature) args[0];
-
-			if (f instanceof EReference) {
-				final EReference r = (EReference) f;
-				final LazyEObject eo = (LazyEObject) obj;
-//					System.err.println("R: " + r);
-//					System.err.println(resolvedAttributes);
-				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					if( intercepting ) {
-						return proxy.invokeSuper(obj, args);
-					}
-					intercepting = true;
-					try {
-						if( proxyDelegate.resolve(eo, proxyData, r) ) {
-							resolvedAttributes.put(r,Boolean.TRUE);
-						}
-					} finally {
-						intercepting = false;
-					}
-				}
-			}
-			return proxy.invokeSuper(obj, args);
-		}
-		else if(  method.getName().startsWith("set") ) {
-			Map<String, EReference> map = INTERCEPTED_METHODS.get(((EObject)obj).eClass());
-
-			if( map != null ) {
-				EReference r = map.get(method.getName());
-				EObject eo = (EObject) obj;
-				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					proxy.invokeSuper(eo, args);
-					Object rv = proxy.invokeSuper(obj, args);
-					resolvedAttributes.put(r,Boolean.TRUE);
-					return rv;
-				} else {
+				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
-			} else {
-				return proxy.invokeSuper(obj, args);
+				interceptResolve(eo, reference);
 			}
-		} else {
 			return proxy.invokeSuper(obj, args);
 		}
+		else if (matches(method, "^set.*$", 1)) {
+			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
+			
+			if ( reference != null && !isResolved(reference)) {
+				final Object rv = proxy.invokeSuper(obj, args);
+				markResolved(reference);
+				return rv;
+			}
+			return proxy.invokeSuper(obj, args);
+		}
+		else if (matches(method, "eSet", EStructuralFeature.class, Object.class)) { 
+			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
+			
+			if( reference != null && !isResolved(reference) ) {
+				final Object rv = proxy.invokeSuper(obj, args);
+				markResolved(reference);
+				return rv;
+			}
+			return proxy.invokeSuper(obj, args);
+		}
+		else if (matches(method, "eIsSet", EStructuralFeature.class)) {
+			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
+			
+			if( reference != null && !isResolved(reference) ) {
+				if( intercepting ) {
+					return proxy.invokeSuper(obj, args);
+				}
+				interceptResolve((LazyEObject) obj, reference);
+			}
+			return proxy.invokeSuper(obj, args);
+		}
+		else if (matches(method, "eGet", EStructuralFeature.class)) {
+			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
+			
+			if( reference != null && !isResolved(reference) ) {
+				if( intercepting ) {
+					return proxy.invokeSuper(obj, args);
+				}
+				interceptResolve((LazyEObject) obj, reference);
+			}
+			return proxy.invokeSuper(obj, args);
+		}
+		else if (matches(method, "eGet", EStructuralFeature.class, Boolean.class)) {
+			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
+			
+			if ( reference != null && !isResolved(reference) ) {
+				if( intercepting ) {
+					return proxy.invokeSuper(obj, args);
+				}
+				interceptResolve((LazyEObject) obj, reference);
+			}
+			return proxy.invokeSuper(obj, args);
+		}
+		else {
+			return proxy.invokeSuper(obj, args);
+		}
+		
 	}
 
 	public static class MultiParentClassloader extends ClassLoader {
