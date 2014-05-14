@@ -181,7 +181,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 //								intercepting = false;
 //							}
 //						}
-//						
+//
 //					}
 //				}
 //			}
@@ -242,7 +242,6 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 				EReference r = map.get(method.getName());
 				EObject eo = (EObject) obj;
 				if( r != null && ! (resolvedAttributes.get(r) == Boolean.TRUE) ) {
-					proxy.invokeSuper(eo, args);
 					Object rv = proxy.invokeSuper(obj, args);
 					resolvedAttributes.put(r,Boolean.TRUE);
 					return rv;
