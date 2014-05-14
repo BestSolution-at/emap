@@ -54,4 +54,15 @@ public interface Session extends Closeable {
 	public interface ExecutableSQL {
 		public void execute() throws PersistanceException;
 	}
+
+	/**
+	 * @param object
+	 * @return
+	 */
+	public long getMemoryObjectVersion(Object object);
+	/**
+	 * @param object
+	 * @return
+	 */
+	public long getPersistedObjectVersion(Object object);
 }

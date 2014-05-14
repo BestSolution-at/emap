@@ -21,4 +21,6 @@ public interface ObjectMapper<O> {
 	public String getTableName();
 	public String getColumnName(String propertyName);
 	public <P> P getPrimaryKeyValue(O object);
+	
+	public long selectVersion(Object id);
 }

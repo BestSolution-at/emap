@@ -106,6 +106,36 @@ class JavaObjectMapperGenerator {
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
 			}
+			
+			@Override
+			public long selectVersion(Object id) {
+				Connection connection = session.checkoutConnection();
+				PreparedStatement pStmt = null;
+				ResultSet set = null;
+				try {
+					try {
+						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName»\" WHERE «entityDef.entity.PKAttribute.columnName» = ?");
+						pStmt.setLong(1, (Long) id);
+						
+						set = pStmt.executeQuery();
+						
+						if (set.next()) {
+							return set.getLong(1);
+						}
+						else {
+							return -1;
+						}
+					}
+					finally {
+						if (set != null) set.close();
+						if (pStmt != null) pStmt.close();
+					}
+				}
+				catch (SQLException e) {
+					throw new PersistanceException(e);
+				}
+			}
+			
 
 			«FOR query : entityDef.entity.namedQueries»
 				@Override

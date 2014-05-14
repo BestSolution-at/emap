@@ -625,21 +625,39 @@ public class JavaSessionFactory implements SessionFactory {
 				if( isDebug ) {
 					LOGGER.debug("Deleteing " + e);
 				}
-				if( e instanceof EObject ) {
-					EObject eo = (EObject) e;
-					ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
-					if( f == null ) {
-						throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
-					}
-					ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
-					m.delete(e);
-				} else {
-					throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
-				}
+//				if( e instanceof EObject ) {
+//				EObject eo = (EObject) e;
+//				ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+//				if( f == null ) {
+//					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+//				}
+//				ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+//				m.delete(e);
+//			} else {
+//				throw new IllegalStateException("'"+e.getClass().getName()+"' is not an EObject");
+//			}
+				final ObjectMapper<Object> m = createMapperForObject(e);
+				m.delete(e);
+
 			}
 
 			if( isDebug ) {
 				LOGGER.debug("Ended deleting entities");
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		private <O> ObjectMapper<O> createMapperForObject(O object) {
+			if( object instanceof EObject ) {
+				EObject eo = (EObject) object;
+				ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+				if( f == null ) {
+					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+				}
+				return (ObjectMapper<O>) f.createMapper(this);
+				
+			} else {
+				throw new IllegalStateException("'"+object.getClass().getName()+"' is not an EObject");
 			}
 		}
 
@@ -671,12 +689,14 @@ public class JavaSessionFactory implements SessionFactory {
 					LOGGER.debug("Persisting of " + e);
 				}
 
-				final EObject eo = (EObject) e;
-				final ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
-				if( f == null ) {
-					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
-				}
-				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+//				final EObject eo = (EObject) e;
+//				final ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+//				if( f == null ) {
+//					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
+//				}
+//				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+				final ObjectMapper<EObject> m = createMapperForObject(e);
+				
 //				final Object l = m.getPrimaryKeyValue(e);
 				// WE NEED TO GET THE KEY FROM THE CACHE!
 				final Object txKey = getPrimaryKeyFromTransactionCache(e);
@@ -703,12 +723,16 @@ public class JavaSessionFactory implements SessionFactory {
 		private List<EObject> buildSavePlan(EObject sourceObject) {
 			List<EObject> list = new ArrayList<EObject>();
 			list.add(sourceObject);
-			final ObjectMapperFactory<?, ?> f = factories.get(sourceObject.eClass().getInstanceClassName()+"Mapper");
-			if( f == null ) {
-				throw new IllegalStateException("There's no mapper known for '"+sourceObject.eClass().getInstanceClassName()+"'");
-			}
+			
 			//TODO Move the META stuff to the factory so that we don't need to create an instance
-			final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
+			final ObjectMapper<EObject> m = createMapperForObject(sourceObject);
+			
+//			final ObjectMapperFactory<?, ?> f = factories.get(sourceObject.eClass().getInstanceClassName()+"Mapper");
+//			if( f == null ) {
+//				throw new IllegalStateException("There's no mapper known for '"+sourceObject.eClass().getInstanceClassName()+"'");
+//			}
+//			//TODO Move the META stuff to the factory so that we don't need to create an instance
+//			final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
 
 			for( EStructuralFeature rf : ((JavaObjectMapper<?>)m).getReferenceFeatures() ) {
 				EReference r = (EReference) rf;
@@ -955,6 +979,24 @@ public class JavaSessionFactory implements SessionFactory {
 					LOGGER.debug("Release change tracking: " + changeTrackingCount);
 				}
 			}
+		}
+		
+		/* (non-Javadoc)
+		 * @see at.bestsolution.persistence.Session#getMemoryObjectVersion(java.lang.Object)
+		 */
+		@Override
+		public long getMemoryObjectVersion(Object object) {
+			final ObjectMapper<Object> mapper = createMapperForObject(object);
+			return sessionCache.getVersion((EObject)object, getPrimaryKey(mapper, object));
+		}
+		
+		/* (non-Javadoc)
+		 * @see at.bestsolution.persistence.Session#getPersistedObjectVersion(java.lang.Object)
+		 */
+		@Override
+		public long getPersistedObjectVersion(Object object) {
+			final ObjectMapper<Object> mapper = createMapperForObject(object);
+			return mapper.selectVersion(getPrimaryKey(mapper, object));
 		}
 	}
 

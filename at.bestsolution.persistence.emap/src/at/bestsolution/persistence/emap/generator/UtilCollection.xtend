@@ -456,6 +456,10 @@ class UtilCollection {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isManyToManyAttribute(eClass)]
 	}
 	
+	def getPKAttribute(EMappingEntity entity) {
+		entity.collectDerivedAttributes.values.findFirst[pk]
+	}
+	
 	// Filter predicates
 	
 	def isManyToManyAttribute(EAttribute it, EClass eClass) {
@@ -521,7 +525,7 @@ class UtilCollection {
 	def filterDerivedAttributesNoDuplicates(EMappingEntity entity, EClass eClass, Function1<? super EAttribute, Boolean> predicate) {
 		entity.collectDerivedAttributes.values.filter(predicate).sort[a,b|return sortAttributes(eClass,a,b)]
 	}
-
+	
 	def collectDerivedAttributes(EMappingEntity entity) {
 		val map = new HashMap<String,EAttribute>
 		entity.allDerivedAttributes(map)
