@@ -19,40 +19,40 @@ import at.bestsolution.persistence.emap.eMap.EAttribute
 class JavaUtilGenerator {
 	@Inject extension
   	var UtilCollection util;
-	
+
 	def checkTx() '''
 	if( session.getTransaction() == null ) {
 		throw new PersistanceException("You can only modify data while in a transaction");
 	}
 	'''
-	
+
 	def generate(EMappingEntityDef entityDef, EClass eClass) '''
 	// Utilities
-	
+
 	private List<Object> extractObjectIds(«eClass.name»... object) {
 		List<Object> objectIds = new ArrayList<Object>();
 		for («eClass.name» o : object) {
-			objectIds.add(getPrimaryKeyValue(o));
+			objectIds.add(getPrimaryKeyForTx(o));
 		}
 		return objectIds;
 	}
-	
+
 	«generateUtils(entityDef, eClass)»
 	'''
-	
+
 	def getClearPrimitiveMultiValueMethodName(EClass eClass, EAttribute attribute) {
 		return "clearPrimitiveMultiValue_" + eClass.name + "_" + attribute.name;
 	}
-	
+
 	def getClearPrimitiveMultiValueByIdMethodName(EClass eClass, EAttribute attribute) {
 		return "clearPrimitiveMultiValueById_" + eClass.name + "_" + attribute.name;
 	}
-	
+
 	def generateClearPrimitiveMultiValue(EClass eClass, EAttribute attribute) '''
 	private final void «getClearPrimitiveMultiValueMethodName(eClass, attribute)»(Connection connection, «eClass.name»... objects) throws SQLException {
 		«getClearPrimitiveMultiValueByIdMethodName(eClass, attribute)»(connection, extractObjectIds(objects));
 	}
-	
+
 	private final void «getClearPrimitiveMultiValueByIdMethodName(eClass, attribute)»(Connection connection, List<Object> objectIds) throws SQLException {
 		boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
@@ -62,7 +62,7 @@ class JavaUtilGenerator {
 		«generateExecuteInStatement("stmt", "sql", "objectIds")»
 «««		PreparedStatement stmt = null;
 «««		try {
-«««			
+«««
 «««			String sql = "DELETE FROM «eClass.name.toUpperCase»_«attribute.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«attribute.name.toUpperCase» = ?";
 «««			if( isDebug ) {
 «««				LOGGER.debug("Preparing statement: " + sql);
@@ -80,26 +80,26 @@ class JavaUtilGenerator {
 «««		}
 	}
 	'''
-	
+
 	def getClearManyToManyMethodName(EClass eClass, EAttribute attribute) {
 		return "clearManyToMany_" + attribute.name.toFirstUpper;
 	}
-	
+
 	def getClearManyToManyByIdMethodName(EClass eClass, EAttribute attribute) {
 		return "clearManyToManyById_" + attribute.name.toFirstUpper;
 	}
-	
+
 	def generateClearManyToManyFor(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	private final void «getClearManyToManyMethodName(eClass, attribute)»(Connection connection, «eClass.name»... object) throws SQLException {
 		«getClearManyToManyByIdMethodName(eClass, attribute)»(connection, extractObjectIds(object));
 	}
-	
+
 	private final void «getClearManyToManyByIdMethodName(eClass, attribute)»(Connection connection, List<Object> objectIds) throws SQLException {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("clear many to many «attribute.name.toFirstUpper» for "+objectIds);
 		}
-		
+
 		final StringBuilder b = new StringBuilder();
 		Iterator<Object> it = objectIds.iterator();
 		while (it.hasNext()) {
@@ -110,11 +110,11 @@ class JavaUtilGenerator {
 			}
 		}
 		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE «attribute.findRelationColumn» IN ("+b.toString()+");";
-		
+
 		if (isDebug) {
 			LOGGER.debug("Executing Query: " + sql);
 		}
-		
+
 		PreparedStatement stmt = null;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -137,27 +137,27 @@ class JavaUtilGenerator {
 		}
 	}
 	'''
-	
+
 	def getClearManyToManyForAllMethodName(EClass eClass, EAttribute attribute) {
 		return "clearManyToMany_" + attribute.name.toFirstUpper + "_ForAll"
 	}
-	
+
 	def generateClearManyToManyForAll(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	private final void «getClearManyToManyForAllMethodName(eClass, attribute)»(Connection connection) throws SQLException {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("clear many to many «attribute.name.toFirstUpper» for all");
 		}
-		
+
 		String sql = "DELETE FROM \"«attribute.findRelationTable»\"";
 		«generateExecuteStatement("stmt", "sql")»
 	}
 	'''
-	
+
 	def getCreateInsertManyToManyRelationSQLMethodName(EClass eClass, EAttribute attribute) {
 		return "createInsertManyToManyRelationSQL_" + attribute.name;
 	}
-	
+
 	def generateCreateInsertManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
@@ -193,7 +193,7 @@ class JavaUtilGenerator {
 						pstmt = c.prepareStatement(sql);
 						pstmt.setLong(1, (Long) selfId);
 						pstmt.setLong(2, (Long) oppositeId);
-						
+
 «««						pstmt.setLong(1, self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 «««						pstmt.setLong(2, opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 						pstmt.execute();
@@ -218,11 +218,11 @@ class JavaUtilGenerator {
 		};
 	}
 	'''
-	
+
 	def getCreateDeleteManyToManyRelationSQLMethodName(EClass eClass, EAttribute eAttribute) {
-		return "createDeleteManyToManyRelationSQL_" + eAttribute.name; 
+		return "createDeleteManyToManyRelationSQL_" + eAttribute.name;
 	}
-	
+
 	def generateCreateDeleteManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
@@ -232,15 +232,15 @@ class JavaUtilGenerator {
 				public EObject getSelf() {
 					return (EObject)self;
 				}
-			
+
 				public String getTableName() {
 					return "«attribute.relationTable»";
 				}
-			
+
 				public EObject getOpposite() {
 					return (EObject)opposite;
 				}
-			
+
 				public void execute() throws PersistanceException {
 					boolean isDebug = LOGGER.isDebugEnabled();
 					final «entityDef.fqn» selfMapper = session.createMapper(«entityDef.fqn».class);
@@ -253,7 +253,7 @@ class JavaUtilGenerator {
 						LOGGER.debug("Parameter: " + selfId + ", " + oppositeId);
 «««						LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»()+ "," + opposite.get«oppositeEntity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 					}
-				
+
 					PreparedStatement pstmt = null;
 					try {
 						pstmt = c.prepareStatement(sql);
@@ -283,11 +283,11 @@ class JavaUtilGenerator {
 		};
 	}
 	'''
-	
+
 	def getCreateClearManyToManyRelationSQLMethodName(EClass eClass, EAttribute eAttribute) {
-		return "createClearManyToManyRelationSQL_" + eAttribute.name; 
+		return "createClearManyToManyRelationSQL_" + eAttribute.name;
 	}
-	
+
 	def generateCreateClearManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	private final RelationSQL «getCreateClearManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self) {
 		final String sql = "DELETE FROM «attribute.findRelationTable» WHERE \"«attribute.findRelationColumn»\" = ?";
@@ -295,15 +295,15 @@ class JavaUtilGenerator {
 			public EObject getSelf() {
 				return (EObject)self;
 			}
-		
+
 			public EObject getOpposite() {
 				return null;
 			}
-		
+
 			public String getTableName() {
 				return "«attribute.relationTable»";
 			}
-	
+
 			public void execute() throws PersistanceException {
 				boolean isDebug = LOGGER.isDebugEnabled();
 				final «entityDef.fqn» selfMapper = session.createMapper(«entityDef.fqn».class);
@@ -314,7 +314,7 @@ class JavaUtilGenerator {
 					LOGGER.debug("Parameter: " + selfId );
 «««					LOGGER.debug("Parameter: " + self.get«entityDef.entity.collectDerivedAttributes.values.findFirst[pk].name.toFirstUpper»());
 				}
-		
+
 				PreparedStatement pstmt = null;
 				try {
 					pstmt = c.prepareStatement(sql);
@@ -335,18 +335,18 @@ class JavaUtilGenerator {
 					throw new PersistanceException(e);
 				}
 			}
-	
+
 			public Action getAction() {
 				return Action.DELETE_ALL;
 			}
 		};
 	}
 	'''
-	
+
 	def getLoadPrimitiveMultiValueMethodName(EClass eClass, EAttribute attribute) {
 		return "loadPrimitiveMultiValue_" + eClass.name + "_" + attribute.name;
 	}
-	
+
 	def generateLoadPrimitiveMultiValue(EClass eClass, EAttribute attribute) '''
 	private final Collection<«(eClass.getEStructuralFeature(attribute.name) as org.eclipse.emf.ecore.EAttribute).objectType»> «getLoadPrimitiveMultiValueMethodName(eClass, attribute)»(Connection connection, Object sid) throws SQLException {
 		boolean isDebug = LOGGER.isDebugEnabled();
@@ -398,11 +398,11 @@ class JavaUtilGenerator {
 		}
 	}
 	'''
-	
+
 	def getInsertPrimitiveMultiValue(EClass eClass, EAttribute attribute) {
 		return "insertPrimitiveMultiValue_" + eClass.name + "_" + attribute.name;
 	}
-	
+
 	def generateInsertPrimitiveMultiValue(EClass eClass, EAttribute attribute) '''
 	private final void «getInsertPrimitiveMultiValue(eClass, attribute)»(Connection connection, Object sid, Collection<«(eClass.getEStructuralFeature(attribute.name) as org.eclipse.emf.ecore.EAttribute).objectType»> data) throws SQLException {
 		boolean isDebug = LOGGER.isDebugEnabled();
@@ -431,13 +431,13 @@ class JavaUtilGenerator {
 		}
 	}
 	'''
-	
-	
+
+
 	def generateUtils(EMappingEntityDef entityDef, EClass eClass) '''
 	// Utility Methods
 	«val primitiveMultiValuedAttributes = entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val manyToManyReferences = entityDef.entity.findManyToManyReferences(eClass)»
-	
+
 	«IF !primitiveMultiValuedAttributes.empty»
 		// helpers for primitive multi valued attributes
 		«FOR a : primitiveMultiValuedAttributes»
@@ -446,7 +446,7 @@ class JavaUtilGenerator {
 			«generateInsertPrimitiveMultiValue(eClass, a)»
 		«ENDFOR»
 	«ENDIF»
-	
+
 	«IF !manyToManyReferences.empty»
 		// helpers for many to many relations
 		«FOR a : manyToManyReferences»
@@ -458,9 +458,9 @@ class JavaUtilGenerator {
 		«ENDFOR»
 	«ENDIF»
 	'''
-	
-	
-	
+
+
+
 	def generateDeleteInSql(String sqlName, String tableName, String keyName, String paramListName) '''
 	// building query begin
 	«var builderName = sqlName + "Builder"»
@@ -479,7 +479,7 @@ class JavaUtilGenerator {
 	final String «sqlName» = «builderName».toString();
 	// building query end
 	'''
-	
+
 	def generateExecuteStatement(String stmtName, String sqlName) '''
 	// executing query begin
 	if (isDebug) {
@@ -496,7 +496,7 @@ class JavaUtilGenerator {
 	}
 	// executing query end
 	'''
-	
+
 	def generateExecuteInStatement(String stmtName, String sqlName, String paramListName) '''
 	// executing query begin
 	if (isDebug) {
@@ -524,5 +524,5 @@ class JavaUtilGenerator {
 	}
 	// executing query end
 	'''
-	
+
 }

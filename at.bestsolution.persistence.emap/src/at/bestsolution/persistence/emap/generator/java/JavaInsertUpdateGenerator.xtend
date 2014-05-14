@@ -23,7 +23,7 @@ import at.bestsolution.persistence.emap.eMap.EMapping
 class JavaInsertUpdateGenerator {
 	@Inject extension
   	var UtilCollection util;
-  	
+
   	@Inject extension
   	var JavaUtilGenerator utilGen;
 
@@ -92,7 +92,7 @@ class JavaInsertUpdateGenerator {
 				}
 			«ENDFOR»
 		«ENDIF»
-		
+
 		// Execute the query
 		Connection connection = session.checkoutConnection();
 		try {
@@ -112,12 +112,12 @@ class JavaInsertUpdateGenerator {
 					if( !session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 						if( Util.isModified(session,object,"«a.name»") ) {
 							«utilGen.getClearPrimitiveMultiValueMethodName(eClass, a)»(connection, object);
-							«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection, getPrimaryKeyValue(object), object.get«a.name.toFirstUpper»());
+							«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection, getPrimaryKeyForTx(object), object.get«a.name.toFirstUpper»());
 						}
 					}
 				«ENDFOR»
 			«ENDIF»
-			
+
 «««			update many to many references
 			«IF !manyToManyReferences.empty»
 				// update many to many references
@@ -136,7 +136,7 @@ class JavaInsertUpdateGenerator {
 								break;
 							}
 						}
-						
+
 						if (delta != null) {
 							final «oppositeMapper» oppositeMapper = session.createMapper(«oppositeMapper».class);
 							if (isDebug) {
@@ -144,25 +144,25 @@ class JavaInsertUpdateGenerator {
 								LOGGER.trace("additions: " + delta.getAdditions());
 								LOGGER.trace("removals: " + delta.getRemovals());
 							}
-							
+
 							for (Object addition : delta.getAdditions()) {
 								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)addition);
 								// TODO test for new object?
 								session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)addition));
 							}
-							
+
 							for (Object removal : delta.getRemovals()) {
 								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)removal);
 								// TODO test for new object?
 								session.scheduleRelationSQL(«getCreateDeleteManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)removal));
 							}
-							
+
 						}
 						else {
 							if (isDebug) {
 								LOGGER.debug("no delta recorded => nothing to update for «a.name»");
 							}
-						}			
+						}
 					}
 				«ENDFOR»
 			«ENDIF»
@@ -207,8 +207,8 @@ class JavaInsertUpdateGenerator {
 		// Build the SQL
 		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
 		«ENDIF»
-		
-		
+
+
 «««		Handle simple direct mapped attributes
 		«IF !simpleDirectMappedAttributes.empty»
 			// handle simple direct mapped attributes
@@ -223,7 +223,7 @@ class JavaInsertUpdateGenerator {
 			«ENDIF»
 			«ENDFOR»
 		«ENDIF»
-		
+
 «««		Handle Blob attributes
 		«IF !blobDirectMappedAttributes.empty»
 			// handle blob attributes
@@ -234,7 +234,7 @@ class JavaInsertUpdateGenerator {
 			}
 			«ENDFOR»
 		«ENDIF»
-		
+
 «««		Handle primitive multi valued attributes
 		«IF !primitiveMultiValuedAttributes.empty»
 			// handle primitive multi valued attributes
@@ -244,8 +244,8 @@ class JavaInsertUpdateGenerator {
 				//TODO Support array storage
 			}
 			«ENDFOR»
-		«ENDIF»	
-		
+		«ENDIF»
+
 «««		Handle one to one references
 		«IF !oneToOneReferences.empty»
 			// handle one to one references
@@ -260,7 +260,7 @@ class JavaInsertUpdateGenerator {
 			}
 			«ENDFOR»
 		«ENDIF»
-		
+
 		// Execute the query
 		final Connection connection = session.checkoutConnection();
 		try {
@@ -287,11 +287,11 @@ class JavaInsertUpdateGenerator {
 				// handle primitive multi value attributes
 				«FOR a : primitiveMultiValuedAttributes»
 					if( !session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection,object.get«pkAttribute.name.toFirstUpper»(),object.get«a.name.toFirstUpper»());
+						«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection,getPrimaryKeyForTx(object),object.get«a.name.toFirstUpper»());
 					}
 				«ENDFOR»
 			«ENDIF»
-			
+
 «««			Handle many to many references
 			«IF !manyToManyReferences.empty»
 				// handle many to many references
@@ -302,7 +302,7 @@ class JavaInsertUpdateGenerator {
 					}
 				«ENDFOR»
 			«ENDIF»
-			
+
 			«IF !entityDef.extendsEntity»
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.RegisterObjectAfterTx(object, primaryKey, getLockColumn() != null ? 0 : -1));
 			«ENDIF»
@@ -313,8 +313,8 @@ class JavaInsertUpdateGenerator {
 		}
 	}
 	'''
-	
-	
+
+
 
 	def attributeFilter(EAttribute it, EClass eClass) {
 		if( pk ) {
@@ -339,7 +339,7 @@ class JavaInsertUpdateGenerator {
 			return true;
 		}
 	}
-	
+
 	def generateDelete(EMappingEntityDef entityDef, EClass eClass) '''
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
@@ -347,21 +347,21 @@ class JavaInsertUpdateGenerator {
 	public final void delete(«eClass.name» object) {
 		delete(new «eClass.name»[] { object });
 	}
-	
+
 	@Override
 	public final void deleteAll() {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("deleteAll()");
 		}
-		
+
 		«checkTx»
-		
+
 		// we need to clean up the session
 		session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterAllObjectsAfterTx(«eClass.toFullQualifiedJavaEClass»));
-		
+
 		String sql = "DELETE FROM «entityDef.tableName»";
-		
+
 		final Connection connection = session.checkoutConnection();
 		try {
 			«FOR a : manyToManyReferences»
@@ -376,34 +376,34 @@ class JavaInsertUpdateGenerator {
 		} finally {
 			session.returnConnection(connection);
 		}
-		
+
 		if( isDebug ) {
 			LOGGER.debug("deleteAll() done.");
 		}
 	}
-	
+
 	@Override
 	public void deleteById(Object... id) {
 		deleteById(Arrays.asList(id));
 	}
-	
+
 	public final void deleteById(List<Object> objectIds) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("deleteById("+objectIds+")");
 		}
-		
+
 		«checkTx»
-		
+
 		final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
 		for(Object id : objectIds) {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
 		}
-		
+
 		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
 		final Connection connection = session.checkoutConnection();
 		try {
-			
+
 «««			Handle primitive multi valued attributes
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
@@ -432,31 +432,31 @@ class JavaInsertUpdateGenerator {
 		} finally {
 			session.returnConnection(connection);
 		}
-		
+
 		if( isDebug ) {
 			LOGGER.debug("delete() done");
 		}
 	}
-	
+
 	@Override
 	public final void delete(«eClass.name»... object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("delete("+Arrays.toString(object)+")");
 		}
-	
+
 		«checkTx»
-		
+
 		final List<Object> objectIds = extractObjectIds(object);
 
 		for(«eClass.name» o : object) {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
 		}
-		
+
 		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
 		final Connection connection = session.checkoutConnection();
 		try {
-			
+
 «««			Handle primitive multi valued attributes
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
@@ -485,12 +485,12 @@ class JavaInsertUpdateGenerator {
 		} finally {
 			session.returnConnection(connection);
 		}
-		
+
 		if( isDebug ) {
 			LOGGER.debug("delete() done");
 		}
 	}
 	'''
-	
-	
+
+
 }
