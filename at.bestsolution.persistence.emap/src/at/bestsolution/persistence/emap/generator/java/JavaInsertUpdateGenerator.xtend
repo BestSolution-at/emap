@@ -364,6 +364,15 @@ class JavaInsertUpdateGenerator {
 
 		final Connection connection = session.checkoutConnection();
 		try {
+			«IF !primitiveMultiValuedAttributes.empty»
+				// handle primitive multi valued attributes
+				«FOR a : primitiveMultiValuedAttributes»
+					if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+						«utilGen.getClearPrimitiveMultiValueForAllMethodName(eClass, a)»(connection);
+					}
+				«ENDFOR»
+			«ENDIF»
+
 			«FOR a : manyToManyReferences»
 				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
 			«ENDFOR»
@@ -408,10 +417,7 @@ class JavaInsertUpdateGenerator {
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
 				«FOR a : primitiveMultiValuedAttributes»
-					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						// TODO support for arrays
-					}
-					else {
+					if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
 					}
 				«ENDFOR»
@@ -461,10 +467,7 @@ class JavaInsertUpdateGenerator {
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
 				«FOR a : primitiveMultiValuedAttributes»
-					if( session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						// TODO support for arrays
-					}
-					else {
+					if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
 					}
 				«ENDFOR»

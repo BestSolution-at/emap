@@ -48,6 +48,22 @@ class JavaUtilGenerator {
 		return "clearPrimitiveMultiValueById_" + eClass.name + "_" + attribute.name;
 	}
 
+	def getClearPrimitiveMultiValueForAllMethodName(EClass eClass, EAttribute attribute) {
+		return "clearPrimitiveMultiValueForAll_" + attribute.name.toFirstUpper;
+	}
+
+	def generateClearPrimitiveMultiValueForAll(EClass eClass, EAttribute attribute) '''
+	private final void «getClearPrimitiveMultiValueForAllMethodName(eClass, attribute)»(Connection connection) throws SQLException {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if( isDebug ) {
+			LOGGER.debug("clear many primitive «attribute.name.toFirstUpper» for all");
+		}
+
+		String sql = "DELETE FROM \"«eClass.name.toUpperCase+"_"+attribute.name.toUpperCase»\"";
+		«generateExecuteStatement("stmt", "sql")»
+	}
+	'''
+
 	def generateClearPrimitiveMultiValue(EClass eClass, EAttribute attribute) '''
 	private final void «getClearPrimitiveMultiValueMethodName(eClass, attribute)»(Connection connection, «eClass.name»... objects) throws SQLException {
 		«getClearPrimitiveMultiValueByIdMethodName(eClass, attribute)»(connection, extractObjectIds(objects));
@@ -444,6 +460,7 @@ class JavaUtilGenerator {
 			«generateClearPrimitiveMultiValue(eClass, a)»
 			«generateLoadPrimitiveMultiValue(eClass, a)»
 			«generateInsertPrimitiveMultiValue(eClass, a)»
+			«generateClearPrimitiveMultiValueForAll(eClass,a)»
 		«ENDFOR»
 	«ENDIF»
 
