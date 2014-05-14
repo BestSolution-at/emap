@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.emf.mwe2.launch.Mwe2LaunchConfigurationType">
-<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;resources&gt;&#13;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap&quot; type=&quot;4&quot;/&gt;&#13;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.generator&quot; type=&quot;4&quot;/&gt;&#13;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.tests&quot; type=&quot;4&quot;/&gt;&#13;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.ui&quot; type=&quot;4&quot;/&gt;&#13;&#10;&lt;/resources&gt;}"/>
+<stringAttribute key="org.eclipse.debug.core.ATTR_REFRESH_SCOPE" value="${working_set:&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#10;&lt;resources&gt;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.generator&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.tests&quot; type=&quot;4&quot;/&gt;&#10;&lt;item path=&quot;/at.bestsolution.persistence.emap.ui&quot; type=&quot;4&quot;/&gt;&#10;&lt;/resources&gt;}"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/at.bestsolution.persistence.emap"/>
 </listAttribute>
@@ -12,7 +12,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
-<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_45"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="src/at/bestsolution/persistence/emap/GenerateEMap.mwe2"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="at.bestsolution.persistence.emap"/>

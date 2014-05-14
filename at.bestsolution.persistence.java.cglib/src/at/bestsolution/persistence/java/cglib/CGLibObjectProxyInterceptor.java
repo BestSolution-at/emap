@@ -180,11 +180,10 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
 			
 			if ( reference != null && !isResolved(reference)) {
-				LazyEObject eo = (LazyEObject) obj;
 				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
-				interceptResolve(eo, reference);
+				interceptResolve((LazyEObject) obj, reference);
 			}
 			return proxy.invokeSuper(obj, args);
 		}
