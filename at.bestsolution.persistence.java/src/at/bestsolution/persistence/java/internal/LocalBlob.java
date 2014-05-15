@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 
 public class LocalBlob implements Blob {
 	private File storageFile;
@@ -28,6 +29,12 @@ public class LocalBlob implements Blob {
 	private void checkInvalid() throws SQLException {
 		if (blobInvalid) {
 			throw new SQLException("BLOB invalid (already freed)");
+		}
+	}
+	
+	private void checkPointer(long pointer) throws SQLException {
+		if (pointer < 1) {
+			throw new SQLException("pointer must be >= 1");
 		}
 	}
 	
@@ -100,15 +107,18 @@ public class LocalBlob implements Blob {
 	@Override
 	public InputStream getBinaryStream(long pos, long length) throws SQLException {
 		checkInvalid();
+		checkPointer(pos);
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public byte[] getBytes(long pos, int length) throws SQLException {
 		checkInvalid();
+		checkPointer(pos);
 		try {
 			byte[] buf = new byte[length];
-			getStorage().read(buf, (int)pos-1, length);
+			getStorage().seek(pos-1);
+			getStorage().read(buf, 0, length);
 			return buf;
 		} catch (IOException e) {
 			throw new SQLException(e);
@@ -128,20 +138,21 @@ public class LocalBlob implements Blob {
 	@Override
 	public long position(byte[] pattern, long start) throws SQLException {
 		checkInvalid();
-		throw new UnsupportedOperationException();
+		throw new SQLFeatureNotSupportedException();
 	}
 
 	@Override
 	public long position(Blob pattern, long start) throws SQLException {
 		checkInvalid();
-		throw new UnsupportedOperationException();
+		throw new SQLFeatureNotSupportedException();
 	}
 
 	@Override
 	public OutputStream setBinaryStream(long pos) throws SQLException {
 		checkInvalid();
+		checkPointer(pos);
 		try {
-			return new RAF_OutputStream(getStorage(), (int) pos);
+			return new RAF_OutputStream(getStorage(), pos);
 		}
 		catch (IOException e) {
 			throw new SQLException(e);
@@ -150,20 +161,16 @@ public class LocalBlob implements Blob {
 
 	@Override
 	public int setBytes(long pos, byte[] bytes) throws SQLException {
-		checkInvalid();
-		try {
-			getStorage().write(bytes, (int) pos-1, bytes.length);
-			return bytes.length;
-		} catch (IOException e) {
-			throw new SQLException(e);
-		}
+		return this.setBytes(pos, bytes, 0, bytes.length);
 	}
 
 	@Override
 	public int setBytes(long pos, byte[] bytes, int offset, int len) throws SQLException {
 		checkInvalid();
+		checkPointer(pos);
 		try {
-			getStorage().write(bytes, (int)pos-1, len);
+			getStorage().seek(pos-1);
+			getStorage().write(bytes, offset, len);
 			return len;
 		} catch (IOException e) {
 			throw new SQLException(e);
@@ -182,44 +189,45 @@ public class LocalBlob implements Blob {
 	
 	static class RAF_OutputStream extends OutputStream {
 		private final RandomAccessFile raf;
-		private final byte[] b1 = new byte[1];
-		private int offset;
+		private long offset;
 		
 		public RAF_OutputStream(RandomAccessFile raf) {
-			this.raf = raf;
+			this(raf, 0);
 		}
 		
-		public RAF_OutputStream(RandomAccessFile raf, int offset) {
+		public RAF_OutputStream(RandomAccessFile raf, long offset) {
 			this.raf = raf;
 			this.offset = offset;
 		}
 		
 		@Override
 		public void write(byte[] b) throws IOException {
-			write(b,offset,b.length);
+			this.write(b, 0, b.length);
 		}
 		
 		@Override
 		public void write(byte[] b, int off, int len) throws IOException {
+			raf.seek(offset);
 			raf.write(b, off, len);
-			offset  = off + len;
+			offset += len;
 		}
 		
 		@Override
-		public void write(int arg0) throws IOException {
-			b1[0] = (byte) arg0;
-			write(b1);
+		public void write(int b) throws IOException {
+			raf.seek(offset);
+			raf.write(b);
+			offset += 1;
 		}
 		
 	}
 	
 	static class RAF_InputStream extends InputStream {
 		private final RandomAccessFile raf;
-		private final byte[] b1 = new byte[1];
 		private int offset;
 		
 		public RAF_InputStream(RandomAccessFile raf) {
 			this.raf = raf;
+			this.offset = 0;
 		}
 		
 		@Override
@@ -229,16 +237,29 @@ public class LocalBlob implements Blob {
 		
 		@Override
 		public int read(byte[] b, int off, int len) throws IOException {
-			int rv = raf.read(b, off, len);
-			offset = off+len;
-			return rv;
+			if (offset >= raf.length()) {
+				return -1;
+			}
+			
+			raf.seek(offset);
+			int readLen = raf.read(b, off, len);
+			if (readLen != -1) {
+				offset += readLen;
+			}
+			return readLen;
 		}
 		
 		
 		@Override
 		public int read() throws IOException {
-			read(b1);
-			return b1[0];
+			if (offset >= raf.length()) {
+				return -1;
+			}
+			
+			raf.seek(offset);
+			int r = raf.read();
+			offset += 1;
+			return r;
 		}
 	}
 }
