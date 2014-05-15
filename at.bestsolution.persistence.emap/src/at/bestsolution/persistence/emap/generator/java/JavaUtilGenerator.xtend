@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     ccaks <christoph.caks@bestsolution.at> - initial API and implementation
+ *     Christoph Caks <christoph.caks@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.java
 
@@ -483,7 +483,7 @@ class JavaUtilGenerator {
 	«var builderName = sqlName + "Builder"»
 	final StringBuilder «builderName» = new StringBuilder();
 	«builderName».append("DELETE FROM «tableName» WHERE «keyName» IN (");
-	«var itName = paramListName + "Iterator"»
+	«var itName = sqlName + paramListName + "Iterator"»
 	Iterator<Object> «itName» = «paramListName».iterator();
 	while («itName».hasNext()) {
 		«itName».next();
@@ -515,31 +515,33 @@ class JavaUtilGenerator {
 	'''
 
 	def generateExecuteInStatement(String stmtName, String sqlName, String paramListName) '''
-	// executing query begin
-	if (isDebug) {
-		LOGGER.debug(" Executing SQL: " + «sqlName»);
-	}
-	PreparedStatement «stmtName» = connection.prepareStatement(«sqlName»);
-	try {
-		«var idxName = paramListName + "Idx"»
-		int «idxName» = 1;
-		Iterator<Object> «stmtName»ParamIt = «paramListName».iterator();
-				while («stmtName»ParamIt.hasNext()) {
-					final Object obj = «stmtName»ParamIt.next();
-					if (isDebug) {
-						LOGGER.debug(" With Parameter " + «idxName» + ": " + obj);
-					}
-					«stmtName».setLong(«idxName», (Long)obj);
-					«idxName»++;
-				}
-		«stmtName».execute();
-	}
-	finally {
-		if («stmtName» != null) {
-			«stmtName».close();
+	if (!«paramListName».isEmpty()) {
+		// executing query begin
+		if (isDebug) {
+			LOGGER.debug(" Executing SQL: " + «sqlName»);
 		}
+		PreparedStatement «stmtName» = connection.prepareStatement(«sqlName»);
+		try {
+			«var idxName = sqlName + paramListName + "Idx"»
+			int «idxName» = 1;
+			Iterator<Object> «stmtName»ParamIt = «paramListName».iterator();
+					while («stmtName»ParamIt.hasNext()) {
+						final Object obj = «stmtName»ParamIt.next();
+						if (isDebug) {
+							LOGGER.debug(" With Parameter " + «idxName» + ": " + obj);
+						}
+						«stmtName».setLong(«idxName», (Long)obj);
+						«idxName»++;
+					}
+			«stmtName».execute();
+		}
+		finally {
+			if («stmtName» != null) {
+				«stmtName».close();
+			}
+		}
+		// executing query end
 	}
-	// executing query end
 	'''
 
 }

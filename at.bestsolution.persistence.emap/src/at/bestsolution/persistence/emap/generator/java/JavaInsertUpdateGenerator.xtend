@@ -339,6 +339,21 @@ class JavaInsertUpdateGenerator {
 			return true;
 		}
 	}
+	
+	def String generateDeleteByIdsExtends(EMappingEntity entity, String paramListName) '''
+		«val entityDef = entity.eContainer as EMappingEntityDef»
+		«IF entity.extendsEntity»
+			«val parentEntity = entity.parent»
+			«val parentEntityDef = parentEntity.eContainer as EMappingEntityDef»
+			
+			«val sqlName = "sql_" + parentEntity.name»
+			«val stmtName = "stmt_" + parentEntity.name»
+			«utilGen.generateDeleteInSql(sqlName, parentEntityDef.tableName, parentEntity.PKAttribute.columnName, paramListName)»
+			«utilGen.generateExecuteInStatement(stmtName, sqlName, paramListName)»
+			
+			«generateDeleteByIdsExtends(entity.parent, paramListName)»
+		«ENDIF»
+	'''
 
 	def generateDelete(EMappingEntityDef entityDef, EClass eClass) '''
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
@@ -360,10 +375,30 @@ class JavaInsertUpdateGenerator {
 		// we need to clean up the session
 		session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterAllObjectsAfterTx(«eClass.toFullQualifiedJavaEClass»));
 
-		String sql = "DELETE FROM «entityDef.tableName»";
-
 		final Connection connection = session.checkoutConnection();
 		try {
+			
+			// find all object ids
+			String objectIdSQL = "SELECT «entityDef.PKAttribute.columnName» FROM «entityDef.tableName»";
+			PreparedStatement objectIdStmt = null;
+			ResultSet objectIdResultSet = null;
+			List<Object> objectIds = new ArrayList<Object>();
+			try {
+				objectIdStmt = connection.prepareStatement(objectIdSQL);
+				objectIdResultSet = objectIdStmt.executeQuery();
+				while (objectIdResultSet.next()) {
+					objectIds.add(objectIdResultSet.getLong("«entityDef.PKAttribute.columnName»"));
+				}
+			}
+			finally {
+				if (objectIdResultSet != null) {
+					objectIdResultSet.close();
+				}
+				if (objectIdStmt != null) {
+					objectIdStmt.close();
+				}
+			}
+			
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
 				«FOR a : primitiveMultiValuedAttributes»
@@ -376,7 +411,11 @@ class JavaInsertUpdateGenerator {
 			«FOR a : manyToManyReferences»
 				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
 			«ENDFOR»
+			
+			String sql = "DELETE FROM «entityDef.tableName»";
 			«utilGen.generateExecuteStatement("stmt", "sql")»
+			
+			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
 				LOGGER.debug("deleteAll() failed", e);
@@ -409,7 +448,6 @@ class JavaInsertUpdateGenerator {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
 		}
 
-		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
 		final Connection connection = session.checkoutConnection();
 		try {
 
@@ -429,7 +467,11 @@ class JavaInsertUpdateGenerator {
 					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
 				«ENDFOR»
 			«ENDIF»
+			
+			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
 			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+			
+			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
 				LOGGER.debug("delete() failed", e);
@@ -459,7 +501,6 @@ class JavaInsertUpdateGenerator {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
 		}
 
-		«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.collectDerivedAttributes.values.findFirst[pk].columnName, "objectIds")»
 		final Connection connection = session.checkoutConnection();
 		try {
 
@@ -479,7 +520,11 @@ class JavaInsertUpdateGenerator {
 					«utilGen.getClearManyToManyMethodName(eClass, a)»(connection, object);
 				«ENDFOR»
 			«ENDIF»
+			
+			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
 			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+			
+			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
 				LOGGER.debug("delete() failed", e);

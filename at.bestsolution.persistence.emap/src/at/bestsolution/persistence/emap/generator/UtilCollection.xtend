@@ -53,7 +53,11 @@ class UtilCollection {
 	}
 
 	def isExtendsEntity(EMappingEntityDef entityDef) {
-		entityDef.entity.extensionType == "extends"
+		entityDef.entity.isExtendsEntity
+	}
+	
+	def isExtendsEntity(EMappingEntity entity) {
+		entity.extensionType == "extends"
 	}
 
 	def <T> Iterable<T> filterDups(Iterable<T> unfiltered, Function2<T,T,Boolean> equals) {
@@ -454,6 +458,10 @@ class UtilCollection {
 	
 	def findManyToManyReferences(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isManyToManyAttribute(eClass)]
+	}
+	
+	def getPKAttribute(EMappingEntityDef entityDef) {
+		entityDef.entity.PKAttribute
 	}
 	
 	def getPKAttribute(EMappingEntity entity) {

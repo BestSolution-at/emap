@@ -109,7 +109,7 @@ class JavaObjectMapperGenerator {
 			
 			@Override
 			public long selectVersion(Object id) {
-				Connection connection = session.checkoutConnection();
+				final Connection connection = session.checkoutConnection();
 				PreparedStatement pStmt = null;
 				ResultSet set = null;
 				try {
@@ -133,6 +133,9 @@ class JavaObjectMapperGenerator {
 				}
 				catch (SQLException e) {
 					throw new PersistanceException(e);
+				}
+				finally {
+					session.returnConnection(connection);
 				}
 			}
 			
