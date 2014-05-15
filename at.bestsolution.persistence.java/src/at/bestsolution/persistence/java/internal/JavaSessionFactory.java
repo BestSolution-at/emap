@@ -139,6 +139,11 @@ public class JavaSessionFactory implements SessionFactory {
 	static final boolean isNewObject(Object idValue) {
 		return idValue == null || (idValue instanceof Number && ((Number)idValue).longValue() == 0);
 	}
+	
+	@Override
+	public Blob createBlob() {
+		return new LocalBlob();
+	}
 
 	class JavaSessionImpl implements JavaSession {
 		private String id = UUID.randomUUID().toString();
@@ -166,11 +171,6 @@ public class JavaSessionFactory implements SessionFactory {
 			this.sessionCache = sessionCache;
 		}
 
-		@Override
-		public Blob createBlob() {
-			return new LocalBlob();
-		}
-		
 		@Override
 		public String getId() {
 			return id;

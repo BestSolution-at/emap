@@ -10,7 +10,10 @@
  *******************************************************************************/
 package at.bestsolution.persistence;
 
+import java.sql.Blob;
+
 public interface SessionFactory {
 	public String getFactoryId();
 	public Session createSession();
+	public Blob createBlob();
 }

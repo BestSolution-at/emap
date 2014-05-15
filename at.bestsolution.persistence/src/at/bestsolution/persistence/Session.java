@@ -44,7 +44,6 @@ public interface Session extends Closeable {
 	public void delete(Object... o);
 
 	public boolean isAttached(Object o);
-	public Blob createBlob();
 //	public Object getVersion(Object o);
 
 	public interface Transaction {
