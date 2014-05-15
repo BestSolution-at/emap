@@ -10,6 +10,6 @@
  *******************************************************************************/
 package at.bestsolution.persistence;
 
-public interface Function<T> {
-	public void execute(T value);
+public interface Function<T,E extends Throwable> {
+	public void execute(T value) throws E;
 }
