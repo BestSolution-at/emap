@@ -147,7 +147,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 	
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-		System.out.println("PROXY " + obj.getClass().getSimpleName() + " " + method.getName() + " " + Arrays.toString(method.getParameterTypes()));
+//		System.out.println("PROXY " + obj.getClass().getSimpleName() + " " + method.getName() + " " + Arrays.toString(method.getParameterTypes()));
 		//FIXME We need to detect calls from outside and only resolve if the call
 		// is not from EMF-internal
 		// stop eagerly resolving
