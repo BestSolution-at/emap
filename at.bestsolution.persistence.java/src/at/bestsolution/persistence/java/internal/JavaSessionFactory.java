@@ -186,7 +186,11 @@ public class JavaSessionFactory implements SessionFactory {
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
 			M m = (M) mapperInstances.get(mapper);
 			if( m == null ) {
-				m = (M) factories.get(mapper.getName()).createMapper(this);
+				ObjectMapperFactory<?, ?> factory = factories.get(mapper.getName());
+				if (factory == null) {
+					throw new RuntimeException("no factory for " + mapper + " found! Double check your bundle.emap");
+				}
+				m = (M) factory.createMapper(this);
 				mapperInstances.put(mapper, m);
 			}
 			return m;
