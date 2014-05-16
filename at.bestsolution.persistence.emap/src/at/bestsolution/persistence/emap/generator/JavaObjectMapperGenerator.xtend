@@ -106,7 +106,7 @@ class JavaObjectMapperGenerator {
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
 			}
-			
+
 			@Override
 			public long selectVersion(Object id) {
 				final Connection connection = session.checkoutConnection();
@@ -116,9 +116,9 @@ class JavaObjectMapperGenerator {
 					try {
 						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName»\" WHERE «entityDef.entity.PKAttribute.columnName» = ?");
 						pStmt.setLong(1, (Long) id);
-						
+
 						set = pStmt.executeQuery();
-						
+
 						if (set.next()) {
 							return set.getLong(1);
 						}
@@ -138,7 +138,7 @@ class JavaObjectMapperGenerator {
 					session.returnConnection(connection);
 				}
 			}
-			
+
 
 			«FOR query : entityDef.entity.namedQueries»
 				@Override
@@ -506,7 +506,7 @@ class JavaObjectMapperGenerator {
 	}
 
 	«createProxyData(entityDef.entity,eClass)»
-	«FOR e : entityDef.entity.collectEnities»
+	«FOR e : entityDef.entity.collectEnities.sortBy[name]»
 		«createProxyData(e, e.lookupEClass)»
 	«ENDFOR»
 «««	«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
