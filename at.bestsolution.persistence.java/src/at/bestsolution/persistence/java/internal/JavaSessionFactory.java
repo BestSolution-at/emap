@@ -11,6 +11,7 @@
 package at.bestsolution.persistence.java.internal;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -135,7 +136,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 		return factoryId;
 	}
-
+	
 	static final boolean isNewObject(Object idValue) {
 		return idValue == null || (idValue instanceof Number && ((Number)idValue).longValue() == 0);
 	}

@@ -15,9 +15,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
 
+import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.ListDelegate;
+import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 
 public interface DatabaseSupport {
@@ -25,6 +27,7 @@ public interface DatabaseSupport {
 	public QueryBuilder createQueryBuilder(String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
+	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
 	public boolean isNestedResultSetsSupported();
 

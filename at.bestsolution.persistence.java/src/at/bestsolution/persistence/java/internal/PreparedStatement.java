@@ -77,7 +77,7 @@ public class PreparedStatement implements Statement {
 		if( value == null ) {
 			addNull(column, JDBCType.BOOLEAN);
 		} else {
-			addBoolean(column, value);
+			addBoolean(column, value.booleanValue());
 		}
 	}
 

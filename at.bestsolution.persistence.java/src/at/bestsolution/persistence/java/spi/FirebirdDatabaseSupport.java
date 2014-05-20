@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
@@ -24,7 +25,9 @@ import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
+import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
+import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public class FirebirdDatabaseSupport implements DatabaseSupport {
 
@@ -47,6 +50,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
+	
+	@Override
+	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+		return new FirebirdMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
+	}
 
 	@Override
 	public boolean isArrayStoreSupported(Class<?> type) {
@@ -56,6 +64,38 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	public boolean isNestedResultSetsSupported() {
 		// See http://stackoverflow.com/questions/935511/how-can-i-avoid-resultset-is-closed-exception-in-java
 		return false;
+	}
+	
+	static class FirebirdMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
+
+		/**
+		 * @param rootMapper
+		 * @param rootPrefix
+		 * @param updateDelegate
+		 */
+		public FirebirdMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(rootMapper, rootPrefix, updateDelegate);
+		}
+		
+		@Override
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix, Expression<O> expression) {
+			switch (expression.type) {
+			case ILIKE:
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
+				return;
+			case NOT_ILIKE:
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") NOT LIKE lower ( ? )" );
+				return;
+			default:
+				super.appendCriteria(b, mapper, colPrefix, expression);
+			}
+		}
+
+		@Override
+		public String processSQL(String sql) {
+			return sql;
+		}
+		
 	}
 
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
@@ -87,6 +127,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 			return sql;
 		}
 	}
+	
 
 	static class FirebirdQueryBuilder implements QueryBuilder {
 		private String tableName;

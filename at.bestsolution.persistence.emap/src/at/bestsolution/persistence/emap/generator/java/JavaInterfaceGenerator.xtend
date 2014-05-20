@@ -162,6 +162,9 @@ class JavaInterfaceGenerator {
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 				public at.bestsolution.persistence.MappedQuery<«eClass.name»> «query.name»MappedQuery();
 			«ENDFOR»
+			
+			public at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery();
+			
 «««		«ENDIF»
 	}
 	'''

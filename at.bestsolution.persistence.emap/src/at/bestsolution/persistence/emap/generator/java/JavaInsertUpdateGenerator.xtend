@@ -363,6 +363,48 @@ class JavaInsertUpdateGenerator {
 		delete(new «eClass.name»[] { object });
 	}
 
+	final int deleteAll(InternalQueryCriteria criteria) {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if (isDebug) LOGGER.debug("Executing deleteAll");
+		
+		String query = "DELETE FROM «entityDef.tableName»";
+		
+		if (isDebug) LOGGER.debug("Plain query: " + query);
+		
+		String criteriaStr = criteria.getCriteria();
+		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+			query += " WHERE " + criteriaStr;
+		}
+		
+		if (isDebug) LOGGER.debug("Final query: " + query);
+		
+		Connection connection = session.checkoutConnection();
+		try {
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = connection.prepareStatement(query);
+				int idx = 1;
+				for(TypedValue t : criteria.getParameters()) {
+					Util.setValue(pstmt, idx++, t);
+				}
+				final int n = pstmt.executeUpdate();
+				if (isDebug) LOGGER.debug("executed query " + n + " records were affected");
+				return n;
+			}
+			finally {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+			}
+		}
+		catch (SQLException e) {
+			throw new PersistanceException(e);
+		}
+		finally {
+			session.returnConnection(connection);
+		}			
+	}
+
 	@Override
 	public final void deleteAll() {
 		final boolean isDebug = LOGGER.isDebugEnabled();

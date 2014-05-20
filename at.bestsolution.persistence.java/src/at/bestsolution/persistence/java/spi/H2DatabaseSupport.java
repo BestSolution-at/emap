@@ -11,6 +11,7 @@
 package at.bestsolution.persistence.java.spi;
 
 import at.bestsolution.persistence.MappedQuery;
+import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
@@ -18,6 +19,8 @@ import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
+import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
+import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public class H2DatabaseSupport implements DatabaseSupport {
 
@@ -49,7 +52,24 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
+	
+	@Override
+	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+		return new H2MappedUpdateQueryImpl<O>(rootMapper, rootPrefix, updateDelegate);
+	}
 
+	static class H2MappedUpdateQueryImpl<O> extends MappedUpdateQueryImpl<O> {
+		
+		public H2MappedUpdateQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(rootMapper, rootPrefix, updateDelegate);
+		}
+		
+		@Override
+		public String processSQL(String sql) {
+			return sql;
+		}
+	}
+	
 	static class H2MappedQueryImpl<O> extends MappedQueryImpl<O> {
 
 		public H2MappedQueryImpl(JavaObjectMapper<O> rootMapper,

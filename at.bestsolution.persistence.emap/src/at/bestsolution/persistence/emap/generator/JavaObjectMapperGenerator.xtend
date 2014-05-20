@@ -78,8 +78,12 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.java.Util;
 	import at.bestsolution.persistence.java.DatabaseSupport.QueryBuilder;
 	import at.bestsolution.persistence.MappedQuery;
+	import at.bestsolution.persistence.MappedUpdateQuery;
 	import at.bestsolution.persistence.java.query.MappedQueryImpl;
+	import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
 	import at.bestsolution.persistence.java.query.ListDelegate;
+	import at.bestsolution.persistence.java.query.UpdateDelegate;
+	import at.bestsolution.persistence.java.query.InternalQueryCriteria;
 	import at.bestsolution.persistence.java.query.TypedValue;
 	import at.bestsolution.persistence.java.query.JDBCType;
 	import org.apache.log4j.Logger;
@@ -333,6 +337,14 @@ class JavaObjectMapperGenerator {
 					}
 				«ENDIF»
 			«ENDFOR»
+			
+			@Override
+			public final at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery() {
+				MappedUpdateQuery<«eClass.name»> deleteQuery = session.getDatabaseSupport().createMappedUpdateQuery(this, null,
+					new UpdateDelegate<«eClass.name»>() { public int execute(MappedUpdateQuery<«eClass.name»> criteria) { return deleteAll((InternalQueryCriteria)criteria); } }
+				);
+				return deleteQuery;
+			}
 
 			public final «eClass.name» map_default_«eClass.name»(Connection connection, ResultSet set) throws SQLException {
 				Object id = set.getObject("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
