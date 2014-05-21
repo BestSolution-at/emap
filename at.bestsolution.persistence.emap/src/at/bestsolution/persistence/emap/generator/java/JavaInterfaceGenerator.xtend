@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.eMap.EMapping
 import static extension at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator.*
+import org.eclipse.xtext.xbase.typesystem.internal.util.FeatureKinds
 
 class JavaInterfaceGenerator {
 	@Inject extension
@@ -40,7 +41,7 @@ class JavaInterfaceGenerator {
 «««			public abstract class «eClass.name»MappedQuery implements at.bestsolution.persistence.MappedQuery<«eClass.name»> {
 «««				public abstract «eClass.name»MappedQuery where(at.bestsolution.persistence.expr.Expression<«eClass.name»> expression);
 «««			}
-
+			«val pk = entityDef.entity.PKAttribute»
 			public static final class Expression {
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))].filter[isSingle(eClass)]»
 «««				«val temp = entityDef.entity.collectAllAttributes»
@@ -60,6 +61,9 @@ class JavaInterfaceGenerator {
 «««					«println(a)»
 					«IF a.resolved»
 						public static final «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «a.name»() { return new «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»>("«a.name»");};
+						«IF a.opposite == null && (pk == null || pk.parameters.head != a.parameters.head)» 
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name»_fk() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»"); };
+						«ENDIF»
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»
 «««						// «a»
