@@ -56,7 +56,7 @@ public class MappedBaseQuery<O> {
 		if (expression instanceof PropertyExpression) {
 			PropertyExpression<O> propertyExpression = (PropertyExpression<O>) expression;
 			if (propertyExpression.property.contains(".")) {
-				System.err.println("Critaria: " + propertyExpression.property + " needs join -> SQL wont work -.-");
+				throw new UnsupportedOperationException("joins not yet implemented (" + propertyExpression.property + " needs join)");
 			}
 		}
 		
