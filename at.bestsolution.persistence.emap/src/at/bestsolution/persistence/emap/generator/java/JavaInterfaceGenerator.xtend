@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.eMap.EMapping
 import static extension at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator.*
-import org.eclipse.xtext.xbase.typesystem.internal.util.FeatureKinds
 
 class JavaInterfaceGenerator {
 	@Inject extension
@@ -61,7 +60,7 @@ class JavaInterfaceGenerator {
 «««					«println(a)»
 					«IF a.resolved»
 						public static final «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «a.name»() { return new «((a.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»>("«a.name»");};
-						«IF a.opposite == null && (pk == null || pk.parameters.head != a.parameters.head)» 
+						«IF a.opposite == null && (pk == null || pk.parameters.head != a.parameters.head)»
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name»_fk() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»"); };
 						«ENDIF»
 					«ELSE»
@@ -166,9 +165,9 @@ class JavaInterfaceGenerator {
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 				public at.bestsolution.persistence.MappedQuery<«eClass.name»> «query.name»MappedQuery();
 			«ENDFOR»
-			
+
 			public at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery();
-			
+
 «««		«ENDIF»
 	}
 	'''
