@@ -51,7 +51,7 @@ class JavaInsertUpdateGenerator {
 			// simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
 				// * «a.name»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
 			«ENDFOR»
 		«ENDIF»
 «««		Handle blob direct mapped attributes
@@ -61,7 +61,7 @@ class JavaInsertUpdateGenerator {
 				// * «a.name»
 				if( object.get«a.name.toFirstUpper»() != null ) {
 					if( Util.isModified(session, object, "«a.name»") ) {
-						stmt.addBlob("«a.columnName»", object.get«a.name.toFirstUpper»());
+						stmt.addBlob("«a.columnName»", object.get«a.name.javaReservedNameEscape.toFirstUpper»());
 					}
 				} else {
 					stmt.addNull("«a.columnName»",getJDBCType("«a.name»"));
@@ -85,7 +85,7 @@ class JavaInsertUpdateGenerator {
 			if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
+					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
 					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
 				} else {
 					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
@@ -99,7 +99,7 @@ class JavaInsertUpdateGenerator {
 			«IF entityDef.extendsEntity»
 			session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
 			«ENDIF»
-			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.toFirstUpper»());
+			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.javaReservedNameEscape.toFirstUpper»());
 			if( getLockColumn() != null && ! success ) {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
 			}
@@ -112,7 +112,7 @@ class JavaInsertUpdateGenerator {
 					if( !session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
 						if( Util.isModified(session,object,"«a.name»") ) {
 							«utilGen.getClearPrimitiveMultiValueMethodName(eClass, a)»(connection, object);
-							«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection, getPrimaryKeyForTx(object), object.get«a.name.toFirstUpper»());
+							«utilGen.getInsertPrimitiveMultiValue(eClass, a)»(connection, getPrimaryKeyForTx(object), object.get«a.name.javaReservedNameEscape.toFirstUpper»());
 						}
 					}
 				«ENDFOR»
@@ -215,10 +215,10 @@ class JavaInsertUpdateGenerator {
 			«FOR a : simpleDirectMappedAttributes»
 			// * «a.name»
 			«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
 			«ELSE»
 				if( object.get«a.name.toFirstUpper»() != null ) {
-					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
 				}
 			«ENDIF»
 			«ENDFOR»
@@ -254,7 +254,7 @@ class JavaInsertUpdateGenerator {
 			if( object.get«a.name.toFirstUpper»() != null ) {
 				«val entity = (a.query.eContainer as EMappingEntity)»
 				final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-				final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.toFirstUpper»());
+				final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
 				stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
 				//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
 			}
@@ -339,18 +339,18 @@ class JavaInsertUpdateGenerator {
 			return true;
 		}
 	}
-	
+
 	def String generateDeleteByIdsExtends(EMappingEntity entity, String paramListName) '''
 		«val entityDef = entity.eContainer as EMappingEntityDef»
 		«IF entity.extendsEntity»
 			«val parentEntity = entity.parent»
 			«val parentEntityDef = parentEntity.eContainer as EMappingEntityDef»
-			
+
 			«val sqlName = "sql_" + parentEntity.name»
 			«val stmtName = "stmt_" + parentEntity.name»
 			«utilGen.generateDeleteInSql(sqlName, parentEntityDef.tableName, parentEntity.PKAttribute.columnName, paramListName)»
 			«utilGen.generateExecuteInStatement(stmtName, sqlName, paramListName)»
-			
+
 			«generateDeleteByIdsExtends(entity.parent, paramListName)»
 		«ENDIF»
 	'''
@@ -366,18 +366,18 @@ class JavaInsertUpdateGenerator {
 	final int deleteAll(InternalQueryCriteria criteria) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if (isDebug) LOGGER.debug("Executing deleteAll");
-		
+
 		String query = "DELETE FROM «entityDef.tableName»";
-		
+
 		if (isDebug) LOGGER.debug("Plain query: " + query);
-		
+
 		String criteriaStr = criteria.getCriteria();
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 			query += " WHERE " + criteriaStr;
 		}
-		
+
 		if (isDebug) LOGGER.debug("Final query: " + query);
-		
+
 		Connection connection = session.checkoutConnection();
 		try {
 			PreparedStatement pstmt = null;
@@ -402,7 +402,7 @@ class JavaInsertUpdateGenerator {
 		}
 		finally {
 			session.returnConnection(connection);
-		}			
+		}
 	}
 
 	@Override
@@ -419,7 +419,7 @@ class JavaInsertUpdateGenerator {
 
 		final Connection connection = session.checkoutConnection();
 		try {
-			
+
 			// find all object ids
 			String objectIdSQL = "SELECT «entityDef.PKAttribute.columnName» FROM «entityDef.tableName»";
 			PreparedStatement objectIdStmt = null;
@@ -440,7 +440,7 @@ class JavaInsertUpdateGenerator {
 					objectIdStmt.close();
 				}
 			}
-			
+
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
 				«FOR a : primitiveMultiValuedAttributes»
@@ -453,10 +453,10 @@ class JavaInsertUpdateGenerator {
 			«FOR a : manyToManyReferences»
 				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
 			«ENDFOR»
-			
+
 			String sql = "DELETE FROM «entityDef.tableName»";
 			«utilGen.generateExecuteStatement("stmt", "sql")»
-			
+
 			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
@@ -509,10 +509,10 @@ class JavaInsertUpdateGenerator {
 					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
 				«ENDFOR»
 			«ENDIF»
-			
+
 			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
 			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
-			
+
 			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
@@ -562,10 +562,10 @@ class JavaInsertUpdateGenerator {
 					«utilGen.getClearManyToManyMethodName(eClass, a)»(connection, object);
 				«ENDFOR»
 			«ENDIF»
-			
+
 			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
 			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
-			
+
 			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {

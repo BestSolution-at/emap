@@ -337,7 +337,7 @@ class JavaObjectMapperGenerator {
 					}
 				«ENDIF»
 			«ENDFOR»
-			
+
 			@Override
 			public final at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery() {
 				MappedUpdateQuery<«eClass.name»> deleteQuery = session.getDatabaseSupport().createMappedUpdateQuery(this, null,
@@ -622,13 +622,13 @@ class JavaObjectMapperGenerator {
     «IF first != null»
       switch(f.getFeatureID()) {
         «val pk = entity.allAttributes.findFirst[pk]»
-        // «first.name»
+        // «first.name.javaReservedNameEscape»
         case «eClass.getEStructuralFeature(first.name).featureID»: {
           «first.createResolveText(eClass,pk)»
           return true;
         }
         «FOR a : sorted.filter[resolved && it != first]»
-          // «a.name»
+          // «a.name.javaReservedNameEscape»
           case «eClass.getEStructuralFeature(a.name).featureID»: {
             «a.createResolveText(eClass,pk)»
             return true;
@@ -645,11 +645,11 @@ class JavaObjectMapperGenerator {
   «IF entity.allAttributes.findFirst[resolved && isSingle(eClass)] != null»
     final static class ProxyData_«eClass.name» {
       «FOR a : entity.allAttributes.filter[resolved && isSingle(eClass)]»
-        public final «a.query.parameters.head.type» «a.name»;
+        public final «a.query.parameters.head.type» «a.name.javaReservedNameEscape»;
       «ENDFOR»
-      public ProxyData_«eClass.name»(«entity.allAttributes.filter[resolved && isSingle(eClass)].map[ query.parameters.head.type + " " + name].join(",")») {
+      public ProxyData_«eClass.name»(«entity.allAttributes.filter[resolved && isSingle(eClass)].map[ query.parameters.head.type + " " + name.javaReservedNameEscape].join(",")») {
         «FOR a : entity.allAttributes.filter[resolved && isSingle(eClass)]»
-        this.«a.name» = «a.name»;
+        this.«a.name.javaReservedNameEscape» = «a.name.javaReservedNameEscape»;
         «ENDFOR»
       }
     }
@@ -661,9 +661,9 @@ class JavaObjectMapperGenerator {
     {
       «val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
       EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
-      «attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name»);
+      «attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
       if( o == null ) {
-        o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name»);
+        o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
       } else {
         if( LOGGER.isDebugEnabled() ) {
           LOGGER.debug("Using cached version");
@@ -672,7 +672,7 @@ class JavaObjectMapperGenerator {
       target.set«attribute.name.toFirstUpper»(o);
     }
   «ELSE»
-    target.get«attribute.name.toFirstUpper»().addAll(session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(target.get«pkAttribute.name.toFirstUpper»()));
+    target.get«attribute.name.toFirstUpper»().addAll(session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(target.get«pkAttribute.name.javaReservedNameEscape.toFirstUpper»()));
   «ENDIF»
   '''
 
@@ -684,10 +684,9 @@ class JavaObjectMapperGenerator {
     ]).filter[!resolved]»
       «IF eClass.getEStructuralFeature(a.name).many»
         //TODO Should this be done lazily?
-        «varName».get«a.name.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«section.entity.allAttributes.findFirst[pk].columnName»)"));
-        // TODO oldcall: «varName».get«a.name.toFirstUpper»().addAll(load_«eClass.name»_«a.name»(connection,set.getObject("«columnPrefix»«section.entity.allAttributes.findFirst[pk].columnName»)"));
+        «varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«section.entity.allAttributes.findFirst[pk].columnName»)"));
       «ELSE»
-        «varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+        «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
       «ENDIF»
     «ENDFOR»
     «IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved] != null»
@@ -706,10 +705,9 @@ class JavaObjectMapperGenerator {
     ]).filter[!resolved]»
       «IF eClass.getEStructuralFeature(a.name).many»
         //TODO Should this be done lazily?
-        «varName».get«a.name.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«attributes.findFirst[pk].columnName»")));
-        // TODO oldcall: «varName».get«a.name.toFirstUpper»().addAll(load_«eClass.name»_«a.name»(connection,set.getObject("«columnPrefix»«attributes.findFirst[pk].columnName»")));
+        «varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«attributes.findFirst[pk].columnName»")));
       «ELSE»
-        «varName».set«a.name.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+        «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
       «ENDIF»
     «ENDFOR»
     «IF attributes.findFirst[resolved] != null»

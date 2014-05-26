@@ -55,7 +55,7 @@ class UtilCollection {
 	def isExtendsEntity(EMappingEntityDef entityDef) {
 		entityDef.entity.isExtendsEntity
 	}
-	
+
 	def isExtendsEntity(EMappingEntity entity) {
 		entity.extensionType == "extends"
 	}
@@ -127,7 +127,7 @@ class UtilCollection {
 	}
 
 	/**
-	 * 
+	 *
 	 * returns the PK attribute for references
 	 */
 	def getEAttribute(EAttribute attribute, EClass eClass) {
@@ -139,7 +139,7 @@ class UtilCollection {
 
 		return f as org.eclipse.emf.ecore.EAttribute
 	}
-	
+
 	def getEStructuralFeature(EAttribute attribute, EClass eClass) {
 		val f = eClass.getEStructuralFeature(attribute.name)
 		return f as org.eclipse.emf.ecore.EStructuralFeature
@@ -393,7 +393,7 @@ class UtilCollection {
 
 	def type(EAttribute p, EClass eClass) {
 		val f = eClass.getEStructuralFeature(p.name);
-		
+
 		if( f instanceof org.eclipse.emf.ecore.EAttribute ) {
 			return f.EType.instanceClassName
 		} else {
@@ -424,7 +424,7 @@ class UtilCollection {
 //		println("RETURN VALUE: " + l.map[name])
 		return l
 	}
-	
+
 	def void allAttributes(EMappingEntity entity, ArrayList<EAttribute> l) {
 //		println("Collecting for " + entity)
 //		println(entity.attributes)
@@ -433,47 +433,47 @@ class UtilCollection {
 			entity.parent.allAttributes(l)
 		}
 	}
-	
+
 	// Filter functions
-	
+
 	def filterDerivedAttributesNoDuplicatesNoKeys(EMappingEntity entity, EClass eClass, Function1<? super EAttribute, Boolean> predicate) {
 		entity.filterDerivedAttributesNoDuplicates(eClass)[isDirectMappedNoPkAttribute(eClass) && predicate.apply(it)]
 	}
-	
+
 	def findSimpleDirectMappedAttributes(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isSimpleDirectMappedAttribute(eClass)]
 	}
-	
+
 	def findBlobDirectMappedAttributes(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isBlobDirectMappedAttribute(eClass)]
 	}
-	
+
 	def findPrimitiveMultiValuedAttributes(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isPrimitiveMultiValuedAttribute(eClass)]
 	}
-	
+
 	def findOneToOneReferences(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isOneToOneAttribute(eClass)]
 	}
-	
+
 	def findManyToManyReferences(EMappingEntity entity, EClass eClass) {
 		entity.filterDerivedAttributesNoDuplicatesNoKeys(eClass)[isManyToManyAttribute(eClass)]
 	}
-	
+
 	def getPKAttribute(EMappingEntityDef entityDef) {
 		entityDef.entity.PKAttribute
 	}
-	
+
 	def getPKAttribute(EMappingEntity entity) {
 		entity.collectDerivedAttributes.values.findFirst[pk]
 	}
-	
+
 	// Filter predicates
-	
+
 	def isManyToManyAttribute(EAttribute it, EClass eClass) {
 		return !isSingle(eClass) && resolved && opposite != null && opposite.opposite == it && relationTable != null
 	}
-	
+
 	def isPrimitiveMultiValuedAttribute(EAttribute it, EClass eClass) {
 		val f = eClass.getEStructuralFeature(name)
 		// no containments
@@ -484,7 +484,7 @@ class UtilCollection {
 		if (!f.many) return false;
 		return true;
 	}
-	
+
 	// TODO need better name for this filter predicate
 	def isDirectMappedNoPkAttribute(EAttribute it, EClass eClass) {
 		if( pk ) {
@@ -509,19 +509,19 @@ class UtilCollection {
 			return true;
 		}
 	}
-	
+
 	def isSimpleDirectMappedAttribute(EAttribute it, EClass eClass) {
 		columnName != null && !isBlobDirectMappedAttribute(eClass) && !eClass.getEStructuralFeature(name).many
 	}
-	
+
 	def isBlobDirectMappedAttribute(EAttribute it, EClass eClass) {
 		columnName != null && "java.sql.Blob" == eClass.getEStructuralFeature(name).EType.instanceClassName
 	}
-	
+
 	def isOneToOneAttribute(EAttribute it, EClass eClass) {
 		columnName == null && isSingle(eClass)
 	}
-	
+
 	def filterAllAttributes(EMappingEntity entity, Function1<? super EAttribute, Boolean> predicate) {
 		entity.collectAllAttributes.filter(predicate)
 	}
@@ -529,11 +529,11 @@ class UtilCollection {
 	def collectDerivedAttributesNoDuplicates(EMappingEntity entity, EClass eClass) {
 		entity.collectDerivedAttributes.values.sort([a,b|return sortAttributes(eClass,a,b)])
 	}
-	
+
 	def filterDerivedAttributesNoDuplicates(EMappingEntity entity, EClass eClass, Function1<? super EAttribute, Boolean> predicate) {
 		entity.collectDerivedAttributes.values.filter(predicate).sort[a,b|return sortAttributes(eClass,a,b)]
 	}
-	
+
 	def collectDerivedAttributes(EMappingEntity entity) {
 		val map = new HashMap<String,EAttribute>
 		entity.allDerivedAttributes(map)
@@ -704,11 +704,11 @@ class UtilCollection {
 		}
 		return s
 	}
-	
+
 	def toFullQualifiedJavaEClass(EClass eClass) {
 		return eClass.packageName + "." + eClass.EPackage.name.toFirstUpper + "Package.eINSTANCE.get" + eClass.name.toFirstUpper + "()";
 	}
-	
+
 	def toFullQualifiedJavaEStructuralFeature(EStructuralFeature f) {
 		val eClass = f.eContainer as EClass;
 		return eClass.packageName + "." + eClass.EPackage.name.toFirstUpper + "Package.eINSTANCE.get" + eClass.name.toFirstUpper + "_" + f.name.toFirstUpper + "()";
@@ -721,17 +721,23 @@ class UtilCollection {
       return v.replace("${","#{");
     }
   }
-  
+
 	def findRelationTable(EAttribute attribute) {
 		attribute.relationTable
 	}
-	
+
 	def findRelationColumn(EAttribute attribute) {
 		if (attribute.relationColumn.nullOrEmpty) attribute.parameters.head else attribute.relationColumn
 	}
-	
+
 	def findOppositeRelationColumn(EAttribute attribute) {
 		if (attribute.opposite.relationColumn.nullOrEmpty) attribute.opposite.parameters.head else attribute.opposite.relationColumn
 	}
-	
+
+	def javaReservedNameEscape(String value) {
+		if( value == "class" ) {
+			return "class_";
+		}
+		return value;
+	}
 }
