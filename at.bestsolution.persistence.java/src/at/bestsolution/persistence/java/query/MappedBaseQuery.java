@@ -36,15 +36,28 @@ public class MappedBaseQuery<O> {
 		case IS_NULL:
 			// skip it
 			break;
+		case LIKE:
+		case ILIKE:
+		case NOT_ILIKE:
+		case NOT_LIKE:
+		{
+			PropertyExpression<O> e = (PropertyExpression<O>)expression;
+			for( Object data : e.data ) {
+				rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, JDBCType.STRING));
+			}
+			break;
+		}
 		default:
+		{
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			for( Object data : e.data ) {
 				rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, mapper.getJDBCType(e.property)));
 			}
 			break;
 		}
+		}
 	}
-	
+
 	protected void appendOrderColumn(StringBuilder b, OrderColumn<O> column) {
 		if( b.length() != 0 ) {
 			b.append(",");
@@ -59,7 +72,7 @@ public class MappedBaseQuery<O> {
 				throw new UnsupportedOperationException("joins not yet implemented (" + propertyExpression.property + " needs join)");
 			}
 		}
-		
+
 		switch (expression.type) {
 		case AND: {
 			b.append("(");
