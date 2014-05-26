@@ -16,8 +16,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -179,6 +181,10 @@ public class Util {
 				break;
 			case CLOB:
 				sqlType = Types.CLOB;
+				break;
+			case TIMESTAMP:
+				sqlType = Types.TIMESTAMP;
+				break;
 			default:
 				sqlType = Types.OTHER;
 				break;
@@ -204,8 +210,16 @@ public class Util {
 			case STRING:
 				pstmt.setString(parameterIndex, (String)value.value);
 				break;
+			case TIMESTAMP:
+				if( value.value instanceof Timestamp ) {
+					pstmt.setTimestamp(parameterIndex, (Timestamp)value.value);
+				} else {
+					pstmt.setTimestamp(parameterIndex, new Timestamp(((Date)value.value).getTime()));
+				}
+				break;
 			case UNKNOWN:
 				pstmt.setObject(parameterIndex, value.value);
+				break;
 			default:
 				throw new IllegalStateException("Unknown type");
 			}
