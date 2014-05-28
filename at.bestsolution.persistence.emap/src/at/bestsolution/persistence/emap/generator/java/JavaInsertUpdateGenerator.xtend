@@ -355,6 +355,21 @@ class JavaInsertUpdateGenerator {
 		«ENDIF»
 	'''
 
+	def isSelfRecursive(EMappingEntityDef entityDef) {
+		return getSelfRecursionFK(entityDef) != null
+	}
+	
+	def getSelfRecursionFK(EMappingEntityDef entityDef) {
+		for (EAttribute attribute : entityDef.entity.allAttributes) {
+			if (attribute.resolved) {
+				if (attribute.query.eContainer == entityDef.entity && attribute != entityDef.PKAttribute) {
+					return attribute.parameters.head
+				}
+			}
+		}
+		return null;
+	}
+
 	def generateDelete(EMappingEntityDef entityDef, EClass eClass) '''
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
@@ -440,6 +455,15 @@ class JavaInsertUpdateGenerator {
 					objectIdStmt.close();
 				}
 			}
+			
+			// self-recursive: «entityDef.selfRecursive»
+			«IF entityDef.selfRecursive»
+				// this table is self-recursive
+				// we need to clear the fks first
+				String updateSQL = "UPDATE «entityDef.tableName» SET «entityDef.selfRecursionFK» = null";
+				«utilGen.generateExecuteStatement("updateStmt", "updateSQL")»
+				
+			«ENDIF»
 
 			«IF !primitiveMultiValuedAttributes.empty»
 				// handle primitive multi valued attributes
