@@ -11,14 +11,20 @@
 package at.bestsolution.persistence.java.query;
 
 public enum JDBCType {
-	LONG,
-	INT,
-	STRING,
-	DOUBLE,
-	BOOLEAN,
-	FLOAT,
-	BLOB,
-	CLOB,
-	TIMESTAMP,
-	UNKNOWN
+	LONG(true),
+	INT(true),
+	STRING(false),
+	DOUBLE(true),
+	BOOLEAN(false),
+	FLOAT(true),
+	BLOB(false),
+	CLOB(false),
+	TIMESTAMP(false),
+	UNKNOWN(false);
+
+	public final boolean numeric;
+
+	private JDBCType(boolean numeric) {
+		this.numeric = numeric;
+	}
 }
