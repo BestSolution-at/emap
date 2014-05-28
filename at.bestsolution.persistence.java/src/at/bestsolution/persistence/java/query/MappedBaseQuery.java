@@ -32,6 +32,16 @@ public class MappedBaseQuery<O> {
 			}
 			break;
 		case IN:
+		{
+			PropertyExpression<O> e = (PropertyExpression<O>)expression;
+			JDBCType jdbcType = mapper.getJDBCType(e.property);
+			if( ! jdbcType.numeric ) {
+				for( Object data : e.data ) {
+					rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, jdbcType));
+				}
+			}
+			break;
+		}
 		case IS_NOT_NULL:
 		case IS_NULL:
 			// skip it
@@ -88,6 +98,7 @@ public class MappedBaseQuery<O> {
 			break;
 		}
 		case OR:
+		{
 			b.append("(");
 			boolean flag = false;
 			for (Expression<O> e : ((GroupExpression<O>) expression).expressions) {
@@ -99,6 +110,7 @@ public class MappedBaseQuery<O> {
 			}
 			b.append(")");
 			break;
+		}
 		case EQUALS:
 			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
 			b.append(" = ?");
@@ -140,9 +152,25 @@ public class MappedBaseQuery<O> {
 			b.append(" NOT LIKE ?");
 			break;
 		case IN:
-			// We could replace with a BETWEEN or >= & <= QUERY
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
-			b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
+		{
+			//TODO We could replace with a BETWEEN or >= & <= QUERY
+			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
+			b.append( colPrefix + mapper.getColumnName(propExpression.property));
+			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
+			if( jdbcType.numeric ) {
+				b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
+			} else {
+				b.append(" IN ( ");
+				boolean flag = false;
+				for( int i = 0; i < propExpression.data.size(); i++ ) {
+					if( flag ) {
+						b.append(",");
+					}
+					b.append("?");
+				}
+				b.append(" )");
+			}
+		}
 		default:
 			break;
 		}
