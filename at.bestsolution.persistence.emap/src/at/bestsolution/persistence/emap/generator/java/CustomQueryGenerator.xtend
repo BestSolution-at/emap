@@ -25,7 +25,10 @@ class CustomQueryGenerator {
 	@Inject extension
   	var UtilCollection util;
 
+	val generatorCredit = "by " + class.simpleName;
+
 	def generateCustomQuery(EMappingEntityDef entityDef, ENamedCustomQuery q) '''
+	// «generatorCredit»
 	public final «IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.type + " " + p.name])») {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) LOGGER.debug("Started '«q.name»'");
