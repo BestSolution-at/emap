@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.expr.ExpressionType;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
@@ -32,6 +33,7 @@ public class MappedBaseQuery<O> {
 			}
 			break;
 		case IN:
+		case NOT_IN:
 		{
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			JDBCType jdbcType = mapper.getJDBCType(e.property);
@@ -152,15 +154,17 @@ public class MappedBaseQuery<O> {
 			b.append(" NOT LIKE ?");
 			break;
 		case IN:
+		case NOT_IN:
 		{
+			String in = expression.type == ExpressionType.IN ? " IN " : " NOT IN ";
 			//TODO We could replace with a BETWEEN or >= & <= QUERY
 			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
 			b.append( colPrefix + quoteColumnName(mapper.getColumnName(propExpression.property)));
 			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
 			if( jdbcType.numeric ) {
-				b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
+				b.append(" "+in+" ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
 			} else {
-				b.append(" IN ( ");
+				b.append(" "+in+" ( ");
 				boolean flag = false;
 				for( int i = 0; i < propExpression.data.size(); i++ ) {
 					if( flag ) {
