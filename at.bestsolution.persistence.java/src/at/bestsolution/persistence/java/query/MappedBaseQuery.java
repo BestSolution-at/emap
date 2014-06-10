@@ -112,50 +112,50 @@ public class MappedBaseQuery<O> {
 			break;
 		}
 		case EQUALS:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" = ?");
 			break;
 		case IEQUALS:
-			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append( "lower( " + colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + " )");
 			b.append(" = lower( ? )");
 			break;
 		case NOT_EQUALS:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" <> ?");
 			break;
 		case INOT_EQUALS:
-			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append( "lower( " + colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + " )");
 			b.append(" <> lower( ? )");
 			break;
 		case IS_NOT_NULL:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" IS NOT NULL");
 			break;
 		case IS_NULL:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" IS NULL");
 			break;
 		case ILIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" ILIKE ?");
 			break;
 		case LIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" LIKE ?");
 			break;
 		case NOT_ILIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" NOT ILIKE ?");
 			break;
 		case NOT_LIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" NOT LIKE ?");
 			break;
 		case IN:
 		{
 			//TODO We could replace with a BETWEEN or >= & <= QUERY
 			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
-			b.append( colPrefix + mapper.getColumnName(propExpression.property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(propExpression.property)));
 			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
 			if( jdbcType.numeric ) {
 				b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
@@ -174,5 +174,9 @@ public class MappedBaseQuery<O> {
 		default:
 			break;
 		}
+	}
+
+	protected String quoteColumnName(String columnName) {
+		return '"' + columnName + '"';
 	}
 }
