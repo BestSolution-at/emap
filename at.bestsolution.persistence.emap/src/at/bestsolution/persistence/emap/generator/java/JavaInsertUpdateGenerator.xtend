@@ -355,17 +355,22 @@ class JavaInsertUpdateGenerator {
 		«ENDIF»
 	'''
 
-	def isSelfRecursive(EMappingEntityDef entityDef) {
-		return getSelfRecursionFK(entityDef) != null
+	def isSelfRecursive(EMappingEntityDef entityDef, EClass eClass) {
+		return getSelfRecursionFK(entityDef, eClass) != null
 	}
 	
-	def getSelfRecursionFK(EMappingEntityDef entityDef) {
+	def getSelfRecursionFK(EMappingEntityDef entityDef, EClass eClass) {
 		for (EAttribute attribute : entityDef.entity.allAttributes) {
-			if (attribute.resolved) {
-				if (attribute.query.eContainer == entityDef.entity && attribute != entityDef.PKAttribute) {
-					return attribute.parameters.head
+// TODO enable container test
+//			val feature = attribute.getEStructuralFeature(eClass)
+//			if (feature instanceof EReference) {
+//				val ref = feature as EReference
+				if (/*ref.container &&*/ attribute.resolved) {
+					if (attribute.query.eContainer == entityDef.entity && attribute != entityDef.PKAttribute) {
+						return attribute.parameters.head
+					}
 				}
-			}
+//			}
 		}
 		return null;
 	}
@@ -456,11 +461,11 @@ class JavaInsertUpdateGenerator {
 				}
 			}
 			
-			// self-recursive: «entityDef.selfRecursive»
-			«IF entityDef.selfRecursive»
+			// self-recursive: «entityDef.isSelfRecursive(eClass)»
+			«IF entityDef.isSelfRecursive(eClass)»
 				// this table is self-recursive
 				// we need to clear the fks first
-				String updateSQL = "UPDATE «entityDef.tableName» SET «entityDef.selfRecursionFK» = null";
+				String updateSQL = "UPDATE «entityDef.tableName» SET «entityDef.getSelfRecursionFK(eClass)» = null";
 				«utilGen.generateExecuteStatement("updateStmt", "updateSQL")»
 				
 			«ENDIF»
