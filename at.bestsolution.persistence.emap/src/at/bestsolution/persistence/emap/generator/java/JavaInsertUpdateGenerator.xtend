@@ -358,7 +358,7 @@ class JavaInsertUpdateGenerator {
 	def isSelfRecursive(EMappingEntityDef entityDef) {
 		return getSelfRecursionFK(entityDef) != null
 	}
-	
+
 	def getSelfRecursionFK(EMappingEntityDef entityDef) {
 		for (EAttribute attribute : entityDef.entity.allAttributes) {
 			if (attribute.resolved) {
@@ -382,7 +382,7 @@ class JavaInsertUpdateGenerator {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if (isDebug) LOGGER.debug("Executing deleteAll");
 
-		String query = "DELETE FROM «entityDef.tableName»";
+		String query = "DELETE FROM \"«entityDef.tableName»\"";
 
 		if (isDebug) LOGGER.debug("Plain query: " + query);
 
@@ -436,7 +436,7 @@ class JavaInsertUpdateGenerator {
 		try {
 
 			// find all object ids
-			String objectIdSQL = "SELECT «entityDef.PKAttribute.columnName» FROM «entityDef.tableName»";
+			String objectIdSQL = "SELECT «entityDef.PKAttribute.columnName» FROM \"«entityDef.tableName»\"";
 			PreparedStatement objectIdStmt = null;
 			ResultSet objectIdResultSet = null;
 			List<Object> objectIds = new ArrayList<Object>();
@@ -455,14 +455,14 @@ class JavaInsertUpdateGenerator {
 					objectIdStmt.close();
 				}
 			}
-			
+
 			// self-recursive: «entityDef.selfRecursive»
 			«IF entityDef.selfRecursive»
 				// this table is self-recursive
 				// we need to clear the fks first
-				String updateSQL = "UPDATE «entityDef.tableName» SET «entityDef.selfRecursionFK» = null";
+				String updateSQL = "UPDATE \"«entityDef.tableName»\" SET «entityDef.selfRecursionFK» = null";
 				«utilGen.generateExecuteStatement("updateStmt", "updateSQL")»
-				
+
 			«ENDIF»
 
 			«IF !primitiveMultiValuedAttributes.empty»
@@ -478,7 +478,7 @@ class JavaInsertUpdateGenerator {
 				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
 			«ENDFOR»
 
-			String sql = "DELETE FROM «entityDef.tableName»";
+			String sql = "DELETE FROM \"«entityDef.tableName»\"";
 			«utilGen.generateExecuteStatement("stmt", "sql")»
 
 			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
