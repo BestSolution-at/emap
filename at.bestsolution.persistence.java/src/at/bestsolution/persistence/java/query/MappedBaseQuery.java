@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.expr.ExpressionType;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
@@ -32,6 +33,7 @@ public class MappedBaseQuery<O> {
 			}
 			break;
 		case IN:
+		case NOT_IN:
 		{
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			JDBCType jdbcType = mapper.getJDBCType(e.property);
@@ -112,55 +114,57 @@ public class MappedBaseQuery<O> {
 			break;
 		}
 		case EQUALS:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" = ?");
 			break;
 		case IEQUALS:
-			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append( "lower( " + colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + " )");
 			b.append(" = lower( ? )");
 			break;
 		case NOT_EQUALS:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" <> ?");
 			break;
 		case INOT_EQUALS:
-			b.append( "lower( " + colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + " )");
+			b.append( "lower( " + colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + " )");
 			b.append(" <> lower( ? )");
 			break;
 		case IS_NOT_NULL:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" IS NOT NULL");
 			break;
 		case IS_NULL:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" IS NULL");
 			break;
 		case ILIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" ILIKE ?");
 			break;
 		case LIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" LIKE ?");
 			break;
 		case NOT_ILIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" NOT ILIKE ?");
 			break;
 		case NOT_LIKE:
-			b.append( colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" NOT LIKE ?");
 			break;
 		case IN:
+		case NOT_IN:
 		{
+			String in = expression.type == ExpressionType.IN ? " IN " : " NOT IN ";
 			//TODO We could replace with a BETWEEN or >= & <= QUERY
 			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
-			b.append( colPrefix + mapper.getColumnName(propExpression.property));
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(propExpression.property)));
 			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
 			if( jdbcType.numeric ) {
-				b.append(" IN ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
+				b.append(" "+in+" ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
 			} else {
-				b.append(" IN ( ");
+				b.append(" "+in+" ( ");
 				boolean flag = false;
 				for( int i = 0; i < propExpression.data.size(); i++ ) {
 					if( flag ) {
@@ -174,5 +178,9 @@ public class MappedBaseQuery<O> {
 		default:
 			break;
 		}
+	}
+
+	protected String quoteColumnName(String columnName) {
+		return '"' + columnName + '"';
 	}
 }

@@ -42,7 +42,11 @@ public class PropertyExpressionFactory<O> {
 	}
 
 	public static <O> InExpression<O> in(String property, Object... values) {
-		return new InExpression<O>(property, values);
+		return new InExpression<O>(ExpressionType.IN, property, values);
+	}
+
+	public static <O> InExpression<O> notIn(String property, Object... values) {
+		return new InExpression<O>(ExpressionType.NOT_IN, property, values);
 	}
 
 	public static Object[] toObjectArray(int... values) {

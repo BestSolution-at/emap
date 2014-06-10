@@ -12,7 +12,7 @@ package at.bestsolution.persistence.expr;
 
 public class InExpression<O> extends PropertyExpression<O> {
 
-	InExpression(String property, Object... data) {
-		super(ExpressionType.IN, property, data);
+	InExpression(ExpressionType type, String property, Object... data) {
+		super(type, property, data);
 	}
 }

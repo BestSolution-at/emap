@@ -27,6 +27,7 @@ public enum ExpressionType {
 	NOT_ILIKE,
 
 	IN,
+	NOT_IN,
 
 	AND,
 	OR
