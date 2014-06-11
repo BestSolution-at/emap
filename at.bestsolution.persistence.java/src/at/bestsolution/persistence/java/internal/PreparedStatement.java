@@ -23,9 +23,9 @@ import at.bestsolution.persistence.java.DatabaseSupport.Statement;
 import at.bestsolution.persistence.java.query.JDBCType;
 
 public class PreparedStatement implements Statement {
-	
+
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
-	
+
 	List<Column> columnList = new ArrayList<Column>();
 
 	@Override
@@ -52,7 +52,7 @@ public class PreparedStatement implements Statement {
 		if( value == null ) {
 			addNull(column, JDBCType.DOUBLE);
 		} else {
-			addDouble(column, value);
+			addDouble(column, value.doubleValue());
 		}
 
 	}
@@ -100,7 +100,7 @@ public class PreparedStatement implements Statement {
 		if( value == null ) {
 			addNull(column, JDBCType.LONG);
 		} else {
-			addLong(column, value);
+			addLong(column, value.longValue());
 		}
 	}
 
