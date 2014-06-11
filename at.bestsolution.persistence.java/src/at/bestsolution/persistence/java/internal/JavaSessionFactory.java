@@ -10,8 +10,6 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.internal;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -33,6 +31,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -43,19 +42,20 @@ import org.osgi.service.event.EventAdmin;
 import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
+import at.bestsolution.persistence.PersistParticipant;
 import at.bestsolution.persistence.PersistanceException;
+import at.bestsolution.persistence.Registration;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
+import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.DatabaseSupport;
-import at.bestsolution.persistence.java.DatabaseSupport.PrimaryKeyGenType;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
+import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.JavaSession;
 import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
 import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
-import at.bestsolution.persistence.java.AfterTxRunnable;
-import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.ProxyFactory;
 import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
@@ -136,11 +136,11 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 		return factoryId;
 	}
-	
+
 	static final boolean isNewObject(Object idValue) {
 		return idValue == null || (idValue instanceof Number && ((Number)idValue).longValue() == 0);
 	}
-	
+
 	@Override
 	public Blob createBlob() {
 		return new LocalBlob();
@@ -157,8 +157,9 @@ public class JavaSessionFactory implements SessionFactory {
 
 		private Map<Transaction, Set<AfterTxRunnable>> afterTransaction = new HashMap<Session.Transaction, Set<AfterTxRunnable>>();
 		private Map<Transaction, Map<Object, Object>> transactionPrimaryKeyCache = new HashMap<Session.Transaction, Map<Object, Object>>();
-		
-		
+		private Map<Transaction, Map<Object,Map<EAttribute,Object>>> transactionData = new HashMap<Session.Transaction, Map<Object,Map<EAttribute,Object>>>();
+		private List<PersistParticipant> participants = new ArrayList<PersistParticipant>();
+
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
 			public void notifyChanged(Notification msg) {
@@ -180,6 +181,19 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public DatabaseSupport getDatabaseSupport() {
 			return databaseSupports.get(getDatabaseType());
+		}
+
+		@Override
+		public Registration registerPersistParticipant(
+				final PersistParticipant participant) {
+			participants.add(participant);
+			return new Registration() {
+
+				@Override
+				public void dispose() {
+					participants.remove(participant);
+				}
+			};
 		}
 
 		@Override
@@ -272,14 +286,44 @@ public class JavaSessionFactory implements SessionFactory {
 		public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName) {
 			return (MappedQuery<O>) factories.get(fqnMapper).mappedQuery(this, queryName);
 		}
-		
+
+		@Override
+		public <O> void preExecuteInsert(O object) {
+			if( ! participants.isEmpty() ) {
+				for( PersistParticipant p : participants ) {
+					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.INSERT, (EObject) object);
+					if( participate != null ) {
+						for( Entry<String, Object> e : participate.entrySet() ) {
+							EStructuralFeature attribute = ((EObject)object).eClass().getEStructuralFeature(e.getKey());
+							setTransactionAttribute(object, (EAttribute)attribute, e.getValue());
+						}
+					}
+				}
+			}
+		}
+
+		@Override
+		public <O> void preExecuteUpdate(O object) {
+			if( ! participants.isEmpty() ) {
+				for( PersistParticipant p : participants ) {
+					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.UPDATE, (EObject) object);
+					if( participate != null ) {
+						for( Entry<String, Object> e : participate.entrySet() ) {
+							EStructuralFeature attribute = ((EObject)object).eClass().getEStructuralFeature(e.getKey());
+							setTransactionAttribute(object, (EAttribute)attribute, e.getValue());
+						}
+					}
+				}
+			}
+		}
+
 		@Override
 		public <O, P> void registerPrimaryKey(O object, P key) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("registerPrimaryKey " + object + " => " + key);
 			}
-			
+
 			final Transaction transaction = getTransaction();
 			if( transaction == null ) {
 				throw new PersistanceException("Unable to schedule after tx callback without a transaction");
@@ -291,7 +335,8 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			map.put(object, key);
 		}
-		
+
+		@SuppressWarnings("unchecked")
 		private <O,P> P getPrimaryKeyFromTransactionCache(O object) {
 			Transaction transaction = getTransaction();
 			if (transaction == null) {
@@ -303,28 +348,71 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			return null;
 		}
-		
+
 		@Override
 		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("getPrimaryKey " + object);
 			}
-			
+
 			P key = getPrimaryKeyFromTransactionCache(object);
-			
+
 			if (key != null) {
 				if( isDebug ) {
 					LOGGER.debug(" found key in tx cache => " + key);
 				}
 				return key;
 			}
-			
+
 			key = mapper.getPrimaryKeyValue(object);
 			if( isDebug ) {
 				LOGGER.debug(" got key from object => " + key);
 			}
 			return key;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public <O, P> P getTransactionAttribute(O object, EAttribute attribute) {
+			final Transaction transaction = getTransaction();
+			if( transaction == null ) {
+				return (P) ((EObject)object).eGet(attribute);
+			}
+
+			Map<Object, Map<EAttribute, Object>> map = transactionData.get(transaction);
+			if( map == null ) {
+				return (P) ((EObject)object).eGet(attribute);
+			}
+
+			Map<EAttribute, Object> data = map.get(object);
+			if( data == null || ! data.containsKey(attribute) ) {
+				return (P) ((EObject)object).eGet(attribute);
+			}
+
+			return (P) data.get(attribute);
+		}
+
+		private <O, P> void setTransactionAttribute(O object,
+				EAttribute attribute, P value) {
+			final Transaction transaction = getTransaction();
+			if( transaction == null ) {
+				throw new PersistanceException("Unable store the information without a transaction");
+			}
+
+			Map<Object, Map<EAttribute, Object>> map = transactionData.get(transaction);
+			if( map == null ) {
+				map = new HashMap<Object, Map<EAttribute,Object>>();
+				transactionData.put(transaction, map);
+			}
+
+			Map<EAttribute, Object> data = map.get(object);
+			if( data == null ) {
+				data = new HashMap<EAttribute, Object>();
+				map.put(object, data);
+			}
+
+			data.put(attribute, value);
 		}
 
 		@Override
@@ -387,7 +475,9 @@ public class JavaSessionFactory implements SessionFactory {
 							}
 						}
 						connection.commit();
-						
+
+						flushTransactionData(transaction);
+
 						// exectue after-tx callbacks
 						if( isDebug ) {
 							LOGGER.debug("Executing After-Tx callbacks");
@@ -403,8 +493,8 @@ public class JavaSessionFactory implements SessionFactory {
 						if( isDebug ) {
 							LOGGER.debug("Done executing " + counter + " After-Tx callbacks");
 						}
-						
-						
+
+
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
 							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
@@ -446,11 +536,12 @@ public class JavaSessionFactory implements SessionFactory {
 			} finally {
 				// clear after-tx
 				afterTransaction.remove(transaction);
-				// clear relationSQL 
+				// clear relationSQL
 				relationSQLStorage.remove(transaction);
 				// clear transaction primary key cache
 				transactionPrimaryKeyCache.remove(transaction);
-				
+				transactionData.remove(transaction);
+
 				try {
 					connection.setAutoCommit(true);
 				} catch (SQLException e) {
@@ -473,30 +564,48 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 		}
 
+		private void flushTransactionData(Transaction transaction) {
+			Map<Object, Map<EAttribute, Object>> map = transactionData.get(transaction);
+			if( map == null ) {
+				return;
+			}
+
+			for( Entry<Object, Map<EAttribute,Object>> e : map.entrySet() ) {
+				EObject eo = (EObject) e.getKey();
+				for( Entry<EAttribute, Object> e2 : e.getValue().entrySet() ) {
+					try {
+						eo.eSet(e2.getKey(), e2.getValue());
+					} catch(Throwable t) {
+						LOGGER.error("Unable to sync transaction value into the model", t);
+					}
+				}
+			}
+		}
+
 		@Override
 		public Transaction getTransaction() {
 			return transactionQueue == null ? null : transactionQueue.peek();
 		}
-		
+
 		@Override
 		public void scheduleAfterTransaction(AfterTxRunnable r) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("schedule After-Tx callback: " + r);
 			}
-			
+
 			final Transaction transaction = getTransaction();
 			if( transaction == null ) {
 				throw new PersistanceException("Unable to schedule after tx callback without a transaction");
 			}
-			
+
 			Set<AfterTxRunnable> set = afterTransaction.get(transaction);
 			if (set == null) {
 				// we use a linked hash set to avoid duplicates while preserving the order
 				set = new LinkedHashSet<AfterTxRunnable>();
 				afterTransaction.put(transaction, set);
 			}
-			
+
 			if (!set.add(r)) {
 				if( isDebug ) {
 					LOGGER.debug("! After-Tx callback was not scheduled -> duplicate!");
@@ -553,6 +662,20 @@ public class JavaSessionFactory implements SessionFactory {
 			mapperInstances.clear();
 			sessionCache.release();
 			changeStorage.clear();
+			transactionPrimaryKeyCache.clear();
+			transactionData.clear();
+			if( transactionConnectionQueue != null ) {
+				for( Connection c : transactionConnectionQueue ) {
+					try {
+						c.rollback();
+					} catch (SQLException e) {
+						LOGGER.error("Unable to rollback connection", e);
+					}
+					connectionProvider.returnConnection(c);
+				}
+				transactionConnectionQueue = null;
+			}
+			participants.clear();
 		}
 
 		@Override
@@ -650,7 +773,7 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.debug("Ended deleting entities");
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private <O> ObjectMapper<O> createMapperForObject(O object) {
 			if( object instanceof EObject ) {
@@ -660,7 +783,7 @@ public class JavaSessionFactory implements SessionFactory {
 					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
 				}
 				return (ObjectMapper<O>) f.createMapper(this);
-				
+
 			} else {
 				throw new IllegalStateException("'"+object.getClass().getName()+"' is not an EObject");
 			}
@@ -701,7 +824,7 @@ public class JavaSessionFactory implements SessionFactory {
 //				}
 //				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
 				final ObjectMapper<EObject> m = createMapperForObject(e);
-				
+
 //				final Object l = m.getPrimaryKeyValue(e);
 				// WE NEED TO GET THE KEY FROM THE CACHE!
 				final Object txKey = getPrimaryKeyFromTransactionCache(e);
@@ -728,10 +851,10 @@ public class JavaSessionFactory implements SessionFactory {
 		private List<EObject> buildSavePlan(EObject sourceObject) {
 			List<EObject> list = new ArrayList<EObject>();
 			list.add(sourceObject);
-			
+
 			//TODO Move the META stuff to the factory so that we don't need to create an instance
 			final ObjectMapper<EObject> m = createMapperForObject(sourceObject);
-			
+
 //			final ObjectMapperFactory<?, ?> f = factories.get(sourceObject.eClass().getInstanceClassName()+"Mapper");
 //			if( f == null ) {
 //				throw new IllegalStateException("There's no mapper known for '"+sourceObject.eClass().getInstanceClassName()+"'");
@@ -884,7 +1007,7 @@ public class JavaSessionFactory implements SessionFactory {
 				getCache().evitObject(eo);
 			}
 		}
-		
+
 		@Override
 		public void unregisterObject(EClass eClass, Object id) {
 			EObject object = getCache().getObject(eClass, id);
@@ -896,7 +1019,7 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			getCache().evictObject(eClass, id);
 		}
-		
+
 		@Override
 		public void unregisterAllObjects(EClass eClass) {
 			// we need to clean up the changeStorage too
@@ -985,7 +1108,7 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 			}
 		}
-		
+
 		/* (non-Javadoc)
 		 * @see at.bestsolution.persistence.Session#getMemoryObjectVersion(java.lang.Object)
 		 */
@@ -994,7 +1117,7 @@ public class JavaSessionFactory implements SessionFactory {
 			final ObjectMapper<Object> mapper = createMapperForObject(object);
 			return sessionCache.getVersion((EObject)object, getPrimaryKey(mapper, object));
 		}
-		
+
 		/* (non-Javadoc)
 		 * @see at.bestsolution.persistence.Session#getPersistedObjectVersion(java.lang.Object)
 		 */

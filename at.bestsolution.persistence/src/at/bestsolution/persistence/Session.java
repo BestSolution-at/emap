@@ -11,7 +11,6 @@
 package at.bestsolution.persistence;
 
 import java.io.Closeable;
-import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -64,4 +63,5 @@ public interface Session extends Closeable {
 	 * @return
 	 */
 	public long getPersistedObjectVersion(Object object);
+	public Registration registerPersistParticipant(PersistParticipant participant);
 }

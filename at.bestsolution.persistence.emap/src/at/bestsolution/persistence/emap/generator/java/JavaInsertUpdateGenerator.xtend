@@ -42,6 +42,9 @@ class JavaInsertUpdateGenerator {
 
 		«checkTx»
 
+		// Inform session about the update
+		session.preExecuteUpdate(object);
+
 		// Built the query
 		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
 		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
@@ -51,7 +54,7 @@ class JavaInsertUpdateGenerator {
 			// simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
 				// * «a.name»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
 			«ENDFOR»
 		«ENDIF»
 «««		Handle blob direct mapped attributes
@@ -59,7 +62,7 @@ class JavaInsertUpdateGenerator {
 			// blob direct mapped attributes
 			«FOR a : blobDirectMappedAttributes»
 				// * «a.name»
-				if( object.get«a.name.toFirstUpper»() != null ) {
+				if( object.get«a.name.javaReservedNameEscape.toFirstUpper»() != null ) {
 					if( Util.isModified(session, object, "«a.name»") ) {
 						stmt.addBlob("«a.columnName»", object.get«a.name.javaReservedNameEscape.toFirstUpper»());
 					}
@@ -190,6 +193,9 @@ class JavaInsertUpdateGenerator {
 
 		«checkTx»
 
+		// Inform session about the insert
+		session.preExecuteInsert(object);
+
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 
 		«IF !entityDef.extendsEntity»
@@ -215,10 +221,13 @@ class JavaInsertUpdateGenerator {
 			«FOR a : simpleDirectMappedAttributes»
 			// * «a.name»
 			«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
+				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
 			«ELSE»
-				if( object.get«a.name.toFirstUpper»() != null ) {
-					stmt.«a.statementMethod(eClass)»("«a.columnName»", object.«IF a.isBoolean(eClass)»is«ELSE»get«ENDIF»«a.name.javaReservedNameEscape.toFirstUpper»());
+				{
+					Object o = session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
+					if( o != null ) {
+						stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)o);
+					}
 				}
 			«ENDIF»
 			«ENDFOR»
@@ -359,7 +368,7 @@ class JavaInsertUpdateGenerator {
 		return getSelfRecursionFK(entityDef, eClass) != null
 	}
 
-	
+
 	def getSelfRecursionFK(EMappingEntityDef entityDef, EClass eClass) {
 		for (EAttribute attribute : entityDef.entity.allAttributes) {
 // TODO enable container test
@@ -504,7 +513,7 @@ class JavaInsertUpdateGenerator {
 					objectIdStmt.close();
 				}
 			}
-			
+
 			// self-recursive: «entityDef.isSelfRecursive(eClass)»
 			«IF entityDef.isSelfRecursive(eClass)»
 				// this table is self-recursive
