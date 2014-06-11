@@ -42,6 +42,9 @@ class JavaInsertUpdateGenerator {
 
 		«checkTx»
 
+		// Inform session about the update
+		session.preExecuteUpdate(object);
+
 		// Built the query
 		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
 		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
@@ -189,6 +192,9 @@ class JavaInsertUpdateGenerator {
 		}
 
 		«checkTx»
+
+		// Inform session about the insert
+		session.preExecuteInsert(object);
 
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 
