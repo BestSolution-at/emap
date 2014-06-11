@@ -11,7 +11,6 @@
 package at.bestsolution.persistence;
 
 import java.io.Closeable;
-import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 

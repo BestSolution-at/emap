@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -35,17 +36,19 @@ public interface JavaSession extends Session {
 	public boolean isTransaction();
 	public Transaction getTransaction();
 	public void scheduleRelationSQL(RelationSQL sql);
-	
+
 	public void scheduleAfterTransaction(AfterTxRunnable r);
 	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
 	public <O, P> void registerPrimaryKey(O object, P key);
-	
+	public <O, P> P getTransactionAttribute(O object, EAttribute attribute);
+	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
+
 	public void registerObject(Object object, Object id, long version);
 	public void updateVersion(Object object, Object id, long version);
 	public void unregisterObject(Object object, Object id);
 	public void unregisterObject(EClass eClass, Object id);
 	public void unregisterAllObjects(EClass eClass);
-	
+
 	public List<ChangeDescription> getChangeDescription(Object object);
 	public void clearChangeDescription(Object object);
 	public Boolean runWithoutChangeTracking(Callback<Boolean> runnable);
