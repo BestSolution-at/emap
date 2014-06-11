@@ -388,22 +388,61 @@ class JavaInsertUpdateGenerator {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if (isDebug) LOGGER.debug("Executing deleteAll");
 
-		String query = "DELETE FROM \"«entityDef.tableName»\"";
+		final String criteriaStr = criteria.getCriteria();
 
-		if (isDebug) LOGGER.debug("Plain query: " + query);
-
-		String criteriaStr = criteria.getCriteria();
+		// build delete query
+		String deleteQuery = "DELETE FROM \"«entityDef.tableName»\"";
+		if (isDebug) LOGGER.debug("Plain delete query: " + deleteQuery);
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
-			query += " WHERE " + criteriaStr;
+			deleteQuery += " WHERE " + criteriaStr;
 		}
-
-		if (isDebug) LOGGER.debug("Final query: " + query);
+		if (isDebug) LOGGER.debug("Final delete query: " + deleteQuery);
 
 		Connection connection = session.checkoutConnection();
 		try {
+			«IF !manyToManyReferences.empty»
+				// build select query
+				String selectQuery = "SELECT «entityDef.PKAttribute.columnName» FROM \"«entityDef.tableName»\"";
+				if (isDebug) LOGGER.debug("Plain Select query: " + selectQuery);
+				if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+					selectQuery += " WHERE " + criteriaStr;
+				}
+				if (isDebug) LOGGER.debug("Final select query: " + selectQuery);
+				
+				// execute select
+				List<Object> objectIds = new ArrayList<Object>();
+				PreparedStatement pstmtSelect = null;
+				ResultSet resultSetSelect = null;
+				try {
+					pstmtSelect = connection.prepareStatement(selectQuery);
+					int idx = 1;
+					for(TypedValue t : criteria.getParameters()) {
+						Util.setValue(pstmtSelect, idx++, t);
+					}
+					
+					resultSetSelect = pstmtSelect.executeQuery();
+					while (resultSetSelect.next()) {
+						objectIds.add(resultSetSelect.getLong("«entityDef.PKAttribute.columnName»"));
+					}
+				}
+				finally {
+					if (resultSetSelect != null) {
+						resultSetSelect.close();
+					}
+					if (pstmtSelect != null) {
+						pstmtSelect.close();
+					}
+				}
+				
+				// execute clear many to many relations
+				«FOR a : manyToManyReferences»
+					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
+				«ENDFOR»
+			«ENDIF»
+			// execute delete
 			PreparedStatement pstmt = null;
 			try {
-				pstmt = connection.prepareStatement(query);
+				pstmt = connection.prepareStatement(deleteQuery);
 				int idx = 1;
 				for(TypedValue t : criteria.getParameters()) {
 					Util.setValue(pstmt, idx++, t);
@@ -417,6 +456,8 @@ class JavaInsertUpdateGenerator {
 					pstmt.close();
 				}
 			}
+
+
 		}
 		catch (SQLException e) {
 			throw new PersistanceException(e);
@@ -424,6 +465,8 @@ class JavaInsertUpdateGenerator {
 		finally {
 			session.returnConnection(connection);
 		}
+
+		
 	}
 
 	@Override

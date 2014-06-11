@@ -115,6 +115,13 @@ class JavaUtilGenerator {
 		if( isDebug ) {
 			LOGGER.debug("clear many to many «attribute.name.toFirstUpper» for "+objectIds);
 		}
+		
+		if (objectIds.isEmpty()) {
+			if( isDebug ) {
+				LOGGER.debug("nothing to clear.");
+			}
+			return;
+		}
 
 		final StringBuilder b = new StringBuilder();
 		Iterator<Object> it = objectIds.iterator();
