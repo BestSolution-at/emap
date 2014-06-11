@@ -701,6 +701,14 @@ class UtilCollection {
 		val s = f.EType.instanceClassName
 		if( s == "long" ) {
 			return "Long";
+		} else if( s == "int" ) {
+			return "Integer";
+		} else if( s == "boolean" ) {
+			return "Boolean"
+		} else if( s == "double" ) {
+			return "Double"
+		} else if( s == "Float" ) {
+			return "Float";
 		}
 		return s
 	}
