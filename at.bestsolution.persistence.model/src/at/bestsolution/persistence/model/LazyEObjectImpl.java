@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+// TODO add missing emf methods (see CGLibObjectProxyInterceptor)
 public abstract class LazyEObjectImpl extends EObjectImpl implements LazyEObject {
 
 	private Map<EReference, Boolean> resolved = new HashMap<EReference, Boolean>();
