@@ -18,10 +18,13 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.ObjectMapper;
+import at.bestsolution.persistence.PersistParticipant;
+import at.bestsolution.persistence.PersistParticipant.Type;
 import at.bestsolution.persistence.Session;
 
 public interface JavaSession extends Session {
@@ -41,7 +44,9 @@ public interface JavaSession extends Session {
 	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
 	public <O, P> void registerPrimaryKey(O object, P key);
 	public <O, P> P getTransactionAttribute(O object, EAttribute attribute);
-	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
+	public <O> void preExecuteInsert(O object);
+	public <O> void preExecuteUpdate(O object);
+//	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
 
 	public void registerObject(Object object, Object id, long version);
 	public void updateVersion(Object object, Object id, long version);

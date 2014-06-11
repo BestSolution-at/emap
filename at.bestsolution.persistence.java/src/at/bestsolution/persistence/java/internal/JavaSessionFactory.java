@@ -42,7 +42,9 @@ import org.osgi.service.event.EventAdmin;
 import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
+import at.bestsolution.persistence.PersistParticipant;
 import at.bestsolution.persistence.PersistanceException;
+import at.bestsolution.persistence.Registration;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.java.AfterTxRunnable;
@@ -156,6 +158,7 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<Transaction, Set<AfterTxRunnable>> afterTransaction = new HashMap<Session.Transaction, Set<AfterTxRunnable>>();
 		private Map<Transaction, Map<Object, Object>> transactionPrimaryKeyCache = new HashMap<Session.Transaction, Map<Object, Object>>();
 		private Map<Transaction, Map<Object,Map<EAttribute,Object>>> transactionData = new HashMap<Session.Transaction, Map<Object,Map<EAttribute,Object>>>();
+		private List<PersistParticipant> participants = new ArrayList<PersistParticipant>();
 
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
@@ -178,6 +181,19 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public DatabaseSupport getDatabaseSupport() {
 			return databaseSupports.get(getDatabaseType());
+		}
+
+		@Override
+		public Registration registerPersistParticipant(
+				final PersistParticipant participant) {
+			participants.add(participant);
+			return new Registration() {
+
+				@Override
+				public void dispose() {
+					participants.remove(participant);
+				}
+			};
 		}
 
 		@Override
@@ -272,6 +288,36 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public <O> void preExecuteInsert(O object) {
+			if( ! participants.isEmpty() ) {
+				for( PersistParticipant p : participants ) {
+					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.INSERT, (EObject) object);
+					if( participate != null ) {
+						for( Entry<String, Object> e : participate.entrySet() ) {
+							EStructuralFeature attribute = ((EObject)object).eClass().getEStructuralFeature(e.getKey());
+							setTransactionAttribute(object, (EAttribute)attribute, e.getValue());
+						}
+					}
+				}
+			}
+		}
+
+		@Override
+		public <O> void preExecuteUpdate(O object) {
+			if( ! participants.isEmpty() ) {
+				for( PersistParticipant p : participants ) {
+					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.UPDATE, (EObject) object);
+					if( participate != null ) {
+						for( Entry<String, Object> e : participate.entrySet() ) {
+							EStructuralFeature attribute = ((EObject)object).eClass().getEStructuralFeature(e.getKey());
+							setTransactionAttribute(object, (EAttribute)attribute, e.getValue());
+						}
+					}
+				}
+			}
+		}
+
+		@Override
 		public <O, P> void registerPrimaryKey(O object, P key) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
@@ -290,6 +336,7 @@ public class JavaSessionFactory implements SessionFactory {
 			map.put(object, key);
 		}
 
+		@SuppressWarnings("unchecked")
 		private <O,P> P getPrimaryKeyFromTransactionCache(O object) {
 			Transaction transaction = getTransaction();
 			if (transaction == null) {
@@ -346,8 +393,7 @@ public class JavaSessionFactory implements SessionFactory {
 			return (P) data.get(attribute);
 		}
 
-		@Override
-		public <O, P> void setTransactionAttribute(O object,
+		private <O, P> void setTransactionAttribute(O object,
 				EAttribute attribute, P value) {
 			final Transaction transaction = getTransaction();
 			if( transaction == null ) {
@@ -429,6 +475,8 @@ public class JavaSessionFactory implements SessionFactory {
 							}
 						}
 						connection.commit();
+
+						flushTransactionData(transaction);
 
 						// exectue after-tx callbacks
 						if( isDebug ) {
@@ -513,6 +561,24 @@ public class JavaSessionFactory implements SessionFactory {
 
 			if( isDebug ) {
 				LOGGER.debug("Finished transaction '"+transactionId+"'");
+			}
+		}
+
+		private void flushTransactionData(Transaction transaction) {
+			Map<Object, Map<EAttribute, Object>> map = transactionData.get(transaction);
+			if( map == null ) {
+				return;
+			}
+
+			for( Entry<Object, Map<EAttribute,Object>> e : map.entrySet() ) {
+				EObject eo = (EObject) e.getKey();
+				for( Entry<EAttribute, Object> e2 : e.getValue().entrySet() ) {
+					try {
+						eo.eSet(e2.getKey(), e2.getValue());
+					} catch(Throwable t) {
+						LOGGER.error("Unable to sync transaction value into the model", t);
+					}
+				}
 			}
 		}
 
@@ -609,6 +675,7 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 				transactionConnectionQueue = null;
 			}
+			participants.clear();
 		}
 
 		@Override

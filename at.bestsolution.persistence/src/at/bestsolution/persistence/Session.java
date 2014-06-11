@@ -63,4 +63,5 @@ public interface Session extends Closeable {
 	 * @return
 	 */
 	public long getPersistedObjectVersion(Object object);
+	public Registration registerPersistParticipant(PersistParticipant participant);
 }
