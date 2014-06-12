@@ -14,6 +14,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -44,8 +45,11 @@ public interface JavaSession extends Session {
 	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
 	public <O, P> void registerPrimaryKey(O object, P key);
 	public <O, P> P getTransactionAttribute(O object, EAttribute attribute);
-	public <O> void preExecuteInsert(O object);
-	public <O> void preExecuteUpdate(O object);
+	public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object);
+	public <O> void preExecuteUpdate(ObjectMapper<O> mapper, O object);
+	public <O> void preExecuteDelete(ObjectMapper<O> mapper, O object);
+	public <P> void preExecuteDeleteById(EClass eClass, Collection<P> keys);
+	public void preExecuteDeleteMany(EClass eClass);
 //	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
 
 	public void registerObject(Object object, Object id, long version);

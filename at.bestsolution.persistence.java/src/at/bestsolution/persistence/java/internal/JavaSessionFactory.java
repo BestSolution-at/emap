@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -159,6 +160,10 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<Transaction, Map<Object, Object>> transactionPrimaryKeyCache = new HashMap<Session.Transaction, Map<Object, Object>>();
 		private Map<Transaction, Map<Object,Map<EAttribute,Object>>> transactionData = new HashMap<Session.Transaction, Map<Object,Map<EAttribute,Object>>>();
 		private List<PersistParticipant> participants = new ArrayList<PersistParticipant>();
+		private Map<Transaction, Set<String>> insertedObjects = new HashMap<Session.Transaction, Set<String>>();
+		private Map<Transaction, Set<String>> updatedObjects = new HashMap<Session.Transaction, Set<String>>();
+		private Map<Transaction, Set<String>> deletedObjects = new HashMap<Session.Transaction, Set<String>>();
+		private Map<Transaction, Set<String>> deletedManyObjects = new HashMap<Session.Transaction, Set<String>>();
 
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
@@ -288,7 +293,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public <O> void preExecuteInsert(O object) {
+		public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object) {
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
 					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.INSERT, (EObject) object);
@@ -300,10 +305,18 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 				}
 			}
+
+			Transaction transaction = getTransaction();
+			Set<String> set = insertedObjects.get(transaction);
+			if( set == null ) {
+				set = new HashSet<String>();
+				insertedObjects.put(transaction, set);
+			}
+			set.add(toString(mapper,object));
 		}
 
 		@Override
-		public <O> void preExecuteUpdate(O object) {
+		public <O> void preExecuteUpdate(ObjectMapper<O> mapper, O object) {
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
 					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.UPDATE, (EObject) object);
@@ -315,6 +328,53 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 				}
 			}
+
+			Transaction transaction = getTransaction();
+			Set<String> set = updatedObjects.get(transaction);
+			if( set == null ) {
+				set = new HashSet<String>();
+				updatedObjects.put(transaction, set);
+			}
+			set.add(toString(mapper,object));
+		}
+
+		@Override
+		public <O> void preExecuteDelete(ObjectMapper<O> mapper, O object) {
+			Transaction transaction = getTransaction();
+			Set<String> set = deletedObjects.get(transaction);
+			if( set == null ) {
+				set = new HashSet<String>();
+				deletedObjects.put(transaction, set);
+			}
+			set.add(toString(mapper,object));
+		}
+
+		@Override
+		public <P> void preExecuteDeleteById(EClass eClass, Collection<P> keys) {
+			Transaction transaction = getTransaction();
+			Set<String> set = deletedObjects.get(transaction);
+			if( set == null ) {
+				set = new HashSet<String>();
+				deletedObjects.put(transaction, set);
+			}
+			for( P k : keys ) {
+				set.add(eClass.getName()+"#"+k);
+			}
+		}
+
+		@Override
+		public void preExecuteDeleteMany(EClass eClass) {
+			Transaction transaction = getTransaction();
+			Set<String> set = deletedManyObjects.get(transaction);
+			if( set == null ) {
+				set = new HashSet<String>();
+				deletedManyObjects.put(transaction, set);
+			}
+			set.add(eClass.getName());
+		}
+
+		private <O> String toString(ObjectMapper<O> mapper, O object) {
+			return ((EObject)object).eClass().getName()+"#"+getPrimaryKey(mapper, object);
 		}
 
 		@Override
@@ -499,6 +559,12 @@ public class JavaSessionFactory implements SessionFactory {
 							Map<String, Object> properties = new HashMap<String, Object>();
 							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
 							properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_COMMIT);
+
+							properties.put(DATA_INSERTED_OBJECTS, notNull(insertedObjects.get(transaction)));
+							properties.put(DATA_UPDATED_OBJECTS, notNull(updatedObjects.get(transaction)));
+							properties.put(DATA_DELETED_OBJECTS, notNull(deletedObjects.get(transaction)));
+							properties.put(DATA_DELETED_MANY, notNull(deletedManyObjects.get(transaction)));
+
 							eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
 						}
 					} catch( SQLException e ) {
@@ -541,6 +607,10 @@ public class JavaSessionFactory implements SessionFactory {
 				// clear transaction primary key cache
 				transactionPrimaryKeyCache.remove(transaction);
 				transactionData.remove(transaction);
+				insertedObjects.remove(transaction);
+				updatedObjects.remove(transaction);
+				deletedObjects.remove(transaction);
+				deletedManyObjects.remove(transaction);
 
 				try {
 					connection.setAutoCommit(true);
@@ -561,6 +631,14 @@ public class JavaSessionFactory implements SessionFactory {
 
 			if( isDebug ) {
 				LOGGER.debug("Finished transaction '"+transactionId+"'");
+			}
+		}
+
+		private Set<String> notNull(Set<String> set) {
+			if( set == null ) {
+				return Collections.emptySet();
+			} else {
+				return Collections.unmodifiableSet(set);
 			}
 		}
 

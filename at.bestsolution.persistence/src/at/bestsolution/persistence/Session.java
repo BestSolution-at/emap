@@ -24,6 +24,10 @@ public interface Session extends Closeable {
 	public static final String DATA_SESSION_ID_TOPIC_TRANSACTION_START = "session-id";
 	public static final String DATA_SESSION_ID_TOPIC_TRANSACTION_END = "session-id";
 	public static final String DATA_STATUS_TOPIC_TRANSACTION_END = "status";
+	public static final String DATA_INSERTED_OBJECTS = "inserted-objects";
+	public static final String DATA_UPDATED_OBJECTS = "updated-objects";
+	public static final String DATA_DELETED_OBJECTS = "deleted-objects";
+	public static final String DATA_DELETED_MANY = "deleted-many";
 	public static final String VALUE_COMMIT = "commit";
 	public static final String VALUE_ROLLBACK = "rollback";
 

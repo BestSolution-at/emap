@@ -43,7 +43,7 @@ class JavaInsertUpdateGenerator {
 		«checkTx»
 
 		// Inform session about the update
-		session.preExecuteUpdate(object);
+		session.preExecuteUpdate(this,object);
 
 		// Built the query
 		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
@@ -194,7 +194,7 @@ class JavaInsertUpdateGenerator {
 		«checkTx»
 
 		// Inform session about the insert
-		session.preExecuteInsert(object);
+		session.preExecuteInsert(this,object);
 
 		«val pkAttribute = entityDef.entity.collectDerivedAttributes.values.findFirst[pk]»
 
@@ -398,6 +398,7 @@ class JavaInsertUpdateGenerator {
 		if (isDebug) LOGGER.debug("Executing deleteAll");
 
 		final String criteriaStr = criteria.getCriteria();
+		session.preExecuteDeleteMany(«eClass.toFullQualifiedJavaEClass»);
 
 		// build delete query
 		String deleteQuery = "DELETE FROM \"«entityDef.tableName»\"";
@@ -417,7 +418,7 @@ class JavaInsertUpdateGenerator {
 					selectQuery += " WHERE " + criteriaStr;
 				}
 				if (isDebug) LOGGER.debug("Final select query: " + selectQuery);
-				
+
 				// execute select
 				List<Object> objectIds = new ArrayList<Object>();
 				PreparedStatement pstmtSelect = null;
@@ -428,7 +429,7 @@ class JavaInsertUpdateGenerator {
 					for(TypedValue t : criteria.getParameters()) {
 						Util.setValue(pstmtSelect, idx++, t);
 					}
-					
+
 					resultSetSelect = pstmtSelect.executeQuery();
 					while (resultSetSelect.next()) {
 						objectIds.add(resultSetSelect.getLong("«entityDef.PKAttribute.columnName»"));
@@ -442,7 +443,7 @@ class JavaInsertUpdateGenerator {
 						pstmtSelect.close();
 					}
 				}
-				
+
 				// execute clear many to many relations
 				«FOR a : manyToManyReferences»
 					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
@@ -475,7 +476,7 @@ class JavaInsertUpdateGenerator {
 			session.returnConnection(connection);
 		}
 
-		
+
 	}
 
 	@Override
@@ -486,6 +487,8 @@ class JavaInsertUpdateGenerator {
 		}
 
 		«checkTx»
+
+		session.preExecuteDeleteMany(«eClass.toFullQualifiedJavaEClass»);
 
 		// we need to clean up the session
 		session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterAllObjectsAfterTx(«eClass.toFullQualifiedJavaEClass»));
@@ -566,8 +569,9 @@ class JavaInsertUpdateGenerator {
 		}
 
 		«checkTx»
-
 		final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
+		session.preExecuteDeleteById(eClass,objectIds);
+
 		for(Object id : objectIds) {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
 		}
@@ -620,6 +624,7 @@ class JavaInsertUpdateGenerator {
 		«checkTx»
 
 		final List<Object> objectIds = extractObjectIds(object);
+		session.preExecuteDeleteById(«eClass.toFullQualifiedJavaEClass»,objectIds);
 
 		for(«eClass.name» o : object) {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
