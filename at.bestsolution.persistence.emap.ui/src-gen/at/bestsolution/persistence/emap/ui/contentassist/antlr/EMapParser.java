@@ -94,6 +94,13 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getENamedCustomQueryAccess().getGroup_2_1_1(), "rule__ENamedCustomQuery__Group_2_1_1__0");
 					put(grammarAccess.getETypeDefAccess().getGroup(), "rule__ETypeDef__Group__0");
 					put(grammarAccess.getETypeDefAccess().getGroup_4(), "rule__ETypeDef__Group_4__0");
+					put(grammarAccess.getEModelTypeDefAccess().getGroup(), "rule__EModelTypeDef__Group__0");
+					put(grammarAccess.getEModelTypeDefAccess().getGroup_3(), "rule__EModelTypeDef__Group_3__0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getGroup(), "rule__EModelTypeAttribute__Group__0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getGroup_1(), "rule__EModelTypeAttribute__Group_1__0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getGroup_1_2(), "rule__EModelTypeAttribute__Group_1_2__0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getGroup_1_2_1(), "rule__EModelTypeAttribute__Group_1_2_1__0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getGroup_1_2_1_1(), "rule__EModelTypeAttribute__Group_1_2_1_1__0");
 					put(grammarAccess.getEValueTypeAttributeAccess().getGroup(), "rule__EValueTypeAttribute__Group__0");
 					put(grammarAccess.getEParameterAccess().getGroup(), "rule__EParameter__Group__0");
 					put(grammarAccess.getEQueryAccess().getGroup(), "rule__EQuery__Group__0");
@@ -177,6 +184,13 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getETypeDefAccess().getNameAssignment_1(), "rule__ETypeDef__NameAssignment_1");
 					put(grammarAccess.getETypeDefAccess().getTypesAssignment_3(), "rule__ETypeDef__TypesAssignment_3");
 					put(grammarAccess.getETypeDefAccess().getTypesAssignment_4_1(), "rule__ETypeDef__TypesAssignment_4_1");
+					put(grammarAccess.getEModelTypeDefAccess().getEclassDefAssignment_0(), "rule__EModelTypeDef__EclassDefAssignment_0");
+					put(grammarAccess.getEModelTypeDefAccess().getAttributesAssignment_2(), "rule__EModelTypeDef__AttributesAssignment_2");
+					put(grammarAccess.getEModelTypeDefAccess().getAttributesAssignment_3_1(), "rule__EModelTypeDef__AttributesAssignment_3_1");
+					put(grammarAccess.getEModelTypeAttributeAccess().getNameAssignment_0(), "rule__EModelTypeAttribute__NameAssignment_0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getQueryAssignment_1_1(), "rule__EModelTypeAttribute__QueryAssignment_1_1");
+					put(grammarAccess.getEModelTypeAttributeAccess().getParametersAssignment_1_2_1_0(), "rule__EModelTypeAttribute__ParametersAssignment_1_2_1_0");
+					put(grammarAccess.getEModelTypeAttributeAccess().getParametersAssignment_1_2_1_1_1(), "rule__EModelTypeAttribute__ParametersAssignment_1_2_1_1_1");
 					put(grammarAccess.getEValueTypeAttributeAccess().getTypeAssignment_0(), "rule__EValueTypeAttribute__TypeAssignment_0");
 					put(grammarAccess.getEValueTypeAttributeAccess().getNameAssignment_1(), "rule__EValueTypeAttribute__NameAssignment_1");
 					put(grammarAccess.getEParameterAccess().getIdAssignment_0(), "rule__EParameter__IdAssignment_0");

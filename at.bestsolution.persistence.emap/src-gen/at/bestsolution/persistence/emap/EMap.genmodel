@@ -83,6 +83,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ETypeDef/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ETypeDef/types"/>
     </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EModelTypeDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EModelTypeDef/eclassDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EModelTypeDef/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EModelTypeAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EModelTypeAttribute/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/parameters"/>
+    </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EValueTypeAttribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueTypeAttribute/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueTypeAttribute/name"/>

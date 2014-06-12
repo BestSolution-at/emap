@@ -140,6 +140,16 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createETypeDefAdapter();
       }
       @Override
+      public Adapter caseEModelTypeDef(EModelTypeDef object)
+      {
+        return createEModelTypeDefAdapter();
+      }
+      @Override
+      public Adapter caseEModelTypeAttribute(EModelTypeAttribute object)
+      {
+        return createEModelTypeAttributeAdapter();
+      }
+      @Override
       public Adapter caseEValueTypeAttribute(EValueTypeAttribute object)
       {
         return createEValueTypeAttributeAdapter();
@@ -387,6 +397,36 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createETypeDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef <em>EModel Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeDef
+   * @generated
+   */
+  public Adapter createEModelTypeDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute <em>EModel Type Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute
+   * @generated
+   */
+  public Adapter createEModelTypeAttributeAdapter()
   {
     return null;
   }

@@ -165,6 +165,21 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.EMODEL_TYPE_DEF:
+      {
+        EModelTypeDef eModelTypeDef = (EModelTypeDef)theEObject;
+        T result = caseEModelTypeDef(eModelTypeDef);
+        if (result == null) result = caseEReturnType(eModelTypeDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE:
+      {
+        EModelTypeAttribute eModelTypeAttribute = (EModelTypeAttribute)theEObject;
+        T result = caseEModelTypeAttribute(eModelTypeAttribute);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.EVALUE_TYPE_ATTRIBUTE:
       {
         EValueTypeAttribute eValueTypeAttribute = (EValueTypeAttribute)theEObject;
@@ -422,6 +437,38 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseETypeDef(ETypeDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EModel Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EModel Type Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEModelTypeDef(EModelTypeDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EModel Type Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EModel Type Attribute</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEModelTypeAttribute(EModelTypeAttribute object)
   {
     return null;
   }

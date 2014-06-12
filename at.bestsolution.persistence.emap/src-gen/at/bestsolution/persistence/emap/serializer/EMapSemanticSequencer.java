@@ -8,6 +8,8 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute;
 import at.bestsolution.persistence.emap.eMap.EMappingBundle;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef;
+import at.bestsolution.persistence.emap.eMap.EModelTypeAttribute;
+import at.bestsolution.persistence.emap.eMap.EModelTypeDef;
 import at.bestsolution.persistence.emap.eMap.ENamedCustomQuery;
 import at.bestsolution.persistence.emap.eMap.ENamedQuery;
 import at.bestsolution.persistence.emap.eMap.EObjectSection;
@@ -82,6 +84,19 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EMapPackage.EMAPPING_ENTITY_DEF:
 				if(context == grammarAccess.getEMappingEntityDefRule()) {
 					sequence_EMappingEntityDef(context, (EMappingEntityDef) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.EMODEL_TYPE_ATTRIBUTE:
+				if(context == grammarAccess.getEModelTypeAttributeRule()) {
+					sequence_EModelTypeAttribute(context, (EModelTypeAttribute) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.EMODEL_TYPE_DEF:
+				if(context == grammarAccess.getEModelTypeDefRule() ||
+				   context == grammarAccess.getEReturnTypeRule()) {
+					sequence_EModelTypeDef(context, (EModelTypeDef) semanticObject); 
 					return; 
 				}
 				else break;
@@ -242,6 +257,24 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (root=EMappingBundle | root=EMappingEntityDef)
 	 */
 	protected void sequence_EMapping(EObject context, EMapping semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (query=[ENamedCustomQuery|QualifiedName] (parameters+=ID parameters+=ID*)?)?)
+	 */
+	protected void sequence_EModelTypeAttribute(EObject context, EModelTypeAttribute semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (eclassDef=EType attributes+=EModelTypeAttribute attributes+=EModelTypeAttribute*)
+	 */
+	protected void sequence_EModelTypeDef(EObject context, EModelTypeDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

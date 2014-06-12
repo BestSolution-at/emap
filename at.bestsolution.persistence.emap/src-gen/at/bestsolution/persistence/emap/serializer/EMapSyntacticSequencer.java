@@ -18,12 +18,14 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected EMapGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q;
 	protected AbstractElementAlias match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (EMapGrammarAccess) access;
+		match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getLeftParenthesisKeyword_1_2_0()), new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2()));
 		match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getRightParenthesisKeyword_2_2()));
 		match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getRightParenthesisKeyword_2_2()));
 	}
@@ -40,7 +42,9 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
+			if(match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q.equals(syntax))
+				emit_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
@@ -48,6 +52,14 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 		}
 	}
 
+	/**
+	 * Syntax:
+	 *     ('(' ')')?
+	 */
+	protected void emit_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Syntax:
 	 *     ('(' ')')?

@@ -1021,12 +1021,13 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cEPredefinedTypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cETypeDefParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cEModelTypeDefParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//EReturnType:
-		//	EPredefinedType | ETypeDef;
+		//	EPredefinedType | ETypeDef | EModelTypeDef;
 		public ParserRule getRule() { return rule; }
 
-		//EPredefinedType | ETypeDef
+		//EPredefinedType | ETypeDef | EModelTypeDef
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//EPredefinedType
@@ -1034,6 +1035,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ETypeDef
 		public RuleCall getETypeDefParserRuleCall_1() { return cETypeDefParserRuleCall_1; }
+
+		//EModelTypeDef
+		public RuleCall getEModelTypeDefParserRuleCall_2() { return cEModelTypeDefParserRuleCall_2; }
 	}
 
 	public class EPredefinedTypeElements extends AbstractParserRuleElementFinder {
@@ -1114,6 +1118,138 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+	}
+
+	public class EModelTypeDefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EModelTypeDef");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cEclassDefAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cEclassDefETypeParserRuleCall_0_0 = (RuleCall)cEclassDefAssignment_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cAttributesAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cAttributesEModelTypeAttributeParserRuleCall_2_0 = (RuleCall)cAttributesAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cAttributesAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cAttributesEModelTypeAttributeParserRuleCall_3_1_0 = (RuleCall)cAttributesAssignment_3_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//EModelTypeDef:
+		//	eclassDef=EType "(" attributes+=EModelTypeAttribute ("," attributes+=EModelTypeAttribute)* ")";
+		public ParserRule getRule() { return rule; }
+
+		//eclassDef=EType "(" attributes+=EModelTypeAttribute ("," attributes+=EModelTypeAttribute)* ")"
+		public Group getGroup() { return cGroup; }
+
+		//eclassDef=EType
+		public Assignment getEclassDefAssignment_0() { return cEclassDefAssignment_0; }
+
+		//EType
+		public RuleCall getEclassDefETypeParserRuleCall_0_0() { return cEclassDefETypeParserRuleCall_0_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+
+		//attributes+=EModelTypeAttribute
+		public Assignment getAttributesAssignment_2() { return cAttributesAssignment_2; }
+
+		//EModelTypeAttribute
+		public RuleCall getAttributesEModelTypeAttributeParserRuleCall_2_0() { return cAttributesEModelTypeAttributeParserRuleCall_2_0; }
+
+		//("," attributes+=EModelTypeAttribute)*
+		public Group getGroup_3() { return cGroup_3; }
+
+		//","
+		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+
+		//attributes+=EModelTypeAttribute
+		public Assignment getAttributesAssignment_3_1() { return cAttributesAssignment_3_1; }
+
+		//EModelTypeAttribute
+		public RuleCall getAttributesEModelTypeAttributeParserRuleCall_3_1_0() { return cAttributesEModelTypeAttributeParserRuleCall_3_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
+	}
+
+	public class EModelTypeAttributeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EModelTypeAttribute");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cResolveKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cQueryAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cQueryENamedCustomQueryCrossReference_1_1_0 = (CrossReference)cQueryAssignment_1_1.eContents().get(0);
+		private final RuleCall cQueryENamedCustomQueryQualifiedNameParserRuleCall_1_1_0_1 = (RuleCall)cQueryENamedCustomQueryCrossReference_1_1_0.eContents().get(1);
+		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
+		private final Assignment cParametersAssignment_1_2_1_0 = (Assignment)cGroup_1_2_1.eContents().get(0);
+		private final RuleCall cParametersIDTerminalRuleCall_1_2_1_0_0 = (RuleCall)cParametersAssignment_1_2_1_0.eContents().get(0);
+		private final Group cGroup_1_2_1_1 = (Group)cGroup_1_2_1.eContents().get(1);
+		private final Keyword cCommaKeyword_1_2_1_1_0 = (Keyword)cGroup_1_2_1_1.eContents().get(0);
+		private final Assignment cParametersAssignment_1_2_1_1_1 = (Assignment)cGroup_1_2_1_1.eContents().get(1);
+		private final RuleCall cParametersIDTerminalRuleCall_1_2_1_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
+		
+		//EModelTypeAttribute:
+		//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?;
+		public ParserRule getRule() { return rule; }
+
+		//name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"resolve"
+		public Keyword getResolveKeyword_1_0() { return cResolveKeyword_1_0; }
+
+		//query=[ENamedCustomQuery|QualifiedName]
+		public Assignment getQueryAssignment_1_1() { return cQueryAssignment_1_1; }
+
+		//[ENamedCustomQuery|QualifiedName]
+		public CrossReference getQueryENamedCustomQueryCrossReference_1_1_0() { return cQueryENamedCustomQueryCrossReference_1_1_0; }
+
+		//QualifiedName
+		public RuleCall getQueryENamedCustomQueryQualifiedNameParserRuleCall_1_1_0_1() { return cQueryENamedCustomQueryQualifiedNameParserRuleCall_1_1_0_1; }
+
+		//("(" (parameters+=ID ("," parameters+=ID)*)? ")")?
+		public Group getGroup_1_2() { return cGroup_1_2; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_1_2_0() { return cLeftParenthesisKeyword_1_2_0; }
+
+		//(parameters+=ID ("," parameters+=ID)*)?
+		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
+
+		//parameters+=ID
+		public Assignment getParametersAssignment_1_2_1_0() { return cParametersAssignment_1_2_1_0; }
+
+		//ID
+		public RuleCall getParametersIDTerminalRuleCall_1_2_1_0_0() { return cParametersIDTerminalRuleCall_1_2_1_0_0; }
+
+		//("," parameters+=ID)*
+		public Group getGroup_1_2_1_1() { return cGroup_1_2_1_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_2_1_1_0() { return cCommaKeyword_1_2_1_1_0; }
+
+		//parameters+=ID
+		public Assignment getParametersAssignment_1_2_1_1_1() { return cParametersAssignment_1_2_1_1_1; }
+
+		//ID
+		public RuleCall getParametersIDTerminalRuleCall_1_2_1_1_1_0() { return cParametersIDTerminalRuleCall_1_2_1_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_1_2_2() { return cRightParenthesisKeyword_1_2_2; }
 	}
 
 	public class EValueTypeAttributeElements extends AbstractParserRuleElementFinder {
@@ -1769,6 +1905,8 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	private EReturnTypeElements pEReturnType;
 	private EPredefinedTypeElements pEPredefinedType;
 	private ETypeDefElements pETypeDef;
+	private EModelTypeDefElements pEModelTypeDef;
+	private EModelTypeAttributeElements pEModelTypeAttribute;
 	private EValueTypeAttributeElements pEValueTypeAttribute;
 	private ReturnTypeElements unknownRuleReturnType;
 	private EParameterElements pEParameter;
@@ -1958,7 +2096,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EReturnType:
-	//	EPredefinedType | ETypeDef;
+	//	EPredefinedType | ETypeDef | EModelTypeDef;
 	public EReturnTypeElements getEReturnTypeAccess() {
 		return (pEReturnType != null) ? pEReturnType : (pEReturnType = new EReturnTypeElements());
 	}
@@ -1985,6 +2123,26 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getETypeDefRule() {
 		return getETypeDefAccess().getRule();
+	}
+
+	//EModelTypeDef:
+	//	eclassDef=EType "(" attributes+=EModelTypeAttribute ("," attributes+=EModelTypeAttribute)* ")";
+	public EModelTypeDefElements getEModelTypeDefAccess() {
+		return (pEModelTypeDef != null) ? pEModelTypeDef : (pEModelTypeDef = new EModelTypeDefElements());
+	}
+	
+	public ParserRule getEModelTypeDefRule() {
+		return getEModelTypeDefAccess().getRule();
+	}
+
+	//EModelTypeAttribute:
+	//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?;
+	public EModelTypeAttributeElements getEModelTypeAttributeAccess() {
+		return (pEModelTypeAttribute != null) ? pEModelTypeAttribute : (pEModelTypeAttribute = new EModelTypeAttributeElements());
+	}
+	
+	public ParserRule getEModelTypeAttributeRule() {
+		return getEModelTypeAttributeAccess().getRule();
 	}
 
 	//EValueTypeAttribute:

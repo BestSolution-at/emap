@@ -10,6 +10,8 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute;
 import at.bestsolution.persistence.emap.eMap.EMappingBundle;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef;
+import at.bestsolution.persistence.emap.eMap.EModelTypeAttribute;
+import at.bestsolution.persistence.emap.eMap.EModelTypeDef;
 import at.bestsolution.persistence.emap.eMap.ENamedCustomQuery;
 import at.bestsolution.persistence.emap.eMap.ENamedQuery;
 import at.bestsolution.persistence.emap.eMap.EObjectSection;
@@ -131,6 +133,20 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eTypeDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eModelTypeDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eModelTypeAttributeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -856,6 +872,76 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEModelTypeDef()
+  {
+    return eModelTypeDefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEModelTypeDef_EclassDef()
+  {
+    return (EReference)eModelTypeDefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEModelTypeDef_Attributes()
+  {
+    return (EReference)eModelTypeDefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEModelTypeAttribute()
+  {
+    return eModelTypeAttributeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEModelTypeAttribute_Name()
+  {
+    return (EAttribute)eModelTypeAttributeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEModelTypeAttribute_Query()
+  {
+    return (EReference)eModelTypeAttributeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEModelTypeAttribute_Parameters()
+  {
+    return (EAttribute)eModelTypeAttributeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getEValueTypeAttribute()
   {
     return eValueTypeAttributeEClass;
@@ -1364,6 +1450,15 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eTypeDefEClass, ETYPE_DEF__NAME);
     createEReference(eTypeDefEClass, ETYPE_DEF__TYPES);
 
+    eModelTypeDefEClass = createEClass(EMODEL_TYPE_DEF);
+    createEReference(eModelTypeDefEClass, EMODEL_TYPE_DEF__ECLASS_DEF);
+    createEReference(eModelTypeDefEClass, EMODEL_TYPE_DEF__ATTRIBUTES);
+
+    eModelTypeAttributeEClass = createEClass(EMODEL_TYPE_ATTRIBUTE);
+    createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__NAME);
+    createEReference(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__QUERY);
+    createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__PARAMETERS);
+
     eValueTypeAttributeEClass = createEClass(EVALUE_TYPE_ATTRIBUTE);
     createEAttribute(eValueTypeAttributeEClass, EVALUE_TYPE_ATTRIBUTE__TYPE);
     createEAttribute(eValueTypeAttributeEClass, EVALUE_TYPE_ATTRIBUTE__NAME);
@@ -1446,6 +1541,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     // Add supertypes to classes
     ePredefinedTypeEClass.getESuperTypes().add(this.getEReturnType());
     eTypeDefEClass.getESuperTypes().add(this.getEReturnType());
+    eModelTypeDefEClass.getESuperTypes().add(this.getEReturnType());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eMappingEClass, EMapping.class, "EMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1520,6 +1616,15 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eTypeDefEClass, ETypeDef.class, "ETypeDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getETypeDef_Name(), ecorePackage.getEString(), "name", null, 0, 1, ETypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getETypeDef_Types(), this.getEValueTypeAttribute(), null, "types", null, 0, -1, ETypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eModelTypeDefEClass, EModelTypeDef.class, "EModelTypeDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEModelTypeDef_EclassDef(), this.getEType(), null, "eclassDef", null, 0, 1, EModelTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEModelTypeDef_Attributes(), this.getEModelTypeAttribute(), null, "attributes", null, 0, -1, EModelTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eModelTypeAttributeEClass, EModelTypeAttribute.class, "EModelTypeAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEModelTypeAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEModelTypeAttribute_Query(), this.getENamedCustomQuery(), null, "query", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEModelTypeAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eValueTypeAttributeEClass, EValueTypeAttribute.class, "EValueTypeAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEValueTypeAttribute_Type(), ecorePackage.getEString(), "type", null, 0, 1, EValueTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

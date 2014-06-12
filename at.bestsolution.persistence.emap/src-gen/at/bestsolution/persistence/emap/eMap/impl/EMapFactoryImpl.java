@@ -78,6 +78,8 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.ERETURN_TYPE: return createEReturnType();
       case EMapPackage.EPREDEFINED_TYPE: return createEPredefinedType();
       case EMapPackage.ETYPE_DEF: return createETypeDef();
+      case EMapPackage.EMODEL_TYPE_DEF: return createEModelTypeDef();
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE: return createEModelTypeAttribute();
       case EMapPackage.EVALUE_TYPE_ATTRIBUTE: return createEValueTypeAttribute();
       case EMapPackage.EPARAMETER: return createEParameter();
       case EMapPackage.EQUERY: return createEQuery();
@@ -265,6 +267,28 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     ETypeDefImpl eTypeDef = new ETypeDefImpl();
     return eTypeDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EModelTypeDef createEModelTypeDef()
+  {
+    EModelTypeDefImpl eModelTypeDef = new EModelTypeDefImpl();
+    return eModelTypeDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EModelTypeAttribute createEModelTypeAttribute()
+  {
+    EModelTypeAttributeImpl eModelTypeAttribute = new EModelTypeAttributeImpl();
+    return eModelTypeAttribute;
   }
 
   /**

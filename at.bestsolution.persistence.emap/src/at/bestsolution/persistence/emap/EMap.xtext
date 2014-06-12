@@ -82,7 +82,7 @@ ENamedCustomQuery:
 ;
 
 EReturnType:
-	EPredefinedType | ETypeDef
+	EPredefinedType | ETypeDef | EModelTypeDef
 ;
 
 EPredefinedType:
@@ -91,6 +91,14 @@ EPredefinedType:
 
 ETypeDef:
 	'typedef' name=FQN '(' types+=EValueTypeAttribute (',' types+=EValueTypeAttribute)* ')'
+;
+
+EModelTypeDef:
+	eclassDef = EType '(' attributes+=EModelTypeAttribute ( ',' attributes+=EModelTypeAttribute)* ')'
+;
+
+EModelTypeAttribute:
+	name=ID ('resolve' query=[ENamedCustomQuery|QualifiedName] ('('(parameters+=ID (',' parameters+=ID)*)? ')')?)?
 ;
 
 EValueTypeAttribute:

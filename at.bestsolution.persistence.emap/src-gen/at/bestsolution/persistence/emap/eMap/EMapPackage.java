@@ -728,6 +728,89 @@ public interface EMapPackage extends EPackage
   int ETYPE_DEF_FEATURE_COUNT = ERETURN_TYPE_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl <em>EModel Type Def</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeDef()
+   * @generated
+   */
+  int EMODEL_TYPE_DEF = 13;
+
+  /**
+   * The feature id for the '<em><b>Eclass Def</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_DEF__ECLASS_DEF = ERETURN_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_DEF__ATTRIBUTES = ERETURN_TYPE_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>EModel Type Def</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_DEF_FEATURE_COUNT = ERETURN_TYPE_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl <em>EModel Type Attribute</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeAttribute()
+   * @generated
+   */
+  int EMODEL_TYPE_ATTRIBUTE = 14;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Query</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE__QUERY = 1;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE__PARAMETERS = 2;
+
+  /**
+   * The number of structural features of the '<em>EModel Type Attribute</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -735,7 +818,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueTypeAttribute()
    * @generated
    */
-  int EVALUE_TYPE_ATTRIBUTE = 13;
+  int EVALUE_TYPE_ATTRIBUTE = 15;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -772,7 +855,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEParameter()
    * @generated
    */
-  int EPARAMETER = 14;
+  int EPARAMETER = 16;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -818,7 +901,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQuery()
    * @generated
    */
-  int EQUERY = 15;
+  int EQUERY = 17;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -900,7 +983,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomQuery()
    * @generated
    */
-  int ECUSTOM_QUERY = 16;
+  int ECUSTOM_QUERY = 18;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -982,7 +1065,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEObjectSection()
    * @generated
    */
-  int EOBJECT_SECTION = 17;
+  int EOBJECT_SECTION = 19;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -1037,7 +1120,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingAttribute()
    * @generated
    */
-  int EMAPPING_ATTRIBUTE = 18;
+  int EMAPPING_ATTRIBUTE = 20;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -1128,7 +1211,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEType()
    * @generated
    */
-  int ETYPE = 19;
+  int ETYPE = 21;
 
   /**
    * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -1165,7 +1248,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 20;
+  int RETURN_TYPE = 22;
 
 
   /**
@@ -1814,6 +1897,81 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EReference getETypeDef_Types();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef <em>EModel Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EModel Type Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeDef
+   * @generated
+   */
+  EClass getEModelTypeDef();
+
+  /**
+   * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef#getEclassDef <em>Eclass Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Eclass Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeDef#getEclassDef()
+   * @see #getEModelTypeDef()
+   * @generated
+   */
+  EReference getEModelTypeDef_EclassDef();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef#getAttributes <em>Attributes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Attributes</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeDef#getAttributes()
+   * @see #getEModelTypeDef()
+   * @generated
+   */
+  EReference getEModelTypeDef_Attributes();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute <em>EModel Type Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EModel Type Attribute</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute
+   * @generated
+   */
+  EClass getEModelTypeAttribute();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getName()
+   * @see #getEModelTypeAttribute()
+   * @generated
+   */
+  EAttribute getEModelTypeAttribute_Name();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getQuery <em>Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getQuery()
+   * @see #getEModelTypeAttribute()
+   * @generated
+   */
+  EReference getEModelTypeAttribute_Query();
+
+  /**
+   * Returns the meta object for the attribute list '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Parameters</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getParameters()
+   * @see #getEModelTypeAttribute()
+   * @generated
+   */
+  EAttribute getEModelTypeAttribute_Parameters();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute <em>EValue Type Attribute</em>}'.
@@ -2786,6 +2944,66 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EReference ETYPE_DEF__TYPES = eINSTANCE.getETypeDef_Types();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl <em>EModel Type Def</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeDef()
+     * @generated
+     */
+    EClass EMODEL_TYPE_DEF = eINSTANCE.getEModelTypeDef();
+
+    /**
+     * The meta object literal for the '<em><b>Eclass Def</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMODEL_TYPE_DEF__ECLASS_DEF = eINSTANCE.getEModelTypeDef_EclassDef();
+
+    /**
+     * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMODEL_TYPE_DEF__ATTRIBUTES = eINSTANCE.getEModelTypeDef_Attributes();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl <em>EModel Type Attribute</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeAttribute()
+     * @generated
+     */
+    EClass EMODEL_TYPE_ATTRIBUTE = eINSTANCE.getEModelTypeAttribute();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMODEL_TYPE_ATTRIBUTE__NAME = eINSTANCE.getEModelTypeAttribute_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Query</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMODEL_TYPE_ATTRIBUTE__QUERY = eINSTANCE.getEModelTypeAttribute_Query();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMODEL_TYPE_ATTRIBUTE__PARAMETERS = eINSTANCE.getEModelTypeAttribute_Parameters();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.

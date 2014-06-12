@@ -35,7 +35,7 @@ class JavaObjectMapperGenerator {
 
   @Inject
   var CustomQueryGenerator customQueryGen;
-  
+
   @Inject
   var QueryGenerator queryGen;
 
@@ -100,6 +100,7 @@ class JavaObjectMapperGenerator {
 	import at.bestsolution.persistence.Callback;
 	import java.util.Collections;
 	import java.util.Collection;
+	import org.eclipse.emf.ecore.util.EcoreUtil;
 
 	// «generatorCredit»
 	@SuppressWarnings("all")
@@ -152,7 +153,7 @@ class JavaObjectMapperGenerator {
 			}
 
 
-			
+
 
 			// «generatorCredit»
 			@Override
@@ -378,7 +379,7 @@ class JavaObjectMapperGenerator {
 
 
 
-  
+
 
   def resolve(EMappingEntity entity, EClass eClass) '''
     «eClass.instanceClassName» target = («eClass.instanceClassName»)eo;

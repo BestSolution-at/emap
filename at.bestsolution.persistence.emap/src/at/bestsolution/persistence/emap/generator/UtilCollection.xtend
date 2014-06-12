@@ -33,6 +33,9 @@ import com.google.inject.Inject
 import at.bestsolution.persistence.emap.eMap.EType
 import org.eclipse.emf.ecore.EEnum
 import org.eclipse.xtext.xbase.lib.Functions.Function1
+import at.bestsolution.persistence.emap.eMap.EPredefinedType
+import at.bestsolution.persistence.emap.eMap.ETypeDef
+import at.bestsolution.persistence.emap.eMap.EModelTypeDef
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
@@ -315,6 +318,24 @@ class UtilCollection {
 			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
 		} else {
 			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject("'+keyName+'"))'
+		}
+	}
+
+	def resultMethod(EStructuralFeature f, String varName, int idx) {
+		if( "java.lang.String" == f.EType.instanceClassName ) {
+			return varName + '.getString('+idx+')'
+		} else if( "long" == f.EType.instanceClassName ) {
+			return varName + '.getLong('+idx+')'
+		} else if( "int" == f.EType.instanceClassName ) {
+			return varName + '.getInt('+idx+')'
+		} else if( "double" == f.EType.instanceClassName ) {
+			return varName + '.getDouble('+idx+')'
+		} else if( "boolean" == f.EType.instanceClassName ) {
+			return varName + '.getBoolean('+idx+')'
+//		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
+//			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
+		} else {
+			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject('+idx+'))'
 		}
 	}
 
@@ -721,6 +742,18 @@ class UtilCollection {
 		val eClass = f.eContainer as EClass;
 		return eClass.packageName + "." + eClass.EPackage.name.toFirstUpper + "Package.eINSTANCE.get" + eClass.name.toFirstUpper + "_" + f.name.toFirstUpper + "()";
 	}
+
+	def dispatch handle(EPredefinedType e) {
+		return e.ref;
+  	}
+
+  	def dispatch handle(ETypeDef e) {
+		return if (e.name.indexOf('.') == -1) ((e.eResource.contents.head as EMapping).root as EMappingEntityDef).package.name+"."+e.name else e.name;
+  	}
+
+  	def dispatch handle(EModelTypeDef e) {
+		return e.eclassDef.lookupEClass.instanceClassName;
+  	}
 
 	def replaceSqlParameters(String v, List<EParameter> parameters) {
     if( parameters.empty ){

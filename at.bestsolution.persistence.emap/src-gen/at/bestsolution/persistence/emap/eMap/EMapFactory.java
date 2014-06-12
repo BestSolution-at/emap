@@ -140,6 +140,24 @@ public interface EMapFactory extends EFactory
   ETypeDef createETypeDef();
 
   /**
+   * Returns a new object of class '<em>EModel Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EModel Type Def</em>'.
+   * @generated
+   */
+  EModelTypeDef createEModelTypeDef();
+
+  /**
+   * Returns a new object of class '<em>EModel Type Attribute</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EModel Type Attribute</em>'.
+   * @generated
+   */
+  EModelTypeAttribute createEModelTypeAttribute();
+
+  /**
    * Returns a new object of class '<em>EValue Type Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

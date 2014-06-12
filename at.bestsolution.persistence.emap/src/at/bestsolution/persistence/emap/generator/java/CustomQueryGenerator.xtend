@@ -19,6 +19,8 @@ import at.bestsolution.persistence.emap.generator.UtilCollection
 import at.bestsolution.persistence.emap.eMap.EReturnType
 import at.bestsolution.persistence.emap.eMap.EValueTypeAttribute
 import java.util.List
+import at.bestsolution.persistence.emap.eMap.EModelTypeDef
+import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.EMapping
 
 class CustomQueryGenerator {
@@ -35,6 +37,21 @@ class CustomQueryGenerator {
 		«IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» rv = «IF q.list»new ArrayList<«q.returnType.handle.toObjectType»>()«ELSE»«IF q.returnType.boolean»false«ELSEIF q.returnType.primitive»0«ELSE»null«ENDIF»«ENDIF»;
 
 		Connection connection = session.checkoutConnection();
+		«IF q.returnType instanceof EModelTypeDef»
+			«FOR a : (q.returnType as EModelTypeDef).attributes.filter[a|a.query != null]»
+			Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»> «a.name»Objects;
+
+			{
+				«a.name»Objects = new HashMap<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>();
+				«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn» mapper = session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
+
+				for( «((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName» o : mapper.«a.query.name»(«a.parameters.join(",")») ) {
+					«a.name»Objects.put(mapper.getPrimaryKeyValue(o),o);
+				}
+			}
+			«ENDFOR»
+		«ENDIF»
+
 		PreparedStatement pstmt = null;
 		ResultSet set = null;
 
@@ -91,6 +108,18 @@ class CustomQueryGenerator {
 				rv.add((«(q.returnType as EPredefinedType).ref.toObjectType»)set.getObject(1));
 				«ELSEIF q.returnType instanceof ETypeDef»
 				rv.add(new «(q.returnType as ETypeDef).handle»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»));
+				«ELSEIF q.returnType instanceof EModelTypeDef»
+				{
+					«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName» modelObj = («(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName»)EcoreUtil.create(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.toFullQualifiedJavaEClass»);
+					«FOR a : (q.returnType as EModelTypeDef).attributes»
+						«IF a.query != null»
+						modelObj.set«a.name.toFirstUpper»(«a.name»Objects.get(set.getLong(«(q.returnType as EModelTypeDef).attributes.indexOf(a)»)));
+						«ELSE»
+						modelObj.set«a.name.toFirstUpper»(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).resultMethod("set",(q.returnType as EModelTypeDef).attributes.indexOf(a))»);
+						«ENDIF»
+					«ENDFOR»
+					rv.add(modelObj);
+				}
 				«ELSE»
 				rv.add(«(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+""));
 				«ENDIF»
@@ -105,6 +134,15 @@ class CustomQueryGenerator {
 				rv = set.«(q.returnType as EPredefinedType).resultMethodType»(1);
 				«ELSEIF q.returnType instanceof ETypeDef»
 				rv = new «(q.returnType as ETypeDef).fqn(entityDef)»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»);
+				«ELSEIF q.returnType instanceof EModelTypeDef»
+				rv = («(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName»)EcoreUtil.create(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.toFullQualifiedJavaEClass»);
+				«FOR a : (q.returnType as EModelTypeDef).attributes»
+					«IF a.query != null»
+						rv.set«a.name.toFirstUpper»(«a.name»Objects.get(set.getLong(«(q.returnType as EModelTypeDef).attributes.indexOf(a)»)));
+					«ELSE»
+						rv.set«a.name.toFirstUpper»(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).resultMethod("set",(q.returnType as EModelTypeDef).attributes.indexOf(a))»);
+					«ENDIF»
+				«ENDFOR»
 				«ELSE»
 				rv = «(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+"");
 				«ENDIF»
@@ -193,14 +231,6 @@ class CustomQueryGenerator {
 	def isMap(EReturnType t) {
 		return t instanceof EPredefinedType && (t as EPredefinedType).ref == 'map'
 	}
-
-  	def static dispatch handle(EPredefinedType e) {
-		return e.ref;
-  	}
-
-  	def static dispatch handle(ETypeDef e) {
-		return if (e.name.indexOf('.') == -1) ((e.eResource.contents.head as EMapping).root as EMappingEntityDef).package.name+"."+e.name else e.name;
-  	}
 
   	def static toObjectType(String type) {
 		switch(type) {
