@@ -499,7 +499,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 			if( eventAdmin != null ) {
 				Map<String, Object> properties = new HashMap<String, Object>();
-				properties.put(DATA_SESSION_ID, transactionId);
+				properties.put(DATA_SESSION_ID, getId());
 				eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_START, properties));
 			}
 
@@ -557,7 +557,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
-							properties.put(DATA_SESSION_ID, transactionId);
+							properties.put(DATA_SESSION_ID, getId());
 							properties.put(DATA_STATUS, VALUE_COMMIT);
 
 							properties.put(DATA_INSERTED_OBJECTS, notNull(insertedObjects.get(transaction)));
@@ -576,7 +576,7 @@ public class JavaSessionFactory implements SessionFactory {
 						connection.rollback();
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
-							properties.put(DATA_SESSION_ID, transactionId);
+							properties.put(DATA_SESSION_ID, getId());
 							properties.put(DATA_STATUS, VALUE_ROLLBACK);
 							eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
 						}
@@ -591,7 +591,7 @@ public class JavaSessionFactory implements SessionFactory {
 					connection.rollback();
 					if( eventAdmin != null ) {
 						Map<String, Object> properties = new HashMap<String, Object>();
-						properties.put(DATA_SESSION_ID, transactionId);
+						properties.put(DATA_SESSION_ID, getId());
 						properties.put(DATA_STATUS, VALUE_ROLLBACK);
 						eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
 					}
