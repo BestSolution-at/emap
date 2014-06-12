@@ -83,14 +83,14 @@ class CustomQueryGenerator {
 						if( isDebug ) {
 							debugParams.add("«q.parameters.head.name» = " + «q.parameters.head.name»);
 						}
-						pstmt.«q.parameters.head.pstmtMethod»(i+1,«q.parameters.head.name»);
+						pstmt.«q.parameters.head.pstmtMethod("i+1",q.parameters.head.name)»;
 					}
 				«FOR p : q.parameters.filter[it!=q.parameters.head]»
 					else if("«p.name»".equals(processedSQL.dynamicParameterNames.get(i))) {
 						if( isDebug ) {
 							debugParams.add("«p.name» = " + «p.name»);
 						}
-						pstmt.«p.pstmtMethod»(i+1,«p.name»);
+						pstmt.«p.pstmtMethod("i+1",p.name)»;
 					}
 				«ENDFOR»
 				}

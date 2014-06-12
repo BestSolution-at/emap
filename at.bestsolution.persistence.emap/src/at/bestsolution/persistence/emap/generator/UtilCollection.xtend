@@ -371,15 +371,17 @@ class UtilCollection {
 		return entity.tableName
 	}
 
-	def pstmtMethod(EParameter p) {
+	def pstmtMethod(EParameter p, String accessExpression, String dataExpression) {
 		if( p.type == "String" ) {
-			return "setString";
+			return "setString("+accessExpression+","+dataExpression+")";
 		} else if( p.type == "long" ) {
-			return "setLong";
+			return "setLong("+accessExpression+","+dataExpression+")";
 		} else if( p.type == "int" ) {
-			return "setInt";
+			return "setInt("+accessExpression+","+dataExpression+")";
 		} else if( p.type == "boolean" ) {
-			return "setBoolean";
+			return "setBoolean("+accessExpression+","+dataExpression+")";
+		} else if( p.type == "java.util.Date" ) {
+			return "setTimestamp("+accessExpression+",new java.sql.Timestamp("+dataExpression+".getTime()))"
 		} else {
 			return "setObject";
 		}

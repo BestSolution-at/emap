@@ -12,12 +12,12 @@ import at.bestsolution.persistence.emap.eMap.EMappingAttribute
 class QueryGenerator {
 	@Inject extension
   	var UtilCollection util;
-  	
+
   	@Inject
 	var JavaUtilGenerator utilGen;
 
 	val generatorCredit = "by " + class.simpleName;
-	
+
 	def generateQuery(EMappingEntityDef entityDef, EClass eClass, ENamedQuery query) '''
 	// «generatorCredit»
 	@Override
@@ -62,14 +62,14 @@ class QueryGenerator {
 					if( isDebug ) {
 						debugParams.add("«query.parameters.head.name» = " + «query.parameters.head.name»);
 					}
-					pStmt.«query.parameters.head.pstmtMethod»(i+1,«query.parameters.head.name»);
+					pStmt.«query.parameters.head.pstmtMethod("i+1",query.parameters.head.name)»;
 				}
 			«FOR p : query.parameters.filter[it!=query.parameters.head]»
 				else if("«p.name»".equals(processedSQL.dynamicParameterNames.get(i))) {
 					if( isDebug ) {
 						debugParams.add("«p.name» = " + «p.name»);
 					}
-					pStmt.«p.pstmtMethod»(i+1,«p.name»);
+					pStmt.«p.pstmtMethod("i+1",p.name)»;
 				}
 			«ENDFOR»
 			}
@@ -207,7 +207,7 @@ class QueryGenerator {
 		}
 	«ENDIF»
 	'''
-	
+
 	def mapSingleResult(ENamedQuery query, EClass eClass) '''
 	// «generatorCredit»
 	«IF query.queries.head.mapping.attributes.empty»
@@ -253,7 +253,7 @@ class QueryGenerator {
 
 				((EObject)current_«eClass.name»).eSetDeliver(true);
 
-				
+
 				rv = current_«eClass.name»;
 
 			}
@@ -268,8 +268,8 @@ class QueryGenerator {
 		}
     «ENDIF»
 	'''
-	
-	
+
+
 	def mapListResult(ENamedQuery query, EClass eClass) '''
 	// «generatorCredit»
 	«IF query.queries.head.mapping.attributes.empty»
@@ -325,7 +325,7 @@ class QueryGenerator {
 		}
     «ENDIF»
 	'''
-  
+
 	def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
 «««		TODO replace this filter with a utiltiy method
 		«FOR a : section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].sort([a,b|
@@ -347,7 +347,7 @@ class QueryGenerator {
 			((LazyEObject)rv).setProxyDelegate(this);
 		«ENDIF»
 	'''
-  
+
 	def submapName(EObjectSection section) {
 		return section.submapOwner + "_" + (section.eContainer as EMappingAttribute).property
 	}
@@ -355,5 +355,5 @@ class QueryGenerator {
 	def submapOwner(EObjectSection section) {
 		return (section.eContainer.eContainer as EObjectSection).entity.lookupEClass;
 	}
-	
+
 }
