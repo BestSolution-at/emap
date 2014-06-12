@@ -499,7 +499,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 			if( eventAdmin != null ) {
 				Map<String, Object> properties = new HashMap<String, Object>();
-				properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_START, transactionId);
+				properties.put(DATA_SESSION_ID, transactionId);
 				eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_START, properties));
 			}
 
@@ -557,8 +557,8 @@ public class JavaSessionFactory implements SessionFactory {
 
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
-							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
-							properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_COMMIT);
+							properties.put(DATA_SESSION_ID, transactionId);
+							properties.put(DATA_STATUS, VALUE_COMMIT);
 
 							properties.put(DATA_INSERTED_OBJECTS, notNull(insertedObjects.get(transaction)));
 							properties.put(DATA_UPDATED_OBJECTS, notNull(updatedObjects.get(transaction)));
@@ -576,8 +576,8 @@ public class JavaSessionFactory implements SessionFactory {
 						connection.rollback();
 						if( eventAdmin != null ) {
 							Map<String, Object> properties = new HashMap<String, Object>();
-							properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
-							properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_ROLLBACK);
+							properties.put(DATA_SESSION_ID, transactionId);
+							properties.put(DATA_STATUS, VALUE_ROLLBACK);
 							eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
 						}
 					} catch( SQLException e ) {
@@ -591,8 +591,8 @@ public class JavaSessionFactory implements SessionFactory {
 					connection.rollback();
 					if( eventAdmin != null ) {
 						Map<String, Object> properties = new HashMap<String, Object>();
-						properties.put(DATA_SESSION_ID_TOPIC_TRANSACTION_END, transactionId);
-						properties.put(DATA_STATUS_TOPIC_TRANSACTION_END, VALUE_ROLLBACK);
+						properties.put(DATA_SESSION_ID, transactionId);
+						properties.put(DATA_STATUS, VALUE_ROLLBACK);
 						eventAdmin.sendEvent(new Event(TOPIC_TRANSACTION_END, properties));
 					}
 				} catch (SQLException e1) {
