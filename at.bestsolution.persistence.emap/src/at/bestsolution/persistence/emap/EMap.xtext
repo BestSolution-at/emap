@@ -98,7 +98,7 @@ EModelTypeDef:
 ;
 
 EModelTypeAttribute:
-	name=ID ('resolve' query=[ENamedCustomQuery|QualifiedName] ('('(parameters+=ID (',' parameters+=ID)*)? ')')?)?
+	name=ID ('resolve' query=[ENamedCustomQuery|QualifiedName] ('('(parameters+=ID (',' parameters+=ID)*)? ')')? (cached?='cached' (cacheName=ID)?)? )?
 ;
 
 EValueTypeAttribute:

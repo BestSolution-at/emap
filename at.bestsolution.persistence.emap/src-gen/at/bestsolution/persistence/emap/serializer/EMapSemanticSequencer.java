@@ -263,7 +263,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (query=[ENamedCustomQuery|QualifiedName] (parameters+=ID parameters+=ID*)?)?)
+	 *     (name=ID (query=[ENamedCustomQuery|QualifiedName] (parameters+=ID parameters+=ID*)? (cached?='cached' cacheName=ID?)?)?)
 	 */
 	protected void sequence_EModelTypeAttribute(EObject context, EModelTypeAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

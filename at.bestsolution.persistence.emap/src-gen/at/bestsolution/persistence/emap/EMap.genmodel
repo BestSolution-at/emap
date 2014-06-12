@@ -91,6 +91,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EModelTypeAttribute/query"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/cached"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EModelTypeAttribute/cacheName"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EValueTypeAttribute">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueTypeAttribute/type"/>

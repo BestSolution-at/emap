@@ -802,13 +802,31 @@ public interface EMapPackage extends EPackage
   int EMODEL_TYPE_ATTRIBUTE__PARAMETERS = 2;
 
   /**
+   * The feature id for the '<em><b>Cached</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE__CACHED = 3;
+
+  /**
+   * The feature id for the '<em><b>Cache Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMODEL_TYPE_ATTRIBUTE__CACHE_NAME = 4;
+
+  /**
    * The number of structural features of the '<em>EModel Type Attribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMODEL_TYPE_ATTRIBUTE_FEATURE_COUNT = 3;
+  int EMODEL_TYPE_ATTRIBUTE_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.
@@ -1974,6 +1992,28 @@ public interface EMapPackage extends EPackage
   EAttribute getEModelTypeAttribute_Parameters();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#isCached <em>Cached</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Cached</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#isCached()
+   * @see #getEModelTypeAttribute()
+   * @generated
+   */
+  EAttribute getEModelTypeAttribute_Cached();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getCacheName <em>Cache Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Cache Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getCacheName()
+   * @see #getEModelTypeAttribute()
+   * @generated
+   */
+  EAttribute getEModelTypeAttribute_CacheName();
+
+  /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueTypeAttribute <em>EValue Type Attribute</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3004,6 +3044,22 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EMODEL_TYPE_ATTRIBUTE__PARAMETERS = eINSTANCE.getEModelTypeAttribute_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Cached</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMODEL_TYPE_ATTRIBUTE__CACHED = eINSTANCE.getEModelTypeAttribute_Cached();
+
+    /**
+     * The meta object literal for the '<em><b>Cache Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMODEL_TYPE_ATTRIBUTE__CACHE_NAME = eINSTANCE.getEModelTypeAttribute_CacheName();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueTypeAttributeImpl <em>EValue Type Attribute</em>}' class.

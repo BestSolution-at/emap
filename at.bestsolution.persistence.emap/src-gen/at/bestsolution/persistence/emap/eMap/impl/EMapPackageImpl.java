@@ -942,6 +942,26 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getEModelTypeAttribute_Cached()
+  {
+    return (EAttribute)eModelTypeAttributeEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEModelTypeAttribute_CacheName()
+  {
+    return (EAttribute)eModelTypeAttributeEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getEValueTypeAttribute()
   {
     return eValueTypeAttributeEClass;
@@ -1458,6 +1478,8 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__NAME);
     createEReference(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__QUERY);
     createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__PARAMETERS);
+    createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__CACHED);
+    createEAttribute(eModelTypeAttributeEClass, EMODEL_TYPE_ATTRIBUTE__CACHE_NAME);
 
     eValueTypeAttributeEClass = createEClass(EVALUE_TYPE_ATTRIBUTE);
     createEAttribute(eValueTypeAttributeEClass, EVALUE_TYPE_ATTRIBUTE__TYPE);
@@ -1625,6 +1647,8 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEModelTypeAttribute_Name(), ecorePackage.getEString(), "name", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEModelTypeAttribute_Query(), this.getENamedCustomQuery(), null, "query", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEModelTypeAttribute_Parameters(), ecorePackage.getEString(), "parameters", null, 0, -1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEModelTypeAttribute_Cached(), ecorePackage.getEBoolean(), "cached", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEModelTypeAttribute_CacheName(), ecorePackage.getEString(), "cacheName", null, 0, 1, EModelTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eValueTypeAttributeEClass, EValueTypeAttribute.class, "EValueTypeAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEValueTypeAttribute_Type(), ecorePackage.getEString(), "type", null, 0, 1, EValueTypeAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1192,12 +1192,19 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cParametersAssignment_1_2_1_1_1 = (Assignment)cGroup_1_2_1_1.eContents().get(1);
 		private final RuleCall cParametersIDTerminalRuleCall_1_2_1_1_1_0 = (RuleCall)cParametersAssignment_1_2_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_2_2 = (Keyword)cGroup_1_2.eContents().get(2);
+		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
+		private final Assignment cCachedAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
+		private final Keyword cCachedCachedKeyword_1_3_0_0 = (Keyword)cCachedAssignment_1_3_0.eContents().get(0);
+		private final Assignment cCacheNameAssignment_1_3_1 = (Assignment)cGroup_1_3.eContents().get(1);
+		private final RuleCall cCacheNameIDTerminalRuleCall_1_3_1_0 = (RuleCall)cCacheNameAssignment_1_3_1.eContents().get(0);
 		
 		//EModelTypeAttribute:
-		//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?;
+		//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?
+		//	(cached?="cached" cacheName=ID?)?)?;
 		public ParserRule getRule() { return rule; }
 
-		//name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?
+		//name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?
+		//(cached?="cached" cacheName=ID?)?)?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -1206,7 +1213,8 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?
+		//("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")? (cached?="cached"
+		//cacheName=ID?)?)?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"resolve"
@@ -1250,6 +1258,21 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_1_2_2() { return cRightParenthesisKeyword_1_2_2; }
+
+		//(cached?="cached" cacheName=ID?)?
+		public Group getGroup_1_3() { return cGroup_1_3; }
+
+		//cached?="cached"
+		public Assignment getCachedAssignment_1_3_0() { return cCachedAssignment_1_3_0; }
+
+		//"cached"
+		public Keyword getCachedCachedKeyword_1_3_0_0() { return cCachedCachedKeyword_1_3_0_0; }
+
+		//cacheName=ID?
+		public Assignment getCacheNameAssignment_1_3_1() { return cCacheNameAssignment_1_3_1; }
+
+		//ID
+		public RuleCall getCacheNameIDTerminalRuleCall_1_3_1_0() { return cCacheNameIDTerminalRuleCall_1_3_1_0; }
 	}
 
 	public class EValueTypeAttributeElements extends AbstractParserRuleElementFinder {
@@ -2136,7 +2159,8 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EModelTypeAttribute:
-	//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?)?;
+	//	name=ID ("resolve" query=[ENamedCustomQuery|QualifiedName] ("(" (parameters+=ID ("," parameters+=ID)*)? ")")?
+	//	(cached?="cached" cacheName=ID?)?)?;
 	public EModelTypeAttributeElements getEModelTypeAttributeAccess() {
 		return (pEModelTypeAttribute != null) ? pEModelTypeAttribute : (pEModelTypeAttribute = new EModelTypeAttributeElements());
 	}

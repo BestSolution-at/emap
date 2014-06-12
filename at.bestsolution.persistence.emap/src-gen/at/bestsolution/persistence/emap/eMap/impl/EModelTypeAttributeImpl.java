@@ -30,6 +30,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#isCached <em>Cached</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getCacheName <em>Cache Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,6 +78,46 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected EList<String> parameters;
+
+  /**
+   * The default value of the '{@link #isCached() <em>Cached</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCached()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CACHED_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isCached() <em>Cached</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCached()
+   * @generated
+   * @ordered
+   */
+  protected boolean cached = CACHED_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getCacheName() <em>Cache Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCacheName()
+   * @generated
+   * @ordered
+   */
+  protected static final String CACHE_NAME_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getCacheName() <em>Cache Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCacheName()
+   * @generated
+   * @ordered
+   */
+  protected String cacheName = CACHE_NAME_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -183,6 +225,52 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isCached()
+  {
+    return cached;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCached(boolean newCached)
+  {
+    boolean oldCached = cached;
+    cached = newCached;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHED, oldCached, cached));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getCacheName()
+  {
+    return cacheName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCacheName(String newCacheName)
+  {
+    String oldCacheName = cacheName;
+    cacheName = newCacheName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHE_NAME, oldCacheName, cacheName));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
@@ -195,6 +283,10 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
         return basicGetQuery();
       case EMapPackage.EMODEL_TYPE_ATTRIBUTE__PARAMETERS:
         return getParameters();
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHED:
+        return isCached();
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHE_NAME:
+        return getCacheName();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -220,6 +312,12 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
         getParameters().clear();
         getParameters().addAll((Collection<? extends String>)newValue);
         return;
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHED:
+        setCached((Boolean)newValue);
+        return;
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHE_NAME:
+        setCacheName((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -243,6 +341,12 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
       case EMapPackage.EMODEL_TYPE_ATTRIBUTE__PARAMETERS:
         getParameters().clear();
         return;
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHED:
+        setCached(CACHED_EDEFAULT);
+        return;
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHE_NAME:
+        setCacheName(CACHE_NAME_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -263,6 +367,10 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
         return query != null;
       case EMapPackage.EMODEL_TYPE_ATTRIBUTE__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHED:
+        return cached != CACHED_EDEFAULT;
+      case EMapPackage.EMODEL_TYPE_ATTRIBUTE__CACHE_NAME:
+        return CACHE_NAME_EDEFAULT == null ? cacheName != null : !CACHE_NAME_EDEFAULT.equals(cacheName);
     }
     return super.eIsSet(featureID);
   }
@@ -282,6 +390,10 @@ public class EModelTypeAttributeImpl extends MinimalEObjectImpl.Container implem
     result.append(name);
     result.append(", parameters: ");
     result.append(parameters);
+    result.append(", cached: ");
+    result.append(cached);
+    result.append(", cacheName: ");
+    result.append(cacheName);
     result.append(')');
     return result.toString();
   }

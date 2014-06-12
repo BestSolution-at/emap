@@ -1965,7 +1965,40 @@ ruleEModelTypeAttribute returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2());
     }
-)?)?)
+)?((
+(
+		lv_cached_8_0=	'cached' 
+    {
+        newLeafNode(lv_cached_8_0, grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEModelTypeAttributeRule());
+	        }
+       		setWithLastConsumed($current, "cached", true, "cached");
+	    }
+
+)
+)(
+(
+		lv_cacheName_9_0=RULE_ID
+		{
+			newLeafNode(lv_cacheName_9_0, grammarAccess.getEModelTypeAttributeAccess().getCacheNameIDTerminalRuleCall_1_3_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEModelTypeAttributeRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"cacheName",
+        		lv_cacheName_9_0, 
+        		"ID");
+	    }
+
+)
+)?)?)?)
 ;
 
 

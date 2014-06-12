@@ -5703,6 +5703,7 @@ rule__EModelTypeAttribute__Group_1__2
     }
 :
 	rule__EModelTypeAttribute__Group_1__2__Impl
+	rule__EModelTypeAttribute__Group_1__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -5723,6 +5724,36 @@ rule__EModelTypeAttribute__Group_1__2__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__EModelTypeAttribute__Group_1__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EModelTypeAttribute__Group_1__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EModelTypeAttribute__Group_1__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getGroup_1_3()); }
+(rule__EModelTypeAttribute__Group_1_3__0)?
+{ after(grammarAccess.getEModelTypeAttributeAccess().getGroup_1_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -5939,6 +5970,67 @@ rule__EModelTypeAttribute__Group_1_2_1_1__1__Impl
 { before(grammarAccess.getEModelTypeAttributeAccess().getParametersAssignment_1_2_1_1_1()); }
 (rule__EModelTypeAttribute__ParametersAssignment_1_2_1_1_1)
 { after(grammarAccess.getEModelTypeAttributeAccess().getParametersAssignment_1_2_1_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__EModelTypeAttribute__Group_1_3__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EModelTypeAttribute__Group_1_3__0__Impl
+	rule__EModelTypeAttribute__Group_1_3__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EModelTypeAttribute__Group_1_3__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getCachedAssignment_1_3_0()); }
+(rule__EModelTypeAttribute__CachedAssignment_1_3_0)
+{ after(grammarAccess.getEModelTypeAttributeAccess().getCachedAssignment_1_3_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__EModelTypeAttribute__Group_1_3__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EModelTypeAttribute__Group_1_3__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EModelTypeAttribute__Group_1_3__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getCacheNameAssignment_1_3_1()); }
+(rule__EModelTypeAttribute__CacheNameAssignment_1_3_1)?
+{ after(grammarAccess.getEModelTypeAttributeAccess().getCacheNameAssignment_1_3_1()); }
 )
 
 ;
@@ -9254,6 +9346,44 @@ rule__EModelTypeAttribute__ParametersAssignment_1_2_1_1_1
 (
 { before(grammarAccess.getEModelTypeAttributeAccess().getParametersIDTerminalRuleCall_1_2_1_1_1_0()); }
 	RULE_ID{ after(grammarAccess.getEModelTypeAttributeAccess().getParametersIDTerminalRuleCall_1_2_1_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EModelTypeAttribute__CachedAssignment_1_3_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0()); }
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0()); }
+
+	'cached' 
+
+{ after(grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0()); }
+)
+
+{ after(grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EModelTypeAttribute__CacheNameAssignment_1_3_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEModelTypeAttributeAccess().getCacheNameIDTerminalRuleCall_1_3_1_0()); }
+	RULE_ID{ after(grammarAccess.getEModelTypeAttributeAccess().getCacheNameIDTerminalRuleCall_1_3_1_0()); }
 )
 
 ;

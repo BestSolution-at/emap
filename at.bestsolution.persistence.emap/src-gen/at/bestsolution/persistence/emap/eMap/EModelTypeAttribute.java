@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#isCached <em>Cached</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getCacheName <em>Cache Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -93,5 +95,57 @@ public interface EModelTypeAttribute extends EObject
    * @generated
    */
   EList<String> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Cached</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Cached</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Cached</em>' attribute.
+   * @see #setCached(boolean)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEModelTypeAttribute_Cached()
+   * @model
+   * @generated
+   */
+  boolean isCached();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#isCached <em>Cached</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Cached</em>' attribute.
+   * @see #isCached()
+   * @generated
+   */
+  void setCached(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Cache Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Cache Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Cache Name</em>' attribute.
+   * @see #setCacheName(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEModelTypeAttribute_CacheName()
+   * @model
+   * @generated
+   */
+  String getCacheName();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getCacheName <em>Cache Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Cache Name</em>' attribute.
+   * @see #getCacheName()
+   * @generated
+   */
+  void setCacheName(String value);
 
 } // EModelTypeAttribute

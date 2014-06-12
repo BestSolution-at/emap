@@ -41,6 +41,9 @@ class CustomQueryGenerator {
 			«FOR a : (q.returnType as EModelTypeDef).attributes.filter[a|a.query != null]»
 			Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»> «a.name»Objects;
 
+			«IF a.cached»
+			«a.name»Objects = (Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>)(Map<Object,?>)session.getCache().getQueryMapResult("«IF a.cacheName == null»«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn»«a.query.name»«ELSE»«a.cacheName»«ENDIF»");
+			if( «a.name»Objects == null )«ENDIF»
 			{
 				«a.name»Objects = new HashMap<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>();
 				«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn» mapper = session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
@@ -48,6 +51,9 @@ class CustomQueryGenerator {
 				for( «((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName» o : mapper.«a.query.name»(«a.parameters.join(",")») ) {
 					«a.name»Objects.put(mapper.getPrimaryKeyValue(o),o);
 				}
+				«IF a.cached»
+				session.getCache().putQueryMapResult((Map<Object,EObject>)(Map<Object,?>)«a.name»Objects,"«IF a.cacheName == null»«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn»«a.query.name»«ELSE»«a.cacheName»«ENDIF»");
+				«ENDIF»
 			}
 			«ENDFOR»
 		«ENDIF»
