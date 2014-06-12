@@ -18,6 +18,17 @@ class QueryGenerator {
 
 	val generatorCredit = "by " + class.simpleName;
 
+	def anyWhere(ENamedQuery q) {
+		return q.queries.findFirst[where != null] != null;
+	}
+
+	def anyGroupBy(ENamedQuery q) {
+		return q.queries.findFirst[groupBy != null] != null;
+	}
+	def hasSpecificQuery(ENamedQuery q) {
+		return q.queries.findFirst[!dbType.equals("default")] != null;
+	}
+
 	def generateQuery(EMappingEntityDef entityDef, EClass eClass, ENamedQuery query) '''
 	// «generatorCredit»
 	@Override
@@ -36,10 +47,15 @@ class QueryGenerator {
 		«ENDIF»
 		if( isDebug ) LOGGER.debug("Executing «query.name»");
 
-		String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
-		if( query == null ) {
+		String query;
+		«IF query.hasSpecificQuery»
+			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+			if( query == null ) {
+		«ENDIF»
 			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
-		}
+		«IF query.hasSpecificQuery»
+			}
+		«ENDIF»
 
 		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
@@ -173,17 +189,46 @@ class QueryGenerator {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) LOGGER.debug("Executing «query.name»");
 
-			String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
-			if( query == null ) {
+			String query;
+			«IF query.anyWhere»String where;«ENDIF»
+			«IF query.anyGroupBy»String groupBy;«ENDIF»
+			«IF query.hasSpecificQuery»
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
+				«IF query.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_"+session.getDatabaseType()+".sql");«ENDIF»
+				«IF query.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_"+session.getDatabaseType()+".sql");«ENDIF»
+				if( query == null ) {
+			«ENDIF»
 				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default.sql");
-			}
+				«IF query.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_default.sql");«ENDIF»
+				«IF query.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_default.sql");«ENDIF»
+			«IF query.hasSpecificQuery»
+				}
+			«ENDIF»
 
 			if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
 			String criteriaStr = criteria.getCriteria();
 			if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
-				query += " WHERE " + criteriaStr;
+				query += " WHERE (" + criteriaStr + ")";
+				«IF query.anyWhere»
+				if( where != null ) {
+					query += " AND " + where;
+				}
+				«ENDIF»
+			}«IF query.anyWhere» else if(where != null) {
+				query += " WHERE " + where;
 			}
+			«ENDIF»
+
+			«IF query.anyGroupBy»
+			if( groupBy != null ) {
+				query += " GROUP BY " + groupBy;
+			}
+			«ENDIF»
+
+			if( isDebug ) LOGGER.debug("	Constructed query: " + query);
+
+			query = criteria.processSQL(query);
 
 			if( isDebug ) LOGGER.debug("	Final query: " + query);
 

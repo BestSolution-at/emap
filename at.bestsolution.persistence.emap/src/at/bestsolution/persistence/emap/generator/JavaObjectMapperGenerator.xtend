@@ -491,7 +491,5 @@ class JavaObjectMapperGenerator {
     «ENDIF»
   FROM
     «query.from.replaceSqlParameters(namedQuery.parameters)»
-    «IF query.groupBy != null»GROUP BY
-      «query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
   '''
 }

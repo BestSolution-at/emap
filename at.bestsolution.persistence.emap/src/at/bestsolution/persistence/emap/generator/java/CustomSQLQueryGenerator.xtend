@@ -31,4 +31,11 @@ class CustomSQLQueryGenerator {
     «IF query.orderby != null»ORDER BY
       «query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
 	'''
+
+	def generateCriteriaSQL(ENamedCustomQuery namedQuery, ECustomQuery query)'''
+	SELECT
+		«query.columns»
+	FROM
+		«query.from.replaceSqlParameters(namedQuery.parameters)»
+	'''
 }

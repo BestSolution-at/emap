@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.eMap.EMapping
 import static extension at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator.*
+import at.bestsolution.persistence.emap.eMap.EModelTypeDef
 
 class JavaInterfaceGenerator {
 	@Inject extension
@@ -34,6 +35,7 @@ class JavaInterfaceGenerator {
 
 		«FOR q : entityDef.entity.namedCustomQueries»
 		public «IF q.list»java.util.List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.type + " " + p.name])»);
+
 		«ENDFOR»
 
 «««		«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
@@ -165,7 +167,9 @@ class JavaInterfaceGenerator {
 			«FOR query : entityDef.entity.namedQueries.filter[parameters.empty]»
 				public at.bestsolution.persistence.MappedQuery<«eClass.name»> «query.name»MappedQuery();
 			«ENDFOR»
-
+			«FOR q : entityDef.entity.namedCustomQueries.filter[parameters.empty && list && returnType instanceof EModelTypeDef]»
+				public at.bestsolution.persistence.MappedQuery<«q.returnType.handle.toObjectType»> «q.name»MappedQuery();
+			«ENDFOR»
 			public at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery();
 
 «««		«ENDIF»

@@ -69,6 +69,12 @@ class EMapGenerator implements IGenerator {
 					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query));
 					if( namedQuery.parameters.empty ) {
 						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query));
+						if( query.where != null ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
+						}
+						if( query.groupBy != null ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+						}
 					}
 				}
 			}
@@ -76,6 +82,15 @@ class EMapGenerator implements IGenerator {
 			for( namedQuery : edef.entity.namedCustomQueries ) {
 				for( query : namedQuery.queries ) {
 					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", customSQLQueryGenerator.generate(namedQuery,query));
+					if( namedQuery.parameters.empty ) {
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", customSQLQueryGenerator.generateCriteriaSQL(namedQuery,query));
+						if( query.where != null ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
+						}
+						if( query.groupBy != null ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+						}
+					}
 				}
 				if( namedQuery.returnType instanceof ETypeDef ) {
 					val t = namedQuery.returnType as ETypeDef

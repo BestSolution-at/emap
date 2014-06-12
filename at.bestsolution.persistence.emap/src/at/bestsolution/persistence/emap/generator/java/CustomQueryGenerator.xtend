@@ -29,8 +29,117 @@ class CustomQueryGenerator {
 
 	val generatorCredit = "by " + class.simpleName;
 
+	def anyWhere(ENamedCustomQuery q) {
+		return q.queries.findFirst[where != null] != null;
+	}
+
+	def anyGroupBy(ENamedCustomQuery q) {
+		return q.queries.findFirst[groupBy != null] != null;
+	}
+
+	def hasSpecificQuery(ENamedCustomQuery q) {
+		return q.queries.findFirst[!dbType.equals("default")] != null;
+	}
+
 	def generateCustomQuery(EMappingEntityDef entityDef, ENamedCustomQuery q) '''
 	// «generatorCredit»
+	«IF q.parameters.empty && q.list && q.returnType instanceof EModelTypeDef»
+	public final MappedQuery<«q.returnType.handle.toObjectType»> «q.name»MappedQuery() {
+		MappedQuery<«q.returnType.handle.toObjectType»> dbQuery = session.getDatabaseSupport().createMappedQuery(
+				this, null,
+				new ListDelegate<«q.returnType.handle.toObjectType»>() { public List<«q.returnType.handle.toObjectType»> list(MappedQuery<«q.returnType.handle.toObjectType»> criteria) { return «q.name»((MappedQueryImpl<«q.returnType.handle.toObjectType»>)criteria); } }
+			);
+			return dbQuery;
+	}
+
+	final List<«q.returnType.handle.toObjectType»> «q.name»(MappedQueryImpl<«q.returnType.handle.toObjectType»> criteria) {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+		if( isDebug ) LOGGER.debug("Executing «q.name»");
+
+		String query;
+		«IF q.anyWhere»String where;«ENDIF»
+		«IF q.anyGroupBy»String groupBy;«ENDIF»
+		«IF q.hasSpecificQuery»
+			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_"+session.getDatabaseType()+".sql");
+			«IF q.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_where_"+session.getDatabaseType()+".sql");«ENDIF»
+			«IF q.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_groupBy_"+session.getDatabaseType()+".sql");«ENDIF»
+			if( query == null ) {
+		«ENDIF»
+			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_default.sql");
+			«IF q.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_where_default.sql");«ENDIF»
+			«IF q.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_criteria_groupBy_default.sql");«ENDIF»
+		«IF q.hasSpecificQuery»
+			}
+		«ENDIF»
+
+		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
+
+		String criteriaStr = criteria.getCriteria();
+		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+			query += " WHERE (" + criteriaStr + ")";
+			«IF q.anyWhere»
+			if( where != null ) {
+				query += " AND " + where;
+			}
+			«ENDIF»
+		}«IF q.anyWhere» else if( where != null ) {
+			query += " WHERE " + where;
+		}«ENDIF»
+
+		«IF q.anyGroupBy»
+		if( groupBy != null ) {
+			query += " GROUP BY " + groupBy;
+		}
+		«ENDIF»
+
+		if( isDebug ) LOGGER.debug("	Constructed query: " + query);
+
+		query = criteria.processSQL(query);
+
+		if( isDebug ) LOGGER.debug("	Final query: " + query);
+
+		Connection connection = session.checkoutConnection();
+		«IF q.returnType instanceof EModelTypeDef»
+			«FOR a : (q.returnType as EModelTypeDef).attributes.filter[a|a.query != null]»
+			Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»> «a.name»Objects;
+
+			«IF a.cached»
+			«a.name»Objects = (Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>)(Map<Object,?>)session.getCache().getQueryMapResult("«IF a.cacheName == null»«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn»«a.query.name»«ELSE»«a.cacheName»«ENDIF»");
+			if( «a.name»Objects == null )«ENDIF»
+			{
+				«a.name»Objects = new HashMap<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>();
+				«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn» mapper = session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
+
+				for( «((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName» o : mapper.«a.query.name»(«a.parameters.join(",")») ) {
+					«a.name»Objects.put(mapper.getPrimaryKeyValue(o),o);
+				}
+				«IF a.cached»
+				session.getCache().putQueryMapResult((Map<Object,EObject>)(Map<Object,?>)«a.name»Objects,"«IF a.cacheName == null»«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn»«a.query.name»«ELSE»«a.cacheName»«ENDIF»");
+				«ENDIF»
+			}
+			«ENDFOR»
+		«ENDIF»
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(query);
+			int idx = 1;
+			for(TypedValue t : criteria.getParameters()) {
+				Util.setValue(pstmt,idx++,t);
+			}
+
+			ResultSet set = pstmt.executeQuery();
+			List<«q.returnType.handle.toObjectType»> rv = new ArrayList<«q.returnType.handle.toObjectType»>();
+			while( set.next() ) {
+				rv.add(map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»));
+			}
+			return rv;
+		} catch(SQLException e) {
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
+	}
+	«ENDIF»
+
 	public final «IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.type + " " + p.name])») {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) LOGGER.debug("Started '«q.name»'");
@@ -61,10 +170,15 @@ class CustomQueryGenerator {
 		PreparedStatement pstmt = null;
 		ResultSet set = null;
 
-		String query = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_"+session.getDatabaseType()+".sql");
-		if( query == null ) {
+		String query;
+		«IF q.hasSpecificQuery»
+			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_"+session.getDatabaseType()+".sql");
+			if( query == null ) {
+		«ENDIF»
 			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«q.name»_default.sql");
-		}
+		«IF q.hasSpecificQuery»
+			}
+		«ENDIF»
 		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
 		try {
@@ -106,52 +220,11 @@ class CustomQueryGenerator {
 
 			«IF q.list»
 			while( set.next() ) {
-				«IF q.returnType.string»
-				rv.add(set.getString(1));
-				«ELSEIF q.returnType.map»
-				rv.add(Util.mapResultSet(set));
-				«ELSEIF q.returnType.primitive»
-				rv.add((«(q.returnType as EPredefinedType).ref.toObjectType»)set.getObject(1));
-				«ELSEIF q.returnType instanceof ETypeDef»
-				rv.add(new «(q.returnType as ETypeDef).handle»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»));
-				«ELSEIF q.returnType instanceof EModelTypeDef»
-				{
-					«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName» modelObj = («(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName»)EcoreUtil.create(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.toFullQualifiedJavaEClass»);
-					«FOR a : (q.returnType as EModelTypeDef).attributes»
-						«IF a.query != null»
-						modelObj.set«a.name.toFirstUpper»(«a.name»Objects.get(set.getLong(«(q.returnType as EModelTypeDef).attributes.indexOf(a)»)));
-						«ELSE»
-						modelObj.set«a.name.toFirstUpper»(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).resultMethod("set",(q.returnType as EModelTypeDef).attributes.indexOf(a))»);
-						«ENDIF»
-					«ENDFOR»
-					rv.add(modelObj);
-				}
-				«ELSE»
-				rv.add(«(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+""));
-				«ENDIF»
+				rv.add(map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»));
 			}
 			«ELSE»
 			if( set.next() ) {
-				«IF q.returnType.string»
-				rv = set.getString(1);
-				«ELSEIF q.returnType.map»
-				rv = Util.mapResultSet(set);
-				«ELSEIF q.returnType.primitive»
-				rv = set.«(q.returnType as EPredefinedType).resultMethodType»(1);
-				«ELSEIF q.returnType instanceof ETypeDef»
-				rv = new «(q.returnType as ETypeDef).fqn(entityDef)»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»);
-				«ELSEIF q.returnType instanceof EModelTypeDef»
-				rv = («(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName»)EcoreUtil.create(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.toFullQualifiedJavaEClass»);
-				«FOR a : (q.returnType as EModelTypeDef).attributes»
-					«IF a.query != null»
-						rv.set«a.name.toFirstUpper»(«a.name»Objects.get(set.getLong(«(q.returnType as EModelTypeDef).attributes.indexOf(a)»)));
-					«ELSE»
-						rv.set«a.name.toFirstUpper»(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).resultMethod("set",(q.returnType as EModelTypeDef).attributes.indexOf(a))»);
-					«ENDIF»
-				«ENDFOR»
-				«ELSE»
-				rv = «(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+"");
-				«ENDIF»
+				rv = map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»);
 			}
 			«ENDIF»
 			set.close();
@@ -176,6 +249,30 @@ class CustomQueryGenerator {
 				session.returnConnection(connection);
 			}
 		}
+	}
+
+	private final «q.returnType.handle» map_«q.name»(ResultSet set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»«FOR a : (q.returnType as EModelTypeDef).attributes.filter[a|a.query != null]», Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>«a.name»Objects«ENDFOR»«ENDIF») throws SQLException {
+		«IF q.returnType.string»
+			return set.getString(1);
+		«ELSEIF q.returnType.map»
+			return Util.mapResultSet(set);
+		«ELSEIF q.returnType.primitive»
+			return set.«(q.returnType as EPredefinedType).resultMethodType»(1);
+		«ELSEIF q.returnType instanceof ETypeDef»
+			return new «(q.returnType as ETypeDef).fqn(entityDef)»(«(q.returnType as ETypeDef).types.join(',', [valueAttributeHandle])»);
+		«ELSEIF q.returnType instanceof EModelTypeDef»
+			«q.returnType.handle» rv = («(q.returnType as EModelTypeDef).eclassDef.lookupEClass.instanceClassName»)EcoreUtil.create(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.toFullQualifiedJavaEClass»);
+			«FOR a : (q.returnType as EModelTypeDef).attributes»
+				«IF a.query != null»
+					rv.set«a.name.toFirstUpper»(«a.name»Objects.get(set.getLong(«(q.returnType as EModelTypeDef).attributes.indexOf(a)»)));
+				«ELSE»
+					rv.set«a.name.toFirstUpper»(«(q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).resultMethod("set",(q.returnType as EModelTypeDef).attributes.indexOf(a))»);
+				«ENDIF»
+			«ENDFOR»
+			return rv;
+		«ELSE»
+			return «(q.returnType as EPredefinedType).ref».valueOf(set.getObject(1) == null ? null : set.getObject()+"");
+		«ENDIF»
 	}
 	'''
 
