@@ -11,6 +11,7 @@
 package at.bestsolution.persistence.java;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -26,6 +27,16 @@ public interface SessionCache {
 	public boolean isCached(EObject object);
 	public void clear();
 	public void release();
+
 	public <O extends EObject> List<O> getQueryResult(String query, Object... parameters);
 	public void putQueryResult(List<EObject> list, String query, Object... parameters);
+	public void evitQueryResult(Selector<List<EObject>> selector);
+
+	public <O extends EObject> Map<Object,O> getQueryMapResult(String query, Object... parameters);
+	public void putQueryMapResult(Map<Object,EObject> map, String query, Object... parameters);
+	public void evitQueryMapResult(Selector<Map<Object,EObject>> selector);
+
+	public interface Selector<D> {
+		public boolean select(String name, List<Object> parameters, D data);
+	}
 }
