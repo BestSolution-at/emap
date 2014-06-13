@@ -129,6 +129,22 @@ public class MappedBaseQuery<O> {
 			b.append( "lower( " + colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + " )");
 			b.append(" <> lower( ? )");
 			break;
+		case GT:
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
+			b.append(" > ?");
+			break;
+		case GTE:
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
+			b.append(" >= ?");
+			break;
+		case LT:
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
+			b.append(" < ?");
+			break;
+		case LTE:
+			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
+			b.append(" <= ?");
+			break;
 		case IS_NOT_NULL:
 			b.append( colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)));
 			b.append(" IS NOT NULL");

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package at.bestsolution.persistence.expr;
 
+import java.util.Date;
+
 public class PropertyExpressionFactory<O> {
 	final String property;
 
@@ -98,6 +100,22 @@ public class PropertyExpressionFactory<O> {
 		public InExpression<O> in(int... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
+
+		public CompareExpression<O> gt(int data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(int data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(int data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(int data) {
+			return CompareExpression.lte(property, data);
+		}
 	}
 
 	public final static class DoubleExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -117,6 +135,22 @@ public class PropertyExpressionFactory<O> {
 		public LikeExpression<O> like(String value) {
 			return LikeExpression.like(property, value);
 		}
+
+		public CompareExpression<O> gt(double data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(double data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(double data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(double data) {
+			return CompareExpression.lte(property, data);
+		}
 	}
 
 	public final static class LongExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -135,6 +169,22 @@ public class PropertyExpressionFactory<O> {
 
 		public LikeExpression<O> like(String value) {
 			return LikeExpression.like(property, value);
+		}
+
+		public CompareExpression<O> gt(long data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(long data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(long data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(long data) {
+			return CompareExpression.lte(property, data);
 		}
 	}
 
@@ -165,6 +215,22 @@ public class PropertyExpressionFactory<O> {
 
 		public LikeExpression<O> like(String value) {
 			return LikeExpression.like(property, value);
+		}
+
+		public CompareExpression<O> gt(float data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(float data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(float data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(float data) {
+			return CompareExpression.lte(property, data);
 		}
 	}
 
@@ -204,12 +270,44 @@ public class PropertyExpressionFactory<O> {
 		public LongObjectExpressionFactory(String property) {
 			super(property);
 		}
+
+		public CompareExpression<O> gt(Long data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(Long data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(Long data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(Long data) {
+			return CompareExpression.lte(property, data);
+		}
 	}
 
 	public static class IntegerObjectExpressionFactory<O> extends GenericExpressionFactory<O,Integer> {
 
 		public IntegerObjectExpressionFactory(String property) {
 			super(property);
+		}
+
+		public CompareExpression<O> gt(Integer data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(Integer data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(Integer data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(Integer data) {
+			return CompareExpression.lte(property, data);
 		}
 	}
 
@@ -225,12 +323,44 @@ public class PropertyExpressionFactory<O> {
 		public DoubleObjectExpressionFactory(String property) {
 			super(property);
 		}
+
+		public CompareExpression<O> gt(Double data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(Double data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(Double data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(Double data) {
+			return CompareExpression.lte(property, data);
+		}
 	}
 
 	public static class FloatObjectExpressionFactory<O> extends GenericExpressionFactory<O,Float> {
 
 		public FloatObjectExpressionFactory(String property) {
 			super(property);
+		}
+
+		public CompareExpression<O> gt(Float data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(Float data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(Float data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(Float data) {
+			return CompareExpression.lte(property, data);
 		}
 	}
 
@@ -262,6 +392,45 @@ public class PropertyExpressionFactory<O> {
 
 		public LikeExpression<O> notIlike(String value) {
 			return LikeExpression.notIlike(property, value);
+		}
+
+		public CompareExpression<O> gt(String data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(String data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(String data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(String data) {
+			return CompareExpression.lte(property, data);
+		}
+	}
+
+	public static class DateExpressionFactory<O> extends GenericExpressionFactory<O,Date> {
+
+		public DateExpressionFactory(String property) {
+			super(property);
+		}
+
+		public CompareExpression<O> gt(Date data) {
+			return CompareExpression.gt(property, data);
+		}
+
+		public CompareExpression<O> gte(Date data) {
+			return CompareExpression.gte(property, data);
+		}
+
+		public CompareExpression<O> lt(Date data) {
+			return CompareExpression.lt(property, data);
+		}
+
+		public CompareExpression<O> lte(Date data) {
+			return CompareExpression.lte(property, data);
 		}
 	}
 }

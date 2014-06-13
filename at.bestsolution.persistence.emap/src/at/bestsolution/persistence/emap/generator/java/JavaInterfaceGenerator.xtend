@@ -100,6 +100,8 @@ class JavaInterfaceGenerator {
 							«ENDIF»
 						«ELSEIF eAttribute.string»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>("«a.name»");};
+						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>("«a.name»");};
 						«ELSE»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
 						«ENDIF»
@@ -158,6 +160,8 @@ class JavaInterfaceGenerator {
 							«ENDIF»
 						«ELSEIF eAttribute.string»
 							public final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<O> «a.name»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<O>(path+".«a.name»");};
+						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
+							public final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<O> «a.name»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<O>(path+".«a.name»");};
 						«ELSE»
 							public final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<O,«eAttribute.EType.instanceClassName»> «a.name»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<O,«eAttribute.EType.instanceClassName»>(path+".«a.name»");};
 						«ENDIF»

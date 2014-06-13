@@ -14,6 +14,11 @@ public enum ExpressionType {
 	EQUALS,
 	NOT_EQUALS,
 
+	LT,
+	GT,
+	LTE,
+	GTE,
+
 	IEQUALS,
 	INOT_EQUALS,
 
