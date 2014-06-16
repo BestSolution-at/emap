@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.common.types,
  org.eclipse.osgi;bundle-version="3.8.2"
 Import-Package: org.apache.log4j,
+ org.eclipse.core.runtime;version="3.4.0",
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence.emap,

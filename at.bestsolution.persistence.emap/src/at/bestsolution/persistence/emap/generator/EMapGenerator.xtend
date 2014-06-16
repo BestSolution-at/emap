@@ -21,7 +21,11 @@ import at.bestsolution.persistence.emap.generator.java.RegistryGenerator
 import at.bestsolution.persistence.emap.generator.java.CustomSQLQueryGenerator
 import at.bestsolution.persistence.emap.generator.java.JavaInterfaceGenerator
 import at.bestsolution.persistence.emap.eMap.ETypeDef
+import org.eclipse.core.runtime.ILog
+import org.eclipse.core.runtime.Status
+import org.eclipse.core.runtime.IStatus
 import at.bestsolution.persistence.emap.generator.java.TypeDefGenerator
+import org.eclipse.xtext.validation.ValidationMessageAcceptor
 
 /**
  * Generates code from your model files on save.
@@ -29,6 +33,9 @@ import at.bestsolution.persistence.emap.generator.java.TypeDefGenerator
  * see http://www.eclipse.org/Xtext/documentation.html#TutorialCodeGeneration
  */
 class EMapGenerator implements IGenerator {
+
+	@Inject
+	var ILog log;
 
 	@Inject extension
 	var UtilCollection util;
@@ -52,66 +59,87 @@ class EMapGenerator implements IGenerator {
 	var TypeDefGenerator typeDefGenerator;
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		val root = resource.contents.head as EMapping
-		if( root.root instanceof EMappingEntityDef ) {
-			val edef = root.root as EMappingEntityDef
-
-			fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
-
-			if( edef.entity.allAttributes.findFirst[pk] == null ) {
-				return;
-			}
-			fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java", javaObjectMapperGenerator.generateJava(edef, edef.lookupEClass));
-
-
-			for( namedQuery : edef.entity.namedQueries ) {
-				for( query : namedQuery.queries ) {
-					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query));
-					if( namedQuery.parameters.empty ) {
-						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query));
-						if( query.where != null ) {
-							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
-						}
-						if( query.groupBy != null ) {
-							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+		try {
+//			println("Generating " + resource)
+			val root = resource.contents.head as EMapping
+			if( root.root instanceof EMappingEntityDef ) {
+				
+				val edef = root.root as EMappingEntityDef
+	
+				fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
+	
+				if( edef.entity.allAttributes.findFirst[pk] == null ) {
+					return;
+				}
+	//			println("Generating MapperFactory")
+	
+				val path = edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java"
+				val content = javaObjectMapperGenerator.generateJava(edef, edef.lookupEClass)
+	//			println(" path = " + path)
+	//			println(" content.length = " + content.length)
+				fsa.generateFile(path, content);
+				
+	//			println("Generating named queries")
+				for( namedQuery : edef.entity.namedQueries ) {
+					for( query : namedQuery.queries ) {
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query));
+						if( namedQuery.parameters.empty ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query));
+							if( query.where != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
+							}
+							if( query.groupBy != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+							}
 						}
 					}
 				}
-			}
-
-			for( namedQuery : edef.entity.namedCustomQueries ) {
-				for( query : namedQuery.queries ) {
-					fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", customSQLQueryGenerator.generate(namedQuery,query));
-					if( namedQuery.parameters.empty ) {
-						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", customSQLQueryGenerator.generateCriteriaSQL(namedQuery,query));
-						if( query.where != null ) {
-							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
+	
+	//			println("Generating named custom queries")
+				for( namedQuery : edef.entity.namedCustomQueries ) {
+					for( query : namedQuery.queries ) {
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", customSQLQueryGenerator.generate(namedQuery,query));
+						if( namedQuery.parameters.empty ) {
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", customSQLQueryGenerator.generateCriteriaSQL(namedQuery,query));
+							if( query.where != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where);
+							}
+							if( query.groupBy != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+							}
 						}
-						if( query.groupBy != null ) {
-							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy);
+					}
+					if( namedQuery.returnType instanceof ETypeDef ) {
+						val t = namedQuery.returnType as ETypeDef
+						if( t.name.indexOf('.') == -1 ) {
+							fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t));
 						}
 					}
 				}
-				if( namedQuery.returnType instanceof ETypeDef ) {
-					val t = namedQuery.returnType as ETypeDef
-					if( t.name.indexOf('.') == -1 ) {
-						fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t));
-					}
+	
+				val projectName = resource.URI.segment(0)
+	
+	
+	//			println("Generating " + edef.entity.name+"Mapper.xml");
+	//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))
+			} else {
+				val bundleDef = root.root as EMappingBundle
+	//			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
+	//			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
+				fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",javaRegistryGenerator.generateMapperRegistry(bundleDef))
+				for( d : bundleDef.databases ) {
+					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
 				}
 			}
-
-			val projectName = resource.URI.segment(0)
-
-
-//			println("Generating " + edef.entity.name+"Mapper.xml");
-//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))
-		} else {
-			val bundleDef = root.root as EMappingBundle
-//			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
-//			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
-			fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",javaRegistryGenerator.generateMapperRegistry(bundleDef))
-			for( d : bundleDef.databases ) {
-				fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace
+			try {
+				log.log(new Status(IStatus.ERROR, "at.bestsolution.persistence.emap", "Error during Generator Execution for " + resource.URI, e));
+			}
+			catch (Exception e1) {
+				e1.printStackTrace	
 			}
 		}
 	}
