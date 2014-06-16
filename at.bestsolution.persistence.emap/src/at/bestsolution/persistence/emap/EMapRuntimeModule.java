@@ -11,14 +11,18 @@
 package at.bestsolution.persistence.emap;
 
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
+
 import at.bestsolution.persistence.emap.generator.DDLGenerator;
 import at.bestsolution.persistence.emap.generator.EClassLookup;
 import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator;
 import at.bestsolution.persistence.emap.generator.UtilCollection;
 
 import com.google.inject.Binder;
-import com.google.inject.Scope;
-import com.google.inject.Scopes;
+import com.google.inject.Provider;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -28,8 +32,14 @@ public class EMapRuntimeModule extends at.bestsolution.persistence.emap.Abstract
 	@Override
 	public void configure(Binder binder) {
 		super.configure(binder);
-
-
+			
+		binder.bind(ILog.class).toProvider(new Provider<ILog>() {
+			@Override
+			public ILog get() {
+				Bundle bundle = FrameworkUtil.getBundle(EMapRuntimeModule.class);
+				return Platform.getLog(bundle);
+			}
+		});
 		binder.bind(EClassLookup.class);
 		binder.bind(DDLGenerator.class);
 		binder.bind(UtilCollection.class);
