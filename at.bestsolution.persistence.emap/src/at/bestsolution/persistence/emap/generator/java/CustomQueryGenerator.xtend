@@ -220,11 +220,11 @@ class CustomQueryGenerator {
 
 			«IF q.list»
 			while( set.next() ) {
-				rv.add(map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»));
+				rv.add(map_«q.name»(set«q.returnType.createMapParamsForCall»));
 			}
 			«ELSE»
 			if( set.next() ) {
-				rv = map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»);
+				rv = map_«q.name»(set«q.returnType.createMapParamsForCall»);
 			}
 			«ENDIF»
 			set.close();
@@ -251,7 +251,7 @@ class CustomQueryGenerator {
 		}
 	}
 
-	private final «q.returnType.handle» map_«q.name»(ResultSet set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»«FOR a : (q.returnType as EModelTypeDef).attributes.filter[a|a.query != null]», Map<Object,«((q.returnType as EModelTypeDef).eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>«a.name»Objects«ENDFOR»«ENDIF») throws SQLException {
+	private final «q.returnType.handle» map_«q.name»(ResultSet set«q.returnType.createMapParamsForDecl») throws SQLException {
 		«IF q.returnType.string»
 			return set.getString(1);
 		«ELSEIF q.returnType.map»
@@ -275,6 +275,38 @@ class CustomQueryGenerator {
 		«ENDIF»
 	}
 	'''
+	
+	def createMapParamsForDecl(EReturnType returnType) '''
+	«IF returnType.modelTypeDef»
+		«var modelTypeDef = returnType as EModelTypeDef»
+		«IF !modelTypeDef.attributes.filter[a|a.query != null].empty»
+			«FOR a : modelTypeDef.attributes.filter[a|a.query != null]»,
+			Map<Object,«(modelTypeDef.eclassDef.lookupEClass.getEStructuralFeature(a.name).EType as EClass).instanceClassName»>«a.name»Objects
+			«ENDFOR»
+		«ENDIF»
+	«ENDIF»
+	'''
+	
+	def createMapParamsForCall(EReturnType returnType) '''
+	«IF returnType.modelTypeDef»
+		«var modelTypeDef = returnType as EModelTypeDef»
+		«IF !modelTypeDef.attributes.filter[a|a.query != null].empty»,
+			«modelTypeDef.attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»
+		«ENDIF»
+	«ENDIF»
+	'''
+	
+	def isPredefinedType(EReturnType type) {
+		type instanceof EPredefinedType
+	}
+	
+	def isTypeDef(EReturnType type) {
+		type instanceof ETypeDef
+	}
+	
+	def isModelTypeDef(EReturnType type) {
+		type instanceof EModelTypeDef
+	}
 
 	def fqn( ETypeDef d, EMappingEntityDef edf) {
 		if(  d.name.indexOf('.') == -1 ) {
