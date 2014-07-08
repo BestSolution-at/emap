@@ -801,12 +801,16 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 			} else if( targetType.isEnum() ) {
 				if( value != null ) {
+					String v = value.toString().trim();
 					Class<Enum<?>> c = (Class<Enum<?>>) targetType;
 					for( Enum<?> e : c.getEnumConstants() ) {
-						if( e.name().equals(value.toString())) {
+						if( e.name().equals(v)) {
 							return e;
 						}
 					}
+					throw new IllegalArgumentException("Could not map '"+value+"' to Enum '"+targetType+"'");
+				} else {
+					return null;
 				}
 			} else if( value instanceof Enum<?> ) {
 				return ((Enum<?>)value).name();
