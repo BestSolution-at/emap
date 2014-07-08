@@ -84,7 +84,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		return o;
 //		return object;
 	}
-	
+
 	private EReference getInterceptedReference(EClass eClass, String methodName) {
 		final Map<String, EReference> map = INTERCEPTED_METHODS.get(eClass);
 		if( map != null ) {
@@ -92,22 +92,22 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		return null;
 	}
-	
+
 	private EReference getInterceptedReference(EStructuralFeature feature) {
 		if (feature instanceof EReference && !feature.isTransient()) {
 			return (EReference) feature;
 		}
 		return null;
 	}
-	
+
 	private boolean isResolved(EReference reference) {
 		return resolvedAttributes.get(reference) == Boolean.TRUE;
 	}
-	
+
 	private void markResolved(EReference reference) {
 		resolvedAttributes.put(reference, Boolean.TRUE);
 	}
-	
+
 	private void interceptResolve(LazyEObject object, EReference reference) {
 		intercepting = true;
 		try {
@@ -122,15 +122,15 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 	private boolean matches(Method method, String nameRegex, int numArgs) {
 		return method.getName().matches(nameRegex) && method.getParameterTypes().length == numArgs;
 	}
-	
+
 	private boolean matches(Method method, String name, Class<?>... argTypes) {
 		return method.getName().equals(name) && argsEquals(method.getParameterTypes(), argTypes);
 	}
-	
+
 	private boolean matchesNoArgCheck(Method method, String name) {
 		return method.getName().equals(name);
 	}
-	
+
 	private boolean argsEquals(Class<?>[] a, Class<?>[] b) {
 		if (a.length == b.length) {
 			for (int i = 0; i < a.length; i++) {
@@ -144,7 +144,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 //		System.out.println("PROXY " + obj.getClass().getSimpleName() + " " + method.getName() + " " + Arrays.toString(method.getParameterTypes()));
@@ -157,7 +157,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 
 		if (matches(method, "isResolved", EReference.class)) {
 			final EReference reference = (EReference) args[0];
-			
+
 			return isResolved(reference);
 		}
 		else if (matches(method, "setProxyData", Object.class)) {
@@ -178,8 +178,8 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		else if (matches(method, "^get.*$", 0)) {
 			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
-			
-			if ( reference != null && !isResolved(reference)) {
+
+			if ( reference != null && ! reference.isTransient() && !isResolved(reference)) {
 				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
@@ -189,18 +189,18 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		else if (matches(method, "^set.*$", 1)) {
 			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
-			
-			if ( reference != null && !isResolved(reference)) {
+
+			if ( reference != null && ! reference.isTransient() && !isResolved(reference)) {
 				final Object rv = proxy.invokeSuper(obj, args);
 				markResolved(reference);
 				return rv;
 			}
 			return proxy.invokeSuper(obj, args);
 		}
-		else if (matches(method, "eSet", EStructuralFeature.class, Object.class)) { 
+		else if (matches(method, "eSet", EStructuralFeature.class, Object.class)) {
 			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
-			
-			if( reference != null && !isResolved(reference) ) {
+
+			if( reference != null && ! reference.isTransient() && !isResolved(reference) ) {
 				final Object rv = proxy.invokeSuper(obj, args);
 				markResolved(reference);
 				return rv;
@@ -209,8 +209,8 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		else if (matches(method, "eIsSet", EStructuralFeature.class)) {
 			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
-			
-			if( reference != null && !isResolved(reference) ) {
+
+			if( reference != null && ! reference.isTransient() && !isResolved(reference) ) {
 				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
@@ -220,8 +220,8 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		else if (matches(method, "eGet", EStructuralFeature.class)) {
 			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
-			
-			if( reference != null && !isResolved(reference) ) {
+
+			if( reference != null && ! reference.isTransient() && !isResolved(reference) ) {
 				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
@@ -231,8 +231,8 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 		else if (matches(method, "eGet", EStructuralFeature.class, Boolean.class)) {
 			final EReference reference = getInterceptedReference((EStructuralFeature) args[0]);
-			
-			if ( reference != null && !isResolved(reference) ) {
+
+			if ( reference != null && ! reference.isTransient() && !isResolved(reference) ) {
 				if( intercepting ) {
 					return proxy.invokeSuper(obj, args);
 				}
@@ -243,7 +243,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		else {
 			return proxy.invokeSuper(obj, args);
 		}
-		
+
 	}
 
 	public static class MultiParentClassloader extends ClassLoader {
