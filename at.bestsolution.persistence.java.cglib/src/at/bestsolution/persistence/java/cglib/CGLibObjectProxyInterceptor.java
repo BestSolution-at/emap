@@ -119,8 +119,8 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 		}
 	}
 
-	private boolean matches(Method method, String nameRegex, int numArgs) {
-		return method.getName().matches(nameRegex) && method.getParameterTypes().length == numArgs;
+	private boolean matches(Method method, String prefix, int numArgs) {
+		return method.getName().startsWith(prefix) && method.getParameterTypes().length == numArgs;
 	}
 
 	private boolean matches(Method method, String name, Class<?>... argTypes) {
@@ -176,7 +176,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 				inverseAddRunning = false;
 			}
 		}
-		else if (matches(method, "^get.*$", 0)) {
+		else if (matches(method, "get", 0)) {
 			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
 
 			if ( reference != null && ! reference.isTransient() && !isResolved(reference)) {
@@ -187,7 +187,7 @@ public class CGLibObjectProxyInterceptor implements MethodInterceptor {
 			}
 			return proxy.invokeSuper(obj, args);
 		}
-		else if (matches(method, "^set.*$", 1)) {
+		else if (matches(method, "set", 1)) {
 			final EReference reference = getInterceptedReference(((EObject)obj).eClass(), method.getName());
 
 			if ( reference != null && ! reference.isTransient() && !isResolved(reference)) {
