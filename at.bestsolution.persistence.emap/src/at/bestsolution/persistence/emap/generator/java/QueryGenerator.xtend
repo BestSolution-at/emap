@@ -153,7 +153,7 @@ class QueryGenerator {
 		«FOR section : query.queries.head.mapping.attributes.collectMappings»
 			«var entityEClass = section.entity.lookupEClass»
 			// «generatorCredit»
-			public final «entityEClass.instanceClassName» map_«query.name»_«entityEClass.name»(Connection connection, ResultSet set) throws SQLException {
+			public final «entityEClass.instanceClassName» map_«query.name»_«section.prefix»_«entityEClass.name»(Connection connection, ResultSet set) throws SQLException {
 				Object id = set.getObject("«section.prefix+"_"»«section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[pk].columnName»");
 				if( id == null ) {
 					return null;
@@ -268,38 +268,39 @@ class QueryGenerator {
 		try {
 			inAutoResolve = true;
 			Set<«eClass.name»> rootSet = new HashSet<«eClass.name»>();
-			«eClass.name» current_«eClass.name»;
+			«val rootPrefix = "current_" + (if( query.queries.head.mapping.prefix == null ) "" else query.queries.head.mapping.prefix) + "_"»
+			«eClass.name» «rootPrefix»«eClass.name»;
 			«FOR section : query.queries.head.mapping.attributes.collectMappings»
-				«section.entity.lookupEClass.instanceClassName» current_«section.entity.lookupEClass.name»;
+				«section.entity.lookupEClass.instanceClassName» current_«section.prefix»_«section.entity.lookupEClass.name»;
 			«ENDFOR»
 			if( isDebug ) LOGGER.debug("Mapping with nested results started");
 			if (set.next()) {
-				current_«eClass.name» = map_«query.name»_«eClass.name»(connection, set);
-				((EObject)current_«eClass.name»).eSetDeliver(false);
+				«rootPrefix»«eClass.name» = map_«query.name»_«eClass.name»(connection, set);
+				((EObject)«rootPrefix»«eClass.name»).eSetDeliver(false);
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
-					current_«entityEClass.name» = map_«query.name»_«entityEClass.name»(connection, set);
+					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
 
-					if( current_«entityEClass.name» != null ) {
-						((EObject)current_«entityEClass.name»).eSetDeliver(false);
+					if( current_«section.prefix»_«entityEClass.name» != null ) {
+						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
 						«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-							current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«entityEClass.name»);
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
 						«ELSE»
-							current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«entityEClass.name»);
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
 						«ENDIF»
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
-					if( current_«entityEClass.name» != null ) {
-						((EObject)current_«entityEClass.name»).eSetDeliver(true);
+					if( current_«section.prefix»_«entityEClass.name» != null ) {
+						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(true);
 					}
 				«ENDFOR»
 
-				((EObject)current_«eClass.name»).eSetDeliver(true);
+				((EObject)«rootPrefix»«eClass.name»).eSetDeliver(true);
 
 
-				rv = current_«eClass.name»;
+				rv = «rootPrefix»«eClass.name»;
 
 			}
 			else {
@@ -327,40 +328,41 @@ class QueryGenerator {
 		try {
 			inAutoResolve = true;
 			Set<«eClass.name»> rootSet = new HashSet<«eClass.name»>();
-			«eClass.name» current_«eClass.name»;
+			«val rootPrefix = "current_" + (if( query.queries.head.mapping.prefix == null ) "" else query.queries.head.mapping.prefix) + "_"»
+			«eClass.name» «rootPrefix»«eClass.name»;
 			«FOR section : query.queries.head.mapping.attributes.collectMappings»
-				«section.entity.lookupEClass.instanceClassName» current_«section.entity.lookupEClass.name»;
+				«section.entity.lookupEClass.instanceClassName» current_«section.prefix»_«section.entity.lookupEClass.name»;
 			«ENDFOR»
 			if( isDebug ) LOGGER.debug("Mapping with nested results started");
 			while(set.next()) {
-				current_«eClass.name» = map_«query.name»_«eClass.name»(connection, set);
-				((EObject)current_«eClass.name»).eSetDeliver(false);
+				«rootPrefix»«eClass.name» = map_«query.name»_«eClass.name»(connection, set);
+				((EObject)«rootPrefix»«eClass.name»).eSetDeliver(false);
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
-					current_«entityEClass.name» = map_«query.name»_«entityEClass.name»(connection, set);
+					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
 
-					if( current_«entityEClass.name» != null ) {
-						((EObject)current_«entityEClass.name»).eSetDeliver(false);
+					if( current_«section.prefix»_«entityEClass.name» != null ) {
+						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
 						«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-							current_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«entityEClass.name»);
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
 						«ELSE»
-							current_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«entityEClass.name»);
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
 						«ENDIF»
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
-					if( current_«entityEClass.name» != null ) {
-						((EObject)current_«entityEClass.name»).eSetDeliver(true);
+					if( current_«section.prefix»_«entityEClass.name» != null ) {
+						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(true);
 					}
 				«ENDFOR»
 
-				((EObject)current_«eClass.name»).eSetDeliver(true);
+				((EObject)«rootPrefix»«eClass.name»).eSetDeliver(true);
 
 				// fill final list
-				if(!rootSet.contains(current_«eClass.name»)) {
-					rv.add(current_«eClass.name»);
-					rootSet.add(current_«eClass.name»);
+				if(!rootSet.contains(«rootPrefix»«eClass.name»)) {
+					rv.add(«rootPrefix»«eClass.name»);
+					rootSet.add(«rootPrefix»«eClass.name»);
 				}
 			}
 			if( isDebug ) LOGGER.debug("Mapping with nested results ended. Mapped '"+rv.size()+"' objects.");
@@ -393,12 +395,15 @@ class QueryGenerator {
 		«ENDIF»
 	'''
 
-	def submapName(EObjectSection section) {
-		return section.submapOwner + "_" + (section.eContainer as EMappingAttribute).property
-	}
+//	def submapName(EObjectSection section) {
+//		return section.submapOwner + "_" + (section.eContainer as EMappingAttribute).property
+//	}
 
 	def submapOwner(EObjectSection section) {
 		return (section.eContainer.eContainer as EObjectSection).entity.lookupEClass;
 	}
 
+	def submapOwnerSection(EObjectSection section) {
+		return (section.eContainer.eContainer as EObjectSection);
+	}
 }

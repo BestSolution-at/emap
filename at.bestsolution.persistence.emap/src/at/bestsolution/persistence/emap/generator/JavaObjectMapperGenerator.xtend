@@ -344,7 +344,7 @@ class JavaObjectMapperGenerator {
 	}
 
 	«createProxyData(entityDef.entity,eClass)»
-	«FOR e : entityDef.entity.collectEnities.sortBy[name]»
+	«FOR e : entityDef.entity.collectEnities.filter[e | e != entityDef.entity].sortBy[name]»
 		«createProxyData(e, e.lookupEClass)»
 	«ENDFOR»
 «««	«IF entityDef.entity.namedQueries.findFirst[parameters.empty] != null»
