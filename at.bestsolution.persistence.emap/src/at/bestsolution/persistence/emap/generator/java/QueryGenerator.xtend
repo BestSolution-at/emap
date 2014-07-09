@@ -288,6 +288,9 @@ class QueryGenerator {
 						«ELSE»
 							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
 						«ENDIF»
+					} else {
+						// ensure that the value is marked resolved
+						current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
@@ -348,6 +351,9 @@ class QueryGenerator {
 						«ELSE»
 							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
 						«ENDIF»
+					} else {
+						// ensure that the value is marked resolved
+						current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
