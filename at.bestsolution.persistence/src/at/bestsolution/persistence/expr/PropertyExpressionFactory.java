@@ -375,7 +375,7 @@ public class PropertyExpressionFactory<O> {
 		}
 
 		public EqualsExpression<O> notIeq(String value) {
-			return EqualsExpression.ieq(property,value);
+			return EqualsExpression.ineq(property,value);
 		}
 
 		public LikeExpression<O> like(String value) {
