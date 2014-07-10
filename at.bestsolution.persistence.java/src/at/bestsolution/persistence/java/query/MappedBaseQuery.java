@@ -186,6 +186,7 @@ public class MappedBaseQuery<O> {
 					if( flag ) {
 						b.append(",");
 					}
+					flag = true;
 					b.append("?");
 				}
 				b.append(" )");
