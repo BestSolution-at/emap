@@ -44,9 +44,14 @@ public interface Session extends Closeable {
 	public void clear();
 	public void persist(Object... o);
 	public void delete(Object... o);
+	public void refresh(Object o, RefreshType type);
 
 	public boolean isAttached(Object o);
 //	public Object getVersion(Object o);
+
+	public enum RefreshType {
+		DATA_ONLY
+	}
 
 	public interface Transaction {
 		public boolean execute();

@@ -179,6 +179,15 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public void refresh(Object o, RefreshType type) {
+			System.err.println("EMAP - REFRESH IS NOT IMPLEMENTED");
+//			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
+//			if( m != null ) {
+//				m.refresh((EObject)o, type);
+//			}
+		}
+
+		@Override
 		public String getId() {
 			return id;
 		}

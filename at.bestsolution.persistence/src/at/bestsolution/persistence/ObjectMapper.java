@@ -10,6 +10,8 @@
  *******************************************************************************/
 package at.bestsolution.persistence;
 
+import at.bestsolution.persistence.Session.RefreshType;
+
 public interface ObjectMapper<O> {
 	public void update(O object);
 	public void insert(O object);
@@ -18,6 +20,7 @@ public interface ObjectMapper<O> {
 	public void deleteById(Object... id);
 	public void deleteAll();
 	public MappedUpdateQuery<O> deleteAllMappedQuery();
+//	public void refresh(O object, RefreshType type);
 
 	public String getTableName();
 	public String getColumnName(String propertyName);
