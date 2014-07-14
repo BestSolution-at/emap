@@ -188,6 +188,19 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public <O> O get(Class<O> clazz, Object id) {
+			ObjectMapperFactory<?, ?> factory = factories.get(clazz.getName()+"Mapper");
+			if( factory != null ) {
+				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, "selectById");
+				if( q != null ) {
+					return q.queryForOne(id);
+				}
+				throw new IllegalArgumentException("No 'selectById' query available for '"+clazz+"'");
+			}
+			throw new IllegalArgumentException("No mapper for '"+clazz+"' is available");
+		}
+
+		@Override
 		public String getId() {
 			return id;
 		}
