@@ -31,4 +31,9 @@ public final class EqualsExpression<O> extends PropertyExpression<O> {
 	public static <O> EqualsExpression<O> ineq(String property, Object data) {
 		return new EqualsExpression<O>(ExpressionType.INOT_EQUALS, property, data);
 	}
+
+	public EqualsExpression<O> lpad(int padding) {
+		functions.add(FunctionFactory.<O>createLpad(padding));
+		return this;
+	}
 }

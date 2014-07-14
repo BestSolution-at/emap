@@ -31,4 +31,9 @@ public class CompareExpression<O> extends PropertyExpression<O> {
 	public static <O> CompareExpression<O> lte(String property, Object data) {
 		return new CompareExpression<O>(ExpressionType.LTE, property, data);
 	}
+
+	public CompareExpression<O> lpad(int padding) {
+		functions.add(FunctionFactory.<O>createLpad(padding));
+		return this;
+	}
 }

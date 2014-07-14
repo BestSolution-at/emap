@@ -7,3 +7,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence,
  at.bestsolution.persistence.expr,
  at.bestsolution.persistence.order
+Import-Package: org.apache.commons.lang;version="2.6.0"
