@@ -275,7 +275,7 @@ class CustomQueryGenerator {
 		«ENDIF»
 	}
 	'''
-	
+
 	def createMapParamsForDecl(EReturnType returnType) '''
 	«IF returnType.modelTypeDef»
 		«var modelTypeDef = returnType as EModelTypeDef»
@@ -286,7 +286,7 @@ class CustomQueryGenerator {
 		«ENDIF»
 	«ENDIF»
 	'''
-	
+
 	def createMapParamsForCall(EReturnType returnType) '''
 	«IF returnType.modelTypeDef»
 		«var modelTypeDef = returnType as EModelTypeDef»
@@ -295,15 +295,15 @@ class CustomQueryGenerator {
 		«ENDIF»
 	«ENDIF»
 	'''
-	
+
 	def isPredefinedType(EReturnType type) {
 		type instanceof EPredefinedType
 	}
-	
+
 	def isTypeDef(EReturnType type) {
 		type instanceof ETypeDef
 	}
-	
+
 	def isModelTypeDef(EReturnType type) {
 		type instanceof EModelTypeDef
 	}
@@ -316,7 +316,7 @@ class CustomQueryGenerator {
 	}
 
 	def valueAttributeHandle(EValueTypeAttribute a) {
-		return "set." + a.type.resultMethodType() + "(" + ((a.eContainer.eGet(a.eContainingFeature) as List<?>).indexOf(a)+1) + ")"
+		return a.type.resultMethodType("set",((a.eContainer.eGet(a.eContainingFeature) as List<?>).indexOf(a)+1))
 	}
 
 	def resultMethodType(EPredefinedType p) {
@@ -330,8 +330,26 @@ class CustomQueryGenerator {
 			return "getDouble"
 		} else if( "float" == p.ref ) {
 			return "getFloat"
-		} else {
+		} else if( "boolean" == p.ref ) {
 			return "getBoolean"
+		}
+	}
+
+	def resultMethodType(EPredefinedType p, String resultName, int index) {
+		if( "String" == p.ref ) {
+			return resultName + ".getString("+index+")"
+		} else if( "long" == p.ref ) {
+			return resultName + ".getLong"
+		} else if( "int" == p.ref ) {
+			return resultName + ".getInt"
+		} else if( "double" == p.ref ) {
+			return resultName + ".getDouble"
+		} else if( "float" == p.ref ) {
+			return resultName + ".getFloat"
+		} else if( "boolean" == p.ref ) {
+			return resultName + ".getBoolean"
+		} else {
+			return "("+p.ref+")session.convertType("+p.ref+".class,"+resultName + ".getObject("+index+")"+")"
 		}
 	}
 
@@ -348,6 +366,24 @@ class CustomQueryGenerator {
 			return "getFloat"
 		} else {
 			return "getBoolean"
+		}
+	}
+
+	def resultMethodType(String p, String resultName, int index) {
+		if( "String" == p ) {
+			return resultName + ".getString("+index+")"
+		} else if( "long" == p ) {
+			return resultName + ".getLong("+index+")"
+		} else if( "int" == p ) {
+			return resultName + ".getInt("+index+")"
+		} else if( "double" == p ) {
+			return resultName + ".getDouble("+index+")"
+		} else if( "float" == p ) {
+			return resultName + ".getFloat("+index+")"
+		} else if( "boolean" == p ) {
+			return resultName + ".getBoolean("+index+")"
+		} else {
+			return "("+p+")session.convertType("+p+".class,"+resultName + ".getObject("+index+")"+")"
 		}
 	}
 
