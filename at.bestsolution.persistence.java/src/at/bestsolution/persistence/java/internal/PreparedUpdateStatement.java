@@ -22,9 +22,9 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 	private final String tableName;
 	private final String pkColumn;
 	private final String lockColumn;
-	
+
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
-	
+
 	public PreparedUpdateStatement(String tableName, String pkColumn, String lockColumn) {
 		this.tableName = tableName;
 		this.pkColumn = pkColumn;
@@ -43,12 +43,16 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 			}
 			b.append('"' + c.column + '"' + " = ?");
 		}
+		if( lockColumn != null ) {
+			return "UPDATE " + '"' + tableName + '"' + " SET " + b
+					+ " WHERE " + '"' + pkColumn + '"' + " = ? AND " + lockColumn + " = ?";
+		}
 		return "UPDATE " + '"' + tableName + '"' + " SET " + b
 				+ " WHERE " + '"' + pkColumn + '"' + " = ?";
 	}
-	
+
 	@Override
-	public boolean execute(Connection connection, long primaryKeyValue) throws SQLException {
+	public boolean execute(Connection connection, long primaryKeyValue, long version) throws SQLException {
 		String sql = createSQL(tableName, pkColumn, lockColumn, columnList);
 		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -56,6 +60,9 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 			c.apply(pstmt);
 		}
 		pstmt.setLong(columnList.size()+1, primaryKeyValue);
+		if( lockColumn != null ) {
+			pstmt.setLong(columnList.size()+2, version);
+		}
 		return pstmt.executeUpdate() != 0;
 	}
 

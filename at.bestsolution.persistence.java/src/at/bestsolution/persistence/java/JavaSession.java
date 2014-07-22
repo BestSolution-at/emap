@@ -43,6 +43,8 @@ public interface JavaSession extends Session {
 
 	public void scheduleAfterTransaction(AfterTxRunnable r);
 	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
+	public <O> long getVersion(ObjectMapper<O> mapper, O object);
+	public <O> void updateVersion(O object, long version);
 	public <O, P> void registerPrimaryKey(O object, P key);
 	public <O, P> P getTransactionAttribute(O object, EAttribute attribute);
 	public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object);
@@ -53,7 +55,7 @@ public interface JavaSession extends Session {
 //	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
 
 	public void registerObject(Object object, Object id, long version);
-	public void updateVersion(Object object, Object id, long version);
+//	public void updateVersion(Object object, Object id, long version);
 	public void unregisterObject(Object object, Object id);
 	public void unregisterObject(EClass eClass, Object id);
 	public void unregisterAllObjects(EClass eClass);

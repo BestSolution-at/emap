@@ -102,9 +102,13 @@ class JavaInsertUpdateGenerator {
 			«IF entityDef.extendsEntity»
 			session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
 			«ENDIF»
-			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.javaReservedNameEscape.toFirstUpper»());
+			long version = getLockColumn() != null ? getVersionForTx(object) : -1;
+			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.javaReservedNameEscape.toFirstUpper»(),version);
+
 			if( getLockColumn() != null && ! success ) {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
+			} else if( getLockColumn() != null ) {
+				session.updateVersion(object,version+1);
 			}
 
 ««« 		primitive multi value
@@ -170,6 +174,7 @@ class JavaInsertUpdateGenerator {
 				«ENDFOR»
 			«ENDIF»
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.ClearChangeDescriptionAfterTx(object));
+			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.VersionUpdaterAfterTx(object,getPrimaryKeyForTx(object),getVersionForTx(object)));
 		} catch(SQLException e) {
 			throw new PersistanceException(e);
 		} finally {
@@ -283,6 +288,7 @@ class JavaInsertUpdateGenerator {
 			«ELSE»
 				final long primaryKey = stmt.execute(connection);
 				session.registerPrimaryKey(object, primaryKey);
+				session.updateVersion(object,0);
 				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
 					@Override
 					public void runAfterTx(JavaSession session) {

@@ -298,6 +298,9 @@ class JavaObjectMapperGenerator {
 				return session.getPrimaryKey(this, o);
 			}
 
+			protected final long getVersionForTx(«eClass.name» o) {
+				return session.getVersion(this, o);
+			}
 		}
 
 	public final NamedQuery<«eClass.instanceClassName»> createNamedQuery(final JavaSession session, String name) {

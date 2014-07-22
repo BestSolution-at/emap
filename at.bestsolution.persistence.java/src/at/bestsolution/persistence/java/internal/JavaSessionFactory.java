@@ -158,6 +158,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		private Map<Transaction, Set<AfterTxRunnable>> afterTransaction = new HashMap<Session.Transaction, Set<AfterTxRunnable>>();
 		private Map<Transaction, Map<Object, Object>> transactionPrimaryKeyCache = new HashMap<Session.Transaction, Map<Object, Object>>();
+		private Map<Transaction, Map<Object, Long>> transactionVersionCache = new HashMap<Session.Transaction, Map<Object,Long>>();
 		private Map<Transaction, Map<Object,Map<EAttribute,Object>>> transactionData = new HashMap<Session.Transaction, Map<Object,Map<EAttribute,Object>>>();
 		private List<PersistParticipant> participants = new ArrayList<PersistParticipant>();
 		private Map<Transaction, Set<String>> insertedObjects = new HashMap<Session.Transaction, Set<String>>();
@@ -173,6 +174,7 @@ public class JavaSessionFactory implements SessionFactory {
 		};
 
 		private Map<EObject, List<FeatureChange>> changeStorage = new HashMap<EObject, List<FeatureChange>>();
+
 
 		public JavaSessionImpl(SessionCache sessionCache) {
 			this.sessionCache = sessionCache;
@@ -431,6 +433,34 @@ public class JavaSessionFactory implements SessionFactory {
 			return null;
 		}
 
+		@SuppressWarnings("unchecked")
+		private <O> long getVersionFromTransactionCache(O object) {
+			Transaction transaction = getTransaction();
+			if (transaction == null) {
+				return -1;
+			}
+			final Map<Object, Long> map = transactionVersionCache.get(transaction);
+			if (map != null) {
+				Long o = map.get(object);
+				return o == null ? -1 : o.longValue();
+			}
+			return -1;
+		}
+
+		@Override
+		public <O> void updateVersion(O object, long version) {
+			Transaction transaction = getTransaction();
+			if (transaction == null) {
+				throw new IllegalStateException("Can not be called outside a transaction");
+			}
+			Map<Object, Long> map = transactionVersionCache.get(transaction);
+			if( map == null ) {
+				map = new HashMap<Object, Long>();
+				transactionVersionCache.put(transaction, map);
+			}
+			map.put(object, version);
+		}
+
 		@Override
 		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -452,6 +482,28 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.debug(" got key from object => " + key);
 			}
 			return key;
+		}
+
+		public <O> long getVersion(ObjectMapper<O> mapper, O object) {
+			final boolean isDebug = LOGGER.isDebugEnabled();
+			if( isDebug ) {
+				LOGGER.debug("getVersion " + object);
+			}
+
+			long version = getVersionFromTransactionCache(object);
+
+			if (version != -1) {
+				if( isDebug ) {
+					LOGGER.debug(" found version in tx cache => " + version);
+				}
+				return version;
+			}
+
+			version = getCache().getVersion((EObject)object, mapper.getPrimaryKeyValue(object));
+			if( isDebug ) {
+				LOGGER.debug(" got version from object => " + version);
+			}
+			return version;
 		}
 
 		@SuppressWarnings("unchecked")
@@ -1096,12 +1148,12 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 		}
 
-		@Override
-		public void updateVersion(Object object, Object id, long version) {
-			if( ! getCache().updateVersion((EObject) object, id, version) ) {
-				throw new IllegalStateException("Unable to update version of Object '"+object+"'");
-			}
-		}
+//		@Override
+//		public void updateVersion(Object object, Object id, long version) {
+//			if( ! getCache().updateVersion((EObject) object, id, version) ) {
+//				throw new IllegalStateException("Unable to update version of Object '"+object+"'");
+//			}
+//		}
 
 		@Override
 		public void unregisterObject(Object object, Object id) {

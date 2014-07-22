@@ -73,6 +73,6 @@ public interface DatabaseSupport {
 	}
 
 	public interface UpdateStatement extends Statement {
-		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
+		public boolean execute(Connection connection, long primaryKeyValue, long version) throws SQLException;
 	}
 }
