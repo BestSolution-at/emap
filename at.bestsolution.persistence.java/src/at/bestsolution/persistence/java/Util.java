@@ -19,8 +19,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -249,5 +251,31 @@ public class Util {
 
 	public static void trimToSize(List<?> listToTrim, int size) {
 		listToTrim.subList(size, listToTrim.size()).clear();
+	}
+
+	public static <O> void syncLists(List<O> targetList, List<O> newList) {
+		Iterator<O> it = targetList.iterator();
+		List<O> removeItems = new ArrayList<O>();
+		// remove items not found in new list
+		// do not remove immediately because because then to many notifications
+		// are regenerated
+		while( it.hasNext() ) {
+			O next = it.next();
+			if( ! newList.contains(next) ) {
+				removeItems.add(next);
+			}
+		}
+
+		targetList.removeAll(removeItems);
+
+		// remove all items from the new list already contained
+		it = newList.iterator();
+		while( it.hasNext() ) {
+			if( targetList.contains(it.next()) ) {
+				it.remove();
+			}
+		}
+
+		targetList.addAll(newList);
 	}
 }
