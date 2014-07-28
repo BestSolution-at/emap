@@ -7,6 +7,12 @@
     editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.9">
   <genPackages prefix="EMap" basePackage="at.bestsolution.persistence.emap" disposableProviderFactory="true"
       fileExtensions="emap" ecorePackage="EMap.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMap.ecore#//ColSort">
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ColSort/EMAP"/>
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ColSort/ECORE"/>
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ColSort/ECORE_REVERSED"/>
+      <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ColSort/ALPHABETIC"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMap.ecore#//ReturnType">
       <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ReturnType/list"/>
       <genEnumLiterals ecoreEnumLiteral="EMap.ecore#//ReturnType/single"/>
@@ -17,8 +23,34 @@
     <genClasses ecoreClass="EMap.ecore#//EMappingBundle">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/imports"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/entities"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/parentBundle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/entities"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/typeDefs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/databases"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/colSort"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EBundleEntity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EBundleEntity/pkConstraintName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/uniqueContraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/typeDefs"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EUniqueConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EUniqueConstraint/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EUniqueConstraint/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ESQLAttTypeDef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//ESQLAttTypeDef/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ESQLAttTypeDef/dbTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ESQLTypeDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ESQLTypeDef/etype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ESQLTypeDef/dbTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ESQLDbType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ESQLDbType/dbType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ESQLDbType/sqlTypeDef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ESQLDbType/size"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EMappingEntityDef">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/package"/>
@@ -55,6 +87,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EAttribute/opposite"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/relationTable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/relationColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EAttribute/size"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EValueGenerator">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EValueGenerator/dbType"/>

@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getOpposite <em>Opposite</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationTable <em>Relation Table</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationColumn <em>Relation Column</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getSize <em>Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -228,6 +229,26 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * @ordered
    */
   protected String relationColumn = RELATION_COLUMN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getSize() <em>Size</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSize()
+   * @generated
+   * @ordered
+   */
+  protected static final String SIZE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getSize() <em>Size</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSize()
+   * @generated
+   * @ordered
+   */
+  protected String size = SIZE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -530,6 +551,29 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getSize()
+  {
+    return size;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSize(String newSize)
+  {
+    String oldSize = size;
+    size = newSize;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EATTRIBUTE__SIZE, oldSize, size));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -575,6 +619,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return getRelationTable();
       case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
         return getRelationColumn();
+      case EMapPackage.EATTRIBUTE__SIZE:
+        return getSize();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -625,6 +671,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
         setRelationColumn((String)newValue);
         return;
+      case EMapPackage.EATTRIBUTE__SIZE:
+        setSize((String)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -672,6 +721,9 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
       case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
         setRelationColumn(RELATION_COLUMN_EDEFAULT);
         return;
+      case EMapPackage.EATTRIBUTE__SIZE:
+        setSize(SIZE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -708,6 +760,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
         return RELATION_TABLE_EDEFAULT == null ? relationTable != null : !RELATION_TABLE_EDEFAULT.equals(relationTable);
       case EMapPackage.EATTRIBUTE__RELATION_COLUMN:
         return RELATION_COLUMN_EDEFAULT == null ? relationColumn != null : !RELATION_COLUMN_EDEFAULT.equals(relationColumn);
+      case EMapPackage.EATTRIBUTE__SIZE:
+        return SIZE_EDEFAULT == null ? size != null : !SIZE_EDEFAULT.equals(size);
     }
     return super.eIsSet(featureID);
   }
@@ -739,6 +793,8 @@ public class EAttributeImpl extends MinimalEObjectImpl.Container implements EAtt
     result.append(relationTable);
     result.append(", relationColumn: ");
     result.append(relationColumn);
+    result.append(", size: ");
+    result.append(size);
     result.append(')');
     return result.toString();
   }

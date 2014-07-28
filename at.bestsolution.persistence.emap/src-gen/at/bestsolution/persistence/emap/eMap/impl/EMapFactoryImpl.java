@@ -67,6 +67,11 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
     {
       case EMapPackage.EMAPPING: return createEMapping();
       case EMapPackage.EMAPPING_BUNDLE: return createEMappingBundle();
+      case EMapPackage.EBUNDLE_ENTITY: return createEBundleEntity();
+      case EMapPackage.EUNIQUE_CONSTRAINT: return createEUniqueConstraint();
+      case EMapPackage.ESQL_ATT_TYPE_DEF: return createESQLAttTypeDef();
+      case EMapPackage.ESQL_TYPE_DEF: return createESQLTypeDef();
+      case EMapPackage.ESQL_DB_TYPE: return createESQLDbType();
       case EMapPackage.EMAPPING_ENTITY_DEF: return createEMappingEntityDef();
       case EMapPackage.IMPORT: return createImport();
       case EMapPackage.PACKAGE_DECLARATION: return createPackageDeclaration();
@@ -102,6 +107,8 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case EMapPackage.COL_SORT:
+        return createColSortFromString(eDataType, initialValue);
       case EMapPackage.RETURN_TYPE:
         return createReturnTypeFromString(eDataType, initialValue);
       default:
@@ -119,6 +126,8 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     switch (eDataType.getClassifierID())
     {
+      case EMapPackage.COL_SORT:
+        return convertColSortToString(eDataType, instanceValue);
       case EMapPackage.RETURN_TYPE:
         return convertReturnTypeToString(eDataType, instanceValue);
       default:
@@ -146,6 +155,61 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EMappingBundleImpl eMappingBundle = new EMappingBundleImpl();
     return eMappingBundle;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EBundleEntity createEBundleEntity()
+  {
+    EBundleEntityImpl eBundleEntity = new EBundleEntityImpl();
+    return eBundleEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EUniqueConstraint createEUniqueConstraint()
+  {
+    EUniqueConstraintImpl eUniqueConstraint = new EUniqueConstraintImpl();
+    return eUniqueConstraint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ESQLAttTypeDef createESQLAttTypeDef()
+  {
+    ESQLAttTypeDefImpl esqlAttTypeDef = new ESQLAttTypeDefImpl();
+    return esqlAttTypeDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ESQLTypeDef createESQLTypeDef()
+  {
+    ESQLTypeDefImpl esqlTypeDef = new ESQLTypeDefImpl();
+    return esqlTypeDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ESQLDbType createESQLDbType()
+  {
+    ESQLDbTypeImpl esqlDbType = new ESQLDbTypeImpl();
+    return esqlDbType;
   }
 
   /**
@@ -366,6 +430,28 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     ETypeImpl eType = new ETypeImpl();
     return eType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ColSort createColSortFromString(EDataType eDataType, String initialValue)
+  {
+    ColSort result = ColSort.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertColSortToString(EDataType eDataType, Object instanceValue)
+  {
+    return instanceValue == null ? null : instanceValue.toString();
   }
 
   /**

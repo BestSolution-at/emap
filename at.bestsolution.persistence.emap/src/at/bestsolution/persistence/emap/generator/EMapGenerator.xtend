@@ -63,22 +63,22 @@ class EMapGenerator implements IGenerator {
 //			println("Generating " + resource)
 			val root = resource.contents.head as EMapping
 			if( root.root instanceof EMappingEntityDef ) {
-				
+
 				val edef = root.root as EMappingEntityDef
-	
+
 				fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass))
-	
+
 				if( edef.entity.allAttributes.findFirst[pk] == null ) {
 					return;
 				}
 	//			println("Generating MapperFactory")
-	
+
 				val path = edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "MapperFactory.java"
 				val content = javaObjectMapperGenerator.generateJava(edef, edef.lookupEClass)
 	//			println(" path = " + path)
 	//			println(" content.length = " + content.length)
 				fsa.generateFile(path, content);
-				
+
 	//			println("Generating named queries")
 				for( namedQuery : edef.entity.namedQueries ) {
 					for( query : namedQuery.queries ) {
@@ -94,7 +94,7 @@ class EMapGenerator implements IGenerator {
 						}
 					}
 				}
-	
+
 	//			println("Generating named custom queries")
 				for( namedQuery : edef.entity.namedCustomQueries ) {
 					for( query : namedQuery.queries ) {
@@ -116,10 +116,10 @@ class EMapGenerator implements IGenerator {
 						}
 					}
 				}
-	
+
 				val projectName = resource.URI.segment(0)
-	
-	
+
+
 	//			println("Generating " + edef.entity.name+"Mapper.xml");
 	//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))
 			} else {
@@ -131,7 +131,7 @@ class EMapGenerator implements IGenerator {
 					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
 				}
 			}
-			
+
 		}
 		catch (Exception e) {
 			e.printStackTrace
@@ -139,7 +139,7 @@ class EMapGenerator implements IGenerator {
 				log.log(new Status(IStatus.ERROR, "at.bestsolution.persistence.emap", "Error during Generator Execution for " + resource.URI, e));
 			}
 			catch (Exception e1) {
-				e1.printStackTrace	
+				e1.printStackTrace
 			}
 		}
 	}
@@ -159,7 +159,7 @@ class EMapGenerator implements IGenerator {
 	public class «bundleDef.name»SqlMetaDataProvider implements SqlMetaDataProvider {
 		private Set<Table> tableSet = new HashSet<Table>();
 		public «bundleDef.name»SqlMetaDataProvider() {
-			«FOR e : bundleDef.entities»
+			«FOR e : bundleDef.entities.map[entity]»
 			{
 				Set<Column> colSet = new HashSet<Column>();
 				«val pk = e.collectDerivedAttributes.values.findFirst[pk]»
@@ -197,7 +197,7 @@ class EMapGenerator implements IGenerator {
 
 			public «bundleDef.name»MappingUnitProvider() {
 				units = new ArrayList<MappingUnit>();
-				«FOR e : bundleDef.entities»
+				«FOR e : bundleDef.entities.map[entity]»
 					«var eClass = e.lookupEClass»
 					units.add(new URLMappingUnit("mappers/«e.name»Mapper.xml",
 						«eClass.instanceClassName».class,

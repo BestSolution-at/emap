@@ -24,7 +24,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return "NEXT VALUE FOR " + primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence;
 	}
-	
+
 	override getSequenceStatementCurVal(EAttribute primaryKey) {
 		return null;
 	}
@@ -41,16 +41,24 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 		return true;
 	}
 
-	override getDatabaseType(EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, EDataType dataType) {
+		val size = attribute?.size;
+
 		if( dataType instanceof EEnum ) {
+			if( size != null ) {
+				return "varchar("+size+")";
+			}
 			return "varchar(255)";
-		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
+		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
 			return "int64";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
 		} else if( "EString" == dataType.name ) {
+			if( size != null ) {
+				return "varchar("+size+")";
+			}
 			return "varchar(255)"
 		} else if( "java.sql.Clob" == dataType.instanceClassName ) {
 			return "blob sub_type 1 segment size 2048"
@@ -69,7 +77,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
-		return true;
+		return false;
 	}
 
 }

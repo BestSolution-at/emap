@@ -16,16 +16,16 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
 
 class OracleDatabaseSupport extends DatabaseSupport {
-	
+
 	override getAutokeyDefinition(EAttribute primaryKey) {
 		return ""
 	}
-	
+
 	override getDatabaseId() {
 		return "Oracle"
 	}
-	
-	override getDatabaseType(EDataType dataType) {
+
+	override getDatabaseType(EAttribute attribute, EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "VARCHAR2(255)";
 		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
@@ -47,23 +47,23 @@ class OracleDatabaseSupport extends DatabaseSupport {
 		}
 		return "***UNKOWN "+dataType.name+"***";
 	}
-	
+
 	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence+".nextval"
 	}
-	
+
 	override getSequenceStatementCurVal(EAttribute primaryKey) {
 		return null;
 	}
-	
+
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true
 	}
-	
+
 	override processInsert(EAttribute primaryKey, String insert) {
 		return insert
 	}
-	
+
 	override supportsGeneratedKeys() {
 		return false;
 	}
@@ -71,5 +71,5 @@ class OracleDatabaseSupport extends DatabaseSupport {
 	override supportsGeneratedKeyAsResultSet() {
 		return false;
 	}
-	
+
 }

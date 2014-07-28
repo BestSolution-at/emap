@@ -101,6 +101,7 @@ class JavaObjectMapperGenerator {
 	import java.util.Collections;
 	import java.util.Collection;
 	import org.eclipse.emf.ecore.util.EcoreUtil;
+	import at.bestsolution.persistence.java.RefreshableObjectMapper;
 
 	// «generatorCredit»
 	@SuppressWarnings("all")
@@ -110,7 +111,7 @@ class JavaObjectMapperGenerator {
 			return new «entityDef.entity.name»MapperImpl(session);
 		}
 
-		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, at.bestsolution.persistence.java.JavaObjectMapper<«eClass.name»>, ResolveDelegate {
+		final static class «entityDef.entity.name»MapperImpl implements «entityDef.entity.name»Mapper, at.bestsolution.persistence.java.JavaObjectMapper<«eClass.name»>«IF entityDef.refreshableMapper»,at.bestsolution.persistence.java.RefreshableObjectMapper<«eClass.name»>«ENDIF», ResolveDelegate {
 			private final JavaSession session;
 			private boolean inAutoResolve;
 			private static final Logger LOGGER = Logger.getLogger(«entityDef.entity.name»MapperImpl.class);
@@ -183,6 +184,61 @@ class JavaObjectMapperGenerator {
 				return rv;
 			}
 
+			private final void map_default_«eClass.name»_data_refresh(«eClass.name» rv, Connection connection, ResultSet set) throws SQLException {
+				«attrib_resultMapContent("rv",entityDef.entity.allAttributes, eClass, "",false)»
+			}
+
+			private final void map_default_«eClass.name»_complete_refresh(«eClass.name» rv, Connection connection, ResultSet set, Set<Object> refreshedObjects) throws SQLException {
+				«var attributes = entityDef.entity.allAttributes»
+				«attrib_resultMapContent("rv",attributes, eClass, "")»
+				«FOR a : attributes.sort([a,b|
+			      val iA = a.sortValue(eClass)
+			      val iB = b.sortValue(eClass)
+			      return compare(iA,iB);
+			    ]).filter[resolved]»
+				{
+					EObject eo = (EObject)rv;
+					EReference r = (EReference)eo.eClass().getEStructuralFeature("«a.name»");
+					if( ((LazyEObject)rv).isResolved(r) ) {
+						«var f = eClass.getEStructuralFeature(a.name)»
+						«IF f.many»
+							«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn» m = session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
+							RefreshableObjectMapper<«f.EType.instanceClassName»> mr = (RefreshableObjectMapper<«f.EType.instanceClassName»>)m;
+							List<«f.EType.instanceClassName»> list = m.«a.query.name»(((Number)getPrimaryKeyValue(rv)).longValue());
+							Util.syncLists(rv.get«a.name.javaReservedNameEscape.toFirstUpper»(), list);
+							for( «f.EType.instanceClassName» e : rv.get«a.name.javaReservedNameEscape.toFirstUpper»() ) {
+								if( ! refreshedObjects.contains(e) ) {
+									mr.refreshWithReferences(e,refreshedObjects);
+								}
+							}
+						«ELSE»
+							«f.EType.instanceClassName» v = rv.get«a.name.javaReservedNameEscape.toFirstUpper»();
+							RefreshableObjectMapper<«f.EType.instanceClassName»> mr = (RefreshableObjectMapper<«f.EType.instanceClassName»>)session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
+							if( v != null && ! refreshedObjects.contains(v) ) {
+								mr.refreshWithReferences(v,refreshedObjects);
+							} else if( (v == null && proxy.«a.name.javaReservedNameEscape» != 0) || (mr.getPrimaryKeyValue(v) != null && ((Number)mr.getPrimaryKeyValue(v)).longValue() != proxy.«a.name.javaReservedNameEscape») ) {
+								«val attributeClass = eClass.getEStructuralFeature(a.name).EType as EClass»
+								EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
+								v = session.getCache().getObject(eClass,proxy.«a.name.javaReservedNameEscape»);
+								if( v != null ) {
+									resolve((LazyEObject)rv,proxy,r);
+									if( ! refreshedObjects.contains(v) ) {
+										mr.refreshWithReferences(v,refreshedObjects);
+									}
+								} else {
+									resolve((LazyEObject)rv,proxy,r);
+									v = rv.get«a.name.javaReservedNameEscape.toFirstUpper»();
+									if( v != null ) {
+										refreshedObjects.add(v);
+									}
+								}
+							}
+						«ENDIF»
+					}
+				}
+			    «ENDFOR»
+			}
+
 	«««		Generate util methods
 			«utilGen.generate(entityDef, eClass)»
 
@@ -194,6 +250,9 @@ class JavaObjectMapperGenerator {
 			«FOR customQuery : entityDef.entity.namedCustomQueries»
 				«customQueryGen.generateCustomQuery(entityDef,customQuery)»
 			«ENDFOR»
+
+			// refresh stuff
+			«queryGen.generateRefreshQuery(entityDef, eClass)»
 
 			// update stuff
 			«insertUpdateGen.generateUpdate(entityDef,eClass)»
@@ -445,9 +504,11 @@ class JavaObjectMapperGenerator {
   «ENDIF»
   '''
 
+  def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) {
+  	attrib_resultMapContent(varName,attributes,eClass,columnPrefix,true)
+  }
 
-
-  def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix) '''
+  def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix, boolean withReferences) '''
     «FOR a : attributes.sort([a,b|
       val iA = a.sortValue(eClass)
       val iB = b.sortValue(eClass)
@@ -460,9 +521,10 @@ class JavaObjectMapperGenerator {
         «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
       «ENDIF»
     «ENDFOR»
-    «IF attributes.findFirst[resolved] != null»
+    «IF withReferences && attributes.findFirst[resolved] != null»
       «IF attributes.findFirst[resolved && isSingle(eClass)] != null»
-        ((LazyEObject)rv).setProxyData(new ProxyData_«eClass.name»(«attributes.filter[resolved && isSingle(eClass)].map['set.'+query.parameters.head.resultMethodType+'("'+columnPrefix+parameters.head+'")'].join(",")»));
+      	ProxyData_«eClass.name» proxy = new ProxyData_«eClass.name»(«attributes.filter[resolved && isSingle(eClass)].map['set.'+query.parameters.head.resultMethodType+'("'+columnPrefix+parameters.head+'")'].join(",")»);
+      	((LazyEObject)rv).setProxyData(proxy);
       «ENDIF»
       ((LazyEObject)rv).setProxyDelegate(this);
     «ENDIF»

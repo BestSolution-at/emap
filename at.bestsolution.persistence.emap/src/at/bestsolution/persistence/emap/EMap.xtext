@@ -17,9 +17,36 @@ EMapping:
 
 EMappingBundle:
 	imports+=Import*
-	'bundle' name=ID '{'
-		entities += [EMappingEntity|ID] (',' entities += [EMappingEntity|ID])*
-	'}' ('databases' databases+=STRING (',' databases+=STRING)*)?
+	'bundle' name=ID ('extends' parentBundle=[EMappingBundle|QualifiedName])? '{'
+		entities += EBundleEntity (',' entities += EBundleEntity)*
+		typeDefs += ESQLTypeDef*
+	'}' ('databases' databases+=STRING (',' databases+=STRING)*)? ('colsort' colSort=ColSort )?
+;
+
+enum ColSort:
+	EMAP | ECORE | ECORE_REVERSED | ALPHABETIC
+;
+
+
+
+EBundleEntity:
+	entity = [EMappingEntity|ID] ('{' ('pk-constraint' pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )? (typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}')?
+;
+
+EUniqueConstraint:
+	'unique-constraint' name=STRING '(' attributes+=[EAttribute|QualifiedName] (',' attributes+=[EAttribute|QualifiedName])+ ')'
+;
+
+ESQLAttTypeDef:
+	"sql-type-def" attribute=[EAttribute|QualifiedName] '{' dbTypes += ESQLDbType (',' dbTypes += ESQLDbType)* '}'
+;
+
+ESQLTypeDef:
+	"sql-type-def" etype = EType '{' dbTypes += ESQLDbType (',' dbTypes += ESQLDbType)* '}'
+;
+
+ESQLDbType:
+	dbType=('default'|STRING) sqlTypeDef=STRING ('size' size=STRING)?
 ;
 
 EMappingEntityDef:
@@ -54,7 +81,7 @@ EMappingEntity:
 ;
 
 EAttribute:
-	( pk?='primarykey'? | forcedFk?='forced-fk' ) name=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' ( opposite=[EAttribute|QualifiedName] 'on' relationTable=ID ( '.' relationColumn=ID )? )?) )
+	( pk?='primarykey'? | forcedFk?='forced-fk' ) name=ID '=>' ( columnName=ID ('generatedby' '{' valueGenerators += EValueGenerator (',' valueGenerators+=EValueGenerator)* '}')? | (resolved?='resolve' query=[ENamedQuery|QualifiedName] '('parameters+=ID')' ( opposite=[EAttribute|QualifiedName] 'on' relationTable=ID ( '.' relationColumn=ID )? )?) ) ('size' size=STRING)?
 ;
 
 EValueGenerator:

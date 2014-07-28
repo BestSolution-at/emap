@@ -10,10 +10,49 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" unique="false"
-        upperBound="-1" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentBundle" eType="#//EMappingBundle"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entities" upperBound="-1"
+        eType="#//EBundleEntity" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefs" upperBound="-1"
+        eType="#//ESQLTypeDef" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="databases" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colSort" eType="#//ColSort"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ColSort">
+    <eLiterals name="EMAP" literal="EMAP"/>
+    <eLiterals name="ECORE" value="1" literal="ECORE"/>
+    <eLiterals name="ECORE_REVERSED" value="2" literal="ECORE_REVERSED"/>
+    <eLiterals name="ALPHABETIC" value="3" literal="ALPHABETIC"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EBundleEntity">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pkConstraintName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueContraints" upperBound="-1"
+        eType="#//EUniqueConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefs" upperBound="-1"
+        eType="#//ESQLAttTypeDef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EUniqueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" unique="false"
+        upperBound="-1" eType="#//EAttribute"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ESQLAttTypeDef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" eType="#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbTypes" upperBound="-1"
+        eType="#//ESQLDbType" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ESQLTypeDef">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="etype" eType="#//EType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbTypes" upperBound="-1"
+        eType="#//ESQLDbType" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ESQLDbType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sqlTypeDef" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMappingEntityDef">
     <eStructuralFeatures xsi:type="ecore:EReference" name="package" eType="#//PackageDeclaration"
@@ -59,6 +98,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="opposite" eType="#//EAttribute"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationTable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EValueGenerator">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dbType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

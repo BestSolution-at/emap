@@ -114,13 +114,31 @@ public interface EMapPackage extends EPackage
   int EMAPPING_BUNDLE__NAME = 1;
 
   /**
-   * The feature id for the '<em><b>Entities</b></em>' reference list.
+   * The feature id for the '<em><b>Parent Bundle</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EMAPPING_BUNDLE__ENTITIES = 2;
+  int EMAPPING_BUNDLE__PARENT_BUNDLE = 2;
+
+  /**
+   * The feature id for the '<em><b>Entities</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_BUNDLE__ENTITIES = 3;
+
+  /**
+   * The feature id for the '<em><b>Type Defs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_BUNDLE__TYPE_DEFS = 4;
 
   /**
    * The feature id for the '<em><b>Databases</b></em>' attribute list.
@@ -129,7 +147,16 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_BUNDLE__DATABASES = 3;
+  int EMAPPING_BUNDLE__DATABASES = 5;
+
+  /**
+   * The feature id for the '<em><b>Col Sort</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EMAPPING_BUNDLE__COL_SORT = 6;
 
   /**
    * The number of structural features of the '<em>EMapping Bundle</em>' class.
@@ -138,7 +165,219 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EMAPPING_BUNDLE_FEATURE_COUNT = 4;
+  int EMAPPING_BUNDLE_FEATURE_COUNT = 7;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl <em>EBundle Entity</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEBundleEntity()
+   * @generated
+   */
+  int EBUNDLE_ENTITY = 2;
+
+  /**
+   * The feature id for the '<em><b>Entity</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY__ENTITY = 0;
+
+  /**
+   * The feature id for the '<em><b>Pk Constraint Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY__PK_CONSTRAINT_NAME = 1;
+
+  /**
+   * The feature id for the '<em><b>Unique Contraints</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY__UNIQUE_CONTRAINTS = 2;
+
+  /**
+   * The feature id for the '<em><b>Type Defs</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY__TYPE_DEFS = 3;
+
+  /**
+   * The number of structural features of the '<em>EBundle Entity</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EUniqueConstraintImpl <em>EUnique Constraint</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EUniqueConstraintImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEUniqueConstraint()
+   * @generated
+   */
+  int EUNIQUE_CONSTRAINT = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUNIQUE_CONSTRAINT__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Attributes</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUNIQUE_CONSTRAINT__ATTRIBUTES = 1;
+
+  /**
+   * The number of structural features of the '<em>EUnique Constraint</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EUNIQUE_CONSTRAINT_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLAttTypeDefImpl <em>ESQL Att Type Def</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ESQLAttTypeDefImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLAttTypeDef()
+   * @generated
+   */
+  int ESQL_ATT_TYPE_DEF = 4;
+
+  /**
+   * The feature id for the '<em><b>Attribute</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_ATT_TYPE_DEF__ATTRIBUTE = 0;
+
+  /**
+   * The feature id for the '<em><b>Db Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_ATT_TYPE_DEF__DB_TYPES = 1;
+
+  /**
+   * The number of structural features of the '<em>ESQL Att Type Def</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_ATT_TYPE_DEF_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLTypeDefImpl <em>ESQL Type Def</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ESQLTypeDefImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLTypeDef()
+   * @generated
+   */
+  int ESQL_TYPE_DEF = 5;
+
+  /**
+   * The feature id for the '<em><b>Etype</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_TYPE_DEF__ETYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Db Types</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_TYPE_DEF__DB_TYPES = 1;
+
+  /**
+   * The number of structural features of the '<em>ESQL Type Def</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_TYPE_DEF_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl <em>ESQL Db Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLDbType()
+   * @generated
+   */
+  int ESQL_DB_TYPE = 6;
+
+  /**
+   * The feature id for the '<em><b>Db Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_DB_TYPE__DB_TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Sql Type Def</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_DB_TYPE__SQL_TYPE_DEF = 1;
+
+  /**
+   * The feature id for the '<em><b>Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_DB_TYPE__SIZE = 2;
+
+  /**
+   * The number of structural features of the '<em>ESQL Db Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESQL_DB_TYPE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl <em>EMapping Entity Def</em>}' class.
@@ -148,7 +387,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingEntityDef()
    * @generated
    */
-  int EMAPPING_ENTITY_DEF = 2;
+  int EMAPPING_ENTITY_DEF = 7;
 
   /**
    * The feature id for the '<em><b>Package</b></em>' containment reference.
@@ -194,7 +433,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 3;
+  int IMPORT = 8;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -222,7 +461,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getPackageDeclaration()
    * @generated
    */
-  int PACKAGE_DECLARATION = 4;
+  int PACKAGE_DECLARATION = 9;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -250,7 +489,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingEntity()
    * @generated
    */
-  int EMAPPING_ENTITY = 5;
+  int EMAPPING_ENTITY = 10;
 
   /**
    * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -359,7 +598,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEAttribute()
    * @generated
    */
-  int EATTRIBUTE = 6;
+  int EATTRIBUTE = 11;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -461,13 +700,22 @@ public interface EMapPackage extends EPackage
   int EATTRIBUTE__RELATION_COLUMN = 10;
 
   /**
+   * The feature id for the '<em><b>Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EATTRIBUTE__SIZE = 11;
+
+  /**
    * The number of structural features of the '<em>EAttribute</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EATTRIBUTE_FEATURE_COUNT = 11;
+  int EATTRIBUTE_FEATURE_COUNT = 12;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
@@ -477,7 +725,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueGenerator()
    * @generated
    */
-  int EVALUE_GENERATOR = 7;
+  int EVALUE_GENERATOR = 12;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -532,7 +780,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedQuery()
    * @generated
    */
-  int ENAMED_QUERY = 8;
+  int ENAMED_QUERY = 13;
 
   /**
    * The feature id for the '<em><b>Return Type</b></em>' attribute.
@@ -587,7 +835,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedCustomQuery()
    * @generated
    */
-  int ENAMED_CUSTOM_QUERY = 9;
+  int ENAMED_CUSTOM_QUERY = 14;
 
   /**
    * The feature id for the '<em><b>Return Type</b></em>' containment reference.
@@ -651,7 +899,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEReturnType()
    * @generated
    */
-  int ERETURN_TYPE = 10;
+  int ERETURN_TYPE = 15;
 
   /**
    * The number of structural features of the '<em>EReturn Type</em>' class.
@@ -670,7 +918,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefinedType()
    * @generated
    */
-  int EPREDEFINED_TYPE = 11;
+  int EPREDEFINED_TYPE = 16;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' attribute.
@@ -698,7 +946,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getETypeDef()
    * @generated
    */
-  int ETYPE_DEF = 12;
+  int ETYPE_DEF = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -735,7 +983,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeDef()
    * @generated
    */
-  int EMODEL_TYPE_DEF = 13;
+  int EMODEL_TYPE_DEF = 18;
 
   /**
    * The feature id for the '<em><b>Eclass Def</b></em>' containment reference.
@@ -772,7 +1020,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeAttribute()
    * @generated
    */
-  int EMODEL_TYPE_ATTRIBUTE = 14;
+  int EMODEL_TYPE_ATTRIBUTE = 19;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -836,7 +1084,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueTypeAttribute()
    * @generated
    */
-  int EVALUE_TYPE_ATTRIBUTE = 15;
+  int EVALUE_TYPE_ATTRIBUTE = 20;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -873,7 +1121,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEParameter()
    * @generated
    */
-  int EPARAMETER = 16;
+  int EPARAMETER = 21;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -919,7 +1167,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQuery()
    * @generated
    */
-  int EQUERY = 17;
+  int EQUERY = 22;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -1001,7 +1249,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomQuery()
    * @generated
    */
-  int ECUSTOM_QUERY = 18;
+  int ECUSTOM_QUERY = 23;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -1083,7 +1331,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEObjectSection()
    * @generated
    */
-  int EOBJECT_SECTION = 19;
+  int EOBJECT_SECTION = 24;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -1138,7 +1386,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingAttribute()
    * @generated
    */
-  int EMAPPING_ATTRIBUTE = 20;
+  int EMAPPING_ATTRIBUTE = 25;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -1229,7 +1477,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEType()
    * @generated
    */
-  int ETYPE = 21;
+  int ETYPE = 26;
 
   /**
    * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -1259,6 +1507,16 @@ public interface EMapPackage extends EPackage
   int ETYPE_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.ColSort <em>Col Sort</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.ColSort
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getColSort()
+   * @generated
+   */
+  int COL_SORT = 27;
+
+  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1266,7 +1524,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 22;
+  int RETURN_TYPE = 28;
 
 
   /**
@@ -1323,15 +1581,37 @@ public interface EMapPackage extends EPackage
   EAttribute getEMappingBundle_Name();
 
   /**
-   * Returns the meta object for the reference list '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities <em>Entities</em>}'.
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getParentBundle <em>Parent Bundle</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Entities</em>'.
+   * @return the meta object for the reference '<em>Parent Bundle</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingBundle#getParentBundle()
+   * @see #getEMappingBundle()
+   * @generated
+   */
+  EReference getEMappingBundle_ParentBundle();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities <em>Entities</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Entities</em>'.
    * @see at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities()
    * @see #getEMappingBundle()
    * @generated
    */
   EReference getEMappingBundle_Entities();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getTypeDefs <em>Type Defs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Type Defs</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingBundle#getTypeDefs()
+   * @see #getEMappingBundle()
+   * @generated
+   */
+  EReference getEMappingBundle_TypeDefs();
 
   /**
    * Returns the meta object for the attribute list '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getDatabases <em>Databases</em>}'.
@@ -1343,6 +1623,210 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEMappingBundle_Databases();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort <em>Col Sort</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Col Sort</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort()
+   * @see #getEMappingBundle()
+   * @generated
+   */
+  EAttribute getEMappingBundle_ColSort();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity <em>EBundle Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EBundle Entity</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity
+   * @generated
+   */
+  EClass getEBundleEntity();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getEntity <em>Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Entity</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity#getEntity()
+   * @see #getEBundleEntity()
+   * @generated
+   */
+  EReference getEBundleEntity_Entity();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getPkConstraintName <em>Pk Constraint Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pk Constraint Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity#getPkConstraintName()
+   * @see #getEBundleEntity()
+   * @generated
+   */
+  EAttribute getEBundleEntity_PkConstraintName();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getUniqueContraints <em>Unique Contraints</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Unique Contraints</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity#getUniqueContraints()
+   * @see #getEBundleEntity()
+   * @generated
+   */
+  EReference getEBundleEntity_UniqueContraints();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs <em>Type Defs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Type Defs</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs()
+   * @see #getEBundleEntity()
+   * @generated
+   */
+  EReference getEBundleEntity_TypeDefs();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EUniqueConstraint <em>EUnique Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EUnique Constraint</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EUniqueConstraint
+   * @generated
+   */
+  EClass getEUniqueConstraint();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EUniqueConstraint#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EUniqueConstraint#getName()
+   * @see #getEUniqueConstraint()
+   * @generated
+   */
+  EAttribute getEUniqueConstraint_Name();
+
+  /**
+   * Returns the meta object for the reference list '{@link at.bestsolution.persistence.emap.eMap.EUniqueConstraint#getAttributes <em>Attributes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Attributes</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EUniqueConstraint#getAttributes()
+   * @see #getEUniqueConstraint()
+   * @generated
+   */
+  EReference getEUniqueConstraint_Attributes();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef <em>ESQL Att Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ESQL Att Type Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef
+   * @generated
+   */
+  EClass getESQLAttTypeDef();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef#getAttribute <em>Attribute</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Attribute</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef#getAttribute()
+   * @see #getESQLAttTypeDef()
+   * @generated
+   */
+  EReference getESQLAttTypeDef_Attribute();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef#getDbTypes <em>Db Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Db Types</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef#getDbTypes()
+   * @see #getESQLAttTypeDef()
+   * @generated
+   */
+  EReference getESQLAttTypeDef_DbTypes();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ESQLTypeDef <em>ESQL Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ESQL Type Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLTypeDef
+   * @generated
+   */
+  EClass getESQLTypeDef();
+
+  /**
+   * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.ESQLTypeDef#getEtype <em>Etype</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Etype</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLTypeDef#getEtype()
+   * @see #getESQLTypeDef()
+   * @generated
+   */
+  EReference getESQLTypeDef_Etype();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ESQLTypeDef#getDbTypes <em>Db Types</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Db Types</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLTypeDef#getDbTypes()
+   * @see #getESQLTypeDef()
+   * @generated
+   */
+  EReference getESQLTypeDef_DbTypes();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ESQLDbType <em>ESQL Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ESQL Db Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLDbType
+   * @generated
+   */
+  EClass getESQLDbType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getDbType <em>Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Db Type</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLDbType#getDbType()
+   * @see #getESQLDbType()
+   * @generated
+   */
+  EAttribute getESQLDbType_DbType();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getSqlTypeDef <em>Sql Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Sql Type Def</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLDbType#getSqlTypeDef()
+   * @see #getESQLDbType()
+   * @generated
+   */
+  EAttribute getESQLDbType_SqlTypeDef();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getSize <em>Size</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Size</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLDbType#getSize()
+   * @see #getESQLDbType()
+   * @generated
+   */
+  EAttribute getESQLDbType_Size();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EMappingEntityDef <em>EMapping Entity Def</em>}'.
@@ -1679,6 +2163,17 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getEAttribute_RelationColumn();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EAttribute#getSize <em>Size</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Size</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EAttribute#getSize()
+   * @see #getEAttribute()
+   * @generated
+   */
+  EAttribute getEAttribute_Size();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EValueGenerator <em>EValue Generator</em>}'.
@@ -2447,6 +2942,16 @@ public interface EMapPackage extends EPackage
   EAttribute getEType_Name();
 
   /**
+   * Returns the meta object for enum '{@link at.bestsolution.persistence.emap.eMap.ColSort <em>Col Sort</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Col Sort</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ColSort
+   * @generated
+   */
+  EEnum getColSort();
+
+  /**
    * Returns the meta object for enum '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2524,12 +3029,28 @@ public interface EMapPackage extends EPackage
     EAttribute EMAPPING_BUNDLE__NAME = eINSTANCE.getEMappingBundle_Name();
 
     /**
-     * The meta object literal for the '<em><b>Entities</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Parent Bundle</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMAPPING_BUNDLE__PARENT_BUNDLE = eINSTANCE.getEMappingBundle_ParentBundle();
+
+    /**
+     * The meta object literal for the '<em><b>Entities</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference EMAPPING_BUNDLE__ENTITIES = eINSTANCE.getEMappingBundle_Entities();
+
+    /**
+     * The meta object literal for the '<em><b>Type Defs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EMAPPING_BUNDLE__TYPE_DEFS = eINSTANCE.getEMappingBundle_TypeDefs();
 
     /**
      * The meta object literal for the '<em><b>Databases</b></em>' attribute list feature.
@@ -2538,6 +3059,168 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EMAPPING_BUNDLE__DATABASES = eINSTANCE.getEMappingBundle_Databases();
+
+    /**
+     * The meta object literal for the '<em><b>Col Sort</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EMAPPING_BUNDLE__COL_SORT = eINSTANCE.getEMappingBundle_ColSort();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl <em>EBundle Entity</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEBundleEntity()
+     * @generated
+     */
+    EClass EBUNDLE_ENTITY = eINSTANCE.getEBundleEntity();
+
+    /**
+     * The meta object literal for the '<em><b>Entity</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EBUNDLE_ENTITY__ENTITY = eINSTANCE.getEBundleEntity_Entity();
+
+    /**
+     * The meta object literal for the '<em><b>Pk Constraint Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EBUNDLE_ENTITY__PK_CONSTRAINT_NAME = eINSTANCE.getEBundleEntity_PkConstraintName();
+
+    /**
+     * The meta object literal for the '<em><b>Unique Contraints</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EBUNDLE_ENTITY__UNIQUE_CONTRAINTS = eINSTANCE.getEBundleEntity_UniqueContraints();
+
+    /**
+     * The meta object literal for the '<em><b>Type Defs</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EBUNDLE_ENTITY__TYPE_DEFS = eINSTANCE.getEBundleEntity_TypeDefs();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EUniqueConstraintImpl <em>EUnique Constraint</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EUniqueConstraintImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEUniqueConstraint()
+     * @generated
+     */
+    EClass EUNIQUE_CONSTRAINT = eINSTANCE.getEUniqueConstraint();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EUNIQUE_CONSTRAINT__NAME = eINSTANCE.getEUniqueConstraint_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Attributes</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EUNIQUE_CONSTRAINT__ATTRIBUTES = eINSTANCE.getEUniqueConstraint_Attributes();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLAttTypeDefImpl <em>ESQL Att Type Def</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ESQLAttTypeDefImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLAttTypeDef()
+     * @generated
+     */
+    EClass ESQL_ATT_TYPE_DEF = eINSTANCE.getESQLAttTypeDef();
+
+    /**
+     * The meta object literal for the '<em><b>Attribute</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ESQL_ATT_TYPE_DEF__ATTRIBUTE = eINSTANCE.getESQLAttTypeDef_Attribute();
+
+    /**
+     * The meta object literal for the '<em><b>Db Types</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ESQL_ATT_TYPE_DEF__DB_TYPES = eINSTANCE.getESQLAttTypeDef_DbTypes();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLTypeDefImpl <em>ESQL Type Def</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ESQLTypeDefImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLTypeDef()
+     * @generated
+     */
+    EClass ESQL_TYPE_DEF = eINSTANCE.getESQLTypeDef();
+
+    /**
+     * The meta object literal for the '<em><b>Etype</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ESQL_TYPE_DEF__ETYPE = eINSTANCE.getESQLTypeDef_Etype();
+
+    /**
+     * The meta object literal for the '<em><b>Db Types</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ESQL_TYPE_DEF__DB_TYPES = eINSTANCE.getESQLTypeDef_DbTypes();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl <em>ESQL Db Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLDbType()
+     * @generated
+     */
+    EClass ESQL_DB_TYPE = eINSTANCE.getESQLDbType();
+
+    /**
+     * The meta object literal for the '<em><b>Db Type</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ESQL_DB_TYPE__DB_TYPE = eINSTANCE.getESQLDbType_DbType();
+
+    /**
+     * The meta object literal for the '<em><b>Sql Type Def</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ESQL_DB_TYPE__SQL_TYPE_DEF = eINSTANCE.getESQLDbType_SqlTypeDef();
+
+    /**
+     * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ESQL_DB_TYPE__SIZE = eINSTANCE.getESQLDbType_Size();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl <em>EMapping Entity Def</em>}' class.
@@ -2796,6 +3479,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EATTRIBUTE__RELATION_COLUMN = eINSTANCE.getEAttribute_RelationColumn();
+
+    /**
+     * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EATTRIBUTE__SIZE = eINSTANCE.getEAttribute_Size();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl <em>EValue Generator</em>}' class.
@@ -3394,6 +4085,16 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute ETYPE__NAME = eINSTANCE.getEType_Name();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.ColSort <em>Col Sort</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.ColSort
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getColSort()
+     * @generated
+     */
+    EEnum COL_SORT = eINSTANCE.getColSort();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}' enum.

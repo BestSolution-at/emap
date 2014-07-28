@@ -41,6 +41,51 @@ public interface EMapFactory extends EFactory
   EMappingBundle createEMappingBundle();
 
   /**
+   * Returns a new object of class '<em>EBundle Entity</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EBundle Entity</em>'.
+   * @generated
+   */
+  EBundleEntity createEBundleEntity();
+
+  /**
+   * Returns a new object of class '<em>EUnique Constraint</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EUnique Constraint</em>'.
+   * @generated
+   */
+  EUniqueConstraint createEUniqueConstraint();
+
+  /**
+   * Returns a new object of class '<em>ESQL Att Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ESQL Att Type Def</em>'.
+   * @generated
+   */
+  ESQLAttTypeDef createESQLAttTypeDef();
+
+  /**
+   * Returns a new object of class '<em>ESQL Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ESQL Type Def</em>'.
+   * @generated
+   */
+  ESQLTypeDef createESQLTypeDef();
+
+  /**
+   * Returns a new object of class '<em>ESQL Db Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ESQL Db Type</em>'.
+   * @generated
+   */
+  ESQLDbType createESQLDbType();
+
+  /**
    * Returns a new object of class '<em>EMapping Entity Def</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

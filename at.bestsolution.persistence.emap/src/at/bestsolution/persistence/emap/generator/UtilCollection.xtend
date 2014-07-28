@@ -47,6 +47,10 @@ class UtilCollection {
 		 eClassLookup.getEClass(type);
 	}
 
+	def lookupEDataType(EType type) {
+		 eClassLookup.getEDataType(type);
+	}
+
 	def lookupEClass(EMappingEntity entity) {
 		entity.etype.lookupEClass
 	}
@@ -718,6 +722,10 @@ class UtilCollection {
 	def getEntity(EAttribute a) {
 		val r = a.eResource.contents.get(0) as EMapping
 		return (r.root as EMappingEntityDef).entity
+	}
+
+	def refreshableMapper(EMappingEntityDef entityDef) {
+		return entityDef.entity.namedQueries.findFirst[q|q.name=="selectById"] != null;
 	}
 
 	def objectType(org.eclipse.emf.ecore.EAttribute f) {

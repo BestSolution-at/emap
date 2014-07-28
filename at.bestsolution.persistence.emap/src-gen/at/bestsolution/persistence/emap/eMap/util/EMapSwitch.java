@@ -86,6 +86,41 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.EBUNDLE_ENTITY:
+      {
+        EBundleEntity eBundleEntity = (EBundleEntity)theEObject;
+        T result = caseEBundleEntity(eBundleEntity);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EUNIQUE_CONSTRAINT:
+      {
+        EUniqueConstraint eUniqueConstraint = (EUniqueConstraint)theEObject;
+        T result = caseEUniqueConstraint(eUniqueConstraint);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ESQL_ATT_TYPE_DEF:
+      {
+        ESQLAttTypeDef esqlAttTypeDef = (ESQLAttTypeDef)theEObject;
+        T result = caseESQLAttTypeDef(esqlAttTypeDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ESQL_TYPE_DEF:
+      {
+        ESQLTypeDef esqlTypeDef = (ESQLTypeDef)theEObject;
+        T result = caseESQLTypeDef(esqlTypeDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ESQL_DB_TYPE:
+      {
+        ESQLDbType esqlDbType = (ESQLDbType)theEObject;
+        T result = caseESQLDbType(esqlDbType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.EMAPPING_ENTITY_DEF:
       {
         EMappingEntityDef eMappingEntityDef = (EMappingEntityDef)theEObject;
@@ -261,6 +296,86 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEMappingBundle(EMappingBundle object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EBundle Entity</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EBundle Entity</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEBundleEntity(EBundleEntity object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EUnique Constraint</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EUnique Constraint</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEUniqueConstraint(EUniqueConstraint object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ESQL Att Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ESQL Att Type Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseESQLAttTypeDef(ESQLAttTypeDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ESQL Type Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ESQL Type Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseESQLTypeDef(ESQLTypeDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ESQL Db Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ESQL Db Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseESQLDbType(ESQLDbType object)
   {
     return null;
   }

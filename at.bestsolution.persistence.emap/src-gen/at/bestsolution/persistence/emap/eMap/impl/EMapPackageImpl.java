@@ -2,6 +2,8 @@
  */
 package at.bestsolution.persistence.emap.eMap.impl;
 
+import at.bestsolution.persistence.emap.eMap.ColSort;
+import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
 import at.bestsolution.persistence.emap.eMap.EMapFactory;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
@@ -19,8 +21,12 @@ import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EReturnType;
+import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
+import at.bestsolution.persistence.emap.eMap.ESQLDbType;
+import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
 import at.bestsolution.persistence.emap.eMap.EType;
 import at.bestsolution.persistence.emap.eMap.ETypeDef;
+import at.bestsolution.persistence.emap.eMap.EUniqueConstraint;
 import at.bestsolution.persistence.emap.eMap.EValueGenerator;
 import at.bestsolution.persistence.emap.eMap.EValueTypeAttribute;
 import at.bestsolution.persistence.emap.eMap.Import;
@@ -56,6 +62,41 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eMappingBundleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eBundleEntityEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eUniqueConstraintEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass esqlAttTypeDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass esqlTypeDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass esqlDbTypeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -202,6 +243,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EEnum colSortEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EEnum returnTypeEEnum = null;
 
   /**
@@ -322,7 +370,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEMappingBundle_Entities()
+  public EReference getEMappingBundle_ParentBundle()
   {
     return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(2);
   }
@@ -332,9 +380,219 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getEMappingBundle_Entities()
+  {
+    return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEMappingBundle_TypeDefs()
+  {
+    return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getEMappingBundle_Databases()
   {
-    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEMappingBundle_ColSort()
+  {
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEBundleEntity()
+  {
+    return eBundleEntityEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_Entity()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEBundleEntity_PkConstraintName()
+  {
+    return (EAttribute)eBundleEntityEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_UniqueContraints()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_TypeDefs()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEUniqueConstraint()
+  {
+    return eUniqueConstraintEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEUniqueConstraint_Name()
+  {
+    return (EAttribute)eUniqueConstraintEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEUniqueConstraint_Attributes()
+  {
+    return (EReference)eUniqueConstraintEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getESQLAttTypeDef()
+  {
+    return esqlAttTypeDefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getESQLAttTypeDef_Attribute()
+  {
+    return (EReference)esqlAttTypeDefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getESQLAttTypeDef_DbTypes()
+  {
+    return (EReference)esqlAttTypeDefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getESQLTypeDef()
+  {
+    return esqlTypeDefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getESQLTypeDef_Etype()
+  {
+    return (EReference)esqlTypeDefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getESQLTypeDef_DbTypes()
+  {
+    return (EReference)esqlTypeDefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getESQLDbType()
+  {
+    return esqlDbTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getESQLDbType_DbType()
+  {
+    return (EAttribute)esqlDbTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getESQLDbType_SqlTypeDef()
+  {
+    return (EAttribute)esqlDbTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getESQLDbType_Size()
+  {
+    return (EAttribute)esqlDbTypeEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -645,6 +903,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EAttribute getEAttribute_RelationColumn()
   {
     return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(10);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEAttribute_Size()
+  {
+    return (EAttribute)eAttributeEClass.getEStructuralFeatures().get(11);
   }
 
   /**
@@ -1362,6 +1630,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getColSort()
+  {
+    return colSortEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getReturnType()
   {
     return returnTypeEEnum;
@@ -1403,8 +1681,34 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     eMappingBundleEClass = createEClass(EMAPPING_BUNDLE);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__IMPORTS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__NAME);
+    createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__PARENT_BUNDLE);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__ENTITIES);
+    createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__TYPE_DEFS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__DATABASES);
+    createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__COL_SORT);
+
+    eBundleEntityEClass = createEClass(EBUNDLE_ENTITY);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__ENTITY);
+    createEAttribute(eBundleEntityEClass, EBUNDLE_ENTITY__PK_CONSTRAINT_NAME);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__UNIQUE_CONTRAINTS);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__TYPE_DEFS);
+
+    eUniqueConstraintEClass = createEClass(EUNIQUE_CONSTRAINT);
+    createEAttribute(eUniqueConstraintEClass, EUNIQUE_CONSTRAINT__NAME);
+    createEReference(eUniqueConstraintEClass, EUNIQUE_CONSTRAINT__ATTRIBUTES);
+
+    esqlAttTypeDefEClass = createEClass(ESQL_ATT_TYPE_DEF);
+    createEReference(esqlAttTypeDefEClass, ESQL_ATT_TYPE_DEF__ATTRIBUTE);
+    createEReference(esqlAttTypeDefEClass, ESQL_ATT_TYPE_DEF__DB_TYPES);
+
+    esqlTypeDefEClass = createEClass(ESQL_TYPE_DEF);
+    createEReference(esqlTypeDefEClass, ESQL_TYPE_DEF__ETYPE);
+    createEReference(esqlTypeDefEClass, ESQL_TYPE_DEF__DB_TYPES);
+
+    esqlDbTypeEClass = createEClass(ESQL_DB_TYPE);
+    createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__DB_TYPE);
+    createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__SQL_TYPE_DEF);
+    createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__SIZE);
 
     eMappingEntityDefEClass = createEClass(EMAPPING_ENTITY_DEF);
     createEReference(eMappingEntityDefEClass, EMAPPING_ENTITY_DEF__PACKAGE);
@@ -1441,6 +1745,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eAttributeEClass, EATTRIBUTE__OPPOSITE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__RELATION_TABLE);
     createEAttribute(eAttributeEClass, EATTRIBUTE__RELATION_COLUMN);
+    createEAttribute(eAttributeEClass, EATTRIBUTE__SIZE);
 
     eValueGeneratorEClass = createEClass(EVALUE_GENERATOR);
     createEAttribute(eValueGeneratorEClass, EVALUE_GENERATOR__DB_TYPE);
@@ -1529,6 +1834,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eTypeEClass, ETYPE__NAME);
 
     // Create enums
+    colSortEEnum = createEEnum(COL_SORT);
     returnTypeEEnum = createEEnum(RETURN_TYPE);
   }
 
@@ -1572,8 +1878,34 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eMappingBundleEClass, EMappingBundle.class, "EMappingBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMappingBundle_Imports(), this.getImport(), null, "imports", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Name(), ecorePackage.getEString(), "name", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEMappingBundle_Entities(), this.getEMappingEntity(), null, "entities", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingBundle_ParentBundle(), this.getEMappingBundle(), null, "parentBundle", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingBundle_Entities(), this.getEBundleEntity(), null, "entities", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingBundle_TypeDefs(), this.getESQLTypeDef(), null, "typeDefs", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Databases(), ecorePackage.getEString(), "databases", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEMappingBundle_ColSort(), this.getColSort(), "colSort", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eBundleEntityEClass, EBundleEntity.class, "EBundleEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEBundleEntity_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEBundleEntity_PkConstraintName(), ecorePackage.getEString(), "pkConstraintName", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEBundleEntity_UniqueContraints(), this.getEUniqueConstraint(), null, "uniqueContraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEBundleEntity_TypeDefs(), this.getESQLAttTypeDef(), null, "typeDefs", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eUniqueConstraintEClass, EUniqueConstraint.class, "EUniqueConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEUniqueConstraint_Name(), ecorePackage.getEString(), "name", null, 0, 1, EUniqueConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEUniqueConstraint_Attributes(), this.getEAttribute(), null, "attributes", null, 0, -1, EUniqueConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(esqlAttTypeDefEClass, ESQLAttTypeDef.class, "ESQLAttTypeDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getESQLAttTypeDef_Attribute(), this.getEAttribute(), null, "attribute", null, 0, 1, ESQLAttTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getESQLAttTypeDef_DbTypes(), this.getESQLDbType(), null, "dbTypes", null, 0, -1, ESQLAttTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(esqlTypeDefEClass, ESQLTypeDef.class, "ESQLTypeDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getESQLTypeDef_Etype(), this.getEType(), null, "etype", null, 0, 1, ESQLTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getESQLTypeDef_DbTypes(), this.getESQLDbType(), null, "dbTypes", null, 0, -1, ESQLTypeDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(esqlDbTypeEClass, ESQLDbType.class, "ESQLDbType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getESQLDbType_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getESQLDbType_SqlTypeDef(), ecorePackage.getEString(), "sqlTypeDef", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getESQLDbType_Size(), ecorePackage.getEString(), "size", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eMappingEntityDefEClass, EMappingEntityDef.class, "EMappingEntityDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMappingEntityDef_Package(), this.getPackageDeclaration(), null, "package", null, 0, 1, EMappingEntityDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1610,6 +1942,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEAttribute_Opposite(), this.getEAttribute(), null, "opposite", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_RelationTable(), ecorePackage.getEString(), "relationTable", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEAttribute_RelationColumn(), ecorePackage.getEString(), "relationColumn", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEAttribute_Size(), ecorePackage.getEString(), "size", null, 0, 1, at.bestsolution.persistence.emap.eMap.EAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eValueGeneratorEClass, EValueGenerator.class, "EValueGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEValueGenerator_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, EValueGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1698,6 +2031,12 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEType_Name(), ecorePackage.getEString(), "name", null, 0, 1, EType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
+    initEEnum(colSortEEnum, ColSort.class, "ColSort");
+    addEEnumLiteral(colSortEEnum, ColSort.EMAP);
+    addEEnumLiteral(colSortEEnum, ColSort.ECORE);
+    addEEnumLiteral(colSortEEnum, ColSort.ECORE_REVERSED);
+    addEEnumLiteral(colSortEEnum, ColSort.ALPHABETIC);
+
     initEEnum(returnTypeEEnum, ReturnType.class, "ReturnType");
     addEEnumLiteral(returnTypeEEnum, ReturnType.LIST);
     addEEnumLiteral(returnTypeEEnum, ReturnType.SINGLE);

@@ -25,7 +25,7 @@ class H2DatabaseSupport extends DatabaseSupport {
 		return "h2"
 	}
 
-	override getDatabaseType(EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "varchar(255)";
 		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
@@ -51,11 +51,11 @@ class H2DatabaseSupport extends DatabaseSupport {
 	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return null
 	}
-	
+
 	override getSequenceStatementCurVal(EAttribute primaryKey) {
 		return null;
 	}
-	
+
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true
 	}

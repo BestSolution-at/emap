@@ -85,6 +85,31 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEMappingBundleAdapter();
       }
       @Override
+      public Adapter caseEBundleEntity(EBundleEntity object)
+      {
+        return createEBundleEntityAdapter();
+      }
+      @Override
+      public Adapter caseEUniqueConstraint(EUniqueConstraint object)
+      {
+        return createEUniqueConstraintAdapter();
+      }
+      @Override
+      public Adapter caseESQLAttTypeDef(ESQLAttTypeDef object)
+      {
+        return createESQLAttTypeDefAdapter();
+      }
+      @Override
+      public Adapter caseESQLTypeDef(ESQLTypeDef object)
+      {
+        return createESQLTypeDefAdapter();
+      }
+      @Override
+      public Adapter caseESQLDbType(ESQLDbType object)
+      {
+        return createESQLDbTypeAdapter();
+      }
+      @Override
       public Adapter caseEMappingEntityDef(EMappingEntityDef object)
       {
         return createEMappingEntityDefAdapter();
@@ -232,6 +257,81 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEMappingBundleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity <em>EBundle Entity</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity
+   * @generated
+   */
+  public Adapter createEBundleEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EUniqueConstraint <em>EUnique Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EUniqueConstraint
+   * @generated
+   */
+  public Adapter createEUniqueConstraintAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef <em>ESQL Att Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef
+   * @generated
+   */
+  public Adapter createESQLAttTypeDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ESQLTypeDef <em>ESQL Type Def</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLTypeDef
+   * @generated
+   */
+  public Adapter createESQLTypeDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ESQLDbType <em>ESQL Db Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ESQLDbType
+   * @generated
+   */
+  public Adapter createESQLDbTypeAdapter()
   {
     return null;
   }

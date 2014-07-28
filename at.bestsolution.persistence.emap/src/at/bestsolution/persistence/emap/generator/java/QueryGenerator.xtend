@@ -29,6 +29,121 @@ class QueryGenerator {
 		return q.queries.findFirst[!dbType.equals("default")] != null;
 	}
 
+	def generateRefreshQuery(EMappingEntityDef entityDef, EClass eClass) '''
+		«IF entityDef.refreshableMapper»
+		«var query = entityDef.entity.namedQueries.findFirst[q|q.name=="selectById"]»
+		// «generatorCredit»
+		public final void refresh(final «eClass.name» object, final at.bestsolution.persistence.Session.RefreshType refreshType) {
+			switch( refreshType ) {
+				case DATA_ONLY:
+					refreshDataOnly(object,false);
+					break;
+				case DATA_ONLY_SYNC_VERSION:
+					refreshDataOnly(object,true);
+					break;
+			}
+		}
+
+		public final void refreshWithReferences(final «eClass.name» object, Set<Object> refreshedObjects) {
+			if( ! (object instanceof LazyEObject) ) {
+				LOGGER.error("Unable to refresh object '"+object+"' not loaded from database");
+				return;
+			}
+
+			String query;
+			«IF query.hasSpecificQuery»
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				if( query == null ) {
+			«ENDIF»
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+			«IF query.hasSpecificQuery»
+				}
+			«ENDIF»
+
+			Connection connection = session.checkoutConnection();
+			PreparedStatement pStmt = null;
+			ResultSet set = null;
+			try {
+				final ProcessedSQL processedSQL = Util.processSQL(query);
+				pStmt = connection.prepareStatement(processedSQL.sql);
+				long id = ((Number)getPrimaryKeyValue(object)).longValue();
+				pStmt.setLong(1, id);
+				set = pStmt.executeQuery();
+				if( set.next() ) {
+					refreshedObjects.add(object);
+					map_default_«eClass.name»_complete_refresh(object,connection,set,refreshedObjects);
+					if( getLockColumn() != null ) {
+						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+					}
+				} else {
+					throw new PersistanceException("Object with id '"+id+"' not available");
+				}
+			} catch(SQLException e) {
+				throw new PersistanceException(e);
+			} finally {
+				try {
+					if( set != null ) {
+						set.close();
+					}
+					if( pStmt != null ) {
+						pStmt.close();
+					}
+				} catch(SQLException e) {
+					LOGGER.fatal("Unable to clean up resources", e);
+				} finally {
+					session.returnConnection(connection);
+				}
+			}
+		}
+
+		private final void refreshDataOnly(final «eClass.name» object, boolean updateVersion) {
+			String query;
+			«IF query.hasSpecificQuery»
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				if( query == null ) {
+			«ENDIF»
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+			«IF query.hasSpecificQuery»
+				}
+			«ENDIF»
+
+			Connection connection = session.checkoutConnection();
+			PreparedStatement pStmt = null;
+			ResultSet set = null;
+			try {
+				final ProcessedSQL processedSQL = Util.processSQL(query);
+				pStmt = connection.prepareStatement(processedSQL.sql);
+				long id = ((Number)getPrimaryKeyValue(object)).longValue();
+				pStmt.setLong(1, id);
+				set = pStmt.executeQuery();
+				if( set.next() ) {
+					map_default_«eClass.name»_data_refresh(object,connection,set);
+					if( updateVersion && getLockColumn() != null ) {
+						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+					}
+				} else {
+					throw new PersistanceException("Object with id '"+id+"' not available");
+				}
+			} catch(SQLException e) {
+				throw new PersistanceException(e);
+			} finally {
+				try {
+					if( set != null ) {
+						set.close();
+					}
+					if( pStmt != null ) {
+						pStmt.close();
+					}
+				} catch(SQLException e) {
+					LOGGER.fatal("Unable to clean up resources", e);
+				} finally {
+					session.returnConnection(connection);
+				}
+			}
+		}
+		«ENDIF»
+	'''
+
 	def generateQuery(EMappingEntityDef entityDef, EClass eClass, ENamedQuery query) '''
 	// «generatorCredit»
 	@Override

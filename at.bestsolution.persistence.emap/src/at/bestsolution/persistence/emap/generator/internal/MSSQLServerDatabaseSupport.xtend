@@ -24,11 +24,11 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 	override getSequenceStatementNextVal(EAttribute primaryKey) {
 		return ""
 	}
-	
+
 	override getSequenceStatementCurVal(EAttribute primaryKey) {
 		return null;
 	}
-	
+
 	override processInsert(EAttribute primaryKey, String insert) {
 		return insert;
 	}
@@ -37,7 +37,7 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 		return true;
 	}
 
-	override getDatabaseType(EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "nvarchar(255)";
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {

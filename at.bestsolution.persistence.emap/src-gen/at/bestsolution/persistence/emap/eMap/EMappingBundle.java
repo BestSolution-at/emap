@@ -16,8 +16,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getName <em>Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getParentBundle <em>Parent Bundle</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities <em>Entities</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getTypeDefs <em>Type Defs</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getDatabases <em>Databases</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort <em>Col Sort</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,20 +73,62 @@ public interface EMappingBundle extends EObject
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Entities</b></em>' reference list.
-   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EMappingEntity}.
+   * Returns the value of the '<em><b>Parent Bundle</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Entities</em>' reference list isn't clear,
+   * If the meaning of the '<em>Parent Bundle</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Entities</em>' reference list.
-   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_Entities()
+   * @return the value of the '<em>Parent Bundle</em>' reference.
+   * @see #setParentBundle(EMappingBundle)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_ParentBundle()
    * @model
    * @generated
    */
-  EList<EMappingEntity> getEntities();
+  EMappingBundle getParentBundle();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getParentBundle <em>Parent Bundle</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Parent Bundle</em>' reference.
+   * @see #getParentBundle()
+   * @generated
+   */
+  void setParentBundle(EMappingBundle value);
+
+  /**
+   * Returns the value of the '<em><b>Entities</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EBundleEntity}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Entities</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Entities</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_Entities()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EBundleEntity> getEntities();
+
+  /**
+   * Returns the value of the '<em><b>Type Defs</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.ESQLTypeDef}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Defs</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Defs</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_TypeDefs()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ESQLTypeDef> getTypeDefs();
 
   /**
    * Returns the value of the '<em><b>Databases</b></em>' attribute list.
@@ -100,5 +145,34 @@ public interface EMappingBundle extends EObject
    * @generated
    */
   EList<String> getDatabases();
+
+  /**
+   * Returns the value of the '<em><b>Col Sort</b></em>' attribute.
+   * The literals are from the enumeration {@link at.bestsolution.persistence.emap.eMap.ColSort}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Col Sort</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Col Sort</em>' attribute.
+   * @see at.bestsolution.persistence.emap.eMap.ColSort
+   * @see #setColSort(ColSort)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_ColSort()
+   * @model
+   * @generated
+   */
+  ColSort getColSort();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort <em>Col Sort</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Col Sort</em>' attribute.
+   * @see at.bestsolution.persistence.emap.eMap.ColSort
+   * @see #getColSort()
+   * @generated
+   */
+  void setColSort(ColSort value);
 
 } // EMappingBundle

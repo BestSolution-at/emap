@@ -1,6 +1,7 @@
 package at.bestsolution.persistence.emap.serializer;
 
 import at.bestsolution.persistence.emap.eMap.EAttribute;
+import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMapping;
@@ -16,8 +17,12 @@ import at.bestsolution.persistence.emap.eMap.EObjectSection;
 import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
+import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
+import at.bestsolution.persistence.emap.eMap.ESQLDbType;
+import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
 import at.bestsolution.persistence.emap.eMap.EType;
 import at.bestsolution.persistence.emap.eMap.ETypeDef;
+import at.bestsolution.persistence.emap.eMap.EUniqueConstraint;
 import at.bestsolution.persistence.emap.eMap.EValueGenerator;
 import at.bestsolution.persistence.emap.eMap.EValueTypeAttribute;
 import at.bestsolution.persistence.emap.eMap.Import;
@@ -48,6 +53,12 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EMapPackage.EATTRIBUTE:
 				if(context == grammarAccess.getEAttributeRule()) {
 					sequence_EAttribute(context, (EAttribute) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.EBUNDLE_ENTITY:
+				if(context == grammarAccess.getEBundleEntityRule()) {
+					sequence_EBundleEntity(context, (EBundleEntity) semanticObject); 
 					return; 
 				}
 				else break;
@@ -137,6 +148,24 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case EMapPackage.ESQL_ATT_TYPE_DEF:
+				if(context == grammarAccess.getESQLAttTypeDefRule()) {
+					sequence_ESQLAttTypeDef(context, (ESQLAttTypeDef) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.ESQL_DB_TYPE:
+				if(context == grammarAccess.getESQLDbTypeRule()) {
+					sequence_ESQLDbType(context, (ESQLDbType) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.ESQL_TYPE_DEF:
+				if(context == grammarAccess.getESQLTypeDefRule()) {
+					sequence_ESQLTypeDef(context, (ESQLTypeDef) semanticObject); 
+					return; 
+				}
+				else break;
 			case EMapPackage.ETYPE:
 				if(context == grammarAccess.getETypeRule()) {
 					sequence_EType(context, (EType) semanticObject); 
@@ -147,6 +176,12 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				if(context == grammarAccess.getEReturnTypeRule() ||
 				   context == grammarAccess.getETypeDefRule()) {
 					sequence_ETypeDef(context, (ETypeDef) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.EUNIQUE_CONSTRAINT:
+				if(context == grammarAccess.getEUniqueConstraintRule()) {
+					sequence_EUniqueConstraint(context, (EUniqueConstraint) semanticObject); 
 					return; 
 				}
 				else break;
@@ -186,10 +221,27 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         (
 	 *             (columnName=ID (valueGenerators+=EValueGenerator valueGenerators+=EValueGenerator*)?) | 
 	 *             (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID (opposite=[EAttribute|QualifiedName] relationTable=ID relationColumn=ID?)?)
-	 *         )
+	 *         ) 
+	 *         size=STRING?
 	 *     )
 	 */
 	protected void sequence_EAttribute(EObject context, EAttribute semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         entity=[EMappingEntity|ID] 
+	 *         (
+	 *             pkConstraintName=STRING? 
+	 *             (uniqueContraints+=EUniqueConstraint uniqueContraints+=EUniqueConstraint*)? 
+	 *             (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)?
+	 *         )?
+	 *     )
+	 */
+	protected void sequence_EBundleEntity(EObject context, EBundleEntity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -218,7 +270,16 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (imports+=Import* name=ID entities+=[EMappingEntity|ID] entities+=[EMappingEntity|ID]* (databases+=STRING databases+=STRING*)?)
+	 *     (
+	 *         imports+=Import* 
+	 *         name=ID 
+	 *         parentBundle=[EMappingBundle|QualifiedName]? 
+	 *         entities+=EBundleEntity 
+	 *         entities+=EBundleEntity* 
+	 *         typeDefs+=ESQLTypeDef* 
+	 *         (databases+=STRING databases+=STRING*)? 
+	 *         colSort=ColSort?
+	 *     )
 	 */
 	protected void sequence_EMappingBundle(EObject context, EMappingBundle semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -339,6 +400,33 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (attribute=[EAttribute|QualifiedName] dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
+	 */
+	protected void sequence_ESQLAttTypeDef(EObject context, ESQLAttTypeDef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((dbType='default' | dbType=STRING) sqlTypeDef=STRING size=STRING?)
+	 */
+	protected void sequence_ESQLDbType(EObject context, ESQLDbType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (etype=EType dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
+	 */
+	protected void sequence_ESQLTypeDef(EObject context, ESQLTypeDef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=FQN types+=EValueTypeAttribute types+=EValueTypeAttribute*)
 	 */
 	protected void sequence_ETypeDef(EObject context, ETypeDef semanticObject) {
@@ -362,6 +450,15 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getETypeAccess().getUrlSTRINGTerminalRuleCall_1_0(), semanticObject.getUrl());
 		feeder.accept(grammarAccess.getETypeAccess().getNameIDTerminalRuleCall_3_0(), semanticObject.getName());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]+)
+	 */
+	protected void sequence_EUniqueConstraint(EObject context, EUniqueConstraint semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

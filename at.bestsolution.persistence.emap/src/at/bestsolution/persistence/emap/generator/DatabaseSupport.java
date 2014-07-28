@@ -13,6 +13,7 @@ package at.bestsolution.persistence.emap.generator;
 import org.eclipse.emf.ecore.EDataType;
 
 import at.bestsolution.persistence.emap.eMap.EAttribute;
+import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 
 public abstract class DatabaseSupport {
 	public abstract String getDatabaseId();
@@ -21,7 +22,14 @@ public abstract class DatabaseSupport {
 	public abstract String getSequenceStatementNextVal(EAttribute primaryKey);
 	public abstract String getSequenceStatementCurVal(EAttribute primaryKey);
 	public abstract String processInsert(EAttribute primaryKey, String insert);
-	public abstract String getDatabaseType(EDataType dataType);
+	public abstract String getDatabaseType(EAttribute attribute, EDataType dataType);
 	public abstract String getAutokeyDefinition(EAttribute primaryKey);
 	public abstract boolean isPrimaryKeyPartOfColDef(EAttribute primaryKey);
+
+	public String getPrimaryKeyAsConstraint(UtilCollection util, EBundleEntity bd, EAttribute primaryKey) {
+		if( bd.getPkConstraintName() == null ) {
+			return "constraint " +  "pk_" + util.calcTableName(bd.getEntity()) + " PRIMARY KEY(\""+ primaryKey.getColumnName()+"\")";
+		}
+		return "constraint " +  bd.getPkConstraintName() + " PRIMARY KEY(\""+ primaryKey.getColumnName()+"\")";
+	}
 }

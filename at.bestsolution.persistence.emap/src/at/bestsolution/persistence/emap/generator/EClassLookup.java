@@ -18,6 +18,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -33,6 +34,7 @@ public class EClassLookup {
 	}
 
 	private Map<EType, EClass> localCache = new HashMap<EType, EClass>();
+	private Map<EType, EDataType> localCacheEDataType = new HashMap<EType, EDataType>();
 
 	private EClass findEClass(EType type, boolean targetPlatform) {
 
@@ -58,6 +60,22 @@ public class EClassLookup {
 			}
 		}
 		return null;
+	}
+
+	public EDataType getEDataType(EType type) {
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
+		if( ePackage == null ) {
+			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");
+		}
+
+		EDataType result = (EDataType) ePackage.getEClassifier(type.getName());
+
+		if( result == null ) {
+			throw new IllegalStateException("Could not find class '"+type.getName());
+		}
+		localCacheEDataType.put(type, result);
+
+		return result;
 	}
 
 	public EClass getEClass(EType type) {
