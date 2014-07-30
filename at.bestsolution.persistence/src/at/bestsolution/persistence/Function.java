@@ -10,6 +10,6 @@
  *******************************************************************************/
 package at.bestsolution.persistence;
 
-public interface Consumer<T> {
-	public void execute(T value);
+public interface Function<T, R> {
+	public R execute(T value);
 }
