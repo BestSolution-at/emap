@@ -455,7 +455,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]+)
+	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]*)
 	 */
 	protected void sequence_EUniqueConstraint(EObject context, EUniqueConstraint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

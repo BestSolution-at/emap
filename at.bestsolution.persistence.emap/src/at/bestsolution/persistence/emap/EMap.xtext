@@ -34,7 +34,7 @@ EBundleEntity:
 ;
 
 EUniqueConstraint:
-	'unique-constraint' name=STRING '(' attributes+=[EAttribute|QualifiedName] (',' attributes+=[EAttribute|QualifiedName])+ ')'
+	'unique-constraint' name=STRING '(' attributes+=[EAttribute|QualifiedName] (',' attributes+=[EAttribute|QualifiedName])* ')'
 ;
 
 ESQLAttTypeDef:

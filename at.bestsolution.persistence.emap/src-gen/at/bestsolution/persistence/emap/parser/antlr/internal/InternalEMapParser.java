@@ -1349,7 +1349,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEUniqueConstraint"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:490:1: ruleEUniqueConstraint returns [EObject current=null] : (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+ otherlv_6= ')' ) ;
+    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:490:1: ruleEUniqueConstraint returns [EObject current=null] : (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) ;
     public final EObject ruleEUniqueConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -1362,11 +1362,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:493:28: ( (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+ otherlv_6= ')' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+ otherlv_6= ')' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:493:28: ( (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+ otherlv_6= ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:3: otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+ otherlv_6= ')'
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:494:3: otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')'
             {
             otherlv_0=(Token)match(input,19,FOLLOW_19_in_ruleEUniqueConstraint889); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1444,8 +1444,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:535:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )+
-            int cnt15=0;
+            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:535:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -1505,13 +1504,8 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt15 >= 1 ) break loop15;
-            	    if (state.backtracking>0) {state.failed=true; return current;}
-                        EarlyExitException eee =
-                            new EarlyExitException(15, input);
-                        throw eee;
+            	    break loop15;
                 }
-                cnt15++;
             } while (true);
 
             otherlv_6=(Token)match(input,21,FOLLOW_21_in_ruleEUniqueConstraint996); if (state.failed) return current;
@@ -3396,11 +3390,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         {
                         int LA28_2 = input.LA(2);
 
-                        if ( (LA28_2==RULE_ID||LA28_2==28) ) {
-                            alt28=2;
-                        }
-                        else if ( (LA28_2==13||LA28_2==20) ) {
+                        if ( (LA28_2==13||LA28_2==20) ) {
                             alt28=1;
+                        }
+                        else if ( (LA28_2==RULE_ID||LA28_2==28) ) {
+                            alt28=2;
                         }
                         else {
                             if (state.backtracking>0) {state.failed=true; return current;}
@@ -10010,22 +10004,22 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     static final String DFA21_eotS =
         "\6\uffff";
     static final String DFA21_eofS =
-        "\1\uffff\1\3\2\uffff\1\3\1\uffff";
+        "\1\uffff\1\3\3\uffff\1\3";
     static final String DFA21_minS =
-        "\1\4\1\13\1\4\1\uffff\1\13\1\uffff";
+        "\1\4\1\13\1\4\2\uffff\1\13";
     static final String DFA21_maxS =
-        "\1\4\1\36\1\75\1\uffff\1\36\1\uffff";
+        "\1\4\1\36\1\75\2\uffff\1\36";
     static final String DFA21_acceptS =
-        "\3\uffff\1\2\1\uffff\1\1";
+        "\3\uffff\1\2\1\1\1\uffff";
     static final String DFA21_specialS =
         "\6\uffff}>";
     static final String[] DFA21_transitionS = {
             "\1\1",
             "\1\3\15\uffff\1\3\2\uffff\1\2\2\3",
-            "\1\4\70\uffff\1\5",
+            "\1\5\70\uffff\1\4",
             "",
-            "\1\3\15\uffff\1\3\2\uffff\1\2\2\3",
-            ""
+            "",
+            "\1\3\15\uffff\1\3\2\uffff\1\2\2\3"
     };
 
     static final short[] DFA21_eot = DFA.unpackEncodedString(DFA21_eotS);
@@ -10104,7 +10098,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_19_in_ruleEUniqueConstraint889 = new BitSet(new long[]{0x0000000000000020L});
     public static final BitSet FOLLOW_RULE_STRING_in_ruleEUniqueConstraint906 = new BitSet(new long[]{0x0000000000100000L});
     public static final BitSet FOLLOW_20_in_ruleEUniqueConstraint923 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint946 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint946 = new BitSet(new long[]{0x0000000000204000L});
     public static final BitSet FOLLOW_14_in_ruleEUniqueConstraint959 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint982 = new BitSet(new long[]{0x0000000000204000L});
     public static final BitSet FOLLOW_21_in_ruleEUniqueConstraint996 = new BitSet(new long[]{0x0000000000000002L});

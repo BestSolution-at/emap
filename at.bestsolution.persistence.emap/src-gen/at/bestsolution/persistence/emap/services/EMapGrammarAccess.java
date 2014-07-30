@@ -316,10 +316,10 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//EUniqueConstraint:
 		//	"unique-constraint" name=STRING "(" attributes+=[EAttribute|QualifiedName] (","
-		//	attributes+=[EAttribute|QualifiedName])+ ")";
+		//	attributes+=[EAttribute|QualifiedName])* ")";
 		public ParserRule getRule() { return rule; }
 
-		//"unique-constraint" name=STRING "(" attributes+=[EAttribute|QualifiedName] ("," attributes+=[EAttribute|QualifiedName])+
+		//"unique-constraint" name=STRING "(" attributes+=[EAttribute|QualifiedName] ("," attributes+=[EAttribute|QualifiedName])*
 		//")"
 		public Group getGroup() { return cGroup; }
 
@@ -344,7 +344,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getAttributesEAttributeQualifiedNameParserRuleCall_3_0_1() { return cAttributesEAttributeQualifiedNameParserRuleCall_3_0_1; }
 
-		//("," attributes+=[EAttribute|QualifiedName])+
+		//("," attributes+=[EAttribute|QualifiedName])*
 		public Group getGroup_4() { return cGroup_4; }
 
 		//","
@@ -2473,7 +2473,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 	//EUniqueConstraint:
 	//	"unique-constraint" name=STRING "(" attributes+=[EAttribute|QualifiedName] (","
-	//	attributes+=[EAttribute|QualifiedName])+ ")";
+	//	attributes+=[EAttribute|QualifiedName])* ")";
 	public EUniqueConstraintElements getEUniqueConstraintAccess() {
 		return (pEUniqueConstraint != null) ? pEUniqueConstraint : (pEUniqueConstraint = new EUniqueConstraintElements());
 	}

@@ -2876,16 +2876,9 @@ rule__EUniqueConstraint__Group__4__Impl
     }
 :
 (
-(
-{ before(grammarAccess.getEUniqueConstraintAccess().getGroup_4()); }
-(rule__EUniqueConstraint__Group_4__0)
-{ after(grammarAccess.getEUniqueConstraintAccess().getGroup_4()); }
-)
-(
 { before(grammarAccess.getEUniqueConstraintAccess().getGroup_4()); }
 (rule__EUniqueConstraint__Group_4__0)*
 { after(grammarAccess.getEUniqueConstraintAccess().getGroup_4()); }
-)
 )
 
 ;
