@@ -118,6 +118,7 @@ class DDLGenerator {
 		}
 
 		val dataType = eClass.getEStructuralFeature(a.name).EType as EDataType;
+//		println("DATA-TYPE: " + dataType)
 		val d = dataType.findSqlDefs(bundleDef,db);
 		if( d != null ) {
 			var size = a.size
@@ -191,15 +192,18 @@ class DDLGenerator {
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
-		«IF flag», e_version integer not null«ENDIF»
+		«IF flag && ! e.entity.extendsEntity», e_version integer not null«ENDIF»
 		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[!it.pk]»
-			«IF a.columnName != null»
-				«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(e,db,bundleDef,eClass)»
-				«dummy(flag = true)»
-			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
-				«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-				«IF flag», «ENDIF»"«a.parameters.head»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(e,db,bundleDef,pkEClass)»
-				«dummy(flag = true)»
+			«val f = a.getEStructuralFeature(eClass)»
+			«IF ! f.many»
+				«IF a.columnName != null»
+					«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«dummy(flag = true)»
+				«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
+					«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
+					«IF flag», «ENDIF»"«a.parameters.head»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«dummy(flag = true)»
+				«ENDIF»
 			«ENDIF»
 		«ENDFOR»
 		«IF e.entity.descriminationColumn != null»
