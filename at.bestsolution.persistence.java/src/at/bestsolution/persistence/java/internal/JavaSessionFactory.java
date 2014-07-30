@@ -24,6 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Set;
 import java.util.Stack;
 import java.util.UUID;
@@ -48,6 +49,7 @@ import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.Registration;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
+import at.bestsolution.persistence.SessionRunnable;
 import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
@@ -74,6 +76,11 @@ public class JavaSessionFactory implements SessionFactory {
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 	String factoryId;
+	
+	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
+	private ThreadLocal<AtomicInteger> currentSessionUsage = new ThreadLocal<AtomicInteger>() {
+		protected AtomicInteger initialValue() { return new AtomicInteger(0); }
+	};
 
 	public void registerConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = connectionProvider;
@@ -128,6 +135,35 @@ public class JavaSessionFactory implements SessionFactory {
 	@Override
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
+	}
+	
+	@Override
+	public <R> R runWithSession(SessionRunnable<R> runnable) {
+		Session session = currentSession.get();
+		if (session == null) {
+			// create
+			session = createSession();
+			currentSession.set(session);
+		}
+		
+		// increment
+		currentSessionUsage.get().incrementAndGet();
+		
+		
+		try {
+			return runnable.execute(session);
+		}
+		finally {
+			// decrement
+			int val = currentSessionUsage.get().decrementAndGet();
+			
+			// dispose
+			if (val == 0) {
+				Session s = currentSession.get();
+				s.close();
+				currentSession.set(null);
+			}
+		}
 	}
 
 	@Override
@@ -1335,4 +1371,5 @@ public class JavaSessionFactory implements SessionFactory {
 		REMOVE,
 		SET
 	}
+	
 }

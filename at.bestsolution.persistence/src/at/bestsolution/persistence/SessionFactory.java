@@ -16,4 +16,6 @@ public interface SessionFactory {
 	public String getFactoryId();
 	public Session createSession();
 	public Blob createBlob();
+	
+	public <R> R runWithSession(SessionRunnable<R> runnable);
 }
