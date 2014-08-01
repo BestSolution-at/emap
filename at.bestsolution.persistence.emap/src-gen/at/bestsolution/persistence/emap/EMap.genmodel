@@ -32,8 +32,13 @@
     <genClasses ecoreClass="EMap.ecore#//EBundleEntity">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/entity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EBundleEntity/pkConstraintName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/fkConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/uniqueContraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/typeDefs"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EFkConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EFkConstraint/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EFkConstraint/name"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EUniqueConstraint">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EUniqueConstraint/name"/>

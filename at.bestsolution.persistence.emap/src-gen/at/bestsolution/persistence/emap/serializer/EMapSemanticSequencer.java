@@ -3,6 +3,7 @@ package at.bestsolution.persistence.emap.serializer;
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
+import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMapping;
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute;
@@ -65,6 +66,12 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EMapPackage.ECUSTOM_QUERY:
 				if(context == grammarAccess.getECustomQueryRule()) {
 					sequence_ECustomQuery(context, (ECustomQuery) semanticObject); 
+					return; 
+				}
+				else break;
+			case EMapPackage.EFK_CONSTRAINT:
+				if(context == grammarAccess.getEFkConstraintRule()) {
+					sequence_EFkConstraint(context, (EFkConstraint) semanticObject); 
 					return; 
 				}
 				else break;
@@ -236,6 +243,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         entity=[EMappingEntity|ID] 
 	 *         (
 	 *             pkConstraintName=STRING? 
+	 *             (fkConstraints+=EFkConstraint fkConstraints+=EFkConstraint*)? 
 	 *             (uniqueContraints+=EUniqueConstraint uniqueContraints+=EUniqueConstraint*)? 
 	 *             (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)?
 	 *         )?
@@ -252,6 +260,25 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_ECustomQuery(EObject context, ECustomQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (attribute=[EAttribute|QualifiedName] name=STRING)
+	 */
+	protected void sequence_EFkConstraint(EObject context, EFkConstraint semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__ATTRIBUTE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__ATTRIBUTE));
+			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEFkConstraintAccess().getAttributeEAttributeQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAttribute());
+		feeder.accept(grammarAccess.getEFkConstraintAccess().getNameSTRINGTerminalRuleCall_2_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

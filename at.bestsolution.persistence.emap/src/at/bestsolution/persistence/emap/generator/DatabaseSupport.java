@@ -32,4 +32,8 @@ public abstract class DatabaseSupport {
 		}
 		return "constraint " +  bd.getPkConstraintName() + " PRIMARY KEY(\""+ primaryKey.getColumnName()+"\")";
 	}
+
+	public boolean isArrayStoreSupported(Class<?> type) {
+		return false;
+	}
 }

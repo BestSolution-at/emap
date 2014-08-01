@@ -5,6 +5,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 import at.bestsolution.persistence.emap.eMap.ColSort;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
+import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EMapFactory;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMapping;
@@ -69,6 +70,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eBundleEntityEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eFkConstraintEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -450,7 +458,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEBundleEntity_UniqueContraints()
+  public EReference getEBundleEntity_FkConstraints()
   {
     return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(2);
   }
@@ -460,9 +468,49 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEBundleEntity_TypeDefs()
+  public EReference getEBundleEntity_UniqueContraints()
   {
     return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_TypeDefs()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEFkConstraint()
+  {
+    return eFkConstraintEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEFkConstraint_Attribute()
+  {
+    return (EReference)eFkConstraintEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEFkConstraint_Name()
+  {
+    return (EAttribute)eFkConstraintEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1690,8 +1738,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     eBundleEntityEClass = createEClass(EBUNDLE_ENTITY);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__ENTITY);
     createEAttribute(eBundleEntityEClass, EBUNDLE_ENTITY__PK_CONSTRAINT_NAME);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__FK_CONSTRAINTS);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__UNIQUE_CONTRAINTS);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__TYPE_DEFS);
+
+    eFkConstraintEClass = createEClass(EFK_CONSTRAINT);
+    createEReference(eFkConstraintEClass, EFK_CONSTRAINT__ATTRIBUTE);
+    createEAttribute(eFkConstraintEClass, EFK_CONSTRAINT__NAME);
 
     eUniqueConstraintEClass = createEClass(EUNIQUE_CONSTRAINT);
     createEAttribute(eUniqueConstraintEClass, EUNIQUE_CONSTRAINT__NAME);
@@ -1887,8 +1940,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eBundleEntityEClass, EBundleEntity.class, "EBundleEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEBundleEntity_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEBundleEntity_PkConstraintName(), ecorePackage.getEString(), "pkConstraintName", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEBundleEntity_FkConstraints(), this.getEFkConstraint(), null, "fkConstraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_UniqueContraints(), this.getEUniqueConstraint(), null, "uniqueContraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_TypeDefs(), this.getESQLAttTypeDef(), null, "typeDefs", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eFkConstraintEClass, EFkConstraint.class, "EFkConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEFkConstraint_Attribute(), this.getEAttribute(), null, "attribute", null, 0, 1, EFkConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEFkConstraint_Name(), ecorePackage.getEString(), "name", null, 0, 1, EFkConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eUniqueConstraintEClass, EUniqueConstraint.class, "EUniqueConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEUniqueConstraint_Name(), ecorePackage.getEString(), "name", null, 0, 1, EUniqueConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

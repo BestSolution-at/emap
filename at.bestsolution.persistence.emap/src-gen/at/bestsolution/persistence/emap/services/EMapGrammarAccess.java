@@ -199,28 +199,37 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPkConstraintNameAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
 		private final RuleCall cPkConstraintNameSTRINGTerminalRuleCall_1_1_1_0 = (RuleCall)cPkConstraintNameAssignment_1_1_1.eContents().get(0);
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Assignment cUniqueContraintsAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
-		private final RuleCall cUniqueContraintsEUniqueConstraintParserRuleCall_1_2_0_0 = (RuleCall)cUniqueContraintsAssignment_1_2_0.eContents().get(0);
+		private final Assignment cFkConstraintsAssignment_1_2_0 = (Assignment)cGroup_1_2.eContents().get(0);
+		private final RuleCall cFkConstraintsEFkConstraintParserRuleCall_1_2_0_0 = (RuleCall)cFkConstraintsAssignment_1_2_0.eContents().get(0);
 		private final Group cGroup_1_2_1 = (Group)cGroup_1_2.eContents().get(1);
 		private final Keyword cCommaKeyword_1_2_1_0 = (Keyword)cGroup_1_2_1.eContents().get(0);
-		private final Assignment cUniqueContraintsAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
-		private final RuleCall cUniqueContraintsEUniqueConstraintParserRuleCall_1_2_1_1_0 = (RuleCall)cUniqueContraintsAssignment_1_2_1_1.eContents().get(0);
+		private final Assignment cFkConstraintsAssignment_1_2_1_1 = (Assignment)cGroup_1_2_1.eContents().get(1);
+		private final RuleCall cFkConstraintsEFkConstraintParserRuleCall_1_2_1_1_0 = (RuleCall)cFkConstraintsAssignment_1_2_1_1.eContents().get(0);
 		private final Group cGroup_1_3 = (Group)cGroup_1.eContents().get(3);
-		private final Assignment cTypeDefsAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
-		private final RuleCall cTypeDefsESQLAttTypeDefParserRuleCall_1_3_0_0 = (RuleCall)cTypeDefsAssignment_1_3_0.eContents().get(0);
+		private final Assignment cUniqueContraintsAssignment_1_3_0 = (Assignment)cGroup_1_3.eContents().get(0);
+		private final RuleCall cUniqueContraintsEUniqueConstraintParserRuleCall_1_3_0_0 = (RuleCall)cUniqueContraintsAssignment_1_3_0.eContents().get(0);
 		private final Group cGroup_1_3_1 = (Group)cGroup_1_3.eContents().get(1);
 		private final Keyword cCommaKeyword_1_3_1_0 = (Keyword)cGroup_1_3_1.eContents().get(0);
-		private final Assignment cTypeDefsAssignment_1_3_1_1 = (Assignment)cGroup_1_3_1.eContents().get(1);
-		private final RuleCall cTypeDefsESQLAttTypeDefParserRuleCall_1_3_1_1_0 = (RuleCall)cTypeDefsAssignment_1_3_1_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
+		private final Assignment cUniqueContraintsAssignment_1_3_1_1 = (Assignment)cGroup_1_3_1.eContents().get(1);
+		private final RuleCall cUniqueContraintsEUniqueConstraintParserRuleCall_1_3_1_1_0 = (RuleCall)cUniqueContraintsAssignment_1_3_1_1.eContents().get(0);
+		private final Group cGroup_1_4 = (Group)cGroup_1.eContents().get(4);
+		private final Assignment cTypeDefsAssignment_1_4_0 = (Assignment)cGroup_1_4.eContents().get(0);
+		private final RuleCall cTypeDefsESQLAttTypeDefParserRuleCall_1_4_0_0 = (RuleCall)cTypeDefsAssignment_1_4_0.eContents().get(0);
+		private final Group cGroup_1_4_1 = (Group)cGroup_1_4.eContents().get(1);
+		private final Keyword cCommaKeyword_1_4_1_0 = (Keyword)cGroup_1_4_1.eContents().get(0);
+		private final Assignment cTypeDefsAssignment_1_4_1_1 = (Assignment)cGroup_1_4_1.eContents().get(1);
+		private final RuleCall cTypeDefsESQLAttTypeDefParserRuleCall_1_4_1_1_0 = (RuleCall)cTypeDefsAssignment_1_4_1_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
 		
 		//EBundleEntity:
-		//	entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (","
-		//	uniqueContraints+=EUniqueConstraint)*)? (typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?;
+		//	entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (fkConstraints+=EFkConstraint (","
+		//	fkConstraints+=EFkConstraint)*)? (uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)?
+		//	(typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?;
 		public ParserRule getRule() { return rule; }
 
-		//entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (","
-		//uniqueContraints+=EUniqueConstraint)*)? (typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?
+		//entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (fkConstraints+=EFkConstraint (","
+		//fkConstraints+=EFkConstraint)*)? (uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)?
+		//(typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?
 		public Group getGroup() { return cGroup; }
 
 		//entity=[EMappingEntity]
@@ -232,8 +241,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getEntityEMappingEntityIDTerminalRuleCall_0_0_1() { return cEntityEMappingEntityIDTerminalRuleCall_0_0_1; }
 
-		//("{" ("pk-constraint" pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (","
-		//uniqueContraints+=EUniqueConstraint)*)? (typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?
+		//("{" ("pk-constraint" pkConstraintName=STRING)? (fkConstraints+=EFkConstraint ("," fkConstraints+=EFkConstraint)*)?
+		//(uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)? (typeDefs+=ESQLAttTypeDef (","
+		//typeDefs+=ESQLAttTypeDef)*)? "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//"{"
@@ -251,50 +261,107 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getPkConstraintNameSTRINGTerminalRuleCall_1_1_1_0() { return cPkConstraintNameSTRINGTerminalRuleCall_1_1_1_0; }
 
-		//(uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)?
+		//(fkConstraints+=EFkConstraint ("," fkConstraints+=EFkConstraint)*)?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//uniqueContraints+=EUniqueConstraint
-		public Assignment getUniqueContraintsAssignment_1_2_0() { return cUniqueContraintsAssignment_1_2_0; }
+		//fkConstraints+=EFkConstraint
+		public Assignment getFkConstraintsAssignment_1_2_0() { return cFkConstraintsAssignment_1_2_0; }
 
-		//EUniqueConstraint
-		public RuleCall getUniqueContraintsEUniqueConstraintParserRuleCall_1_2_0_0() { return cUniqueContraintsEUniqueConstraintParserRuleCall_1_2_0_0; }
+		//EFkConstraint
+		public RuleCall getFkConstraintsEFkConstraintParserRuleCall_1_2_0_0() { return cFkConstraintsEFkConstraintParserRuleCall_1_2_0_0; }
 
-		//("," uniqueContraints+=EUniqueConstraint)*
+		//("," fkConstraints+=EFkConstraint)*
 		public Group getGroup_1_2_1() { return cGroup_1_2_1; }
 
 		//","
 		public Keyword getCommaKeyword_1_2_1_0() { return cCommaKeyword_1_2_1_0; }
 
-		//uniqueContraints+=EUniqueConstraint
-		public Assignment getUniqueContraintsAssignment_1_2_1_1() { return cUniqueContraintsAssignment_1_2_1_1; }
+		//fkConstraints+=EFkConstraint
+		public Assignment getFkConstraintsAssignment_1_2_1_1() { return cFkConstraintsAssignment_1_2_1_1; }
 
-		//EUniqueConstraint
-		public RuleCall getUniqueContraintsEUniqueConstraintParserRuleCall_1_2_1_1_0() { return cUniqueContraintsEUniqueConstraintParserRuleCall_1_2_1_1_0; }
+		//EFkConstraint
+		public RuleCall getFkConstraintsEFkConstraintParserRuleCall_1_2_1_1_0() { return cFkConstraintsEFkConstraintParserRuleCall_1_2_1_1_0; }
 
-		//(typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)?
+		//(uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)?
 		public Group getGroup_1_3() { return cGroup_1_3; }
 
-		//typeDefs+=ESQLAttTypeDef
-		public Assignment getTypeDefsAssignment_1_3_0() { return cTypeDefsAssignment_1_3_0; }
+		//uniqueContraints+=EUniqueConstraint
+		public Assignment getUniqueContraintsAssignment_1_3_0() { return cUniqueContraintsAssignment_1_3_0; }
 
-		//ESQLAttTypeDef
-		public RuleCall getTypeDefsESQLAttTypeDefParserRuleCall_1_3_0_0() { return cTypeDefsESQLAttTypeDefParserRuleCall_1_3_0_0; }
+		//EUniqueConstraint
+		public RuleCall getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_0_0() { return cUniqueContraintsEUniqueConstraintParserRuleCall_1_3_0_0; }
 
-		//("," typeDefs+=ESQLAttTypeDef)*
+		//("," uniqueContraints+=EUniqueConstraint)*
 		public Group getGroup_1_3_1() { return cGroup_1_3_1; }
 
 		//","
 		public Keyword getCommaKeyword_1_3_1_0() { return cCommaKeyword_1_3_1_0; }
 
+		//uniqueContraints+=EUniqueConstraint
+		public Assignment getUniqueContraintsAssignment_1_3_1_1() { return cUniqueContraintsAssignment_1_3_1_1; }
+
+		//EUniqueConstraint
+		public RuleCall getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_1_1_0() { return cUniqueContraintsEUniqueConstraintParserRuleCall_1_3_1_1_0; }
+
+		//(typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)?
+		public Group getGroup_1_4() { return cGroup_1_4; }
+
 		//typeDefs+=ESQLAttTypeDef
-		public Assignment getTypeDefsAssignment_1_3_1_1() { return cTypeDefsAssignment_1_3_1_1; }
+		public Assignment getTypeDefsAssignment_1_4_0() { return cTypeDefsAssignment_1_4_0; }
 
 		//ESQLAttTypeDef
-		public RuleCall getTypeDefsESQLAttTypeDefParserRuleCall_1_3_1_1_0() { return cTypeDefsESQLAttTypeDefParserRuleCall_1_3_1_1_0; }
+		public RuleCall getTypeDefsESQLAttTypeDefParserRuleCall_1_4_0_0() { return cTypeDefsESQLAttTypeDefParserRuleCall_1_4_0_0; }
+
+		//("," typeDefs+=ESQLAttTypeDef)*
+		public Group getGroup_1_4_1() { return cGroup_1_4_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_4_1_0() { return cCommaKeyword_1_4_1_0; }
+
+		//typeDefs+=ESQLAttTypeDef
+		public Assignment getTypeDefsAssignment_1_4_1_1() { return cTypeDefsAssignment_1_4_1_1; }
+
+		//ESQLAttTypeDef
+		public RuleCall getTypeDefsESQLAttTypeDefParserRuleCall_1_4_1_1_0() { return cTypeDefsESQLAttTypeDefParserRuleCall_1_4_1_1_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_1_4() { return cRightCurlyBracketKeyword_1_4; }
+		public Keyword getRightCurlyBracketKeyword_1_5() { return cRightCurlyBracketKeyword_1_5; }
+	}
+
+	public class EFkConstraintElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EFkConstraint");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFkConstraintKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cAttributeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cAttributeEAttributeCrossReference_1_0 = (CrossReference)cAttributeAssignment_1.eContents().get(0);
+		private final RuleCall cAttributeEAttributeQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cAttributeEAttributeCrossReference_1_0.eContents().get(1);
+		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cNameSTRINGTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
+		
+		//EFkConstraint:
+		//	"fk-constraint" attribute=[EAttribute|QualifiedName] name=STRING;
+		public ParserRule getRule() { return rule; }
+
+		//"fk-constraint" attribute=[EAttribute|QualifiedName] name=STRING
+		public Group getGroup() { return cGroup; }
+
+		//"fk-constraint"
+		public Keyword getFkConstraintKeyword_0() { return cFkConstraintKeyword_0; }
+
+		//attribute=[EAttribute|QualifiedName]
+		public Assignment getAttributeAssignment_1() { return cAttributeAssignment_1; }
+
+		//[EAttribute|QualifiedName]
+		public CrossReference getAttributeEAttributeCrossReference_1_0() { return cAttributeEAttributeCrossReference_1_0; }
+
+		//QualifiedName
+		public RuleCall getAttributeEAttributeQualifiedNameParserRuleCall_1_0_1() { return cAttributeEAttributeQualifiedNameParserRuleCall_1_0_1; }
+
+		//name=STRING
+		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+
+		//STRING
+		public RuleCall getNameSTRINGTerminalRuleCall_2_0() { return cNameSTRINGTerminalRuleCall_2_0; }
 	}
 
 	public class EUniqueConstraintElements extends AbstractParserRuleElementFinder {
@@ -2359,6 +2426,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	private EMappingBundleElements pEMappingBundle;
 	private ColSortElements unknownRuleColSort;
 	private EBundleEntityElements pEBundleEntity;
+	private EFkConstraintElements pEFkConstraint;
 	private EUniqueConstraintElements pEUniqueConstraint;
 	private ESQLAttTypeDefElements pESQLAttTypeDef;
 	private ESQLTypeDefElements pESQLTypeDef;
@@ -2461,14 +2529,25 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EBundleEntity:
-	//	entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (","
-	//	uniqueContraints+=EUniqueConstraint)*)? (typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?;
+	//	entity=[EMappingEntity] ("{" ("pk-constraint" pkConstraintName=STRING)? (fkConstraints+=EFkConstraint (","
+	//	fkConstraints+=EFkConstraint)*)? (uniqueContraints+=EUniqueConstraint ("," uniqueContraints+=EUniqueConstraint)*)?
+	//	(typeDefs+=ESQLAttTypeDef ("," typeDefs+=ESQLAttTypeDef)*)? "}")?;
 	public EBundleEntityElements getEBundleEntityAccess() {
 		return (pEBundleEntity != null) ? pEBundleEntity : (pEBundleEntity = new EBundleEntityElements());
 	}
 	
 	public ParserRule getEBundleEntityRule() {
 		return getEBundleEntityAccess().getRule();
+	}
+
+	//EFkConstraint:
+	//	"fk-constraint" attribute=[EAttribute|QualifiedName] name=STRING;
+	public EFkConstraintElements getEFkConstraintAccess() {
+		return (pEFkConstraint != null) ? pEFkConstraint : (pEFkConstraint = new EFkConstraintElements());
+	}
+	
+	public ParserRule getEFkConstraintRule() {
+		return getEFkConstraintAccess().getRule();
 	}
 
 	//EUniqueConstraint:

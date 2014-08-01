@@ -389,17 +389,17 @@ ruleEBundleEntity returns [EObject current=null]
 ))?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_2_0_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getFkConstraintsEFkConstraintParserRuleCall_1_2_0_0()); 
 	    }
-		lv_uniqueContraints_4_0=ruleEUniqueConstraint		{
+		lv_fkConstraints_4_0=ruleEFkConstraint		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
-       			"uniqueContraints",
-        		lv_uniqueContraints_4_0, 
-        		"EUniqueConstraint");
+       			"fkConstraints",
+        		lv_fkConstraints_4_0, 
+        		"EFkConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -411,17 +411,17 @@ ruleEBundleEntity returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_2_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getFkConstraintsEFkConstraintParserRuleCall_1_2_1_1_0()); 
 	    }
-		lv_uniqueContraints_6_0=ruleEUniqueConstraint		{
+		lv_fkConstraints_6_0=ruleEFkConstraint		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
-       			"uniqueContraints",
-        		lv_uniqueContraints_6_0, 
-        		"EUniqueConstraint");
+       			"fkConstraints",
+        		lv_fkConstraints_6_0, 
+        		"EFkConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -429,17 +429,17 @@ ruleEBundleEntity returns [EObject current=null]
 ))*)?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_3_0_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_0_0()); 
 	    }
-		lv_typeDefs_7_0=ruleESQLAttTypeDef		{
+		lv_uniqueContraints_7_0=ruleEUniqueConstraint		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
-       			"typeDefs",
-        		lv_typeDefs_7_0, 
-        		"ESQLAttTypeDef");
+       			"uniqueContraints",
+        		lv_uniqueContraints_7_0, 
+        		"EUniqueConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -451,26 +451,124 @@ ruleEBundleEntity returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_3_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_1_1_0()); 
 	    }
-		lv_typeDefs_9_0=ruleESQLAttTypeDef		{
+		lv_uniqueContraints_9_0=ruleEUniqueConstraint		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
+	        }
+       		add(
+       			$current, 
+       			"uniqueContraints",
+        		lv_uniqueContraints_9_0, 
+        		"EUniqueConstraint");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_4_0_0()); 
+	    }
+		lv_typeDefs_10_0=ruleESQLAttTypeDef		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
        			"typeDefs",
-        		lv_typeDefs_9_0, 
+        		lv_typeDefs_10_0, 
         		"ESQLAttTypeDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_10='}' 
+)(	otherlv_11=',' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_4());
+    	newLeafNode(otherlv_11, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_4_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_4_1_1_0()); 
+	    }
+		lv_typeDefs_12_0=ruleESQLAttTypeDef		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
+	        }
+       		add(
+       			$current, 
+       			"typeDefs",
+        		lv_typeDefs_12_0, 
+        		"ESQLAttTypeDef");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?	otherlv_13='}' 
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_5());
     }
 )?)
+;
+
+
+
+
+
+// Entry rule entryRuleEFkConstraint
+entryRuleEFkConstraint returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEFkConstraintRule()); }
+	 iv_ruleEFkConstraint=ruleEFkConstraint 
+	 { $current=$iv_ruleEFkConstraint.current; } 
+	 EOF 
+;
+
+// Rule EFkConstraint
+ruleEFkConstraint returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='fk-constraint' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getEFkConstraintAccess().getFkConstraintKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEFkConstraintRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEFkConstraintAccess().getAttributeEAttributeCrossReference_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		lv_name_2_0=RULE_STRING
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getEFkConstraintAccess().getNameSTRINGTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEFkConstraintRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"STRING");
+	    }
+
+)
+))
 ;
 
 

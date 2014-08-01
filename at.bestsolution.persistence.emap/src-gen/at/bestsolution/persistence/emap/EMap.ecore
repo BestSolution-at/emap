@@ -28,10 +28,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="EBundleEntity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//EMappingEntity"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pkConstraintName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fkConstraints" upperBound="-1"
+        eType="#//EFkConstraint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="uniqueContraints" upperBound="-1"
         eType="#//EUniqueConstraint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefs" upperBound="-1"
         eType="#//ESQLAttTypeDef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EFkConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attribute" eType="#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EUniqueConstraint">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

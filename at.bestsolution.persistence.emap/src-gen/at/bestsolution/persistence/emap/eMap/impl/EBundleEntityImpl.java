@@ -3,6 +3,7 @@
 package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
+import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
@@ -33,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getPkConstraintName <em>Pk Constraint Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getFkConstraints <em>Fk Constraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getUniqueContraints <em>Unique Contraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getTypeDefs <em>Type Defs</em>}</li>
  * </ul>
@@ -71,6 +73,16 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * @ordered
    */
   protected String pkConstraintName = PK_CONSTRAINT_NAME_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getFkConstraints() <em>Fk Constraints</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFkConstraints()
+   * @generated
+   * @ordered
+   */
+  protected EList<EFkConstraint> fkConstraints;
 
   /**
    * The cached value of the '{@link #getUniqueContraints() <em>Unique Contraints</em>}' containment reference list.
@@ -184,6 +196,20 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EFkConstraint> getFkConstraints()
+  {
+    if (fkConstraints == null)
+    {
+      fkConstraints = new EObjectContainmentEList<EFkConstraint>(EFkConstraint.class, this, EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS);
+    }
+    return fkConstraints;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<EUniqueConstraint> getUniqueContraints()
   {
     if (uniqueContraints == null)
@@ -217,6 +243,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
   {
     switch (featureID)
     {
+      case EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS:
+        return ((InternalEList<?>)getFkConstraints()).basicRemove(otherEnd, msgs);
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return ((InternalEList<?>)getUniqueContraints()).basicRemove(otherEnd, msgs);
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
@@ -240,6 +268,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return basicGetEntity();
       case EMapPackage.EBUNDLE_ENTITY__PK_CONSTRAINT_NAME:
         return getPkConstraintName();
+      case EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS:
+        return getFkConstraints();
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return getUniqueContraints();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
@@ -264,6 +294,10 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return;
       case EMapPackage.EBUNDLE_ENTITY__PK_CONSTRAINT_NAME:
         setPkConstraintName((String)newValue);
+        return;
+      case EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS:
+        getFkConstraints().clear();
+        getFkConstraints().addAll((Collection<? extends EFkConstraint>)newValue);
         return;
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         getUniqueContraints().clear();
@@ -293,6 +327,9 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
       case EMapPackage.EBUNDLE_ENTITY__PK_CONSTRAINT_NAME:
         setPkConstraintName(PK_CONSTRAINT_NAME_EDEFAULT);
         return;
+      case EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS:
+        getFkConstraints().clear();
+        return;
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         getUniqueContraints().clear();
         return;
@@ -317,6 +354,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return entity != null;
       case EMapPackage.EBUNDLE_ENTITY__PK_CONSTRAINT_NAME:
         return PK_CONSTRAINT_NAME_EDEFAULT == null ? pkConstraintName != null : !PK_CONSTRAINT_NAME_EDEFAULT.equals(pkConstraintName);
+      case EMapPackage.EBUNDLE_ENTITY__FK_CONSTRAINTS:
+        return fkConstraints != null && !fkConstraints.isEmpty();
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return uniqueContraints != null && !uniqueContraints.isEmpty();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:

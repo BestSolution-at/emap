@@ -90,6 +90,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEBundleEntityAdapter();
       }
       @Override
+      public Adapter caseEFkConstraint(EFkConstraint object)
+      {
+        return createEFkConstraintAdapter();
+      }
+      @Override
       public Adapter caseEUniqueConstraint(EUniqueConstraint object)
       {
         return createEUniqueConstraintAdapter();
@@ -272,6 +277,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEBundleEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EFkConstraint <em>EFk Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EFkConstraint
+   * @generated
+   */
+  public Adapter createEFkConstraintAdapter()
   {
     return null;
   }

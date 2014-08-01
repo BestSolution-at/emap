@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getPkConstraintName <em>Pk Constraint Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getFkConstraints <em>Fk Constraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getUniqueContraints <em>Unique Contraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs <em>Type Defs</em>}</li>
  * </ul>
@@ -78,6 +79,22 @@ public interface EBundleEntity extends EObject
    * @generated
    */
   void setPkConstraintName(String value);
+
+  /**
+   * Returns the value of the '<em><b>Fk Constraints</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EFkConstraint}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Fk Constraints</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Fk Constraints</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEBundleEntity_FkConstraints()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EFkConstraint> getFkConstraints();
 
   /**
    * Returns the value of the '<em><b>Unique Contraints</b></em>' containment reference list.

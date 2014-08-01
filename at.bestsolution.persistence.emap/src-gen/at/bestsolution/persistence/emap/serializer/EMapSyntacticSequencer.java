@@ -18,7 +18,7 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected EMapGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_4__q;
+	protected AbstractElementAlias match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_5__q;
 	protected AbstractElementAlias match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q;
 	protected AbstractElementAlias match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
@@ -26,7 +26,7 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (EMapGrammarAccess) access;
-		match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_4__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getLeftCurlyBracketKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_4()));
+		match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_5__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getLeftCurlyBracketKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_5()));
 		match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getLeftParenthesisKeyword_1_2_0()), new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2()));
 		match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getRightParenthesisKeyword_2_2()));
 		match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getRightParenthesisKeyword_2_2()));
@@ -44,8 +44,8 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_4__q.equals(syntax))
-				emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_4__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_5__q.equals(syntax))
+				emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_5__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q.equals(syntax))
 				emit_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
@@ -60,7 +60,7 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * Syntax:
 	 *     ('{' '}')?
 	 */
-	protected void emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_5__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

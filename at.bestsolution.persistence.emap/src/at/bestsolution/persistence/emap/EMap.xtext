@@ -27,10 +27,12 @@ enum ColSort:
 	EMAP | ECORE | ECORE_REVERSED | ALPHABETIC
 ;
 
-
-
 EBundleEntity:
-	entity = [EMappingEntity|ID] ('{' ('pk-constraint' pkConstraintName=STRING)? (uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )? (typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}')?
+	entity = [EMappingEntity|ID] ('{' ('pk-constraint' pkConstraintName=STRING)? ( fkConstraints+=EFkConstraint (',' fkConstraints+=EFkConstraint)* )? (uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )? (typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}')?
+;
+
+EFkConstraint:
+	'fk-constraint' attribute=[EAttribute|QualifiedName] name=STRING
 ;
 
 EUniqueConstraint:

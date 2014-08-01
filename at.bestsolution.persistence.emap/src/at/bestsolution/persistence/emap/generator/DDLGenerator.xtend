@@ -22,6 +22,7 @@ import java.util.Collections
 import at.bestsolution.persistence.emap.eMap.EBundleEntity
 import at.bestsolution.persistence.emap.eMap.ColSort
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef
+import java.util.LinkedHashSet
 
 class DDLGenerator {
 
@@ -82,39 +83,41 @@ class DDLGenerator {
 
 	def getDataType(EAttribute a, EBundleEntity be, DatabaseSupport db, EMappingBundle bundleDef, EClass eClass) {
 //		println("====> Working for " + a)
-		val redef = be.typeDefs.findFirst[it.attribute == a]
-		if( redef != null ) {
-			val d = redef.dbTypes.findFirst[d|d.dbType == db.databaseId]
-			if( d != null ) {
-				var size = a.size
-				if( size == null ) {
-					size = d.size
-				}
-				return StrSubstitutor.replace(d.sqlTypeDef,Collections.singletonMap("size",size));
-			} else {
-				val dd = redef.dbTypes.findFirst[dd|dd.dbType == "default"]
-				if( dd != null ) {
+		if( be != null ) {
+			val redef = be.typeDefs.findFirst[it.attribute == a]
+			if( redef != null ) {
+				val d = redef.dbTypes.findFirst[d|d.dbType == db.databaseId]
+				if( d != null ) {
 					var size = a.size
 					if( size == null ) {
-						size = dd.size
+						size = d.size
 					}
-					return StrSubstitutor.replace(dd.sqlTypeDef,Collections.singletonMap("size",size));
+					return StrSubstitutor.replace(d.sqlTypeDef,Collections.singletonMap("size",size));
+				} else {
+					val dd = redef.dbTypes.findFirst[dd|dd.dbType == "default"]
+					if( dd != null ) {
+						var size = a.size
+						if( size == null ) {
+							size = dd.size
+						}
+						return StrSubstitutor.replace(dd.sqlTypeDef,Collections.singletonMap("size",size));
+					}
 				}
 			}
-		}
 
-		val inheritedSpecific = findSQLAttTypeDef(a,be.entity,bundleDef,db.databaseId)
-		if( inheritedSpecific != null ) {
-			val sqlDef = inheritedSpecific.dbTypes.findFirst[it.dbType == db.databaseId].sqlTypeDef;
-			println(StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size)))
-			return StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size));
-		}
+			val inheritedSpecific = findSQLAttTypeDef(a,be.entity,bundleDef,db.databaseId)
+			if( inheritedSpecific != null ) {
+				val sqlDef = inheritedSpecific.dbTypes.findFirst[it.dbType == db.databaseId].sqlTypeDef;
+				println(StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size)))
+				return StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size));
+			}
 
-		var inheritedDefault = findSQLAttTypeDef(a,be.entity,bundleDef,"default")
-//		println("DEFAULT;" + inheritedDefault)
-		if( inheritedDefault != null ) {
-			val sqlDef = inheritedDefault.dbTypes.findFirst[it.dbType == "default"].sqlTypeDef;
-			return StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size));
+			var inheritedDefault = findSQLAttTypeDef(a,be.entity,bundleDef,"default")
+	//		println("DEFAULT;" + inheritedDefault)
+			if( inheritedDefault != null ) {
+				val sqlDef = inheritedDefault.dbTypes.findFirst[it.dbType == "default"].sqlTypeDef;
+				return StrSubstitutor.replace(sqlDef,Collections.singletonMap("size",a.size));
+			}
 		}
 
 		val dataType = eClass.getEStructuralFeature(a.name).EType as EDataType;
@@ -176,7 +179,19 @@ class DDLGenerator {
 		}
 	}
 
+	def findNMRelations(EMappingBundle bundleDef) {
+		val relations = new LinkedHashSet<NMMapping>()
+		for( e : bundleDef.entities.filter([entity.attributes.findFirst[it.opposite != null] != null]) ) {
+			for( a : e.entity.attributes.filter[opposite != null] ) {
+				val eopposite = a.opposite.entity.findBundleEntity(bundleDef)
+				relations.add(new NMMapping(e,a,eopposite,a.opposite))
+			}
+		}
+		return relations;
+	}
+
 	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
+	// Generate Tables
 	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 	«val eClass = e.entity.lookupEClass»
 	create table "«e.entity.calcTableName»" (
@@ -217,27 +232,97 @@ class DDLGenerator {
 		«ENDFOR»
 	);
 
+	«IF ! db.isArrayStoreSupported(null)»
+		«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
+		«IF ! primtiveMulti.empty»
+			«FOR p : primtiveMulti»
+			create table "«e.entity.name.toUpperCase»_«p.name.toUpperCase»" (
+				"FK_«e.entity.name.toUpperCase»_«p.name.toUpperCase»" not null,
+				"ELT" «p.getDataType(e,db,bundleDef,e.entity.lookupEClass)»
+			);
 
+			«ENDFOR»
+		«ENDIF»
+	«ENDIF»
 	«ENDFOR»
 
-	«FOR e : bundleDef.entities.map[entity].filter([!attributes.empty])»
-		«val eClass = e.lookupEClass»
-		«val pkCol = e.collectDerivedAttributes.values.findFirst[pk]»
+	// Generate N:M Tables
+	«val nmRelations = bundleDef.findNMRelations»
+	«FOR r : nmRelations»
+		create table "«r.a1.relationTable»" (
+			"«r.a1.relationColumn»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
+			"«r.a2.relationColumn»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
+		);
+	«ENDFOR»
+
+	// Generate constraints
+	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+		«val eClass = e.entity.lookupEClass»
+		«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 		«val pk = pkCol?.columnName»
-		«FOR a : e.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
-			ALTER TABLE «e.calcTableName»
-				ADD FOREIGN KEY («a.parameters.head») REFERENCES «(a.query.eContainer as EMappingEntity).calcTableName» («(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].columnName»);
+		«FOR a : e.entity.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
+			«val fkConstraint = e.fkConstraints.findFirst[it.attribute == a]»
 
-
+			alter table "«e.entity.calcTableName»"
+				add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«a.name»«ENDIF»
+				foreign key ("«a.parameters.head»")
+				references "«(a.query.eContainer as EMappingEntity).calcTableName»" ("«(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].columnName»");
 		«ENDFOR»
-		«IF e.extensionType == "extends"»
-		ALTER TABLE «e.calcTableName»
-			ADD FOREIGN KEY(«pk») REFERENCES «e.parent.calcTableName» («e.parent.attributes.findFirst[it.pk].columnName»);
-		«ENDIF»
-		«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
-		CREATE SEQUENCE «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+		«IF e.entity.extensionType == "extends"»
+		«val localPk = e.entity.attributes.findFirst[it.pk]»
+		«val fkConstraint = e.fkConstraints.findFirst[it.attribute == localPk]»
+
+		// Extend constraint
+		alter table "«e.entity.calcTableName»"
+			add «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»
+			foreign key ("«pk»")
+			references "«e.entity.parent.calcTableName»" ("«e.entity.parent.attributes.findFirst[it.pk].columnName»");
 		«ENDIF»
 	«ENDFOR»
+
+	// N:M relations
+	«FOR r : nmRelations»
+		«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
+		alter table "«r.a1.relationTable»"
+			add constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»
+			foreign key ("«r.a1.relationColumn»")
+			references "«r.a1.entity.calcTableName»" ("«r.a1.parameters.head.toUpperCase»");
+
+		«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
+		alter table "«r.a2.relationTable»"
+			add constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»
+			foreign key ("«r.a2.relationColumn»")
+			references "«r.a2.entity.calcTableName»" ("«r.a2.parameters.head.toUpperCase»");
+
+	«ENDFOR»
+
+	// Multi-values
+	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+		«IF ! db.isArrayStoreSupported(null)»
+			«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
+			«IF ! primtiveMulti.empty»
+				«FOR p : primtiveMulti»
+				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == p]»
+				alter table "«e.entity.name.toUpperCase»_«p.name.toUpperCase»"
+					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«p.name»«ENDIF»
+					foreign key ("FK_«e.entity.name.toUpperCase»_«p.name.toUpperCase»")
+					references "«p.entity.calcTableName»" ("«p.entity.attributes.findFirst[pk].columnName»");
+				«ENDFOR»
+			«ENDIF»
+		«ENDIF»
+	«ENDFOR»
+
+	«IF ! db.supportsGeneratedKeys»
+
+		// Create sequences
+		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
+			«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
+			/* Sequence for «e.entity.calcTableName» */
+			create generator «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+			«ENDIF»
+		«ENDFOR»
+	«ENDIF»
 	'''
 
 	def void dummy(boolean b) {

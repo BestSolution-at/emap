@@ -68,6 +68,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.EMAPPING: return createEMapping();
       case EMapPackage.EMAPPING_BUNDLE: return createEMappingBundle();
       case EMapPackage.EBUNDLE_ENTITY: return createEBundleEntity();
+      case EMapPackage.EFK_CONSTRAINT: return createEFkConstraint();
       case EMapPackage.EUNIQUE_CONSTRAINT: return createEUniqueConstraint();
       case EMapPackage.ESQL_ATT_TYPE_DEF: return createESQLAttTypeDef();
       case EMapPackage.ESQL_TYPE_DEF: return createESQLTypeDef();
@@ -166,6 +167,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EBundleEntityImpl eBundleEntity = new EBundleEntityImpl();
     return eBundleEntity;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EFkConstraint createEFkConstraint()
+  {
+    EFkConstraintImpl eFkConstraint = new EFkConstraintImpl();
+    return eFkConstraint;
   }
 
   /**
