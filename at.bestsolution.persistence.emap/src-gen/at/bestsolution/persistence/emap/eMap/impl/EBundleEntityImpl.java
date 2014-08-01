@@ -4,6 +4,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
+import at.bestsolution.persistence.emap.eMap.EIndex;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
@@ -36,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getPkConstraintName <em>Pk Constraint Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getFkConstraints <em>Fk Constraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getUniqueContraints <em>Unique Contraints</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getIndices <em>Indices</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getTypeDefs <em>Type Defs</em>}</li>
  * </ul>
  * </p>
@@ -93,6 +95,16 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * @ordered
    */
   protected EList<EUniqueConstraint> uniqueContraints;
+
+  /**
+   * The cached value of the '{@link #getIndices() <em>Indices</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIndices()
+   * @generated
+   * @ordered
+   */
+  protected EList<EIndex> indices;
 
   /**
    * The cached value of the '{@link #getTypeDefs() <em>Type Defs</em>}' containment reference list.
@@ -224,6 +236,20 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EIndex> getIndices()
+  {
+    if (indices == null)
+    {
+      indices = new EObjectContainmentEList<EIndex>(EIndex.class, this, EMapPackage.EBUNDLE_ENTITY__INDICES);
+    }
+    return indices;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ESQLAttTypeDef> getTypeDefs()
   {
     if (typeDefs == null)
@@ -247,6 +273,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return ((InternalEList<?>)getFkConstraints()).basicRemove(otherEnd, msgs);
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return ((InternalEList<?>)getUniqueContraints()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EBUNDLE_ENTITY__INDICES:
+        return ((InternalEList<?>)getIndices()).basicRemove(otherEnd, msgs);
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return ((InternalEList<?>)getTypeDefs()).basicRemove(otherEnd, msgs);
     }
@@ -272,6 +300,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return getFkConstraints();
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return getUniqueContraints();
+      case EMapPackage.EBUNDLE_ENTITY__INDICES:
+        return getIndices();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return getTypeDefs();
     }
@@ -303,6 +333,10 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         getUniqueContraints().clear();
         getUniqueContraints().addAll((Collection<? extends EUniqueConstraint>)newValue);
         return;
+      case EMapPackage.EBUNDLE_ENTITY__INDICES:
+        getIndices().clear();
+        getIndices().addAll((Collection<? extends EIndex>)newValue);
+        return;
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         getTypeDefs().clear();
         getTypeDefs().addAll((Collection<? extends ESQLAttTypeDef>)newValue);
@@ -333,6 +367,9 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         getUniqueContraints().clear();
         return;
+      case EMapPackage.EBUNDLE_ENTITY__INDICES:
+        getIndices().clear();
+        return;
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         getTypeDefs().clear();
         return;
@@ -358,6 +395,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return fkConstraints != null && !fkConstraints.isEmpty();
       case EMapPackage.EBUNDLE_ENTITY__UNIQUE_CONTRAINTS:
         return uniqueContraints != null && !uniqueContraints.isEmpty();
+      case EMapPackage.EBUNDLE_ENTITY__INDICES:
+        return indices != null && !indices.isEmpty();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return typeDefs != null && !typeDefs.isEmpty();
     }

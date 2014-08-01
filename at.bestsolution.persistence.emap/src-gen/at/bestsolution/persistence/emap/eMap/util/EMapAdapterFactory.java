@@ -90,6 +90,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEBundleEntityAdapter();
       }
       @Override
+      public Adapter caseEIndex(EIndex object)
+      {
+        return createEIndexAdapter();
+      }
+      @Override
       public Adapter caseEFkConstraint(EFkConstraint object)
       {
         return createEFkConstraintAdapter();
@@ -277,6 +282,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEBundleEntityAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EIndex <em>EIndex</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EIndex
+   * @generated
+   */
+  public Adapter createEIndexAdapter()
   {
     return null;
   }

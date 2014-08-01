@@ -191,9 +191,15 @@ class DDLGenerator {
 	}
 
 	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
-	// Generate Tables
+	/* ------------------------------------
+	 * Tables
+	 * ------------------------------------
+	 */
 	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 	«val eClass = e.entity.lookupEClass»
+	/*
+	 * Table for «e.entity.name»
+	 */
 	create table "«e.entity.calcTableName»" (
 		«var flag = false»
 		«val pk = e.entity.collectDerivedAttributes.values.findFirst[pk]»
@@ -246,7 +252,9 @@ class DDLGenerator {
 	«ENDIF»
 	«ENDFOR»
 
-	// Generate N:M Tables
+	/*
+	 * N:M Tables
+	 */
 	«val nmRelations = bundleDef.findNMRelations»
 	«FOR r : nmRelations»
 		create table "«r.a1.relationTable»" (
@@ -255,7 +263,10 @@ class DDLGenerator {
 		);
 	«ENDFOR»
 
-	// Generate constraints
+	/* ------------------------------------
+	 * Constraints
+	 * ------------------------------------
+	 */
 	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 		«val eClass = e.entity.lookupEClass»
 		«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
@@ -272,7 +283,7 @@ class DDLGenerator {
 		«val localPk = e.entity.attributes.findFirst[it.pk]»
 		«val fkConstraint = e.fkConstraints.findFirst[it.attribute == localPk]»
 
-		// Extend constraint
+		/* Extend constraint */
 		alter table "«e.entity.calcTableName»"
 			add «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»
 			foreign key ("«pk»")
@@ -280,7 +291,7 @@ class DDLGenerator {
 		«ENDIF»
 	«ENDFOR»
 
-	// N:M relations
+	/* N:M relation constraints */
 	«FOR r : nmRelations»
 		«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
 		alter table "«r.a1.relationTable»"
@@ -296,17 +307,19 @@ class DDLGenerator {
 
 	«ENDFOR»
 
-	// Multi-values
+	/* FK-Constraints for multi-valued primitive attributes */
 	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 		«IF ! db.isArrayStoreSupported(null)»
 			«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
 			«IF ! primtiveMulti.empty»
 				«FOR p : primtiveMulti»
 				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == p]»
+				/* «e.entity.name»#«p.name» */
 				alter table "«e.entity.name.toUpperCase»_«p.name.toUpperCase»"
 					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«p.name»«ENDIF»
 					foreign key ("FK_«e.entity.name.toUpperCase»_«p.name.toUpperCase»")
 					references "«p.entity.calcTableName»" ("«p.entity.attributes.findFirst[pk].columnName»");
+
 				«ENDFOR»
 			«ENDIF»
 		«ENDIF»
@@ -314,15 +327,29 @@ class DDLGenerator {
 
 	«IF ! db.supportsGeneratedKeys»
 
-		// Create sequences
+		/* ------------------------------------
+		 * Create sequences
+		 * ------------------------------------
+		 */
 		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 			«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
 			/* Sequence for «e.entity.calcTableName» */
 			create generator «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+
 			«ENDIF»
 		«ENDFOR»
 	«ENDIF»
+
+	/* ------------------------------------
+	 * Create indices
+	 * ------------------------------------
+	 */
+	«FOR e : bundleDef.entities»
+		«FOR i : e.indices»
+			create index «i.name» on "«e.entity.calcTableName»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
+		«ENDFOR»
+	«ENDFOR»
 	'''
 
 	def void dummy(boolean b) {

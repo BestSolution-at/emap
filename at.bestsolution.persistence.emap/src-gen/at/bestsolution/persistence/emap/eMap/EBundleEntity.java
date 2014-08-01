@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getPkConstraintName <em>Pk Constraint Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getFkConstraints <em>Fk Constraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getUniqueContraints <em>Unique Contraints</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getIndices <em>Indices</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs <em>Type Defs</em>}</li>
  * </ul>
  * </p>
@@ -111,6 +112,22 @@ public interface EBundleEntity extends EObject
    * @generated
    */
   EList<EUniqueConstraint> getUniqueContraints();
+
+  /**
+   * Returns the value of the '<em><b>Indices</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EIndex}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Indices</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Indices</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEBundleEntity_Indices()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EIndex> getIndices();
 
   /**
    * Returns the value of the '<em><b>Type Defs</b></em>' containment reference list.

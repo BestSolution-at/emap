@@ -93,6 +93,13 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.EINDEX:
+      {
+        EIndex eIndex = (EIndex)theEObject;
+        T result = caseEIndex(eIndex);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.EFK_CONSTRAINT:
       {
         EFkConstraint eFkConstraint = (EFkConstraint)theEObject;
@@ -319,6 +326,22 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseEBundleEntity(EBundleEntity object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EIndex</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EIndex</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEIndex(EIndex object)
   {
     return null;
   }

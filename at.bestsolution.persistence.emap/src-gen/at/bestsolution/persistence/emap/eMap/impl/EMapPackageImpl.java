@@ -6,6 +6,7 @@ import at.bestsolution.persistence.emap.eMap.ColSort;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
+import at.bestsolution.persistence.emap.eMap.EIndex;
 import at.bestsolution.persistence.emap.eMap.EMapFactory;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMapping;
@@ -70,6 +71,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eBundleEntityEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eIndexEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -478,9 +486,49 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEBundleEntity_TypeDefs()
+  public EReference getEBundleEntity_Indices()
   {
     return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_TypeDefs()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEIndex()
+  {
+    return eIndexEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEIndex_Name()
+  {
+    return (EAttribute)eIndexEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEIndex_Attributes()
+  {
+    return (EReference)eIndexEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1740,7 +1788,12 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eBundleEntityEClass, EBUNDLE_ENTITY__PK_CONSTRAINT_NAME);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__FK_CONSTRAINTS);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__UNIQUE_CONTRAINTS);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__INDICES);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__TYPE_DEFS);
+
+    eIndexEClass = createEClass(EINDEX);
+    createEAttribute(eIndexEClass, EINDEX__NAME);
+    createEReference(eIndexEClass, EINDEX__ATTRIBUTES);
 
     eFkConstraintEClass = createEClass(EFK_CONSTRAINT);
     createEReference(eFkConstraintEClass, EFK_CONSTRAINT__ATTRIBUTE);
@@ -1942,7 +1995,12 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getEBundleEntity_PkConstraintName(), ecorePackage.getEString(), "pkConstraintName", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_FkConstraints(), this.getEFkConstraint(), null, "fkConstraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_UniqueContraints(), this.getEUniqueConstraint(), null, "uniqueContraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEBundleEntity_Indices(), this.getEIndex(), null, "indices", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_TypeDefs(), this.getESQLAttTypeDef(), null, "typeDefs", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eIndexEClass, EIndex.class, "EIndex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEIndex_Name(), ecorePackage.getEString(), "name", null, 0, 1, EIndex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEIndex_Attributes(), this.getEAttribute(), null, "attributes", null, 0, -1, EIndex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eFkConstraintEClass, EFkConstraint.class, "EFkConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEFkConstraint_Attribute(), this.getEAttribute(), null, "attribute", null, 0, 1, EFkConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

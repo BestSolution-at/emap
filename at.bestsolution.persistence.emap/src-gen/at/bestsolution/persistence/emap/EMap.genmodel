@@ -34,7 +34,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EBundleEntity/pkConstraintName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/fkConstraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/uniqueContraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/indices"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/typeDefs"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EIndex">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EIndex/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EIndex/attributes"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EFkConstraint">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EFkConstraint/attribute"/>

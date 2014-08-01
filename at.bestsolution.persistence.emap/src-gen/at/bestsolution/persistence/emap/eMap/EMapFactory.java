@@ -50,6 +50,15 @@ public interface EMapFactory extends EFactory
   EBundleEntity createEBundleEntity();
 
   /**
+   * Returns a new object of class '<em>EIndex</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EIndex</em>'.
+   * @generated
+   */
+  EIndex createEIndex();
+
+  /**
    * Returns a new object of class '<em>EFk Constraint</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -469,17 +469,17 @@ ruleEBundleEntity returns [EObject current=null]
 ))*)?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_4_0_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getIndicesEIndexParserRuleCall_1_4_0_0()); 
 	    }
-		lv_typeDefs_10_0=ruleESQLAttTypeDef		{
+		lv_indices_10_0=ruleEIndex		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
-       			"typeDefs",
-        		lv_typeDefs_10_0, 
-        		"ESQLAttTypeDef");
+       			"indices",
+        		lv_indices_10_0, 
+        		"EIndex");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -491,26 +491,151 @@ ruleEBundleEntity returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_4_1_1_0()); 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getIndicesEIndexParserRuleCall_1_4_1_1_0()); 
 	    }
-		lv_typeDefs_12_0=ruleESQLAttTypeDef		{
+		lv_indices_12_0=ruleEIndex		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
+	        }
+       		add(
+       			$current, 
+       			"indices",
+        		lv_indices_12_0, 
+        		"EIndex");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_5_0_0()); 
+	    }
+		lv_typeDefs_13_0=ruleESQLAttTypeDef		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
 	        }
        		add(
        			$current, 
        			"typeDefs",
-        		lv_typeDefs_12_0, 
+        		lv_typeDefs_13_0, 
         		"ESQLAttTypeDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)?	otherlv_13='}' 
+)(	otherlv_14=',' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_5());
+    	newLeafNode(otherlv_14, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_5_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_5_1_1_0()); 
+	    }
+		lv_typeDefs_15_0=ruleESQLAttTypeDef		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
+	        }
+       		add(
+       			$current, 
+       			"typeDefs",
+        		lv_typeDefs_15_0, 
+        		"ESQLAttTypeDef");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*)?	otherlv_16='}' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_6());
     }
 )?)
+;
+
+
+
+
+
+// Entry rule entryRuleEIndex
+entryRuleEIndex returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEIndexRule()); }
+	 iv_ruleEIndex=ruleEIndex 
+	 { $current=$iv_ruleEIndex.current; } 
+	 EOF 
+;
+
+// Rule EIndex
+ruleEIndex returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='index' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getEIndexAccess().getIndexKeyword_0());
+    }
+(
+(
+		lv_name_1_0=RULE_STRING
+		{
+			newLeafNode(lv_name_1_0, grammarAccess.getEIndexAccess().getNameSTRINGTerminalRuleCall_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEIndexRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_1_0, 
+        		"STRING");
+	    }
+
+)
+)	otherlv_2='(' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getEIndexAccess().getLeftParenthesisKeyword_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEIndexRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEIndexAccess().getAttributesEAttributeCrossReference_3_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_4=',' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getEIndexAccess().getCommaKeyword_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEIndexRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEIndexAccess().getAttributesEAttributeCrossReference_4_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_6=')' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getEIndexAccess().getRightParenthesisKeyword_5());
+    }
+)
 ;
 
 

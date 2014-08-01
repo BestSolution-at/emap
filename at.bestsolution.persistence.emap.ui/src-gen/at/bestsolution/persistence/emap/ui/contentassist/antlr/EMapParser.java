@@ -72,6 +72,10 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEBundleEntityAccess().getGroup_1_3_1(), "rule__EBundleEntity__Group_1_3_1__0");
 					put(grammarAccess.getEBundleEntityAccess().getGroup_1_4(), "rule__EBundleEntity__Group_1_4__0");
 					put(grammarAccess.getEBundleEntityAccess().getGroup_1_4_1(), "rule__EBundleEntity__Group_1_4_1__0");
+					put(grammarAccess.getEBundleEntityAccess().getGroup_1_5(), "rule__EBundleEntity__Group_1_5__0");
+					put(grammarAccess.getEBundleEntityAccess().getGroup_1_5_1(), "rule__EBundleEntity__Group_1_5_1__0");
+					put(grammarAccess.getEIndexAccess().getGroup(), "rule__EIndex__Group__0");
+					put(grammarAccess.getEIndexAccess().getGroup_4(), "rule__EIndex__Group_4__0");
 					put(grammarAccess.getEFkConstraintAccess().getGroup(), "rule__EFkConstraint__Group__0");
 					put(grammarAccess.getEUniqueConstraintAccess().getGroup(), "rule__EUniqueConstraint__Group__0");
 					put(grammarAccess.getEUniqueConstraintAccess().getGroup_4(), "rule__EUniqueConstraint__Group_4__0");
@@ -166,8 +170,13 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEBundleEntityAccess().getFkConstraintsAssignment_1_2_1_1(), "rule__EBundleEntity__FkConstraintsAssignment_1_2_1_1");
 					put(grammarAccess.getEBundleEntityAccess().getUniqueContraintsAssignment_1_3_0(), "rule__EBundleEntity__UniqueContraintsAssignment_1_3_0");
 					put(grammarAccess.getEBundleEntityAccess().getUniqueContraintsAssignment_1_3_1_1(), "rule__EBundleEntity__UniqueContraintsAssignment_1_3_1_1");
-					put(grammarAccess.getEBundleEntityAccess().getTypeDefsAssignment_1_4_0(), "rule__EBundleEntity__TypeDefsAssignment_1_4_0");
-					put(grammarAccess.getEBundleEntityAccess().getTypeDefsAssignment_1_4_1_1(), "rule__EBundleEntity__TypeDefsAssignment_1_4_1_1");
+					put(grammarAccess.getEBundleEntityAccess().getIndicesAssignment_1_4_0(), "rule__EBundleEntity__IndicesAssignment_1_4_0");
+					put(grammarAccess.getEBundleEntityAccess().getIndicesAssignment_1_4_1_1(), "rule__EBundleEntity__IndicesAssignment_1_4_1_1");
+					put(grammarAccess.getEBundleEntityAccess().getTypeDefsAssignment_1_5_0(), "rule__EBundleEntity__TypeDefsAssignment_1_5_0");
+					put(grammarAccess.getEBundleEntityAccess().getTypeDefsAssignment_1_5_1_1(), "rule__EBundleEntity__TypeDefsAssignment_1_5_1_1");
+					put(grammarAccess.getEIndexAccess().getNameAssignment_1(), "rule__EIndex__NameAssignment_1");
+					put(grammarAccess.getEIndexAccess().getAttributesAssignment_3(), "rule__EIndex__AttributesAssignment_3");
+					put(grammarAccess.getEIndexAccess().getAttributesAssignment_4_1(), "rule__EIndex__AttributesAssignment_4_1");
 					put(grammarAccess.getEFkConstraintAccess().getAttributeAssignment_1(), "rule__EFkConstraint__AttributeAssignment_1");
 					put(grammarAccess.getEFkConstraintAccess().getNameAssignment_2(), "rule__EFkConstraint__NameAssignment_2");
 					put(grammarAccess.getEUniqueConstraintAccess().getNameAssignment_1(), "rule__EUniqueConstraint__NameAssignment_1");

@@ -28,7 +28,17 @@ enum ColSort:
 ;
 
 EBundleEntity:
-	entity = [EMappingEntity|ID] ('{' ('pk-constraint' pkConstraintName=STRING)? ( fkConstraints+=EFkConstraint (',' fkConstraints+=EFkConstraint)* )? (uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )? (typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}')?
+	entity = [EMappingEntity|ID] ('{'
+		('pk-constraint' pkConstraintName=STRING)?
+		( fkConstraints+=EFkConstraint (',' fkConstraints+=EFkConstraint)* )?
+		(uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )?
+		(indices+=EIndex (',' indices+=EIndex)*)?
+		(typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}'
+	)?
+;
+
+EIndex:
+	'index' name=STRING '(' attributes+=[EAttribute|QualifiedName] (',' attributes+=[EAttribute|QualifiedName])* ')'
 ;
 
 EFkConstraint:
