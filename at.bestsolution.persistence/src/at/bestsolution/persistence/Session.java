@@ -11,6 +11,8 @@
 package at.bestsolution.persistence;
 
 import java.io.Closeable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +48,7 @@ public interface Session extends Closeable {
 	public void persist(Object... o);
 	public void delete(Object... o);
 	public void refresh(Object o, RefreshType type);
+	public Date getServerTime();
 
 	public boolean isAttached(Object o);
 //	public Object getVersion(Object o);

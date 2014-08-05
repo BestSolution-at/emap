@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -76,7 +77,7 @@ public class JavaSessionFactory implements SessionFactory {
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 	String factoryId;
-	
+
 	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
 	private ThreadLocal<AtomicInteger> currentSessionUsage = new ThreadLocal<AtomicInteger>() {
 		protected AtomicInteger initialValue() { return new AtomicInteger(0); }
@@ -136,7 +137,7 @@ public class JavaSessionFactory implements SessionFactory {
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
 	}
-	
+
 	@Override
 	public <R> R runWithSession(SessionRunnable<R> runnable) {
 		Session session = currentSession.get();
@@ -145,18 +146,18 @@ public class JavaSessionFactory implements SessionFactory {
 			session = createSession();
 			currentSession.set(session);
 		}
-		
+
 		// increment
 		currentSessionUsage.get().incrementAndGet();
-		
-		
+
+
 		try {
 			return runnable.execute(session);
 		}
 		finally {
 			// decrement
 			int val = currentSessionUsage.get().decrementAndGet();
-			
+
 			// dispose
 			if (val == 0) {
 				Session s = currentSession.get();
@@ -214,6 +215,16 @@ public class JavaSessionFactory implements SessionFactory {
 
 		public JavaSessionImpl(SessionCache sessionCache) {
 			this.sessionCache = sessionCache;
+		}
+
+		@Override
+		public Date getServerTime() {
+			Connection connection = checkoutConnection();
+			try {
+				return getDatabaseSupport().getServerTime(connection);
+			} finally {
+				returnConnection(connection);
+			}
 		}
 
 		@Override
@@ -1371,5 +1382,5 @@ public class JavaSessionFactory implements SessionFactory {
 		REMOVE,
 		SET
 	}
-	
+
 }

@@ -13,6 +13,7 @@ package at.bestsolution.persistence.java;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import at.bestsolution.persistence.MappedUpdateQuery;
@@ -30,6 +31,7 @@ public interface DatabaseSupport {
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
 	public boolean isNestedResultSetsSupported();
+	public Timestamp getServerTime(Connection connection);
 
 	public enum PrimaryKeyGenType {
 		AUTO,
