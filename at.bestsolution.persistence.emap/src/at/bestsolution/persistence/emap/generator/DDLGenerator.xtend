@@ -213,7 +213,7 @@ class DDLGenerator {
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
-		«IF flag && ! e.entity.extendsEntity», e_version integer not null«ENDIF»
+		«IF flag && ! e.entity.extendsEntity», "E_VERSION" integer not null«ENDIF»
 		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[!it.pk]»
 			«val f = a.getEStructuralFeature(eClass)»
 			«IF ! f.many»
@@ -242,8 +242,8 @@ class DDLGenerator {
 		«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
-			create table "«e.entity.calcTableName.toUpperCase»_«p.columnName.toUpperCase»" (
-				"FK_«e.entity.calcTableName.toUpperCase»_«p.columnName.toUpperCase»" not null,
+			create table "«p.primitiveMultiValuedTableName»" (
+				"FK_«p.primitiveMultiValuedTableName»" «e.entity.PKAttribute.getDataType(e, db, bundleDef, e.entity.lookupEClass)» not null,
 				"ELT" «p.getDataType(e,db,bundleDef,e.entity.lookupEClass)»
 			);
 
@@ -315,9 +315,9 @@ class DDLGenerator {
 				«FOR p : primtiveMulti»
 				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == p]»
 				/* «e.entity.name»#«p.name» */
-				alter table "«e.entity.name.toUpperCase»_«p.name.toUpperCase»"
-					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«p.name»«ENDIF»
-					foreign key ("FK_«e.entity.name.toUpperCase»_«p.name.toUpperCase»")
+				alter table "«p.primitiveMultiValuedTableName»"
+					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«p.primitiveMultiValuedTableName»«ENDIF»
+					foreign key ("FK_«p.primitiveMultiValuedTableName»")
 					references "«p.entity.calcTableName»" ("«p.entity.attributes.findFirst[pk].columnName»");
 
 				«ENDFOR»

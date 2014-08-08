@@ -791,4 +791,8 @@ class UtilCollection {
 		}
 		return value;
 	}
+	
+	def getPrimitiveMultiValuedTableName(EAttribute attribute) {
+		attribute.entity.calcTableName.toUpperCase + "_" + attribute.columnName.toUpperCase
+	}
 }
