@@ -16,6 +16,8 @@ import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.UtilCollection
 import at.bestsolution.persistence.emap.eMap.EMapPackage
 import at.bestsolution.persistence.emap.eMap.ENamedQuery
+import at.bestsolution.persistence.emap.eMap.EAttribute
+import at.bestsolution.persistence.emap.eMap.EValueGenerator
 
 //import org.eclipse.xtext.validation.Check
 
@@ -41,6 +43,7 @@ class EMapValidator extends AbstractEMapValidator {
 
 	public static final String ATTRIBUTE_MISSING = "ATTRIBUTE_MISSING";
 	public static final String SELECT_ALL_MISSING = "SELECT_ALL_MISSING";
+	public static final String NAME_TOO_LONG = "NAME_TOO_LONG";
 
 	@Check
 	def checkMissingSelectAllQuery(EMappingEntity entity) {
@@ -67,6 +70,56 @@ class EMapValidator extends AbstractEMapValidator {
 		if( "selectById" == q.name && q.parameters.size == 1 ) {
 			if( ! q.parameters.head.id ) {
 				warning("Performance: Missing primarykey def for parameter",q,EMapPackage$Literals::ENAMED_QUERY__NAME);
+			}
+		}
+	}
+	
+	// TODO we need to execute the following checks only if we support firebird
+	
+	
+	@Check
+	def checkTableNameLength(EMappingEntity entity) {
+		if (!entity.findPrimitiveMultiValuedAttributes(entity.lookupEClass).empty) {
+			if (entity.calcTableName.length > 14) {
+				if (entity.tableName != null) {
+					warning("Firebird: Tables containing MultiValue Attributes:  tablename may not be longer than 14 characters", entity, EMapPackage$Literals::EMAPPING_ENTITY__TABLE_NAME, NAME_TOO_LONG, entity.calcTableName, entity.name);
+				}
+				else {
+					warning("Firebird: Tables containing MultiValue Attributes:  tablename may not be longer than 14 characters", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, NAME_TOO_LONG, entity.calcTableName, entity.name);
+				}
+			}
+		}
+		else {
+			if (entity.calcTableName.length > 31) {
+				if (entity.tableName != null) {
+					warning("Firebird: Identifiers may not be longer than 31 characters", entity, EMapPackage$Literals::EMAPPING_ENTITY__TABLE_NAME, NAME_TOO_LONG, entity.calcTableName, entity.name);
+				}
+				else {
+					warning("Firebird: Identifiers may not be longer than 31 characters", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, NAME_TOO_LONG, entity.calcTableName, entity.name);
+				}
+			}
+		}
+	}
+	
+	@Check
+	def checkColumnNameLength(EAttribute attrib) {
+		if (attrib.isPrimitiveMultiValuedAttribute(attrib.entity.lookupEClass)) {
+			if (attrib.columnName.length > 13) {
+				warning("Firebird: MultiValue Attributes names may not be longer than 13 characters", attrib, EMapPackage$Literals::EATTRIBUTE__COLUMN_NAME, NAME_TOO_LONG, attrib.columnName, attrib.name);
+			}
+		}
+		else {
+			if (attrib.columnName.length > 31) {
+				warning("Firebird: Identifiers may not be longer than 31 characters", attrib, EMapPackage$Literals::EATTRIBUTE__COLUMN_NAME, NAME_TOO_LONG, attrib.columnName, attrib.name);
+			}
+		}
+	}
+	
+	@Check
+	def checkFBSeqName(EValueGenerator generator) {
+		if ("Firebird".equals(generator.dbType)) {
+			if (generator.sequence.length > 31) {
+				warning("Firebird: Identifiers may not be longer than 31 characters", generator, EMapPackage$Literals::EVALUE_GENERATOR__SEQUENCE, NAME_TOO_LONG, generator.sequence, generator.sequence);
 			}
 		}
 	}
