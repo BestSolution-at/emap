@@ -242,8 +242,8 @@ class DDLGenerator {
 		«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
-			create table "«e.entity.name.toUpperCase»_«p.name.toUpperCase»" (
-				"FK_«e.entity.name.toUpperCase»_«p.name.toUpperCase»" not null,
+			create table "«e.entity.calcTableName.toUpperCase»_«p.columnName.toUpperCase»" (
+				"FK_«e.entity.calcTableName.toUpperCase»_«p.columnName.toUpperCase»" not null,
 				"ELT" «p.getDataType(e,db,bundleDef,e.entity.lookupEClass)»
 			);
 
