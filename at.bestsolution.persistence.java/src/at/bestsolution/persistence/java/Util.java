@@ -29,17 +29,21 @@ import java.util.Map;
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
 
+import at.bestsolution.persistence.Function;
 import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
+import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.TypedValue;
 
 public class Util {
 	public static class ProcessedSQL {
 		public final String sql;
 		public final List<String> dynamicParameterNames;
+		public final Map<String, List<TypedValue>> listValueMaps;
 
-		public ProcessedSQL(String sql, List<String> dynamicParameterNames) {
+		public ProcessedSQL(String sql, List<String> dynamicParameterNames, Map<String, List<TypedValue>> listValueMaps) {
 			this.sql = sql;
 			this.dynamicParameterNames = dynamicParameterNames;
+			this.listValueMaps = listValueMaps == null ? new HashMap<String, List<TypedValue>>() : listValueMaps;
 		}
 	}
 
@@ -72,7 +76,7 @@ public class Util {
 			}
 			dynamicValues.add(pkColumnParameter);
 			return new ProcessedSQL("UPDATE " + '"' + tableName + '"' + " SET " + b
-					+ " WHERE " + '"' + pkColumn + '"' + " = ?", dynamicValues);
+					+ " WHERE " + '"' + pkColumn + '"' + " = ?", dynamicValues,null);
 		}
 
 		public final ProcessedSQL buildInsert(String pkColumn,
@@ -106,7 +110,7 @@ public class Util {
 			}
 
 			return new ProcessedSQL("INSERT INTO "+'"' + tableName + '"' +"(" + col
-					+ ") VALUES (" + val + ")", dynamicValues);
+					+ ") VALUES (" + val + ")", dynamicValues,null);
 		}
 	}
 
@@ -139,6 +143,45 @@ public class Util {
 		return b.toString();
 	}
 
+	public static final ProcessedSQL processSQL(String sql, final Function<String, List<?>> listLookup) {
+		final List<String> dynamicParameterNames = new ArrayList<String>();
+		final Map<String,List<TypedValue>> typedValuesMap = new HashMap<String, List<TypedValue>>();
+		String s = new StrSubstitutor(new StrLookup() {
+
+			@Override
+			public String lookup(String key) {
+				List<?> data = listLookup.execute(key);
+				if( data == null ) {
+					dynamicParameterNames.add(key);
+					return "?";
+				} else {
+					List<TypedValue> list = null;
+					StringBuilder rv = new StringBuilder();
+					for( Object o : data ) {
+						if( rv.length() > 0 ) {
+							rv.append(", ");
+						}
+
+						if( o == null ) {
+							rv.append("NULL");
+						} else if( o instanceof Long || o instanceof Integer ) {
+							rv.append(o);
+						} else {
+							if( list == null ) {
+								list = new ArrayList<TypedValue>();
+								typedValuesMap.put(key,list);
+							}
+							list.add(new TypedValue(o, JDBCType.fromJavaType(o.getClass())));
+							rv.append("?");
+						}
+					}
+					return rv.toString();
+				}
+			}
+		}, "#{", "}", '#').replace(sql);
+		return new ProcessedSQL(s, dynamicParameterNames,null);
+	}
+
 	public static final ProcessedSQL processSQL(String sql) {
 		final List<String> dynamicParameterNames = new ArrayList<String>();
 		String s = new StrSubstitutor(new StrLookup() {
@@ -149,7 +192,7 @@ public class Util {
 				return "?";
 			}
 		}, "#{", "}", '#').replace(sql);
-		return new ProcessedSQL(s, dynamicParameterNames);
+		return new ProcessedSQL(s, dynamicParameterNames,null);
 	}
 
 	public static final SimpleQueryBuilder createQueryBuilder(String tableName) {

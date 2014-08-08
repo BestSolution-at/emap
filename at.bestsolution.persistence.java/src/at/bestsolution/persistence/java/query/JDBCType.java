@@ -10,6 +10,8 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.query;
 
+import java.util.Date;
+
 public enum JDBCType {
 	LONG(true),
 	INT(true),
@@ -26,5 +28,24 @@ public enum JDBCType {
 
 	private JDBCType(boolean numeric) {
 		this.numeric = numeric;
+	}
+
+	public static JDBCType fromJavaType(Class<?> type) {
+		if( type == String.class ) {
+			return JDBCType.STRING;
+		} else if( type == int.class || type == Integer.class ) {
+			return JDBCType.INT;
+		} else if( type == long.class || type == Long.class ) {
+			return JDBCType.LONG;
+		} else if( type == double.class || type == Double.class ) {
+			return JDBCType.DOUBLE;
+		} else if( type == boolean.class || type == Boolean.class ) {
+			return JDBCType.BOOLEAN;
+		} else if( type == float.class || type == Float.class ) {
+			return JDBCType.FLOAT;
+		} else if( type == Date.class ) {
+			return JDBCType.TIMESTAMP;
+		}
+		return JDBCType.UNKNOWN;
 	}
 }
