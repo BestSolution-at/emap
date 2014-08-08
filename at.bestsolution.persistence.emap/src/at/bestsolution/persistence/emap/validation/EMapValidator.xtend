@@ -19,7 +19,6 @@ import at.bestsolution.persistence.emap.eMap.ENamedQuery
 import at.bestsolution.persistence.emap.eMap.EFkConstraint
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EValueGenerator
-import org.eclipse.xtext.xbase.typesystem.internal.util.FeatureKinds
 
 //import org.eclipse.xtext.validation.Check
 
@@ -75,10 +74,10 @@ class EMapValidator extends AbstractEMapValidator {
 			}
 		}
 	}
-	
+
 	// TODO we need to execute the following checks only if we support firebird
-	
-	
+
+
 	@Check
 	def checkTableNameLength(EMappingEntity entity) {
 		if (!entity.findPrimitiveMultiValuedAttributes(entity.lookupEClass).empty) {
@@ -102,7 +101,7 @@ class EMapValidator extends AbstractEMapValidator {
 			}
 		}
 	}
-	
+
 	@Check
 	def checkColumnNameLength(EAttribute attrib) {
 		if (attrib.isPrimitiveMultiValuedAttribute(attrib.entity.lookupEClass)) {
@@ -116,7 +115,7 @@ class EMapValidator extends AbstractEMapValidator {
 			}
 		}
 	}
-	
+
 	@Check
 	def checkFBSeqName(EValueGenerator generator) {
 		if ("Firebird".equals(generator.dbType)) {
@@ -125,7 +124,7 @@ class EMapValidator extends AbstractEMapValidator {
 			}
 		}
 	}
-	
+
 	@Check
 	def checkFkConstraintName(EFkConstraint constraint) {
 		if (constraint.name.length > 31) {
