@@ -16,8 +16,10 @@ import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.UtilCollection
 import at.bestsolution.persistence.emap.eMap.EMapPackage
 import at.bestsolution.persistence.emap.eMap.ENamedQuery
+import at.bestsolution.persistence.emap.eMap.EFkConstraint
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EValueGenerator
+import org.eclipse.xtext.xbase.typesystem.internal.util.FeatureKinds
 
 //import org.eclipse.xtext.validation.Check
 
@@ -121,6 +123,13 @@ class EMapValidator extends AbstractEMapValidator {
 			if (generator.sequence.length > 31) {
 				warning("Firebird: Identifiers may not be longer than 31 characters", generator, EMapPackage$Literals::EVALUE_GENERATOR__SEQUENCE, NAME_TOO_LONG, generator.sequence, generator.sequence);
 			}
+		}
+	}
+	
+	@Check
+	def checkFkConstraintName(EFkConstraint constraint) {
+		if (constraint.name.length > 31) {
+			warning("Firebird: Identifiers may not be longer than 31 characters", constraint, EMapPackage$Literals::EFK_CONSTRAINT__NAME, NAME_TOO_LONG, constraint.name, constraint.attribute.name);
 		}
 	}
 }
