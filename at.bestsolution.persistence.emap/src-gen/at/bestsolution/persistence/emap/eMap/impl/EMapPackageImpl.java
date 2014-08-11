@@ -1386,9 +1386,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getEParameter_Name()
+  public EAttribute getEParameter_List()
   {
     return (EAttribute)eParameterEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEParameter_Name()
+  {
+    return (EAttribute)eParameterEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1899,6 +1909,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     eParameterEClass = createEClass(EPARAMETER);
     createEAttribute(eParameterEClass, EPARAMETER__ID);
     createEAttribute(eParameterEClass, EPARAMETER__TYPE);
+    createEAttribute(eParameterEClass, EPARAMETER__LIST);
     createEAttribute(eParameterEClass, EPARAMETER__NAME);
 
     eQueryEClass = createEClass(EQUERY);
@@ -2106,6 +2117,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eParameterEClass, EParameter.class, "EParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEParameter_Id(), ecorePackage.getEBoolean(), "id", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEParameter_Type(), ecorePackage.getEString(), "type", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEParameter_List(), ecorePackage.getEBoolean(), "list", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEParameter_Name(), ecorePackage.getEString(), "name", null, 0, 1, EParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eQueryEClass, EQuery.class, "EQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

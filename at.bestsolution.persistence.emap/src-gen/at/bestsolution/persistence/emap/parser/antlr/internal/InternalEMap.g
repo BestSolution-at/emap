@@ -2907,10 +2907,10 @@ ruleEParameter returns [EObject current=null]
 	    }
 
 )
-)?(
+)?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getEParameterAccess().getTypeEPrimtiveTypeParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getEParameterAccess().getTypeEPrimtiveTypeParserRuleCall_1_0_0()); 
 	    }
 		lv_type_1_0=ruleEPrimtiveType		{
 	        if ($current==null) {
@@ -2925,11 +2925,49 @@ ruleEParameter returns [EObject current=null]
 	    }
 
 )
+)
+    |((
+(
+		lv_list_2_0=	'[' 
+    {
+        newLeafNode(lv_list_2_0, grammarAccess.getEParameterAccess().getListLeftSquareBracketKeyword_1_1_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEParameterRule());
+	        }
+       		setWithLastConsumed($current, "list", true, "[");
+	    }
+
+)
 )(
 (
-		lv_name_2_0=RULE_ID
+		{ 
+	        newCompositeNode(grammarAccess.getEParameterAccess().getTypeEPrimtiveTypeParserRuleCall_1_1_1_0()); 
+	    }
+		lv_type_3_0=ruleEPrimtiveType		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEParameterRule());
+	        }
+       		set(
+       			$current, 
+       			"type",
+        		lv_type_3_0, 
+        		"EPrimtiveType");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_4=']' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getEParameterAccess().getRightSquareBracketKeyword_1_1_2());
+    }
+))(
+(
+		lv_name_5_0=RULE_ID
 		{
-			newLeafNode(lv_name_2_0, grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_2_0()); 
+			newLeafNode(lv_name_5_0, grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_2_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -2938,7 +2976,7 @@ ruleEParameter returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_5_0, 
         		"ID");
 	    }
 

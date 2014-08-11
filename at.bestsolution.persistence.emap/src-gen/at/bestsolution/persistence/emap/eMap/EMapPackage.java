@@ -1234,13 +1234,22 @@ public interface EMapPackage extends EPackage
   int EPARAMETER__TYPE = 1;
 
   /**
+   * The feature id for the '<em><b>List</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPARAMETER__LIST = 2;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EPARAMETER__NAME = 2;
+  int EPARAMETER__NAME = 3;
 
   /**
    * The number of structural features of the '<em>EParameter</em>' class.
@@ -1249,7 +1258,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EPARAMETER_FEATURE_COUNT = 3;
+  int EPARAMETER_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryImpl <em>EQuery</em>}' class.
@@ -2751,6 +2760,17 @@ public interface EMapPackage extends EPackage
   EAttribute getEParameter_Type();
 
   /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EParameter#isList <em>List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>List</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EParameter#isList()
+   * @see #getEParameter()
+   * @generated
+   */
+  EAttribute getEParameter_List();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EParameter#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4049,6 +4069,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute EPARAMETER__TYPE = eINSTANCE.getEParameter_Type();
+
+    /**
+     * The meta object literal for the '<em><b>List</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EPARAMETER__LIST = eINSTANCE.getEParameter_List();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

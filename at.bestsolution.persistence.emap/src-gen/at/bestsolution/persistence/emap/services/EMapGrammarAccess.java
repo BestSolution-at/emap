@@ -1866,16 +1866,23 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cIdAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Keyword cIdPrimarykeyKeyword_0_0 = (Keyword)cIdAssignment_0.eContents().get(0);
-		private final Assignment cTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cTypeEPrimtiveTypeParserRuleCall_1_0 = (RuleCall)cTypeAssignment_1.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cTypeAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final RuleCall cTypeEPrimtiveTypeParserRuleCall_1_0_0 = (RuleCall)cTypeAssignment_1_0.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final Assignment cListAssignment_1_1_0 = (Assignment)cGroup_1_1.eContents().get(0);
+		private final Keyword cListLeftSquareBracketKeyword_1_1_0_0 = (Keyword)cListAssignment_1_1_0.eContents().get(0);
+		private final Assignment cTypeAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final RuleCall cTypeEPrimtiveTypeParserRuleCall_1_1_1_0 = (RuleCall)cTypeAssignment_1_1_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_1_2 = (Keyword)cGroup_1_1.eContents().get(2);
 		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		
 		//EParameter:
-		//	id?="primarykey"? type=EPrimtiveType name=ID;
+		//	id?="primarykey"? (type=EPrimtiveType | list?="[" type=EPrimtiveType "]") name=ID;
 		public ParserRule getRule() { return rule; }
 
-		//id?="primarykey"? type=EPrimtiveType name=ID
+		//id?="primarykey"? (type=EPrimtiveType | list?="[" type=EPrimtiveType "]") name=ID
 		public Group getGroup() { return cGroup; }
 
 		//id?="primarykey"?
@@ -1884,11 +1891,32 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//"primarykey"
 		public Keyword getIdPrimarykeyKeyword_0_0() { return cIdPrimarykeyKeyword_0_0; }
 
+		//type=EPrimtiveType | list?="[" type=EPrimtiveType "]"
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
 		//type=EPrimtiveType
-		public Assignment getTypeAssignment_1() { return cTypeAssignment_1; }
+		public Assignment getTypeAssignment_1_0() { return cTypeAssignment_1_0; }
 
 		//EPrimtiveType
-		public RuleCall getTypeEPrimtiveTypeParserRuleCall_1_0() { return cTypeEPrimtiveTypeParserRuleCall_1_0; }
+		public RuleCall getTypeEPrimtiveTypeParserRuleCall_1_0_0() { return cTypeEPrimtiveTypeParserRuleCall_1_0_0; }
+
+		//list?="[" type=EPrimtiveType "]"
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//list?="["
+		public Assignment getListAssignment_1_1_0() { return cListAssignment_1_1_0; }
+
+		//"["
+		public Keyword getListLeftSquareBracketKeyword_1_1_0_0() { return cListLeftSquareBracketKeyword_1_1_0_0; }
+
+		//type=EPrimtiveType
+		public Assignment getTypeAssignment_1_1_1() { return cTypeAssignment_1_1_1; }
+
+		//EPrimtiveType
+		public RuleCall getTypeEPrimtiveTypeParserRuleCall_1_1_1_0() { return cTypeEPrimtiveTypeParserRuleCall_1_1_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_1_2() { return cRightSquareBracketKeyword_1_1_2; }
 
 		//name=ID
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
@@ -2884,7 +2912,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EParameter:
-	//	id?="primarykey"? type=EPrimtiveType name=ID;
+	//	id?="primarykey"? (type=EPrimtiveType | list?="[" type=EPrimtiveType "]") name=ID;
 	public EParameterElements getEParameterAccess() {
 		return (pEParameter != null) ? pEParameter : (pEParameter = new EParameterElements());
 	}

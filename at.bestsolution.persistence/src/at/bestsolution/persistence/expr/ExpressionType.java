@@ -34,6 +34,8 @@ public enum ExpressionType {
 	IN,
 	NOT_IN,
 
+	RANGE,
+
 	AND,
 	OR
 }

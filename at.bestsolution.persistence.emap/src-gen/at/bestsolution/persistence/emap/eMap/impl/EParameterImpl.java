@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#isId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getType <em>Type</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#isList <em>List</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -68,6 +69,26 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
    * @ordered
    */
   protected String type = TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isList() <em>List</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isList()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean LIST_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isList() <em>List</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isList()
+   * @generated
+   * @ordered
+   */
+  protected boolean list = LIST_EDEFAULT;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -161,6 +182,29 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isList()
+  {
+    return list;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setList(boolean newList)
+  {
+    boolean oldList = list;
+    list = newList;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EPARAMETER__LIST, oldList, list));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getName()
   {
     return name;
@@ -193,6 +237,8 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
         return isId();
       case EMapPackage.EPARAMETER__TYPE:
         return getType();
+      case EMapPackage.EPARAMETER__LIST:
+        return isList();
       case EMapPackage.EPARAMETER__NAME:
         return getName();
     }
@@ -214,6 +260,9 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
         return;
       case EMapPackage.EPARAMETER__TYPE:
         setType((String)newValue);
+        return;
+      case EMapPackage.EPARAMETER__LIST:
+        setList((Boolean)newValue);
         return;
       case EMapPackage.EPARAMETER__NAME:
         setName((String)newValue);
@@ -238,6 +287,9 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
       case EMapPackage.EPARAMETER__TYPE:
         setType(TYPE_EDEFAULT);
         return;
+      case EMapPackage.EPARAMETER__LIST:
+        setList(LIST_EDEFAULT);
+        return;
       case EMapPackage.EPARAMETER__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -259,6 +311,8 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
         return id != ID_EDEFAULT;
       case EMapPackage.EPARAMETER__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+      case EMapPackage.EPARAMETER__LIST:
+        return list != LIST_EDEFAULT;
       case EMapPackage.EPARAMETER__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
@@ -280,6 +334,8 @@ public class EParameterImpl extends MinimalEObjectImpl.Container implements EPar
     result.append(id);
     result.append(", type: ");
     result.append(type);
+    result.append(", list: ");
+    result.append(list);
     result.append(", name: ");
     result.append(name);
     result.append(')');

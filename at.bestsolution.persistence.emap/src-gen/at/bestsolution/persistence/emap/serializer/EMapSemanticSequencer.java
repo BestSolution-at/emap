@@ -417,7 +417,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (id?='primarykey'? type=EPrimtiveType name=ID)
+	 *     (id?='primarykey'? (type=EPrimtiveType | (list?='[' type=EPrimtiveType)) name=ID)
 	 */
 	protected void sequence_EParameter(EObject context, EParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

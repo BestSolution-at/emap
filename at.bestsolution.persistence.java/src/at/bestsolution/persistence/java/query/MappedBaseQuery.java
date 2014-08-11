@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +21,7 @@ import at.bestsolution.persistence.expr.ExpressionType;
 import at.bestsolution.persistence.expr.QueryFunction;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
+import at.bestsolution.persistence.expr.RangeExpression.Range;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.order.OrderColumn;
 
@@ -221,6 +223,7 @@ public class MappedBaseQuery<O> {
 		case NOT_IN:
 		{
 			String in = expression.type == ExpressionType.IN ? " IN " : " NOT IN ";
+			//FIXME This can lead to SQL-Injection needs to be fixed!!!
 			//TODO We could replace with a BETWEEN or >= & <= QUERY
 			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
 			b.append( columnExpression );
@@ -238,6 +241,26 @@ public class MappedBaseQuery<O> {
 					b.append("?");
 				}
 				b.append(" )");
+			}
+			break;
+		}
+		case RANGE:
+		{
+			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
+			List<Object> invalues = new ArrayList<Object>();
+			List<String> betweenSegements = new ArrayList<String>();
+			for( Object data : propExpression.data ) {
+				Range r = (Range) data;
+				if( r.min.endsWith(r.max) ) {
+					invalues.add(r.min);
+				} else {
+					betweenSegements.add( columnExpression + " >= ? AND " + columnExpression + " <= ?" );
+				}
+			}
+
+			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
+			if( ! invalues.isEmpty() ) {
+
 			}
 		}
 		default:

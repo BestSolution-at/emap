@@ -30,7 +30,7 @@ class JavaInterfaceGenerator {
 
 	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,at.bestsolution.persistence.MappedQuery<«eClass.name»>>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
 		«FOR query : entityDef.entity.namedQueries»
-		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(",",[p|p.type + " " + p.name])»);
+		public «IF query.returnType == ReturnType::LIST»java.util.List<«ENDIF»«eClass.instanceClassName»«IF query.returnType == ReturnType::LIST»>«ENDIF» «query.name»(«query.parameters.join(", ",[p|p.parameterType + " " + p.name])»);
 		«ENDFOR»
 
 		«FOR q : entityDef.entity.namedCustomQueries»

@@ -144,6 +144,7 @@
     <genClasses ecoreClass="EMap.ecore#//EParameter">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/list"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EParameter/name"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EQuery">

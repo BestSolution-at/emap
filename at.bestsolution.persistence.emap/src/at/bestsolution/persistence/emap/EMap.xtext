@@ -149,7 +149,7 @@ enum ReturnType:
 ;
 
 EParameter:
-	id?='primarykey'? type=EPrimtiveType name=ID
+	id?='primarykey'? (type=EPrimtiveType | list?='[' type=EPrimtiveType ']' ) name=ID
 ;
 
 EQuery:

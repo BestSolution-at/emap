@@ -201,14 +201,22 @@ class UtilCollection {
 	}
 
 	def parameterConversion(EParameter p, String name) {
-		if( p.type == "long" ) {
-			return "((Long)" + name + ").longValue()"
-		} else if( p.type == "int" ) {
-			return "((Integer)" + name + ").intValue()";
-		} else if( p.type == "boolean" ) {
-			return "((Boolean)" + name + ").booleanValue()";
+		if( p.list ) {
+			return "(java.util.List<"+p.type.toObjectType+">)"+name
+		} else {
+			if( p.type == "long" ) {
+				return "((Long)" + name + ").longValue()"
+			} else if( p.type == "int" ) {
+				return "((Integer)" + name + ").intValue()";
+			} else if( p.type == "boolean" ) {
+				return "((Boolean)" + name + ").booleanValue()";
+			} else if( p.type == "float" ) {
+				return "((Float)" + name + ").floatValue()";
+			} else if( p.type == "float" ) {
+				return "((Double)" + name + ").doubleValue()";
+			}
+			return "("+p.type+")" + name;
 		}
-		return "("+p.type+")" + name;
 	}
 
 	def jdbcType(org.eclipse.emf.ecore.EAttribute f) {
@@ -791,8 +799,26 @@ class UtilCollection {
 		}
 		return value;
 	}
-	
+
 	def getPrimitiveMultiValuedTableName(EAttribute attribute) {
 		attribute.entity.calcTableName.toUpperCase + "_" + attribute.columnName.toUpperCase
+	}
+
+	def getParameterType(EParameter p) {
+		if( p.list ) {
+			return "java.util.List<"+p.type.toObjectType+">"
+		}
+		return p.type;
+	}
+
+	def toObjectType(String type) {
+		switch(type) {
+			case "int": return "Integer"
+			case "long": return "Long"
+			case "short": return "Short"
+			case "float": return  "Float"
+			case "double": return "Double"
+		}
+		return type;
 	}
 }
