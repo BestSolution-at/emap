@@ -29,9 +29,9 @@ class OracleDatabaseSupport extends DatabaseSupport {
 		if( dataType instanceof EEnum ) {
 			return "VARCHAR2(255)";
 		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
-			return "INTEGER";
+			return "NUMBER(38,0)";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			return "LONGINTEGER";
+			return "NUMBER(38,0)";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "DECIMAL";
 		} else if( "EString" == dataType.name ) {
@@ -57,7 +57,7 @@ class OracleDatabaseSupport extends DatabaseSupport {
 	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
-		return true
+		return false
 	}
 
 	override processInsert(EAttribute primaryKey, String insert) {

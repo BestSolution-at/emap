@@ -65,7 +65,7 @@ class DDLGenerator {
 			if( be != null ) {
 //				println("=================> Bundle-Entity: " + a.columnName + " => " + (be.eContainer as EMappingBundle).name )
 
-				var redef = be.typeDefs.findFirst[it.attribute == a]
+				var redef = be.typeDefs.findFirst[it.attribute == a && it.dbTypes.contains(name)]
 //				println("FOUND: " + be.typeDefs.head?.attribute)
 //				println("SEARCHED: " + a)
 //				println(redef)
@@ -335,7 +335,7 @@ class DDLGenerator {
 			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 			«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
 			/* Sequence for «e.entity.calcTableName» */
-			create generator «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+			create sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
 
 			«ENDIF»
 		«ENDFOR»
