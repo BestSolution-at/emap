@@ -59,7 +59,7 @@ class JavaUtilGenerator {
 			LOGGER.debug("clear many primitive «attribute.name.toFirstUpper» for all");
 		}
 
-		String sql = "DELETE FROM \"«eClass.name.toUpperCase+"_"+attribute.name.toUpperCase»\"";
+		String sql = "DELETE FROM \"«attribute.primitiveMultiValuedTableName»\"";
 		«generateExecuteStatement("stmt", "sql")»
 	}
 	'''
@@ -74,7 +74,7 @@ class JavaUtilGenerator {
 		if( isDebug ) {
 			LOGGER.debug("clearPrimitiveMultiValueById «eClass.name»#«attribute.name» " + objectIds);
 		}
-		«generateDeleteInSql("sql", eClass.name.toUpperCase+"_"+attribute.name.toUpperCase, "FK_"+eClass.name.toUpperCase+"_"+attribute.name.toUpperCase, "objectIds")»
+		«generateDeleteInSql("sql", attribute.primitiveMultiValuedTableName, attribute.primitiveMultiValuedFKColName, "objectIds")»
 		«generateExecuteInStatement("stmt", "sql", "objectIds")»
 «««		PreparedStatement stmt = null;
 «««		try {
@@ -387,7 +387,7 @@ class JavaUtilGenerator {
 		PreparedStatement stmt = null;
 		ResultSet s = null;
 		try {
-			String sql = "SELECT * FROM «eClass.name.toUpperCase»_«attribute.name.toUpperCase» WHERE FK_«eClass.name.toUpperCase»_«attribute.name.toUpperCase» = ?";
+			String sql = "SELECT * FROM «attribute.primitiveMultiValuedTableName» WHERE «attribute.primitiveMultiValuedFKColName» = ?";
 			if( isDebug ) {
 				LOGGER.debug("Preparing query: '"+sql+"'");
 			}
@@ -434,7 +434,7 @@ class JavaUtilGenerator {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO «eClass.name.toUpperCase»_«attribute.name.toUpperCase» (FK_«eClass.name.toUpperCase»_«attribute.name.toUpperCase»,ELT) VALUES (?,?)";
+			String sql = "INSERT INTO «attribute.primitiveMultiValuedTableName» («attribute.primitiveMultiValuedFKColName»,ELT) VALUES (?,?)";
 			if( isDebug ) {
 				LOGGER.debug("Preparing statement " + sql);
 			}
