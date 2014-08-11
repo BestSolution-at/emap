@@ -800,6 +800,10 @@ class UtilCollection {
 		return value;
 	}
 
+	def getPrimitiveMultiValuedFKColName(EAttribute attribute) {
+		"FK_" + attribute.primitiveMultiValuedTableName
+	}
+
 	def getPrimitiveMultiValuedTableName(EAttribute attribute) {
 		attribute.entity.calcTableName.toUpperCase + "_" + attribute.columnName.toUpperCase
 	}

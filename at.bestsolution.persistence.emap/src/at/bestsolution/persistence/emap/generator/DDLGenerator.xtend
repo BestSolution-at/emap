@@ -243,7 +243,7 @@ class DDLGenerator {
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
 			create table "«p.primitiveMultiValuedTableName»" (
-				"FK_«p.primitiveMultiValuedTableName»" «e.entity.PKAttribute.getDataType(e, db, bundleDef, e.entity.lookupEClass)» not null,
+				"«p.primitiveMultiValuedFKColName»" «e.entity.PKAttribute.getDataType(e, db, bundleDef, e.entity.lookupEClass)» not null,
 				"ELT" «p.getDataType(e,db,bundleDef,e.entity.lookupEClass)»
 			);
 
