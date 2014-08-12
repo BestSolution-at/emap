@@ -326,6 +326,8 @@ class UtilCollection {
 			return varName + '.getDouble("'+keyName+'")'
 		} else if( "boolean" == f.EType.instanceClassName ) {
 			return varName + '.getBoolean("'+keyName+'")'
+		} else if( "java.util.Date" == f.EType.instanceClassName ) {
+			return varName + '.getTimestamp("'+keyName+'")'
 		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
 			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
 		} else {
@@ -346,6 +348,8 @@ class UtilCollection {
 			return varName + '.getBoolean('+idx+')'
 //		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
 //			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
+		} else if( "java.util.Date" == f.EType.instanceClassName ) {
+			return varName + '.getTimestamp('+idx+')'
 		} else {
 			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject('+idx+'))'
 		}
@@ -364,6 +368,8 @@ class UtilCollection {
 			return "getFloat"
 		} else if( "boolean" == p.type ) {
 			return "getBoolean"
+		} else if( "java.util.Date" == p.type ) {
+			return "getTimestamp"
 		} else {
 			return "getObject"
 		}
