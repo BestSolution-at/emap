@@ -233,7 +233,33 @@ public class PropertyExpressionFactory<O> {
 			return CompareExpression.lte(property, data);
 		}
 	}
+	
+	public static class EnumExpressionFactory<O,T extends Enum<T>> extends PropertyExpressionFactory<O> {
+		public EnumExpressionFactory(String property) {
+			super(property);
+		}
 
+		public EqualsExpression<O> eq(T value) {
+			return StringExpressionFactory.equals(property, value.name());
+		}
+
+		public EqualsExpression<O> neq(T value) {
+			return StringExpressionFactory.notEquals(property, value.name());
+		}
+
+		public InExpression<O> in(T... values) {
+			final String[] strVals = new String[values.length];
+			for (int i = 0; i < values.length; i++) {
+				strVals[i] = values[i].toString();
+			}
+			return StringExpressionFactory.in(property, strVals);
+		}
+
+		public LikeExpression<O> like(String value) {
+			return LikeExpression.like(property, value);
+		}
+	}
+	
 	public static class GenericExpressionFactory<O,T> extends PropertyExpressionFactory<O> {
 		public GenericExpressionFactory(String property) {
 			super(property);

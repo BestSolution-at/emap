@@ -102,6 +102,8 @@ class JavaInterfaceGenerator {
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>("«a.name»");};
 						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>("«a.name»");};
+						«ELSEIF typeof(Enum).isAssignableFrom(eAttribute.EType.instanceClass)»
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
 						«ELSE»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
 						«ENDIF»
