@@ -65,7 +65,7 @@ class DDLGenerator {
 			if( be != null ) {
 //				println("=================> Bundle-Entity: " + a.columnName + " => " + (be.eContainer as EMappingBundle).name )
 
-				var redef = be.typeDefs.findFirst[it.attribute == a && it.dbTypes.contains(name)]
+				var redef = be.typeDefs.findFirst[it.attribute == a ]
 //				println("FOUND: " + be.typeDefs.head?.attribute)
 //				println("SEARCHED: " + a)
 //				println(redef)
@@ -76,7 +76,10 @@ class DDLGenerator {
 				}
 //				println(redef.dbTypes)
 //				println("================> " + redef.dbTypes.findFirst[it.dbType == name])
-				return redef;
+				if( redef != null && redef.dbTypes.findFirst[it.dbType == name] != null ) {
+					return redef;
+				}
+				return null;
 			}
 		}
 	}

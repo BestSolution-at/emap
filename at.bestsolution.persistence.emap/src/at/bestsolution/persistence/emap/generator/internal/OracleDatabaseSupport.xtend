@@ -28,7 +28,7 @@ class OracleDatabaseSupport extends DatabaseSupport {
 	override getDatabaseType(EAttribute attribute, EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "VARCHAR2(255)";
-		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
+		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "NUMBER(38,0)";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
 			return "NUMBER(38,0)";
