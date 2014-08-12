@@ -24,16 +24,16 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 	private final String pkColumn;
 	private final String primaryKeyExpression;
 	private final String lockColumn;
-	
+
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
-	
+
 	public PreparedInsertStatement(String tableName, String pkColumn, String primaryKeyExpression, String lockColumn) {
 		this.tableName = tableName;
 		this.pkColumn = pkColumn;
 		this.primaryKeyExpression = primaryKeyExpression;
 		this.lockColumn = lockColumn;
 	}
-	
+
 	protected String createSQL(String tableName, String pkColumn, String primaryKeyExpression, String lockColumn, List<Column> columnList) {
 		StringBuilder col = new StringBuilder();
 		StringBuilder val = new StringBuilder();
@@ -63,12 +63,20 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 
 		return "INSERT INTO "+'"' + tableName + '"' +"(" + col + ") VALUES (" + val + ")";
 	}
-	
+
 	protected long execute(java.sql.PreparedStatement pstmt) throws SQLException {
 		ResultSet set = null;
 		try {
+			pstmt.executeUpdate();
 			set = pstmt.getGeneratedKeys();
-			return set.getLong(1);
+			if( set.next() ) {
+				if( LOGGER.isDebugEnabled() ) {
+					LOGGER.debug("The generated key is '" + set.getLong(1)+"'");
+				}
+
+				return set.getLong(1);
+			}
+			throw new SQLException("No generated key");
 		} finally {
 			if( set != null ) {
 				set.close();
@@ -76,18 +84,22 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 		}
 	}
 
+	protected java.sql.PreparedStatement createPreparedStatement(Connection connection, String query) throws SQLException {
+		return connection.prepareStatement(query,new String[] { pkColumn });
+	}
+
 	@Override
 	public final long execute(Connection connection) throws SQLException {
 		String sql = createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn, columnList);
 		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
-		java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
-		
+		java.sql.PreparedStatement pstmt = createPreparedStatement(connection, sql);
+
 		for( Column c : columnList ) {
 			c.apply(pstmt);
 		}
-		
+
 		try {
-			return execute(pstmt);	
+			return execute(pstmt);
 		} finally {
 			pstmt.close();
 		}

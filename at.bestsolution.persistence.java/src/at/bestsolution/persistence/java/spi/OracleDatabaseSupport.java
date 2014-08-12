@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     tom <FIRSTNAME.LASTNAME@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
@@ -17,11 +17,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
-import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
@@ -34,17 +31,16 @@ import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
 import at.bestsolution.persistence.java.query.UpdateDelegate;
 
-public class FirebirdDatabaseSupport implements DatabaseSupport {
-	private Logger LOGGER = Logger.getLogger(FirebirdDatabaseSupport.class);
+public class OracleDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public String getDatabaseType() {
-		return "Firebird";
+		return "Oracle";
 	}
 
 	@Override
 	public QueryBuilder createQueryBuilder(String tableName) {
-		return new FirebirdQueryBuilder(tableName);
+		return new OracleQueryBuilder(tableName);
 	}
 
 	@Override
@@ -53,47 +49,16 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper,
+			String rootPrefix, ListDelegate<O> listDelegate) {
+		return new OracleMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
-	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-		return new FirebirdMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
-	}
-
-	@Override
-	public Timestamp getServerTime(Connection connection) {
-		PreparedStatement prepareStatement = null;
-		ResultSet set = null;
-		try {
-			prepareStatement = connection.prepareStatement("select current_timestamp from rdb$database");
-			set = prepareStatement.executeQuery();
-			if( set.next() ) {
-				return set.getTimestamp(1);
-			}
-		} catch (SQLException e) {
-			throw new PersistanceException(e);
-		} finally {
-			if( set != null ) {
-				try {
-					set.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if( prepareStatement != null ) {
-				try {
-					prepareStatement.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
+	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(
+			JavaObjectMapper<O> rootMapper, String rootPrefix,
+			UpdateDelegate<O> updateDelegate) {
+		return new OracleMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
 	}
 
 	@Override
@@ -101,19 +66,21 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		return false;
 	}
 
+	@Override
 	public boolean isNestedResultSetsSupported() {
-		// See http://stackoverflow.com/questions/935511/how-can-i-avoid-resultset-is-closed-exception-in-java
 		return false;
 	}
 
-	static class FirebirdMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
+	@Override
+	public Timestamp getServerTime(Connection connection) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("NOT IMPLEMENTED");
+//		return null;
+	}
 
-		/**
-		 * @param rootMapper
-		 * @param rootPrefix
-		 * @param updateDelegate
-		 */
-		public FirebirdMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+	static class OracleMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
+
+		public OracleMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
 			super(rootMapper, rootPrefix, updateDelegate);
 		}
 
@@ -138,9 +105,9 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	}
 
-	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
+	static class OracleMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public FirebirdMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+		public OracleMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 			super(rootMapper, rootPrefix, listDelegate);
 		}
 
@@ -168,11 +135,10 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 	}
 
-
-	static class FirebirdQueryBuilder implements QueryBuilder {
+	static class OracleQueryBuilder implements QueryBuilder {
 		private String tableName;
 
-		public FirebirdQueryBuilder(String tableName) {
+		public OracleQueryBuilder(String tableName) {
 			this.tableName = tableName;
 		}
 
@@ -195,25 +161,18 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 						String primaryKeyExpression, String lockColumn,
 						List<Column> columnList) {
 					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList) + " RETURNING " + '"' + pkColumn + '"';
+							columnList);
 				}
 
-				@Override
-				protected PreparedStatement createPreparedStatement(
-						Connection connection, String query)
-						throws SQLException {
-					return connection.prepareStatement(query);
-				}
-
-				@Override
-				protected long execute(PreparedStatement pstmt)
-						throws SQLException {
-					ResultSet set = pstmt.executeQuery();
-					if( set.next() ) {
-						return set.getLong(1);
-					}
-					throw new SQLException("Unable to retrieve insert ID");
-				}
+//				@Override
+//				protected long execute(PreparedStatement pstmt)
+//						throws SQLException {
+//					ResultSet set = pstmt.executeQuery();
+//					if( set.next() ) {
+//						return set.getLong(1);
+//					}
+//					throw new SQLException("Unable to retrieve insert ID");
+//				}
 			};
 		}
 	}
