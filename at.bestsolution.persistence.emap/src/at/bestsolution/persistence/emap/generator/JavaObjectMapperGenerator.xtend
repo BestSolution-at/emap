@@ -167,7 +167,7 @@ class JavaObjectMapperGenerator {
 
 			// «generatorCredit»
 			public final «eClass.name» map_default_«eClass.name»(Connection connection, ResultSet set) throws SQLException {
-				Object id = set.getObject("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
+				Long id = set.getLong("«entityDef.entity.allAttributes.findFirst[pk].columnName»");
 				final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
 				«eClass.name» rv = session.getCache().getObject(eClass,id);
 				if( rv != null ) {
@@ -516,7 +516,7 @@ class JavaObjectMapperGenerator {
     ]).filter[!resolved]»
       «IF eClass.getEStructuralFeature(a.name).many»
         //TODO Should this be done lazily?
-        «varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«attributes.findFirst[pk].columnName»")));
+        «varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getLong("«columnPrefix»«attributes.findFirst[pk].columnName»")));
       «ELSE»
         «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
       «ENDIF»
