@@ -219,13 +219,6 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	
 	public void activate() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
-		Map<String, URI> platformResourceMap = EcorePlugin.getPlatformResourceMap();
-		System.err.println(platformResourceMap.size() + " num entries");
-		for (Entry<String, URI> e : platformResourceMap.entrySet()) {
-			System.err.println(e.getKey() + " => " + e.getValue());
-		}
-		System.err.flush();
-		System.exit(0);
 	}
 	
 	public void deactivate() {
