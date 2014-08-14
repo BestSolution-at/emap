@@ -19,17 +19,8 @@ import com.google.gson.JsonObject
 		}
 	],
 	"mappingProjects" : [
-		{ "name" : "com.bizerba.basic.model.emapping" },
-		{ "name" : "com.bizerba.retail.usermanagement.model.emapping"},
-		{ "name" : "com.bizerba.retail.alerting.model.emapping"},
-		{ "name" : "com.bizerba.basic.preferences.model.emapping"},
-		{ "name" : "com.bizerba.retail.job.service.model.emapping"},
-		{ "name" : "com.bizerba.retail.model.emapping"},
-		{ "name" : "com.bizerba.retail.mon.model.emapping"},
-		{ "name" : "com.bizerba.retail.server.model.emapping"},
-		{ "name" : "com.bizerba.retail.statistic.model.emapping"},
-		{ "name" : "com.bizerba.retail.template.model.emapping"},
-		{ "name" : "com.bizerba.retail.transaction.expand.model.emapping"},
+		{ "name" : "basic.emaps" },
+		{ "name" : "extended.emaps" }
 	]
 }')
 class Configuration {
