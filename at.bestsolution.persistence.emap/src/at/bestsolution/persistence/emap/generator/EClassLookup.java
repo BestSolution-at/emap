@@ -67,6 +67,16 @@ public class EClassLookup {
 	}
 
 	public EDataType getEDataType(EType type) {
+		
+		BundleContext bundleContext = FrameworkUtil.getBundle(EClassLookup.class).getBundleContext();
+		ServiceReference<IEClassLookupService> lookupServiceReference = bundleContext.getServiceReference(IEClassLookupService.class);
+		if (lookupServiceReference != null) {
+			IEClassLookupService lookupService = bundleContext.getService(lookupServiceReference);
+			return lookupService.getEDataType(type);
+		}
+		System.err.println("IEClassLookupService not found - using old method");
+		
+		
 		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(type.getUrl());
 		if( ePackage == null ) {
 			throw new IllegalStateException("Unknown package '"+type.getUrl()+"'");

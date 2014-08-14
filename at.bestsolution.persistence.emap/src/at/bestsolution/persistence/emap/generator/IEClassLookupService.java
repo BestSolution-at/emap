@@ -11,10 +11,12 @@
 package at.bestsolution.persistence.emap.generator;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 
 import at.bestsolution.persistence.emap.eMap.EType;
 
 public interface IEClassLookupService {
 
 	EClass getEClass(EType type);
+	EDataType getEDataType(EType type);
 }

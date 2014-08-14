@@ -10,6 +10,8 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.WeakHashMap;
@@ -20,12 +22,19 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -36,14 +45,23 @@ import at.bestsolution.persistence.emap.eMap.EType;
 public class EClassLookupServiceImpl implements IEClassLookupService, IResourceChangeListener {
 
 	private static boolean debug = Boolean.getBoolean("emap.eclasslookup.verbose");
-	
-	
+
 	// 
 	private Map<URI, GenModel> genModelCache = new WeakHashMap<URI, GenModel>();
 	private Map<String, GenPackage> genPackageCache = new WeakHashMap<String, GenPackage>();
 	
 	// this cache allows us to immediate answer - this one makes it fast
 	private Map<String, EClass> eClassCache = new WeakHashMap<String, EClass>();
+	private Map<String, EDataType> eDataTypeCache = new WeakHashMap<String, EDataType>();
+	
+	private Map<URI, URI> eCoreToGenModelMap = new HashMap<URI, URI>();
+
+	
+	private void flushSpeedCaches() {
+		flushGenPackageCache();
+		flushEClassCache();
+		flushEDataTypeCache();
+	}
 	
 	private void flushEClassCache() {
 		eClassCache.clear();
@@ -51,6 +69,10 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	
 	private void flushGenModelCache() {
 		genModelCache.clear();
+	}
+	
+	private void flushEDataTypeCache() {
+		eDataTypeCache.clear();
 	}
 	
 	private void flushGenPackageCache() {
@@ -61,6 +83,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		genModelCache.remove(uri);
 	}
 	
+	private ResourceSet rs = new ResourceSetImpl();
+	
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
@@ -70,11 +94,23 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 					if ("genmodel".equals(delta.getFullPath().getFileExtension())) {
 						final URI uri = URI.createPlatformResourceURI(delta.getFullPath().toString(), false);
 						if (debug) System.err.println(" => " + uri);
+						
 						// when a genmodel is changed, we evict it from our cache
 						// and flush the other caches
 						evictGenModel(uri);
-						flushGenPackageCache();
-						flushEClassCache();
+						flushSpeedCaches();
+						return false;
+					}
+					else if ("ecore".equals(delta.getFullPath().getFileExtension())) {
+						final URI ecoreURI = URI.createPlatformResourceURI(delta.getFullPath().toString(), false);
+						if (debug) System.err.println(" => " + ecoreURI);
+						
+						final URI genmodelURI = eCoreToGenModelMap.get(ecoreURI);
+						
+						// when a genmodel is changed, we evict it from our cache
+						// and flush the other caches
+						evictGenModel(genmodelURI);
+						flushSpeedCaches();
 						return false;
 					}
 					return true;
@@ -90,16 +126,17 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	}
 	
 	private GenModel loadGenModel(URI uri) {
-		final ResourceSet rs = new ResourceSetImpl();
+		System.err.println("loadGenModel! " + uri);
+		//final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(uri, true);
 		if (!resource.getContents().isEmpty()) {
 			final GenModel model = (GenModel) resource.getContents().get(0);
+			model.reconcile();
 			genModelCache.put(uri, model);
-			
-			
 			return model;
 		}
 		else {
+			System.err.println("COULD NOT LOAD GENMODEL!!!!!! " + uri);
 			return null;
 		}
 	}
@@ -130,6 +167,10 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 			for (GenPackage p : getGenModel(nsURI).getAllGenPackagesWithClassifiers()) {
 				if (debug) System.err.println("checking " + p.getNSURI());
 				if (nsURI.equals(p.getNSURI())) {
+					
+					URI ecoreURI = p.getEcoreModelElement().eResource().getURI();
+					eCoreToGenModelMap.put(ecoreURI, getGenmodelURI(nsURI));
+					
 					genPackageCache.put(nsURI, p);
 					return p;
 				}
@@ -145,7 +186,6 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	private GenPackage getGenPackage(String nsURI) {
 		GenPackage cacheResult = genPackageCache.get(nsURI);
 		if (cacheResult != null) {
-			if (debug) System.err.println("genPackageCache hit");
 			return cacheResult;
 		}
 		else {
@@ -153,20 +193,45 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		}
 	}
 	
-	private EClass findEClass(GenPackage gp, String className) {
-		final EClass e = (EClass) gp.getEcorePackage().getEClassifier(className);
-		if (e != null) {
-			for( GenClassifier c : gp.getGenClassifiers() ) {
-				if( e.getName().equals(c.getName()) ) {
-					e.setInstanceClassName(c.getImportedInstanceClassName());
-					return e;
+	private void fixInstanceClassName(GenClassifier genClassifier) {
+		if (genClassifier.getEcoreClassifier().getInstanceClassName() == null) {
+			if (debug) System.err.println("setting instanceClassName for " + genClassifier.getName() + " to " + genClassifier.getImportedInstanceClassName());
+			final String instanceClassName = genClassifier.getImportedInstanceClassName();
+			genClassifier.getEcoreClassifier().setInstanceClassName(instanceClassName);
+			
+			// we cannot set the instanceClass
+//			try {
+//				eClassifier.setInstanceClass(Class.forName(instanceClassName));
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			}
+			
+			if (genClassifier instanceof GenClass) {
+				GenClass genClass = (GenClass) genClassifier;
+				
+				// we fix the attribute types
+				for (GenFeature genFeature : genClass.getChildrenFeatures()) {
+					GenClassifier genT = genFeature.getTypeGenClassifier();
+					fixInstanceClassName(genT);
+				}
+				
+				// we fix the superclasses
+				for (GenClass superGenClass : genClass.getBaseGenClasses()) {
+					fixInstanceClassName(superGenClass);
 				}
 			}
 		}
-		else {
-			// eclass does not exist in specified package
-			if (debug) System.err.println("eclass " + className + " does not exist in specified package " + gp.getNSURI());
+	}
+	
+	private EClass findEClass(GenPackage gp, String className) {
+		for( GenClass genClass : gp.getGenClasses() ) {
+			if (className.equals(genClass.getName())) {
+				fixInstanceClassName(genClass);
+				return genClass.getEcoreClass();
+			}
 		}
+		// eclass does not exist in specified package
+		if (debug) System.err.println("eclass " + className + " does not exist in specified package " + gp.getNSURI());
 		return null;
 	}
 	
@@ -179,6 +244,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		if (debug) System.err.println(nsURI + " maps to " + r);
 		return r;
 	}
+	
+	
 	
 	private EClass findEClass(String nsURI, String className) {
 		EClass result = null;
@@ -205,12 +272,60 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		
 	}
 	
+	private EDataType findEDataType(GenPackage gp, String className) {
+		for( GenDataType genDataType : gp.getGenDataTypes() ) {
+			if( className.equals(genDataType.getName()) ) {
+				fixInstanceClassName(genDataType);
+				return genDataType.getEcoreDataType();
+			}
+		}
+		
+		// edatatype does not exist in specified package
+		if (debug) System.err.println("edatatype " + className + " does not exist in specified package " + gp.getNSURI());
+		return null;
+	}
+	
+	private EDataType findEDataType(String nsURI, String className) {
+		EDataType result = null;
+		
+		// first we try the registry
+		EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsURI);
+		if( ePackage != null ) {
+			result = (EDataType) ePackage.getEClassifier(className);
+		}
+
+		// then we try our genmodel search
+		if (result == null) {
+			result = findEDataType(getGenPackage(nsURI), className);
+		}
+		
+		// add it to fastcache
+		if (result != null) {
+			eDataTypeCache.put(getFastId(nsURI, className), result);
+		}
+		else {
+			if (debug) System.err.println("=> NO RESULT! " + nsURI + " # " + className);
+		}
+		return result;
+		
+	}
+	
+	private EDataType getEDataType(String nsURI, String className) {
+		final String fastId = getFastId(nsURI, className);
+		
+		final EDataType fastResult = eDataTypeCache.get(fastId);
+		if (fastResult != null) {
+			return fastResult;
+		}
+		
+		return findEDataType(nsURI, className);
+	}
+	
 	private EClass getEClass(String nsURI, String className) {
 		final String fastId = getFastId(nsURI, className);
 		
 		final EClass fastResult = eClassCache.get(fastId);
 		if (fastResult != null) {
-			if (debug) System.err.println("fast cache hit!");
 			return fastResult;
 		}
 		
@@ -227,20 +342,42 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	
 	@Override
 	public EClass getEClass(EType type) {
-		long t = System.currentTimeMillis();
 		try {
-			return getEClass(type.getUrl(), type.getName());
+			final EClass result = getEClass(type.getUrl(), type.getName());
+			
+			if (result.getInstanceClassName() == null) {
+				System.err.println("instanceClassName was not set " + result);
+				new Exception().printStackTrace();
+			}
+			
+			return result;
 		}
 		catch (Throwable x) {
 			x.printStackTrace();
 			System.err.println("Exception occoured! Result is null");
 			return null;
 		}
-		finally {
-			long n = System.currentTimeMillis() - t;
-			if (debug) System.err.println("getEClass needed " + n + "ms");
+	}
+
+	@Override
+	public EDataType getEDataType(EType type) {
+		try {
+			EDataType result = getEDataType(type.getUrl(), type.getName());
+			
+			if (result.getInstanceClassName() == null) {
+				System.err.println("instanceClassName was not set " + result);
+				new Exception().printStackTrace();
+			}
+			
+			return result;
+		}
+		catch (Throwable x) {
+			x.printStackTrace();
+			System.err.println("Exception occoured! Result is null");
+			return null;
 		}
 	}
 
+	
 	
 }
