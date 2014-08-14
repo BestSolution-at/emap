@@ -355,6 +355,99 @@ class DDLGenerator {
 	«ENDFOR»
 	'''
 
+	def CharSequence generatedDropDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
+		«val nmRelations = bundleDef.findNMRelations»
+
+		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+			«val eClass = e.entity.lookupEClass»
+			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
+			«val pk = pkCol?.columnName»
+			«FOR a : e.entity.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
+				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == a]»
+
+				alter table "«e.entity.calcTableName»"
+					drop constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«a.name»«ENDIF»;
+			«ENDFOR»
+			«IF e.entity.extensionType == "extends"»
+			«val localPk = e.entity.attributes.findFirst[it.pk]»
+			«val fkConstraint = e.fkConstraints.findFirst[it.attribute == localPk]»
+
+			/* Extend constraint */
+			alter table "«e.entity.calcTableName»"
+				drop «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»;
+			«ENDIF»
+		«ENDFOR»
+
+		«FOR r : nmRelations»
+			«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
+			alter table "«r.a1.relationTable»"
+				drop constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»;
+
+			«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
+			alter table "«r.a2.relationTable»"
+				drop constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»;
+		«ENDFOR»
+
+		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+			«IF ! db.isArrayStoreSupported(null)»
+				«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
+				«IF ! primtiveMulti.empty»
+					«FOR p : primtiveMulti»
+					«val fkConstraint = e.fkConstraints.findFirst[it.attribute == p]»
+					/* «e.entity.name»#«p.name» */
+					alter table "«p.primitiveMultiValuedTableName»"
+						drop constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«p.primitiveMultiValuedTableName»«ENDIF»;
+					«ENDFOR»
+				«ENDIF»
+			«ENDIF»
+		«ENDFOR»
+
+		«IF ! db.supportsGeneratedKeys»
+			«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+				«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
+				«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
+				DROP sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+				«ENDIF»
+			«ENDFOR»
+		«ENDIF»
+
+		«FOR e : bundleDef.entities»
+			«FOR i : e.indices»
+				drop index «i.name» on "«e.entity.calcTableName»";
+			«ENDFOR»
+		«ENDFOR»
+
+		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+			«FOR u : e.uniqueContraints»
+			ALTER TABLE "«e.entity.calcTableName»" DROP constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF»;
+			«ENDFOR»
+		«ENDFOR»
+
+		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+			DROP TABLE "«e.entity.calcTableName»";
+
+			«IF ! db.isArrayStoreSupported(null)»
+				«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
+				«IF ! primtiveMulti.empty»
+					«FOR p : primtiveMulti»
+					DROP TABLE "«p.primitiveMultiValuedTableName»";
+					«ENDFOR»
+				«ENDIF»
+			«ENDIF»
+		«ENDFOR»
+
+		«FOR r : nmRelations»
+			DROP TABLE "«r.a1.relationTable»";
+		«ENDFOR»
+
+		«FOR e : bundleDef.entities»
+			«FOR i : e.indices»
+				create index «i.name» on "«e.entity.calcTableName»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
+			«ENDFOR»
+		«ENDFOR»
+
+	'''
+
 	def void dummy(boolean b) {
 
 	}

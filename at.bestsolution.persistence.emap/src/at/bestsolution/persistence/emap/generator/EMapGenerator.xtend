@@ -129,6 +129,7 @@ class EMapGenerator implements IGenerator {
 				fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",javaRegistryGenerator.generateMapperRegistry(bundleDef))
 				for( d : bundleDef.databases ) {
 					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)));
+					fsa.generateFile("ddls/drop_"+d+".sql",ddlGenerator.generatedDropDDL(bundleDef,getDatabaseSupport(d)));
 				}
 			}
 
