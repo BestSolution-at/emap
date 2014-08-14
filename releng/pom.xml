@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform-version>[3.7,3.8)</platform-version>
 		<download-publish-path>/builds/foss/emap/runtime-nightly</download-publish-path>
+		<download-tooling-publish-path>/builds/foss/emap/tooling-nightly</download-tooling-publish-path>
 		<eclipse-repo.url>https://repo.eclipse.org/content/repositories/releases/</eclipse-repo.url>
 	</properties>
 
@@ -45,13 +46,15 @@
 		<!-- Tooling -->
 		<module>../at.bestsolution.persistence.emap</module>
 		<module>../at.bestsolution.persistence.emap.ui</module>
+		<module>../at.bestsolution.persistence.tooling.feature</module>
+		<module>../at.bestsolution.persistence.tooling.updatesite</module>
 	</modules>
 
 	<repositories>
 		<repository>
 			<id>kepler</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/kepler</url>
+			<url>http://download.eclipse.org/releases/luna</url>
 		</repository>
 	</repositories>
 
