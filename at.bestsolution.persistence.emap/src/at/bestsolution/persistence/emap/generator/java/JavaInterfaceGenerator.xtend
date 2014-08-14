@@ -18,6 +18,7 @@ import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.eMap.EMapping
 import static extension at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator.*
 import at.bestsolution.persistence.emap.eMap.EModelTypeDef
+import org.eclipse.emf.ecore.EEnum
 
 class JavaInterfaceGenerator {
 	@Inject extension
@@ -102,7 +103,7 @@ class JavaInterfaceGenerator {
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>("«a.name»");};
 						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>("«a.name»");};
-						«ELSEIF typeof(Enum).isAssignableFrom(eAttribute.EType.instanceClass)»
+						«ELSEIF typeof(EEnum).isAssignableFrom(eAttribute.EType.class)»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
 						«ELSE»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
