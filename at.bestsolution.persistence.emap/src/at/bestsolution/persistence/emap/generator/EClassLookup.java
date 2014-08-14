@@ -24,13 +24,17 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 
 import at.bestsolution.persistence.emap.eMap.EType;
 
 public class EClassLookup {
 
+	
 	public EClassLookup() {
-		System.err.println("<--- LIFE OF LOOKUP STARTS HERE");
+		//System.err.println("<--- LIFE OF LOOKUP STARTS HERE " + System.identityHashCode(this));
 	}
 
 	private Map<EType, EClass> localCache = new HashMap<EType, EClass>();
@@ -79,6 +83,15 @@ public class EClassLookup {
 	}
 
 	public EClass getEClass(EType type) {
+		
+		BundleContext bundleContext = FrameworkUtil.getBundle(EClassLookup.class).getBundleContext();
+		ServiceReference<IEClassLookupService> lookupServiceReference = bundleContext.getServiceReference(IEClassLookupService.class);
+		if (lookupServiceReference != null) {
+			IEClassLookupService lookupService = bundleContext.getService(lookupServiceReference);
+			return lookupService.getEClass(type);
+		}
+		System.err.println("IEClassLookupService not found - using old method");
+		
 		// TODO disable cache until lifecycle is correctly managed
 //		localCache.clear();
 //
