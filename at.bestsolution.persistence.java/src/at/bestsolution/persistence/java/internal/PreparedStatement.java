@@ -26,7 +26,7 @@ public class PreparedStatement implements Statement {
 
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 
-	List<Column> columnList = new ArrayList<Column>();
+	protected final List<Column> columnList = new ArrayList<Column>();
 
 	@Override
 	public void addInt(String column, int value) {
@@ -115,8 +115,8 @@ public class PreparedStatement implements Statement {
 	}
 
 	public static abstract class Column {
-		final String column;
-		final int index;
+		protected final String column;
+		protected final int index;
 
 		public Column(int index, String column) {
 			this.index = index;

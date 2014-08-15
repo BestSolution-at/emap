@@ -10,12 +10,15 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
@@ -26,13 +29,15 @@ import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
+import at.bestsolution.persistence.java.internal.PreparedStatement.Column;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
 import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public class OracleDatabaseSupport implements DatabaseSupport {
-
+	static final Logger LOGGER = Logger.getLogger(OracleDatabaseSupport.class);
+	
 	@Override
 	public String getDatabaseType() {
 		return "Oracle";
@@ -129,7 +134,13 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		@Override
 		public String processSQL(String sql) {
 			if( getMaxRows() != -1) {
-				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
+				//FIXME this needs to be cleverer
+				if( sql.contains("WHERE") ) {
+					sql = sql + " AND ";
+				} else {
+					sql = sql + " WHERE ";
+				}
+				sql = sql + "ROWNUM <= " + getMaxRows();
 			}
 			return sql;
 		}
@@ -155,25 +166,36 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn) {
-				@Override
-				protected String createSQL(String tableName, String pkColumn,
-						String primaryKeyExpression, String lockColumn,
-						List<Column> columnList) {
-					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList);
-				}
-
-//				@Override
-//				protected long execute(PreparedStatement pstmt)
-//						throws SQLException {
-//					ResultSet set = pstmt.executeQuery();
-//					if( set.next() ) {
-//						return set.getLong(1);
-//					}
-//					throw new SQLException("Unable to retrieve insert ID");
-//				}
-			};
+			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
 		}
+	}
+	
+	static class OracleInsertStatement extends PreparedInsertStatement {
+
+		public OracleInsertStatement(String tableName, String pkColumn,
+				String primaryKeyExpression, String lockColumn) {
+			super(tableName, pkColumn, primaryKeyExpression, lockColumn);
+		}
+		
+		@Override
+		public void addBlob(String column, Blob value) {
+			columnList.add(new OracleBlobColumn(columnList.size(), column, value));
+		}
+	}
+	
+	static class OracleBlobColumn extends Column {
+		private final Blob blob;
+
+		public OracleBlobColumn(int index, String column, Blob blob) {
+			super(index, column);
+			this.blob = blob;
+		}
+
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
+			pstmt.setBinaryStream(index+1, blob.getBinaryStream(),blob.length());
+		}
+
 	}
 }

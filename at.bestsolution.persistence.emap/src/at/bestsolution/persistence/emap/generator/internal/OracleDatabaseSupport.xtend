@@ -33,7 +33,7 @@ class OracleDatabaseSupport extends DatabaseSupport {
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
 			return "NUMBER(38,0)";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
-			return "DECIMAL";
+			return "FLOAT";
 		} else if( "EString" == dataType.name ) {
 			return "NVARCHAR2(255)"
 		} else if( "java.sql.Clob" == dataType.instanceClassName ) {

@@ -935,6 +935,10 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 			} else if( value instanceof Enum<?> ) {
 				return ((Enum<?>)value).name();
+			} else if( targetType == Integer.class ) {
+				if( value != Integer.class && value instanceof Number ) {
+					return ((Number) value).intValue();
+				}
 			}
 			return value;
 		}

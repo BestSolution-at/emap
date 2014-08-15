@@ -36,12 +36,11 @@ class DatabaseSetup {
 	}
 
 	def handleDropProject(Mappingprojects p) {
-		println("Dropping project " + p.name )
 		new File(configuration.basedir + "/" + p.name + "/src-gen/ddls/drop_" + db.name + ".sql" ).handleScript;
 	}
 	
 	def handleSetupProject(Mappingprojects p) {
-		println("Setting up project " + p.name )
+		println("Setting up project " + p )
 		new File(configuration.basedir + "/" + p.name + "/src-gen/ddls/create_" + db.name + ".sql" ).handleScript;
 	}
 	

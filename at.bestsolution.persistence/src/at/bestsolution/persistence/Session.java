@@ -33,6 +33,7 @@ public interface Session extends Closeable {
 	public static final String VALUE_ROLLBACK = "rollback";
 
 	public String getId();
+	public String getDatabaseType();
 	public <O> O get(Class<O> clazz, Object id);
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Object... parameters);

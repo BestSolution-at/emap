@@ -21,6 +21,9 @@ import com.google.gson.JsonObject
 	"mappingProjects" : [
 		{ "name" : "basic.emaps" },
 		{ "name" : "extended.emaps" }
+	],
+	"initScripts" : [
+		{ "name" : "Oracle" }
 	]
 }')
 class Configuration {
