@@ -413,7 +413,7 @@ class DDLGenerator {
 
 		«FOR e : bundleDef.entities»
 			«FOR i : e.indices»
-				drop index «i.name» on "«e.entity.calcTableName»";
+				drop index «i.name»;
 			«ENDFOR»
 		«ENDFOR»
 
@@ -439,13 +439,6 @@ class DDLGenerator {
 		«FOR r : nmRelations»
 			DROP TABLE "«r.a1.relationTable»";
 		«ENDFOR»
-
-		«FOR e : bundleDef.entities»
-			«FOR i : e.indices»
-				create index «i.name» on "«e.entity.calcTableName»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
-			«ENDFOR»
-		«ENDFOR»
-
 	'''
 
 	def void dummy(boolean b) {
