@@ -413,7 +413,7 @@ class DDLGenerator {
 
 		«FOR e : bundleDef.entities»
 			«FOR i : e.indices»
-				drop index «i.name» on "«e.entity.calcTableName»";
+				drop index «i.name»;
 			«ENDFOR»
 		«ENDFOR»
 
