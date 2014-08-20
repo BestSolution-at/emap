@@ -52,6 +52,7 @@ public interface Session extends Closeable {
 	public Date getServerTime();
 
 	public boolean isAttached(Object o);
+	public <A> A adaptTo(Class<A> clazz);
 //	public Object getVersion(Object o);
 
 	public enum RefreshType {

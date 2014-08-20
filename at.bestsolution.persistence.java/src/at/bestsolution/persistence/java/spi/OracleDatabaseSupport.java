@@ -10,6 +10,9 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -194,7 +197,24 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
 			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
-			pstmt.setBinaryStream(index+1, blob.getBinaryStream(),blob.length());
+			Blob oracleBlob = pstmt.getConnection().createBlob();
+			OutputStream oracleStream = oracleBlob.setBinaryStream(0);
+			InputStream inputStream = blob.getBinaryStream();
+			
+			try {
+				byte[] buf = new byte[1024];
+				int l = 0;
+				while( (l = inputStream.read(buf)) != 0 ) {
+					oracleStream.write(buf, 0, l);
+				}
+				inputStream.close();
+				pstmt.setBlob(index+1, oracleBlob);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			pstmt.setBinaryStream(index+1, blob.getBinaryStream(),blob.length());
 		}
 
 	}

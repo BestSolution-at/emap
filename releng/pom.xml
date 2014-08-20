@@ -29,6 +29,7 @@
 	<modules>
 		<!-- Runtime -->
 		<module>../at.bestsolution.persistence</module>
+		<module>../at.bestsolution.persistence.compat</module>
 		<module>../at.bestsolution.persistence.firebird</module>
 		<module>../at.bestsolution.persistence.model</module>
 		<module>../at.bestsolution.persistence.java</module>

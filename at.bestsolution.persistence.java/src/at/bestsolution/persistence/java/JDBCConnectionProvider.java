@@ -10,10 +10,15 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public interface JDBCConnectionProvider {
 	public String getDatabaseType();
 	public Connection checkoutConnection();
 	public void returnConnection(Connection connection);
+//	public Blob createBlob(Connection connection) throws SQLException;
+//	public Clob createClob(Connection connection) throws SQLException;
 }

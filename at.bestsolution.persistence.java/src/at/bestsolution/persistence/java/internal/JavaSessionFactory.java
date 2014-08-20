@@ -25,6 +25,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Set;
 import java.util.Stack;
@@ -51,6 +52,8 @@ import at.bestsolution.persistence.Registration;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.SessionRunnable;
+import at.bestsolution.persistence.compat.CompatSession;
+import at.bestsolution.persistence.compat.CompatTransaction;
 import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
@@ -184,7 +187,7 @@ public class JavaSessionFactory implements SessionFactory {
 		return new LocalBlob();
 	}
 
-	class JavaSessionImpl implements JavaSession {
+	class JavaSessionImpl implements JavaSession, CompatSession {
 		private String id = UUID.randomUUID().toString();
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
 		private Stack<Connection> transactionConnectionQueue;
@@ -600,12 +603,52 @@ public class JavaSessionFactory implements SessionFactory {
 		public boolean isTransaction() {
 			return transactionConnectionQueue != null;
 		}
-
+		
 		@Override
-		public void runInTransaction(Transaction transaction) {
-			String transactionId = UUID.randomUUID().toString();
-			boolean isDebug = LOGGER.isDebugEnabled();
-
+		public CompatTransaction beginTransaction() {
+			final boolean isDebug = LOGGER.isDebugEnabled();
+			final AtomicBoolean commit = new AtomicBoolean();
+			final String transactionId = UUID.randomUUID().toString();
+			final Transaction transaction = new Transaction() {
+				
+				@Override
+				public boolean execute() {
+					return commit.get();
+				}
+			};
+			final Connection connection = startTransaction(isDebug, transactionId, transaction);
+			return new CompatTransaction() {
+				
+				@Override
+				public void rollback() {
+					run(false);
+				}
+				
+				@Override
+				public void commit() {
+					run(true);
+				}
+				
+				private void run(boolean doCommit) {
+					commit.set(doCommit);
+					try {
+						executeTransaction(isDebug, connection, transaction);
+					} finally {
+						postExecuteTransaction(isDebug, connection, transactionId, transaction);
+					}
+				}
+			};
+		}
+		
+		@Override
+		public <A> A adaptTo(Class<A> clazz) {
+			if( clazz == CompatSession.class ) {
+				return (A) this;
+			}
+			return null;
+		}
+		
+		public Connection startTransaction(boolean isDebug, String transactionId, Transaction transaction) {
 			if( isDebug ) {
 				LOGGER.debug("Started transaction '"+transactionId+"'");
 			}
@@ -633,10 +676,15 @@ public class JavaSessionFactory implements SessionFactory {
 
 			transactionQueue.add(transaction);
 			transactionConnectionQueue.add(connection);
+			return connection;
+		}
+		
+		private void executeTransaction(boolean isDebug, Connection connection, Transaction transaction) {
+			if( isDebug ) {
+				LOGGER.debug("Executing transaction");
+			}
+			
 			try {
-				if( isDebug ) {
-					LOGGER.debug("Executing transaction");
-				}
 				if( transaction.execute() ) {
 					if( isDebug ) {
 						LOGGER.debug("Successfully executed the transaction");
@@ -705,8 +753,8 @@ public class JavaSessionFactory implements SessionFactory {
 						LOGGER.error("Failed to rollback transaction",e);
 						throw new PersistanceException(e);
 					}
-				}
-			} catch (Throwable e) {
+				}	
+			} catch(Throwable e) {
 				LOGGER.error("Error while executing transactional code", e);
 				try {
 					connection.rollback();
@@ -720,38 +768,52 @@ public class JavaSessionFactory implements SessionFactory {
 					LOGGER.error("Failed to rollback transaction. Swallowing and rethrowing original connection.",e1);
 				}
 				throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e);
-			} finally {
-				// clear after-tx
-				afterTransaction.remove(transaction);
-				// clear relationSQL
-				relationSQLStorage.remove(transaction);
-				// clear transaction primary key cache
-				transactionPrimaryKeyCache.remove(transaction);
-				transactionData.remove(transaction);
-				insertedObjects.remove(transaction);
-				updatedObjects.remove(transaction);
-				deletedObjects.remove(transaction);
-				deletedManyObjects.remove(transaction);
+			}
+		}
+		
+		private void postExecuteTransaction(boolean isDebug, Connection connection, String transactionId, Transaction transaction) {
+			// clear after-tx
+			afterTransaction.remove(transaction);
+			// clear relationSQL
+			relationSQLStorage.remove(transaction);
+			// clear transaction primary key cache
+			transactionPrimaryKeyCache.remove(transaction);
+			transactionData.remove(transaction);
+			insertedObjects.remove(transaction);
+			updatedObjects.remove(transaction);
+			deletedObjects.remove(transaction);
+			deletedManyObjects.remove(transaction);
 
-				try {
-					connection.setAutoCommit(true);
-				} catch (SQLException e) {
-					LOGGER.error("Failed to set back auto commit", e);
-					throw new PersistanceException(e);
-				}
-				connectionProvider.returnConnection(transactionConnectionQueue.pop());
-				if( transactionConnectionQueue.isEmpty() ) {
-					transactionConnectionQueue = null;
-				}
-
-				transactionQueue.pop();
-				if( transactionQueue.isEmpty() ) {
-					transactionQueue = null;
-				}
+			try {
+				connection.setAutoCommit(true);
+			} catch (SQLException e) {
+				LOGGER.error("Failed to set back auto commit", e);
+				throw new PersistanceException(e);
+			}
+			connectionProvider.returnConnection(transactionConnectionQueue.pop());
+			if( transactionConnectionQueue.isEmpty() ) {
+				transactionConnectionQueue = null;
 			}
 
+			transactionQueue.pop();
+			if( transactionQueue.isEmpty() ) {
+				transactionQueue = null;
+			}
+			
 			if( isDebug ) {
 				LOGGER.debug("Finished transaction '"+transactionId+"'");
+			}
+		}
+		
+		@Override
+		public void runInTransaction(Transaction transaction) {
+			boolean isDebug = LOGGER.isDebugEnabled();
+			String transactionId = UUID.randomUUID().toString();
+			Connection connection = startTransaction(isDebug, transactionId, transaction);
+			try {
+				executeTransaction(isDebug, connection, transaction);
+			} finally {
+				postExecuteTransaction(isDebug, connection, transactionId, transaction);
 			}
 		}
 
