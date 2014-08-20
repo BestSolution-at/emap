@@ -23,7 +23,12 @@ import com.google.gson.JsonObject
 		{ "name" : "extended.emaps" }
 	],
 	"initScripts" : [
-		{ "name" : "Oracle" }
+		{ 
+			"dbType" : "Oracle",
+			"dataScript" : [
+				"/User/tom/oracle/init.sql"
+			] 
+		}
 	]
 }')
 class Configuration {

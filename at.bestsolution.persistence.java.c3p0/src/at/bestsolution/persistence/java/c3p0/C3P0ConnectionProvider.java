@@ -11,18 +11,24 @@
 package at.bestsolution.persistence.java.c3p0;
 
 import java.beans.PropertyVetoException;
+import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 import at.bestsolution.persistence.java.JDBCConfiguration;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 
 	private ComboPooledDataSource cpds;
 	private JDBCConfiguration configuration;
+	
+	private Map<String, C3P0BlobCreator> blobCreators = new HashMap<String, C3P0BlobCreator>();
 
 	public void registerJDBCConfiguration(JDBCConfiguration configuration) {
 		this.configuration = configuration;
@@ -30,6 +36,70 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 
 	public void unregisterJDBCConfiguration(JDBCConfiguration configuration) {
 		this.configuration = null;
+	}
+	
+	public void registerBlobCreator(C3P0BlobCreator creator) {
+		synchronized (blobCreators) {
+			blobCreators.put(creator.getDatabaseType(), creator);
+		}
+	}
+	
+	@Override
+	public Blob createTempBlob(Connection connection) throws SQLException {
+		C3P0BlobCreator c;
+		synchronized (blobCreators) {
+			c = blobCreators.get(configuration.getDatabaseType());	
+		}
+		
+		if( c != null ) {
+			return c.createBlob(connection);
+		}
+		
+		return connection.createBlob();
+	}
+	
+	@Override
+	public Clob createTempClob(Connection connection) throws SQLException {
+		C3P0BlobCreator c;
+		synchronized (blobCreators) {
+			c = blobCreators.get(configuration.getDatabaseType());	
+		}
+		
+		if( c != null ) {
+			return c.createClob(connection);
+		}
+		
+		return connection.createClob();
+	}
+	
+	@Override
+	public void releaseTempBlob(Connection connection, Blob blob)
+			throws SQLException {
+		C3P0BlobCreator c;
+		synchronized (blobCreators) {
+			c = blobCreators.get(configuration.getDatabaseType());	
+		}
+		
+		if( c != null ) {
+			c.releaseBlob(connection, blob);
+		} else {
+			blob.free();
+		}
+	}
+	
+	@Override
+	public void releaseTempClob(Connection connection, Clob clob)
+			throws SQLException {
+		C3P0BlobCreator c;
+		synchronized (blobCreators) {
+			c = blobCreators.get(configuration.getDatabaseType());	
+		}
+		
+		if( c != null ) {
+			c.releaseClob(connection, clob);
+		} else {
+			clob.free();
+		}
 	}
 
 	private ComboPooledDataSource initPool() {

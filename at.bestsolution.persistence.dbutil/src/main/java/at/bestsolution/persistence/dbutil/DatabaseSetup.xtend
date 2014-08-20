@@ -6,6 +6,7 @@ import com.google.common.io.Files
 import java.io.File
 import com.google.common.base.Charsets
 import java.util.ArrayList
+import java.sql.CallableStatement
 
 class DatabaseSetup {
 	val Configuration configuration;
@@ -13,6 +14,7 @@ class DatabaseSetup {
 	val Connection connection;
 	
 	var boolean comment;
+	var boolean procedure;
 	
 	new(Configuration configuration, Database db) {
 		this.configuration = configuration
@@ -33,14 +35,27 @@ class DatabaseSetup {
 		
 		println("Setting up structure")
 		configuration.mappingprojects.forEach[handleSetupProject]
+		
+		println("Setup data")
+		configuration.initscripts.filter[it.dbtype == db.name].forEach[handleInitScript]
+	}
+	
+	def handleInitScript(Initscripts ss) {
+		ss.datascripts.forEach([s|
+			println(" Running script " + s)
+			new File(s).handleScript
+		])
+		
+		
 	}
 
 	def handleDropProject(Mappingprojects p) {
+		println(" Working for " + p.name )
 		new File(configuration.basedir + "/" + p.name + "/src-gen/ddls/drop_" + db.name + ".sql" ).handleScript;
 	}
 	
 	def handleSetupProject(Mappingprojects p) {
-		println("Setting up project " + p )
+		println("  Working for " + p.name )
 		new File(configuration.basedir + "/" + p.name + "/src-gen/ddls/create_" + db.name + ".sql" ).handleScript;
 	}
 	
@@ -49,25 +64,48 @@ class DatabaseSetup {
 		queries.add(new StringBuilder(""))
 		comment = false;
 		
+		procedure = false;
+		
 		Files.readLines(scriptFile,Charsets.UTF_8).filter[filterComments].forEach([ line|
 				queries.last.append(line)
+				
 				if( line.trim.endsWith(";") ) {
 					queries.add(new StringBuilder)
-				}
+				}				
 			]
 		);
 		queries.filter[!it.toString.trim.empty].forEach[executeQuery]
 	}
 	
 	def executeQuery(StringBuilder q) {
-		val stmt = connection.createStatement;
-		val query = q.toString.substring(0,q.toString.length-1);
-		try {
-			stmt.execute(query);	
-		} catch(Exception e) {
-			e.printStackTrace;
-		} finally {
-			stmt.close	
+		if( q.toString.toLowerCase.startsWith("execute") ) {
+			val query = q.toString.substring(0,q.toString.length-1);
+			val execCall = "{ call " + query.substring("execute".length, query.length) + "}"
+			var CallableStatement stmt;
+			try {
+				stmt = connection.prepareCall(execCall);
+				stmt.executeQuery
+			} catch(Exception e) {
+				println("FAILED: " + execCall)
+				e.printStackTrace
+//				System.exit(0)
+			} finally {
+				stmt?.close	
+			}			
+			
+		} else {
+			val stmt = connection.createStatement;
+			val query = q.toString.substring(0,q.toString.length-1);
+			try {
+//				println(query)
+				stmt.execute(query);	
+			} catch(Exception e) {
+				println("FAILED: " + q)
+				e.printStackTrace
+//				System.exit(0)
+			} finally {
+				stmt.close	
+			}			
 		}
 	}
 	

@@ -4,5 +4,6 @@
    <service>
       <provide interface="at.bestsolution.persistence.java.DatabaseSupport"/>
    </service>
+   <reference bind="registerJDBCConnectionProvider" cardinality="1..1" interface="at.bestsolution.persistence.java.JDBCConnectionProvider" name="JDBCConnectionProvider" policy="static"/>
 
 </scr:component>

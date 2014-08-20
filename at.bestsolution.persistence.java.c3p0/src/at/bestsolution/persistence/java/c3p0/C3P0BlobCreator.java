@@ -8,9 +8,17 @@
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  *******************************************************************************/
-package at.bestsolution.persistence.compat;
+package at.bestsolution.persistence.java.c3p0;
 
-public interface CompatTransaction {
-	public void commit();
-	public void rollback();
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public interface C3P0BlobCreator {
+	public String getDatabaseType();
+	public Blob createBlob(Connection connection) throws SQLException;
+	public Clob createClob(Connection connection) throws SQLException;
+	public void releaseBlob(Connection connection, Blob blob) throws SQLException;
+	public void releaseClob(Connection connection, Clob clob) throws SQLException;
 }
