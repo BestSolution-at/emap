@@ -43,6 +43,10 @@ class UtilCollection {
 	@Inject
 	var EClassLookup eClassLookup;
 
+	def getFeatureClassifier(EStructuralFeature f) {
+		return eClassLookup.getFeatureClassifier(f);
+	}
+
 	def lookupEClass(EType type) {
 		 eClassLookup.getEClass(type);
 	}

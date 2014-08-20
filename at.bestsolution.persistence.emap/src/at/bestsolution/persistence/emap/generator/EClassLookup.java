@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -90,6 +91,17 @@ public class EClassLookup {
 		localCacheEDataType.put(type, result);
 
 		return result;
+	}
+	
+	public String getFeatureClassifier(EStructuralFeature f) {
+		BundleContext bundleContext = FrameworkUtil.getBundle(EClassLookup.class).getBundleContext();
+		ServiceReference<IEClassLookupService> lookupServiceReference = bundleContext.getServiceReference(IEClassLookupService.class);
+		if (lookupServiceReference != null) {
+			IEClassLookupService lookupService = bundleContext.getService(lookupServiceReference);
+			return lookupService.getFeatureClassifier(f);
+		}
+		System.err.println("IEClassLookupService not found - using old method");
+		return null;
 	}
 
 	public EClass getEClass(EType type) {

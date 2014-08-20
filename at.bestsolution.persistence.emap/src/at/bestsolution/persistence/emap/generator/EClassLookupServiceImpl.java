@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -124,7 +125,15 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	private GenModel loadGenModel(URI uri) {
 		if (debug) System.err.println("loadGenModel! " + uri);
 		final ResourceSet rs = new ResourceSetImpl();
-		final Resource resource = rs.getResource(uri, true);
+		Resource resource;
+		try {
+			resource = rs.getResource(uri, true);
+		} catch( Exception e ) {
+			// try in the target platform!
+			uri = URI.createURI(uri.toString().replaceFirst("resource", "plugin"));
+			resource = rs.getResource(uri, true);
+		}
+		
 		if (!resource.getContents().isEmpty()) {
 			final GenModel model = (GenModel) resource.getContents().get(0);
 			model.reconcile();
@@ -394,6 +403,25 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		}
 	}
 
-	
+	@Override
+	public String getFeatureClassifier(EStructuralFeature f) {
+		EClass eClass = f.getEContainingClass();
+		GenPackage pack = getGenPackage(eClass.getEPackage().getNsURI());
+		String rv = null;
+		for( GenClassifier gc : pack.getGenClassifiers() ) {
+			if( gc.getName().equals(eClass.getName()) ) {
+				if( gc instanceof GenClass ) {
+					GenClass gec = (GenClass) gc;
+					for( GenFeature gf : gec.getAllGenFeatures() ) {
+						if( gf.getName().equals(f.getName()) ) {
+							rv = gec.getFeatureID(gf);
+							break;
+						}
+					}
+				}
+			}
+		}
+		return rv;
+	}
 	
 }

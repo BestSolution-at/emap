@@ -450,14 +450,16 @@ class JavaObjectMapperGenerator {
     «IF first != null»
       switch(f.getFeatureID()) {
         «val pk = entity.allAttributes.findFirst[pk]»
+        «val f = eClass.getEStructuralFeature(first.name)»
         // «first.name.javaReservedNameEscape»
-        case «eClass.getEStructuralFeature(first.name).featureID»: {
+        case «f.EContainingClass.packageName».«f.EContainingClass.EPackage.name.toFirstUpper»Package.«f.featureClassifier»: {
           «first.createResolveText(eClass,pk)»
           return true;
         }
         «FOR a : sorted.filter[resolved && it != first]»
+          «val ff = eClass.getEStructuralFeature(a.name)»
           // «a.name.javaReservedNameEscape»
-          case «eClass.getEStructuralFeature(a.name).featureID»: {
+          case «ff.EContainingClass.packageName».«ff.EContainingClass.EPackage.name.toFirstUpper»Package.«ff.featureClassifier»: {
             «a.createResolveText(eClass,pk)»
             return true;
           }
