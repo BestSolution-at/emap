@@ -31,7 +31,8 @@
 		<module>../at.bestsolution.persistence</module>
 		<module>../at.bestsolution.persistence.compat</module>
 		<module>../at.bestsolution.persistence.firebird</module>
-		<!--  module>../at.bestsolution.persistence.java.c3p0.oracle.blob</module-->
+		<module>../at.bestsolution.emap.oracle.dummy</module>
+		<module>../at.bestsolution.persistence.java.c3p0.oracle.blob</module>
 		<module>../at.bestsolution.persistence.model</module>
 		<module>../at.bestsolution.persistence.java</module>
 		<module>../at.bestsolution.persistence.java.c3p0</module>
@@ -162,6 +163,13 @@
 				                <artifactId>javafx</artifactId>
 				                <version>8.0.0-SNAPSHOT</version>
 				                <systemPath>${java.home}/lib/jfxswt.jar</systemPath>
+				                <scope>system</scope>
+				            </extraClasspathElement>
+				            <extraClasspathElement>
+				                <groupId>com.oracle</groupId>
+				                <artifactId>jdbc</artifactId>
+				                <version>10.2.0.1.0</version>
+				                <systemPath>/var/lib/jenkins/build-libs/ojdbc14.jar</systemPath>
 				                <scope>system</scope>
 				            </extraClasspathElement>
         				</extraClasspathElements>
