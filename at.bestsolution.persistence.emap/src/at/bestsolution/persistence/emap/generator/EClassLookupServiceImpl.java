@@ -27,9 +27,13 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -43,6 +47,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 
 	private static boolean debug = Boolean.getBoolean("emap.eclasslookup.verbose");
 
+	private ResourceSet masterResourceSet;
+	
 	// 
 	private Map<URI, GenModel> genModelCache = new WeakHashMap<URI, GenModel>();
 	private Map<String, GenPackage> genPackageCache = new WeakHashMap<String, GenPackage>();
@@ -66,6 +72,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	
 	private void flushGenModelCache() {
 		genModelCache.clear();
+		// clear rs
+		masterResourceSet.getResources().clear();
 	}
 	
 	private void flushEDataTypeCache() {
@@ -124,22 +132,22 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	
 	private GenModel loadGenModel(URI uri) {
 		if (debug) System.err.println("loadGenModel! " + uri);
-		final ResourceSet rs = new ResourceSetImpl();
+//		final ResourceSet rs = new ResourceSetImpl();
 		Resource resource;
 		try {
-			resource = rs.getResource(uri, true);
+			resource = masterResourceSet.getResource(uri, true);
 		} catch( Exception e ) {
 			// try in the target platform!
 			uri = URI.createURI(uri.toString().replaceFirst("resource", "plugin"));
-			resource = rs.getResource(uri, true);
+			resource = masterResourceSet.getResource(uri, true);
 		}
 		
 		if (!resource.getContents().isEmpty()) {
 			final GenModel model = (GenModel) resource.getContents().get(0);
-			model.reconcile();
-			for (GenPackage gp : model.getGenPackages()) {
-				fixAllInstanceClassNames(gp);
-			}
+//			model.reconcile();
+//			for (GenPackage gp : model.getGenPackages()) {
+//				fixAllInstanceClassNames(gp);
+//			}
 			genModelCache.put(uri, model);
 			return model;
 		}
@@ -229,6 +237,13 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 					fixInstanceClassName(superGenClass);
 				}
 			}
+		}
+	}
+	
+	private void fixAllInstanceClassNames(GenModel genModel) {
+//		if (debug) System.err.println("fixing instanceClassNames in " + genModel);
+		for (GenPackage gp : genModel.getGenPackages()) {
+			fixAllInstanceClassNames(gp);
 		}
 	}
 	
@@ -358,6 +373,44 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	}
 	
 	public void activate() {
+		masterResourceSet = new ResourceSetImpl();
+		masterResourceSet.eAdapters().add(new Adapter() {
+			@Override
+			public void notifyChanged(Notification notification) {
+				if (notification.getNotifier() instanceof ResourceSet) {
+					Resource resource = ((ResourceSet)notification.getNotifier()).getResources().get(notification.getPosition());
+					if (resource != null) {
+						// adding ourself as adapter on the resource
+						resource.eAdapters().add(this);
+					}
+				}
+				else if (notification.getNotifier() instanceof Resource) {
+					final Resource resource = (Resource)notification.getNotifier();
+					if (notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_LOADED && notification.getNewBooleanValue() == true) {
+						final GenModel genModel = (GenModel) resource.getContents().get(0);
+						if (debug) System.err.println("fixing model: " + genModel);
+						genModel.reconcile();
+						fixAllInstanceClassNames(genModel);
+					}
+				}
+			}
+
+			@Override
+			public Notifier getTarget() {
+				return null;
+			}
+
+			@Override
+			public void setTarget(Notifier newTarget) {
+			}
+
+			@Override
+			public boolean isAdapterForType(Object type) {
+				System.err.println("masterResourceSet: isAdapterForType: " + type);
+				return false;
+			}
+			
+		});
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this, IResourceChangeEvent.POST_CHANGE);
 	}
 	
