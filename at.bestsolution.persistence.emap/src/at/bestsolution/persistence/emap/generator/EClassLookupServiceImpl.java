@@ -11,9 +11,7 @@
 package at.bestsolution.persistence.emap.generator;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.WeakHashMap;
 
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -25,16 +23,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -83,8 +79,6 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		genModelCache.remove(uri);
 	}
 	
-	private ResourceSet rs = new ResourceSetImpl();
-	
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
@@ -97,7 +91,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 						
 						// when a genmodel is changed, we evict it from our cache
 						// and flush the other caches
-						evictGenModel(uri);
+						// TODO evictGenModel(uri);
+						flushGenModelCache();
 						flushSpeedCaches();
 						return false;
 					}
@@ -109,7 +104,8 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 						
 						// when a genmodel is changed, we evict it from our cache
 						// and flush the other caches
-						evictGenModel(genmodelURI);
+						// TODO evictGenModel(genmodelURI);
+						flushGenModelCache();
 						flushSpeedCaches();
 						return false;
 					}
@@ -126,12 +122,15 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	}
 	
 	private GenModel loadGenModel(URI uri) {
-		System.err.println("loadGenModel! " + uri);
-		//final ResourceSet rs = new ResourceSetImpl();
+		if (debug) System.err.println("loadGenModel! " + uri);
+		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.getResource(uri, true);
 		if (!resource.getContents().isEmpty()) {
 			final GenModel model = (GenModel) resource.getContents().get(0);
 			model.reconcile();
+			for (GenPackage gp : model.getGenPackages()) {
+				fixAllInstanceClassNames(gp);
+			}
 			genModelCache.put(uri, model);
 			return model;
 		}
@@ -212,6 +211,7 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 				// we fix the attribute types
 				for (GenFeature genFeature : genClass.getChildrenFeatures()) {
 					GenClassifier genT = genFeature.getTypeGenClassifier();
+					
 					fixInstanceClassName(genT);
 				}
 				
@@ -223,10 +223,26 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		}
 	}
 	
+	private void fixAllInstanceClassNames(GenPackage gp) {
+		if (debug) System.err.println("fixing instanceClassNames in " + gp.getNSURI());
+		for (GenClass genClass : gp.getGenClasses()) {
+			fixInstanceClassName(genClass);
+		}
+		for (GenDataType genDataType : gp.getGenDataTypes()) {
+			fixInstanceClassName(genDataType);
+		}
+		for (GenEnum genEnum : gp.getGenEnums()) {
+			fixInstanceClassName(genEnum);
+		}
+		for (GenPackage subGenPackage : gp.getSubGenPackages()) {
+			fixAllInstanceClassNames(subGenPackage);
+		}
+	}
+	
 	private EClass findEClass(GenPackage gp, String className) {
 		for( GenClass genClass : gp.getGenClasses() ) {
 			if (className.equals(genClass.getName())) {
-				fixInstanceClassName(genClass);
+//				fixInstanceClassName(genClass);
 				return genClass.getEcoreClass();
 			}
 		}
@@ -275,7 +291,7 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 	private EDataType findEDataType(GenPackage gp, String className) {
 		for( GenDataType genDataType : gp.getGenDataTypes() ) {
 			if( className.equals(genDataType.getName()) ) {
-				fixInstanceClassName(genDataType);
+//				fixInstanceClassName(genDataType);
 				return genDataType.getEcoreDataType();
 			}
 		}
