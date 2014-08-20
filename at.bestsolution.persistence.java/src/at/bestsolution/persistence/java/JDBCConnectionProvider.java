@@ -19,6 +19,8 @@ public interface JDBCConnectionProvider {
 	public String getDatabaseType();
 	public Connection checkoutConnection();
 	public void returnConnection(Connection connection);
-//	public Blob createBlob(Connection connection) throws SQLException;
-//	public Clob createClob(Connection connection) throws SQLException;
+	public Blob createTempBlob(Connection connection) throws SQLException;
+	public Clob createTempClob(Connection connection) throws SQLException;
+	public void releaseTempBlob(Connection connection, Blob blob) throws SQLException;
+	public void releaseTempClob(Connection connection, Clob clob) throws SQLException;
 }

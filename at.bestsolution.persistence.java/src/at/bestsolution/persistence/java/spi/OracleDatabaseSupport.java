@@ -16,10 +16,8 @@ import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -28,11 +26,12 @@ import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
-import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.internal.PreparedStatement.Column;
+import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
@@ -41,6 +40,12 @@ import at.bestsolution.persistence.java.query.UpdateDelegate;
 public class OracleDatabaseSupport implements DatabaseSupport {
 	static final Logger LOGGER = Logger.getLogger(OracleDatabaseSupport.class);
 	
+	private JDBCConnectionProvider connectionProvider;
+	
+	public void registerJDBCConnectionProvider(JDBCConnectionProvider connectionProvider) {
+		this.connectionProvider = connectionProvider;
+	}
+	
 	@Override
 	public String getDatabaseType() {
 		return "Oracle";
@@ -48,7 +53,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public QueryBuilder createQueryBuilder(String tableName) {
-		return new OracleQueryBuilder(tableName);
+		return new OracleQueryBuilder(tableName, connectionProvider);
 	}
 
 	@Override
@@ -150,10 +155,12 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 	}
 
 	static class OracleQueryBuilder implements QueryBuilder {
-		private String tableName;
+		private final String tableName;
+		private final JDBCConnectionProvider connectionProvider;
 
-		public OracleQueryBuilder(String tableName) {
+		public OracleQueryBuilder(String tableName, JDBCConnectionProvider connectionProvider) {
 			this.tableName = tableName;
+			this.connectionProvider = connectionProvider;
 		}
 
 
@@ -169,53 +176,77 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
+			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn, connectionProvider);
 		}
 	}
 	
 	static class OracleInsertStatement extends PreparedInsertStatement {
-
+		private final JDBCConnectionProvider connectionProvider;
 		public OracleInsertStatement(String tableName, String pkColumn,
-				String primaryKeyExpression, String lockColumn) {
+				String primaryKeyExpression, String lockColumn, JDBCConnectionProvider connectionProvider) {
 			super(tableName, pkColumn, primaryKeyExpression, lockColumn);
+			this.connectionProvider = connectionProvider;
 		}
 		
 		@Override
 		public void addBlob(String column, Blob value) {
-			columnList.add(new OracleBlobColumn(columnList.size(), column, value));
+			columnList.add(new OracleBlobColumn(columnList.size(), column, value, connectionProvider));
+		}
+		
+		@Override
+		protected long execute(PreparedStatement pstmt) throws SQLException {
+			try {
+				return super.execute(pstmt);	
+			} finally {
+				boolean isDebug = LOGGER.isDebugEnabled();
+				for( Column c : columnList ) {
+					if( c instanceof OracleBlobColumn ) {
+						if( isDebug ) {
+							LOGGER.debug("Freeing oracle blob for column '"+c+"'");
+						}
+						((OracleBlobColumn) c).release(pstmt.getConnection());
+					}
+				}
+			}
 		}
 	}
 	
 	static class OracleBlobColumn extends Column {
 		private final Blob blob;
+		private final JDBCConnectionProvider connectionProvider;
+		private Blob tempBlob;
 
-		public OracleBlobColumn(int index, String column, Blob blob) {
+		public OracleBlobColumn(int index, String column, Blob blob, JDBCConnectionProvider connectionProvider) {
 			super(index, column);
 			this.blob = blob;
+			this.connectionProvider = connectionProvider;
 		}
 
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
 			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
-			Blob oracleBlob = pstmt.getConnection().createBlob();
-			OutputStream oracleStream = oracleBlob.setBinaryStream(0);
+			tempBlob = connectionProvider.createTempBlob(pstmt.getConnection());
+			OutputStream oracleStream = tempBlob.setBinaryStream(0);
 			InputStream inputStream = blob.getBinaryStream();
 			
 			try {
 				byte[] buf = new byte[1024];
 				int l = 0;
-				while( (l = inputStream.read(buf)) != 0 ) {
+				while( (l = inputStream.read(buf)) != -1 ) {
 					oracleStream.write(buf, 0, l);
 				}
 				inputStream.close();
-				pstmt.setBlob(index+1, oracleBlob);
+				pstmt.setBlob(index+1, tempBlob);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-//			pstmt.setBinaryStream(index+1, blob.getBinaryStream(),blob.length());
 		}
-
+		
+		public void release(Connection connection) throws SQLException {
+			if( tempBlob != null ) {
+				connectionProvider.releaseTempBlob(connection, blob);
+			}
+		}
 	}
 }
