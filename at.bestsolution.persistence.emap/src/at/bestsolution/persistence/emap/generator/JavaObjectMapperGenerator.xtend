@@ -154,8 +154,6 @@ class JavaObjectMapperGenerator {
 			}
 
 
-
-
 			// «generatorCredit»
 			@Override
 			public final at.bestsolution.persistence.MappedUpdateQuery<«eClass.name»> deleteAllMappedQuery() {
@@ -218,6 +216,7 @@ class JavaObjectMapperGenerator {
 								mr.refreshWithReferences(v,refreshedObjects);
 							} else if( (v == null && proxy.«a.name.javaReservedNameEscape» != 0) || (mr.getPrimaryKeyValue(v) != null && ((Number)mr.getPrimaryKeyValue(v)).longValue() != proxy.«a.name.javaReservedNameEscape») ) {
 								«val attributeClass = eClass.getEStructuralFeature(a.name).EType as EClass»
+								«System.err.println("attributeClass = " + attributeClass)»
 								EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
 								v = session.getCache().getObject(eClass,proxy.«a.name.javaReservedNameEscape»);
 								if( v != null ) {
@@ -302,6 +301,7 @@ class JavaObjectMapperGenerator {
 			private static Map<String,JDBCType> TYPE_MAPPING = new HashMap<String,JDBCType>();
 			private static Map<String,EStructuralFeature> REF_ID_FEATURES = new HashMap<String,EStructuralFeature>();
 			private static Set<EReference> REFERENCE_FEATURES = new HashSet<EReference>();
+			private static Set<EReference> REFERENCE_FORCEDFK = new HashSet<EReference>();
 
 			static {
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
@@ -326,8 +326,26 @@ class JavaObjectMapperGenerator {
 					«IF oppositeAttribute == null || !oppositeAttribute.forcedFk»
 						REFERENCE_FEATURES.add(«ref.EContainingClass.packageName».«ref.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ref.EContainingClass.name»_«a.name.toFirstUpper»());
 					«ENDIF»
+					«IF a.forcedFk»
+						REFERENCE_FORCEDFK.add(«ref.EContainingClass.packageName».«ref.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«ref.EContainingClass.name»_«a.name.toFirstUpper»());
+					«ENDIF»
 				«ENDFOR»
 			}
+			
+			
+			// «generatorCredit»
+			@Override
+			public boolean containsForcedFkFeatures() {
+				return !REFERENCE_FORCEDFK.isEmpty();
+			}
+			
+			
+			// «generatorCredit»
+			@Override
+			public boolean isForcedFkFeature(EReference ref) {
+				return REFERENCE_FORCEDFK.contains(ref);
+			}
+			
 
 			public String getLockColumn() {
 				return "E_VERSION";

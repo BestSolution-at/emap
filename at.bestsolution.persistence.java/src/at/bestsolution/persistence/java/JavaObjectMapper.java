@@ -23,4 +23,6 @@ public interface JavaObjectMapper<O> extends ObjectMapper<O> {
 	public String getLockColumn();
 	public EStructuralFeature getReferenceId(String property);
 	public Set<EReference> getReferenceFeatures();
+	public boolean containsForcedFkFeatures();
+	public boolean isForcedFkFeature(EReference e);
 }
