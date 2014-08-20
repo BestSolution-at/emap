@@ -378,10 +378,12 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 			@Override
 			public void notifyChanged(Notification notification) {
 				if (notification.getNotifier() instanceof ResourceSet) {
-					Resource resource = ((ResourceSet)notification.getNotifier()).getResources().get(notification.getPosition());
-					if (resource != null) {
-						// adding ourself as adapter on the resource
-						resource.eAdapters().add(this);
+					if (notification.getFeatureID(ResourceSet.class) == ResourceSet.RESOURCE_SET__RESOURCES && notification.getEventType() == Notification.ADD) {
+						Resource resource = ((ResourceSet)notification.getNotifier()).getResources().get(notification.getPosition());
+						if (resource != null) {
+							// adding ourself as adapter on the resource
+							resource.eAdapters().add(this);
+						}
 					}
 				}
 				else if (notification.getNotifier() instanceof Resource) {
