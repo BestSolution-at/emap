@@ -370,8 +370,13 @@ class JavaObjectMapperGenerator {
 				return (M) session.createMapper(REFERENCE_MAPPER.get(propertyName));
 			}
 
-			public final JDBCType getJDBCType(String property) {
-				return TYPE_MAPPING.get(property);
+			public final JDBCType getJDBCType(String propertyName) {
+				if( propertyName.contains(".") ) {
+					String[] segs = Util.splitOfSegment(propertyName);
+					at.bestsolution.persistence.java.JavaObjectMapper<?> m = createMapperForReference(segs[0]);
+					return m.getJDBCType(segs[1]);
+				}
+				return TYPE_MAPPING.get(propertyName);
 			}
 
 			public final EStructuralFeature getReferenceId(String property) {
