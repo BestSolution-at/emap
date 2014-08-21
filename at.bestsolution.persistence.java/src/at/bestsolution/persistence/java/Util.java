@@ -321,4 +321,10 @@ public class Util {
 
 		targetList.addAll(newList);
 	}
+	
+	public static String[] splitOfSegment(String propertyName) {
+		String reference = propertyName.substring(0,propertyName.indexOf('.'));
+		propertyName = propertyName.substring(propertyName.indexOf('.')+1,propertyName.length());
+		return new String[] { reference, propertyName };
+	}
 }
