@@ -302,6 +302,7 @@ class JavaObjectMapperGenerator {
 			private static Map<String,EStructuralFeature> REF_ID_FEATURES = new HashMap<String,EStructuralFeature>();
 			private static Set<EReference> REFERENCE_FEATURES = new HashSet<EReference>();
 			private static Set<EReference> REFERENCE_FORCEDFK = new HashSet<EReference>();
+			private static Map<String,Class<? extends at.bestsolution.persistence.ObjectMapper>> REFERENCE_MAPPER = new HashMap<String,Class<? extends at.bestsolution.persistence.ObjectMapper>>();
 
 			static {
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass)]»
@@ -318,6 +319,9 @@ class JavaObjectMapperGenerator {
 					«val att = a.getEAttribute(eClass)»
 					REF_ID_FEATURES.put("«a.name»",«att.EContainingClass.packageName».«att.EContainingClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«att.EContainingClass.name»_«att.name.toFirstUpper»());
 				«ENDFOR»
+				«FOR a : entityDef.entity.collectAllAttributes.filter[resolved]»
+					REFERENCE_MAPPER.put("«a.name»",«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
+				«ENDFOR»
 				«val primaryKey = entityDef.entity.collectAllAttributes.findFirst[pk].columnName»
 				«FOR a : entityDef.entity.collectAllAttributes.filter[isSingle(eClass) && resolved && parameters.head != primaryKey]»
 					«val ref = eClass.getEStructuralFeature(a.name) as EReference»
@@ -332,6 +336,9 @@ class JavaObjectMapperGenerator {
 				«ENDFOR»
 			}
 			
+			public EClass getEClass() {
+				return «eClass.toFullQualifiedJavaEClass»;
+			}
 			
 			// «generatorCredit»
 			@Override
@@ -342,17 +349,25 @@ class JavaObjectMapperGenerator {
 			
 			// «generatorCredit»
 			@Override
-			public boolean isForcedFkFeature(EReference ref) {
+			public final boolean isForcedFkFeature(EReference ref) {
 				return REFERENCE_FORCEDFK.contains(ref);
 			}
 			
 
-			public String getLockColumn() {
+			public final String getLockColumn() {
 				return "E_VERSION";
 			}
 
 			public final String getColumnName(String propertyName) {
+				if( propertyName.contains(".") ) {
+					String[] segs = Util.splitOfSegment(propertyName);
+					return createMapperForReference(segs[0]).getColumnName(segs[1]);
+				}
 				return PROPERTY_COL_MAPPING.get(propertyName);
+			}
+			
+			public final <M extends at.bestsolution.persistence.ObjectMapper<?>> M createMapperForReference(String propertyName) {
+				return (M) session.createMapper(REFERENCE_MAPPER.get(propertyName));
 			}
 
 			public final JDBCType getJDBCType(String property) {

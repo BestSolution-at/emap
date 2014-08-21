@@ -136,7 +136,11 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		Resource resource;
 		try {
 			resource = masterResourceSet.getResource(uri, true);
+			if( resource.getContents().isEmpty() ) {
+				throw new Exception();
+			}
 		} catch( Exception e ) {
+			System.err.println("Loading from resource");
 			// try in the target platform!
 			uri = URI.createURI(uri.toString().replaceFirst("resource", "plugin"));
 			resource = masterResourceSet.getResource(uri, true);
