@@ -601,6 +601,53 @@ class JavaInsertUpdateGenerator {
 					«utilGen.getClearManyToManyByIdMethodName(eClass, a)»(connection, objectIds);
 				«ENDFOR»
 			«ENDIF»
+«««			Handle forced FK
+			«val oppositeFk = entityDef.entity.findOppositeForcedFKAttributes(eClass) »
+			«IF !oppositeFk.empty»
+				// handle forced FK and update the opposite with NULL
+				
+				«FOR a : oppositeFk»
+					// update «a.entity.calcTableName».«a.parameters.head» to null
+					{
+						StringBuilder sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName»»\" SET «a.parameters.head» = NULL WHERE «a.parameters.head» IN (");
+						Iterator<Object> sqlobjectIdsIterator = objectIds.iterator();
+						while( sqlobjectIdsIterator.hasNext() ) {
+							sqlobjectIdsIterator.next();
+							sqlBuilder.append("?");
+							if (sqlobjectIdsIterator.hasNext()) {
+								sqlBuilder.append(", ");
+							}
+						}
+						sqlBuilder.append(")");
+						
+						final String sql = sqlBuilder.toString();
+						if (!objectIds.isEmpty()) {
+							if (isDebug) {
+								LOGGER.debug(" Executing SQL: " + sql);
+							}
+							
+							PreparedStatement stmt = connection.prepareStatement(sql);
+							try {
+								int sqlobjectIdsIdx = 1;
+								Iterator<Object> stmtParamIt = objectIds.iterator();
+								while (stmtParamIt.hasNext()) {
+									final Object obj = stmtParamIt.next();
+									if (isDebug) {
+										LOGGER.debug(" With Parameter " + sqlobjectIdsIdx + ": " + obj);
+									}
+									stmt.setLong(sqlobjectIdsIdx, (Long)obj);
+									sqlobjectIdsIdx++;
+								}
+								stmt.execute();
+							} finally {
+								if (stmt != null) {
+									stmt.close();
+								}
+							}
+						}
+					}
+				«ENDFOR»
+			«ENDIF»
 
 			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
 			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»

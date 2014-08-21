@@ -835,4 +835,23 @@ class UtilCollection {
 		}
 		return type;
 	}
+	
+	def findOppositeForcedFKAttributes(EMappingEntity e, EClass eClass) {
+		println("Find opposite")
+		return e.allAttributes.map[
+			if( ! resolved ) {
+				return null	
+			}
+			
+			val f = eClass.getEStructuralFeature(name)
+			if( f instanceof EReference ) {
+				val r = f as EReference
+				println("REFERENCE: " + f + " => " + r.EOpposite) 
+				if( r.EOpposite != null ) {
+					println("The opposite: " + r.EOpposite)
+					return (query.eContainer as EMappingEntity).allAttributes.findFirst[forcedFk && name == r.EOpposite.name]	
+				}
+			}
+		].filterNull.toList
+	}
 }
