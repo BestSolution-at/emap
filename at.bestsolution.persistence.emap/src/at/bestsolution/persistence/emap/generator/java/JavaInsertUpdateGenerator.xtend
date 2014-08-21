@@ -675,7 +675,7 @@ class JavaInsertUpdateGenerator {
 		}
 		
 		List<Object> ids = new ArrayList<Object>();
-		for («eClass.name» o : objects) {
+		for («eClass.name» o : object) {
 			ids.add(getPrimaryKeyValue(o));
 		}
 		deleteById(ids);
