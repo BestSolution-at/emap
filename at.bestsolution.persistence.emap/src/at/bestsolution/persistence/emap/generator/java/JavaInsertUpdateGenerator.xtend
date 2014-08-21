@@ -609,7 +609,7 @@ class JavaInsertUpdateGenerator {
 				«FOR a : oppositeFk»
 					// update «a.entity.calcTableName».«a.parameters.head» to null
 					{
-						StringBuilder sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName»»\" SET «a.parameters.head» = NULL WHERE «a.parameters.head» IN (");
+						StringBuilder sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName»\" SET «a.parameters.head» = NULL WHERE «a.parameters.head» IN (");
 						Iterator<Object> sqlobjectIdsIterator = objectIds.iterator();
 						while( sqlobjectIdsIterator.hasNext() ) {
 							sqlobjectIdsIterator.next();
@@ -673,52 +673,58 @@ class JavaInsertUpdateGenerator {
 		if( isDebug ) {
 			LOGGER.debug("delete("+Arrays.toString(object)+")");
 		}
-
-		«checkTx»
-
-		final List<Object> objectIds = extractObjectIds(object);
-		session.preExecuteDeleteById(«eClass.toFullQualifiedJavaEClass»,objectIds);
-
-		for(«eClass.name» o : object) {
-			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
+		
+		List<Object> ids = new ArrayList<Object>();
+		for («eClass.name» o : object) {
+			ids.add(getPrimaryKeyValue(o));
 		}
-
-		final Connection connection = session.checkoutConnection();
-		try {
-
-«««			Handle primitive multi valued attributes
-			«IF !primitiveMultiValuedAttributes.empty»
-				// handle primitive multi valued attributes
-				«FOR a : primitiveMultiValuedAttributes»
-					if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
-						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
-					}
-				«ENDFOR»
-			«ENDIF»
-«««			Handle many to many attributes
-			«IF !manyToManyReferences.empty»
-				// handle many to many attributes
-				«FOR a : entityDef.entity.filterAllAttributes[isManyToManyAttribute(eClass)]»
-					«utilGen.getClearManyToManyMethodName(eClass, a)»(connection, object);
-				«ENDFOR»
-			«ENDIF»
-
-			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
-			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
-
-			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
-		} catch(SQLException e) {
-			if( isDebug ) {
-				LOGGER.debug("delete() failed", e);
-			}
-			throw new PersistanceException(e);
-		} finally {
-			session.returnConnection(connection);
-		}
-
-		if( isDebug ) {
-			LOGGER.debug("delete() done");
-		}
+		deleteById(ids);
+		
+«««		«checkTx»
+«««
+«««		final List<Object> objectIds = extractObjectIds(object);
+«««		session.preExecuteDeleteById(«eClass.toFullQualifiedJavaEClass»,objectIds);
+«««
+«««		for(«eClass.name» o : object) {
+«««			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectAfterTx(o, getPrimaryKeyValue(o)));
+«««		}
+«««
+«««		final Connection connection = session.checkoutConnection();
+«««		try {
+«««
+««««««			Handle primitive multi valued attributes
+«««			«IF !primitiveMultiValuedAttributes.empty»
+«««				// handle primitive multi valued attributes
+«««				«FOR a : primitiveMultiValuedAttributes»
+«««					if( ! session.getDatabaseSupport().isArrayStoreSupported(«eClass.getEStructuralFeature(a.name).EType.instanceClassName».class) ) {
+«««						«utilGen.getClearPrimitiveMultiValueByIdMethodName(eClass, a)»(connection, objectIds);
+«««					}
+«««				«ENDFOR»
+«««			«ENDIF»
+««««««			Handle many to many attributes
+«««			«IF !manyToManyReferences.empty»
+«««				// handle many to many attributes
+«««				«FOR a : entityDef.entity.filterAllAttributes[isManyToManyAttribute(eClass)]»
+«««					«utilGen.getClearManyToManyMethodName(eClass, a)»(connection, object);
+«««				«ENDFOR»
+«««			«ENDIF»
+«««
+«««			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
+«««			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+«««
+«««			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
+«««		} catch(SQLException e) {
+«««			if( isDebug ) {
+«««				LOGGER.debug("delete() failed", e);
+«««			}
+«««			throw new PersistanceException(e);
+«««		} finally {
+«««			session.returnConnection(connection);
+«««		}
+«««
+«««		if( isDebug ) {
+«««			LOGGER.debug("delete() done");
+«««		}
 	}
 	'''
 
