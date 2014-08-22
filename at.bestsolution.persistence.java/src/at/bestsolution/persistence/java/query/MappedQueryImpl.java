@@ -12,7 +12,10 @@ package at.bestsolution.persistence.java.query;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.EObject;
@@ -80,6 +83,18 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 	public MappedQuery<O> where(Expression<O> expression) {
 		this.expression = expression;
 		return this;
+	}
+	
+	public String getCriteriaJoin() {
+		StringBuilder b = new StringBuilder();
+		if (expression != null) {
+			LinkedHashSet<Join> joins = new LinkedHashSet<Join>();
+			appendJoinCriteria(joins, rootMapper, rootPrefix == null ? "" : rootPrefix, expression);
+			for( Join j : joins ) {
+				b.append("INNER JOIN " + quoteColumnName(j.joinTable) + " " + quoteColumnName(j.joinAlias) + " ON " + quoteColumnName(j.joinAlias) + "." + quoteColumnName(j.joinColumn) + " = " + ( j.otherAlias != null ? quoteColumnName(j.otherAlias) + "." : "") + quoteColumnName(j.otherColumn) + " \n");
+			}
+		}
+		return b.toString();
 	}
 
 	public String getCriteria() {

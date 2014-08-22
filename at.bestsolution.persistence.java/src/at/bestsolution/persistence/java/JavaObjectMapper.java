@@ -12,6 +12,7 @@ package at.bestsolution.persistence.java;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -21,8 +22,10 @@ import at.bestsolution.persistence.java.query.JDBCType;
 public interface JavaObjectMapper<O> extends ObjectMapper<O> {
 	public JDBCType getJDBCType(String property);
 	public String getLockColumn();
+	public <M extends ObjectMapper<?>> M createMapperForReference(String property);
 	public EStructuralFeature getReferenceId(String property);
 	public Set<EReference> getReferenceFeatures();
 	public boolean containsForcedFkFeatures();
 	public boolean isForcedFkFeature(EReference e);
+	public EClass getEClass();
 }
