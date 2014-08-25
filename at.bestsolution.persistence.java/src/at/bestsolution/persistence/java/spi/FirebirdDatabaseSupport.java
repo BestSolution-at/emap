@@ -53,7 +53,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
@@ -118,7 +118,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix, Expression<O> expression) {
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
 			switch (expression.type) {
 			case ILIKE:
 				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
@@ -140,12 +140,12 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public FirebirdMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+		public FirebirdMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 			super(rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
-		protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix,
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix,
 				Expression<O> expression) {
 			switch (expression.type) {
 			case ILIKE:

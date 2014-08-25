@@ -89,7 +89,7 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
 
@@ -112,7 +112,7 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	static class H2MappedQueryImpl<O> extends MappedQueryImpl<O> {
 
-		public H2MappedQueryImpl(JavaObjectMapper<O> rootMapper,
+		public H2MappedQueryImpl(JavaObjectMapper<?> rootMapper,
 				String rootPrefix, ListDelegate<O> listDelegate) {
 			super(rootMapper, rootPrefix, listDelegate);
 		}

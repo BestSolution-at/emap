@@ -27,7 +27,7 @@ public interface DatabaseSupport {
 	public String getDatabaseType();
 	public QueryBuilder createQueryBuilder(String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
-	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
+	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
 	public boolean isNestedResultSetsSupported();

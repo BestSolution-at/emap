@@ -31,12 +31,12 @@ import at.bestsolution.persistence.order.OrderColumn;
 public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements MappedQuery<O>, InternalSelectQueryCriteria {
 	private final ListDelegate<O> listDelegate;
 	private Expression<O> expression;
-	private final JavaObjectMapper<O> rootMapper;
+	private final JavaObjectMapper<?> rootMapper;
 	private final String rootPrefix;
 	private List<OrderColumn<O>> orderColumns;
 	private int maxRows = -1;
 
-	public MappedQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+	public MappedQueryImpl(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		this.rootMapper = rootMapper;
 		this.rootPrefix = rootPrefix;
 		this.listDelegate = listDelegate;

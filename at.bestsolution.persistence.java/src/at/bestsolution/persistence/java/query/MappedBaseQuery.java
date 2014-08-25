@@ -46,7 +46,7 @@ public class MappedBaseQuery<O> {
 		}
 	}
 
-	protected void appendValue(List<TypedValue> rv, JavaObjectMapper<O> mapper, Expression<O> expression) {
+	protected void appendValue(List<TypedValue> rv, JavaObjectMapper<?> mapper, Expression<O> expression) {
 		switch (expression.type) {
 		case AND:
 		case OR:
@@ -140,7 +140,7 @@ public class MappedBaseQuery<O> {
 			return columnExpression;
 	}
 	
-	protected void appendJoinCriteria(LinkedHashSet<Join> joins, final JavaObjectMapper<O> mapper, final String colPrefix, final Expression<O> expression) {
+	protected void appendJoinCriteria(LinkedHashSet<Join> joins, final JavaObjectMapper<?> mapper, final String colPrefix, final Expression<O> expression) {
 		switch (expression.type) {
 			case AND:
 			case OR:
@@ -190,7 +190,7 @@ public class MappedBaseQuery<O> {
 		}
 	}
 
-	protected void appendCriteria(StringBuilder b, JavaObjectMapper<O> mapper, String colPrefix, Expression<O> expression) {
+	protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
 		String columnExpression = null;
 		if (expression instanceof PropertyExpression) {
 			PropertyExpression<O> propertyExpression = (PropertyExpression<O>) expression;
