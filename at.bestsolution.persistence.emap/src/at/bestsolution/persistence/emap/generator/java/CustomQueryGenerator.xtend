@@ -43,7 +43,7 @@ class CustomQueryGenerator {
 
 	def generateCustomQuery(EMappingEntityDef entityDef, ENamedCustomQuery q) '''
 	// «generatorCredit»
-	«IF q.parameters.empty && q.list && q.returnType instanceof EModelTypeDef»
+	«IF q.parameters.empty && q.list»
 	public final MappedQuery<«q.returnType.handle.toObjectType»> «q.name»MappedQuery() {
 		MappedQuery<«q.returnType.handle.toObjectType»> dbQuery = session.getDatabaseSupport().createMappedQuery(
 				this, null,
@@ -129,7 +129,11 @@ class CustomQueryGenerator {
 			ResultSet set = pstmt.executeQuery();
 			List<«q.returnType.handle.toObjectType»> rv = new ArrayList<«q.returnType.handle.toObjectType»>();
 			while( set.next() ) {
+				«IF q.returnType instanceof EModelTypeDef»
 				rv.add(map_«q.name»(set«IF !(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].empty»,«(q.returnType as EModelTypeDef).attributes.filter[a|a.query != null].map[name+"Objects"].join(",")»«ENDIF»));
+				«ELSE»
+				rv.add(map_«q.name»(set));
+				«ENDIF»
 			}
 			return rv;
 		} catch(SQLException e) {
