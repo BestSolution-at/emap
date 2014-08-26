@@ -59,10 +59,8 @@ public class MappedBaseQuery<O> {
 		{
 			PropertyExpression<O> e = (PropertyExpression<O>)expression;
 			JDBCType jdbcType = mapper.getJDBCType(e.property);
-			if( ! jdbcType.numeric ) {
-				for( Object data : e.data ) {
-					rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, jdbcType));
-				}
+			for( Object data : e.data ) {
+				rv.add( new TypedValue( data instanceof EObject ? ((EObject)data).eGet(mapper.getReferenceId(e.property)) : data, jdbcType));
 			}
 			break;
 		}
@@ -295,25 +293,19 @@ public class MappedBaseQuery<O> {
 		case NOT_IN:
 		{
 			String in = expression.type == ExpressionType.IN ? " IN " : " NOT IN ";
-			//FIXME This can lead to SQL-Injection needs to be fixed!!!
 			//TODO We could replace with a BETWEEN or >= & <= QUERY
 			PropertyExpression<O> propExpression = (PropertyExpression<O>)expression;
 			b.append( columnExpression );
-			JDBCType jdbcType = mapper.getJDBCType(propExpression.property);
-			if( jdbcType.numeric ) {
-				b.append(" "+in+" ( "+ StringUtils.join(((PropertyExpression<O>)expression).data,',') +" )");
-			} else {
-				b.append(" "+in+" ( ");
-				boolean flag = false;
-				for( int i = 0; i < propExpression.data.size(); i++ ) {
-					if( flag ) {
-						b.append(",");
-					}
-					flag = true;
-					b.append("?");
+			b.append(" "+in+" ( ");
+			boolean flag = false;
+			for( int i = 0; i < propExpression.data.size(); i++ ) {
+				if( flag ) {
+					b.append(",");
 				}
-				b.append(" )");
+				flag = true;
+				b.append("?");
 			}
+			b.append(" )");
 			break;
 		}
 		case RANGE:
