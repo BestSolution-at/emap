@@ -214,21 +214,23 @@ class JavaObjectMapperGenerator {
 							RefreshableObjectMapper<«f.EType.instanceClassName»> mr = (RefreshableObjectMapper<«f.EType.instanceClassName»>)session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
 							if( v != null && ! refreshedObjects.contains(v) ) {
 								mr.refreshWithReferences(v,refreshedObjects);
-							} else if( (v == null && proxy.«a.name.javaReservedNameEscape» != 0) || (mr.getPrimaryKeyValue(v) != null && ((Number)mr.getPrimaryKeyValue(v)).longValue() != proxy.«a.name.javaReservedNameEscape») ) {
-								«val attributeClass = eClass.getEStructuralFeature(a.name).EType as EClass»
-								«System.err.println("attributeClass = " + attributeClass)»
-								EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
-								v = session.getCache().getObject(eClass,proxy.«a.name.javaReservedNameEscape»);
-								if( v != null ) {
-									resolve((LazyEObject)rv,proxy,r);
-									if( ! refreshedObjects.contains(v) ) {
-										mr.refreshWithReferences(v,refreshedObjects);
-									}
-								} else {
-									resolve((LazyEObject)rv,proxy,r);
-									v = rv.get«a.name.javaReservedNameEscape.toFirstUpper»();
+							} else {
+								long currentId = v == null ? 0 : ((Number)mr.getPrimaryKeyValue(v)).longValue();
+								if( currentId != proxy.«a.name.javaReservedNameEscape» ) {
+									«val attributeClass = eClass.getEStructuralFeature(a.name).EType as EClass»
+									EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
+									v = session.getCache().getObject(eClass,proxy.«a.name.javaReservedNameEscape»);
 									if( v != null ) {
-										refreshedObjects.add(v);
+										resolve((LazyEObject)rv,proxy,r);
+										if( ! refreshedObjects.contains(v) ) {
+											mr.refreshWithReferences(v,refreshedObjects);
+										}
+									} else {
+										resolve((LazyEObject)rv,proxy,r);
+										v = rv.get«a.name.javaReservedNameEscape.toFirstUpper»();
+										if( v != null ) {
+											refreshedObjects.add(v);
+										}
 									}
 								}
 							}
