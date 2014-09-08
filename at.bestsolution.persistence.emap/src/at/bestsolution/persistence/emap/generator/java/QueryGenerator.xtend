@@ -41,6 +41,9 @@ class QueryGenerator {
 				case DATA_ONLY_SYNC_VERSION:
 					refreshDataOnly(object,true);
 					break;
+				case COMPLETE:
+					refreshWithReferences(object, new HashSet<Object>());
+					break;
 			}
 		}
 

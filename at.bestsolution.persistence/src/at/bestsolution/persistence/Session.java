@@ -57,7 +57,8 @@ public interface Session extends Closeable {
 
 	public enum RefreshType {
 		DATA_ONLY,
-		DATA_ONLY_SYNC_VERSION
+		DATA_ONLY_SYNC_VERSION,
+		COMPLETE
 	}
 
 	public interface Transaction {

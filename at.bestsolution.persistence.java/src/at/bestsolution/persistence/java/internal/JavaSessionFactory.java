@@ -64,6 +64,7 @@ import at.bestsolution.persistence.java.ObjectMapperFactoriesProvider;
 import at.bestsolution.persistence.java.ObjectMapperFactory;
 import at.bestsolution.persistence.java.ObjectMapperFactory.NamedQuery;
 import at.bestsolution.persistence.java.ProxyFactory;
+import at.bestsolution.persistence.java.RefreshableObjectMapper;
 import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
@@ -232,11 +233,15 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void refresh(Object o, RefreshType type) {
-			System.err.println("EMAP - REFRESH IS NOT IMPLEMENTED");
-//			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
-//			if( m != null ) {
-//				m.refresh((EObject)o, type);
-//			}
+//			System.err.println("EMAP - REFRESH IS NOT IMPLEMENTED");
+			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
+			if( m != null ) {
+				if( m instanceof RefreshableObjectMapper ) {
+					((RefreshableObjectMapper<EObject>)m).refresh((EObject)o, type);	
+				} else {
+					throw new IllegalArgumentException("Object " + o + " is not refreshable");
+				}
+			}
 		}
 
 		@Override

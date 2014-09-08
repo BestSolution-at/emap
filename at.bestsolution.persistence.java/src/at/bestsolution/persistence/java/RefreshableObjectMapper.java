@@ -13,7 +13,9 @@ package at.bestsolution.persistence.java;
 import java.util.Set;
 
 import at.bestsolution.persistence.ObjectMapper;
+import at.bestsolution.persistence.Session.RefreshType;
 
 public interface RefreshableObjectMapper<O> extends ObjectMapper<O> {
+	public void refresh(O object, RefreshType type);
 	public void refreshWithReferences(O object, Set<Object> refreshedRegistry);
 }
