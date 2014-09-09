@@ -433,17 +433,19 @@ class QueryGenerator {
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
 					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
-
-					if( current_«section.prefix»_«entityEClass.name» != null ) {
-						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
-						«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
-						«ELSE»
-							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
-						«ENDIF»
-					} else {
-						// ensure that the value is marked resolved
-						current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
+					
+					if( current_«section.submapOwnerSection.prefix»_«section.submapOwner.name» != null ) {
+						if( current_«section.prefix»_«entityEClass.name» != null ) {
+							((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
+							«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
+								current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
+							«ELSE»
+								current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
+							«ENDIF»
+						} else {
+							// ensure that the value is marked resolved
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
+						}
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
@@ -496,17 +498,19 @@ class QueryGenerator {
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
 					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
-
-					if( current_«section.prefix»_«entityEClass.name» != null ) {
-						((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
-						«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
-							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
-						«ELSE»
-							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
-						«ENDIF»
-					} else {
-						// ensure that the value is marked resolved
-						current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
+					
+					if(current_«section.submapOwnerSection.prefix»_«section.submapOwner.name» != null) {
+						if( current_«section.prefix»_«entityEClass.name» != null ) {
+							((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
+							«IF section.submapOwner.getEStructuralFeature((section.eContainer as EMappingAttribute).property).many»
+								current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»().add(current_«section.prefix»_«entityEClass.name»);
+							«ELSE»
+								current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».set«(section.eContainer as EMappingAttribute).property.toFirstUpper»(current_«section.prefix»_«entityEClass.name»);
+							«ENDIF»
+						} else {
+							// ensure that the value is marked resolved
+							current_«section.submapOwnerSection.prefix»_«section.submapOwner.name».get«(section.eContainer as EMappingAttribute).property.toFirstUpper»();
+						}
 					}
 				«ENDFOR»
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
