@@ -529,6 +529,8 @@ class JavaObjectMapperGenerator {
   def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
   «IF attribute.isSingle(eClass)»
     {
+      «val attrib = attribute.getEAttribute(eClass)»
+      «val containerAttrib = attrib instanceof EReference && (attrib as EReference).container»
       «val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
       EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
       «attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
@@ -539,7 +541,14 @@ class JavaObjectMapperGenerator {
           LOGGER.debug("Using cached version");
         }
       }
-      target.set«attribute.name.toFirstUpper»(o);
+     
+      «IF containerAttrib»
+      if (o != null) {
+      «ENDIF»
+      	target.set«attribute.name.toFirstUpper»(o);
+      «IF containerAttrib»
+      }
+      «ENDIF»
     }
   «ELSE»
     target.get«attribute.name.toFirstUpper»().addAll(session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(target.get«pkAttribute.name.javaReservedNameEscape.toFirstUpper»()));
