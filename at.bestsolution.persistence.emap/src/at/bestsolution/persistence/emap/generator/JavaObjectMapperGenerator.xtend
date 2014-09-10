@@ -529,7 +529,7 @@ class JavaObjectMapperGenerator {
   def createResolveText(EAttribute attribute, EClass eClass, EAttribute pkAttribute) '''
   «IF attribute.isSingle(eClass)»
     {
-      «val attrib = attribute.getEAttribute(eClass)»
+      «val attrib = attribute.getEStructuralFeature(eClass)»
       «val containerAttrib = attrib instanceof EReference && (attrib as EReference).container»
       «val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
       EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
