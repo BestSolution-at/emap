@@ -872,7 +872,7 @@ class UtilCollection {
   				}
   			}
   			
-  			rv += tmp + System.getProperty("line.separator");
+  			rv = rv + tmp + System.getProperty("line.separator");
   		}
   		return rv;
   	}
