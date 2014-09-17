@@ -87,7 +87,9 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		@Override
 		public void evictObject(EClass eClass, Object id) {
 			Map<Object, VersionedEObject> map = cacheMap.get(eClass);
-			map.remove(id);
+			if( map != null ) {
+				map.remove(id);	
+			}
 		}
 
 		@Override
