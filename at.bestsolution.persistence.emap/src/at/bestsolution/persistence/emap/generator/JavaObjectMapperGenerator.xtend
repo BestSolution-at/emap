@@ -581,22 +581,27 @@ class JavaObjectMapperGenerator {
     «ENDIF»
   '''
 
-  def generateSQL(ENamedQuery namedQuery, EQuery query) '''
+  def generateSQL(ENamedQuery namedQuery, EQuery query) {
+  	return generateSQL(namedQuery,query,false)
+  }
+
+  def generateSQL(ENamedQuery namedQuery, EQuery query, boolean removeInsets) '''
   SELECT
     «IF query.mapping.attributes.empty»
       *
     «ELSE»
-      «query.mapping.mapColumns»
+      «IF removeInsets»«query.mapping.mapColumns.sanitiesString»«ELSE»«query.mapping.mapColumns»«ENDIF»
     «ENDIF»
   FROM
-    «query.from.replaceSqlParameters(namedQuery.parameters)»
+    «IF removeInsets»«query.from.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.from.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
     «IF query.where != null»WHERE
-      «query.where.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.where.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.where.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
     «IF query.groupBy != null»GROUP BY
-      «query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.groupBy.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
     «IF query.orderby != null»ORDER BY
-      «query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.orderby.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
   '''
+
 
   def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
   SELECT

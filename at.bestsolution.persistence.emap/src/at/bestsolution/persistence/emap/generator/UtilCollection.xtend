@@ -854,4 +854,41 @@ class UtilCollection {
 			}
 		].filterNull.toList
 	}
+	
+	def sanitiesString(String s) {
+  	if( s.contains(System.getProperty("line.separator")) ) {
+  		val items = s.split(System.getProperty("line.separator"));
+  		var ident = items.get(0).countPrefix
+  		if( items.size > 1 ) {
+  			ident = items.get(1).countPrefix
+  		} 
+  		
+  		var rv = "";
+  		for( i : items ) {
+  			var tmp = i
+  			for( idx : 0 .. (ident-1) ) {
+  				if( tmp.length > 0 && String.valueOf(tmp.charAt(0)) == '\t' ) {
+  					tmp = tmp.substring(1);
+  				}
+  			}
+  			
+  			rv += tmp + System.getProperty("line.separator");
+  		}
+  		return rv;
+  	}
+  	return s
+  }
+  
+  def static countPrefix(String value) {
+  	var count = 0;
+  	println(value)
+  	for( c : value.toCharArray ) {
+  		if( String.valueOf(c) == '\t' ) {
+  			count++;
+  		} else {
+  			return count;
+  		}
+  	}
+  	return count;
+  }
 }

@@ -18,18 +18,22 @@ import at.bestsolution.persistence.emap.eMap.ENamedCustomQuery
 class CustomSQLQueryGenerator {
 	@Inject extension
   	var UtilCollection util;
+  	
+  	def generate(ENamedCustomQuery namedQuery, ECustomQuery query) {
+  		return generate(namedQuery,query,false)
+  	}
 
-	def generate(ENamedCustomQuery namedQuery, ECustomQuery query)'''
+	def generate(ENamedCustomQuery namedQuery, ECustomQuery query, boolean removeInsets)'''
 	SELECT
-		«query.columns»
+		«IF removeInsets»«query.columns.sanitiesString»«ELSE»«query.columns»«ENDIF»
 	FROM
-		«query.from.replaceSqlParameters(namedQuery.parameters)»
+		«IF removeInsets»«query.from.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.from.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
     «IF query.where != null»WHERE
-      «query.where.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.where.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.where.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
     «IF query.groupBy != null»GROUP BY
-      «query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.groupBy.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.groupBy.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
     «IF query.orderby != null»ORDER BY
-      «query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
+      «IF removeInsets»«query.orderby.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.orderby.replaceSqlParameters(namedQuery.parameters)»«ENDIF»«ENDIF»
 	'''
 
 	def generateCriteriaSQL(ENamedCustomQuery namedQuery, ECustomQuery query)'''
