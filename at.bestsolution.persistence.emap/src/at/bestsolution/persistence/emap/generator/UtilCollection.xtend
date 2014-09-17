@@ -883,7 +883,7 @@ class UtilCollection {
   	var count = 0
   	for( c : value.toCharArray ) {
   		if( String.valueOf(c) == '\t' ) {
-  			count++
+  			count = count + 1
   		} else {
   			return count
   		}
