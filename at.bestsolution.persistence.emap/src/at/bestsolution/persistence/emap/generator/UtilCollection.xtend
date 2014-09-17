@@ -880,15 +880,14 @@ class UtilCollection {
   }
   
   def static countPrefix(String value) {
-  	var count = 0;
-  	println(value)
+  	var count = 0
   	for( c : value.toCharArray ) {
   		if( String.valueOf(c) == '\t' ) {
-  			count++;
+  			count++
   		} else {
-  			return count;
+  			return count
   		}
   	}
-  	return count;
+  	return count
   }
 }
