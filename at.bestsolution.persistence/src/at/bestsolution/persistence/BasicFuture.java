@@ -33,6 +33,11 @@ public class BasicFuture<V> implements Future<V> {
 		public void set(T v) {
 			super.set(v);
 		}
+		
+		@Override
+		public void setException(Throwable t) {
+			super.setException(t);
+		}
 	}
 	
 	private CustomFuture<V> future = new CustomFuture<V>();
@@ -64,5 +69,11 @@ public class BasicFuture<V> implements Future<V> {
 		return future.get(timeout, unit);
 	}
 	
+	protected void complete(V value) {
+		future.set(value);
+	}
 	
+	protected void throwExecutionException(Throwable t) {
+		future.setException(t);
+	}
 }

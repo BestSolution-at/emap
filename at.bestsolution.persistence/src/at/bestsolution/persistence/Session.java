@@ -11,10 +11,10 @@
 package at.bestsolution.persistence;
 
 import java.io.Closeable;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 public interface Session extends Closeable {
 	public static final String TOPIC_ROOT = "at/bestsolution/persistence";
@@ -35,7 +35,11 @@ public interface Session extends Closeable {
 	public String getId();
 	public String getDatabaseType();
 	public <O> O get(Class<O> clazz, Object id);
+	
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
+	public <M extends ObjectMapper<?>> boolean isMapperAvailable(Class<M> mapper);
+	public <M extends ObjectMapper<?>> Future<M> createMapperFuture(Class<M> mapper);
+	
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Object... parameters);
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Map<String,Object> parameterMap);
 

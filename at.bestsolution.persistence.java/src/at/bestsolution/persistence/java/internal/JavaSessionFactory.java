@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.internal;
 
+import java.lang.ref.WeakReference;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,6 +26,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Set;
@@ -43,6 +45,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
+import at.bestsolution.persistence.BasicFuture;
 import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
@@ -81,6 +84,8 @@ public class JavaSessionFactory implements SessionFactory {
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 	String factoryId;
+	
+	private Map<String, List<WeakReference<MapperFuture>>> futureMappers = new HashMap<String, List<WeakReference<MapperFuture>>>(); 
 
 	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
 	private ThreadLocal<AtomicInteger> currentSessionUsage = new ThreadLocal<AtomicInteger>() {
@@ -94,15 +99,62 @@ public class JavaSessionFactory implements SessionFactory {
 	public void unregisterConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = null;
 	}
+	
+	// Not yet added because the potential leak of WeakReferences
+	// not very high
+	private void cleanup() {
+		synchronized (futureMappers) {
+			Iterator<List<WeakReference<MapperFuture>>> mapIt = futureMappers.values().iterator();
+			while( mapIt.hasNext() ) {
+				List<WeakReference<MapperFuture>> next = mapIt.next();
+				Iterator<WeakReference<MapperFuture>> it = next.iterator();
+				while( it.hasNext() ) {
+					if( it.next().get() == null ) {
+						it.remove();
+					}
+				}
+				if( next.isEmpty() ) {
+					mapIt.remove();
+				}
+			}
+		}
+	}
 
+	public void registerFuture(MapperFuture f) {
+		synchronized (futureMappers) {
+			List<WeakReference<MapperFuture>> list = futureMappers.get(f.clazz.getName());
+			if( list == null ) {
+				list = new ArrayList<WeakReference<MapperFuture>>();
+				futureMappers.put(f.clazz.getName(), list);
+			}
+			list.add(new WeakReference<MapperFuture>(f));
+		}
+	}
+	
 	public void registerMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
 		for( Entry<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?, ?>> e : provider.getMapperFactories().entrySet() ) {
-			factories.put(e.getKey().getName(), e.getValue());
+			synchronized (factories) {
+				factories.put(e.getKey().getName(), e.getValue());
+				synchronized (futureMappers) {
+					List<WeakReference<MapperFuture>> list = futureMappers.remove(e.getKey().getName());
+					if( list != null ) {
+						Iterator<WeakReference<MapperFuture>> it = list.iterator();
+						while( it.hasNext() ) {
+							MapperFuture future = it.next().get();
+							if( future != null ) {
+								future.createMapper();
+							}
+						}
+					}	
+				}	
+			}
 		}
 	}
 
 	public void unregisterMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
-		factories.keySet().removeAll(provider.getMapperFactories().keySet());
+		synchronized (factories) {
+			factories.keySet().removeAll(provider.getMapperFactories().keySet());	
+		}
 	}
 
 	public void registerProxyFactory(ProxyFactory proxyFactory) {
@@ -187,6 +239,24 @@ public class JavaSessionFactory implements SessionFactory {
 	public Blob createBlob() {
 		return new LocalBlob();
 	}
+	
+	static class MapperFuture extends BasicFuture<ObjectMapper<?>> {
+		private final Session session;
+		private final Class<ObjectMapper<?>> clazz;
+		
+		public MapperFuture(Session session, Class<ObjectMapper<?>> clazz) {
+			this.session = session;
+			this.clazz = clazz;
+		}
+		
+		public void createMapper() {
+			try {
+				complete(session.createMapper(clazz));	
+			} catch( Throwable t) {
+				throwExecutionException(t);
+			}
+		}
+	}
 
 	class JavaSessionImpl implements JavaSession, CompatSession {
 		private String id = UUID.randomUUID().toString();
@@ -233,7 +303,6 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void refresh(Object o, RefreshType type) {
-//			System.err.println("EMAP - REFRESH IS NOT IMPLEMENTED");
 			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
 			if( m != null ) {
 				if( m instanceof RefreshableObjectMapper ) {
@@ -281,13 +350,39 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public <M extends ObjectMapper<?>> Future<M> createMapperFuture(
+				Class<M> mapper) {
+			synchronized (factories) {
+				if( isMapperAvailable(mapper) ) {
+					MapperFuture f = new MapperFuture(this, (Class<ObjectMapper<?>>) mapper);
+					f.createMapper();
+					return (Future<M>) f;
+				} else {					
+					new MapperFuture(this, (Class<ObjectMapper<?>>) mapper);
+				}
+			}
+			return null;
+		}
+		
+		@Override
+		public <M extends ObjectMapper<?>> boolean isMapperAvailable(
+				Class<M> mapper) {
+			synchronized (factories) {
+				return factories.containsKey(mapper.getName());	
+			}
+		}
+		
+		@Override
 		@SuppressWarnings("unchecked")
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
 			M m = (M) mapperInstances.get(mapper);
 			if( m == null ) {
-				ObjectMapperFactory<?, ?> factory = factories.get(mapper.getName());
-				if (factory == null) {
-					throw new RuntimeException("no factory for " + mapper + " found! Double check your bundle.emap");
+				ObjectMapperFactory<?, ?> factory;
+				synchronized (mapper) {
+					factory = factories.get(mapper.getName());
+					if (factory == null) {
+						throw new RuntimeException("no factory for " + mapper + " found! Double check your bundle.emap");
+					}
 				}
 				m = (M) factory.createMapper(this);
 				mapperInstances.put(mapper, m);
