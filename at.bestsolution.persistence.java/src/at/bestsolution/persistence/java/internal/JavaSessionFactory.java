@@ -26,7 +26,13 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Set;
@@ -84,7 +90,7 @@ public class JavaSessionFactory implements SessionFactory {
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 	String factoryId;
-	
+
 	private Map<String, List<WeakReference<MapperFuture>>> futureMappers = new HashMap<String, List<WeakReference<MapperFuture>>>(); 
 
 	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
@@ -156,6 +162,14 @@ public class JavaSessionFactory implements SessionFactory {
 			factories.keySet().removeAll(provider.getMapperFactories().keySet());	
 		}
 	}
+	
+	@Override
+	public <M extends ObjectMapper<?>> boolean isMapperAvailable(
+			Class<M> mapper) {
+		synchronized (factories) {
+			return factories.containsKey(mapper.getName());	
+		}
+	}
 
 	public void registerProxyFactory(ProxyFactory proxyFactory) {
 		this.proxyFactory = proxyFactory;
@@ -193,7 +207,68 @@ public class JavaSessionFactory implements SessionFactory {
 	public Session createSession() {
 		return new JavaSessionImpl(cacheFactory.createCache());
 	}
+	
+	@Override
+	public Future<Session> createFutureSession(
+			Class<ObjectMapper<?>>... dependentMappers) {
+		List<MapperFuture> list = new ArrayList<MapperFuture>();
+		final Session session = createSession();
+		for( Class<ObjectMapper<?>> m : dependentMappers ) {
+			if( ! isMapperAvailable(m) ) {
+				list.add(new MapperFuture(session, m));
+			}
+		}
+		return new SessionFuture(session, list);
+	}
 
+	static class SessionFuture extends BasicFuture<Session> {
+		private final Session session;
+		private final List<MapperFuture> futureList;
+		
+		public SessionFuture(Session session, List<MapperFuture> futureList) {
+			this.session = session;
+			this.futureList = futureList;
+		}
+		
+		@Override
+		public Session get() throws InterruptedException, ExecutionException {
+			if( futureList.isEmpty() ) {
+				return session;
+			} else {
+				for( MapperFuture m : futureList ) {
+					m.get();
+				}
+			}
+			return session;
+		}
+		
+		@Override
+		public Session get(long timeout, TimeUnit unit)
+				throws InterruptedException, ExecutionException,
+				TimeoutException {
+			long nano = unit.toNanos(timeout);
+			
+			for( MapperFuture m : futureList ) {
+				long begin = System.nanoTime();
+				m.get(nano, TimeUnit.NANOSECONDS);
+				nano = nano - (System.nanoTime() - begin);
+				if( nano <= 0 ) {
+					throw new TimeoutException();
+				}
+			}
+			complete(session);
+			return super.get();
+		}
+		
+		@Override
+		public boolean cancel(boolean mayInterruptIfRunning) {
+			for( MapperFuture m : futureList ) {
+				m.cancel(mayInterruptIfRunning);
+			}
+			return super.cancel(mayInterruptIfRunning);
+		}
+	}
+	
 	@Override
 	public <R> R runWithSession(SessionRunnable<R> runnable) {
 		Session session = currentSession.get();
@@ -367,9 +442,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <M extends ObjectMapper<?>> boolean isMapperAvailable(
 				Class<M> mapper) {
-			synchronized (factories) {
-				return factories.containsKey(mapper.getName());	
-			}
+			return JavaSessionFactory.this.isMapperAvailable(mapper);
 		}
 		
 		@Override

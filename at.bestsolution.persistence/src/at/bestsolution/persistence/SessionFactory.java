@@ -11,10 +11,18 @@
 package at.bestsolution.persistence;
 
 import java.sql.Blob;
+import java.util.concurrent.Future;
 
 public interface SessionFactory {
 	public String getFactoryId();
+	
 	public Session createSession();
+//	public Session createSession(String configurationName);
+	
+	public Future<Session> createFutureSession(Class<ObjectMapper<?>>... dependentMappers);
+//	public Future<Session> createFutureSession(String configuration, Class<ObjectMapper<?>>... mappers);
+	
+	public <M extends ObjectMapper<?>> boolean isMapperAvailable(Class<M> mapper);
 	public Blob createBlob();
 	
 	public <R> R runWithSession(SessionRunnable<R> runnable);
