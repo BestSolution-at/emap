@@ -17,7 +17,7 @@ public interface SessionFactory {
 	public String getFactoryId();
 	
 	public Session createSession();
-//	public Session createSession(String configurationName);
+	public Session createSession(String configurationId);
 	
 	public Future<Session> createFutureSession(Class<ObjectMapper<?>>... dependentMappers);
 //	public Future<Session> createFutureSession(String configuration, Class<ObjectMapper<?>>... mappers);

@@ -119,6 +119,11 @@ class JavaObjectMapperGenerator {
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
 			}
+			
+			@Override
+			public final JavaSession getSession() {
+				return this.session;
+			}
 
 			// «generatorCredit»
 			@Override

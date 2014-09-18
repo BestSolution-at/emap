@@ -70,7 +70,7 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public QueryBuilder createQueryBuilder(String tableName) {
+	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
 		return null;
 	}
 

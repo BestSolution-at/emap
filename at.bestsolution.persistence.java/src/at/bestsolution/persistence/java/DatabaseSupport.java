@@ -25,7 +25,7 @@ import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public interface DatabaseSupport {
 	public String getDatabaseType();
-	public QueryBuilder createQueryBuilder(String tableName);
+	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);

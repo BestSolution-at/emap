@@ -15,7 +15,9 @@ import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import at.bestsolution.persistence.java.JDBCConfiguration;
@@ -25,17 +27,23 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 
-	private ComboPooledDataSource cpds;
-	private JDBCConfiguration configuration;
+	private Map<String,ComboPooledDataSource> cpds = new HashMap<String, ComboPooledDataSource>();
+	private List<JDBCConfiguration> configurationList = new ArrayList<JDBCConfiguration>();
 	
 	private Map<String, C3P0BlobCreator> blobCreators = new HashMap<String, C3P0BlobCreator>();
 
 	public void registerJDBCConfiguration(JDBCConfiguration configuration) {
-		this.configuration = configuration;
+		synchronized (configurationList) {
+			this.configurationList.add(configuration);
+		}
+		
 	}
 
 	public void unregisterJDBCConfiguration(JDBCConfiguration configuration) {
-		this.configuration = null;
+		synchronized (configurationList) {
+			this.configurationList.remove(configuration);	
+		}
+		
 	}
 	
 	public void registerBlobCreator(C3P0BlobCreator creator) {
@@ -44,11 +52,22 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 		}
 	}
 	
+	private JDBCConfiguration getConfiguration(String configurationId) throws SQLException {
+		synchronized (configurationList) {
+			for( JDBCConfiguration c : configurationList ) {
+				if( c.getId().equals(configurationId) ) {
+					return c;
+				}
+			}
+		}
+		throw new SQLException("Unknown database configuration '"+configurationId+"'");
+	}
+	
 	@Override
-	public Blob createTempBlob(Connection connection) throws SQLException {
+	public Blob createTempBlob(String configurationId, Connection connection) throws SQLException {
 		C3P0BlobCreator c;
 		synchronized (blobCreators) {
-			c = blobCreators.get(configuration.getDatabaseType());	
+			c = blobCreators.get(getConfiguration(configurationId).getDatabaseType());	
 		}
 		
 		if( c != null ) {
@@ -59,10 +78,10 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 	}
 	
 	@Override
-	public Clob createTempClob(Connection connection) throws SQLException {
+	public Clob createTempClob(String configurationId, Connection connection) throws SQLException {
 		C3P0BlobCreator c;
 		synchronized (blobCreators) {
-			c = blobCreators.get(configuration.getDatabaseType());	
+			c = blobCreators.get(getConfiguration(configurationId).getDatabaseType());	
 		}
 		
 		if( c != null ) {
@@ -73,11 +92,11 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 	}
 	
 	@Override
-	public void releaseTempBlob(Connection connection, Blob blob)
+	public void releaseTempBlob(String configurationId, Connection connection, Blob blob)
 			throws SQLException {
 		C3P0BlobCreator c;
 		synchronized (blobCreators) {
-			c = blobCreators.get(configuration.getDatabaseType());	
+			c = blobCreators.get(getConfiguration(configurationId).getDatabaseType());	
 		}
 		
 		if( c != null ) {
@@ -88,11 +107,11 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 	}
 	
 	@Override
-	public void releaseTempClob(Connection connection, Clob clob)
+	public void releaseTempClob(String configurationId, Connection connection, Clob clob)
 			throws SQLException {
 		C3P0BlobCreator c;
 		synchronized (blobCreators) {
-			c = blobCreators.get(configuration.getDatabaseType());	
+			c = blobCreators.get(getConfiguration(configurationId).getDatabaseType());	
 		}
 		
 		if( c != null ) {
@@ -102,12 +121,14 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 		}
 	}
 
-	private ComboPooledDataSource initPool() {
+	private synchronized ComboPooledDataSource initPool(String configurationId) throws SQLException {
+		ComboPooledDataSource cpds = this.cpds.get(configurationId);
 		if( cpds != null ) {
 			return cpds;
 		}
 
 		cpds = new ComboPooledDataSource();
+		JDBCConfiguration configuration = getConfiguration(configurationId);
 		try {
 			cpds.setDriverClass( configuration.getJDBCDriver().getName() );
 		} catch (PropertyVetoException e) {
@@ -121,25 +142,30 @@ public class C3P0ConnectionProvider implements JDBCConnectionProvider {
 		cpds.setMinPoolSize(5);
 		cpds.setAcquireIncrement(5);
 		cpds.setMaxPoolSize(20);
+		this.cpds.put(configurationId, cpds);
 		return cpds;
 	}
 
 	@Override
-	public String getDatabaseType() {
-		return configuration.getDatabaseType();
+	public String getDatabaseType(String configurationId) {
+		try {
+			return getConfiguration(configurationId).getDatabaseType();
+		} catch (SQLException e) {
+			throw new IllegalArgumentException("There's no configuration with the ID '"+configurationId+"'");
+		}
 	}
 
 	@Override
-	public Connection checkoutConnection() {
+	public Connection checkoutConnection(String configurationId) {
 		try {
-			return initPool().getConnection();
+			return initPool(configurationId).getConnection();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	@Override
-	public void returnConnection(Connection connection) {
+	public void returnConnection(String configurationId, Connection connection) {
 		try {
 			connection.close();
 		} catch (SQLException e) {

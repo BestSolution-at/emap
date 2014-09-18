@@ -11,6 +11,7 @@
 package at.bestsolution.persistence.java;
 
 public interface JDBCConfiguration {
+	public String getId();
 	public String getUsername();
 	public String getPassword();
 	public String getConnectionURL();

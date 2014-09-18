@@ -65,6 +65,7 @@ import at.bestsolution.persistence.compat.CompatSession;
 import at.bestsolution.persistence.compat.CompatTransaction;
 import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.JDBCConfiguration;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.JavaSession;
@@ -205,7 +206,12 @@ public class JavaSessionFactory implements SessionFactory {
 
 	@Override
 	public Session createSession() {
-		return new JavaSessionImpl(cacheFactory.createCache());
+		return new JavaSessionImpl(JDBCConnectionProvider.DEFAULT_CONFIGURATION,cacheFactory.createCache());
+	}
+	
+	@Override
+	public Session createSession(String configurationId) {
+		return new JavaSessionImpl(configurationId, cacheFactory.createCache());
 	}
 	
 	@Override
@@ -334,6 +340,7 @@ public class JavaSessionFactory implements SessionFactory {
 	}
 
 	class JavaSessionImpl implements JavaSession, CompatSession {
+		private final String configurationId;
 		private String id = UUID.randomUUID().toString();
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
 		private Stack<Connection> transactionConnectionQueue;
@@ -362,8 +369,15 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<EObject, List<FeatureChange>> changeStorage = new HashMap<EObject, List<FeatureChange>>();
 
 
-		public JavaSessionImpl(SessionCache sessionCache) {
+		public JavaSessionImpl(String configurationId, SessionCache sessionCache) {
+			this.configurationId = configurationId;
 			this.sessionCache = sessionCache;
+		}
+		
+		@Override
+		public String getConfigurationId() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 		@Override
@@ -826,7 +840,7 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.debug("Started transaction '"+transactionId+"'");
 			}
 
-			Connection connection = connectionProvider.checkoutConnection();
+			Connection connection = connectionProvider.checkoutConnection(configurationId);
 			try {
 				connection.setAutoCommit(false);
 			} catch (SQLException e2) {
@@ -963,7 +977,7 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.error("Failed to set back auto commit", e);
 				throw new PersistanceException(e);
 			}
-			connectionProvider.returnConnection(transactionConnectionQueue.pop());
+			connectionProvider.returnConnection(configurationId, transactionConnectionQueue.pop());
 			if( transactionConnectionQueue.isEmpty() ) {
 				transactionConnectionQueue = null;
 			}
@@ -1105,7 +1119,7 @@ public class JavaSessionFactory implements SessionFactory {
 					} catch (SQLException e) {
 						LOGGER.error("Unable to rollback connection", e);
 					}
-					connectionProvider.returnConnection(c);
+					connectionProvider.returnConnection(configurationId,c);
 				}
 				transactionConnectionQueue = null;
 			}
@@ -1123,7 +1137,7 @@ public class JavaSessionFactory implements SessionFactory {
 			if( transactionConnectionQueue != null ) {
 				return transactionConnectionQueue.peek();
 			}
-			return connectionProvider.checkoutConnection();
+			return connectionProvider.checkoutConnection(configurationId);
 		}
 
 		@Override
@@ -1131,12 +1145,12 @@ public class JavaSessionFactory implements SessionFactory {
 			if( transactionConnectionQueue != null ) {
 				return;
 			}
-			connectionProvider.returnConnection(connection);
+			connectionProvider.returnConnection(configurationId,connection);
 		}
 
 		@Override
 		public String getDatabaseType() {
-			return connectionProvider.getDatabaseType();
+			return connectionProvider.getDatabaseType(configurationId);
 		}
 
 		@Override

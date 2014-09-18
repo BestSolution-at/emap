@@ -52,8 +52,8 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
-	public QueryBuilder createQueryBuilder(String tableName) {
-		return new OracleQueryBuilder(tableName, connectionProvider);
+	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
+		return new OracleQueryBuilder(tableName, rootMapper, connectionProvider);
 	}
 
 	@Override
@@ -157,10 +157,12 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 	static class OracleQueryBuilder implements QueryBuilder {
 		private final String tableName;
 		private final JDBCConnectionProvider connectionProvider;
+		private final JavaObjectMapper<?> rootMapper;
 
-		public OracleQueryBuilder(String tableName, JDBCConnectionProvider connectionProvider) {
+		public OracleQueryBuilder(String tableName, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
 			this.tableName = tableName;
 			this.connectionProvider = connectionProvider;
+			this.rootMapper = rootMapper;
 		}
 
 
@@ -176,21 +178,23 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn, connectionProvider);
+			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
 		}
 	}
 	
 	static class OracleInsertStatement extends PreparedInsertStatement {
 		private final JDBCConnectionProvider connectionProvider;
+		private final JavaObjectMapper<?> rootMapper;
 		public OracleInsertStatement(String tableName, String pkColumn,
-				String primaryKeyExpression, String lockColumn, JDBCConnectionProvider connectionProvider) {
+				String primaryKeyExpression, String lockColumn, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
 			super(tableName, pkColumn, primaryKeyExpression, lockColumn);
+			this.rootMapper = rootMapper;
 			this.connectionProvider = connectionProvider;
 		}
 		
 		@Override
 		public void addBlob(String column, Blob value) {
-			columnList.add(new OracleBlobColumn(columnList.size(), column, value, connectionProvider));
+			columnList.add(new OracleBlobColumn(rootMapper, columnList.size(), column, value, connectionProvider));
 		}
 		
 		@Override
@@ -215,9 +219,11 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		private final Blob blob;
 		private final JDBCConnectionProvider connectionProvider;
 		private Blob tempBlob;
+		private final JavaObjectMapper<?> rootMapper;
 
-		public OracleBlobColumn(int index, String column, Blob blob, JDBCConnectionProvider connectionProvider) {
+		public OracleBlobColumn(JavaObjectMapper<?> rootMapper, int index, String column, Blob blob, JDBCConnectionProvider connectionProvider) {
 			super(index, column);
+			this.rootMapper = rootMapper;
 			this.blob = blob;
 			this.connectionProvider = connectionProvider;
 		}
@@ -225,7 +231,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		@Override
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
 			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
-			tempBlob = connectionProvider.createTempBlob(pstmt.getConnection());
+			tempBlob = connectionProvider.createTempBlob(rootMapper.getSession().getConfigurationId(), pstmt.getConnection());
 			OutputStream oracleStream = tempBlob.setBinaryStream(0);
 			InputStream inputStream = blob.getBinaryStream();
 			
@@ -245,7 +251,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		
 		public void release(Connection connection) throws SQLException {
 			if( tempBlob != null ) {
-				connectionProvider.releaseTempBlob(connection, blob);
+				connectionProvider.releaseTempBlob(rootMapper.getSession().getConfigurationId(),connection, blob);
 			}
 		}
 	}

@@ -19,6 +19,7 @@ public interface ObjectMapper<O> {
 	public void deleteById(Object... id);
 	public void deleteAll();
 	public MappedUpdateQuery<O> deleteAllMappedQuery();
+	public Session getSession();
 
 	public String getTableName();
 	public String getColumnName(String propertyName);

@@ -47,7 +47,7 @@ class JavaInsertUpdateGenerator {
 
 		// Built the query
 		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
-		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
+		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
 		// NEW:
 «««		Handle simple direct mapped attributes
 		«IF !simpleDirectMappedAttributes.empty»
@@ -213,10 +213,10 @@ class JavaInsertUpdateGenerator {
 		}
 		«ENDFOR»
 		// Build the SQL
-		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
+		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
 		«ELSE»
 		// Build the SQL
-		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder("«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
+		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
 		«ENDIF»
 
 

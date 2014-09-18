@@ -4,6 +4,6 @@
    <service>
       <provide interface="at.bestsolution.persistence.java.JDBCConnectionProvider"/>
    </service>
-   <reference bind="registerJDBCConfiguration" cardinality="1..1" interface="at.bestsolution.persistence.java.JDBCConfiguration" name="JDBCConfiguration" policy="dynamic" unbind="unregisterJDBCConfiguration"/>
+   <reference bind="registerJDBCConfiguration" cardinality="1..n" interface="at.bestsolution.persistence.java.JDBCConfiguration" name="JDBCConfiguration" policy="dynamic" unbind="unregisterJDBCConfiguration"/>
    <reference bind="registerBlobCreator" cardinality="0..n" interface="at.bestsolution.persistence.java.c3p0.C3P0BlobCreator" name="C3P0BlobCreator" policy="static"/>
 </scr:component>
