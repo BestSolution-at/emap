@@ -13,6 +13,7 @@ package at.bestsolution.persistence.java.query;
 public interface InternalQueryCriteria {
 
 	String getCriteria();
+	
 	TypedValue[] getParameters();
 	
 	String processSQL(String sql);

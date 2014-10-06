@@ -12,18 +12,11 @@ package at.bestsolution.persistence.java.query;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.eclipse.emf.ecore.EObject;
 
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
-import at.bestsolution.persistence.expr.GroupExpression;
-import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.order.OrderColumn;
@@ -108,7 +101,12 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 	public String getOrderBy() {
 		StringBuilder b = new StringBuilder();
 		if( orderColumns != null && ! orderColumns.isEmpty() ) {
-
+			for( OrderColumn<?> c : orderColumns ) {
+				if( b.length() > 0 ) {
+					b.append(", ");	
+				}
+				b.append(rootMapper.getColumnName(c.column) + (c.asc ? " ASC" : " DESC"));
+			}
 		}
 		return b.toString();
 	}
