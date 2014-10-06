@@ -10,16 +10,13 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.java
 
-import at.bestsolution.persistence.emap.eMap.ETypeDef
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.ETypeDef
 import at.bestsolution.persistence.emap.eMap.EValueTypeAttribute
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.jdt.core.JavaCore
-import org.eclipse.core.runtime.Platform
-import org.eclipse.core.resources.IWorkspaceRoot
 import org.eclipse.core.resources.ResourcesPlugin
-import java.nio.file.Path
+import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.jdt.core.JavaCore
 
 class TypeDefGenerator {
 	
@@ -39,7 +36,7 @@ class TypeDefGenerator {
 					val workspace = ResourcesPlugin.getWorkspace
 					val root = workspace.getRoot
 					
-					val eProject = root.getFile(new org.eclipse.core.runtime.Path(resource.URI.toPlatformString(true))).project
+					val eProject = root.getFile(new Path(resource.URI.toPlatformString(true))).project
 					val jProject = JavaCore.create(eProject);
 					
 					val jType = jProject.findType(t.type);
