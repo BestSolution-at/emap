@@ -73,9 +73,31 @@ class CustomQueryGenerator {
 		«ENDIF»
 
 		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
+		
+		// find aliases
+		String[] split = query.split("FROM");
+		String cols = split[0].replaceFirst("SELECT", "");
+		Map<String, String> aliases = new HashMap<String, String>();
+		for (String col : cols.split(",")) {
+			String[] split2 = col.split("as");
+			String withAlias = split2[0].trim();
+			if (withAlias.contains(".")) {
+				String[] split3 = withAlias.split("\\.");
+				withAlias = split3[0] + ".\"" + split3[1] + "\"";
+			}
+			aliases.put(split2[1].trim(), withAlias);
+		}
+		if( isDebug ) LOGGER.debug("       found aliases : " + aliases);
+		
 
 		String criteriaStr = criteria.getCriteria();
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+			
+			// apply aliases
+			for (Map.Entry<String, String> e : aliases.entrySet()) {
+				criteriaStr = criteriaStr.replaceAll("@"+e.getKey(), e.getValue());
+			}
+			
 			query += " WHERE (" + criteriaStr + ")";
 			«IF q.anyWhere»
 			if( where != null ) {

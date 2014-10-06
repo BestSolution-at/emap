@@ -237,7 +237,7 @@ class JavaInterfaceGenerator {
 				 */
 				public at.bestsolution.persistence.MappedQuery<«eClass.name»> «query.name»MappedQuery();
 			«ENDFOR»
-			«FOR q : entityDef.entity.namedCustomQueries.filter[parameters.empty && list && returnType instanceof EModelTypeDef]»
+			«FOR q : entityDef.entity.namedCustomQueries.filter[parameters.empty && list /*&& returnType instanceof EModelTypeDef*/]»
 				/**
 				 * Build a query for <b>unmanaged</b> elements from a base query like this:
 				 * <pre>

@@ -192,7 +192,10 @@ public class MappedBaseQuery<O> {
 		String columnExpression = null;
 		if (expression instanceof PropertyExpression) {
 			PropertyExpression<O> propertyExpression = (PropertyExpression<O>) expression;
-			if (propertyExpression.property.contains(".")) {
+			if (propertyExpression.property.startsWith("@")) {
+				columnExpression = propertyExpression.property;
+			}
+			else if (propertyExpression.property.contains(".")) {
 				String[] parts = propertyExpression.property.split("\\.");
 				String lastType = "_e_" + parts[parts.length-2];
 				columnExpression = quoteColumnName(lastType) + "." + quoteColumnName(mapper.getColumnName(propertyExpression.property));

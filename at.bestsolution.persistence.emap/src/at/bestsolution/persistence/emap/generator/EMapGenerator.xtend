@@ -119,7 +119,7 @@ class EMapGenerator implements IGenerator {
 					if( namedQuery.returnType instanceof ETypeDef ) {
 						val t = namedQuery.returnType as ETypeDef
 						if( t.name.indexOf('.') == -1 ) {
-							fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(edef,t).processOutput(root,EMapGeneratorParticipant.FileType.JAVA_TYPEDEF,null,participants));
+							fsa.generateFile( edef.package.name.replace('.','/') + "/" + t.name + ".java",  typeDefGenerator.generate(resource, edef,t).processOutput(root,EMapGeneratorParticipant.FileType.JAVA_TYPEDEF,null,participants));
 						}
 					}
 				}
