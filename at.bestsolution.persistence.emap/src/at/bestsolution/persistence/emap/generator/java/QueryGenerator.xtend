@@ -378,6 +378,11 @@ class QueryGenerator {
 				query += " GROUP BY " + groupBy;
 			}
 			«ENDIF»
+			
+			String orderBy = criteria.getOrderBy();
+			if( orderBy != null && ! orderBy.isEmpty() ) {
+				query += " ORDER BY " + orderBy;
+			}
 
 			if( isDebug ) LOGGER.debug("	Constructed query: " + query);
 
