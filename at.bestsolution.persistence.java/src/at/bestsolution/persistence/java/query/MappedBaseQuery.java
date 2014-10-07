@@ -44,6 +44,60 @@ public class MappedBaseQuery<O> {
 			this.otherAlias = otherAlias;
 			this.otherColumn = otherColumn;
 		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((joinAlias == null) ? 0 : joinAlias.hashCode());
+			result = prime * result
+					+ ((joinColumn == null) ? 0 : joinColumn.hashCode());
+			result = prime * result
+					+ ((joinTable == null) ? 0 : joinTable.hashCode());
+			result = prime * result
+					+ ((otherAlias == null) ? 0 : otherAlias.hashCode());
+			result = prime * result
+					+ ((otherColumn == null) ? 0 : otherColumn.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Join other = (Join) obj;
+			if (joinAlias == null) {
+				if (other.joinAlias != null)
+					return false;
+			} else if (!joinAlias.equals(other.joinAlias))
+				return false;
+			if (joinColumn == null) {
+				if (other.joinColumn != null)
+					return false;
+			} else if (!joinColumn.equals(other.joinColumn))
+				return false;
+			if (joinTable == null) {
+				if (other.joinTable != null)
+					return false;
+			} else if (!joinTable.equals(other.joinTable))
+				return false;
+			if (otherAlias == null) {
+				if (other.otherAlias != null)
+					return false;
+			} else if (!otherAlias.equals(other.otherAlias))
+				return false;
+			if (otherColumn == null) {
+				if (other.otherColumn != null)
+					return false;
+			} else if (!otherColumn.equals(other.otherColumn))
+				return false;
+			return true;
+		}
 	}
 
 	protected void appendValue(List<TypedValue> rv, JavaObjectMapper<?> mapper, Expression<O> expression) {

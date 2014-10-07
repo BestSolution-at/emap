@@ -611,7 +611,7 @@ class JavaObjectMapperGenerator {
   def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
   SELECT
     «IF query.mapping.attributes.empty»
-      *
+      "«(namedQuery.eContainer as EMappingEntity).calcTableName»".*
     «ELSE»
       «query.mapping.mapColumns»
     «ENDIF»

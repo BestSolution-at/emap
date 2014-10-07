@@ -164,6 +164,11 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 			if( getMaxRows() != -1) {
 				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
 			}
+			
+			if( isJoinQuery() ) {
+				sql = sql.replaceFirst("SELECT","SELECT DISTINCT ");
+			}
+			
 			return sql;
 		}
 	}

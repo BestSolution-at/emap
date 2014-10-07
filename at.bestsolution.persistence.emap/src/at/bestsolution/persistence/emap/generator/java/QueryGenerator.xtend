@@ -360,6 +360,11 @@ class QueryGenerator {
 
 			if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
+			String join = criteria.getCriteriaJoin();
+			if( join != null && ! join.isEmpty() ) {
+				query += " " + join;
+			}
+
 			String criteriaStr = criteria.getCriteria();
 			if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 				query += " WHERE (" + criteriaStr + ")";

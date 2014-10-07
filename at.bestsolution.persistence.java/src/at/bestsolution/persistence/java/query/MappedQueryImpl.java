@@ -17,6 +17,8 @@ import java.util.List;
 
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.expr.GroupExpression;
+import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.order.OrderColumn;
@@ -76,6 +78,34 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 	public MappedQuery<O> where(Expression<O> expression) {
 		this.expression = expression;
 		return this;
+	}
+	
+	protected boolean isJoinQuery() {
+		if( expression != null ) {
+			return isJoinExpression(expression);
+		}
+		
+		return false;
+	}
+	
+	private boolean isJoinExpression(final Expression<O> expression) {
+		switch (expression.type) {
+			case AND:
+			case OR:
+			{
+				for (Expression<O> e : ((GroupExpression<O>) expression).expressions) {
+					if( isJoinExpression(e) ) {
+						return true;
+					}
+				}
+				return false;
+			}
+			default:
+			{
+				PropertyExpression<O> p = (PropertyExpression<O>) expression;
+				return p.property.contains(".");
+			}
+		}
 	}
 	
 	public String getCriteriaJoin() {
