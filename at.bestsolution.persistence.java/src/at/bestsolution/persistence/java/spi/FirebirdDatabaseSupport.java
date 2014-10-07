@@ -149,10 +149,10 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 				Expression<O> expression) {
 			switch (expression.type) {
 			case ILIKE:
-				b.append("lower(" +colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + ") LIKE lower ( ? )" );
+				b.append("lower(" + getColumnExpression(mapper, colPrefix, expression) + ") LIKE lower ( ? )" );
 				return;
 			case NOT_ILIKE:
-				b.append("lower(" +colPrefix + quoteColumnName(mapper.getColumnName(((PropertyExpression<O>)expression).property)) + ") NOT LIKE lower ( ? )" );
+				b.append("lower(" + getColumnExpression(mapper, colPrefix, expression) + ") NOT LIKE lower ( ? )" );
 				return;
 			default:
 				super.appendCriteria(b, mapper, colPrefix, expression);

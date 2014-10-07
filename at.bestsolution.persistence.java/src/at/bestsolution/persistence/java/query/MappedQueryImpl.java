@@ -114,7 +114,8 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 			LinkedHashSet<Join> joins = new LinkedHashSet<Join>();
 			appendJoinCriteria(joins, rootMapper, rootPrefix == null ? "" : rootPrefix, expression);
 			for( Join j : joins ) {
-				b.append("INNER JOIN " + quoteColumnName(j.joinTable) + " " + quoteColumnName(j.joinAlias) + " ON " + quoteColumnName(j.joinAlias) + "." + quoteColumnName(j.joinColumn) + " = " + ( j.otherAlias != null ? quoteColumnName(j.otherAlias) + "." : "") + quoteColumnName(j.otherColumn) + " \n");
+				// Remark do NOT escape aliases because they are most likely not escaped themselves
+				b.append("INNER JOIN " + quoteColumnName(j.joinTable) + " " + j.joinAlias + " ON " + j.joinAlias + "." + quoteColumnName(j.joinColumn) + " = " + ( j.otherAlias != null ? j.otherAlias + "." : "") + quoteColumnName(j.otherColumn) + " \n");
 			}
 		}
 		return b.toString();

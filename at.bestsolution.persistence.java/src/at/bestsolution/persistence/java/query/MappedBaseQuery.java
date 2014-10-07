@@ -215,7 +215,7 @@ public class MappedBaseQuery<O> {
 						JavaObjectMapper<?> oppositeMapper = currentMapper.createMapperForReference(segments[i]);
 						
 						String joinTable = oppositeMapper.getTableName();
-						String joinAlias = "_e_" +segments[i];
+						String joinAlias = "emap_" +segments[i];
 						String joinColumn;
 						
 						//TODO Need to handle N:M
@@ -241,8 +241,8 @@ public class MappedBaseQuery<O> {
 			}
 		}
 	}
-
-	protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
+	
+	protected String getColumnExpression(JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
 		String columnExpression = null;
 		if (expression instanceof PropertyExpression) {
 			PropertyExpression<O> propertyExpression = (PropertyExpression<O>) expression;
@@ -251,8 +251,9 @@ public class MappedBaseQuery<O> {
 			}
 			else if (propertyExpression.property.contains(".")) {
 				String[] parts = propertyExpression.property.split("\\.");
-				String lastType = "_e_" + parts[parts.length-2];
-				columnExpression = quoteColumnName(lastType) + "." + quoteColumnName(mapper.getColumnName(propertyExpression.property));
+				String lastType = "emap_" + parts[parts.length-2];
+				// Remark do not escape the alias
+				columnExpression = lastType + "." + quoteColumnName(mapper.getColumnName(propertyExpression.property));
 			} else {
 				columnExpression = colPrefix + quoteColumnName(mapper.getColumnName(propertyExpression.property));
 			}
@@ -261,6 +262,11 @@ public class MappedBaseQuery<O> {
 				columnExpression = applyCriteriaFunction(columnExpression, data);
 			}
 		}
+		return columnExpression;
+	}
+
+	protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
+		String columnExpression = getColumnExpression(mapper, colPrefix, expression);
 
 		switch (expression.type) {
 		case AND: {
