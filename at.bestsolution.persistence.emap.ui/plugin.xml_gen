@@ -250,7 +250,9 @@
    <extension
          point="org.eclipse.xtext.builder.participant">
       <participant
-            class="at.bestsolution.persistence.emap.ui.EMapExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
+            class="at.bestsolution.persistence.emap.ui.EMapExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant"
+            fileExtensions="emap"
+            >
       </participant>
    </extension>
    <extension

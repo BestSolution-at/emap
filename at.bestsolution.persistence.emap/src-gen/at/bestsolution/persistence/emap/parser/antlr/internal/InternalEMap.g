@@ -2386,9 +2386,31 @@ ruleENamedCustomQuery returns [EObject current=null]
 	    }
 
 )
-)	otherlv_12='}' 
+)(	otherlv_12=',' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getENamedCustomQueryAccess().getRightCurlyBracketKeyword_5());
+    	newLeafNode(otherlv_12, grammarAccess.getENamedCustomQueryAccess().getCommaKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getQueriesECustomQueryParserRuleCall_5_1_0()); 
+	    }
+		lv_queries_13_0=ruleECustomQuery		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getENamedCustomQueryRule());
+	        }
+       		add(
+       			$current, 
+       			"queries",
+        		lv_queries_13_0, 
+        		"ECustomQuery");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_14='}' 
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getENamedCustomQueryAccess().getRightCurlyBracketKeyword_6());
     }
 )
 ;

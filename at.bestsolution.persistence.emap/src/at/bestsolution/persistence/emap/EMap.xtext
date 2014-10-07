@@ -116,7 +116,7 @@ EMapType:
 
 ENamedCustomQuery:
 	(returnType=EReturnType | list?='[' returnType=EReturnType ']' ) name=ID ('(' (parameters+=EParameter (',' parameters+=EParameter)*)? ')')? '{'
-		queries += ECustomQuery
+		queries += ECustomQuery (',' queries += ECustomQuery)*
 	'}'
 ;
 

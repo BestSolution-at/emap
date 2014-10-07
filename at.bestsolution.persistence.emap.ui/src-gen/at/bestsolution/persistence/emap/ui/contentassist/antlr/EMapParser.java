@@ -120,6 +120,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getENamedCustomQueryAccess().getGroup_2(), "rule__ENamedCustomQuery__Group_2__0");
 					put(grammarAccess.getENamedCustomQueryAccess().getGroup_2_1(), "rule__ENamedCustomQuery__Group_2_1__0");
 					put(grammarAccess.getENamedCustomQueryAccess().getGroup_2_1_1(), "rule__ENamedCustomQuery__Group_2_1_1__0");
+					put(grammarAccess.getENamedCustomQueryAccess().getGroup_5(), "rule__ENamedCustomQuery__Group_5__0");
 					put(grammarAccess.getETypeDefAccess().getGroup(), "rule__ETypeDef__Group__0");
 					put(grammarAccess.getETypeDefAccess().getGroup_4(), "rule__ETypeDef__Group_4__0");
 					put(grammarAccess.getEModelTypeDefAccess().getGroup(), "rule__EModelTypeDef__Group__0");
@@ -241,6 +242,7 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getENamedCustomQueryAccess().getParametersAssignment_2_1_0(), "rule__ENamedCustomQuery__ParametersAssignment_2_1_0");
 					put(grammarAccess.getENamedCustomQueryAccess().getParametersAssignment_2_1_1_1(), "rule__ENamedCustomQuery__ParametersAssignment_2_1_1_1");
 					put(grammarAccess.getENamedCustomQueryAccess().getQueriesAssignment_4(), "rule__ENamedCustomQuery__QueriesAssignment_4");
+					put(grammarAccess.getENamedCustomQueryAccess().getQueriesAssignment_5_1(), "rule__ENamedCustomQuery__QueriesAssignment_5_1");
 					put(grammarAccess.getEPredefinedTypeAccess().getRefAssignment(), "rule__EPredefinedType__RefAssignment");
 					put(grammarAccess.getETypeDefAccess().getNameAssignment_1(), "rule__ETypeDef__NameAssignment_1");
 					put(grammarAccess.getETypeDefAccess().getTypesAssignment_3(), "rule__ETypeDef__TypesAssignment_3");
