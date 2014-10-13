@@ -579,4 +579,68 @@ class QueryGenerator {
 	def submapOwnerSection(EObjectSection section) {
 		return (section.eContainer.eContainer as EObjectSection);
 	}
+	
+	def generateIdQuery(EMappingEntityDef entity, EClass eClass) '''
+«««	We should try to get rid of the inner class
+	public final List<Long> selectAllObjectIds() {
+		return session.getDatabaseSupport().createMappedSelectQuery(this, null, new at.bestsolution.persistence.java.query.DynamicListDelegate<Long,«eClass.name»>() {
+			public List<Long> list(at.bestsolution.persistence.DynamicSelectQuery<Long,«eClass.name»> criteria) {
+				return selectAllObjectIds( (at.bestsolution.persistence.java.query.DynamicSelectQueryImpl<Long,«eClass.name»>)criteria );
+			}
+		}).list();
+	}
+	
+	public final at.bestsolution.persistence.DynamicSelectQuery<Long,«eClass.name»> selectAllObjectIdsMappedQuery() {
+		return session.getDatabaseSupport().createMappedSelectQuery(this, null, new at.bestsolution.persistence.java.query.DynamicListDelegate<Long,«eClass.name»>() {
+			public List<Long> list(at.bestsolution.persistence.DynamicSelectQuery<Long,«eClass.name»> criteria) {
+				return selectAllObjectIds( (at.bestsolution.persistence.java.query.DynamicSelectQueryImpl<Long,«eClass.name»>)criteria );
+			}
+		});
+	}
+	
+	public final List<Long> selectAllObjectIds(at.bestsolution.persistence.java.query.DynamicSelectQueryImpl<Long,«eClass.name»> criteria) {
+		final boolean isDebug = LOGGER.isDebugEnabled();
+	
+		String query = "SELECT \"«entity.PKAttribute.columnName»\" FROM \"«entity.entity.calcTableName»\"";
+		
+		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
+
+		String join = criteria.getCriteriaJoin();
+		if( join != null && ! join.isEmpty() ) {
+			query += " " + join;
+		}
+		
+		String criteriaStr = criteria.getCriteria();
+		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
+			query += " WHERE (" + criteriaStr + ")";
+		}
+		
+		if( isDebug ) LOGGER.debug("	Constructed query: " + query);
+
+		query = criteria.processSQL(query);
+
+		if( isDebug ) LOGGER.debug("	Final query: " + query);
+
+		Connection connection = session.checkoutConnection();
+		try {
+			PreparedStatement pstmt = connection.prepareStatement(query);
+			int idx = 1;
+			for(TypedValue t : criteria.getParameters()) {
+				Util.setValue(pstmt,idx++,t);
+			}
+
+			ResultSet set = pstmt.executeQuery();
+			List<Long> rv = new ArrayList<Long>();
+			while( set.next() ) {
+				rv.add(set.getLong(1));
+			}
+			return rv;
+		} catch(SQLException e) {
+			throw new PersistanceException(e);
+		} finally {
+			session.returnConnection(connection);
+		}
+	}
+	'''
+	
 }

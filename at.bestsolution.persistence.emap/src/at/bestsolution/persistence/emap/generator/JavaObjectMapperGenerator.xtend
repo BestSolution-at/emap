@@ -251,6 +251,10 @@ class JavaObjectMapperGenerator {
 			«FOR query : entityDef.entity.namedQueries»
 				«queryGen.generateQuery(entityDef, eClass, query)»
 			«ENDFOR»
+	
+			«IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»
+				«queryGen.generateIdQuery(entityDef, eClass)»
+			«ENDIF»
 
 
 			«FOR customQuery : entityDef.entity.namedCustomQueries»
