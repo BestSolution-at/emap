@@ -21,6 +21,7 @@ import java.sql.Timestamp;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.expr.Expression;
@@ -32,6 +33,8 @@ import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedStatement.Column;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
+import at.bestsolution.persistence.java.query.DynamicListDelegate;
+import at.bestsolution.persistence.java.query.DynamicSelectQueryImpl;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
@@ -72,6 +75,13 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			JavaObjectMapper<O> rootMapper, String rootPrefix,
 			UpdateDelegate<O> updateDelegate) {
 		return new OracleMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
+	}
+	
+	@Override
+	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
+			JavaObjectMapper<?> rootMapper, String rootPrefix,
+			DynamicListDelegate<T, O> listDelegate) {
+		return new OracleSelectQuery<T,O>(rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
@@ -121,6 +131,42 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 	static class OracleMappedQuery<O> extends MappedQueryImpl<O> {
 
 		public OracleMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+			super(rootMapper, rootPrefix, listDelegate);
+		}
+
+		@Override
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix,
+				Expression<O> expression) {
+			switch (expression.type) {
+			case ILIKE:
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") LIKE lower ( ? )" );
+				return;
+			case NOT_ILIKE:
+				b.append("lower(" +colPrefix + mapper.getColumnName(((PropertyExpression<O>)expression).property) + ") NOT LIKE lower ( ? )" );
+				return;
+			default:
+				super.appendCriteria(b, mapper, colPrefix, expression);
+			}
+		}
+
+		@Override
+		public String processSQL(String sql) {
+			if( getMaxRows() != -1) {
+				//FIXME this needs to be cleverer
+				if( sql.contains("WHERE") ) {
+					sql = sql + " AND ";
+				} else {
+					sql = sql + " WHERE ";
+				}
+				sql = sql + "ROWNUM <= " + getMaxRows();
+			}
+			return sql;
+		}
+	}
+	
+	static class OracleSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
+
+		public OracleSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
 			super(rootMapper, rootPrefix, listDelegate);
 		}
 

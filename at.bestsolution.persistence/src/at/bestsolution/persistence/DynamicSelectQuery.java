@@ -6,16 +6,19 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     tom <FIRSTNAME.LASTNAME@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence;
 
 import java.util.List;
 
-public interface ConcreteObjectMapper<O, C extends MappedQuery<O>> extends ObjectMapper<O> {
-//	public List<Long> selectAllObjectIds();
-//	public DynamicQuery<Long,O> selectAllObjectIdsMappedQuery();
+import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.order.OrderColumn;
 
-	public List<O> selectAll();
-	public C selectAllMappedQuery();
+public interface DynamicSelectQuery<T,O> {
+	public List<T> list();
+	public T unique();
+	public DynamicSelectQuery<T,O> maxRows(int maxRows);
+	public DynamicSelectQuery<T,O> where(Expression<O> expression);
+	public DynamicSelectQuery<T,O> orderBy(OrderColumn<O>... columns);
 }

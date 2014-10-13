@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
@@ -24,6 +25,8 @@ import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
+import at.bestsolution.persistence.java.query.DynamicListDelegate;
+import at.bestsolution.persistence.java.query.DynamicSelectQueryImpl;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
@@ -92,6 +95,13 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
+	
+	@Override
+	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
+			JavaObjectMapper<?> rootMapper, String rootPrefix,
+			DynamicListDelegate<T, O> listDelegate) {
+		return new H2SelectQueryImpl<T,O>(rootMapper,rootPrefix,listDelegate);
+	}
 
 	@Override
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
@@ -114,6 +124,22 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 		public H2MappedQueryImpl(JavaObjectMapper<?> rootMapper,
 				String rootPrefix, ListDelegate<O> listDelegate) {
+			super(rootMapper, rootPrefix, listDelegate);
+		}
+
+		@Override
+		public String processSQL(String sql) {
+			if( getMaxRows() != -1 ) {
+				sql = sql + " LIMIT " + getMaxRows();
+			}
+			return sql;
+		}
+	}
+	
+	static class H2SelectQueryImpl<T,O> extends DynamicSelectQueryImpl<T,O> {
+
+		public H2SelectQueryImpl(JavaObjectMapper<?> rootMapper,
+				String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
 			super(rootMapper, rootPrefix, listDelegate);
 		}
 

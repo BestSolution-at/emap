@@ -16,8 +16,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.MappedQuery;
+import at.bestsolution.persistence.java.query.DynamicListDelegate;
 import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.UpdateDelegate;
@@ -27,7 +29,10 @@ public interface DatabaseSupport {
 	public String getDatabaseType();
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
+	
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
+	public <T,O> DynamicSelectQuery<T,O> createMappedSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate);
+	
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
 	public boolean isNestedResultSetsSupported();

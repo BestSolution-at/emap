@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
@@ -29,6 +30,8 @@ import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
+import at.bestsolution.persistence.java.query.DynamicListDelegate;
+import at.bestsolution.persistence.java.query.DynamicSelectQueryImpl;
 import at.bestsolution.persistence.java.query.ListDelegate;
 import at.bestsolution.persistence.java.query.MappedQueryImpl;
 import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
@@ -55,6 +58,13 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
+	}
+	
+	@Override
+	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
+			JavaObjectMapper<?> rootMapper, String rootPrefix,
+			DynamicListDelegate<T, O> listDelegate) {
+		return new FirebirdSelectQuery<T,O>(rootMapper,rootPrefix,listDelegate);
 	}
 
 	@Override
@@ -173,6 +183,40 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 	}
 
+	static class FirebirdSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
+
+		public FirebirdSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+			super(rootMapper, rootPrefix, listDelegate);
+		}
+
+		@Override
+		protected void appendCriteria(StringBuilder b, JavaObjectMapper<?> mapper, String colPrefix,
+				Expression<O> expression) {
+			switch (expression.type) {
+			case ILIKE:
+				b.append("lower(" + getColumnExpression(mapper, colPrefix, expression) + ") LIKE lower ( ? )" );
+				return;
+			case NOT_ILIKE:
+				b.append("lower(" + getColumnExpression(mapper, colPrefix, expression) + ") NOT LIKE lower ( ? )" );
+				return;
+			default:
+				super.appendCriteria(b, mapper, colPrefix, expression);
+			}
+		}
+
+		@Override
+		public String processSQL(String sql) {
+			if( getMaxRows() != -1) {
+				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
+			}
+			
+			if( isJoinQuery() ) {
+				sql = sql.replaceFirst("SELECT","SELECT DISTINCT ");
+			}
+			
+			return sql;
+		}
+	}
 
 	static class FirebirdQueryBuilder implements QueryBuilder {
 		private String tableName;
