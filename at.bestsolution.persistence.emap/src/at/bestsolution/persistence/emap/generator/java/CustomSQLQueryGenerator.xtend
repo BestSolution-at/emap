@@ -43,16 +43,16 @@ class CustomSQLQueryGenerator {
   	}
 
 	def computeColumns(ENamedCustomQuery namedQuery, ECustomQuery query) {
-		if (namedQuery.returnType instanceof ETypeDef) {
-			var t = namedQuery.returnType as ETypeDef
-			return query.columns.split(",")
-				.zip(t.types.map[x|x.name])
-				.map[x|x.get(0) + " as " + x.get(1)]
-				.join(",")
-		}
-		else {
+//		if (namedQuery.returnType instanceof ETypeDef) {
+//			var t = namedQuery.returnType as ETypeDef
+//			return query.columns.split(",")
+//				.zip(t.types.map[x|x.name])
+//				.map[x|x.get(0) + " as " + x.get(1)]
+//				.join(",")
+//		}
+//		else {
 			return query.columns;
-		}
+//		}
 	}
 
 	def generate(ENamedCustomQuery namedQuery, ECustomQuery query, boolean removeInsets)'''

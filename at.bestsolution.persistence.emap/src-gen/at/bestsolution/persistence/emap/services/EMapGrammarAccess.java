@@ -79,9 +79,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cColSortColSortEnumRuleCall_10_1_0 = (RuleCall)cColSortAssignment_10_1.eContents().get(0);
 		
 		//EMappingBundle:
-		//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{"
-		//	entities+=EBundleEntity ("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* "}" ("databases" databases+=STRING (","
-		//	databases+=STRING)*)? ("colsort" colSort=ColSort)?;
+		//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
+		//	("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* "}" ("databases" databases+=STRING ("," databases+=STRING)*)?
+		//	("colsort" colSort=ColSort)?;
 		public ParserRule getRule() { return rule; }
 
 		//imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
@@ -1487,15 +1487,19 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cQueriesAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cQueriesECustomQueryParserRuleCall_4_0 = (RuleCall)cQueriesAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cCommaKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cQueriesAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cQueriesECustomQueryParserRuleCall_5_1_0 = (RuleCall)cQueriesAssignment_5_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ENamedCustomQuery:
 		//	(returnType=EReturnType | list?="[" returnType=EReturnType "]") name=ID ("(" (parameters+=EParameter (","
-		//	parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery "}";
+		//	parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery ("," queries+=ECustomQuery)* "}";
 		public ParserRule getRule() { return rule; }
 
 		//(returnType=EReturnType | list?="[" returnType=EReturnType "]") name=ID ("(" (parameters+=EParameter (","
-		//parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery "}"
+		//parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery ("," queries+=ECustomQuery)* "}"
 		public Group getGroup() { return cGroup; }
 
 		//returnType=EReturnType | list?="[" returnType=EReturnType "]"
@@ -1570,8 +1574,20 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//ECustomQuery
 		public RuleCall getQueriesECustomQueryParserRuleCall_4_0() { return cQueriesECustomQueryParserRuleCall_4_0; }
 
+		//("," queries+=ECustomQuery)*
+		public Group getGroup_5() { return cGroup_5; }
+
+		//","
+		public Keyword getCommaKeyword_5_0() { return cCommaKeyword_5_0; }
+
+		//queries+=ECustomQuery
+		public Assignment getQueriesAssignment_5_1() { return cQueriesAssignment_5_1; }
+
+		//ECustomQuery
+		public RuleCall getQueriesECustomQueryParserRuleCall_5_1_0() { return cQueriesECustomQueryParserRuleCall_5_1_0; }
+
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 
 	public class EReturnTypeElements extends AbstractParserRuleElementFinder {
@@ -2628,9 +2644,9 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMappingBundle:
-	//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{"
-	//	entities+=EBundleEntity ("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* "}" ("databases" databases+=STRING (","
-	//	databases+=STRING)*)? ("colsort" colSort=ColSort)?;
+	//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
+	//	("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* "}" ("databases" databases+=STRING ("," databases+=STRING)*)?
+	//	("colsort" colSort=ColSort)?;
 	public EMappingBundleElements getEMappingBundleAccess() {
 		return (pEMappingBundle != null) ? pEMappingBundle : (pEMappingBundle = new EMappingBundleElements());
 	}
@@ -2831,7 +2847,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ENamedCustomQuery:
 	//	(returnType=EReturnType | list?="[" returnType=EReturnType "]") name=ID ("(" (parameters+=EParameter (","
-	//	parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery "}";
+	//	parameters+=EParameter)*)? ")")? "{" queries+=ECustomQuery ("," queries+=ECustomQuery)* "}";
 	public ENamedCustomQueryElements getENamedCustomQueryAccess() {
 		return (pENamedCustomQuery != null) ? pENamedCustomQuery : (pENamedCustomQuery = new ENamedCustomQueryElements());
 	}

@@ -22,6 +22,8 @@ import java.util.List
 import at.bestsolution.persistence.emap.eMap.EModelTypeDef
 import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.EMapping
+import java.util.ArrayList
+import at.bestsolution.persistence.emap.eMap.ECustomQuery
 
 class CustomQueryGenerator {
 	@Inject extension
@@ -40,6 +42,30 @@ class CustomQueryGenerator {
 	def hasSpecificQuery(ENamedCustomQuery q) {
 		return q.queries.findFirst[!dbType.equals("default")] != null;
 	}
+
+	def zip(List<Object> a, List<Object> b) {
+  		var result = new ArrayList<List<Object>>
+  		
+  		var max = Math.max(a.size, b.size);
+  		
+  		for (var i = 0; i < max; i++) {
+  			var el = new ArrayList<Object>
+  			
+  			el.add(a.get(i))
+  			el.add(b.get(i))
+  			
+  			result.add(el)
+  		}
+  		return result;
+  	}
+
+	def computeColumns(ENamedCustomQuery namedQuery, ECustomQuery query, ETypeDef typeDef) {
+		return query.columns.split(",")
+			.map(x|x.trim as Object)
+			.zip(typeDef.types.map[x|x.name])
+	}
+
+
 
 	def generateCustomQuery(EMappingEntityDef entityDef, ENamedCustomQuery q) '''
 	// «generatorCredit»
@@ -77,23 +103,26 @@ class CustomQueryGenerator {
 		String criteriaStr = criteria.getCriteria();
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 			«IF (q.returnType instanceof ETypeDef)»
-				// find aliases
-				String[] split = query.split("FROM");
-				String cols = split[0].replaceFirst("SELECT", "");
-				Map<String, String> aliases = new HashMap<String, String>();
-				for (String col : cols.split(",")) {
-					String[] split2 = col.split("as");
-					String withAlias = split2[0].trim();
-					if (withAlias.contains(".")) {
-						String[] split3 = withAlias.split("\\.");
-						withAlias = split3[0] + ".\"" + split3[1] + "\"";
-					}
-					aliases.put(split2[1].trim(), withAlias);
-				}
-				if( isDebug ) LOGGER.debug("       found aliases : " + aliases);
+			
+				// aliases
+				final Map<String, Map<String, String>> aliases = new HashMap<String, Map<String, String>>();
+				«FOR x : q.queries»
+					// «x.dbType»
+					{
+						final Map<String, String> dbMap = new HashMap<String, String>();
+						«FOR a : computeColumns(q, x, q.returnType as ETypeDef)»
+							dbMap.put("«a.get(1)»", "«a.get(0)»");
+						«ENDFOR»
+						aliases.put("«x.dbType»", dbMap);
+					}	
+				«ENDFOR»
 				
 				// apply aliases
-				for (Map.Entry<String, String> e : aliases.entrySet()) {
+				Map<String, String> al = aliases.get(session.getDatabaseType());
+				if (al == null) {
+					al = aliases.get("default");
+				}
+				for (Map.Entry<String, String> e : al.entrySet()) {
 					criteriaStr = criteriaStr.replaceAll("@"+e.getKey(), e.getValue());
 				}
 			«ENDIF»
