@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Vector;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -93,7 +94,8 @@ public class JavaSessionFactory implements SessionFactory {
 	String factoryId;
 
 	private Map<String, List<WeakReference<MapperFuture>>> futureMappers = new HashMap<String, List<WeakReference<MapperFuture>>>(); 
-
+	private List<PersistParticipant> persistParticipants = new Vector<PersistParticipant>(); // Use a vector for thread safety
+	
 	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
 	private ThreadLocal<AtomicInteger> currentSessionUsage = new ThreadLocal<AtomicInteger>() {
 		protected AtomicInteger initialValue() { return new AtomicInteger(0); }
@@ -105,6 +107,22 @@ public class JavaSessionFactory implements SessionFactory {
 
 	public void unregisterConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = null;
+	}
+	
+	@Override
+	public Registration registerPersistParticipant(
+			final PersistParticipant participant) {
+		return new Registration() {
+			
+			@Override
+			public void dispose() {
+				persistParticipants.remove(participant);
+			}
+		};
+	}
+
+	public void unregisterPersistParticipant(PersistParticipant participant) {
+		persistParticipants.remove(participant);
 	}
 	
 	// Not yet added because the potential leak of WeakReferences
@@ -555,6 +573,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object) {
+			List<PersistParticipant> participants = getAllParticipants(); 
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
 					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.INSERT, (EObject) object);
@@ -578,6 +597,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> void preExecuteUpdate(ObjectMapper<O> mapper, O object) {
+			List<PersistParticipant> participants = getAllParticipants();
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
 					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.UPDATE, (EObject) object);
@@ -1124,6 +1144,13 @@ public class JavaSessionFactory implements SessionFactory {
 				transactionConnectionQueue = null;
 			}
 			participants.clear();
+		}
+		
+		private List<PersistParticipant> getAllParticipants() {
+			List<PersistParticipant> l = new ArrayList<PersistParticipant>(participants.size() + persistParticipants.size());
+			l.addAll(this.participants);
+			l.addAll(JavaSessionFactory.this.persistParticipants);
+			return Collections.unmodifiableList(l);
 		}
 
 		@Override

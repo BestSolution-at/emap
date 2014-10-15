@@ -26,4 +26,5 @@ public interface SessionFactory {
 	public Blob createBlob();
 	
 	public <R> R runWithSession(SessionRunnable<R> runnable);
+	public Registration registerPersistParticipant(PersistParticipant participant);
 }
