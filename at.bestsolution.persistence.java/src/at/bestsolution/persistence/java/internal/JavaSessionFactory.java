@@ -190,6 +190,13 @@ public class JavaSessionFactory implements SessionFactory {
 			return factories.containsKey(mapper.getName());	
 		}
 	}
+	
+	@Override
+	public <T> boolean isMapperAvailableForType(Class<T> mapper) {
+		synchronized (factories) {
+			return factories.containsKey(mapper.getName()+"Mapper");	
+		}
+	}
 
 	public void registerProxyFactory(ProxyFactory proxyFactory) {
 		this.proxyFactory = proxyFactory;
@@ -479,21 +486,40 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 		
 		@Override
+		public <T> boolean isMapperAvailableForType(Class<T> type) {
+			return JavaSessionFactory.this.isMapperAvailableForType(type);
+		}
+		
+		@Override
 		@SuppressWarnings("unchecked")
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
 			M m = (M) mapperInstances.get(mapper);
 			if( m == null ) {
 				ObjectMapperFactory<?, ?> factory;
-				synchronized (mapper) {
+				synchronized (factories) {
 					factory = factories.get(mapper.getName());
-					if (factory == null) {
-						throw new RuntimeException("no factory for " + mapper + " found! Double check your bundle.emap");
-					}
+				}
+				if (factory == null) {
+					throw new RuntimeException("no factory for " + mapper + " found! Double check your bundle.emap");
 				}
 				m = (M) factory.createMapper(this);
 				mapperInstances.put(mapper, m);
 			}
 			return m;
+		}
+		
+		@SuppressWarnings("unchecked")
+		@Override
+		public <T> ObjectMapper<T> createMapperForType(Class<T> type) {
+			ObjectMapperFactory<?, ?> factory;
+			synchronized (factories) {
+				factory = factories.get(type.getName()+"Mapper");	
+			}
+			
+			if (factory == null) {
+				throw new RuntimeException("no factory for type " + type + " found! Double check your bundle.emap");
+			}
+			return (ObjectMapper<T>) factory.createMapper(this);
 		}
 
 		@SuppressWarnings("unchecked")

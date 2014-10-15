@@ -23,6 +23,8 @@ public interface SessionFactory {
 //	public Future<Session> createFutureSession(String configuration, Class<ObjectMapper<?>>... mappers);
 	
 	public <M extends ObjectMapper<?>> boolean isMapperAvailable(Class<M> mapper);
+	public <T> boolean isMapperAvailableForType(Class<T> mapper);
+	
 	public Blob createBlob();
 	
 	public <R> R runWithSession(SessionRunnable<R> runnable);

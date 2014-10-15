@@ -38,8 +38,14 @@ public interface Session extends Closeable {
 	public <O> O get(Class<O> clazz, Object id);
 	
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
+	public <T> ObjectMapper<T> createMapperForType(Class<T> type);
+	
 	public <M extends ObjectMapper<?>> boolean isMapperAvailable(Class<M> mapper);
+	public <T> boolean isMapperAvailableForType(Class<T> mapper);
+	
 	public <M extends ObjectMapper<?>> Future<M> createMapperFuture(Class<M> mapper);
+// Implement when needed	
+//	public <T> Future<ObjectMapper<T>> createMapperFutureForType(Class<T> mapper);
 	
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Object... parameters);
 	public <O> List<O> queryForList(String fqnMapper, String queryName, Map<String,Object> parameterMap);
