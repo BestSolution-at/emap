@@ -11,5 +11,5 @@
    </service>
    <reference bind="registerDatabaseSupport" cardinality="1..n" interface="at.bestsolution.persistence.java.DatabaseSupport" name="DatabaseSupport" policy="dynamic" unbind="unregisterDatabaseSupport"/>
    <reference bind="registerEventAdmin" cardinality="0..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unregisterEventAdmin"/>
-   <reference bind="registerPersistParticipant" cardinality="0..n" interface="at.bestsolution.persistence.PersistParticipant" name="PersistParticipant" policy="dynamic" unbind="registerPersistParticipant"/>
+   <reference bind="registerPersistParticipant" cardinality="0..n" interface="at.bestsolution.persistence.PersistParticipant" name="PersistParticipant" policy="dynamic" unbind="unregisterPersistParticipant"/>
 </scr:component>

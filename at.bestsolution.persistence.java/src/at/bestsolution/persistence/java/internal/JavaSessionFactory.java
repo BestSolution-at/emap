@@ -112,6 +112,7 @@ public class JavaSessionFactory implements SessionFactory {
 	@Override
 	public Registration registerPersistParticipant(
 			final PersistParticipant participant) {
+		persistParticipants.add(participant);
 		return new Registration() {
 			
 			@Override
