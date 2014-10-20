@@ -124,7 +124,7 @@ public abstract class DynamicSelectQueryImpl<T,O> extends DynamicBaseQuery<T, O>
 	public String getCriteria() {
 		StringBuilder b = new StringBuilder();
 		if (expression != null) {
-			appendCriteria(b, rootMapper, rootPrefix == null ? "" : rootPrefix + ".", expression);
+			appendCriteria(b, rootMapper, rootPrefix == null ? quoteColumnName(rootMapper.getTableName()) + "." : rootPrefix + ".", expression);
 		}
 		return b.toString();
 	}

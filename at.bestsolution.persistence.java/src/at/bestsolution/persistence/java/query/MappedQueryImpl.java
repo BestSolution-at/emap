@@ -124,7 +124,7 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 	public String getCriteria() {
 		StringBuilder b = new StringBuilder();
 		if (expression != null) {
-			appendCriteria(b, rootMapper, rootPrefix == null ? "" : rootPrefix + ".", expression);
+			appendCriteria(b, rootMapper, rootPrefix == null ? quoteColumnName(rootMapper.getTableName()) + "." : rootPrefix + ".", expression);
 		}
 		return b.toString();
 	}
