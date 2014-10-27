@@ -13,11 +13,11 @@ package at.bestsolution.persistence.expr;
 import org.apache.commons.lang.StringUtils;
 
 public class FunctionFactory {
-	public static <O> QueryFunction<O, Integer, String> createLpad(int pad) {
+	public static <O> QueryFunction<O, Object, String> createLpad(int pad) {
 		return new LPADFunction<O>(pad);
 	}
 
-	static class LPADFunction<O> extends QueryFunction<O, Integer,String> {
+	static class LPADFunction<O> extends QueryFunction<O, Object,String> {
 		private int padding;
 
 		public LPADFunction(int padding) {
@@ -26,7 +26,7 @@ public class FunctionFactory {
 		}
 
 		@Override
-		public String convert(Integer value) {
+		public String convert(Object value) {
 			return StringUtils.left(value+"", padding);
 		}
 
