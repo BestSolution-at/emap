@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EReference
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EMapping
+import org.eclipse.emf.ecore.EDataType
 
 class JavaInsertUpdateGenerator {
 	@Inject extension
@@ -53,8 +54,23 @@ class JavaInsertUpdateGenerator {
 		«IF !simpleDirectMappedAttributes.empty»
 			// simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
+				«val aType = a.getEAttribute(eClass).EType»
 				// * «a.name»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				«IF aType instanceof EDataType && (aType as EDataType).isCustomType»
+				«val dat = aType as EDataType»
+«««				// old: stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				{
+					final EDataType eDataType = «dat.toFullQualifiedJavaEDataType»;
+					«dat.instanceClassName» v = session.getTransactionAttribute(object, «eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
+					if (v != null) {
+						stmt.addString("«a.columnName»", EcoreUtil.convertToString(eDataType, v));
+					}
+				}
+				«ELSE»
+					stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				«ENDIF»
+				
+				
 			«ENDFOR»
 		«ENDIF»
 «««		Handle blob direct mapped attributes
@@ -224,9 +240,20 @@ class JavaInsertUpdateGenerator {
 		«IF !simpleDirectMappedAttributes.empty»
 			// handle simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
+			«val aType = a.getEAttribute(eClass).EType»
 			// * «a.name»
-			«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
+			«IF aType.instanceClassName.primitive»
 				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+			«ELSEIF aType instanceof EDataType && (aType as EDataType).isCustomType»
+				«val dat = aType as EDataType»
+«««				// old: stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				{
+					final EDataType eDataType = «dat.toFullQualifiedJavaEDataType»;
+					«dat.instanceClassName» v = session.getTransactionAttribute(object, «eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
+					if (v != null) {
+						stmt.addString("«a.columnName»", EcoreUtil.convertToString(eDataType, v));
+					}
+				}
 			«ELSE»
 				{
 					Object o = session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);

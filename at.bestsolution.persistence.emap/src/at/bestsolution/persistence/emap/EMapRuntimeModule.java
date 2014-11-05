@@ -14,10 +14,13 @@ package at.bestsolution.persistence.emap;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 
 import at.bestsolution.persistence.emap.generator.DDLGenerator;
 import at.bestsolution.persistence.emap.generator.EClassLookup;
+import at.bestsolution.persistence.emap.generator.IEClassLookupService;
 import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator;
 import at.bestsolution.persistence.emap.generator.UtilCollection;
 
@@ -44,6 +47,20 @@ public class EMapRuntimeModule extends at.bestsolution.persistence.emap.Abstract
 		binder.bind(DDLGenerator.class);
 		binder.bind(UtilCollection.class);
 		binder.bind(JavaObjectMapperGenerator.class);
+		
+		binder.bind(IEClassLookupService.class).toProvider(new Provider<IEClassLookupService>() {
+			@Override
+			public IEClassLookupService get() {
+				BundleContext bundleContext = FrameworkUtil.getBundle(EMapRuntimeModule.class).getBundleContext();
+				ServiceReference<IEClassLookupService> lookupServiceReference = bundleContext.getServiceReference(IEClassLookupService.class);
+				if (lookupServiceReference != null) {
+					return bundleContext.getService(lookupServiceReference);
+				}
+				else {
+					return null;
+				}
+			}
+		});
 	}
 
 }
