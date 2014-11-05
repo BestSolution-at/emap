@@ -69,8 +69,6 @@ class JavaInsertUpdateGenerator {
 				«ELSE»
 					stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
 				«ENDIF»
-				
-				
 			«ENDFOR»
 		«ENDIF»
 «««		Handle blob direct mapped attributes
