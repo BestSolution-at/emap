@@ -435,6 +435,7 @@ class UtilCollection {
 	}
 	
 	def isCustomType(EDataType type) {
+		if (type instanceof EEnum) return false;
 		val cls = type.instanceClassName
 		return switch (cls) {
 			case "boolean": false
