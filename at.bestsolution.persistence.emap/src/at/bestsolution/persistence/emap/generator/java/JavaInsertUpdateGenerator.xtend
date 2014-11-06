@@ -99,7 +99,9 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// one to one references
 			«FOR a : oneToOneReferences»
-			if( object.get«a.name.toFirstUpper»() != null ) {
+			«IF a.columnName != pkAttribute.columnName»
+				// * «a.name»
+				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
 					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
@@ -107,6 +109,9 @@ class JavaInsertUpdateGenerator {
 				} else {
 					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
 				}
+			«ELSE»
+				// * skipping «a.name», because it would overwrite the primary key column
+			«ENDIF»
 			«ENDFOR»
 		«ENDIF»
 
@@ -289,14 +294,18 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// handle one to one references
 			«FOR a : oneToOneReferences»
-			// * «a.name»
-			if( object.get«a.name.toFirstUpper»() != null ) {
-				«val entity = (a.query.eContainer as EMappingEntity)»
-				final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-				final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
-				stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
-				//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
-			}
+			«IF a.columnName != pkAttribute.columnName»
+				// * «a.name»
+				if( object.get«a.name.toFirstUpper»() != null ) {
+					«val entity = (a.query.eContainer as EMappingEntity)»
+					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
+					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+				}
+			«ELSE»
+				// * skipping «a.name», because it would overwrite the primary key column
+			«ENDIF»
 			«ENDFOR»
 		«ENDIF»
 
