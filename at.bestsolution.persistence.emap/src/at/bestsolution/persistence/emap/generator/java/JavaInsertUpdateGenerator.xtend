@@ -99,7 +99,7 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// one to one references
 			«FOR a : oneToOneReferences»
-			«IF a.columnName != pkAttribute.columnName»
+			«IF a.parameters.head != pkAttribute.columnName»
 				// * «a.name»
 				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
@@ -294,7 +294,7 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// handle one to one references
 			«FOR a : oneToOneReferences»
-			«IF a.columnName != pkAttribute.columnName»
+			«IF a.parameters.head != pkAttribute.columnName»
 				// * «a.name»
 				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
