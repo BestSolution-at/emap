@@ -385,6 +385,8 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<Transaction, Set<String>> deletedObjects = new HashMap<Session.Transaction, Set<String>>();
 		private Map<Transaction, Set<String>> deletedManyObjects = new HashMap<Session.Transaction, Set<String>>();
 
+		private boolean closed = false;
+		
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
 			public void notifyChanged(Notification msg) {
@@ -402,12 +404,14 @@ public class JavaSessionFactory implements SessionFactory {
 		
 		@Override
 		public String getConfigurationId() {
+			checkValid();
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public Date getServerTime() {
+			checkValid();
 			Connection connection = checkoutConnection();
 			try {
 				return getDatabaseSupport().getServerTime(connection);
@@ -418,6 +422,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void refresh(Object o, RefreshType type) {
+			checkValid();
 			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
 			if( m != null ) {
 				if( m instanceof RefreshableObjectMapper ) {
@@ -430,6 +435,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> O get(Class<O> clazz, Object id) {
+			checkValid();
 			ObjectMapperFactory<?, ?> factory = factories.get(clazz.getName()+"Mapper");
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, "selectById");
@@ -443,17 +449,20 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public String getId() {
+			checkValid();
 			return id;
 		}
 
 		@Override
 		public DatabaseSupport getDatabaseSupport() {
+			checkValid();
 			return databaseSupports.get(getDatabaseType());
 		}
 
 		@Override
 		public Registration registerPersistParticipant(
 				final PersistParticipant participant) {
+			checkValid();
 			participants.add(participant);
 			return new Registration() {
 
@@ -467,6 +476,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <M extends ObjectMapper<?>> Future<M> createMapperFuture(
 				Class<M> mapper) {
+			checkValid();
 			synchronized (factories) {
 				if( isMapperAvailable(mapper) ) {
 					MapperFuture f = new MapperFuture(this, (Class<ObjectMapper<?>>) mapper);
@@ -482,17 +492,20 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <M extends ObjectMapper<?>> boolean isMapperAvailable(
 				Class<M> mapper) {
+			checkValid();
 			return JavaSessionFactory.this.isMapperAvailable(mapper);
 		}
 		
 		@Override
 		public <T> boolean isMapperAvailableForType(Class<T> type) {
+			checkValid();
 			return JavaSessionFactory.this.isMapperAvailableForType(type);
 		}
 		
 		@Override
 		@SuppressWarnings("unchecked")
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
+			checkValid();
 			M m = (M) mapperInstances.get(mapper);
 			if( m == null ) {
 				ObjectMapperFactory<?, ?> factory;
@@ -511,6 +524,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@SuppressWarnings("unchecked")
 		@Override
 		public <T> ObjectMapper<T> createMapperForType(Class<T> type) {
+			checkValid();
 			ObjectMapperFactory<?, ?> factory;
 			synchronized (factories) {
 				factory = factories.get(type.getName()+"Mapper");	
@@ -526,6 +540,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> List<O> queryForList(String fqnMapper, String queryName,
 				Object... parameters) {
+			checkValid();
 			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
@@ -542,6 +557,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> List<O> queryForList(String fqnMapper, String queryName,
 				Map<String, Object> parameterMap) {
+			checkValid();
 			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
@@ -563,6 +579,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> O queryForOne(String fqnMapper, String queryName,
 				Object... parameters) {
+			checkValid();
 			NamedQuery<O> q = (NamedQuery<O>) factories.get(fqnMapper).createNamedQuery(this, queryName);
 			String[] params = q.getParameterNames();
 			if( params.length != parameters.length ) {
@@ -575,6 +592,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> O queryForOne(String fqnMapper, String queryName,
 				Map<String, Object> parameterMap) {
+			checkValid();
 			ObjectMapperFactory<?, ?> factory = factories.get(fqnMapper);
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, queryName);
@@ -595,11 +613,13 @@ public class JavaSessionFactory implements SessionFactory {
 		@SuppressWarnings("unchecked")
 		@Override
 		public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName) {
+			checkValid();
 			return (MappedQuery<O>) factories.get(fqnMapper).mappedQuery(this, queryName);
 		}
 
 		@Override
 		public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object) {
+			checkValid();
 			List<PersistParticipant> participants = getAllParticipants(); 
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
@@ -624,6 +644,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> void preExecuteUpdate(ObjectMapper<O> mapper, O object) {
+			checkValid();
 			List<PersistParticipant> participants = getAllParticipants();
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
@@ -648,6 +669,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> void preExecuteDelete(ObjectMapper<O> mapper, O object) {
+			checkValid();
 			Transaction transaction = getTransaction();
 			Set<String> set = deletedObjects.get(transaction);
 			if( set == null ) {
@@ -659,6 +681,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <P> void preExecuteDeleteById(EClass eClass, Collection<P> keys) {
+			checkValid();
 			Transaction transaction = getTransaction();
 			Set<String> set = deletedObjects.get(transaction);
 			if( set == null ) {
@@ -672,6 +695,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void preExecuteDeleteMany(EClass eClass) {
+			checkValid();
 			Transaction transaction = getTransaction();
 			Set<String> set = deletedManyObjects.get(transaction);
 			if( set == null ) {
@@ -687,6 +711,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O, P> void registerPrimaryKey(O object, P key) {
+			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("registerPrimaryKey " + object + " => " + key);
@@ -733,6 +758,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O> void updateVersion(O object, long version) {
+			checkValid();
 			Transaction transaction = getTransaction();
 			if (transaction == null) {
 				throw new IllegalStateException("Can not be called outside a transaction");
@@ -747,6 +773,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
+			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("getPrimaryKey " + object);
@@ -769,6 +796,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		public <O> long getVersion(ObjectMapper<O> mapper, O object) {
+			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("getVersion " + object);
@@ -793,6 +821,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@SuppressWarnings("unchecked")
 		@Override
 		public <O, P> P getTransactionAttribute(O object, EAttribute attribute) {
+			checkValid();
 			final Transaction transaction = getTransaction();
 			if( transaction == null ) {
 				return (P) ((EObject)object).eGet(attribute);
@@ -835,11 +864,13 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public boolean isTransaction() {
+			checkValid();
 			return transactionConnectionQueue != null;
 		}
 		
 		@Override
 		public CompatTransaction beginTransaction() {
+			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			final AtomicBoolean commit = new AtomicBoolean();
 			final String transactionId = UUID.randomUUID().toString();
@@ -876,6 +907,7 @@ public class JavaSessionFactory implements SessionFactory {
 		
 		@Override
 		public <A> A adaptTo(Class<A> clazz) {
+			checkValid();
 			if( clazz == CompatSession.class ) {
 				return (A) this;
 			}
@@ -883,6 +915,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 		
 		public Connection startTransaction(boolean isDebug, String transactionId, Transaction transaction) {
+			checkValid();
 			if( isDebug ) {
 				LOGGER.debug("Started transaction '"+transactionId+"'");
 			}
@@ -1041,6 +1074,7 @@ public class JavaSessionFactory implements SessionFactory {
 		
 		@Override
 		public void runInTransaction(Transaction transaction) {
+			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			String transactionId = UUID.randomUUID().toString();
 			Connection connection = startTransaction(isDebug, transactionId, transaction);
@@ -1079,11 +1113,13 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public Transaction getTransaction() {
+			checkValid();
 			return transactionQueue == null ? null : transactionQueue.peek();
 		}
 
 		@Override
 		public void scheduleAfterTransaction(AfterTxRunnable r) {
+			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("schedule After-Tx callback: " + r);
@@ -1110,6 +1146,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void scheduleRelationSQL(RelationSQL sql) {
+			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("Trying to register: " + sql);
@@ -1151,26 +1188,47 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			list.add(sql);
 		}
+		
+		@Override
+		public boolean isClosed() {
+			return closed;
+		}
+		
+		private void checkValid() {
+			if( isClosed() ) {
+				throw new IllegalStateException("Session is already closed");
+			}
+		}
 
 		@Override
 		public void close() {
-			mapperInstances.clear();
-			sessionCache.release();
-			changeStorage.clear();
-			transactionPrimaryKeyCache.clear();
-			transactionData.clear();
-			if( transactionConnectionQueue != null ) {
-				for( Connection c : transactionConnectionQueue ) {
-					try {
-						c.rollback();
-					} catch (SQLException e) {
-						LOGGER.error("Unable to rollback connection", e);
-					}
-					connectionProvider.returnConnection(configurationId,c);
+			checkValid();
+			try {
+				mapperInstances.clear();
+				sessionCache.release();
+				
+				for( EObject eo : changeStorage.keySet() ) {
+					eo.eAdapters().remove(objectAdapter);
 				}
-				transactionConnectionQueue = null;
+				
+				changeStorage.clear();
+				transactionPrimaryKeyCache.clear();
+				transactionData.clear();
+				if( transactionConnectionQueue != null ) {
+					for( Connection c : transactionConnectionQueue ) {
+						try {
+							c.rollback();
+						} catch (SQLException e) {
+							LOGGER.error("Unable to rollback connection", e);
+						}
+						connectionProvider.returnConnection(configurationId,c);
+					}
+					transactionConnectionQueue = null;
+				}
+				participants.clear();
+			} finally {
+				closed = true;
 			}
-			participants.clear();
 		}
 		
 		private List<PersistParticipant> getAllParticipants() {
@@ -1182,12 +1240,14 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void clear() {
+			checkValid();
 			sessionCache.clear();
 			changeStorage.clear();
 		}
 
 		@Override
 		public Connection checkoutConnection() {
+			checkValid();
 			if( transactionConnectionQueue != null ) {
 				return transactionConnectionQueue.peek();
 			}
@@ -1196,6 +1256,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void returnConnection(Connection connection) {
+			checkValid();
 			if( transactionConnectionQueue != null ) {
 				return;
 			}
@@ -1204,21 +1265,25 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public String getDatabaseType() {
+			checkValid();
 			return connectionProvider.getDatabaseType(configurationId);
 		}
 
 		@Override
 		public SessionCache getCache() {
+			checkValid();
 			return sessionCache;
 		}
 
 		@Override
 		public ProxyFactory getProxyFactory() {
+			checkValid();
 			return proxyFactory;
 		}
 
 		@Override
 		public Object convertType(Class<?> targetType, Object value) {
+			checkValid();
 			if( targetType == Boolean.class ) {
 				if( value instanceof Number ) {
 					return ((Number)value).intValue() != 0;
@@ -1249,11 +1314,13 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public Blob handleBlob(String tableName, String blobColumnName,
 				String idColumnName, ResultSet set) throws SQLException {
+			checkValid();
 			return new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
 		}
 
 		@Override
 		public void delete(Object... entities) {
+			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("Start deleting of " + entities.length + " entities");
@@ -1301,6 +1368,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void persist(Object... entities) {
+			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("Start persisting of " + entities.length + " entities");
@@ -1489,11 +1557,13 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public boolean isAttached(Object o) {
+			checkValid();
 			return getCache().isCached((EObject) o);
 		}
 
 		@Override
 		public void registerObject(Object object, Object id, long version) {
+			checkValid();
 			EObject eo = (EObject) object;
 			if( ! changeStorage.containsKey(eo) ) {
 				changeStorage.put(eo, new ArrayList<FeatureChange>());
@@ -1511,6 +1581,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void unregisterObject(Object object, Object id) {
+			checkValid();
 			EObject eo = (EObject) object;
 			if( changeStorage.remove(eo) != null ) {
 				eo.eAdapters().remove(objectAdapter);
@@ -1520,6 +1591,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void unregisterObject(EClass eClass, Object id) {
+			checkValid();
 			EObject object = getCache().getObject(eClass, id);
 			if (object != null) {
 				// we need to remove it from our changeStorage
@@ -1532,12 +1604,14 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void unregisterAllObjects(EClass eClass) {
+			checkValid();
 			// we need to clean up the changeStorage too
 			Iterator<EObject> iterator = changeStorage.keySet().iterator();
 			while (iterator.hasNext()) {
 				final EObject x = iterator.next();
 				if (x.eClass() == eClass) {
 					iterator.remove();
+					x.eAdapters().remove(objectAdapter);
 				}
 			}
  			getCache().evictObjects(eClass);
@@ -1545,6 +1619,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public void clearChangeDescription(Object object) {
+			checkValid();
 			List<FeatureChange> list = changeStorage.get(object);
 			if( list != null ) {
 				list.clear();
@@ -1553,6 +1628,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public List<ChangeDescription> getChangeDescription(Object object) {
+			checkValid();
 			List<FeatureChange> list = changeStorage.get(object);
 
 			if( list != null ) {
@@ -1604,6 +1680,7 @@ public class JavaSessionFactory implements SessionFactory {
 
 		@Override
 		public Boolean runWithoutChangeTracking(Callback<Boolean> runnable) {
+			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("Pauseing change tracking: " + changeTrackingCount);
@@ -1619,20 +1696,16 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 		}
 
-		/* (non-Javadoc)
-		 * @see at.bestsolution.persistence.Session#getMemoryObjectVersion(java.lang.Object)
-		 */
 		@Override
 		public long getMemoryObjectVersion(Object object) {
+			checkValid();
 			final ObjectMapper<Object> mapper = createMapperForObject(object);
 			return sessionCache.getVersion((EObject)object, getPrimaryKey(mapper, object));
 		}
 
-		/* (non-Javadoc)
-		 * @see at.bestsolution.persistence.Session#getPersistedObjectVersion(java.lang.Object)
-		 */
 		@Override
 		public long getPersistedObjectVersion(Object object) {
+			checkValid();
 			final ObjectMapper<Object> mapper = createMapperForObject(object);
 			return mapper.selectVersion(getPrimaryKey(mapper, object));
 		}

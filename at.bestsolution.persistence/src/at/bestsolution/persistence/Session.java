@@ -56,6 +56,7 @@ public interface Session extends Closeable {
 	public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName);
 	public void runInTransaction(Transaction transaction);
 	public void close();
+	public boolean isClosed();
 	public void clear();
 	public void persist(Object... o);
 	public void delete(Object... o);
