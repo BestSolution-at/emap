@@ -1406,7 +1406,7 @@ public class JavaSessionFactory implements SessionFactory {
 				final ObjectMapper<EObject> m = createMapperForObject(e);
 
 				if( ! isValidObject(e, m) ) {
-					LOGGER.error("The object '"+e+"' is attached to another session! Future E-Map versions will throw an exception");
+					LOGGER.error("The object '"+e+"' is attached to another session! Future E-Map versions will throw an exception", new Exception());
 //FIXME					
 //					throw new IllegalStateException("The object '"+e+"' is attached to another session!");
 				}
