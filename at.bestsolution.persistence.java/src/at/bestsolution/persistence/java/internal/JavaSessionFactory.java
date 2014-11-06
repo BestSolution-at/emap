@@ -80,6 +80,7 @@ import at.bestsolution.persistence.java.RelationSQL;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
 import at.bestsolution.persistence.model.LazyEObject;
+import at.bestsolution.persistence.model.PersistedEObject;
 
 import com.google.common.base.Objects;
 
@@ -1196,7 +1197,8 @@ public class JavaSessionFactory implements SessionFactory {
 		
 		private void checkValid() {
 			if( isClosed() ) {
-				throw new IllegalStateException("Session is already closed");
+				LOGGER.error("Session is already closed. Future version will throw an exception",new Exception());
+//				throw new IllegalStateException("Session is already closed");
 			}
 		}
 
@@ -1390,7 +1392,7 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 
 				processed.add(e);
-
+								
 				if( isDebug ) {
 					LOGGER.debug("Persisting of " + e);
 				}
@@ -1403,6 +1405,12 @@ public class JavaSessionFactory implements SessionFactory {
 //				final ObjectMapper<Object> m = (ObjectMapper<Object>) f.createMapper(this);
 				final ObjectMapper<EObject> m = createMapperForObject(e);
 
+				if( ! isValidObject(e, m) ) {
+					LOGGER.error("The object '"+e+"' is attached to another session! Future E-Map versions will throw an exception");
+//FIXME					
+//					throw new IllegalStateException("The object '"+e+"' is attached to another session!");
+				}
+				
 //				final Object l = m.getPrimaryKeyValue(e);
 				// WE NEED TO GET THE KEY FROM THE CACHE!
 				final Object txKey = getPrimaryKeyFromTransactionCache(e);
@@ -1424,6 +1432,29 @@ public class JavaSessionFactory implements SessionFactory {
 			if( isDebug ) {
 				LOGGER.debug("Finished persisting of entities");
 			}
+		}
+		
+		private boolean isValidObject(EObject eo, ObjectMapper<EObject> m) {
+			try {
+				if( eo instanceof PersistedEObject ) {
+					return isAttached(eo);
+				} else {
+					Object primaryKey = m.getPrimaryKeyValue(eo);
+					
+					if( primaryKey instanceof Number ) {
+						if( ((Number)primaryKey).longValue() > 0 ) {
+							return isAttached(eo);
+						}
+					} else if( primaryKey != null ) {
+						return isAttached(eo);
+					}
+					
+					return true;
+				}				
+			} catch(Throwable t) {
+				LOGGER.error(t.getMessage(), t);
+			}
+			return true;
 		}
 
 		private List<EObject> buildSavePlan(EObject sourceObject) {
