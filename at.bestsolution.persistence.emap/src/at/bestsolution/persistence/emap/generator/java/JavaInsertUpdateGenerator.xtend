@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EReference
 import at.bestsolution.persistence.emap.eMap.EMappingEntity
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import at.bestsolution.persistence.emap.eMap.EMapping
+import org.eclipse.emf.ecore.EDataType
 
 class JavaInsertUpdateGenerator {
 	@Inject extension
@@ -53,8 +54,21 @@ class JavaInsertUpdateGenerator {
 		«IF !simpleDirectMappedAttributes.empty»
 			// simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
+				«val aType = a.getEAttribute(eClass).EType»
 				// * «a.name»
-				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				«IF aType instanceof EDataType && (aType as EDataType).isCustomType»
+				«val dat = aType as EDataType»
+«««				// old: stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				{
+					final EDataType eDataType = «dat.toFullQualifiedJavaEDataType»;
+					«dat.instanceClassName» v = session.getTransactionAttribute(object, «eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
+					if (v != null) {
+						stmt.addString("«a.columnName»", EcoreUtil.convertToString(eDataType, v));
+					}
+				}
+				«ELSE»
+					stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				«ENDIF»
 			«ENDFOR»
 		«ENDIF»
 «««		Handle blob direct mapped attributes
@@ -85,7 +99,9 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// one to one references
 			«FOR a : oneToOneReferences»
-			if( object.get«a.name.toFirstUpper»() != null ) {
+			«IF a.parameters.head != pkAttribute.columnName»
+				// * «a.name»
+				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
 					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
@@ -93,6 +109,9 @@ class JavaInsertUpdateGenerator {
 				} else {
 					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
 				}
+			«ELSE»
+				// * skipping «a.name», because it would overwrite the primary key column
+			«ENDIF»
 			«ENDFOR»
 		«ENDIF»
 
@@ -224,9 +243,20 @@ class JavaInsertUpdateGenerator {
 		«IF !simpleDirectMappedAttributes.empty»
 			// handle simple direct mapped attributes
 			«FOR a : simpleDirectMappedAttributes»
+			«val aType = a.getEAttribute(eClass).EType»
 			// * «a.name»
-			«IF a.getEAttribute(eClass).EType.instanceClassName.primitive»
+			«IF aType.instanceClassName.primitive»
 				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+			«ELSEIF aType instanceof EDataType && (aType as EDataType).isCustomType»
+				«val dat = aType as EDataType»
+«««				// old: stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
+				{
+					final EDataType eDataType = «dat.toFullQualifiedJavaEDataType»;
+					«dat.instanceClassName» v = session.getTransactionAttribute(object, «eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
+					if (v != null) {
+						stmt.addString("«a.columnName»", EcoreUtil.convertToString(eDataType, v));
+					}
+				}
 			«ELSE»
 				{
 					Object o = session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»);
@@ -264,14 +294,18 @@ class JavaInsertUpdateGenerator {
 		«IF !oneToOneReferences.empty»
 			// handle one to one references
 			«FOR a : oneToOneReferences»
-			// * «a.name»
-			if( object.get«a.name.toFirstUpper»() != null ) {
-				«val entity = (a.query.eContainer as EMappingEntity)»
-				final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-				final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
-				stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
-				//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
-			}
+			«IF a.parameters.head != pkAttribute.columnName»
+				// * «a.name»
+				if( object.get«a.name.toFirstUpper»() != null ) {
+					«val entity = (a.query.eContainer as EMappingEntity)»
+					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
+					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
+					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+				}
+			«ELSE»
+				// * skipping «a.name», because it would overwrite the primary key column
+			«ENDIF»
 			«ENDFOR»
 		«ENDIF»
 

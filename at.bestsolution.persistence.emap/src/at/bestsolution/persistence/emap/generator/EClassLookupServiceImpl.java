@@ -203,6 +203,11 @@ public class EClassLookupServiceImpl implements IEClassLookupService, IResourceC
 		}
 	}
 	
+	@Override
+	public GenPackage toGenModel(EPackage ePackage) {
+		return getGenPackage(ePackage.getNsURI());
+	}
+	
 	private GenPackage getGenPackage(String nsURI) {
 		GenPackage cacheResult = genPackageCache.get(nsURI);
 		if (cacheResult != null) {

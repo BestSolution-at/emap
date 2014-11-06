@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EClass
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
 import at.bestsolution.persistence.emap.eMap.EObjectSection
 import at.bestsolution.persistence.emap.eMap.EMappingAttribute
+import org.eclipse.emf.ecore.EDataType
 
 class QueryGenerator {
 	@Inject extension
@@ -545,7 +546,8 @@ class QueryGenerator {
 		}
     «ENDIF»
 	'''
-
+	
+// TODO XXX this method exists twice - it is a copy from JavaObjectMapperGenerator!!!!!
 	def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
 «««		TODO replace this filter with a utiltiy method
 		«FOR a : section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].sort([a,b|
@@ -557,7 +559,19 @@ class QueryGenerator {
 				//TODO Should this be done lazily?
 				«varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getObject("«columnPrefix»«section.entity.allAttributes.findFirst[pk].columnName»)"));
 			«ELSE»
-				«varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+				«««		// old: «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+				«IF eClass.getEStructuralFeature(a.name).EType instanceof EDataType && (eClass.getEStructuralFeature(a.name).EType as EDataType).isCustomType»
+				{
+					«val dat = eClass.getEStructuralFeature(a.name).EType as EDataType»
+					// EDataType is «dat.name»
+					final EDataType dataType = «dat.toFullQualifiedJavaEDataType»;
+					final String sqlValue = «a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»;
+					final «dat.instanceClassName» value = («dat.instanceClassName»)EcoreUtil.createFromString(dataType, sqlValue);
+					«varName».set«a.name.javaReservedNameEscape.toFirstUpper»(value);
+				}
+		      	«ELSE»
+		      		«varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+		      	«ENDIF»
 			«ENDIF»
 		«ENDFOR»
 		«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved] != null»

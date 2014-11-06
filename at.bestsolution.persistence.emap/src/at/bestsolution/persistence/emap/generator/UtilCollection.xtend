@@ -36,12 +36,18 @@ import org.eclipse.xtext.xbase.lib.Functions.Function1
 import at.bestsolution.persistence.emap.eMap.EPredefinedType
 import at.bestsolution.persistence.emap.eMap.ETypeDef
 import at.bestsolution.persistence.emap.eMap.EModelTypeDef
+import org.eclipse.emf.ecore.EClassifier
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
 
 	@Inject
 	var EClassLookup eClassLookup;
+
+	@Inject
+ 	var IEClassLookupService eClassLookupService;
 
 	def getFeatureClassifier(EStructuralFeature f) {
 		return eClassLookup.getFeatureClassifier(f);
@@ -334,6 +340,8 @@ class UtilCollection {
 			return varName + '.getTimestamp("'+keyName+'")'
 		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
 			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
+		} else if (f.EType instanceof EDataType && (f.EType as EDataType).isCustomType) {
+			return varName + '.getString("'+keyName+'")'
 		} else {
 			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject("'+keyName+'"))'
 		}
@@ -425,6 +433,29 @@ class UtilCollection {
 		rv.append(")");
 		return rv;
 	}
+	
+	def isCustomType(EDataType type) {
+		if (type instanceof EEnum) return false;
+		val cls = type.instanceClassName
+		return switch (cls) {
+			case "boolean": false
+			case "java.lang.Boolean": false
+			case "int": false
+			case "java.lang.Integer": false
+			case "long": false
+			case "java.lang.Long": false
+			case "float": false
+			case "java.lang.Float": false
+			case "double": false
+			case "java.lang.Double": false
+			
+			case "java.util.Date": false
+			case "java.lang.String": false
+			case "java.sql.Blob": false
+				
+			default: true
+		}
+	}
 
 	def pstmtMethod(EAttribute p, EClass eClass) {
 		val f = eClass.getEStructuralFeature(p.name);
@@ -456,7 +487,7 @@ class UtilCollection {
 			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).statementMethod;
 		}
 	}
-
+	
 	def packageName(EClass eClass) {
 		return eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf("."))
 	}
@@ -760,6 +791,13 @@ class UtilCollection {
 			return "Float";
 		}
 		return s
+	}
+
+	def toFullQualifiedJavaEDataType(EDataType eDataType) {
+		val ePackage = eDataType.EPackage
+		val genPackage = eClassLookupService.toGenModel(ePackage)
+		
+		return genPackage.interfacePackageName + "." + genPackage.packageInterfaceName + ".eINSTANCE.get" + eDataType.name.toFirstUpper + "()" 
 	}
 
 	def toFullQualifiedJavaEClass(EClass eClass) {

@@ -27,6 +27,10 @@ import at.bestsolution.persistence.emap.generator.java.CustomQueryGenerator
 import at.bestsolution.persistence.emap.generator.java.JavaInsertUpdateGenerator
 import at.bestsolution.persistence.emap.generator.java.JavaUtilGenerator
 import at.bestsolution.persistence.emap.generator.java.QueryGenerator
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
+import java.util.Arrays
 
 class JavaObjectMapperGenerator {
 
@@ -44,7 +48,7 @@ class JavaObjectMapperGenerator {
 
   @Inject
   var JavaUtilGenerator utilGen;
-
+  
   val generatorCredit = "by " + class.simpleName;
 
   def mapperName(EClass eClass) {
@@ -76,6 +80,7 @@ class JavaObjectMapperGenerator {
 	import org.eclipse.emf.ecore.EReference;
 	import org.eclipse.emf.ecore.EObject;
 	import org.eclipse.emf.ecore.EClass;
+	import org.eclipse.emf.ecore.EDataType;
 	import java.util.Set;
 	import java.util.HashSet;
 	import java.util.Map;
@@ -194,11 +199,11 @@ class JavaObjectMapperGenerator {
 			private final void map_default_«eClass.name»_complete_refresh(«eClass.name» rv, Connection connection, ResultSet set, Set<Object> refreshedObjects) throws SQLException {
 				«var attributes = entityDef.entity.allAttributes»
 				«attrib_resultMapContent("rv",attributes, eClass, "")»
-				«FOR a : attributes.sort([a,b|
+				«FOR a : attributes.sortInplace[a, b|
 			      val iA = a.sortValue(eClass)
 			      val iB = b.sortValue(eClass)
 			      return compare(iA,iB);
-			    ]).filter[resolved]»
+			    ].filter[resolved]»
 				{
 					EObject eo = (EObject)rv;
 					EReference r = (EReference)eo.eClass().getEStructuralFeature("«a.name»");
@@ -568,6 +573,16 @@ class JavaObjectMapperGenerator {
   	attrib_resultMapContent(varName,attributes,eClass,columnPrefix,true)
   }
 
+	def camelCase(String x) {
+		return x;
+	}
+	
+	def literalCase(String x) {
+		return x;
+	}
+	
+	
+	
   def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix, boolean withReferences) '''
     «FOR a : attributes.sort([a,b|
       val iA = a.sortValue(eClass)
@@ -578,7 +593,19 @@ class JavaObjectMapperGenerator {
         //TODO Should this be done lazily?
         «varName».get«a.name.javaReservedNameEscape.toFirstUpper»().addAll(«utilGen.getLoadPrimitiveMultiValueMethodName(eClass, a)»(connection,set.getLong("«columnPrefix»«attributes.findFirst[pk].columnName»")));
       «ELSE»
-        «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+		«IF eClass.getEStructuralFeature(a.name).EType instanceof EDataType && (eClass.getEStructuralFeature(a.name).EType as EDataType).isCustomType»
+«««		// old: «varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+		{
+			«val dat = eClass.getEStructuralFeature(a.name).EType as EDataType»
+			// EDataType is «dat.name»
+			final EDataType dataType = «dat.toFullQualifiedJavaEDataType»;
+			final String sqlValue = «a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»;
+			final «dat.instanceClassName» value = («dat.instanceClassName»)EcoreUtil.createFromString(dataType, sqlValue);
+			«varName».set«a.name.javaReservedNameEscape.toFirstUpper»(value);
+		}
+      	«ELSE»
+      		«varName».set«a.name.javaReservedNameEscape.toFirstUpper»(«a.resultMethod("set",eClass,columnPrefix+a.columnName,columnPrefix)»);
+      	«ENDIF»
       «ENDIF»
     «ENDFOR»
     «IF withReferences && attributes.findFirst[resolved] != null»
