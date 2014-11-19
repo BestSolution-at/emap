@@ -54,7 +54,14 @@ public interface Session extends Closeable {
 	public <O> O queryForOne(String fqnMapper, String queryName, Map<String,Object> parameterMap);
 
 	public <O> MappedQuery<O> mappedQuery(String fqnMapper, String queryName);
+	
+	/**
+	 * use {@link Session#runInTransaction}
+	 */
+	@Deprecated
 	public void runInTransaction(Transaction transaction);
+	
+	public void runInTransaction(TransactionTask operation);
 	public void close();
 	public boolean isClosed();
 	public void clear();
@@ -75,6 +82,10 @@ public interface Session extends Closeable {
 
 	public interface Transaction {
 		public boolean execute();
+	}
+	
+	public interface TransactionTask {
+		public boolean run(Session s);
 	}
 
 	public interface ExecutableSQL {

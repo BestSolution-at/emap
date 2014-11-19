@@ -10,6 +10,12 @@
  *******************************************************************************/
 package at.bestsolution.persistence.compat;
 
+import java.sql.Connection;
+
+import at.bestsolution.persistence.Function;
+
 public interface CompatSession {
 	public CompatTransaction beginTransaction();
+	public <R> R jdbcRun(boolean modify, Function<Connection, R> function);
+	
 }

@@ -54,6 +54,7 @@ import org.osgi.service.event.EventAdmin;
 
 import at.bestsolution.persistence.BasicFuture;
 import at.bestsolution.persistence.Callback;
+import at.bestsolution.persistence.Function;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistParticipant;
@@ -915,6 +916,21 @@ public class JavaSessionFactory implements SessionFactory {
 			return null;
 		}
 		
+		@Override
+		public <R> R jdbcRun(boolean modify, Function<Connection, R> function) {
+			checkValid();
+			if( ! modify || getTransaction() != null ) {
+				Connection c = checkoutConnection();
+				try {
+					return function.execute(c);	
+				} finally {
+					returnConnection(c);
+				}
+			} else {
+				throw new IllegalStateException("You can only execute jdbc-runnables inside a transaction");
+			}
+		}
+		
 		public Connection startTransaction(boolean isDebug, String transactionId, Transaction transaction) {
 			checkValid();
 			if( isDebug ) {
@@ -1084,6 +1100,26 @@ public class JavaSessionFactory implements SessionFactory {
 			} finally {
 				postExecuteTransaction(isDebug, connection, transactionId, transaction);
 			}
+		}
+		
+		@Override
+		public void runInTransaction(final TransactionTask task) {
+			checkValid();
+			boolean isDebug = LOGGER.isDebugEnabled();
+			String transactionId = UUID.randomUUID().toString();
+			Transaction t = new Transaction() {
+				
+				@Override
+				public boolean execute() {
+					return task.run(JavaSessionImpl.this);
+				}
+			};
+			Connection connection = startTransaction(isDebug, transactionId, t);
+			try {
+				executeTransaction(isDebug, connection, t);
+			} finally {
+				postExecuteTransaction(isDebug, connection, transactionId, t);
+			}			
 		}
 
 		private Set<String> notNull(Set<String> set) {
