@@ -1350,10 +1350,19 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public Blob handleBlob(String tableName, String blobColumnName,
-				String idColumnName, ResultSet set) throws SQLException {
+		public Blob handleBlob(String tableName, String blobColumnName, String idColumnName, ResultSet set) throws SQLException {
 			checkValid();
-			return new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
+			
+			// we need to return null instead of creating a LazyBlob for null values
+			final Blob tempBlob = set.getBlob(blobColumnName);
+			if (tempBlob == null) {
+				return null;
+			}
+			else {
+				tempBlob.free();
+				return new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
+			}
+			
 		}
 
 		@Override
