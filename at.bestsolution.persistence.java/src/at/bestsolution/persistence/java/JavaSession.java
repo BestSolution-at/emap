@@ -31,6 +31,9 @@ import at.bestsolution.persistence.Session;
 public interface JavaSession extends Session {
 	public Connection checkoutConnection();
 	public void returnConnection(Connection connection);
+	
+	public Connection getBlobConnection();
+	
 	public String getDatabaseType();
 	public DatabaseSupport getDatabaseSupport();
 	public SessionCache getCache();

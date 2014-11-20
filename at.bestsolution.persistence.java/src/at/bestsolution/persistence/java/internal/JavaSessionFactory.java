@@ -372,6 +372,8 @@ public class JavaSessionFactory implements SessionFactory {
 		private String id = UUID.randomUUID().toString();
 		private Map<Class<?>, ObjectMapper<?>> mapperInstances = new HashMap<Class<?>, ObjectMapper<?>>();
 		private Stack<Connection> transactionConnectionQueue;
+		private Connection blobConnection = null;
+		private Set<LazyBlob> managedBlobs = new HashSet<LazyBlob>();
 		private Stack<Transaction> transactionQueue;
 		private SessionCache sessionCache;
 		private int changeTrackingCount = 0;
@@ -1242,6 +1244,19 @@ public class JavaSessionFactory implements SessionFactory {
 		public void close() {
 			checkValid();
 			try {
+				
+				// free all session blobs
+				for (LazyBlob blob : managedBlobs) {
+					try {
+						blob.free();
+					}
+					catch (SQLException e) {}
+				}
+				// return blob connection
+				if (blobConnection != null) {
+					returnConnection(blobConnection);
+				}
+				
 				mapperInstances.clear();
 				sessionCache.release();
 				
@@ -1281,6 +1296,14 @@ public class JavaSessionFactory implements SessionFactory {
 			checkValid();
 			sessionCache.clear();
 			changeStorage.clear();
+		}
+		
+		@Override
+		public Connection getBlobConnection() {
+			if (blobConnection == null) {
+				blobConnection = checkoutConnection();
+			}
+			return blobConnection;
 		}
 
 		@Override
@@ -1360,7 +1383,9 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			else {
 				tempBlob.free();
-				return new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
+				final LazyBlob blob = new LazyBlob(this, tableName, blobColumnName, idColumnName, set.getObject(idColumnName));
+				managedBlobs.add(blob);
+				return blob;
 			}
 			
 		}

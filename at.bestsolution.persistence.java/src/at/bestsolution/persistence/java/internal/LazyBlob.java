@@ -28,7 +28,6 @@ public class LazyBlob implements Blob {
     private String blobColumn;
     private String idColumn;
     private Blob nativeBlob;
-    private Connection connection;
     private JavaSession session;
 
     private static final Logger LOGGER = Logger.getLogger(LazyBlob.class);
@@ -50,9 +49,6 @@ public class LazyBlob implements Blob {
         if( nativeBlob != null ) {
             nativeBlob.free();
         }
-        if( connection != null ) {
-        	session.returnConnection(connection);
-        }
     }
 
     private Blob getOrCreateNativeBlob() throws SQLException {
@@ -61,16 +57,15 @@ public class LazyBlob implements Blob {
         	if( debug ) {
         		LOGGER.debug("Start loading blob data Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
         	}
-
-            connection = session.checkoutConnection();
-            String query = "SELECT \"" + blobColumn + "\" FROM " + table + " WHERE " + idColumn + " = ?";
+            final Connection connection = session.getBlobConnection();
+            final String query = "SELECT \"" + blobColumn + "\" FROM " + table + " WHERE " + idColumn + " = ?";
             if( debug ) {
             	LOGGER.debug("Query:" + query);
             	LOGGER.debug("Parameter: " + id);
             }
-            PreparedStatement stmt = connection.prepareStatement(query);
+            final PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setObject(1, id);
-            ResultSet set = stmt.executeQuery();
+            final ResultSet set = stmt.executeQuery();
             if( set.next() ) {
                 nativeBlob = set.getBlob(1);
             }
