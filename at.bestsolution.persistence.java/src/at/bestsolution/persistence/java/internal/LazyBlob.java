@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.internal;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
@@ -27,7 +28,7 @@ public class LazyBlob implements Blob {
     private String table;
     private String blobColumn;
     private String idColumn;
-    private Blob nativeBlob;
+    
     private JavaSession session;
 
     private static final Logger LOGGER = Logger.getLogger(LazyBlob.class);
@@ -46,64 +47,126 @@ public class LazyBlob implements Blob {
 
     @Override
     public void free() throws SQLException {
-        if( nativeBlob != null ) {
-            nativeBlob.free();
-        }
-    }
-
-    private Blob getOrCreateNativeBlob() throws SQLException {
-        if( nativeBlob == null ) {
-        	boolean debug = LOGGER.isDebugEnabled();
-        	if( debug ) {
-        		LOGGER.debug("Start loading blob data Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
-        	}
-            final Connection connection = session.getBlobConnection();
-            final String query = "SELECT \"" + blobColumn + "\" FROM " + table + " WHERE " + idColumn + " = ?";
-            if( debug ) {
-            	LOGGER.debug("Query:" + query);
-            	LOGGER.debug("Parameter: " + id);
-            }
-            final PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setObject(1, id);
-            final ResultSet set = stmt.executeQuery();
-            if( set.next() ) {
-                nativeBlob = set.getBlob(1);
-            }
-
-            LOGGER.debug("End loading blob data '"+nativeBlob+"'");
-        }
-        return nativeBlob;
     }
 
     @Override
     public InputStream getBinaryStream() throws SQLException {
-        return getOrCreateNativeBlob().getBinaryStream();
+        return new BlobDataInputStream();
+    }
+    
+    private class BlobDataInputStream extends InputStream {
+    	private Connection blobConnection;
+    	private Blob blob;
+    	private InputStream realStream;
+    	
+    	public BlobDataInputStream() throws SQLException {
+    		final boolean debug = LOGGER.isDebugEnabled();
+    		if (debug) {
+        		LOGGER.debug("begin binary stream for blob data: Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
+        	}
+    		
+    		blobConnection = session.checkoutConnection();
+    		
+    		final String query = "SELECT \"" + blobColumn + "\" FROM " + table + " WHERE " + idColumn + " = ?";
+            if( debug ) {
+            	LOGGER.debug("Query:" + query);
+            	LOGGER.debug("Parameter: " + id);
+            }
+    		
+            final PreparedStatement stmt = blobConnection.prepareStatement(query);
+            stmt.setObject(1, id);
+            
+            final ResultSet set = stmt.executeQuery();
+            
+            if( set.next() ) {
+                blob = set.getBlob(1);
+                
+                realStream = blob.getBinaryStream();
+            }
+            else {
+            	throw new SQLException("could not fetch blob!");
+            }
+    	}
+    	
+    	
+		@Override
+		public int read() throws IOException {
+			return realStream.read();
+		}
+		
+		@Override
+		public int read(byte[] b) throws IOException {
+			return realStream.read(b);
+		}
+		
+		@Override
+		public int read(byte[] b, int off, int len) throws IOException {
+			return realStream.read(b, off, len);
+		}
+		
+		@Override
+		public synchronized void reset() throws IOException {
+			realStream.reset();
+		}
+    	
+		@Override
+		public boolean markSupported() {
+			return realStream.markSupported();
+		}
+		
+		@Override
+		public int available() throws IOException {
+			return realStream.available();
+		}
+		
+		@Override
+		public synchronized void mark(int readlimit) {
+			realStream.mark(readlimit);
+		}
+		
+		@Override
+		public long skip(long n) throws IOException {
+			return realStream.skip(n);
+		}
+		
+		@Override
+		public void close() throws IOException {
+			final boolean debug = LOGGER.isDebugEnabled();
+	    	if (debug) {
+	    		LOGGER.debug("end binary stream for blob data: Table: '"+table+"', Id-Column: '"+idColumn+"' = '"+id+"', Blob-Column: '"+blobColumn+"' ");
+	    	}
+			try {
+				blob.free();
+			} catch (SQLException e) {
+			}
+			session.returnConnection(blobConnection);
+		}
+    	
     }
 
     @Override
-    public InputStream getBinaryStream(long pos, long length)
-            throws SQLException {
-        return getOrCreateNativeBlob().getBinaryStream(pos, length);
+    public InputStream getBinaryStream(long pos, long length) throws SQLException {
+    	throw new UnsupportedOperationException("This blob only supports an input stream");
     }
 
     @Override
     public byte[] getBytes(long pos, int length) throws SQLException {
-        return getOrCreateNativeBlob().getBytes(pos, length);
+    	throw new UnsupportedOperationException("This blob only supports an input stream");
     }
 
     @Override
     public long length() throws SQLException {
-        return getOrCreateNativeBlob().length();
+    	throw new UnsupportedOperationException("This blob only supports an input stream");
     }
 
     @Override
     public long position(byte[] pattern, long start) throws SQLException {
-        return getOrCreateNativeBlob().position(pattern, start);
+    	throw new UnsupportedOperationException("This blob only supports an input stream");
     }
 
     @Override
     public long position(Blob pattern, long start) throws SQLException {
-        return getOrCreateNativeBlob().position(pattern, start);
+    	throw new UnsupportedOperationException("This blob only supports an input stream");
     }
 
     @Override
