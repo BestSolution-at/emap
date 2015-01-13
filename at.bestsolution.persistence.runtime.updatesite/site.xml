@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/at.bestsolution.persistence.runtime.feature_1.0.0.qualifier.jar" id="at.bestsolution.persistence.runtime.feature" version="1.0.0.qualifier">
+   <feature url="features/at.bestsolution.persistence.runtime.feature_1.0.1.qualifier.jar" id="at.bestsolution.persistence.runtime.feature" version="1.0.1.qualifier">
       <category name="runtime"/>
    </feature>
    <feature url="features/at.bestsolution.persistence.emfnavi.feature_1.0.0.qualifier.jar" id="at.bestsolution.persistence.emfnavi.feature" version="1.0.0.qualifier">
