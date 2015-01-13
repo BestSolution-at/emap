@@ -152,7 +152,7 @@ public class LocalBlob implements Blob {
 		checkInvalid();
 		checkPointer(pos);
 		try {
-			return new RAF_OutputStream(getStorage(), pos);
+			return new RAF_OutputStream(getStorage(), pos-1);
 		}
 		catch (IOException e) {
 			throw new SQLException(e);
@@ -208,7 +208,7 @@ public class LocalBlob implements Blob {
 		@Override
 		public void write(byte[] b, int off, int len) throws IOException {
 			raf.seek(offset);
-			raf.write(b, (int)(off-offset), len);
+			raf.write(b, off, len);
 			offset += len;
 		}
 
@@ -232,7 +232,7 @@ public class LocalBlob implements Blob {
 
 		@Override
 		public int read(byte[] b) throws IOException {
-			return read(b, offset, b.length);
+			return read(b, 0, b.length);
 		}
 
 		@Override
@@ -242,7 +242,7 @@ public class LocalBlob implements Blob {
 			}
 
 			raf.seek(offset);
-			int readLen = raf.read(b, off-offset, len);
+			int readLen = raf.read(b, off, len);
 			if (readLen != -1) {
 				offset += readLen;
 			}
