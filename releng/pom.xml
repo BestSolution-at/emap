@@ -14,8 +14,8 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.18.0</tycho-version>
-		<tycho-extras.version>0.18.0</tycho-extras.version>
+		<tycho-version>0.21.0</tycho-version>
+		<tycho-extras.version>0.21.0</tycho-extras.version>
 		<cbi-plugins.version>1.0.3</cbi-plugins.version>
 		<junit-version>4.8.1</junit-version>
 		<mockito-version>1.8.4</mockito-version>
@@ -31,12 +31,14 @@
 		<module>../at.bestsolution.persistence</module>
 		<module>../at.bestsolution.persistence.compat</module>
 		<module>../at.bestsolution.persistence.firebird</module>
+		<module>../at.bestsolution.persistence.postgres</module>
 		<module>../at.bestsolution.emap.oracle.dummy</module>
 		<module>../at.bestsolution.persistence.java.c3p0.oracle.blob</module>
 		<module>../at.bestsolution.persistence.model</module>
 		<module>../at.bestsolution.persistence.java</module>
 		<module>../at.bestsolution.persistence.java.c3p0</module>
 		<module>../at.bestsolution.persistence.java.c3p0.fb</module>
+		<module>../at.bestsolution.persistence.java.c3p0.postgres</module>
 		<module>../at.bestsolution.persistence.java.cglib</module>
 		<module>../at.bestsolution.persistence.java.defaultproxy</module>
 
