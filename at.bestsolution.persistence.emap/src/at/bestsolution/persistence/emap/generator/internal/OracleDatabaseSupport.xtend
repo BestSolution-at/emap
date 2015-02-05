@@ -52,24 +52,24 @@ class OracleDatabaseSupport extends DatabaseSupport {
 		return primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence+".nextval"
 	}
 
-	override getSequenceStatementCurVal(EAttribute primaryKey) {
-		return null;
-	}
+//	override getSequenceStatementCurVal(EAttribute primaryKey) {
+//		return null;
+//	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return false
 	}
 
-	override processInsert(EAttribute primaryKey, String insert) {
-		return insert
-	}
+//	override processInsert(EAttribute primaryKey, String insert) {
+//		return insert
+//	}
 
 	override supportsGeneratedKeys() {
 		return false;
 	}
 
-	override supportsGeneratedKeyAsResultSet() {
-		return false;
-	}
+//	override supportsGeneratedKeyAsResultSet() {
+//		return false;
+//	}
 
 }

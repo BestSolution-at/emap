@@ -52,24 +52,24 @@ class H2DatabaseSupport extends DatabaseSupport {
 		return null
 	}
 
-	override getSequenceStatementCurVal(EAttribute primaryKey) {
-		return null;
-	}
+//	override getSequenceStatementCurVal(EAttribute primaryKey) {
+//		return null;
+//	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true
 	}
 
-	override processInsert(EAttribute primaryKey, String insert) {
-		return insert;
-	}
+//	override processInsert(EAttribute primaryKey, String insert) {
+//		return insert;
+//	}
 
 	override supportsGeneratedKeys() {
 		return true
 	}
 
-	override supportsGeneratedKeyAsResultSet() {
-		return false;
-	}
+//	override supportsGeneratedKeyAsResultSet() {
+//		return false;
+//	}
 
 }

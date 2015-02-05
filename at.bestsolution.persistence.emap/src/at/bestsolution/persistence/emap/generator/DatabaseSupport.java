@@ -18,10 +18,7 @@ import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 public abstract class DatabaseSupport {
 	public abstract String getDatabaseId();
 	public abstract boolean supportsGeneratedKeys();
-	public abstract boolean supportsGeneratedKeyAsResultSet();
 	public abstract String getSequenceStatementNextVal(EAttribute primaryKey);
-	public abstract String getSequenceStatementCurVal(EAttribute primaryKey);
-	public abstract String processInsert(EAttribute primaryKey, String insert);
 	public abstract String getDatabaseType(EAttribute attribute, EDataType dataType);
 	public abstract String getAutokeyDefinition(EAttribute primaryKey);
 	public abstract boolean isPrimaryKeyPartOfColDef(EAttribute primaryKey);

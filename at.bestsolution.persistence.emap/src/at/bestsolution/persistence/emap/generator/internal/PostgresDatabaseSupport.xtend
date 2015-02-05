@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2014 BestSolution.at and others.
+ * Copyright (c) 2015 BestSolution.at and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
+ *     tomschindl <FIRSTNAME.LASTNAME@bestsolution.at> - initial API and implementation
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.internal
 
@@ -15,14 +15,15 @@ import at.bestsolution.persistence.emap.eMap.EAttribute
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
 
-class FirebirdDatabaseSupport extends DatabaseSupport {
+class PostgresDatabaseSupport extends DatabaseSupport {
 
 	override getDatabaseId() {
-		return "Firebird"
+		return "Postgres"
 	}
 
 	override getSequenceStatementNextVal(EAttribute primaryKey) {
-		return "NEXT VALUE FOR " + primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence;
+//		return "NEXT VALUE FOR " + primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence;
+		return null;
 	}
 
 //	override getSequenceStatementCurVal(EAttribute primaryKey) {
@@ -34,7 +35,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 //	}
 
 	override supportsGeneratedKeys() {
-		return false;
+		return true;
 	}
 
 //	override supportsGeneratedKeyAsResultSet() {
@@ -52,7 +53,11 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			return "int64";
+			if( attribute.pk ) {
+				return "bigserial"	
+			} else {
+				return "bigint";	
+			}
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
 		} else if( "EString" == dataType.name ) {
@@ -77,7 +82,6 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
-		return false;
+		return true;
 	}
-
 }

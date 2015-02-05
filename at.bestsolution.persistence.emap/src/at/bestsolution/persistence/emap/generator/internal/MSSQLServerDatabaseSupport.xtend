@@ -25,13 +25,13 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 		return ""
 	}
 
-	override getSequenceStatementCurVal(EAttribute primaryKey) {
-		return null;
-	}
+//	override getSequenceStatementCurVal(EAttribute primaryKey) {
+//		return null;
+//	}
 
-	override processInsert(EAttribute primaryKey, String insert) {
-		return insert;
-	}
+//	override processInsert(EAttribute primaryKey, String insert) {
+//		return insert;
+//	}
 
 	override supportsGeneratedKeys() {
 		return true;
@@ -68,8 +68,8 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 		return true;
 	}
 
-	override supportsGeneratedKeyAsResultSet() {
-		return false;
-	}
+//	override supportsGeneratedKeyAsResultSet() {
+//		return false;
+//	}
 
 }
