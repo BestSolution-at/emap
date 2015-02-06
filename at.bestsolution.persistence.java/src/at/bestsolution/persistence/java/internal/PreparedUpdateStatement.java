@@ -45,7 +45,7 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 		}
 		if( lockColumn != null ) {
 			return "UPDATE " + '"' + tableName + '"' + " SET " + b
-					+ " WHERE " + '"' + pkColumn + '"' + " = ? AND " + lockColumn + " = ?";
+					+ " WHERE " + '"' + pkColumn + '"' + " = ? AND " + '"' + lockColumn + '"'+ " = ?";
 		}
 		return "UPDATE " + '"' + tableName + '"' + " SET " + b
 				+ " WHERE " + '"' + pkColumn + '"' + " = ?";
