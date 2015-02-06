@@ -70,7 +70,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		} else if( "java.sql.Blob" == dataType.instanceClassName ) {
 			return "blob segment size 2048";
 		} else if( "EBoolean" == dataType.name || "EBooleanObject" == dataType.name ) {
-			return "smallint"
+			return "boolean"
 		} else if( "EDate" == dataType.name ) {
 			return "timestamp";
 		}
