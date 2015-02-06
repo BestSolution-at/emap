@@ -537,7 +537,7 @@ class JavaInsertUpdateGenerator {
 		try {
 
 			// find all object ids
-			String objectIdSQL = "SELECT «entityDef.PKAttribute.columnName» FROM \"«entityDef.tableName»\"";
+			String objectIdSQL = "SELECT \"«entityDef.PKAttribute.columnName»\" FROM \"«entityDef.tableName»\"";
 			PreparedStatement objectIdStmt = null;
 			ResultSet objectIdResultSet = null;
 			List<Object> objectIds = new ArrayList<Object>();
