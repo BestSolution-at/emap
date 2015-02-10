@@ -42,7 +42,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 //		return true;
 //	}
 
-	override getDatabaseType(EAttribute attribute, EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType) {
 		val size = attribute?.size;
 
 		if( dataType instanceof EEnum ) {
@@ -53,7 +53,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			if( attribute.pk ) {
+			if( fkResolve && attribute.pk ) {
 				return "bigserial"	
 			} else {
 				return "bigint";	

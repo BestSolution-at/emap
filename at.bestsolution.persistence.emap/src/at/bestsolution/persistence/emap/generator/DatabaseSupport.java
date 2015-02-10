@@ -19,7 +19,7 @@ public abstract class DatabaseSupport {
 	public abstract String getDatabaseId();
 	public abstract boolean supportsGeneratedKeys();
 	public abstract String getSequenceStatementNextVal(EAttribute primaryKey);
-	public abstract String getDatabaseType(EAttribute attribute, EDataType dataType);
+	public abstract String getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType);
 	public abstract String getAutokeyDefinition(EAttribute primaryKey);
 	public abstract boolean isPrimaryKeyPartOfColDef(EAttribute primaryKey);
 

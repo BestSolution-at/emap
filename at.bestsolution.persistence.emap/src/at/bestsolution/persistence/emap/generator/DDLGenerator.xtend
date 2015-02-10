@@ -84,7 +84,7 @@ class DDLGenerator {
 		}
 	}
 
-	def getDataType(EAttribute a, EBundleEntity be, DatabaseSupport db, EMappingBundle bundleDef, EClass eClass) {
+	def getDataType(EAttribute a, boolean fkResolve, EBundleEntity be, DatabaseSupport db, EMappingBundle bundleDef, EClass eClass) {
 //		println("====> Working for " + a)
 		if( be != null ) {
 			val redef = be.typeDefs.findFirst[it.attribute == a]
@@ -133,7 +133,7 @@ class DDLGenerator {
 			}
 			return StrSubstitutor.replace(d.sqlTypeDef,Collections.singletonMap("size",size));
 		}
-		return db.getDatabaseType(a, dataType)
+		return db.getDatabaseType(a, fkResolve, dataType)
 	}
 
 	def sortByOwnerGroups(ColSort sort, EClass eClass, EAttribute a, EAttribute b) {
@@ -208,11 +208,11 @@ class DDLGenerator {
 		«val pk = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[it.pk]»
 			«IF a.columnName != null»
-				«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(e,db,bundleDef,eClass)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk» not null«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
+				«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk» not null«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
 				«dummy(flag = true)»
 			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 				«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-				«IF flag», «ENDIF» «a.parameters.head» «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(e,db,bundleDef,pkEClass)» not null
+				«IF flag», «ENDIF» «a.parameters.head» «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)» not null
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
@@ -221,11 +221,11 @@ class DDLGenerator {
 			«val f = a.getEStructuralFeature(eClass)»
 			«IF ! f.many»
 				«IF a.columnName != null»
-					«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 					«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-					«IF flag», «ENDIF»"«a.parameters.head»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.parameters.head»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ENDIF»
 			«ENDIF»
@@ -246,8 +246,8 @@ class DDLGenerator {
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
 			create table "«p.primitiveMultiValuedTableName»" (
-				"«p.primitiveMultiValuedFKColName»" «e.entity.PKAttribute.getDataType(e, db, bundleDef, e.entity.lookupEClass)» not null,
-				"ELT" «p.getDataType(e,db,bundleDef,e.entity.lookupEClass)»
+				"«p.primitiveMultiValuedFKColName»" «e.entity.PKAttribute.getDataType(true,e, db, bundleDef, e.entity.lookupEClass)» not null,
+				"ELT" «p.getDataType(false,e,db,bundleDef,e.entity.lookupEClass)»
 			);
 
 			«ENDFOR»
@@ -261,8 +261,8 @@ class DDLGenerator {
 	«val nmRelations = bundleDef.findNMRelations»
 	«FOR r : nmRelations»
 		create table "«r.a1.relationTable»" (
-			"«r.a1.relationColumn»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
-			"«r.a2.relationColumn»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
+			"«r.a1.relationColumn»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
+			"«r.a2.relationColumn»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
 		);
 	«ENDFOR»
 

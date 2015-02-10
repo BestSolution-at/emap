@@ -41,7 +41,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 //		return true;
 //	}
 
-	override getDatabaseType(EAttribute attribute, EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType) {
 		val size = attribute?.size;
 
 		if( dataType instanceof EEnum ) {

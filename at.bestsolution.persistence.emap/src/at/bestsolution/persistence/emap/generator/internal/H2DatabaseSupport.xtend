@@ -25,7 +25,7 @@ class H2DatabaseSupport extends DatabaseSupport {
 		return "h2"
 	}
 
-	override getDatabaseType(EAttribute attribute, EDataType dataType) {
+	override getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType) {
 		if( dataType instanceof EEnum ) {
 			return "varchar(255)";
 		} else if( "EInteger" == dataType.name || "EIntegerObject" == dataType.name ) {
