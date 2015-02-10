@@ -53,7 +53,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			if( fkResolve && attribute.pk ) {
+			if( ! fkResolve && attribute.pk ) {
 				return "bigserial"	
 			} else {
 				return "bigint";	
