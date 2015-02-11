@@ -136,7 +136,7 @@ public abstract class MappedQueryImpl<O> extends MappedBaseQuery<O> implements M
 				if( b.length() > 0 ) {
 					b.append(", ");	
 				}
-				b.append(rootMapper.getColumnName(c.column) + (c.asc ? " ASC" : " DESC"));
+				b.append(quoteColumnName(rootMapper.getColumnName(c.column)) + (c.asc ? " ASC" : " DESC"));
 			}
 		}
 		return b.toString();
