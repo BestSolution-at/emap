@@ -90,6 +90,8 @@ public class JavaSessionFactory implements SessionFactory {
 	ProxyFactory proxyFactory;
 	SessionCacheFactory cacheFactory;
 	Map<String, ObjectMapperFactory<?,?>> factories = new HashMap<String, ObjectMapperFactory<?,?>>();
+	Map<String, ObjectMapperFactory<?,?>> domainFactories = new HashMap<String, ObjectMapperFactory<?,?>>();
+	
 	Map<String,DatabaseSupport> databaseSupports = new HashMap<String,DatabaseSupport>();
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
@@ -163,6 +165,7 @@ public class JavaSessionFactory implements SessionFactory {
 		for( Entry<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?, ?>> e : provider.getMapperFactories().entrySet() ) {
 			synchronized (factories) {
 				factories.put(e.getKey().getName(), e.getValue());
+				domainFactories.put(e.getValue().getEntityType().getName(), e.getValue());
 				synchronized (futureMappers) {
 					List<WeakReference<MapperFuture>> list = futureMappers.remove(e.getKey().getName());
 					if( list != null ) {
@@ -1414,7 +1417,7 @@ public class JavaSessionFactory implements SessionFactory {
 		private <O> ObjectMapper<O> createMapperForObject(O object) {
 			if( object instanceof EObject ) {
 				EObject eo = (EObject) object;
-				ObjectMapperFactory<?, ?> f = factories.get(eo.eClass().getInstanceClassName()+"Mapper");
+				ObjectMapperFactory<?, ?> f = domainFactories.get(eo.eClass().getInstanceClassName());
 				if( f == null ) {
 					throw new IllegalStateException("There's no mapper known for '"+eo.eClass().getInstanceClassName()+"'");
 				}
@@ -1534,7 +1537,7 @@ public class JavaSessionFactory implements SessionFactory {
 				if( ! (sourceObject instanceof LazyEObject) || ((LazyEObject)sourceObject).isResolved(r) ) {
 					EObject refInstance = (EObject) sourceObject.eGet(rf);
 					if( refInstance != null ) {
-						ObjectMapperFactory<?, ?> tmpFactory = factories.get(refInstance.eClass().getInstanceClassName()+"Mapper");
+						ObjectMapperFactory<?, ?> tmpFactory = domainFactories.get(refInstance.eClass().getInstanceClassName());
 						if( tmpFactory == null ) {
 							throw new IllegalStateException("There's no mapper known for '"+refInstance.eClass().getInstanceClassName()+"'");
 						}
