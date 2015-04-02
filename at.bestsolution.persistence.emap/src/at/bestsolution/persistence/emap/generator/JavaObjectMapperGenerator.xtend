@@ -112,6 +112,16 @@ class JavaObjectMapperGenerator {
 	@SuppressWarnings("all")
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«eClass.name»> {
 		@Override
+		public Class<«eClass.name»> getEntityType() {
+			return «eClass.name».class;
+		}
+		
+		@Override
+		public Class<«entityDef.package.name».«entityDef.entity.name»Mapper> getMapperType() {
+			return «entityDef.package.name».«entityDef.entity.name»Mapper.class;
+		}
+		
+		@Override
 		public «entityDef.package.name».«entityDef.entity.name»Mapper createMapper(JavaSession session) {
 			return new «entityDef.entity.name»MapperImpl(session);
 		}
@@ -123,6 +133,11 @@ class JavaObjectMapperGenerator {
 
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
+			}
+			
+			@Override
+			public Class<«eClass.name»> getEntityType() {
+				return «eClass.name».class;
 			}
 			
 			@Override

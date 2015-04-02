@@ -12,6 +12,7 @@ package at.bestsolution.persistence;
 
 
 public interface ObjectMapper<O> {
+	public Class<O> getEntityType();
 	public void update(O object);
 	public void insert(O object);
 	public void delete(O object);
