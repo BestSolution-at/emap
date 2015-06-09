@@ -43,6 +43,7 @@ class EMapValidator extends AbstractEMapValidator {
 //	}
 
 	public static final String ATTRIBUTE_MISSING = "ATTRIBUTE_MISSING";
+	public static final String ATTRIBUTE_UNKNOWN = "ATTRIBUTE_UNKNOWN";
 	public static final String SELECT_ALL_MISSING = "SELECT_ALL_MISSING";
 	public static final String NAME_TOO_LONG = "NAME_TOO_LONG";
 
@@ -51,6 +52,16 @@ class EMapValidator extends AbstractEMapValidator {
 		if (!entity.namedQueries.exists[it.name == "selectAll"]) {
 			warning("No 'selectAll' query defined!", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, SELECT_ALL_MISSING);
 
+		}
+	}
+
+	@Check
+	def checkUnknownAttributes(EAttribute attrib) {
+		val type = attrib.entity.etype;
+		val eClass = type.lookupEClass;
+		val unknown = !eClass.EAllStructuralFeatures.map[x|x.name].contains(attrib.name)
+		if (unknown) {
+			error("Unknown attribute: '" + attrib.name + "'. Please check if your eClass (" + eClass.name + ") really contains it", attrib, EMapPackage$Literals::EATTRIBUTE__NAME, ATTRIBUTE_UNKNOWN, attrib.name);
 		}
 	}
 
