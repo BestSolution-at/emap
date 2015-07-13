@@ -185,7 +185,7 @@ class JavaUtilGenerator {
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
 	private final RelationSQL «getCreateInsertManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
-		final String sql = "INSERT INTO «attribute.findRelationTable» (\"«attribute.findRelationColumn»\",\"«attribute.findOppositeRelationColumn»\") VALUES (?,?)";
+		final String sql = "INSERT INTO \"«attribute.findRelationTable»\" (\"«attribute.findRelationColumn»\",\"«attribute.findOppositeRelationColumn»\") VALUES (?,?)";
 			return new RelationSQL() {
 				public EObject getSelf() {
 					return (EObject)self;
@@ -250,7 +250,7 @@ class JavaUtilGenerator {
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
 	private final RelationSQL «getCreateDeleteManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
-		final String sql = "DELETE FROM «attribute.findRelationTable» WHERE \"«attribute.findRelationColumn»\" = ? AND \"«attribute.findOppositeRelationColumn»\" = ?";
+		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" = ? AND \"«attribute.findOppositeRelationColumn»\" = ?";
 			return new RelationSQL() {
 				public EObject getSelf() {
 					return (EObject)self;
@@ -313,7 +313,7 @@ class JavaUtilGenerator {
 
 	def generateCreateClearManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	private final RelationSQL «getCreateClearManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self) {
-		final String sql = "DELETE FROM «attribute.findRelationTable» WHERE \"«attribute.findRelationColumn»\" = ?";
+		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" = ?";
 		return new RelationSQL() {
 			public EObject getSelf() {
 				return (EObject)self;
@@ -387,7 +387,7 @@ class JavaUtilGenerator {
 		PreparedStatement stmt = null;
 		ResultSet s = null;
 		try {
-			String sql = "SELECT * FROM «attribute.primitiveMultiValuedTableName» WHERE «attribute.primitiveMultiValuedFKColName» = ?";
+			String sql = "SELECT * FROM \"«attribute.primitiveMultiValuedTableName»\" WHERE \"«attribute.primitiveMultiValuedFKColName»\" = ?";
 			if( isDebug ) {
 				LOGGER.debug("Preparing query: '"+sql+"'");
 			}
