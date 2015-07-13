@@ -434,7 +434,7 @@ class JavaUtilGenerator {
 		}
 		PreparedStatement stmt = null;
 		try {
-			String sql = "INSERT INTO «attribute.primitiveMultiValuedTableName» («attribute.primitiveMultiValuedFKColName»,ELT) VALUES (?,?)";
+			String sql = "INSERT INTO \"«attribute.primitiveMultiValuedTableName»\" (\"«attribute.primitiveMultiValuedFKColName»\",\"ELT\") VALUES (?,?)";
 			if( isDebug ) {
 				LOGGER.debug("Preparing statement " + sql);
 			}
