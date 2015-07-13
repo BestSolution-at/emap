@@ -132,7 +132,7 @@ class JavaUtilGenerator {
 				b.append(", ");
 			}
 		}
-		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE «attribute.findRelationColumn» IN ("+b.toString()+")";
+		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" IN ("+b.toString()+")";
 
 		if (isDebug) {
 			LOGGER.debug("Executing Query: " + sql);
