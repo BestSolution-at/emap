@@ -31,6 +31,12 @@ import at.bestsolution.persistence.emap.EMapGeneratorParticipant
 import at.bestsolution.persistence.emap.EMapGeneratorParticipant.FileType
 import java.util.List
 import java.util.concurrent.atomic.AtomicReference
+import at.bestsolution.persistence.emap.eMap.EServiceMapping
+import at.bestsolution.persistence.emap.generator.rest.RestGenerator
+import at.bestsolution.persistence.emap.generator.rest.DTOGenerator
+import org.eclipse.xtext.generator.IFileSystemAccessExtension
+import org.eclipse.xtext.generator.IFileSystemAccessExtension2
+import org.eclipse.xtext.generator.IFileSystemAccessExtension3
 
 /**
  * Generates code from your model files on save.
@@ -63,10 +69,16 @@ class EMapGenerator implements IGenerator {
 	@Inject
 	var TypeDefGenerator typeDefGenerator;
 
+	@Inject
+	var RestGenerator restGenerator;
+
+	@Inject
+	var DTOGenerator dtoGenerator;
+
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		try {
 			val participants = getEMapGeneratorParticipants
-			
+
 //			println("Generating " + resource)
 			val root = resource.contents.head as EMapping
 			if( root.root instanceof EMappingEntityDef ) {
@@ -129,7 +141,7 @@ class EMapGenerator implements IGenerator {
 
 	//			println("Generating " + edef.entity.name+"Mapper.xml");
 	//			fsa.generateFile("mappers/"+edef.entity.name+"Mapper.xml", generateMappingXML(edef, javaHelper.getEClass(edef.entity.etype)))
-			} else {
+			} else if( root.root instanceof EMappingBundle ) {
 				val bundleDef = root.root as EMappingBundle
 	//			fsa.generateFile("mappings/"+bundleDef.name+"MappingUnitProvider.java", generateBundleContribution(bundleDef));
 	//			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
@@ -138,6 +150,21 @@ class EMapGenerator implements IGenerator {
 					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.CREATE_DDL,null,participants));
 					fsa.generateFile("ddls/drop_"+d+".sql",ddlGenerator.generatedDropDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.DROP_DDL,null,participants));
 				}
+			} else if( root.root instanceof EServiceMapping ) {
+				val serviceMapping = root.root as EServiceMapping
+				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/dto/DTO"+serviceMapping.entity.name+".java",dtoGenerator.generateDTO(serviceMapping,serviceMapping.entity.lookupEClass))
+				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/mapper/"+serviceMapping.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(serviceMapping,serviceMapping.entity.lookupEClass))
+				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/base/Base"+serviceMapping.entity.name+"Service.java",restGenerator.generateBaseClass(serviceMapping,serviceMapping.entity.lookupEClass))
+				if( fsa instanceof IFileSystemAccessExtension3 ) {
+					try {
+						fsa.readTextFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java")
+						fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java",restGenerator.generateCustomImpl(serviceMapping,serviceMapping.entity.lookupEClass))
+					} catch(Throwable t) {
+						fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java",restGenerator.generateCustomImpl(serviceMapping,serviceMapping.entity.lookupEClass))
+					}
+
+				}
+
 			}
 
 		}
@@ -151,12 +178,12 @@ class EMapGenerator implements IGenerator {
 			}
 		}
 	}
-	
+
 	def getEMapGeneratorParticipants() {
 		val ctx = FrameworkUtil.getBundle(EMapGenerator).bundleContext;
 		return ctx.getServiceReferences(EMapGeneratorParticipant,null).map[ctx.getService(it)].toList
 	}
-	
+
 	def processOutput(CharSequence seq, EMapping root, FileType type, String databaseType, List<EMapGeneratorParticipant> participants) {
 		val ref = new AtomicReference(seq)
 		participants.forEach[ref.set(it.postProcess(root,type,databaseType,ref.get()))]

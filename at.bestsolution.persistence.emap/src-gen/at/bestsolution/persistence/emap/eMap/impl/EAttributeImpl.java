@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#isForcedFk <em>Forced Fk</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getRelationColumn <em>Relation Column</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EAttributeImpl#getSize <em>Size</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

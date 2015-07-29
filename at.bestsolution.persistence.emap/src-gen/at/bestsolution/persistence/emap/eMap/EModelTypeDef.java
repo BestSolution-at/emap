@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef#getEclassDef <em>Eclass Def</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeDef#getAttributes <em>Attributes</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEModelTypeDef()
  * @model

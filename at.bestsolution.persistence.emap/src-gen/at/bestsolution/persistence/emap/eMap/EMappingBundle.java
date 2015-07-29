@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getName <em>Name</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getDatabases <em>Databases</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort <em>Col Sort</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle()
  * @model

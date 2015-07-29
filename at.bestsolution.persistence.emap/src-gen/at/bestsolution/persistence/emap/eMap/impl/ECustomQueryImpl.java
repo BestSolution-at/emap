@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl#getDbType <em>Db Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl#getColumns <em>Columns</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl#getOrderby <em>Orderby</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomQueryImpl#getAll <em>All</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

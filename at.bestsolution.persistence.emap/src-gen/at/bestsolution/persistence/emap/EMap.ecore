@@ -6,6 +6,32 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EServiceMapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="package" eType="#//PackageDeclaration"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//EMappingEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listQuery" eType="#//ENamedQuery"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="get" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getQuery" eType="#//ENamedQuery"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="update" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="insert" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="delete" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceMethods" upperBound="-1"
+        eType="#//ENamedServiceQuery" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ENamedServiceQuery">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//ENamedQuery"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//EServiceParam" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EServiceParam">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//EParameter"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EPathParam" eSuperTypes="#//EServiceParam"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EQueryParam" eSuperTypes="#//EServiceParam"/>
   <eClassifiers xsi:type="ecore:EClass" name="EMappingBundle">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>

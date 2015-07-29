@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#isId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getType <em>Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#isList <em>List</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EParameterImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

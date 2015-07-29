@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedQueryImpl#getQueries <em>Queries</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

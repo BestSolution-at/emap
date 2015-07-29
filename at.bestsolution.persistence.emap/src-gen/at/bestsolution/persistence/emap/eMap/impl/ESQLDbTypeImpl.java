@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl#getDbType <em>Db Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl#getSqlTypeDef <em>Sql Type Def</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ESQLDbTypeImpl#getSize <em>Size</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

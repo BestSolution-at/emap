@@ -66,6 +66,11 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
     switch (eClass.getClassifierID())
     {
       case EMapPackage.EMAPPING: return createEMapping();
+      case EMapPackage.ESERVICE_MAPPING: return createEServiceMapping();
+      case EMapPackage.ENAMED_SERVICE_QUERY: return createENamedServiceQuery();
+      case EMapPackage.ESERVICE_PARAM: return createEServiceParam();
+      case EMapPackage.EPATH_PARAM: return createEPathParam();
+      case EMapPackage.EQUERY_PARAM: return createEQueryParam();
       case EMapPackage.EMAPPING_BUNDLE: return createEMappingBundle();
       case EMapPackage.EBUNDLE_ENTITY: return createEBundleEntity();
       case EMapPackage.EINDEX: return createEIndex();
@@ -146,6 +151,61 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EMappingImpl eMapping = new EMappingImpl();
     return eMapping;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EServiceMapping createEServiceMapping()
+  {
+    EServiceMappingImpl eServiceMapping = new EServiceMappingImpl();
+    return eServiceMapping;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ENamedServiceQuery createENamedServiceQuery()
+  {
+    ENamedServiceQueryImpl eNamedServiceQuery = new ENamedServiceQueryImpl();
+    return eNamedServiceQuery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EServiceParam createEServiceParam()
+  {
+    EServiceParamImpl eServiceParam = new EServiceParamImpl();
+    return eServiceParam;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EPathParam createEPathParam()
+  {
+    EPathParamImpl ePathParam = new EPathParamImpl();
+    return ePathParam;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EQueryParam createEQueryParam()
+  {
+    EQueryParamImpl eQueryParam = new EQueryParamImpl();
+    return eQueryParam;
   }
 
   /**

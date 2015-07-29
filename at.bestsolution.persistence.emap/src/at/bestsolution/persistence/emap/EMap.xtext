@@ -13,7 +13,38 @@ grammar at.bestsolution.persistence.emap.EMap with org.eclipse.xtext.common.Term
 generate eMap "http://www.bestsolution.at/persistence/emap/EMap"
 
 EMapping:
-	root=(EMappingBundle|EMappingEntityDef);
+	root=(EMappingBundle|EMappingEntityDef|EServiceMapping);
+
+EServiceMapping:
+	package=PackageDeclaration
+	'rest' entity=[EMappingEntity|ID] '{'
+		(list?='list' ('default'|listQuery=[ENamedQuery]))?
+		(get?='get' ('default'|getQuery=[ENamedQuery]))?
+		(update?='update' ('default'))?
+		(insert?='insert' ('default'))?
+		(delete?='delete' ('default'))?
+		serviceMethods+=ENamedServiceQuery*
+	'}'
+;
+
+ENamedServiceQuery:
+	 query=[ENamedQuery|QualifiedName] 'as' path=STRING ('{'
+		parameters+=EServiceParam*
+	'}')?
+;
+
+EServiceParam:
+	EPathParam | EQueryParam
+;
+
+EPathParam:
+	'path-param' param=[EParameter|QualifiedName] ('named' name=ID)?
+;
+
+EQueryParam:
+	'query-param' param=[EParameter|QualifiedName] ('named' name=ID)?
+;
+
 
 EMappingBundle:
 	imports+=Import*

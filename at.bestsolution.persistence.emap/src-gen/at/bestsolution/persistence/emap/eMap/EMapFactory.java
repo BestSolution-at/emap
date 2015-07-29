@@ -32,6 +32,51 @@ public interface EMapFactory extends EFactory
   EMapping createEMapping();
 
   /**
+   * Returns a new object of class '<em>EService Mapping</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EService Mapping</em>'.
+   * @generated
+   */
+  EServiceMapping createEServiceMapping();
+
+  /**
+   * Returns a new object of class '<em>ENamed Service Query</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ENamed Service Query</em>'.
+   * @generated
+   */
+  ENamedServiceQuery createENamedServiceQuery();
+
+  /**
+   * Returns a new object of class '<em>EService Param</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EService Param</em>'.
+   * @generated
+   */
+  EServiceParam createEServiceParam();
+
+  /**
+   * Returns a new object of class '<em>EPath Param</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EPath Param</em>'.
+   * @generated
+   */
+  EPathParam createEPathParam();
+
+  /**
+   * Returns a new object of class '<em>EQuery Param</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EQuery Param</em>'.
+   * @generated
+   */
+  EQueryParam createEQueryParam();
+
+  /**
    * Returns a new object of class '<em>EMapping Bundle</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
