@@ -26,19 +26,16 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.Stack;
+import java.util.UUID;
 import java.util.Vector;
-import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Set;
-import java.util.Stack;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.notify.Adapter;
@@ -52,10 +49,15 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 
+import com.google.common.base.Objects;
+
 import at.bestsolution.persistence.BasicFuture;
 import at.bestsolution.persistence.Callback;
+import at.bestsolution.persistence.Consumer;
 import at.bestsolution.persistence.Function;
 import at.bestsolution.persistence.MappedQuery;
+import at.bestsolution.persistence.ObjectChange;
+import at.bestsolution.persistence.ObjectChangePersistParticipant;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistParticipant;
 import at.bestsolution.persistence.PersistanceException;
@@ -63,11 +65,11 @@ import at.bestsolution.persistence.Registration;
 import at.bestsolution.persistence.Session;
 import at.bestsolution.persistence.SessionFactory;
 import at.bestsolution.persistence.SessionRunnable;
+import at.bestsolution.persistence.PersistParticipant.Type;
 import at.bestsolution.persistence.compat.CompatSession;
 import at.bestsolution.persistence.compat.CompatTransaction;
 import at.bestsolution.persistence.java.AfterTxRunnable;
 import at.bestsolution.persistence.java.DatabaseSupport;
-import at.bestsolution.persistence.java.JDBCConfiguration;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.JavaSession;
@@ -83,23 +85,21 @@ import at.bestsolution.persistence.java.SessionCacheFactory;
 import at.bestsolution.persistence.model.LazyEObject;
 import at.bestsolution.persistence.model.PersistedEObject;
 
-import com.google.common.base.Objects;
-
 public class JavaSessionFactory implements SessionFactory {
 	JDBCConnectionProvider connectionProvider;
 	ProxyFactory proxyFactory;
 	SessionCacheFactory cacheFactory;
 	Map<String, ObjectMapperFactory<?,?>> factories = new HashMap<String, ObjectMapperFactory<?,?>>();
 	Map<String, ObjectMapperFactory<?,?>> domainFactories = new HashMap<String, ObjectMapperFactory<?,?>>();
-	
+
 	Map<String,DatabaseSupport> databaseSupports = new HashMap<String,DatabaseSupport>();
 	private static final Logger LOGGER = Logger.getLogger(JavaSessionFactory.class);
 	EventAdmin eventAdmin;
 	String factoryId;
 
-	private Map<String, List<WeakReference<MapperFuture>>> futureMappers = new HashMap<String, List<WeakReference<MapperFuture>>>(); 
+	private Map<String, List<WeakReference<MapperFuture>>> futureMappers = new HashMap<String, List<WeakReference<MapperFuture>>>();
 	private List<PersistParticipant> persistParticipants = new Vector<PersistParticipant>(); // Use a vector for thread safety
-	
+
 	private ThreadLocal<Session> currentSession = new ThreadLocal<Session>();
 	private ThreadLocal<AtomicInteger> currentSessionUsage = new ThreadLocal<AtomicInteger>() {
 		protected AtomicInteger initialValue() { return new AtomicInteger(0); }
@@ -112,13 +112,13 @@ public class JavaSessionFactory implements SessionFactory {
 	public void unregisterConfiguration(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = null;
 	}
-	
+
 	@Override
 	public Registration registerPersistParticipant(
 			final PersistParticipant participant) {
 		persistParticipants.add(participant);
 		return new Registration() {
-			
+
 			@Override
 			public void dispose() {
 				persistParticipants.remove(participant);
@@ -129,7 +129,7 @@ public class JavaSessionFactory implements SessionFactory {
 	public void unregisterPersistParticipant(PersistParticipant participant) {
 		persistParticipants.remove(participant);
 	}
-	
+
 	// Not yet added because the potential leak of WeakReferences
 	// not very high
 	private void cleanup() {
@@ -160,7 +160,7 @@ public class JavaSessionFactory implements SessionFactory {
 			list.add(new WeakReference<MapperFuture>(f));
 		}
 	}
-	
+
 	public void registerMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
 		for( Entry<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?, ?>> e : provider.getMapperFactories().entrySet() ) {
 			synchronized (factories) {
@@ -176,30 +176,30 @@ public class JavaSessionFactory implements SessionFactory {
 								future.createMapper();
 							}
 						}
-					}	
-				}	
+					}
+				}
 			}
 		}
 	}
 
 	public void unregisterMapperFactoriesProvider(ObjectMapperFactoriesProvider provider) {
 		synchronized (factories) {
-			factories.keySet().removeAll(provider.getMapperFactories().keySet());	
+			factories.keySet().removeAll(provider.getMapperFactories().keySet());
 		}
 	}
-	
+
 	@Override
 	public <M extends ObjectMapper<?>> boolean isMapperAvailable(
 			Class<M> mapper) {
 		synchronized (factories) {
-			return factories.containsKey(mapper.getName());	
+			return factories.containsKey(mapper.getName());
 		}
 	}
-	
+
 	@Override
 	public <T> boolean isMapperAvailableForType(Class<T> mapper) {
 		synchronized (factories) {
-			return factories.containsKey(mapper.getName()+"Mapper");	
+			return factories.containsKey(mapper.getName()+"Mapper");
 		}
 	}
 
@@ -239,12 +239,12 @@ public class JavaSessionFactory implements SessionFactory {
 	public Session createSession() {
 		return new JavaSessionImpl(JDBCConnectionProvider.DEFAULT_CONFIGURATION,cacheFactory.createCache());
 	}
-	
+
 	@Override
 	public Session createSession(String configurationId) {
 		return new JavaSessionImpl(configurationId, cacheFactory.createCache());
 	}
-	
+
 	@Override
 	public Future<Session> createFutureSession(
 			Class<ObjectMapper<?>>... dependentMappers) {
@@ -261,12 +261,12 @@ public class JavaSessionFactory implements SessionFactory {
 	static class SessionFuture extends BasicFuture<Session> {
 		private final Session session;
 		private final List<MapperFuture> futureList;
-		
+
 		public SessionFuture(Session session, List<MapperFuture> futureList) {
 			this.session = session;
 			this.futureList = futureList;
 		}
-		
+
 		@Override
 		public Session get() throws InterruptedException, ExecutionException {
 			if( futureList.isEmpty() ) {
@@ -278,13 +278,13 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			return session;
 		}
-		
+
 		@Override
 		public Session get(long timeout, TimeUnit unit)
 				throws InterruptedException, ExecutionException,
 				TimeoutException {
 			long nano = unit.toNanos(timeout);
-			
+
 			for( MapperFuture m : futureList ) {
 				long begin = System.nanoTime();
 				m.get(nano, TimeUnit.NANOSECONDS);
@@ -296,7 +296,7 @@ public class JavaSessionFactory implements SessionFactory {
 			complete(session);
 			return super.get();
 		}
-		
+
 		@Override
 		public boolean cancel(boolean mayInterruptIfRunning) {
 			for( MapperFuture m : futureList ) {
@@ -305,7 +305,7 @@ public class JavaSessionFactory implements SessionFactory {
 			return super.cancel(mayInterruptIfRunning);
 		}
 	}
-	
+
 	@Override
 	public <R> R runWithSession(SessionRunnable<R> runnable) {
 		Session session = currentSession.get();
@@ -351,19 +351,19 @@ public class JavaSessionFactory implements SessionFactory {
 	public Blob createBlob() {
 		return new LocalBlob();
 	}
-	
+
 	static class MapperFuture extends BasicFuture<ObjectMapper<?>> {
 		private final Session session;
 		private final Class<ObjectMapper<?>> clazz;
-		
+
 		public MapperFuture(Session session, Class<ObjectMapper<?>> clazz) {
 			this.session = session;
 			this.clazz = clazz;
 		}
-		
+
 		public void createMapper() {
 			try {
-				complete(session.createMapper(clazz));	
+				complete(session.createMapper(clazz));
 			} catch( Throwable t) {
 				throwExecutionException(t);
 			}
@@ -392,7 +392,7 @@ public class JavaSessionFactory implements SessionFactory {
 		private Map<Transaction, Set<String>> deletedManyObjects = new HashMap<Session.Transaction, Set<String>>();
 
 		private boolean closed = false;
-		
+
 		private Adapter objectAdapter = new AdapterImpl() {
 			@Override
 			public void notifyChanged(Notification msg) {
@@ -407,7 +407,7 @@ public class JavaSessionFactory implements SessionFactory {
 			this.configurationId = configurationId;
 			this.sessionCache = sessionCache;
 		}
-		
+
 		@Override
 		public String getConfigurationId() {
 			checkValid();
@@ -432,7 +432,7 @@ public class JavaSessionFactory implements SessionFactory {
 			final ObjectMapper<EObject> m = createMapperForObject((EObject)o);
 			if( m != null ) {
 				if( m instanceof RefreshableObjectMapper ) {
-					((RefreshableObjectMapper<EObject>)m).refresh((EObject)o, type);	
+					((RefreshableObjectMapper<EObject>)m).refresh((EObject)o, type);
 				} else {
 					throw new IllegalArgumentException("Object " + o + " is not refreshable");
 				}
@@ -442,7 +442,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> O get(Class<O> clazz, Object id) {
 			checkValid();
-			ObjectMapperFactory<?, ?> factory = factories.get(clazz.getName()+"Mapper");
+			ObjectMapperFactory<?, ?> factory = domainFactories.get(clazz.getName());
 			if( factory != null ) {
 				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, "selectById");
 				if( q != null ) {
@@ -488,26 +488,26 @@ public class JavaSessionFactory implements SessionFactory {
 					MapperFuture f = new MapperFuture(this, (Class<ObjectMapper<?>>) mapper);
 					f.createMapper();
 					return (Future<M>) f;
-				} else {					
+				} else {
 					new MapperFuture(this, (Class<ObjectMapper<?>>) mapper);
 				}
 			}
 			return null;
 		}
-		
+
 		@Override
 		public <M extends ObjectMapper<?>> boolean isMapperAvailable(
 				Class<M> mapper) {
 			checkValid();
 			return JavaSessionFactory.this.isMapperAvailable(mapper);
 		}
-		
+
 		@Override
 		public <T> boolean isMapperAvailableForType(Class<T> type) {
 			checkValid();
 			return JavaSessionFactory.this.isMapperAvailableForType(type);
 		}
-		
+
 		@Override
 		@SuppressWarnings("unchecked")
 		public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper) {
@@ -526,16 +526,16 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			return m;
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		@Override
 		public <T> ObjectMapper<T> createMapperForType(Class<T> type) {
 			checkValid();
 			ObjectMapperFactory<?, ?> factory;
 			synchronized (factories) {
-				factory = factories.get(type.getName()+"Mapper");	
+				factory = factories.get(type.getName()+"Mapper");
 			}
-			
+
 			if (factory == null) {
 				throw new RuntimeException("no factory for type " + type + " found! Double check your bundle.emap");
 			}
@@ -626,7 +626,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object) {
 			checkValid();
-			List<PersistParticipant> participants = getAllParticipants(); 
+			List<PersistParticipant> participants = getAllParticipants();
 			if( ! participants.isEmpty() ) {
 				for( PersistParticipant p : participants ) {
 					Map<String, Object> participate = p.participate(this, at.bestsolution.persistence.PersistParticipant.Type.INSERT, (EObject) object);
@@ -873,7 +873,7 @@ public class JavaSessionFactory implements SessionFactory {
 			checkValid();
 			return transactionConnectionQueue != null;
 		}
-		
+
 		@Override
 		public CompatTransaction beginTransaction() {
 			checkValid();
@@ -881,7 +881,7 @@ public class JavaSessionFactory implements SessionFactory {
 			final AtomicBoolean commit = new AtomicBoolean();
 			final String transactionId = UUID.randomUUID().toString();
 			final Transaction transaction = new Transaction() {
-				
+
 				@Override
 				public boolean execute() {
 					return commit.get();
@@ -889,17 +889,17 @@ public class JavaSessionFactory implements SessionFactory {
 			};
 			final Connection connection = startTransaction(isDebug, transactionId, transaction);
 			return new CompatTransaction() {
-				
+
 				@Override
 				public void rollback() {
 					run(false);
 				}
-				
+
 				@Override
 				public void commit() {
 					run(true);
 				}
-				
+
 				private void run(boolean doCommit) {
 					commit.set(doCommit);
 					try {
@@ -910,7 +910,7 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 			};
 		}
-		
+
 		@Override
 		public <A> A adaptTo(Class<A> clazz) {
 			checkValid();
@@ -919,14 +919,14 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			return null;
 		}
-		
+
 		@Override
 		public <R> R jdbcRun(boolean modify, Function<Connection, R> function) {
 			checkValid();
 			if( ! modify || getTransaction() != null ) {
 				Connection c = checkoutConnection();
 				try {
-					return function.execute(c);	
+					return function.execute(c);
 				} finally {
 					returnConnection(c);
 				}
@@ -934,7 +934,7 @@ public class JavaSessionFactory implements SessionFactory {
 				throw new IllegalStateException("You can only execute jdbc-runnables inside a transaction");
 			}
 		}
-		
+
 		public Connection startTransaction(boolean isDebug, String transactionId, Transaction transaction) {
 			checkValid();
 			if( isDebug ) {
@@ -966,12 +966,12 @@ public class JavaSessionFactory implements SessionFactory {
 			transactionConnectionQueue.add(connection);
 			return connection;
 		}
-		
+
 		private void executeTransaction(boolean isDebug, Connection connection, Transaction transaction) {
 			if( isDebug ) {
 				LOGGER.debug("Executing transaction");
 			}
-			
+
 			try {
 				if( transaction.execute() ) {
 					if( isDebug ) {
@@ -1041,7 +1041,7 @@ public class JavaSessionFactory implements SessionFactory {
 						LOGGER.error("Failed to rollback transaction",e);
 						throw new PersistanceException(e);
 					}
-				}	
+				}
 			} catch(Throwable e) {
 				LOGGER.error("Error while executing transactional code", e);
 				try {
@@ -1058,7 +1058,7 @@ public class JavaSessionFactory implements SessionFactory {
 				throw e instanceof RuntimeException ? (RuntimeException)e : new RuntimeException(e);
 			}
 		}
-		
+
 		private void postExecuteTransaction(boolean isDebug, Connection connection, String transactionId, Transaction transaction) {
 			// clear after-tx
 			afterTransaction.remove(transaction);
@@ -1087,12 +1087,12 @@ public class JavaSessionFactory implements SessionFactory {
 			if( transactionQueue.isEmpty() ) {
 				transactionQueue = null;
 			}
-			
+
 			if( isDebug ) {
 				LOGGER.debug("Finished transaction '"+transactionId+"'");
 			}
 		}
-		
+
 		@Override
 		public void runInTransaction(Transaction transaction) {
 			checkValid();
@@ -1105,14 +1105,14 @@ public class JavaSessionFactory implements SessionFactory {
 				postExecuteTransaction(isDebug, connection, transactionId, transaction);
 			}
 		}
-		
+
 		@Override
 		public void runInTransaction(final TransactionTask task) {
 			checkValid();
 			boolean isDebug = LOGGER.isDebugEnabled();
 			String transactionId = UUID.randomUUID().toString();
 			Transaction t = new Transaction() {
-				
+
 				@Override
 				public boolean execute() {
 					return task.run(JavaSessionImpl.this);
@@ -1123,7 +1123,7 @@ public class JavaSessionFactory implements SessionFactory {
 				executeTransaction(isDebug, connection, t);
 			} finally {
 				postExecuteTransaction(isDebug, connection, transactionId, t);
-			}			
+			}
 		}
 
 		private Set<String> notNull(Set<String> set) {
@@ -1229,12 +1229,12 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 			list.add(sql);
 		}
-		
+
 		@Override
 		public boolean isClosed() {
 			return closed;
 		}
-		
+
 		private void checkValid() {
 			if( isClosed() ) {
 				LOGGER.error("Session is already closed. Future version will throw an exception",new Exception());
@@ -1246,7 +1246,7 @@ public class JavaSessionFactory implements SessionFactory {
 		public void close() {
 			checkValid();
 			try {
-				
+
 				// free all session blobs
 				for (LazyBlob blob : managedBlobs) {
 					try {
@@ -1254,14 +1254,14 @@ public class JavaSessionFactory implements SessionFactory {
 					}
 					catch (SQLException e) {}
 				}
-				
+
 				mapperInstances.clear();
 				sessionCache.release();
-				
+
 				for( EObject eo : changeStorage.keySet() ) {
 					eo.eAdapters().remove(objectAdapter);
 				}
-				
+
 				changeStorage.clear();
 				transactionPrimaryKeyCache.clear();
 				transactionData.clear();
@@ -1281,7 +1281,7 @@ public class JavaSessionFactory implements SessionFactory {
 				closed = true;
 			}
 		}
-		
+
 		private List<PersistParticipant> getAllParticipants() {
 			List<PersistParticipant> l = new ArrayList<PersistParticipant>(participants.size() + persistParticipants.size());
 			l.addAll(this.participants);
@@ -1365,7 +1365,7 @@ public class JavaSessionFactory implements SessionFactory {
 		@Override
 		public Blob handleBlob(String tableName, String blobColumnName, String idColumnName, ResultSet set) throws SQLException {
 			checkValid();
-			
+
 			// we need to return null instead of creating a LazyBlob for null values
 			final Blob tempBlob = set.getBlob(blobColumnName);
 			if (tempBlob == null) {
@@ -1377,7 +1377,7 @@ public class JavaSessionFactory implements SessionFactory {
 				managedBlobs.add(blob);
 				return blob;
 			}
-			
+
 		}
 
 		@Override
@@ -1452,7 +1452,7 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 
 				processed.add(e);
-								
+
 				if( isDebug ) {
 					LOGGER.debug("Persisting of " + e);
 				}
@@ -1467,10 +1467,10 @@ public class JavaSessionFactory implements SessionFactory {
 
 				if( ! isValidObject(e, m) ) {
 					LOGGER.error("The object '"+e+"' is attached to another session! Future E-Map versions will throw an exception", new Exception());
-//FIXME					
+//FIXME
 //					throw new IllegalStateException("The object '"+e+"' is attached to another session!");
 				}
-				
+
 //				final Object l = m.getPrimaryKeyValue(e);
 				// WE NEED TO GET THE KEY FROM THE CACHE!
 				final Object txKey = getPrimaryKeyFromTransactionCache(e);
@@ -1493,14 +1493,14 @@ public class JavaSessionFactory implements SessionFactory {
 				LOGGER.debug("Finished persisting of entities");
 			}
 		}
-		
+
 		private boolean isValidObject(EObject eo, ObjectMapper<EObject> m) {
 			try {
 				if( eo instanceof PersistedEObject ) {
 					return isAttached(eo);
 				} else {
 					Object primaryKey = m.getPrimaryKeyValue(eo);
-					
+
 					if( primaryKey instanceof Number ) {
 						if( ((Number)primaryKey).longValue() > 0 ) {
 							return isAttached(eo);
@@ -1508,9 +1508,9 @@ public class JavaSessionFactory implements SessionFactory {
 					} else if( primaryKey != null ) {
 						return isAttached(eo);
 					}
-					
+
 					return true;
-				}				
+				}
 			} catch(Throwable t) {
 				LOGGER.error(t.getMessage(), t);
 			}
@@ -1718,6 +1718,21 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
+		public Registration registerObjectChangePersister(final ObjectChangePersistParticipant participant) {
+			return registerPersistParticipant(new PersistParticipant() {
+
+				@Override
+				public Map<String, Object> participate(Session session, Type type, Object o) {
+					JavaSession s = (JavaSession) session;
+					if( type == Type.UPDATE ) {
+						participant.participate(session, o, (List<? extends ObjectChange<?>>) s.getChangeDescription(o));
+					}
+					return Collections.emptyMap();
+				}
+			});
+		}
+
+		@Override
 		public List<ChangeDescription> getChangeDescription(Object object) {
 			checkValid();
 			List<FeatureChange> list = changeStorage.get(object);
@@ -1802,7 +1817,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 	}
 
-	public static class ChangeDescriptionImpl implements ChangeDescription {
+	public static class ChangeDescriptionImpl implements ChangeDescription, ObjectChange<Object> {
 		public final EStructuralFeature feature;
 		public List<Object> additions;
 		public List<Object> removals;
@@ -1813,6 +1828,22 @@ public class JavaSessionFactory implements SessionFactory {
 			this.feature = feature;
 			this.additions = new ArrayList<Object>();
 			this.removals = new ArrayList<Object>();
+		}
+
+		@Override
+		public String getAttributeName() {
+			return this.feature.getName();
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Class<Object> getInstanceType() {
+			return (Class<Object>) feature.getEType().getInstanceClass();
+		}
+
+		@Override
+		public boolean isMultiValue() {
+			return feature.isMany();
 		}
 
 		@Override
