@@ -111,478 +111,10 @@ ruleEMapping returns [EObject current=null]
 	        afterParserOrEnumRuleCall();
 	    }
 
-    |		{ 
-	        newCompositeNode(grammarAccess.getEMappingAccess().getRootEServiceMappingParserRuleCall_0_2()); 
-	    }
-		lv_root_0_3=ruleEServiceMapping		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEMappingRule());
-	        }
-       		set(
-       			$current, 
-       			"root",
-        		lv_root_0_3, 
-        		"EServiceMapping");
-	        afterParserOrEnumRuleCall();
-	    }
-
 )
 
 )
 )
-;
-
-
-
-
-
-// Entry rule entryRuleEServiceMapping
-entryRuleEServiceMapping returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getEServiceMappingRule()); }
-	 iv_ruleEServiceMapping=ruleEServiceMapping 
-	 { $current=$iv_ruleEServiceMapping.current; } 
-	 EOF 
-;
-
-// Rule EServiceMapping
-ruleEServiceMapping returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEServiceMappingAccess().getPackagePackageDeclarationParserRuleCall_0_0()); 
-	    }
-		lv_package_0_0=rulePackageDeclaration		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEServiceMappingRule());
-	        }
-       		set(
-       			$current, 
-       			"package",
-        		lv_package_0_0, 
-        		"PackageDeclaration");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)	otherlv_1='rest' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getEServiceMappingAccess().getRestKeyword_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-        }
-	otherlv_2=RULE_ID
-	{
-		newLeafNode(otherlv_2, grammarAccess.getEServiceMappingAccess().getEntityEMappingEntityCrossReference_2_0()); 
-	}
-
-)
-)	otherlv_3='{' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getEServiceMappingAccess().getLeftCurlyBracketKeyword_3());
-    }
-((
-(
-		lv_list_4_0=	'list' 
-    {
-        newLeafNode(lv_list_4_0, grammarAccess.getEServiceMappingAccess().getListListKeyword_4_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-       		setWithLastConsumed($current, "list", true, "list");
-	    }
-
-)
-)(	otherlv_5='default' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getEServiceMappingAccess().getDefaultKeyword_4_1_0());
-    }
-
-    |(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-        }
-	otherlv_6=RULE_ID
-	{
-		newLeafNode(otherlv_6, grammarAccess.getEServiceMappingAccess().getListQueryENamedQueryCrossReference_4_1_1_0()); 
-	}
-
-)
-)))?((
-(
-		lv_get_7_0=	'get' 
-    {
-        newLeafNode(lv_get_7_0, grammarAccess.getEServiceMappingAccess().getGetGetKeyword_5_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-       		setWithLastConsumed($current, "get", true, "get");
-	    }
-
-)
-)(	otherlv_8='default' 
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getEServiceMappingAccess().getDefaultKeyword_5_1_0());
-    }
-
-    |(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-        }
-	otherlv_9=RULE_ID
-	{
-		newLeafNode(otherlv_9, grammarAccess.getEServiceMappingAccess().getGetQueryENamedQueryCrossReference_5_1_1_0()); 
-	}
-
-)
-)))?((
-(
-		lv_update_10_0=	'update' 
-    {
-        newLeafNode(lv_update_10_0, grammarAccess.getEServiceMappingAccess().getUpdateUpdateKeyword_6_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-       		setWithLastConsumed($current, "update", true, "update");
-	    }
-
-)
-)	otherlv_11='default' 
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getEServiceMappingAccess().getDefaultKeyword_6_1());
-    }
-)?((
-(
-		lv_insert_12_0=	'insert' 
-    {
-        newLeafNode(lv_insert_12_0, grammarAccess.getEServiceMappingAccess().getInsertInsertKeyword_7_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-       		setWithLastConsumed($current, "insert", true, "insert");
-	    }
-
-)
-)	otherlv_13='default' 
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getEServiceMappingAccess().getDefaultKeyword_7_1());
-    }
-)?((
-(
-		lv_delete_14_0=	'delete' 
-    {
-        newLeafNode(lv_delete_14_0, grammarAccess.getEServiceMappingAccess().getDeleteDeleteKeyword_8_0_0());
-    }
- 
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEServiceMappingRule());
-	        }
-       		setWithLastConsumed($current, "delete", true, "delete");
-	    }
-
-)
-)	otherlv_15='default' 
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getEServiceMappingAccess().getDefaultKeyword_8_1());
-    }
-)?(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getEServiceMappingAccess().getServiceMethodsENamedServiceQueryParserRuleCall_9_0()); 
-	    }
-		lv_serviceMethods_16_0=ruleENamedServiceQuery		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getEServiceMappingRule());
-	        }
-       		add(
-       			$current, 
-       			"serviceMethods",
-        		lv_serviceMethods_16_0, 
-        		"ENamedServiceQuery");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)*	otherlv_17='}' 
-    {
-    	newLeafNode(otherlv_17, grammarAccess.getEServiceMappingAccess().getRightCurlyBracketKeyword_10());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleENamedServiceQuery
-entryRuleENamedServiceQuery returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getENamedServiceQueryRule()); }
-	 iv_ruleENamedServiceQuery=ruleENamedServiceQuery 
-	 { $current=$iv_ruleENamedServiceQuery.current; } 
-	 EOF 
-;
-
-// Rule ENamedServiceQuery
-ruleENamedServiceQuery returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-((
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getENamedServiceQueryRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getQueryENamedQueryCrossReference_0_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)	otherlv_1='as' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getENamedServiceQueryAccess().getAsKeyword_1());
-    }
-(
-(
-		lv_path_2_0=RULE_STRING
-		{
-			newLeafNode(lv_path_2_0, grammarAccess.getENamedServiceQueryAccess().getPathSTRINGTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getENamedServiceQueryRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"path",
-        		lv_path_2_0, 
-        		"STRING");
-	    }
-
-)
-)(	otherlv_3='{' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_3_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getParametersEServiceParamParserRuleCall_3_1_0()); 
-	    }
-		lv_parameters_4_0=ruleEServiceParam		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getENamedServiceQueryRule());
-	        }
-       		add(
-       			$current, 
-       			"parameters",
-        		lv_parameters_4_0, 
-        		"EServiceParam");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)*	otherlv_5='}' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_3_2());
-    }
-)?)
-;
-
-
-
-
-
-// Entry rule entryRuleEServiceParam
-entryRuleEServiceParam returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getEServiceParamRule()); }
-	 iv_ruleEServiceParam=ruleEServiceParam 
-	 { $current=$iv_ruleEServiceParam.current; } 
-	 EOF 
-;
-
-// Rule EServiceParam
-ruleEServiceParam returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-    { 
-        newCompositeNode(grammarAccess.getEServiceParamAccess().getEPathParamParserRuleCall_0()); 
-    }
-    this_EPathParam_0=ruleEPathParam
-    { 
-        $current = $this_EPathParam_0.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getEServiceParamAccess().getEQueryParamParserRuleCall_1()); 
-    }
-    this_EQueryParam_1=ruleEQueryParam
-    { 
-        $current = $this_EQueryParam_1.current; 
-        afterParserOrEnumRuleCall();
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleEPathParam
-entryRuleEPathParam returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getEPathParamRule()); }
-	 iv_ruleEPathParam=ruleEPathParam 
-	 { $current=$iv_ruleEPathParam.current; } 
-	 EOF 
-;
-
-// Rule EPathParam
-ruleEPathParam returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(	otherlv_0='path-param' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getEPathParamAccess().getPathParamKeyword_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEPathParamRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getEPathParamAccess().getParamEParameterCrossReference_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_2='named' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getEPathParamAccess().getNamedKeyword_2_0());
-    }
-(
-(
-		lv_name_3_0=RULE_ID
-		{
-			newLeafNode(lv_name_3_0, grammarAccess.getEPathParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEPathParamRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_3_0, 
-        		"ID");
-	    }
-
-)
-))?)
-;
-
-
-
-
-
-// Entry rule entryRuleEQueryParam
-entryRuleEQueryParam returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getEQueryParamRule()); }
-	 iv_ruleEQueryParam=ruleEQueryParam 
-	 { $current=$iv_ruleEQueryParam.current; } 
-	 EOF 
-;
-
-// Rule EQueryParam
-ruleEQueryParam returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(	otherlv_0='query-param' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getEQueryParamAccess().getQueryParamKeyword_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEQueryParamRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getEQueryParamAccess().getParamEParameterCrossReference_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_2='named' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getEQueryParamAccess().getNamedKeyword_2_0());
-    }
-(
-(
-		lv_name_3_0=RULE_ID
-		{
-			newLeafNode(lv_name_3_0, grammarAccess.getEQueryParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getEQueryParamRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_3_0, 
-        		"ID");
-	    }
-
-)
-))?)
 ;
 
 
@@ -1014,9 +546,27 @@ ruleEBundleEntity returns [EObject current=null]
 	    }
 
 )
-))*)?	otherlv_16='}' 
+))*)?(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getRestERestServiceMappingParserRuleCall_1_6_0()); 
+	    }
+		lv_rest_16_0=ruleERestServiceMapping		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getEBundleEntityRule());
+	        }
+       		set(
+       			$current, 
+       			"rest",
+        		lv_rest_16_0, 
+        		"ERestServiceMapping");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?	otherlv_17='}' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_6());
+    	newLeafNode(otherlv_17, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_7());
     }
 )?)
 ;
@@ -1516,6 +1066,326 @@ ruleESQLDbType returns [EObject current=null]
        			"size",
         		lv_size_3_0, 
         		"STRING");
+	    }
+
+)
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleERestServiceMapping
+entryRuleERestServiceMapping returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getERestServiceMappingRule()); }
+	 iv_ruleERestServiceMapping=ruleERestServiceMapping 
+	 { $current=$iv_ruleERestServiceMapping.current; } 
+	 EOF 
+;
+
+// Rule ERestServiceMapping
+ruleERestServiceMapping returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='webservice' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getERestServiceMappingAccess().getWebserviceKeyword_0());
+    }
+(
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getERestServiceMappingAccess().getERestServiceMappingAction_1(),
+            $current);
+    }
+)(	otherlv_2='{' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getERestServiceMappingAccess().getLeftCurlyBracketKeyword_2_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getERestServiceMappingAccess().getServiceMethodsENamedServiceQueryParserRuleCall_2_1_0()); 
+	    }
+		lv_serviceMethods_3_0=ruleENamedServiceQuery		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getERestServiceMappingRule());
+	        }
+       		add(
+       			$current, 
+       			"serviceMethods",
+        		lv_serviceMethods_3_0, 
+        		"ENamedServiceQuery");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+	otherlv_4='}' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_2());
+    }
+)?(
+(
+		lv_rest_5_0=	'rest' 
+    {
+        newLeafNode(lv_rest_5_0, grammarAccess.getERestServiceMappingAccess().getRestRestKeyword_3_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getERestServiceMappingRule());
+	        }
+       		setWithLastConsumed($current, "rest", true, "rest");
+	    }
+
+)
+))
+;
+
+
+
+
+
+// Entry rule entryRuleENamedServiceQuery
+entryRuleENamedServiceQuery returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getENamedServiceQueryRule()); }
+	 iv_ruleENamedServiceQuery=ruleENamedServiceQuery 
+	 { $current=$iv_ruleENamedServiceQuery.current; } 
+	 EOF 
+;
+
+// Rule ENamedServiceQuery
+ruleENamedServiceQuery returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getENamedServiceQueryRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getQueryENamedQueryCrossReference_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1='as' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getENamedServiceQueryAccess().getAsKeyword_1());
+    }
+(
+(
+		lv_path_2_0=RULE_STRING
+		{
+			newLeafNode(lv_path_2_0, grammarAccess.getENamedServiceQueryAccess().getPathSTRINGTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getENamedServiceQueryRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"path",
+        		lv_path_2_0, 
+        		"STRING");
+	    }
+
+)
+)(	otherlv_3='{' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_3_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getParametersEServiceParamParserRuleCall_3_1_0()); 
+	    }
+		lv_parameters_4_0=ruleEServiceParam		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getENamedServiceQueryRule());
+	        }
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_4_0, 
+        		"EServiceParam");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_5='}' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_3_2());
+    }
+)?)
+;
+
+
+
+
+
+// Entry rule entryRuleEServiceParam
+entryRuleEServiceParam returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEServiceParamRule()); }
+	 iv_ruleEServiceParam=ruleEServiceParam 
+	 { $current=$iv_ruleEServiceParam.current; } 
+	 EOF 
+;
+
+// Rule EServiceParam
+ruleEServiceParam returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getEServiceParamAccess().getEPathParamParserRuleCall_0()); 
+    }
+    this_EPathParam_0=ruleEPathParam
+    { 
+        $current = $this_EPathParam_0.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getEServiceParamAccess().getEQueryParamParserRuleCall_1()); 
+    }
+    this_EQueryParam_1=ruleEQueryParam
+    { 
+        $current = $this_EQueryParam_1.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleEPathParam
+entryRuleEPathParam returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEPathParamRule()); }
+	 iv_ruleEPathParam=ruleEPathParam 
+	 { $current=$iv_ruleEPathParam.current; } 
+	 EOF 
+;
+
+// Rule EPathParam
+ruleEPathParam returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='path-param' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getEPathParamAccess().getPathParamKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEPathParamRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEPathParamAccess().getParamEParameterCrossReference_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_2='named' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getEPathParamAccess().getNamedKeyword_2_0());
+    }
+(
+(
+		lv_name_3_0=RULE_ID
+		{
+			newLeafNode(lv_name_3_0, grammarAccess.getEPathParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEPathParamRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_3_0, 
+        		"ID");
+	    }
+
+)
+))?)
+;
+
+
+
+
+
+// Entry rule entryRuleEQueryParam
+entryRuleEQueryParam returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getEQueryParamRule()); }
+	 iv_ruleEQueryParam=ruleEQueryParam 
+	 { $current=$iv_ruleEQueryParam.current; } 
+	 EOF 
+;
+
+// Rule EQueryParam
+ruleEQueryParam returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='query-param' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getEQueryParamAccess().getQueryParamKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEQueryParamRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getEQueryParamAccess().getParamEParameterCrossReference_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_2='named' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getEQueryParamAccess().getNamedKeyword_2_0());
+    }
+(
+(
+		lv_name_3_0=RULE_ID
+		{
+			newLeafNode(lv_name_3_0, grammarAccess.getEQueryParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getEQueryParamRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_3_0, 
+        		"ID");
 	    }
 
 )

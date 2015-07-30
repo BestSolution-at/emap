@@ -80,31 +80,6 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEMappingAdapter();
       }
       @Override
-      public Adapter caseEServiceMapping(EServiceMapping object)
-      {
-        return createEServiceMappingAdapter();
-      }
-      @Override
-      public Adapter caseENamedServiceQuery(ENamedServiceQuery object)
-      {
-        return createENamedServiceQueryAdapter();
-      }
-      @Override
-      public Adapter caseEServiceParam(EServiceParam object)
-      {
-        return createEServiceParamAdapter();
-      }
-      @Override
-      public Adapter caseEPathParam(EPathParam object)
-      {
-        return createEPathParamAdapter();
-      }
-      @Override
-      public Adapter caseEQueryParam(EQueryParam object)
-      {
-        return createEQueryParamAdapter();
-      }
-      @Override
       public Adapter caseEMappingBundle(EMappingBundle object)
       {
         return createEMappingBundleAdapter();
@@ -143,6 +118,31 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
       public Adapter caseESQLDbType(ESQLDbType object)
       {
         return createESQLDbTypeAdapter();
+      }
+      @Override
+      public Adapter caseERestServiceMapping(ERestServiceMapping object)
+      {
+        return createERestServiceMappingAdapter();
+      }
+      @Override
+      public Adapter caseENamedServiceQuery(ENamedServiceQuery object)
+      {
+        return createENamedServiceQueryAdapter();
+      }
+      @Override
+      public Adapter caseEServiceParam(EServiceParam object)
+      {
+        return createEServiceParamAdapter();
+      }
+      @Override
+      public Adapter caseEPathParam(EPathParam object)
+      {
+        return createEPathParamAdapter();
+      }
+      @Override
+      public Adapter caseEQueryParam(EQueryParam object)
+      {
+        return createEQueryParamAdapter();
       }
       @Override
       public Adapter caseEMappingEntityDef(EMappingEntityDef object)
@@ -282,81 +282,6 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping <em>EService Mapping</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping
-   * @generated
-   */
-  public Adapter createEServiceMappingAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery <em>ENamed Service Query</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery
-   * @generated
-   */
-  public Adapter createENamedServiceQueryAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EServiceParam <em>EService Param</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceParam
-   * @generated
-   */
-  public Adapter createEServiceParamAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPathParam <em>EPath Param</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see at.bestsolution.persistence.emap.eMap.EPathParam
-   * @generated
-   */
-  public Adapter createEPathParamAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EQueryParam <em>EQuery Param</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see at.bestsolution.persistence.emap.eMap.EQueryParam
-   * @generated
-   */
-  public Adapter createEQueryParamAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle <em>EMapping Bundle</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -472,6 +397,81 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createESQLDbTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping <em>ERest Service Mapping</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ERestServiceMapping
+   * @generated
+   */
+  public Adapter createERestServiceMappingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery <em>ENamed Service Query</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery
+   * @generated
+   */
+  public Adapter createENamedServiceQueryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EServiceParam <em>EService Param</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EServiceParam
+   * @generated
+   */
+  public Adapter createEServiceParamAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPathParam <em>EPath Param</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EPathParam
+   * @generated
+   */
+  public Adapter createEPathParamAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EQueryParam <em>EQuery Param</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EQueryParam
+   * @generated
+   */
+  public Adapter createEQueryParamAdapter()
   {
     return null;
   }

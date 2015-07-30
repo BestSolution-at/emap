@@ -7,6 +7,7 @@ import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EIndex;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingEntity;
+import at.bestsolution.persistence.emap.eMap.ERestServiceMapping;
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
 import at.bestsolution.persistence.emap.eMap.EUniqueConstraint;
 
@@ -40,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getUniqueContraints <em>Unique Contraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getIndices <em>Indices</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getTypeDefs <em>Type Defs</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getRest <em>Rest</em>}</li>
  * </ul>
  *
  * @generated
@@ -115,6 +117,16 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * @ordered
    */
   protected EList<ESQLAttTypeDef> typeDefs;
+
+  /**
+   * The cached value of the '{@link #getRest() <em>Rest</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRest()
+   * @generated
+   * @ordered
+   */
+  protected ERestServiceMapping rest;
 
   /**
    * <!-- begin-user-doc -->
@@ -264,6 +276,54 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
    * <!-- end-user-doc -->
    * @generated
    */
+  public ERestServiceMapping getRest()
+  {
+    return rest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetRest(ERestServiceMapping newRest, NotificationChain msgs)
+  {
+    ERestServiceMapping oldRest = rest;
+    rest = newRest;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EMapPackage.EBUNDLE_ENTITY__REST, oldRest, newRest);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRest(ERestServiceMapping newRest)
+  {
+    if (newRest != rest)
+    {
+      NotificationChain msgs = null;
+      if (rest != null)
+        msgs = ((InternalEObject)rest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EMapPackage.EBUNDLE_ENTITY__REST, null, msgs);
+      if (newRest != null)
+        msgs = ((InternalEObject)newRest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EMapPackage.EBUNDLE_ENTITY__REST, null, msgs);
+      msgs = basicSetRest(newRest, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EBUNDLE_ENTITY__REST, newRest, newRest));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -277,6 +337,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return ((InternalEList<?>)getIndices()).basicRemove(otherEnd, msgs);
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return ((InternalEList<?>)getTypeDefs()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EBUNDLE_ENTITY__REST:
+        return basicSetRest(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -304,6 +366,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return getIndices();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return getTypeDefs();
+      case EMapPackage.EBUNDLE_ENTITY__REST:
+        return getRest();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -341,6 +405,9 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         getTypeDefs().clear();
         getTypeDefs().addAll((Collection<? extends ESQLAttTypeDef>)newValue);
         return;
+      case EMapPackage.EBUNDLE_ENTITY__REST:
+        setRest((ERestServiceMapping)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -373,6 +440,9 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         getTypeDefs().clear();
         return;
+      case EMapPackage.EBUNDLE_ENTITY__REST:
+        setRest((ERestServiceMapping)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -399,6 +469,8 @@ public class EBundleEntityImpl extends MinimalEObjectImpl.Container implements E
         return indices != null && !indices.isEmpty();
       case EMapPackage.EBUNDLE_ENTITY__TYPE_DEFS:
         return typeDefs != null && !typeDefs.isEmpty();
+      case EMapPackage.EBUNDLE_ENTITY__REST:
+        return rest != null;
     }
     return super.eIsSet(featureID);
   }

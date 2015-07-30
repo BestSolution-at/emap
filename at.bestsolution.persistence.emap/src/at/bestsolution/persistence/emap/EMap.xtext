@@ -13,38 +13,7 @@ grammar at.bestsolution.persistence.emap.EMap with org.eclipse.xtext.common.Term
 generate eMap "http://www.bestsolution.at/persistence/emap/EMap"
 
 EMapping:
-	root=(EMappingBundle|EMappingEntityDef|EServiceMapping);
-
-EServiceMapping:
-	package=PackageDeclaration
-	'rest' entity=[EMappingEntity|ID] '{'
-		(list?='list' ('default'|listQuery=[ENamedQuery]))?
-		(get?='get' ('default'|getQuery=[ENamedQuery]))?
-		(update?='update' ('default'))?
-		(insert?='insert' ('default'))?
-		(delete?='delete' ('default'))?
-		serviceMethods+=ENamedServiceQuery*
-	'}'
-;
-
-ENamedServiceQuery:
-	 query=[ENamedQuery|QualifiedName] 'as' path=STRING ('{'
-		parameters+=EServiceParam*
-	'}')?
-;
-
-EServiceParam:
-	EPathParam | EQueryParam
-;
-
-EPathParam:
-	'path-param' param=[EParameter|QualifiedName] ('named' name=ID)?
-;
-
-EQueryParam:
-	'query-param' param=[EParameter|QualifiedName] ('named' name=ID)?
-;
-
+	root=(EMappingBundle|EMappingEntityDef);
 
 EMappingBundle:
 	imports+=Import*
@@ -64,7 +33,9 @@ EBundleEntity:
 		( fkConstraints+=EFkConstraint (',' fkConstraints+=EFkConstraint)* )?
 		(uniqueContraints+=EUniqueConstraint (',' uniqueContraints+=EUniqueConstraint )* )?
 		(indices+=EIndex (',' indices+=EIndex)*)?
-		(typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)? '}'
+		(typeDefs += ESQLAttTypeDef (',' typeDefs += ESQLAttTypeDef )*)?
+		rest=ERestServiceMapping?
+		 '}'
 	)?
 ;
 
@@ -90,6 +61,36 @@ ESQLTypeDef:
 
 ESQLDbType:
 	dbType=('default'|STRING) sqlTypeDef=STRING ('size' size=STRING)?
+;
+
+//EServiceMappingList:
+//	'webservice' packageName=QualifiedName '{'
+//		serviceDefinition += EServiceMapping*
+//	'}'
+//;
+
+ERestServiceMapping:
+	'webservice' {ERestServiceMapping} ('{'
+		serviceMethods+=ENamedServiceQuery+
+	'}')? rest?='rest'
+;
+
+ENamedServiceQuery:
+	 query=[ENamedQuery|QualifiedName] 'as' path=STRING ('{'
+		parameters+=EServiceParam*
+	'}')?
+;
+
+EServiceParam:
+	EPathParam | EQueryParam
+;
+
+EPathParam:
+	'path-param' param=[EParameter|QualifiedName] ('named' name=ID)?
+;
+
+EQueryParam:
+	'query-param' param=[EParameter|QualifiedName] ('named' name=ID)?
 ;
 
 EMappingEntityDef:

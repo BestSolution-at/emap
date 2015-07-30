@@ -79,43 +79,6 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case EMapPackage.ESERVICE_MAPPING:
-      {
-        EServiceMapping eServiceMapping = (EServiceMapping)theEObject;
-        T result = caseEServiceMapping(eServiceMapping);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EMapPackage.ENAMED_SERVICE_QUERY:
-      {
-        ENamedServiceQuery eNamedServiceQuery = (ENamedServiceQuery)theEObject;
-        T result = caseENamedServiceQuery(eNamedServiceQuery);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EMapPackage.ESERVICE_PARAM:
-      {
-        EServiceParam eServiceParam = (EServiceParam)theEObject;
-        T result = caseEServiceParam(eServiceParam);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EMapPackage.EPATH_PARAM:
-      {
-        EPathParam ePathParam = (EPathParam)theEObject;
-        T result = caseEPathParam(ePathParam);
-        if (result == null) result = caseEServiceParam(ePathParam);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case EMapPackage.EQUERY_PARAM:
-      {
-        EQueryParam eQueryParam = (EQueryParam)theEObject;
-        T result = caseEQueryParam(eQueryParam);
-        if (result == null) result = caseEServiceParam(eQueryParam);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case EMapPackage.EMAPPING_BUNDLE:
       {
         EMappingBundle eMappingBundle = (EMappingBundle)theEObject;
@@ -169,6 +132,43 @@ public class EMapSwitch<T> extends Switch<T>
       {
         ESQLDbType esqlDbType = (ESQLDbType)theEObject;
         T result = caseESQLDbType(esqlDbType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EREST_SERVICE_MAPPING:
+      {
+        ERestServiceMapping eRestServiceMapping = (ERestServiceMapping)theEObject;
+        T result = caseERestServiceMapping(eRestServiceMapping);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ENAMED_SERVICE_QUERY:
+      {
+        ENamedServiceQuery eNamedServiceQuery = (ENamedServiceQuery)theEObject;
+        T result = caseENamedServiceQuery(eNamedServiceQuery);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ESERVICE_PARAM:
+      {
+        EServiceParam eServiceParam = (EServiceParam)theEObject;
+        T result = caseEServiceParam(eServiceParam);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EPATH_PARAM:
+      {
+        EPathParam ePathParam = (EPathParam)theEObject;
+        T result = caseEPathParam(ePathParam);
+        if (result == null) result = caseEServiceParam(ePathParam);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EQUERY_PARAM:
+      {
+        EQueryParam eQueryParam = (EQueryParam)theEObject;
+        T result = caseEQueryParam(eQueryParam);
+        if (result == null) result = caseEServiceParam(eQueryParam);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -336,86 +336,6 @@ public class EMapSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>EService Mapping</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EService Mapping</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEServiceMapping(EServiceMapping object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>ENamed Service Query</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ENamed Service Query</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseENamedServiceQuery(ENamedServiceQuery object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>EService Param</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EService Param</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEServiceParam(EServiceParam object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>EPath Param</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EPath Param</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEPathParam(EPathParam object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>EQuery Param</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>EQuery Param</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseEQueryParam(EQueryParam object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>EMapping Bundle</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -539,6 +459,86 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseESQLDbType(ESQLDbType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ERest Service Mapping</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ERest Service Mapping</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseERestServiceMapping(ERestServiceMapping object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ENamed Service Query</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ENamed Service Query</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseENamedServiceQuery(ENamedServiceQuery object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EService Param</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EService Param</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEServiceParam(EServiceParam object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EPath Param</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EPath Param</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEPathParam(EPathParam object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EQuery Param</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EQuery Param</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEQueryParam(EQueryParam object)
   {
     return null;
   }

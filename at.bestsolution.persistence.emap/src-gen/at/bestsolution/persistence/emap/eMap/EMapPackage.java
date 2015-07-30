@@ -86,272 +86,6 @@ public interface EMapPackage extends EPackage
   int EMAPPING_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceMappingImpl <em>EService Mapping</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see at.bestsolution.persistence.emap.eMap.impl.EServiceMappingImpl
-   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceMapping()
-   * @generated
-   */
-  int ESERVICE_MAPPING = 1;
-
-  /**
-   * The feature id for the '<em><b>Package</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__PACKAGE = 0;
-
-  /**
-   * The feature id for the '<em><b>Entity</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__ENTITY = 1;
-
-  /**
-   * The feature id for the '<em><b>List</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__LIST = 2;
-
-  /**
-   * The feature id for the '<em><b>List Query</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__LIST_QUERY = 3;
-
-  /**
-   * The feature id for the '<em><b>Get</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__GET = 4;
-
-  /**
-   * The feature id for the '<em><b>Get Query</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__GET_QUERY = 5;
-
-  /**
-   * The feature id for the '<em><b>Update</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__UPDATE = 6;
-
-  /**
-   * The feature id for the '<em><b>Insert</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__INSERT = 7;
-
-  /**
-   * The feature id for the '<em><b>Delete</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__DELETE = 8;
-
-  /**
-   * The feature id for the '<em><b>Service Methods</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING__SERVICE_METHODS = 9;
-
-  /**
-   * The number of structural features of the '<em>EService Mapping</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_MAPPING_FEATURE_COUNT = 10;
-
-  /**
-   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl <em>ENamed Service Query</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl
-   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedServiceQuery()
-   * @generated
-   */
-  int ENAMED_SERVICE_QUERY = 2;
-
-  /**
-   * The feature id for the '<em><b>Query</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENAMED_SERVICE_QUERY__QUERY = 0;
-
-  /**
-   * The feature id for the '<em><b>Path</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENAMED_SERVICE_QUERY__PATH = 1;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENAMED_SERVICE_QUERY__PARAMETERS = 2;
-
-  /**
-   * The number of structural features of the '<em>ENamed Service Query</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ENAMED_SERVICE_QUERY_FEATURE_COUNT = 3;
-
-  /**
-   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl <em>EService Param</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl
-   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceParam()
-   * @generated
-   */
-  int ESERVICE_PARAM = 3;
-
-  /**
-   * The feature id for the '<em><b>Param</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_PARAM__PARAM = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_PARAM__NAME = 1;
-
-  /**
-   * The number of structural features of the '<em>EService Param</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ESERVICE_PARAM_FEATURE_COUNT = 2;
-
-  /**
-   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl <em>EPath Param</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl
-   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPathParam()
-   * @generated
-   */
-  int EPATH_PARAM = 4;
-
-  /**
-   * The feature id for the '<em><b>Param</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EPATH_PARAM__PARAM = ESERVICE_PARAM__PARAM;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EPATH_PARAM__NAME = ESERVICE_PARAM__NAME;
-
-  /**
-   * The number of structural features of the '<em>EPath Param</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EPATH_PARAM_FEATURE_COUNT = ESERVICE_PARAM_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl <em>EQuery Param</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl
-   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQueryParam()
-   * @generated
-   */
-  int EQUERY_PARAM = 5;
-
-  /**
-   * The feature id for the '<em><b>Param</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUERY_PARAM__PARAM = ESERVICE_PARAM__PARAM;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUERY_PARAM__NAME = ESERVICE_PARAM__NAME;
-
-  /**
-   * The number of structural features of the '<em>EQuery Param</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int EQUERY_PARAM_FEATURE_COUNT = ESERVICE_PARAM_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl <em>EMapping Bundle</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -359,7 +93,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingBundle()
    * @generated
    */
-  int EMAPPING_BUNDLE = 6;
+  int EMAPPING_BUNDLE = 1;
 
   /**
    * The feature id for the '<em><b>Imports</b></em>' containment reference list.
@@ -441,7 +175,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEBundleEntity()
    * @generated
    */
-  int EBUNDLE_ENTITY = 7;
+  int EBUNDLE_ENTITY = 2;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -498,13 +232,22 @@ public interface EMapPackage extends EPackage
   int EBUNDLE_ENTITY__TYPE_DEFS = 5;
 
   /**
+   * The feature id for the '<em><b>Rest</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EBUNDLE_ENTITY__REST = 6;
+
+  /**
    * The number of structural features of the '<em>EBundle Entity</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EBUNDLE_ENTITY_FEATURE_COUNT = 6;
+  int EBUNDLE_ENTITY_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EIndexImpl <em>EIndex</em>}' class.
@@ -514,7 +257,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEIndex()
    * @generated
    */
-  int EINDEX = 8;
+  int EINDEX = 3;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -551,7 +294,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEFkConstraint()
    * @generated
    */
-  int EFK_CONSTRAINT = 9;
+  int EFK_CONSTRAINT = 4;
 
   /**
    * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -588,7 +331,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEUniqueConstraint()
    * @generated
    */
-  int EUNIQUE_CONSTRAINT = 10;
+  int EUNIQUE_CONSTRAINT = 5;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -625,7 +368,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLAttTypeDef()
    * @generated
    */
-  int ESQL_ATT_TYPE_DEF = 11;
+  int ESQL_ATT_TYPE_DEF = 6;
 
   /**
    * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -662,7 +405,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLTypeDef()
    * @generated
    */
-  int ESQL_TYPE_DEF = 12;
+  int ESQL_TYPE_DEF = 7;
 
   /**
    * The feature id for the '<em><b>Etype</b></em>' containment reference.
@@ -699,7 +442,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getESQLDbType()
    * @generated
    */
-  int ESQL_DB_TYPE = 13;
+  int ESQL_DB_TYPE = 8;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -736,6 +479,200 @@ public interface EMapPackage extends EPackage
    * @ordered
    */
   int ESQL_DB_TYPE_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl <em>ERest Service Mapping</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getERestServiceMapping()
+   * @generated
+   */
+  int EREST_SERVICE_MAPPING = 9;
+
+  /**
+   * The feature id for the '<em><b>Service Methods</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREST_SERVICE_MAPPING__SERVICE_METHODS = 0;
+
+  /**
+   * The feature id for the '<em><b>Rest</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREST_SERVICE_MAPPING__REST = 1;
+
+  /**
+   * The number of structural features of the '<em>ERest Service Mapping</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREST_SERVICE_MAPPING_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl <em>ENamed Service Query</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedServiceQuery()
+   * @generated
+   */
+  int ENAMED_SERVICE_QUERY = 10;
+
+  /**
+   * The feature id for the '<em><b>Query</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_SERVICE_QUERY__QUERY = 0;
+
+  /**
+   * The feature id for the '<em><b>Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_SERVICE_QUERY__PATH = 1;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_SERVICE_QUERY__PARAMETERS = 2;
+
+  /**
+   * The number of structural features of the '<em>ENamed Service Query</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENAMED_SERVICE_QUERY_FEATURE_COUNT = 3;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl <em>EService Param</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceParam()
+   * @generated
+   */
+  int ESERVICE_PARAM = 11;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESERVICE_PARAM__PARAM = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESERVICE_PARAM__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>EService Param</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ESERVICE_PARAM_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl <em>EPath Param</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPathParam()
+   * @generated
+   */
+  int EPATH_PARAM = 12;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPATH_PARAM__PARAM = ESERVICE_PARAM__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPATH_PARAM__NAME = ESERVICE_PARAM__NAME;
+
+  /**
+   * The number of structural features of the '<em>EPath Param</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EPATH_PARAM_FEATURE_COUNT = ESERVICE_PARAM_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl <em>EQuery Param</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQueryParam()
+   * @generated
+   */
+  int EQUERY_PARAM = 13;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUERY_PARAM__PARAM = ESERVICE_PARAM__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUERY_PARAM__NAME = ESERVICE_PARAM__NAME;
+
+  /**
+   * The number of structural features of the '<em>EQuery Param</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EQUERY_PARAM_FEATURE_COUNT = ESERVICE_PARAM_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl <em>EMapping Entity Def</em>}' class.
@@ -1916,221 +1853,6 @@ public interface EMapPackage extends EPackage
   EReference getEMapping_Root();
 
   /**
-   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping <em>EService Mapping</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EService Mapping</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping
-   * @generated
-   */
-  EClass getEServiceMapping();
-
-  /**
-   * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#getPackage <em>Package</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Package</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#getPackage()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EReference getEServiceMapping_Package();
-
-  /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#getEntity <em>Entity</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Entity</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#getEntity()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EReference getEServiceMapping_Entity();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#isList <em>List</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>List</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#isList()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EAttribute getEServiceMapping_List();
-
-  /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#getListQuery <em>List Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>List Query</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#getListQuery()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EReference getEServiceMapping_ListQuery();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#isGet <em>Get</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Get</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#isGet()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EAttribute getEServiceMapping_Get();
-
-  /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#getGetQuery <em>Get Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Get Query</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#getGetQuery()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EReference getEServiceMapping_GetQuery();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#isUpdate <em>Update</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Update</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#isUpdate()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EAttribute getEServiceMapping_Update();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#isInsert <em>Insert</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Insert</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#isInsert()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EAttribute getEServiceMapping_Insert();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#isDelete <em>Delete</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Delete</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#isDelete()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EAttribute getEServiceMapping_Delete();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.EServiceMapping#getServiceMethods <em>Service Methods</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Service Methods</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceMapping#getServiceMethods()
-   * @see #getEServiceMapping()
-   * @generated
-   */
-  EReference getEServiceMapping_ServiceMethods();
-
-  /**
-   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery <em>ENamed Service Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ENamed Service Query</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery
-   * @generated
-   */
-  EClass getENamedServiceQuery();
-
-  /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getQuery <em>Query</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Query</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getQuery()
-   * @see #getENamedServiceQuery()
-   * @generated
-   */
-  EReference getENamedServiceQuery_Query();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getPath <em>Path</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Path</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getPath()
-   * @see #getENamedServiceQuery()
-   * @generated
-   */
-  EAttribute getENamedServiceQuery_Path();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getParameters()
-   * @see #getENamedServiceQuery()
-   * @generated
-   */
-  EReference getENamedServiceQuery_Parameters();
-
-  /**
-   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EServiceParam <em>EService Param</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EService Param</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceParam
-   * @generated
-   */
-  EClass getEServiceParam();
-
-  /**
-   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EServiceParam#getParam <em>Param</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Param</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceParam#getParam()
-   * @see #getEServiceParam()
-   * @generated
-   */
-  EReference getEServiceParam_Param();
-
-  /**
-   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceParam#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EServiceParam#getName()
-   * @see #getEServiceParam()
-   * @generated
-   */
-  EAttribute getEServiceParam_Name();
-
-  /**
-   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EPathParam <em>EPath Param</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EPath Param</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EPathParam
-   * @generated
-   */
-  EClass getEPathParam();
-
-  /**
-   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EQueryParam <em>EQuery Param</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>EQuery Param</em>'.
-   * @see at.bestsolution.persistence.emap.eMap.EQueryParam
-   * @generated
-   */
-  EClass getEQueryParam();
-
-  /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EMappingBundle <em>EMapping Bundle</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2292,6 +2014,17 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EReference getEBundleEntity_TypeDefs();
+
+  /**
+   * Returns the meta object for the containment reference '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getRest <em>Rest</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Rest</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EBundleEntity#getRest()
+   * @see #getEBundleEntity()
+   * @generated
+   */
+  EReference getEBundleEntity_Rest();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EIndex <em>EIndex</em>}'.
@@ -2495,6 +2228,133 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EAttribute getESQLDbType_Size();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping <em>ERest Service Mapping</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ERest Service Mapping</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ERestServiceMapping
+   * @generated
+   */
+  EClass getERestServiceMapping();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getServiceMethods <em>Service Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Service Methods</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getServiceMethods()
+   * @see #getERestServiceMapping()
+   * @generated
+   */
+  EReference getERestServiceMapping_ServiceMethods();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#isRest <em>Rest</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Rest</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ERestServiceMapping#isRest()
+   * @see #getERestServiceMapping()
+   * @generated
+   */
+  EAttribute getERestServiceMapping_Rest();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery <em>ENamed Service Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ENamed Service Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery
+   * @generated
+   */
+  EClass getENamedServiceQuery();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getQuery <em>Query</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Query</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getQuery()
+   * @see #getENamedServiceQuery()
+   * @generated
+   */
+  EReference getENamedServiceQuery_Query();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getPath <em>Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Path</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getPath()
+   * @see #getENamedServiceQuery()
+   * @generated
+   */
+  EAttribute getENamedServiceQuery_Path();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getParameters()
+   * @see #getENamedServiceQuery()
+   * @generated
+   */
+  EReference getENamedServiceQuery_Parameters();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EServiceParam <em>EService Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EService Param</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EServiceParam
+   * @generated
+   */
+  EClass getEServiceParam();
+
+  /**
+   * Returns the meta object for the reference '{@link at.bestsolution.persistence.emap.eMap.EServiceParam#getParam <em>Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Param</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EServiceParam#getParam()
+   * @see #getEServiceParam()
+   * @generated
+   */
+  EReference getEServiceParam_Param();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.EServiceParam#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EServiceParam#getName()
+   * @see #getEServiceParam()
+   * @generated
+   */
+  EAttribute getEServiceParam_Name();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EPathParam <em>EPath Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EPath Param</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EPathParam
+   * @generated
+   */
+  EClass getEPathParam();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EQueryParam <em>EQuery Param</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>EQuery Param</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.EQueryParam
+   * @generated
+   */
+  EClass getEQueryParam();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EMappingEntityDef <em>EMapping Entity Def</em>}'.
@@ -3682,176 +3542,6 @@ public interface EMapPackage extends EPackage
     EReference EMAPPING__ROOT = eINSTANCE.getEMapping_Root();
 
     /**
-     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceMappingImpl <em>EService Mapping</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see at.bestsolution.persistence.emap.eMap.impl.EServiceMappingImpl
-     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceMapping()
-     * @generated
-     */
-    EClass ESERVICE_MAPPING = eINSTANCE.getEServiceMapping();
-
-    /**
-     * The meta object literal for the '<em><b>Package</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_MAPPING__PACKAGE = eINSTANCE.getEServiceMapping_Package();
-
-    /**
-     * The meta object literal for the '<em><b>Entity</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_MAPPING__ENTITY = eINSTANCE.getEServiceMapping_Entity();
-
-    /**
-     * The meta object literal for the '<em><b>List</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_MAPPING__LIST = eINSTANCE.getEServiceMapping_List();
-
-    /**
-     * The meta object literal for the '<em><b>List Query</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_MAPPING__LIST_QUERY = eINSTANCE.getEServiceMapping_ListQuery();
-
-    /**
-     * The meta object literal for the '<em><b>Get</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_MAPPING__GET = eINSTANCE.getEServiceMapping_Get();
-
-    /**
-     * The meta object literal for the '<em><b>Get Query</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_MAPPING__GET_QUERY = eINSTANCE.getEServiceMapping_GetQuery();
-
-    /**
-     * The meta object literal for the '<em><b>Update</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_MAPPING__UPDATE = eINSTANCE.getEServiceMapping_Update();
-
-    /**
-     * The meta object literal for the '<em><b>Insert</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_MAPPING__INSERT = eINSTANCE.getEServiceMapping_Insert();
-
-    /**
-     * The meta object literal for the '<em><b>Delete</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_MAPPING__DELETE = eINSTANCE.getEServiceMapping_Delete();
-
-    /**
-     * The meta object literal for the '<em><b>Service Methods</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_MAPPING__SERVICE_METHODS = eINSTANCE.getEServiceMapping_ServiceMethods();
-
-    /**
-     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl <em>ENamed Service Query</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl
-     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedServiceQuery()
-     * @generated
-     */
-    EClass ENAMED_SERVICE_QUERY = eINSTANCE.getENamedServiceQuery();
-
-    /**
-     * The meta object literal for the '<em><b>Query</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ENAMED_SERVICE_QUERY__QUERY = eINSTANCE.getENamedServiceQuery_Query();
-
-    /**
-     * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ENAMED_SERVICE_QUERY__PATH = eINSTANCE.getENamedServiceQuery_Path();
-
-    /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ENAMED_SERVICE_QUERY__PARAMETERS = eINSTANCE.getENamedServiceQuery_Parameters();
-
-    /**
-     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl <em>EService Param</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl
-     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceParam()
-     * @generated
-     */
-    EClass ESERVICE_PARAM = eINSTANCE.getEServiceParam();
-
-    /**
-     * The meta object literal for the '<em><b>Param</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference ESERVICE_PARAM__PARAM = eINSTANCE.getEServiceParam_Param();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute ESERVICE_PARAM__NAME = eINSTANCE.getEServiceParam_Name();
-
-    /**
-     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl <em>EPath Param</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl
-     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPathParam()
-     * @generated
-     */
-    EClass EPATH_PARAM = eINSTANCE.getEPathParam();
-
-    /**
-     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl <em>EQuery Param</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl
-     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQueryParam()
-     * @generated
-     */
-    EClass EQUERY_PARAM = eINSTANCE.getEQueryParam();
-
-    /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl <em>EMapping Bundle</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3974,6 +3664,14 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EReference EBUNDLE_ENTITY__TYPE_DEFS = eINSTANCE.getEBundleEntity_TypeDefs();
+
+    /**
+     * The meta object literal for the '<em><b>Rest</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EBUNDLE_ENTITY__REST = eINSTANCE.getEBundleEntity_Rest();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EIndexImpl <em>EIndex</em>}' class.
@@ -4138,6 +3836,112 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EAttribute ESQL_DB_TYPE__SIZE = eINSTANCE.getESQLDbType_Size();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl <em>ERest Service Mapping</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getERestServiceMapping()
+     * @generated
+     */
+    EClass EREST_SERVICE_MAPPING = eINSTANCE.getERestServiceMapping();
+
+    /**
+     * The meta object literal for the '<em><b>Service Methods</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EREST_SERVICE_MAPPING__SERVICE_METHODS = eINSTANCE.getERestServiceMapping_ServiceMethods();
+
+    /**
+     * The meta object literal for the '<em><b>Rest</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute EREST_SERVICE_MAPPING__REST = eINSTANCE.getERestServiceMapping_Rest();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl <em>ENamed Service Query</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedServiceQuery()
+     * @generated
+     */
+    EClass ENAMED_SERVICE_QUERY = eINSTANCE.getENamedServiceQuery();
+
+    /**
+     * The meta object literal for the '<em><b>Query</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENAMED_SERVICE_QUERY__QUERY = eINSTANCE.getENamedServiceQuery_Query();
+
+    /**
+     * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENAMED_SERVICE_QUERY__PATH = eINSTANCE.getENamedServiceQuery_Path();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENAMED_SERVICE_QUERY__PARAMETERS = eINSTANCE.getENamedServiceQuery_Parameters();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl <em>EService Param</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceParam()
+     * @generated
+     */
+    EClass ESERVICE_PARAM = eINSTANCE.getEServiceParam();
+
+    /**
+     * The meta object literal for the '<em><b>Param</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ESERVICE_PARAM__PARAM = eINSTANCE.getEServiceParam_Param();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ESERVICE_PARAM__NAME = eINSTANCE.getEServiceParam_Name();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl <em>EPath Param</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EPathParamImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPathParam()
+     * @generated
+     */
+    EClass EPATH_PARAM = eINSTANCE.getEPathParam();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl <em>EQuery Param</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.EQueryParamImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQueryParam()
+     * @generated
+     */
+    EClass EQUERY_PARAM = eINSTANCE.getEQueryParam();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl <em>EMapping Entity Def</em>}' class.

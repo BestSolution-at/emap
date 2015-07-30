@@ -25,11 +25,11 @@ import at.bestsolution.persistence.emap.eMap.EPathParam;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EQueryParam;
+import at.bestsolution.persistence.emap.eMap.ERestServiceMapping;
 import at.bestsolution.persistence.emap.eMap.EReturnType;
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
 import at.bestsolution.persistence.emap.eMap.ESQLDbType;
 import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
-import at.bestsolution.persistence.emap.eMap.EServiceMapping;
 import at.bestsolution.persistence.emap.eMap.EServiceParam;
 import at.bestsolution.persistence.emap.eMap.EType;
 import at.bestsolution.persistence.emap.eMap.ETypeDef;
@@ -62,41 +62,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eMappingEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eServiceMappingEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eNamedServiceQueryEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eServiceParamEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass ePathParamEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass eQueryParamEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -153,6 +118,41 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass esqlDbTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eRestServiceMappingEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eNamedServiceQueryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eServiceParamEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ePathParamEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eQueryParamEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -396,206 +396,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getEServiceMapping()
-  {
-    return eServiceMappingEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceMapping_Package()
-  {
-    return (EReference)eServiceMappingEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceMapping_Entity()
-  {
-    return (EReference)eServiceMappingEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceMapping_List()
-  {
-    return (EAttribute)eServiceMappingEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceMapping_ListQuery()
-  {
-    return (EReference)eServiceMappingEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceMapping_Get()
-  {
-    return (EAttribute)eServiceMappingEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceMapping_GetQuery()
-  {
-    return (EReference)eServiceMappingEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceMapping_Update()
-  {
-    return (EAttribute)eServiceMappingEClass.getEStructuralFeatures().get(6);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceMapping_Insert()
-  {
-    return (EAttribute)eServiceMappingEClass.getEStructuralFeatures().get(7);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceMapping_Delete()
-  {
-    return (EAttribute)eServiceMappingEClass.getEStructuralFeatures().get(8);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceMapping_ServiceMethods()
-  {
-    return (EReference)eServiceMappingEClass.getEStructuralFeatures().get(9);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getENamedServiceQuery()
-  {
-    return eNamedServiceQueryEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getENamedServiceQuery_Query()
-  {
-    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getENamedServiceQuery_Path()
-  {
-    return (EAttribute)eNamedServiceQueryEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getENamedServiceQuery_Parameters()
-  {
-    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEServiceParam()
-  {
-    return eServiceParamEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getEServiceParam_Param()
-  {
-    return (EReference)eServiceParamEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getEServiceParam_Name()
-  {
-    return (EAttribute)eServiceParamEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEPathParam()
-  {
-    return ePathParamEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getEQueryParam()
-  {
-    return eQueryParamEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getEMappingBundle()
   {
     return eMappingBundleEClass;
@@ -739,6 +539,16 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EReference getEBundleEntity_TypeDefs()
   {
     return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEBundleEntity_Rest()
+  {
+    return (EReference)eBundleEntityEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -929,6 +739,126 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EAttribute getESQLDbType_Size()
   {
     return (EAttribute)esqlDbTypeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getERestServiceMapping()
+  {
+    return eRestServiceMappingEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getERestServiceMapping_ServiceMethods()
+  {
+    return (EReference)eRestServiceMappingEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getERestServiceMapping_Rest()
+  {
+    return (EAttribute)eRestServiceMappingEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getENamedServiceQuery()
+  {
+    return eNamedServiceQueryEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getENamedServiceQuery_Query()
+  {
+    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getENamedServiceQuery_Path()
+  {
+    return (EAttribute)eNamedServiceQueryEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getENamedServiceQuery_Parameters()
+  {
+    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEServiceParam()
+  {
+    return eServiceParamEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEServiceParam_Param()
+  {
+    return (EReference)eServiceParamEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEServiceParam_Name()
+  {
+    return (EAttribute)eServiceParamEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEPathParam()
+  {
+    return ePathParamEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEQueryParam()
+  {
+    return eQueryParamEClass;
   }
 
   /**
@@ -2024,31 +1954,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     eMappingEClass = createEClass(EMAPPING);
     createEReference(eMappingEClass, EMAPPING__ROOT);
 
-    eServiceMappingEClass = createEClass(ESERVICE_MAPPING);
-    createEReference(eServiceMappingEClass, ESERVICE_MAPPING__PACKAGE);
-    createEReference(eServiceMappingEClass, ESERVICE_MAPPING__ENTITY);
-    createEAttribute(eServiceMappingEClass, ESERVICE_MAPPING__LIST);
-    createEReference(eServiceMappingEClass, ESERVICE_MAPPING__LIST_QUERY);
-    createEAttribute(eServiceMappingEClass, ESERVICE_MAPPING__GET);
-    createEReference(eServiceMappingEClass, ESERVICE_MAPPING__GET_QUERY);
-    createEAttribute(eServiceMappingEClass, ESERVICE_MAPPING__UPDATE);
-    createEAttribute(eServiceMappingEClass, ESERVICE_MAPPING__INSERT);
-    createEAttribute(eServiceMappingEClass, ESERVICE_MAPPING__DELETE);
-    createEReference(eServiceMappingEClass, ESERVICE_MAPPING__SERVICE_METHODS);
-
-    eNamedServiceQueryEClass = createEClass(ENAMED_SERVICE_QUERY);
-    createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__QUERY);
-    createEAttribute(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PATH);
-    createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PARAMETERS);
-
-    eServiceParamEClass = createEClass(ESERVICE_PARAM);
-    createEReference(eServiceParamEClass, ESERVICE_PARAM__PARAM);
-    createEAttribute(eServiceParamEClass, ESERVICE_PARAM__NAME);
-
-    ePathParamEClass = createEClass(EPATH_PARAM);
-
-    eQueryParamEClass = createEClass(EQUERY_PARAM);
-
     eMappingBundleEClass = createEClass(EMAPPING_BUNDLE);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__IMPORTS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__NAME);
@@ -2065,6 +1970,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__UNIQUE_CONTRAINTS);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__INDICES);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__TYPE_DEFS);
+    createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__REST);
 
     eIndexEClass = createEClass(EINDEX);
     createEAttribute(eIndexEClass, EINDEX__NAME);
@@ -2090,6 +1996,23 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__DB_TYPE);
     createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__SQL_TYPE_DEF);
     createEAttribute(esqlDbTypeEClass, ESQL_DB_TYPE__SIZE);
+
+    eRestServiceMappingEClass = createEClass(EREST_SERVICE_MAPPING);
+    createEReference(eRestServiceMappingEClass, EREST_SERVICE_MAPPING__SERVICE_METHODS);
+    createEAttribute(eRestServiceMappingEClass, EREST_SERVICE_MAPPING__REST);
+
+    eNamedServiceQueryEClass = createEClass(ENAMED_SERVICE_QUERY);
+    createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__QUERY);
+    createEAttribute(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PATH);
+    createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PARAMETERS);
+
+    eServiceParamEClass = createEClass(ESERVICE_PARAM);
+    createEReference(eServiceParamEClass, ESERVICE_PARAM__PARAM);
+    createEAttribute(eServiceParamEClass, ESERVICE_PARAM__NAME);
+
+    ePathParamEClass = createEClass(EPATH_PARAM);
+
+    eQueryParamEClass = createEClass(EQUERY_PARAM);
 
     eMappingEntityDefEClass = createEClass(EMAPPING_ENTITY_DEF);
     createEReference(eMappingEntityDefEClass, EMAPPING_ENTITY_DEF__PACKAGE);
@@ -2259,31 +2182,6 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eMappingEClass, EMapping.class, "EMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMapping_Root(), ecorePackage.getEObject(), null, "root", null, 0, 1, EMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(eServiceMappingEClass, EServiceMapping.class, "EServiceMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEServiceMapping_Package(), this.getPackageDeclaration(), null, "package", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEServiceMapping_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceMapping_List(), ecorePackage.getEBoolean(), "list", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEServiceMapping_ListQuery(), this.getENamedQuery(), null, "listQuery", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceMapping_Get(), ecorePackage.getEBoolean(), "get", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEServiceMapping_GetQuery(), this.getENamedQuery(), null, "getQuery", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceMapping_Update(), ecorePackage.getEBoolean(), "update", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceMapping_Insert(), ecorePackage.getEBoolean(), "insert", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceMapping_Delete(), ecorePackage.getEBoolean(), "delete", null, 0, 1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getEServiceMapping_ServiceMethods(), this.getENamedServiceQuery(), null, "serviceMethods", null, 0, -1, EServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eNamedServiceQueryEClass, ENamedServiceQuery.class, "ENamedServiceQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getENamedServiceQuery_Query(), this.getENamedQuery(), null, "query", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getENamedServiceQuery_Path(), ecorePackage.getEString(), "path", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getENamedServiceQuery_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(eServiceParamEClass, EServiceParam.class, "EServiceParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getEServiceParam_Param(), this.getEParameter(), null, "param", null, 0, 1, EServiceParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getEServiceParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EServiceParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(ePathParamEClass, EPathParam.class, "EPathParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(eQueryParamEClass, EQueryParam.class, "EQueryParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
     initEClass(eMappingBundleEClass, EMappingBundle.class, "EMappingBundle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMappingBundle_Imports(), this.getImport(), null, "imports", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Name(), ecorePackage.getEString(), "name", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2300,6 +2198,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEBundleEntity_UniqueContraints(), this.getEUniqueConstraint(), null, "uniqueContraints", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_Indices(), this.getEIndex(), null, "indices", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEBundleEntity_TypeDefs(), this.getESQLAttTypeDef(), null, "typeDefs", null, 0, -1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEBundleEntity_Rest(), this.getERestServiceMapping(), null, "rest", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eIndexEClass, EIndex.class, "EIndex", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEIndex_Name(), ecorePackage.getEString(), "name", null, 0, 1, EIndex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2325,6 +2224,23 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getESQLDbType_DbType(), ecorePackage.getEString(), "dbType", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getESQLDbType_SqlTypeDef(), ecorePackage.getEString(), "sqlTypeDef", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getESQLDbType_Size(), ecorePackage.getEString(), "size", null, 0, 1, ESQLDbType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eRestServiceMappingEClass, ERestServiceMapping.class, "ERestServiceMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getERestServiceMapping_ServiceMethods(), this.getENamedServiceQuery(), null, "serviceMethods", null, 0, -1, ERestServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getERestServiceMapping_Rest(), ecorePackage.getEBoolean(), "rest", null, 0, 1, ERestServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eNamedServiceQueryEClass, ENamedServiceQuery.class, "ENamedServiceQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getENamedServiceQuery_Query(), this.getENamedQuery(), null, "query", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getENamedServiceQuery_Path(), ecorePackage.getEString(), "path", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getENamedServiceQuery_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eServiceParamEClass, EServiceParam.class, "EServiceParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEServiceParam_Param(), this.getEParameter(), null, "param", null, 0, 1, EServiceParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEServiceParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, EServiceParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ePathParamEClass, EPathParam.class, "EPathParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(eQueryParamEClass, EQueryParam.class, "EQueryParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(eMappingEntityDefEClass, EMappingEntityDef.class, "EMappingEntityDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEMappingEntityDef_Package(), this.getPackageDeclaration(), null, "package", null, 0, 1, EMappingEntityDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

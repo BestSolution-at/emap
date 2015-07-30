@@ -10,17 +10,17 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.rest
 
-import at.bestsolution.persistence.emap.eMap.EServiceMapping
 import org.eclipse.emf.ecore.EClass
 import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.UtilCollection
+import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
 
 class DTOGenerator {
 	@Inject extension
 	var UtilCollection util;
 
-	def generateDTO(EServiceMapping mapping, EClass eClass) '''
-	package «mapping.package.name».dto;
+	def generateDTO(EMappingEntityDef entityDef, EClass eClass) '''
+	package «entityDef.packageName».dto;
 
 	public class DTO«eClass.name» {
 		/*
@@ -47,7 +47,7 @@ class DTOGenerator {
 
 		public static DTO«eClass.name» newProxy(long id) {
 			DTO«eClass.name» dto = new DTO«eClass.name»();
-			dto.set«mapping.entity.PKAttribute.name.toFirstUpper»(id);
+			dto.set«entityDef.entity.PKAttribute.name.toFirstUpper»(id);
 			dto.setMetaProxy(true);
 			return dto;
 		}
@@ -124,19 +124,19 @@ class DTOGenerator {
 	}
 	'''
 
-	def generateMapper(EServiceMapping mapping, EClass eClass) '''
-	package «mapping.package.name».mapper;
+	def generateMapper(EMappingEntityDef entityDef, EClass eClass) '''
+	package «entityDef.packageName».mapper;
 
 	public class «eClass.name»DTOMapper {
 		public static long getId(«eClass.instanceClassName» entity) {
-			return entity.get«mapping.entity.PKAttribute.name.toFirstUpper»();
+			return entity.get«entityDef.entity.PKAttribute.name.toFirstUpper»();
 		}
 
-		public static «mapping.entity.lookupEClass.instanceClassName» create() {
-			return («mapping.entity.lookupEClass.instanceClassName»)org.eclipse.emf.ecore.util.EcoreUtil.create(«mapping.entity.lookupEClass.toFullQualifiedJavaEClass»);
+		public static «entityDef.entity.lookupEClass.instanceClassName» create() {
+			return («entityDef.entity.lookupEClass.instanceClassName»)org.eclipse.emf.ecore.util.EcoreUtil.create(«entityDef.entity.lookupEClass.toFullQualifiedJavaEClass»);
 		}
 
-		public static java.util.List<«mapping.package.name».dto.DTO«eClass.name»> toDTO(java.util.List<«eClass.instanceClassName»> entityList, java.util.function.BiFunction<«mapping.package.name».dto.DTO«eClass.name», «eClass.instanceClassName»,«mapping.package.name».dto.DTO«eClass.name»> processor) {
+		public static java.util.List<«entityDef.packageName».dto.DTO«eClass.name»> toDTO(java.util.List<«eClass.instanceClassName»> entityList, java.util.function.BiFunction<«entityDef.packageName».dto.DTO«eClass.name», «eClass.instanceClassName»,«entityDef.packageName».dto.DTO«eClass.name»> processor) {
 			if( processor == null ) {
 				return entityList.stream().map( «eClass.name»DTOMapper::toDTO ).collect(java.util.stream.Collectors.toList());
 			} else {
@@ -144,26 +144,26 @@ class DTOGenerator {
 			}
 		}
 
-		public static java.util.List<«mapping.package.name».dto.DTO«eClass.name»> toDTO(java.util.List<«eClass.instanceClassName»> entityList) {
+		public static java.util.List<«entityDef.packageName».dto.DTO«eClass.name»> toDTO(java.util.List<«eClass.instanceClassName»> entityList) {
 			return toDTO(entityList,null);
 		}
 
-		public static «mapping.package.name».dto.DTO«eClass.name» fillAllProxyRefs(«mapping.package.name».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
+		public static «entityDef.packageName».dto.DTO«eClass.name» fillAllProxyRefs(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
 			«FOR r : eClass.EAllReferences»
 			set«r.name.toFirstUpper»Proxy( dto, entity );
 			«ENDFOR»
 			return dto;
 		}
 
-		public static «mapping.package.name».dto.DTO«eClass.name» toDTO(«eClass.instanceClassName» entity) {
+		public static «entityDef.packageName».dto.DTO«eClass.name» toDTO(«eClass.instanceClassName» entity) {
 			return toDTO( entity, null );
 		}
 
-		public static «mapping.package.name».dto.DTO«eClass.name» toDTO(«eClass.instanceClassName» entity, java.util.function.BiFunction<«mapping.package.name».dto.DTO«eClass.name», «eClass.instanceClassName»,«mapping.package.name».dto.DTO«eClass.name»> processor) {
+		public static «entityDef.packageName».dto.DTO«eClass.name» toDTO(«eClass.instanceClassName» entity, java.util.function.BiFunction<«entityDef.packageName».dto.DTO«eClass.name», «eClass.instanceClassName»,«entityDef.packageName».dto.DTO«eClass.name»> processor) {
 			if( entity == null ) {
 				return null;
 			}
-			«mapping.package.name».dto.DTO«eClass.name» dto = new «mapping.package.name».dto.DTO«eClass.name»();
+			«entityDef.packageName».dto.DTO«eClass.name» dto = new «entityDef.packageName».dto.DTO«eClass.name»();
 			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					dto.set«a.name.toFirstUpper»( entity.is«a.name.toFirstUpper»() );
@@ -178,21 +178,21 @@ class DTOGenerator {
 		}
 
 		«FOR r : eClass.EAllReferences»
-		public static void set«r.name.toFirstUpper»Proxy(«mapping.package.name».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
+		public static void set«r.name.toFirstUpper»Proxy(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
 			«IF r.isMany»
 				dto.set«r.name.toFirstUpper»(
 					entity.get«r.name.toFirstUpper»().stream()
-						.map( c -> «mapping.package.name».dto.DTO«r.EReferenceType.name».newProxy(«mapping.package.name».mapper.«r.EReferenceType.name»DTOMapper.getId(c)) )
+						.map( c -> «entityDef.packageName».dto.DTO«r.EReferenceType.name».newProxy(«entityDef.packageName».mapper.«r.EReferenceType.name»DTOMapper.getId(c)) )
 						.collect(java.util.stream.Collectors.toList())
 				);
 			«ELSE»
 				dto.set«r.name.toFirstUpper»(
-					entity.get«r.name.toFirstUpper»() == null ? null : «mapping.package.name».dto.DTO«r.EReferenceType.name».newProxy( «mapping.package.name».mapper.«r.EReferenceType.name»DTOMapper.getId(entity.get«r.name.toFirstUpper»()) )
+					entity.get«r.name.toFirstUpper»() == null ? null : «entityDef.packageName».dto.DTO«r.EReferenceType.name».newProxy( «entityDef.packageName».mapper.«r.EReferenceType.name»DTOMapper.getId(entity.get«r.name.toFirstUpper»()) )
 				);
 			«ENDIF»
 		}
 
-		public static void set«r.name.toFirstUpper»(«mapping.package.name».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity, java.util.function.BiFunction<«mapping.package.name».dto.DTO«r.EReferenceType.name», «r.EReferenceType.instanceClassName»,«mapping.package.name».dto.DTO«r.EReferenceType.name»> processor) {
+		public static void set«r.name.toFirstUpper»(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity, java.util.function.BiFunction<«entityDef.packageName».dto.DTO«r.EReferenceType.name», «r.EReferenceType.instanceClassName»,«entityDef.packageName».dto.DTO«r.EReferenceType.name»> processor) {
 			«IF r.isMany»
 				if( processor == null ) {
 					dto.set«r.name.toFirstUpper»(
@@ -216,11 +216,11 @@ class DTOGenerator {
 			«ENDIF»
 		}
 
-		public static void set«r.name.toFirstUpper»(«mapping.package.name».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
+		public static void set«r.name.toFirstUpper»(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
 			set«r.name.toFirstUpper»(dto,entity,null);
 		}
 		«ENDFOR»
-		public static «eClass.instanceClassName» mergeToEntity(«eClass.instanceClassName» entity, «mapping.package.name».dto.DTO«eClass.name» dto) {
+		public static «eClass.instanceClassName» mergeToEntity(«eClass.instanceClassName» entity, «entityDef.packageName».dto.DTO«eClass.name» dto) {
 			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					entity.set«a.name.toFirstUpper»(dto.is«a.name.toFirstUpper»());
@@ -235,9 +235,10 @@ class DTOGenerator {
 	'''
 
 	def generateTypeScriptClass(EClass eClass) '''
-	«FOR r : eClass.EAllReferences.map[EReferenceType].filterDups[p1, p2| p1.equals(p2)]»
+	«FOR r : eClass.EAllReferences.map[EReferenceType].filter[t | t != eClass].filterDups[p1, p2| p1.equals(p2)]»
 	/// <reference path="«r.name».ts"/>
 	«ENDFOR»
+
 	class «eClass.name» {
 		metaClassname : String = "«eClass.name»"
 		metaProxy : boolean = false
@@ -251,22 +252,29 @@ class DTOGenerator {
 		«FOR r : eClass.EAllReferences»
 			«r.name» : «r.EReferenceType.name»«IF r.isMany»[]«ENDIF»
 		«ENDFOR»
+		constructor(jsonObject? : any) {
+			if(jsonObject) {
+				this.metaProxy = jsonObject.metaProxy
 
-		constructor(jsonObject : any) {
-			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
-			this.«a.name» = jsonObject.«a.name»;
-			«ENDFOR»
+				«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+				this.«a.name» = jsonObject.«a.name»;
+				«ENDFOR»
 
-			«FOR r : eClass.EAllReferences»
-				«IF r.isMany»
-				if( jsonObject.«r.name» ) {
-					this.«r.name» = jsonObject.«r.name».map( function( o ) { return new «r.EReferenceType.name»(o); } );
-				}
-				«ELSE»
-				this.«r.name» = jsonObject.«r.name» ? new «r.EReferenceType.name»(jsonObject.«r.name») : null;
-				«ENDIF»
-			«ENDFOR»
+				«FOR r : eClass.EAllReferences»
+					«IF r.isMany»
+					if( jsonObject.«r.name» ) {
+						this.«r.name» = jsonObject.«r.name».map( function( o ) { return new «r.EReferenceType.name»(o); } );
+					}
+					«ELSE»
+					this.«r.name» = jsonObject.«r.name» ? new «r.EReferenceType.name»(jsonObject.«r.name») : null;
+					«ENDIF»
+				«ENDFOR»
+			}
 		}
 	}
 	'''
+
+	def static packageName(EMappingEntityDef entityDef) {
+		return entityDef.package.name + ".webservice"
+	}
 }

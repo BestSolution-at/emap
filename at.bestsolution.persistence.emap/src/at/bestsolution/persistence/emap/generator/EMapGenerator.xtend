@@ -31,7 +31,6 @@ import at.bestsolution.persistence.emap.EMapGeneratorParticipant
 import at.bestsolution.persistence.emap.EMapGeneratorParticipant.FileType
 import java.util.List
 import java.util.concurrent.atomic.AtomicReference
-import at.bestsolution.persistence.emap.eMap.EServiceMapping
 import at.bestsolution.persistence.emap.generator.rest.RestGenerator
 import at.bestsolution.persistence.emap.generator.rest.DTOGenerator
 import org.eclipse.xtext.generator.IFileSystemAccessExtension
@@ -150,19 +149,22 @@ class EMapGenerator implements IGenerator {
 					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.CREATE_DDL,null,participants));
 					fsa.generateFile("ddls/drop_"+d+".sql",ddlGenerator.generatedDropDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.DROP_DDL,null,participants));
 				}
-			} else if( root.root instanceof EServiceMapping ) {
-				val serviceMapping = root.root as EServiceMapping
-				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/dto/DTO"+serviceMapping.entity.name+".java",dtoGenerator.generateDTO(serviceMapping,serviceMapping.entity.lookupEClass))
-				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/dto/ts/"+serviceMapping.entity.name+".ts",dtoGenerator.generateTypeScriptClass(serviceMapping.entity.lookupEClass))
-				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/mapper/"+serviceMapping.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(serviceMapping,serviceMapping.entity.lookupEClass))
-				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/base/Base"+serviceMapping.entity.name+"Service.java",restGenerator.generateBaseClass(serviceMapping,serviceMapping.entity.lookupEClass))
 
-				if( fsa instanceof IFileSystemAccessExtension3 ) {
-					try {
-						fsa.readTextFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java")
-						fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java",restGenerator.generateCustomImpl(serviceMapping,serviceMapping.entity.lookupEClass))
-					} catch(Throwable t) {
-						fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java",restGenerator.generateCustomImpl(serviceMapping,serviceMapping.entity.lookupEClass))
+				for( e : bundleDef.entities.filter[rest != null] ) {
+					val entityDef = e.entity.eContainer as EMappingEntityDef
+					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
+					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"+entityDef.entity.name+".ts",dtoGenerator.generateTypeScriptClass(entityDef.entity.lookupEClass))
+					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
+					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/base/Base"+entityDef.entity.name+"Service.java",restGenerator.generateBaseClass(entityDef,e.rest,entityDef.entity.lookupEClass))
+					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"+entityDef.entity.name+"Service.ts",restGenerator.generateTypeScriptServiceClass(e.rest,entityDef.entity.lookupEClass))
+
+					if( fsa instanceof IFileSystemAccessExtension3 ) {
+						try {
+							val t = fsa.readTextFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java")
+							fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java",t)
+						} catch(Throwable t) {
+							fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java",restGenerator.generateCustomImpl(entityDef,entityDef.entity.lookupEClass))
+						}
 					}
 				}
 			}

@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getUniqueContraints <em>Unique Contraints</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getIndices <em>Indices</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs <em>Type Defs</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getRest <em>Rest</em>}</li>
  * </ul>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEBundleEntity()
@@ -144,5 +145,31 @@ public interface EBundleEntity extends EObject
    * @generated
    */
   EList<ESQLAttTypeDef> getTypeDefs();
+
+  /**
+   * Returns the value of the '<em><b>Rest</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Rest</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Rest</em>' containment reference.
+   * @see #setRest(ERestServiceMapping)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEBundleEntity_Rest()
+   * @model containment="true"
+   * @generated
+   */
+  ERestServiceMapping getRest();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getRest <em>Rest</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Rest</em>' containment reference.
+   * @see #getRest()
+   * @generated
+   */
+  void setRest(ERestServiceMapping value);
 
 } // EBundleEntity

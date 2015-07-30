@@ -118,6 +118,10 @@ class UtilCollection {
 		return newArrayList("int","long","double","float","java.lang.Integer","java.lang.Long","java.lang.Double","java.lang.Float").contains(e.EType.instanceClassName)
 	}
 
+	def isNumeric(String e) {
+		return newArrayList("int","long","double","float","java.lang.Integer","java.lang.Long","java.lang.Double","java.lang.Float").contains(e)
+	}
+
 	def isString(EStructuralFeature e) {
 		return "java.lang.String" == e.EType.instanceClassName;
 	}
@@ -433,7 +437,7 @@ class UtilCollection {
 		rv.append(")");
 		return rv;
 	}
-	
+
 	def isCustomType(EDataType type) {
 		if (type instanceof EEnum) return false;
 		val cls = type.instanceClassName
@@ -448,11 +452,11 @@ class UtilCollection {
 			case "java.lang.Float": false
 			case "double": false
 			case "java.lang.Double": false
-			
+
 			case "java.util.Date": false
 			case "java.lang.String": false
 			case "java.sql.Blob": false
-				
+
 			default: true
 		}
 	}
@@ -487,7 +491,7 @@ class UtilCollection {
 			return (c.getEStructuralFeature((p.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name) as org.eclipse.emf.ecore.EAttribute).statementMethod;
 		}
 	}
-	
+
 	def packageName(EClass eClass) {
 		return eClass.instanceClassName.substring(0,eClass.instanceClassName.lastIndexOf("."))
 	}
@@ -796,8 +800,8 @@ class UtilCollection {
 	def toFullQualifiedJavaEDataType(EDataType eDataType) {
 		val ePackage = eDataType.EPackage
 		val genPackage = eClassLookupService.toGenModel(ePackage)
-		
-		return genPackage.interfacePackageName + "." + genPackage.packageInterfaceName + ".eINSTANCE.get" + eDataType.name.toFirstUpper + "()" 
+
+		return genPackage.interfacePackageName + "." + genPackage.packageInterfaceName + ".eINSTANCE.get" + eDataType.name.toFirstUpper + "()"
 	}
 
 	def toFullQualifiedJavaEClass(EClass eClass) {
@@ -873,34 +877,34 @@ class UtilCollection {
 		}
 		return type;
 	}
-	
+
 	def findOppositeForcedFKAttributes(EMappingEntity e, EClass eClass) {
 		println("Find opposite")
 		return e.allAttributes.map[
 			if( ! resolved ) {
-				return null	
+				return null
 			}
-			
+
 			val f = eClass.getEStructuralFeature(name)
 			if( f instanceof EReference ) {
 				val r = f as EReference
-				println("REFERENCE: " + f + " => " + r.EOpposite) 
+				println("REFERENCE: " + f + " => " + r.EOpposite)
 				if( r.EOpposite != null ) {
 					println("The opposite: " + r.EOpposite)
-					return (query.eContainer as EMappingEntity).allAttributes.findFirst[forcedFk && name == r.EOpposite.name]	
+					return (query.eContainer as EMappingEntity).allAttributes.findFirst[forcedFk && name == r.EOpposite.name]
 				}
 			}
 		].filterNull.toList
 	}
-	
+
 	def sanitiesString(String s) {
   	if( s.contains(System.getProperty("line.separator")) ) {
   		val items = s.split(System.getProperty("line.separator"));
   		var ident = items.get(0).countPrefix
   		if( items.size > 1 ) {
   			ident = items.get(1).countPrefix
-  		} 
-  		
+  		}
+
   		var rv = "";
   		for( i : items ) {
   			var tmp = i
@@ -909,14 +913,14 @@ class UtilCollection {
   					tmp = tmp.substring(1);
   				}
   			}
-  			
+
   			rv = rv + tmp + System.getProperty("line.separator");
   		}
   		return rv;
   	}
   	return s
   }
-  
+
   def static countPrefix(String value) {
   	var count = 0
   	for( c : value.toCharArray ) {

@@ -20,29 +20,6 @@
     <genClasses ecoreClass="EMap.ecore#//EMapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMapping/root"/>
     </genClasses>
-    <genClasses ecoreClass="EMap.ecore#//EServiceMapping">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceMapping/package"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceMapping/entity"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceMapping/list"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceMapping/listQuery"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceMapping/get"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceMapping/getQuery"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceMapping/update"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceMapping/insert"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceMapping/delete"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceMapping/serviceMethods"/>
-    </genClasses>
-    <genClasses ecoreClass="EMap.ecore#//ENamedServiceQuery">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/query"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedServiceQuery/path"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/parameters"/>
-    </genClasses>
-    <genClasses ecoreClass="EMap.ecore#//EServiceParam">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceParam/param"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceParam/name"/>
-    </genClasses>
-    <genClasses ecoreClass="EMap.ecore#//EPathParam"/>
-    <genClasses ecoreClass="EMap.ecore#//EQueryParam"/>
     <genClasses ecoreClass="EMap.ecore#//EMappingBundle">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/imports"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/name"/>
@@ -59,6 +36,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/uniqueContraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/indices"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/typeDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/rest"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EIndex">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EIndex/name"/>
@@ -85,6 +63,21 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ESQLDbType/sqlTypeDef"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ESQLDbType/size"/>
     </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ERestServiceMapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ERestServiceMapping/serviceMethods"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ERestServiceMapping/rest"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ENamedServiceQuery">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedServiceQuery/path"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EServiceParam">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceParam/param"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EServiceParam/name"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EPathParam"/>
+    <genClasses ecoreClass="EMap.ecore#//EQueryParam"/>
     <genClasses ecoreClass="EMap.ecore#//EMappingEntityDef">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/package"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingEntityDef/imports"/>

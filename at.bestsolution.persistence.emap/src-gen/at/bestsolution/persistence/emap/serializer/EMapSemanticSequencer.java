@@ -25,10 +25,10 @@ import at.bestsolution.persistence.emap.eMap.EPathParam;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EQueryParam;
+import at.bestsolution.persistence.emap.eMap.ERestServiceMapping;
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef;
 import at.bestsolution.persistence.emap.eMap.ESQLDbType;
 import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
-import at.bestsolution.persistence.emap.eMap.EServiceMapping;
 import at.bestsolution.persistence.emap.eMap.EType;
 import at.bestsolution.persistence.emap.eMap.ETypeDef;
 import at.bestsolution.persistence.emap.eMap.EUniqueConstraint;
@@ -123,6 +123,9 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case EMapPackage.EQUERY_PARAM:
 				sequence_EQueryParam(context, (EQueryParam) semanticObject); 
 				return; 
+			case EMapPackage.EREST_SERVICE_MAPPING:
+				sequence_ERestServiceMapping(context, (ERestServiceMapping) semanticObject); 
+				return; 
 			case EMapPackage.ESQL_ATT_TYPE_DEF:
 				sequence_ESQLAttTypeDef(context, (ESQLAttTypeDef) semanticObject); 
 				return; 
@@ -131,9 +134,6 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EMapPackage.ESQL_TYPE_DEF:
 				sequence_ESQLTypeDef(context, (ESQLTypeDef) semanticObject); 
-				return; 
-			case EMapPackage.ESERVICE_MAPPING:
-				sequence_EServiceMapping(context, (EServiceMapping) semanticObject); 
 				return; 
 			case EMapPackage.ETYPE:
 				sequence_EType(context, (EType) semanticObject); 
@@ -186,7 +186,8 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *             (fkConstraints+=EFkConstraint fkConstraints+=EFkConstraint*)? 
 	 *             (uniqueContraints+=EUniqueConstraint uniqueContraints+=EUniqueConstraint*)? 
 	 *             (indices+=EIndex indices+=EIndex*)? 
-	 *             (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)?
+	 *             (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)? 
+	 *             rest=ERestServiceMapping?
 	 *         )?
 	 *     )
 	 */
@@ -292,7 +293,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (root=EMappingBundle | root=EMappingEntityDef | root=EServiceMapping)
+	 *     (root=EMappingBundle | root=EMappingEntityDef)
 	 */
 	protected void sequence_EMapping(EObject context, EMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -410,6 +411,15 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (serviceMethods+=ENamedServiceQuery* rest?='rest')
+	 */
+	protected void sequence_ERestServiceMapping(EObject context, ERestServiceMapping semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (attribute=[EAttribute|QualifiedName] dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
 	 */
 	protected void sequence_ESQLAttTypeDef(EObject context, ESQLAttTypeDef semanticObject) {
@@ -431,24 +441,6 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (etype=EType dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
 	 */
 	protected void sequence_ESQLTypeDef(EObject context, ESQLTypeDef semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         package=PackageDeclaration 
-	 *         entity=[EMappingEntity|ID] 
-	 *         (list?='list' listQuery=[ENamedQuery|ID]?)? 
-	 *         (get?='get' getQuery=[ENamedQuery|ID]?)? 
-	 *         update?='update'? 
-	 *         insert?='insert'? 
-	 *         delete?='delete'? 
-	 *         serviceMethods+=ENamedServiceQuery*
-	 *     )
-	 */
-	protected void sequence_EServiceMapping(EObject context, EServiceMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
