@@ -28,6 +28,7 @@ class RegistryGenerator {
   import java.util.HashMap;
   import java.util.Map;
 
+  @org.osgi.service.component.annotations.Component
   public final class «bundleDef.name»ObjectMapperFactoriesProvider implements ObjectMapperFactoriesProvider {
     private Map<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>> factories = new HashMap<Class<? extends ObjectMapper<?>>, ObjectMapperFactory<?,?>>();
     public «bundleDef.name»ObjectMapperFactoriesProvider() {

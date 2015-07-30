@@ -27,7 +27,6 @@ class DTOGenerator {
 		 * Meta data
 		 */
 		private String metaClassname = "«eClass.name»";
-		private long metaId;
 		private boolean metaProxy;
 
 		public void setMetaProxy(boolean metaProxy) {
@@ -56,7 +55,7 @@ class DTOGenerator {
 		/*
 		 * Attributes
 		 */
-		«FOR a : eClass.EAllAttributes»
+		«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 			«IF a.many»
 				private java.util.List<«a.EAttributeType.instanceClassName»> «a.name»;
 			«ELSE»
@@ -75,7 +74,7 @@ class DTOGenerator {
 			«ENDIF»
 		«ENDFOR»
 
-		«FOR a : eClass.EAllAttributes»
+		«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 			«IF a.many»
 				public java.util.List<«a.EAttributeType.instanceClassName»> «a.name» get«a.name.toFirstUpper»() {
 					return this.«a.name»;
@@ -165,7 +164,7 @@ class DTOGenerator {
 				return null;
 			}
 			«mapping.package.name».dto.DTO«eClass.name» dto = new «mapping.package.name».dto.DTO«eClass.name»();
-			«FOR a : eClass.EAllAttributes»
+			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					dto.set«a.name.toFirstUpper»( entity.is«a.name.toFirstUpper»() );
 				«ELSE»
@@ -222,7 +221,7 @@ class DTOGenerator {
 		}
 		«ENDFOR»
 		public static «eClass.instanceClassName» mergeToEntity(«eClass.instanceClassName» entity, «mapping.package.name».dto.DTO«eClass.name» dto) {
-			«FOR a : eClass.EAllAttributes»
+			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					entity.set«a.name.toFirstUpper»(dto.is«a.name.toFirstUpper»());
 				«ELSE»
@@ -232,6 +231,42 @@ class DTOGenerator {
 			return entity;
 		}
 
+	}
+	'''
+
+	def generateTypeScriptClass(EClass eClass) '''
+	«FOR r : eClass.EAllReferences.map[EReferenceType].filterDups[p1, p2| p1.equals(p2)]»
+	/// <reference path="«r.name».ts"/>
+	«ENDFOR»
+	class «eClass.name» {
+		metaClassname : String = "«eClass.name»"
+		metaProxy : boolean = false
+
+		// simple attributes
+		«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+		«a.name» : «IF a.isNumeric»number«ELSEIF a.isBoolean»boolean«ELSEIF a.isString»string«ELSE»any«ENDIF»
+		«ENDFOR»
+
+		// reference attributes
+		«FOR r : eClass.EAllReferences»
+			«r.name» : «r.EReferenceType.name»«IF r.isMany»[]«ENDIF»
+		«ENDFOR»
+
+		constructor(jsonObject : any) {
+			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+			this.«a.name» = jsonObject.«a.name»;
+			«ENDFOR»
+
+			«FOR r : eClass.EAllReferences»
+				«IF r.isMany»
+				if( jsonObject.«r.name» ) {
+					this.«r.name» = jsonObject.«r.name».map( function( o ) { return new «r.EReferenceType.name»(o); } );
+				}
+				«ELSE»
+				this.«r.name» = jsonObject.«r.name» ? new «r.EReferenceType.name»(jsonObject.«r.name») : null;
+				«ENDIF»
+			«ENDFOR»
+		}
 	}
 	'''
 }

@@ -54,9 +54,9 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
 			if( ! fkResolve && attribute.pk ) {
-				return "bigserial"	
+				return "bigserial"
 			} else {
-				return "bigint";	
+				return "bigint";
 			}
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
@@ -66,9 +66,9 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 			}
 			return "varchar(255)"
 		} else if( "java.sql.Clob" == dataType.instanceClassName ) {
-			return "blob sub_type 1 segment size 2048"
+			return "text"
 		} else if( "java.sql.Blob" == dataType.instanceClassName ) {
-			return "blob segment size 2048";
+			return "bytea";
 		} else if( "EBoolean" == dataType.name || "EBooleanObject" == dataType.name ) {
 			return "boolean"
 		} else if( "EDate" == dataType.name ) {

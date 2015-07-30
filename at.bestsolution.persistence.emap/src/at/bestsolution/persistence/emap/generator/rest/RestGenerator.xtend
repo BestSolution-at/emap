@@ -27,7 +27,8 @@ class RestGenerator {
   	def generateCustomImpl(EServiceMapping mapping, EClass eClass) '''
   	package «mapping.package.name»;
 
-  	@org.osgi.service.component.annotations.Component(service=«mapping.entity.name»Service.class)
+  	@javax.ws.rs.Path("/«mapping.entity.name.toLowerCase»")
+  	@org.osgi.service.component.annotations.Component(service={«mapping.entity.name»Service.class, «mapping.package.name».base.Base«mapping.entity.name»Service.class})
   	public class «mapping.entity.name»Service extends «mapping.package.name».base.Base«mapping.entity.name»Service {
   		@org.osgi.service.component.annotations.Reference(
   			cardinality=org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY,
@@ -48,7 +49,6 @@ class RestGenerator {
 	def generateBaseClass(EServiceMapping mapping, EClass eClass) '''
 	package «mapping.package.name».base;
 
-	@javax.ws.rs.Path("/«mapping.entity.name.toLowerCase»")
 	public abstract class Base«mapping.entity.name»Service {
 		private at.bestsolution.persistence.SessionFactory sessionFactory;
 
@@ -110,11 +110,37 @@ class RestGenerator {
 					}
 				}
 			«ENDFOR»
+
+			«FOR bin : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName == "java.sql.Blob"]»
+			@javax.ws.rs.GET
+			@javax.ws.rs.Path("{id}/«bin.name»")
+			public javax.ws.rs.core.Response get«bin.name.toFirstUpper»(@javax.ws.rs.PathParam("id") long id) {
+				try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+					«mapping.entity.packageName».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.entity.packageName».«mapping.entity.name»Mapper.class);
+					«mapping.entity.lookupEClass.instanceClassName» entity = mapper.selectById(id);
+					if( entity == null ) {
+						throw new javax.ws.rs.WebApplicationException("Entity '«eClass.name»' with ID '"+id+" is unknown.'",javax.ws.rs.core.Response.Status.NOT_FOUND);
+					}
+
+					java.sql.Blob blob = entity.get«bin.name.toFirstUpper»();
+					try {
+						if( blob != null ) {
+							return javax.ws.rs.core.Response.ok().entity(blob.getBinaryStream()).build();
+						}
+						return javax.ws.rs.core.Response.ok().build();
+					} catch(java.sql.SQLException e) {
+						throw new javax.ws.rs.WebApplicationException(e);
+					}
+
+				}
+			}
+			«ENDFOR»
 		«ENDIF»
 
 		«IF mapping.isInsert»
 			@javax.ws.rs.PUT
-			public long create(@javax.ws.rs.QueryParam("dto") «mapping.package.name».dto.DTO«eClass.name» dto) {
+			@javax.ws.rs.Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+			public long create(«mapping.package.name».dto.DTO«eClass.name» dto) {
 				«mapping.entity.lookupEClass.instanceClassName» entity = «mapping.package.name».mapper.«mapping.entity.lookupEClass.name»DTOMapper.mergeToEntity(
 					«mapping.package.name».mapper.«mapping.entity.lookupEClass.name»DTOMapper.create(),
 					dto
@@ -134,7 +160,8 @@ class RestGenerator {
 		«IF mapping.isUpdate»
 			@javax.ws.rs.PUT
 			@javax.ws.rs.Path("{id}")
-			public void update(@javax.ws.rs.PathParam("id") long id, @javax.ws.rs.QueryParam("dto") «mapping.package.name».dto.DTO«eClass.name» dto) {
+			@javax.ws.rs.Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+			public void update(@javax.ws.rs.PathParam("id") long id, «mapping.package.name».dto.DTO«eClass.name» dto) {
 				try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 					«mapping.entity.packageName».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.entity.packageName».«mapping.entity.name»Mapper.class);
 					«mapping.entity.lookupEClass.instanceClassName» entity = mapper.selectById(id);
@@ -147,6 +174,33 @@ class RestGenerator {
 			}
 
 		«ENDIF»
+
+«««		«IF mapping.isUpdate || mapping.isInsert»
+«««			«FOR bin : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName == "java.sql.Blob"]»
+«««			@javax.ws.rs.POST
+«««			@javax.ws.rs.Path("{id}/«bin.name»")
+«««			@javax.ws.rs.Consumes({javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA})
+«««			public void upload«bin.name.toFirstUpper»(@javax.ws.rs.PathParam("id") long id, @org.glassfish.jersey.media.multipart.FormDataParam("file") java.io.InputStream fileInputStream, @org.glassfish.jersey.media.multipart.FormDataParam("file") org.glassfish.jersey.media.multipart.FormDataContentDisposition cdh) {
+«««				try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+«««					«mapping.entity.packageName».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.entity.packageName».«mapping.entity.name»Mapper.class);
+«««					«mapping.entity.lookupEClass.instanceClassName» entity = mapper.selectById(id);
+«««					java.sql.Blob blob = sessionFactory.createBlob();
+«««					java.io.OutputStream writeStream = blob.setBinaryStream(0);
+«««					byte[] buf = new byte[1024];
+«««					int l;
+«««					while( (l = fileInputStream.read(buf)) != -1 ) {
+«««						writeStream.write(buf,0,l);
+«««					}
+«««					entity.set«bin.name.toFirstUpper»(blob);
+«««
+«««				} catch( java.io.IOException e) {
+«««					throw new javax.ws.rs.WebApplicationException(e);
+«««				} catch( java.sql.SQLException e) {
+«««					throw new javax.ws.rs.WebApplicationException(e);
+«««				}
+«««			}
+«««			«ENDFOR»
+«««		«ENDIF»
 
 		«IF mapping.isDelete»
 			@javax.ws.rs.DELETE

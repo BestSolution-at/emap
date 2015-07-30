@@ -153,8 +153,10 @@ class EMapGenerator implements IGenerator {
 			} else if( root.root instanceof EServiceMapping ) {
 				val serviceMapping = root.root as EServiceMapping
 				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/dto/DTO"+serviceMapping.entity.name+".java",dtoGenerator.generateDTO(serviceMapping,serviceMapping.entity.lookupEClass))
+				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/dto/ts/"+serviceMapping.entity.name+".ts",dtoGenerator.generateTypeScriptClass(serviceMapping.entity.lookupEClass))
 				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/mapper/"+serviceMapping.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(serviceMapping,serviceMapping.entity.lookupEClass))
 				fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/base/Base"+serviceMapping.entity.name+"Service.java",restGenerator.generateBaseClass(serviceMapping,serviceMapping.entity.lookupEClass))
+
 				if( fsa instanceof IFileSystemAccessExtension3 ) {
 					try {
 						fsa.readTextFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java")
@@ -162,11 +164,8 @@ class EMapGenerator implements IGenerator {
 					} catch(Throwable t) {
 						fsa.generateFile(serviceMapping.package.name.replace('.','/')+"/"+serviceMapping.entity.name+"Service.java",restGenerator.generateCustomImpl(serviceMapping,serviceMapping.entity.lookupEClass))
 					}
-
 				}
-
 			}
-
 		}
 		catch (Exception e) {
 			e.printStackTrace
