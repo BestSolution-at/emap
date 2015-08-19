@@ -221,7 +221,8 @@ class DTOGenerator {
 		}
 		«ENDFOR»
 		public static «eClass.instanceClassName» mergeToEntity(«eClass.instanceClassName» entity, «entityDef.packageName».dto.DTO«eClass.name» dto) {
-			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+			«val pk = entityDef.PKAttribute»
+			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob" && !a.name.equals(pk.name)]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					entity.set«a.name.toFirstUpper»(dto.is«a.name.toFirstUpper»());
 				«ELSE»
@@ -236,10 +237,10 @@ class DTOGenerator {
 
 	def generateTypeScriptClass(EClass eClass) '''
 	«FOR r : eClass.EAllReferences.map[EReferenceType].filter[t | t != eClass].filterDups[p1, p2| p1.equals(p2)]»
-	/// <reference path="«r.name».ts"/>
+	/// <reference path="DTO«r.name».ts"/>
 	«ENDFOR»
 
-	class «eClass.name» {
+	class DTO«eClass.name» {
 		metaClassname : String = "«eClass.name»"
 		metaProxy : boolean = false
 
@@ -250,7 +251,7 @@ class DTOGenerator {
 
 		// reference attributes
 		«FOR r : eClass.EAllReferences»
-			«r.name» : «r.EReferenceType.name»«IF r.isMany»[]«ENDIF»
+			«r.name» : DTO«r.EReferenceType.name»«IF r.isMany»[]«ENDIF»
 		«ENDFOR»
 		constructor(jsonObject? : any) {
 			if(jsonObject) {
@@ -263,10 +264,10 @@ class DTOGenerator {
 				«FOR r : eClass.EAllReferences»
 					«IF r.isMany»
 					if( jsonObject.«r.name» ) {
-						this.«r.name» = jsonObject.«r.name».map( function( o ) { return new «r.EReferenceType.name»(o); } );
+						this.«r.name» = jsonObject.«r.name».map( function( o ) { return new DTO«r.EReferenceType.name»(o); } );
 					}
 					«ELSE»
-					this.«r.name» = jsonObject.«r.name» ? new «r.EReferenceType.name»(jsonObject.«r.name») : null;
+					this.«r.name» = jsonObject.«r.name» ? new DTO«r.EReferenceType.name»(jsonObject.«r.name») : null;
 					«ENDIF»
 				«ENDFOR»
 			}

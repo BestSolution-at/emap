@@ -25,7 +25,7 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q;
 	protected AbstractElementAlias match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
-	protected AbstractElementAlias match_ENamedServiceQuery___LeftCurlyBracketKeyword_3_0_RightCurlyBracketKeyword_3_2__q;
+	protected AbstractElementAlias match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -34,7 +34,7 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getLeftParenthesisKeyword_1_2_0()), new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2()));
 		match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getRightParenthesisKeyword_2_2()));
 		match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getRightParenthesisKeyword_2_2()));
-		match_ENamedServiceQuery___LeftCurlyBracketKeyword_3_0_RightCurlyBracketKeyword_3_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_3_2()));
+		match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_4_3()));
 	}
 	
 	@Override
@@ -57,8 +57,8 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ENamedServiceQuery___LeftCurlyBracketKeyword_3_0_RightCurlyBracketKeyword_3_2__q.equals(syntax))
-				emit_ENamedServiceQuery___LeftCurlyBracketKeyword_3_0_RightCurlyBracketKeyword_3_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q.equals(syntax))
+				emit_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -115,7 +115,7 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     path=STRING (ambiguity) (rule end)
 	 */
-	protected void emit_ENamedServiceQuery___LeftCurlyBracketKeyword_3_0_RightCurlyBracketKeyword_3_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

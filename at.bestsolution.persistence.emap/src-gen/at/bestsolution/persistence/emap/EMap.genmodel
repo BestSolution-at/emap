@@ -26,8 +26,18 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/parentBundle"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/entities"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/typeDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EMappingBundle/generators"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/databases"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EMappingBundle/colSort"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EGeneratorDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EGeneratorDef/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EGeneratorDef/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EGeneratorConfigValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EGeneratorConfigValue/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//EGeneratorConfigValue/simpleValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EGeneratorConfigValue/children"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EBundleEntity">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EBundleEntity/entity"/>
@@ -69,8 +79,14 @@
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ENamedServiceQuery">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedServiceQuery/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedServiceQuery/path"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/greedyAttributePathList"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//EGreedyAttributePath">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EGreedyAttributePath/greedyAttribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//EGreedyAttributePath/subPathList"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EServiceParam">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EServiceParam/param"/>

@@ -41,6 +41,24 @@ public interface EMapFactory extends EFactory
   EMappingBundle createEMappingBundle();
 
   /**
+   * Returns a new object of class '<em>EGenerator Def</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EGenerator Def</em>'.
+   * @generated
+   */
+  EGeneratorDef createEGeneratorDef();
+
+  /**
+   * Returns a new object of class '<em>EGenerator Config Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EGenerator Config Value</em>'.
+   * @generated
+   */
+  EGeneratorConfigValue createEGeneratorConfigValue();
+
+  /**
    * Returns a new object of class '<em>EBundle Entity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -120,6 +138,15 @@ public interface EMapFactory extends EFactory
    * @generated
    */
   ENamedServiceQuery createENamedServiceQuery();
+
+  /**
+   * Returns a new object of class '<em>EGreedy Attribute Path</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EGreedy Attribute Path</em>'.
+   * @generated
+   */
+  EGreedyAttributePath createEGreedyAttributePath();
 
   /**
    * Returns a new object of class '<em>EService Param</em>'.

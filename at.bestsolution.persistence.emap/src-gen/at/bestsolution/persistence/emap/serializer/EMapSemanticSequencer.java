@@ -7,6 +7,9 @@ import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
+import at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue;
+import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
+import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath;
 import at.bestsolution.persistence.emap.eMap.EIndex;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMapping;
@@ -71,6 +74,15 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EMapPackage.EFK_CONSTRAINT:
 				sequence_EFkConstraint(context, (EFkConstraint) semanticObject); 
+				return; 
+			case EMapPackage.EGENERATOR_CONFIG_VALUE:
+				sequence_EGeneratorConfigValue(context, (EGeneratorConfigValue) semanticObject); 
+				return; 
+			case EMapPackage.EGENERATOR_DEF:
+				sequence_EGeneratorDef(context, (EGeneratorDef) semanticObject); 
+				return; 
+			case EMapPackage.EGREEDY_ATTRIBUTE_PATH:
+				sequence_EGreedyAttributePath(context, (EGreedyAttributePath) semanticObject); 
 				return; 
 			case EMapPackage.EINDEX:
 				sequence_EIndex(context, (EIndex) semanticObject); 
@@ -226,6 +238,33 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (key=ID (simpleValue=STRING | children+=EGeneratorConfigValue+))
+	 */
+	protected void sequence_EGeneratorConfigValue(EObject context, EGeneratorConfigValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID parameters+=EGeneratorConfigValue*)
+	 */
+	protected void sequence_EGeneratorDef(EObject context, EGeneratorDef semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (greedyAttribute=[EAttribute|QualifiedName] subPathList+=EGreedyAttributePath*)
+	 */
+	protected void sequence_EGreedyAttributePath(EObject context, EGreedyAttributePath semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]*)
 	 */
 	protected void sequence_EIndex(EObject context, EIndex semanticObject) {
@@ -255,6 +294,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         entities+=EBundleEntity 
 	 *         entities+=EBundleEntity* 
 	 *         typeDefs+=ESQLTypeDef* 
+	 *         generators+=EGeneratorDef* 
 	 *         (databases+=STRING databases+=STRING*)? 
 	 *         colSort=ColSort?
 	 *     )
@@ -344,7 +384,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (query=[ENamedQuery|QualifiedName] path=STRING parameters+=EServiceParam*)
+	 *     (query=[ENamedQuery|QualifiedName] name=ID path=STRING (parameters+=EServiceParam* greedyAttributePathList+=EGreedyAttributePath*)?)
 	 */
 	protected void sequence_ENamedServiceQuery(EObject context, ENamedServiceQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

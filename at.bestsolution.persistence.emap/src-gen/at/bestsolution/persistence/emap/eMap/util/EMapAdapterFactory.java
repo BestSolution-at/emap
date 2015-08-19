@@ -85,6 +85,16 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEMappingBundleAdapter();
       }
       @Override
+      public Adapter caseEGeneratorDef(EGeneratorDef object)
+      {
+        return createEGeneratorDefAdapter();
+      }
+      @Override
+      public Adapter caseEGeneratorConfigValue(EGeneratorConfigValue object)
+      {
+        return createEGeneratorConfigValueAdapter();
+      }
+      @Override
       public Adapter caseEBundleEntity(EBundleEntity object)
       {
         return createEBundleEntityAdapter();
@@ -128,6 +138,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
       public Adapter caseENamedServiceQuery(ENamedServiceQuery object)
       {
         return createENamedServiceQueryAdapter();
+      }
+      @Override
+      public Adapter caseEGreedyAttributePath(EGreedyAttributePath object)
+      {
+        return createEGreedyAttributePathAdapter();
       }
       @Override
       public Adapter caseEServiceParam(EServiceParam object)
@@ -297,6 +312,36 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EGeneratorDef <em>EGenerator Def</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EGeneratorDef
+   * @generated
+   */
+  public Adapter createEGeneratorDefAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue <em>EGenerator Config Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue
+   * @generated
+   */
+  public Adapter createEGeneratorConfigValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EBundleEntity <em>EBundle Entity</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -427,6 +472,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createENamedServiceQueryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EGreedyAttributePath <em>EGreedy Attribute Path</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EGreedyAttributePath
+   * @generated
+   */
+  public Adapter createEGreedyAttributePathAdapter()
   {
     return null;
   }

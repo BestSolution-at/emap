@@ -16,8 +16,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getQuery <em>Query</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getPath <em>Path</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getGreedyAttributePathList <em>Greedy Attribute Path List</em>}</li>
  * </ul>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getENamedServiceQuery()
@@ -51,6 +53,32 @@ public interface ENamedServiceQuery extends EObject
    * @generated
    */
   void setQuery(ENamedQuery value);
+
+  /**
+   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Name</em>' attribute.
+   * @see #setName(String)
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getENamedServiceQuery_Name()
+   * @model
+   * @generated
+   */
+  String getName();
+
+  /**
+   * Sets the value of the '{@link at.bestsolution.persistence.emap.eMap.ENamedServiceQuery#getName <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Name</em>' attribute.
+   * @see #getName()
+   * @generated
+   */
+  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Path</b></em>' attribute.
@@ -93,5 +121,21 @@ public interface ENamedServiceQuery extends EObject
    * @generated
    */
   EList<EServiceParam> getParameters();
+
+  /**
+   * Returns the value of the '<em><b>Greedy Attribute Path List</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EGreedyAttributePath}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Greedy Attribute Path List</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Greedy Attribute Path List</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getENamedServiceQuery_GreedyAttributePathList()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EGreedyAttributePath> getGreedyAttributePathList();
 
 } // ENamedServiceQuery

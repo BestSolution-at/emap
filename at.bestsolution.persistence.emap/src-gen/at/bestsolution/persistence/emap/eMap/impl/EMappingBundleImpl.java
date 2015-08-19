@@ -4,6 +4,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.ColSort;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
+import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingBundle;
 import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getParentBundle <em>Parent Bundle</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getEntities <em>Entities</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getTypeDefs <em>Type Defs</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getGenerators <em>Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getDatabases <em>Databases</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getColSort <em>Col Sort</em>}</li>
  * </ul>
@@ -106,6 +108,16 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EList<ESQLTypeDef> typeDefs;
+
+  /**
+   * The cached value of the '{@link #getGenerators() <em>Generators</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getGenerators()
+   * @generated
+   * @ordered
+   */
+  protected EList<EGeneratorDef> generators;
 
   /**
    * The cached value of the '{@link #getDatabases() <em>Databases</em>}' attribute list.
@@ -271,6 +283,20 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EGeneratorDef> getGenerators()
+  {
+    if (generators == null)
+    {
+      generators = new EObjectContainmentEList<EGeneratorDef>(EGeneratorDef.class, this, EMapPackage.EMAPPING_BUNDLE__GENERATORS);
+    }
+    return generators;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<String> getDatabases()
   {
     if (databases == null)
@@ -319,6 +345,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return ((InternalEList<?>)getEntities()).basicRemove(otherEnd, msgs);
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
         return ((InternalEList<?>)getTypeDefs()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EMAPPING_BUNDLE__GENERATORS:
+        return ((InternalEList<?>)getGenerators()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -344,6 +372,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return getEntities();
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
         return getTypeDefs();
+      case EMapPackage.EMAPPING_BUNDLE__GENERATORS:
+        return getGenerators();
       case EMapPackage.EMAPPING_BUNDLE__DATABASES:
         return getDatabases();
       case EMapPackage.EMAPPING_BUNDLE__COL_SORT:
@@ -381,6 +411,10 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         getTypeDefs().clear();
         getTypeDefs().addAll((Collection<? extends ESQLTypeDef>)newValue);
         return;
+      case EMapPackage.EMAPPING_BUNDLE__GENERATORS:
+        getGenerators().clear();
+        getGenerators().addAll((Collection<? extends EGeneratorDef>)newValue);
+        return;
       case EMapPackage.EMAPPING_BUNDLE__DATABASES:
         getDatabases().clear();
         getDatabases().addAll((Collection<? extends String>)newValue);
@@ -417,6 +451,9 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
         getTypeDefs().clear();
         return;
+      case EMapPackage.EMAPPING_BUNDLE__GENERATORS:
+        getGenerators().clear();
+        return;
       case EMapPackage.EMAPPING_BUNDLE__DATABASES:
         getDatabases().clear();
         return;
@@ -447,6 +484,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return entities != null && !entities.isEmpty();
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
         return typeDefs != null && !typeDefs.isEmpty();
+      case EMapPackage.EMAPPING_BUNDLE__GENERATORS:
+        return generators != null && !generators.isEmpty();
       case EMapPackage.EMAPPING_BUNDLE__DATABASES:
         return databases != null && !databases.isEmpty();
       case EMapPackage.EMAPPING_BUNDLE__COL_SORT:

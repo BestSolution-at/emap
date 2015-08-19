@@ -86,6 +86,20 @@ public class EMapSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case EMapPackage.EGENERATOR_DEF:
+      {
+        EGeneratorDef eGeneratorDef = (EGeneratorDef)theEObject;
+        T result = caseEGeneratorDef(eGeneratorDef);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EGENERATOR_CONFIG_VALUE:
+      {
+        EGeneratorConfigValue eGeneratorConfigValue = (EGeneratorConfigValue)theEObject;
+        T result = caseEGeneratorConfigValue(eGeneratorConfigValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case EMapPackage.EBUNDLE_ENTITY:
       {
         EBundleEntity eBundleEntity = (EBundleEntity)theEObject;
@@ -146,6 +160,13 @@ public class EMapSwitch<T> extends Switch<T>
       {
         ENamedServiceQuery eNamedServiceQuery = (ENamedServiceQuery)theEObject;
         T result = caseENamedServiceQuery(eNamedServiceQuery);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.EGREEDY_ATTRIBUTE_PATH:
+      {
+        EGreedyAttributePath eGreedyAttributePath = (EGreedyAttributePath)theEObject;
+        T result = caseEGreedyAttributePath(eGreedyAttributePath);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -352,6 +373,38 @@ public class EMapSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>EGenerator Def</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EGenerator Def</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEGeneratorDef(EGeneratorDef object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EGenerator Config Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EGenerator Config Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEGeneratorConfigValue(EGeneratorConfigValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>EBundle Entity</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -491,6 +544,22 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseENamedServiceQuery(ENamedServiceQuery object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>EGreedy Attribute Path</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>EGreedy Attribute Path</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseEGreedyAttributePath(EGreedyAttributePath object)
   {
     return null;
   }

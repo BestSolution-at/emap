@@ -20,7 +20,23 @@ EMappingBundle:
 	'bundle' name=ID ('extends' parentBundle=[EMappingBundle|QualifiedName])? '{'
 		entities += EBundleEntity (',' entities += EBundleEntity)*
 		typeDefs += ESQLTypeDef*
+		('generator' '{'
+			generators+=EGeneratorDef+
+		'}')?
 	'}' ('databases' databases+=STRING (',' databases+=STRING)*)? ('colsort' colSort=ColSort )?
+;
+
+EGeneratorDef:
+	name=ID ('{'
+		parameters+=EGeneratorConfigValue+
+	'}')?
+;
+
+EGeneratorConfigValue:
+	key=ID ':' ( simpleValue=STRING | ('{'
+		children+=EGeneratorConfigValue+
+		'}'
+	) )
 ;
 
 enum ColSort:
@@ -76,8 +92,17 @@ ERestServiceMapping:
 ;
 
 ENamedServiceQuery:
-	 query=[ENamedQuery|QualifiedName] 'as' path=STRING ('{'
+	 query=[ENamedQuery|QualifiedName] 'as' name=ID path=STRING ('{'
 		parameters+=EServiceParam*
+		('greedy' '{'
+			greedyAttributePathList += EGreedyAttributePath+
+		'}')?
+	'}')?
+;
+
+EGreedyAttributePath:
+	greedyAttribute = [EAttribute|QualifiedName] ('{'
+		subPathList += EGreedyAttributePath+
 	'}')?
 ;
 

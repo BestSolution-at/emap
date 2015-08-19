@@ -15,9 +15,22 @@
         eType="#//EBundleEntity" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeDefs" upperBound="-1"
         eType="#//ESQLTypeDef" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generators" upperBound="-1"
+        eType="#//EGeneratorDef" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="databases" unique="false"
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="colSort" eType="#//ColSort"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EGeneratorDef">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//EGeneratorConfigValue" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EGeneratorConfigValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="simpleValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//EGeneratorConfigValue" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColSort">
     <eLiterals name="EMAP" literal="EMAP"/>
@@ -76,9 +89,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ENamedServiceQuery">
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//ENamedQuery"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//EServiceParam" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="greedyAttributePathList"
+        upperBound="-1" eType="#//EGreedyAttributePath" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EGreedyAttributePath">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="greedyAttribute" eType="#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subPathList" upperBound="-1"
+        eType="#//EGreedyAttributePath" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EServiceParam">
     <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//EParameter"/>

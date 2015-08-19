@@ -67,6 +67,8 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
     {
       case EMapPackage.EMAPPING: return createEMapping();
       case EMapPackage.EMAPPING_BUNDLE: return createEMappingBundle();
+      case EMapPackage.EGENERATOR_DEF: return createEGeneratorDef();
+      case EMapPackage.EGENERATOR_CONFIG_VALUE: return createEGeneratorConfigValue();
       case EMapPackage.EBUNDLE_ENTITY: return createEBundleEntity();
       case EMapPackage.EINDEX: return createEIndex();
       case EMapPackage.EFK_CONSTRAINT: return createEFkConstraint();
@@ -76,6 +78,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.ESQL_DB_TYPE: return createESQLDbType();
       case EMapPackage.EREST_SERVICE_MAPPING: return createERestServiceMapping();
       case EMapPackage.ENAMED_SERVICE_QUERY: return createENamedServiceQuery();
+      case EMapPackage.EGREEDY_ATTRIBUTE_PATH: return createEGreedyAttributePath();
       case EMapPackage.ESERVICE_PARAM: return createEServiceParam();
       case EMapPackage.EPATH_PARAM: return createEPathParam();
       case EMapPackage.EQUERY_PARAM: return createEQueryParam();
@@ -162,6 +165,28 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EMappingBundleImpl eMappingBundle = new EMappingBundleImpl();
     return eMappingBundle;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EGeneratorDef createEGeneratorDef()
+  {
+    EGeneratorDefImpl eGeneratorDef = new EGeneratorDefImpl();
+    return eGeneratorDef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EGeneratorConfigValue createEGeneratorConfigValue()
+  {
+    EGeneratorConfigValueImpl eGeneratorConfigValue = new EGeneratorConfigValueImpl();
+    return eGeneratorConfigValue;
   }
 
   /**
@@ -261,6 +286,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     ENamedServiceQueryImpl eNamedServiceQuery = new ENamedServiceQueryImpl();
     return eNamedServiceQuery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EGreedyAttributePath createEGreedyAttributePath()
+  {
+    EGreedyAttributePathImpl eGreedyAttributePath = new EGreedyAttributePathImpl();
+    return eGreedyAttributePath;
   }
 
   /**

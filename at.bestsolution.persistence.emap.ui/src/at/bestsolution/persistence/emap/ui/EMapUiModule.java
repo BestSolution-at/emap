@@ -11,6 +11,11 @@
 package at.bestsolution.persistence.emap.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
+
+import com.google.inject.Binder;
+
+import at.bestsolution.persistence.emap.ui.fsa.EMapFilesystemAccess;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -18,5 +23,11 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class EMapUiModule extends at.bestsolution.persistence.emap.ui.AbstractEMapUiModule {
 	public EMapUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(EclipseResourceFileSystemAccess2.class).to(EMapFilesystemAccess.class);
 	}
 }

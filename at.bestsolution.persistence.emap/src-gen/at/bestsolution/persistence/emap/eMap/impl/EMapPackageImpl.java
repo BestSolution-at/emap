@@ -6,6 +6,9 @@ import at.bestsolution.persistence.emap.eMap.ColSort;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
+import at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue;
+import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
+import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath;
 import at.bestsolution.persistence.emap.eMap.EIndex;
 import at.bestsolution.persistence.emap.eMap.EMapFactory;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
@@ -75,6 +78,20 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass eGeneratorDefEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eGeneratorConfigValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass eBundleEntityEClass = null;
 
   /**
@@ -132,6 +149,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eNamedServiceQueryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eGreedyAttributePathEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -456,9 +480,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getEMappingBundle_Generators()
+  {
+    return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getEMappingBundle_Databases()
   {
-    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -468,7 +502,77 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEMappingBundle_ColSort()
   {
-    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEGeneratorDef()
+  {
+    return eGeneratorDefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEGeneratorDef_Name()
+  {
+    return (EAttribute)eGeneratorDefEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEGeneratorDef_Parameters()
+  {
+    return (EReference)eGeneratorDefEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEGeneratorConfigValue()
+  {
+    return eGeneratorConfigValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEGeneratorConfigValue_Key()
+  {
+    return (EAttribute)eGeneratorConfigValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEGeneratorConfigValue_SimpleValue()
+  {
+    return (EAttribute)eGeneratorConfigValueEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEGeneratorConfigValue_Children()
+  {
+    return (EReference)eGeneratorConfigValueEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -796,7 +900,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getENamedServiceQuery_Path()
+  public EAttribute getENamedServiceQuery_Name()
   {
     return (EAttribute)eNamedServiceQueryEClass.getEStructuralFeatures().get(1);
   }
@@ -806,9 +910,59 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getENamedServiceQuery_Path()
+  {
+    return (EAttribute)eNamedServiceQueryEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getENamedServiceQuery_Parameters()
   {
-    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(2);
+    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getENamedServiceQuery_GreedyAttributePathList()
+  {
+    return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEGreedyAttributePath()
+  {
+    return eGreedyAttributePathEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEGreedyAttributePath_GreedyAttribute()
+  {
+    return (EReference)eGreedyAttributePathEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getEGreedyAttributePath_SubPathList()
+  {
+    return (EReference)eGreedyAttributePathEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1960,8 +2114,18 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__PARENT_BUNDLE);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__ENTITIES);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__TYPE_DEFS);
+    createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__GENERATORS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__DATABASES);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__COL_SORT);
+
+    eGeneratorDefEClass = createEClass(EGENERATOR_DEF);
+    createEAttribute(eGeneratorDefEClass, EGENERATOR_DEF__NAME);
+    createEReference(eGeneratorDefEClass, EGENERATOR_DEF__PARAMETERS);
+
+    eGeneratorConfigValueEClass = createEClass(EGENERATOR_CONFIG_VALUE);
+    createEAttribute(eGeneratorConfigValueEClass, EGENERATOR_CONFIG_VALUE__KEY);
+    createEAttribute(eGeneratorConfigValueEClass, EGENERATOR_CONFIG_VALUE__SIMPLE_VALUE);
+    createEReference(eGeneratorConfigValueEClass, EGENERATOR_CONFIG_VALUE__CHILDREN);
 
     eBundleEntityEClass = createEClass(EBUNDLE_ENTITY);
     createEReference(eBundleEntityEClass, EBUNDLE_ENTITY__ENTITY);
@@ -2003,8 +2167,14 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     eNamedServiceQueryEClass = createEClass(ENAMED_SERVICE_QUERY);
     createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__QUERY);
+    createEAttribute(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__NAME);
     createEAttribute(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PATH);
     createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PARAMETERS);
+    createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST);
+
+    eGreedyAttributePathEClass = createEClass(EGREEDY_ATTRIBUTE_PATH);
+    createEReference(eGreedyAttributePathEClass, EGREEDY_ATTRIBUTE_PATH__GREEDY_ATTRIBUTE);
+    createEReference(eGreedyAttributePathEClass, EGREEDY_ATTRIBUTE_PATH__SUB_PATH_LIST);
 
     eServiceParamEClass = createEClass(ESERVICE_PARAM);
     createEReference(eServiceParamEClass, ESERVICE_PARAM__PARAM);
@@ -2188,8 +2358,18 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEMappingBundle_ParentBundle(), this.getEMappingBundle(), null, "parentBundle", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_Entities(), this.getEBundleEntity(), null, "entities", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_TypeDefs(), this.getESQLTypeDef(), null, "typeDefs", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingBundle_Generators(), this.getEGeneratorDef(), null, "generators", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Databases(), ecorePackage.getEString(), "databases", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_ColSort(), this.getColSort(), "colSort", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eGeneratorDefEClass, EGeneratorDef.class, "EGeneratorDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEGeneratorDef_Name(), ecorePackage.getEString(), "name", null, 0, 1, EGeneratorDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEGeneratorDef_Parameters(), this.getEGeneratorConfigValue(), null, "parameters", null, 0, -1, EGeneratorDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eGeneratorConfigValueEClass, EGeneratorConfigValue.class, "EGeneratorConfigValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEGeneratorConfigValue_Key(), ecorePackage.getEString(), "key", null, 0, 1, EGeneratorConfigValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getEGeneratorConfigValue_SimpleValue(), ecorePackage.getEString(), "simpleValue", null, 0, 1, EGeneratorConfigValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEGeneratorConfigValue_Children(), this.getEGeneratorConfigValue(), null, "children", null, 0, -1, EGeneratorConfigValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eBundleEntityEClass, EBundleEntity.class, "EBundleEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEBundleEntity_Entity(), this.getEMappingEntity(), null, "entity", null, 0, 1, EBundleEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2231,8 +2411,14 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     initEClass(eNamedServiceQueryEClass, ENamedServiceQuery.class, "ENamedServiceQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getENamedServiceQuery_Query(), this.getENamedQuery(), null, "query", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getENamedServiceQuery_Name(), ecorePackage.getEString(), "name", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getENamedServiceQuery_Path(), ecorePackage.getEString(), "path", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getENamedServiceQuery_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getENamedServiceQuery_GreedyAttributePathList(), this.getEGreedyAttributePath(), null, "greedyAttributePathList", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eGreedyAttributePathEClass, EGreedyAttributePath.class, "EGreedyAttributePath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getEGreedyAttributePath_GreedyAttribute(), this.getEAttribute(), null, "greedyAttribute", null, 0, 1, EGreedyAttributePath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEGreedyAttributePath_SubPathList(), this.getEGreedyAttributePath(), null, "subPathList", null, 0, -1, EGreedyAttributePath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eServiceParamEClass, EServiceParam.class, "EServiceParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEServiceParam_Param(), this.getEParameter(), null, "param", null, 0, 1, EServiceParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

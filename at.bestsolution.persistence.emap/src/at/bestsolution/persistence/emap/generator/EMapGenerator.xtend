@@ -152,19 +152,59 @@ class EMapGenerator implements IGenerator {
 
 				for( e : bundleDef.entities.filter[rest != null] ) {
 					val entityDef = e.entity.eContainer as EMappingEntityDef
-					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
-					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"+entityDef.entity.name+".ts",dtoGenerator.generateTypeScriptClass(entityDef.entity.lookupEClass))
-					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
-					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/base/Base"+entityDef.entity.name+"Service.java",restGenerator.generateBaseClass(entityDef,e.rest,entityDef.entity.lookupEClass))
-					fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"+entityDef.entity.name+"Service.ts",restGenerator.generateTypeScriptServiceClass(e.rest,entityDef.entity.lookupEClass))
+//					System::err.println(entityDef.package)
+//					System::err.println(dtoGenerator)
+//					System::err.println(entityDef.entity)
+//					System::err.println(entityDef.entity.lookupEClass)
 
-					if( fsa instanceof IFileSystemAccessExtension3 ) {
-						try {
-							val t = fsa.readTextFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java")
-							fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java",t)
-						} catch(Throwable t) {
-							fsa.generateFile(entityDef.package.name.replace('.','/')+"/webservice/"+entityDef.entity.name+"Service.java",restGenerator.generateCustomImpl(entityDef,entityDef.entity.lookupEClass))
+					if( bundleDef.generators.findFirst[g|g.name == "DTO"] != null ) {
+						val dto = bundleDef.generators.findFirst[g|g.name == "DTO"];
+						var String path;
+						if(dto.parameters.findFirst[v|v.key == "project"] != null) {
+							path = "/" + dto.parameters.findFirst[v|v.key == "project"].simpleValue + "/src/" + entityDef.package.name.replace('.','/')
+						} else {
+							path = entityDef.package.name.replace('.','/')
 						}
+
+						fsa.generateFile(path+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
+						fsa.generateFile(path+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
+					}
+
+					if( bundleDef.generators.findFirst[g|g.name == "REST"] != null ) {
+						val rest = bundleDef.generators.findFirst[g|g.name == "REST"]
+						var String path;
+						if(rest.parameters.findFirst[v|v.key == "project"] != null) {
+							path = "/" + rest.parameters.findFirst[v|v.key == "project"].simpleValue + "/src/" + entityDef.package.name.replace('.','/')
+						} else {
+							path = entityDef.package.name.replace('.','/')
+						}
+
+						fsa.generateFile(path+"/webservice/base/Base"+entityDef.entity.name+"Service.java",restGenerator.generateBaseClass(entityDef,e.rest,entityDef.entity.lookupEClass))
+						if( fsa instanceof IFileSystemAccessExtension3 ) {
+							try {
+								val t = fsa.readTextFile(path+"/webservice/"+entityDef.entity.name+"Service.java")
+								fsa.generateFile(path+"/webservice/"+entityDef.entity.name+"Service.java",t)
+							} catch(Throwable t) {
+								fsa.generateFile(path+"/webservice/"+entityDef.entity.name+"Service.java",restGenerator.generateCustomImpl(entityDef,entityDef.entity.lookupEClass))
+							}
+						}
+					}
+
+					val ts = bundleDef.generators.findFirst[g|g.name == "typescript"];
+
+					if( ts != null ) {
+						var String path;
+						if(ts.parameters.findFirst[v|v.key == "project"] != null) {
+							path = "/" + ts.parameters.findFirst[v|v.key == "project"].simpleValue
+							if(ts.parameters.findFirst[v|v.key == "folder"] != null ) {
+								path += "/" + ts.parameters.findFirst[v|v.key == "folder"].simpleValue
+							}
+						} else {
+							path = entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"
+						}
+
+						fsa.generateFile(path + "/DTO"+entityDef.entity.name+".ts",dtoGenerator.generateTypeScriptClass(entityDef.entity.lookupEClass))
+						fsa.generateFile(path + "/"+entityDef.entity.name+"Service.ts",restGenerator.generateTypeScriptServiceClass(entityDef,e.rest,entityDef.entity.lookupEClass))
 					}
 				}
 			}

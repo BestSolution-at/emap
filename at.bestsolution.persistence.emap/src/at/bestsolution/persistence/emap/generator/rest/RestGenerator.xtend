@@ -21,6 +21,9 @@ import at.bestsolution.persistence.emap.eMap.EPathParam
 import at.bestsolution.persistence.emap.eMap.ERestServiceMapping
 import at.bestsolution.persistence.emap.eMap.ENamedServiceQuery
 import at.bestsolution.persistence.emap.eMap.EQueryParam
+import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath
+import java.util.ArrayList
+import java.util.List
 
 class RestGenerator {
 	@Inject extension
@@ -68,11 +71,16 @@ class RestGenerator {
 		public java.util.List<«mapping.packageName».dto.DTO«eClass.name»> list() {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
+				java.util.List<«mapping.entity.lookupEClass.instanceClassName»> list = checkAccess_list(mapper.selectAll(), s);
 				return «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.toDTO(
-					mapper.selectAll(),
+					list,
 					«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper::fillAllProxyRefs
 				);
 			}
+		}
+
+		protected java.util.List<«mapping.entity.lookupEClass.instanceClassName»> checkAccess_list(java.util.List<«mapping.entity.lookupEClass.instanceClassName»> list, at.bestsolution.persistence.Session session) {
+			return list;
 		}
 
 		@javax.ws.rs.GET
@@ -84,8 +92,13 @@ class RestGenerator {
 				if(entity == null) {
 					throw new javax.ws.rs.WebApplicationException("Entity '«eClass.name»' with ID '"+id+" is unknown.'",javax.ws.rs.core.Response.Status.NOT_FOUND);
 				}
+				entity = checkAccess_get(entity, s);
 				return «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.toDTO( entity, «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper::fillAllProxyRefs );
 			}
+		}
+
+		protected «mapping.entity.lookupEClass.instanceClassName» checkAccess_get(«mapping.entity.lookupEClass.instanceClassName» entity, at.bestsolution.persistence.Session session) {
+			return entity;
 		}
 
 		«FOR r : eClass.EAllReferences»
@@ -103,11 +116,21 @@ class RestGenerator {
 						throw new javax.ws.rs.WebApplicationException("Entity '«eClass.name»' with ID '"+id+" is unknown.'",javax.ws.rs.core.Response.Status.NOT_FOUND);
 					}
 					return «mapping.packageName».mapper.«r.EReferenceType.name»DTOMapper.toDTO(
-						entity.get«r.name.toFirstUpper»(),
+						checkAccess_get«r.name.toFirstUpper»(entity, entity.get«r.name.toFirstUpper»(), s),
 						«mapping.packageName».mapper.«r.EReferenceType.name»DTOMapper::fillAllProxyRefs
 					);
 				}
 			}
+
+			«IF r.isMany»
+				protected java.util.List<«r.EType.instanceClassName»> checkAccess_get«r.name.toFirstUpper»(«mapping.entity.lookupEClass.instanceClassName» entity, java.util.List<«r.EType.instanceClassName»> list, at.bestsolution.persistence.Session session) {
+					return list;
+				}
+			«ELSE»
+				protected «r.EType.instanceClassName» checkAccess_get«r.name.toFirstUpper»(«mapping.entity.lookupEClass.instanceClassName» entity, «r.EType.instanceClassName» value, at.bestsolution.persistence.Session session) {
+					return value;
+				}
+			«ENDIF»
 		«ENDFOR»
 
 		«FOR bin : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName == "java.sql.Blob"]»
@@ -137,12 +160,12 @@ class RestGenerator {
 
 		@javax.ws.rs.PUT
 		@javax.ws.rs.Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-		public LongWrapper create(«mapping.packageName».dto.DTO«eClass.name» dto) {
-			«mapping.entity.lookupEClass.instanceClassName» entity = «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.mergeToEntity(
-				«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.create(),
-				dto
-			);
+		public «mapping.packageName».dto.DTO«eClass.name» create(«mapping.packageName».dto.DTO«eClass.name» dto) {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+				«mapping.entity.lookupEClass.instanceClassName» entity = checkAccess_create(«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.mergeToEntity(
+					«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.create(),
+					dto
+				), s);
 				«FOR r : eClass.EAllReferences.filter[r | ! r.isMany]»
 				entity.set«r.name.toFirstUpper»( dto.get«r.name.toFirstUpper»() != null ? s.get(«r.EReferenceType.instanceClassName».class, dto.get«r.name.toFirstUpper»().get«mapping.entity.PKAttribute.name.toFirstUpper»()) : null );
 				«ENDFOR»
@@ -152,23 +175,35 @@ class RestGenerator {
 					return true;
 				});
 
-				return LongWrapper.valueOf(«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.getId(entity));
+				return get(«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.getId(entity));
 			}
+		}
+
+		protected «mapping.entity.lookupEClass.instanceClassName» checkAccess_create(«mapping.entity.lookupEClass.instanceClassName» entity, at.bestsolution.persistence.Session session) {
+			return entity;
 		}
 
 		@javax.ws.rs.PUT
 		@javax.ws.rs.Path("{id}")
 		@javax.ws.rs.Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-		public void update(@javax.ws.rs.PathParam("id") long id, «mapping.packageName».dto.DTO«eClass.name» dto) {
+		public «mapping.packageName».dto.DTO«eClass.name» update(@javax.ws.rs.PathParam("id") long id, «mapping.packageName».dto.DTO«eClass.name» dto) {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
-				«mapping.entity.lookupEClass.instanceClassName» entity = mapper.selectById(id);
+				«mapping.entity.lookupEClass.instanceClassName» entity = checkAccess_update(mapper.selectById(id), s);
 				«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.mergeToEntity( entity, dto );
+				«FOR r : eClass.EAllReferences.filter[r | ! r.isMany && ! r.isContainment]»
+				entity.set«r.name.toFirstUpper»( dto.get«r.name.toFirstUpper»() != null ? s.get(«r.EReferenceType.instanceClassName».class, dto.get«r.name.toFirstUpper»().get«mapping.entity.PKAttribute.name.toFirstUpper»()) : null );
+				«ENDFOR»
 				s.runInTransaction(se -> {
 					mapper.update(entity);
 					return true;
 				});
+				return get(«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.getId(entity));
 			}
+		}
+
+		protected «mapping.entity.lookupEClass.instanceClassName» checkAccess_update(«mapping.entity.lookupEClass.instanceClassName» entity, at.bestsolution.persistence.Session session) {
+			return entity;
 		}
 
 
@@ -201,70 +236,104 @@ class RestGenerator {
 		@javax.ws.rs.Path("{id}")
 		public void delete(@javax.ws.rs.PathParam("id") long id) {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+				checkAccess_delete(id, s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
 				mapper.deleteById(id);
 			}
 		}
 
+		protected void checkAccess_delete(long id, at.bestsolution.persistence.Session session) {
+			// do nothing by default
+		}
 
 		@javax.ws.rs.DELETE
 		public void deleteAll() {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+				checkAccess_deleteAll(s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
 				mapper.deleteAll();
 			}
 		}
 
+		protected void checkAccess_deleteAll(at.bestsolution.persistence.Session session) {
+			// do nothing by default
+		}
+
 		«FOR sm : restMapping.serviceMethods»
-		@javax.ws.rs.GET
-		@javax.ws.rs.Path("«sm.path»")
-		public «IF sm.query.returnType == ReturnType::LIST»java.util.List<«mapping.packageName».dto.DTO«eClass.name»>«ELSE»«mapping.packageName».dto.DTO«eClass.name»«ENDIF» «sm.query.name»(«sm.parameters.map[p | p.toRestAnnotation + " " + p.param.parameterType + " " + p.param.name].join(", ")») {
-			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
-				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
-				return «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.toDTO(
-					mapper.«sm.query.name»(«sm.parameters.map[p|p.param.name].join(", ")»),
-					«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper::fillAllProxyRefs
-				);
+			@javax.ws.rs.GET
+			@javax.ws.rs.Path("«sm.path»")
+			public «IF sm.query.returnType == ReturnType::LIST»java.util.List<«mapping.packageName».dto.DTO«eClass.name»>«ELSE»«mapping.packageName».dto.DTO«eClass.name»«ENDIF» «sm.name»(«sm.parameters.map[p | p.toRestAnnotation + " " + p.param.parameterType + " " + p.param.name].join(", ")») {
+				try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
+					«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
+					«IF sm.query.returnType == ReturnType::LIST»
+						java.util.List<«mapping.packageName».dto.DTO«eClass.name»> rv;
+						java.util.List<«eClass.instanceClassName»> result;
+					«ELSE»
+						«mapping.packageName».dto.DTO«eClass.name» rv;
+						«eClass.instanceClassName» result;
+					«ENDIF»
+					result = checkAccess_«sm.name»(mapper.«sm.query.name»(«sm.parameters.map[p|p.param.name].join(", ")»), s);
+					rv = «mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper.toDTO(
+						result,
+						«mapping.packageName».mapper.«mapping.entity.lookupEClass.name»DTOMapper::fillAllProxyRefs
+					);
+					«FOR ga : sm.greedyAttributePathList»
+						«IF sm.query.returnType == ReturnType::LIST»
+							for( int i = 0; i < rv.size(); i++ ) {
+								resolveGreedy_«sm.name»_«ga.greedyAttribute.entity.name»_«ga.greedyAttribute.name»(rv.get(i), result.get(i));
+							}
+						«ELSE»
+							resolveGreedy_«sm.name»_«ga.greedyAttribute.entity.name»_«ga.greedyAttribute.name»(rv,result);
+						«ENDIF»
+					«ENDFOR»
+					return rv;
+				}
 			}
-		}
+
+			protected «IF sm.query.returnType == ReturnType::LIST»java.util.List<«eClass.instanceClassName»>«ELSE»«eClass.instanceClassName»«ENDIF» checkAccess_«sm.name»(«IF sm.query.returnType == ReturnType::LIST»java.util.List<«eClass.instanceClassName»> list «ELSE»«eClass.instanceClassName» value«ENDIF», at.bestsolution.persistence.Session session) {
+				return «IF sm.query.returnType == ReturnType::LIST»list«ELSE»value«ENDIF»;
+			}
+
+			«FOR gp : collectAllGreedyPaths(sm)»
+			private static void resolveGreedy_«sm.name»_«gp.greedyAttribute.entity.name»_«gp.greedyAttribute.name»(
+				«mapping.packageName».dto.DTO«gp.greedyAttribute.entity.name» dto,
+				«gp.greedyAttribute.entity.lookupEClass.instanceClassName» entity) {
+				dto.set«gp.greedyAttribute.name.toFirstUpper»(«gp.greedyAttribute.entity.packageName».mapper.«gp.greedyAttribute.getEStructuralFeature(gp.greedyAttribute.entity.lookupEClass).EType.name»DTOMapper.toDTO(entity.get«gp.greedyAttribute.name.toFirstUpper»()));
+				«FOR subgp: gp.subPathList»
+					«IF gp.greedyAttribute.isSingle(gp.greedyAttribute.entity.lookupEClass)»
+						resolveGreedy_«sm.name»_«subgp.greedyAttribute.entity.name»_«subgp.greedyAttribute.name»(
+							dto.get«gp.greedyAttribute.name.toFirstUpper»(),
+							entity.get«gp.greedyAttribute.name.toFirstUpper»()
+						);
+					«ELSE»
+					for(«mapping.packageName».dto.DTO«subgp.greedyAttribute.entity.name» subDTO : dto.get«gp.greedyAttribute.name.toFirstUpper»()) {
+
+					}
+					«ENDIF»
+				«ENDFOR»
+			}
+			«ENDFOR»
 		«ENDFOR»
-
-		public static class LongWrapper {
-			private long value;
-
-			public void setValue(long value) {
-				this.value = value;
-			}
-
-			public long getValue() {
-				return this.value;
-			}
-
-			public static LongWrapper valueOf(long value) {
-				LongWrapper rv = new LongWrapper();
-				rv.setValue(value);
-				return rv;
-			}
-		}
 	}
 	'''
+	def static List<EGreedyAttributePath> collectAllGreedyPaths(ENamedServiceQuery query) {
+		val rv = new ArrayList<EGreedyAttributePath>
+		query.greedyAttributePathList.forEach[p|rv.addAll(collectAllGreedyPaths(p))]
+		return rv;
+	}
 
-	def generateTypeScriptServiceClass(ERestServiceMapping restMapping, EClass eClass) '''
+	def static List<EGreedyAttributePath> collectAllGreedyPaths(EGreedyAttributePath greedyPath) {
+		val rv = new ArrayList<EGreedyAttributePath>
+		rv.add(greedyPath)
+		greedyPath.subPathList.forEach[p | rv.addAll(collectAllGreedyPaths(p))]
+
+		return rv;
+	}
+
+	def generateTypeScriptServiceClass(EMappingEntityDef entityDef, ERestServiceMapping restMapping, EClass eClass) '''
 	/// <reference path="../../typings/jquery/jquery.d.ts"/>
-
-	/// <reference path="«eClass.name».ts"/>
-
-	interface «eClass.name»ValueCallback {
-		( entity : «eClass.name», err: any ) : void
-	}
-
-	interface «eClass.name»ListCallback {
-		( entity : «eClass.name»[], err: any ) : void
-	}
-
-	interface «eClass.name»CreationCallback {
-		( id : number, err : any ) : void
-	}
+	/// <reference path="../util/bestUtils.ts"/>
+	/// <reference path="DTO«eClass.name».ts"/>
 
 	class «eClass.name»Service {
 		urlPrefix : string
@@ -273,26 +342,45 @@ class RestGenerator {
 			this.urlPrefix = urlPrefix
 		}
 
-		getAll( callback : «eClass.name»ListCallback ) {
+		getAll( callback : Consumer<DTO«eClass.name»[]> ) {
 			this.listRequest(this.urlPrefix + "/«eClass.name.toLowerCase»", callback);
 		}
 
-		get( id : number, callback : «eClass.name»ValueCallback ) {
+		get( id : number, callback : Consumer<DTO«eClass.name»> ) {
 			this.valueRequest(this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, callback);
 		}
 
-		create( entity : «eClass.name», callback : «eClass.name»CreationCallback ) {
+		create( entity : DTO«eClass.name», callback : Consumer<DTO«eClass.name»> ) {
 			$.ajax({
 	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»",
 	    		type: "PUT",
 	    		data: JSON.stringify(entity),
 	    		contentType: "application/json"
 			}).done( function(data : any) {
-				callback(data.value, null);
+				var entity : DTO«eClass.name»;
+				if( data ) {
+					entity = new DTO«eClass.name»(data);
+				}
+				callback(entity, null);
 			} );
 		}
 
-		private listRequest(path : string, callback : «eClass.name»ListCallback ) {
+		update( entity : DTO«eClass.name», callback : Consumer<DTO«eClass.name»> ) {
+			$.ajax({
+	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»/"+entity.«entityDef.PKAttribute.name»,
+	    		type: "PUT",
+	    		data: JSON.stringify(entity),
+	    		contentType: "application/json"
+			}).done( function(data : any) {
+				var entity : DTO«eClass.name»;
+				if( data ) {
+					entity = new DTO«eClass.name»(data);
+				}
+				callback(entity, null);
+			} );
+		}
+
+		private listRequest(path : string, callback : Consumer<DTO«eClass.name»[]> ) {
 			$.ajax({
 				dataType: "json",
 				type: "GET",
@@ -300,12 +388,12 @@ class RestGenerator {
 				data: {},
 				cache : false
 			}).done(function(data : any[]) {
-				var entityList : «eClass.name»[] = data.map( function( o ) { return new «eClass.name»(o); } );
+				var entityList : DTO«eClass.name»[] = data.map( function( o ) { return new DTO«eClass.name»(o); } );
 				callback(entityList, null);
 			});
 		}
 
-		private valueRequest(path : string, callback : «eClass.name»ValueCallback ) {
+		private valueRequest(path : string, callback : Consumer<DTO«eClass.name»> ) {
 			$.ajax({
 				dataType: "json",
 				type: "GET",
@@ -313,9 +401,9 @@ class RestGenerator {
 				data: {},
 				cache : false
 			}).done(function(data : any) {
-				var entity : «eClass.name»;
+				var entity : DTO«eClass.name»;
 				if( data ) {
-					entity = new «eClass.name»(data);
+					entity = new DTO«eClass.name»(data);
 				}
 				callback(entity, null);
 			});
@@ -323,11 +411,11 @@ class RestGenerator {
 
 		«FOR sm : restMapping.serviceMethods»
 			«IF sm.query.returnType == ReturnType::LIST»
-				«sm.query.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : «eClass.name»ListCallback ) {
+				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<«eClass.name»> ) {
 					this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
 				}
 			«ELSE»
-				«sm.query.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : «eClass.name»ValueCallback ) {
+				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<«eClass.name»> ) {
 					this.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
 				}
 			«ENDIF»
