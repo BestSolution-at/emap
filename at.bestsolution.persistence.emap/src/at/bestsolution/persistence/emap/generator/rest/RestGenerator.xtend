@@ -306,8 +306,9 @@ class RestGenerator {
 							entity.get«gp.greedyAttribute.name.toFirstUpper»()
 						);
 					«ELSE»
+					int i = 0;
 					for(«mapping.packageName».dto.DTO«subgp.greedyAttribute.entity.name» subDTO : dto.get«gp.greedyAttribute.name.toFirstUpper»()) {
-
+						resolveGreedy_«sm.name»_«subgp.greedyAttribute.entity.name»_«subgp.greedyAttribute.name»(subDTO, entity.get«gp.greedyAttribute.name.toFirstUpper»().get(i++));
 					}
 					«ENDIF»
 				«ENDFOR»

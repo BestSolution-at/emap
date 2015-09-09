@@ -150,13 +150,8 @@ class EMapGenerator implements IGenerator {
 					fsa.generateFile("ddls/drop_"+d+".sql",ddlGenerator.generatedDropDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.DROP_DDL,null,participants));
 				}
 
-				for( e : bundleDef.entities.filter[rest != null] ) {
+				for( e : bundleDef.entities ) {
 					val entityDef = e.entity.eContainer as EMappingEntityDef
-//					System::err.println(entityDef.package)
-//					System::err.println(dtoGenerator)
-//					System::err.println(entityDef.entity)
-//					System::err.println(entityDef.entity.lookupEClass)
-
 					if( bundleDef.generators.findFirst[g|g.name == "DTO"] != null ) {
 						val dto = bundleDef.generators.findFirst[g|g.name == "DTO"];
 						var String path;
@@ -169,6 +164,14 @@ class EMapGenerator implements IGenerator {
 						fsa.generateFile(path+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
 						fsa.generateFile(path+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
 					}
+				}
+
+				for( e : bundleDef.entities.filter[rest != null] ) {
+					val entityDef = e.entity.eContainer as EMappingEntityDef
+//					System::err.println(entityDef.package)
+//					System::err.println(dtoGenerator)
+//					System::err.println(entityDef.entity)
+//					System::err.println(entityDef.entity.lookupEClass)
 
 					if( bundleDef.generators.findFirst[g|g.name == "REST"] != null ) {
 						val rest = bundleDef.generators.findFirst[g|g.name == "REST"]
