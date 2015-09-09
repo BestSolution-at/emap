@@ -14,10 +14,19 @@ import org.eclipse.emf.ecore.EClass
 import com.google.inject.Inject
 import at.bestsolution.persistence.emap.generator.UtilCollection
 import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EEnum
 
 class DTOGenerator {
 	@Inject extension
 	var UtilCollection util;
+
+	def instanceClassName(EAttribute a) {
+		if( a.EAttributeType instanceof EEnum ) {
+			return "int";
+		}
+		return a.EAttributeType.instanceClassName;
+	}
 
 	def generateDTO(EMappingEntityDef entityDef, EClass eClass) '''
 	package «entityDef.packageName».dto;
@@ -52,14 +61,20 @@ class DTOGenerator {
 			return dto;
 		}
 
+		«FOR a : eClass.EAllAttributes.filter[ a | ! a.isTransient && a.EAttributeType instanceof EEnum]»
+			«FOR e : (a.EAttributeType as EEnum).ELiterals»
+			public static final int «a.EAttributeType.name»_«e.name» = «e.value»;
+			«ENDFOR»
+		«ENDFOR»
+
 		/*
 		 * Attributes
 		 */
 		«FOR a : eClass.EAllAttributes.filter[ a | ! a.isTransient && a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 			«IF a.many»
-				private java.util.List<«a.EAttributeType.instanceClassName»> «a.name»;
+				private java.util.List<«a.instanceClassName»> «a.name»;
 			«ELSE»
-				private «a.EAttributeType.instanceClassName» «a.name»;
+				private «a.instanceClassName» «a.name»;
 			«ENDIF»
 		«ENDFOR»
 
@@ -167,6 +182,8 @@ class DTOGenerator {
 			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					dto.set«a.name.toFirstUpper»( entity.is«a.name.toFirstUpper»() );
+				«ELSEIF a.EAttributeType instanceof EEnum»
+					dto.set«a.name.toFirstUpper»( entity.get«a.name.toFirstUpper»().getValue() );
 				«ELSE»
 					dto.set«a.name.toFirstUpper»( entity.get«a.name.toFirstUpper»() );
 				«ENDIF»
@@ -225,6 +242,8 @@ class DTOGenerator {
 			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob" && !a.name.equals(pk.name)]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					entity.set«a.name.toFirstUpper»(dto.is«a.name.toFirstUpper»());
+				«ELSEIF a.EAttributeType instanceof EEnum»
+					entity.set«a.name.toFirstUpper»(«a.EAttributeType.instanceClassName».get(dto.get«a.name.toFirstUpper»()));
 				«ELSE»
 					entity.set«a.name.toFirstUpper»(dto.get«a.name.toFirstUpper»());
 				«ENDIF»
