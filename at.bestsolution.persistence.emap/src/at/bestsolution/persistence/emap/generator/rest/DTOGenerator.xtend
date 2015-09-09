@@ -55,7 +55,7 @@ class DTOGenerator {
 		/*
 		 * Attributes
 		 */
-		«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+		«FOR a : eClass.EAllAttributes.filter[ a | ! a.isTransient && a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 			«IF a.many»
 				private java.util.List<«a.EAttributeType.instanceClassName»> «a.name»;
 			«ELSE»
@@ -66,7 +66,7 @@ class DTOGenerator {
 		/*
 		 * References
 		 */
-		«FOR r : eClass.EAllReferences»
+		«FOR r : eClass.EAllReferences.filter[r | ! r.isTransient]»
 			«IF r.many»
 			private java.util.List<DTO«r.EType.name»> «r.name»;
 			«ELSE»
@@ -74,7 +74,7 @@ class DTOGenerator {
 			«ENDIF»
 		«ENDFOR»
 
-		«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+		«FOR a : eClass.EAllAttributes.filter[ a | ! a.isTransient && a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 			«IF a.many»
 				public java.util.List<«a.EAttributeType.instanceClassName»> «a.name» get«a.name.toFirstUpper»() {
 					return this.«a.name»;
@@ -100,7 +100,7 @@ class DTOGenerator {
 			«ENDIF»
 		«ENDFOR»
 
-		«FOR r : eClass.EAllReferences»
+		«FOR r : eClass.EAllReferences.filter[r | ! r.isTransient]»
 			«IF r.many»
 			public java.util.List<DTO«r.EType.name»> get«r.name.toFirstUpper»() {
 				return this.«r.name»;
