@@ -104,12 +104,12 @@ class DTOGenerator {
 					return this.«a.name»;
 				}
 				«ELSE»
-				public «a.EAttributeType.instanceClassName» get«a.name.toFirstUpper»() {
+				public «a.instanceClassName» get«a.name.toFirstUpper»() {
 					return this.«a.name»;
 				}
 				«ENDIF»
 
-				public void set«a.name.toFirstUpper»(«a.EAttributeType.instanceClassName» «a.name») {
+				public void set«a.name.toFirstUpper»(«a.instanceClassName» «a.name») {
 					this.«a.name» = «a.name»;
 				}
 			«ENDIF»
@@ -179,7 +179,7 @@ class DTOGenerator {
 				return null;
 			}
 			«entityDef.packageName».dto.DTO«eClass.name» dto = new «entityDef.packageName».dto.DTO«eClass.name»();
-			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob"]»
+			«FOR a : eClass.EAllAttributes.filter[ a | !a.isTransient && a.EAttributeType.instanceClassName != "java.sql.Blob"]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					dto.set«a.name.toFirstUpper»( entity.is«a.name.toFirstUpper»() );
 				«ELSEIF a.EAttributeType instanceof EEnum»
@@ -194,7 +194,7 @@ class DTOGenerator {
 			return dto;
 		}
 
-		«FOR r : eClass.EAllReferences»
+		«FOR r : eClass.EAllReferences.filter[r | ! r.isTransient]»
 		public static void set«r.name.toFirstUpper»Proxy(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
 			«IF r.isMany»
 				dto.set«r.name.toFirstUpper»(
@@ -239,7 +239,7 @@ class DTOGenerator {
 		«ENDFOR»
 		public static «eClass.instanceClassName» mergeToEntity(«eClass.instanceClassName» entity, «entityDef.packageName».dto.DTO«eClass.name» dto) {
 			«val pk = entityDef.PKAttribute»
-			«FOR a : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName != "java.sql.Blob" && !a.name.equals(pk.name)]»
+			«FOR a : eClass.EAllAttributes.filter[ a | !a.isTransient && a.EAttributeType.instanceClassName != "java.sql.Blob" && !a.name.equals(pk.name)]»
 				«IF a.EAttributeType.instanceClassName == "boolean"»
 					entity.set«a.name.toFirstUpper»(dto.is«a.name.toFirstUpper»());
 				«ELSEIF a.EAttributeType instanceof EEnum»
