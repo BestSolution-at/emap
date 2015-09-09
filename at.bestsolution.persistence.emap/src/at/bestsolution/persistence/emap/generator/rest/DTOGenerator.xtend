@@ -164,7 +164,7 @@ class DTOGenerator {
 		}
 
 		public static «entityDef.packageName».dto.DTO«eClass.name» fillAllProxyRefs(«entityDef.packageName».dto.DTO«eClass.name» dto, «eClass.instanceClassName» entity) {
-			«FOR r : eClass.EAllReferences»
+			«FOR r : eClass.EAllReferences.filter[r | ! r.isTransient]»
 			set«r.name.toFirstUpper»Proxy( dto, entity );
 			«ENDFOR»
 			return dto;
