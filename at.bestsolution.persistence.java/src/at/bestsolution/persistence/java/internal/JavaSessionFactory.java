@@ -1717,20 +1717,20 @@ public class JavaSessionFactory implements SessionFactory {
 			}
 		}
 
-		@Override
-		public Registration registerObjectChangePersister(final ObjectChangePersistParticipant participant) {
-			return registerPersistParticipant(new PersistParticipant() {
-
-				@Override
-				public Map<String, Object> participate(Session session, Type type, Object o) {
-					JavaSession s = (JavaSession) session;
-					if( type == Type.UPDATE ) {
-						participant.participate(session, o, (List<? extends ObjectChange<?>>) s.getChangeDescription(o));
-					}
-					return Collections.emptyMap();
-				}
-			});
-		}
+//		@Override
+//		public Registration registerObjectChangePersister(final ObjectChangePersistParticipant participant) {
+//			return registerPersistParticipant(new PersistParticipant() {
+//
+//				@Override
+//				public Map<String, Object> participate(Session session, Type type, Object o) {
+//					JavaSession s = (JavaSession) session;
+//					if( type == Type.UPDATE ) {
+//						participant.participate(session, o, (List<? extends ObjectChange<?>>) s.getChangeDescription(o));
+//					}
+//					return Collections.emptyMap();
+//				}
+//			});
+//		}
 
 		@Override
 		public List<ChangeDescription> getChangeDescription(Object object) {
