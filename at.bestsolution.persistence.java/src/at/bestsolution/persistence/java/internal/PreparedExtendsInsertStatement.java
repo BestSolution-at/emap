@@ -17,20 +17,22 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement;
 import at.bestsolution.persistence.java.DatabaseSupport.InsertStatement;
 
 public class PreparedExtendsInsertStatement extends PreparedStatement implements ExtendsInsertStatement {
 	private final String tableName;
 	private final String pkColumn;
-	
+
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
-	
-	public PreparedExtendsInsertStatement(String tableName, String pkColumn) {
+
+	public PreparedExtendsInsertStatement(DatabaseSupport db, String tableName, String pkColumn) {
+		super(db);
 		this.tableName = tableName;
 		this.pkColumn = pkColumn;
 	}
-	
+
 	protected String createSQL(String tableName, String pkColumn, long pkValue, List<Column> columnList) {
 		StringBuilder col = new StringBuilder();
 		StringBuilder val = new StringBuilder();
@@ -51,19 +53,19 @@ public class PreparedExtendsInsertStatement extends PreparedStatement implements
 
 		return "INSERT INTO "+'"' + tableName + '"' +"(" + col + ") VALUES (" + val + ")";
 	}
-	
+
 	@Override
 	public final boolean execute(Connection connection, long primaryKeyValue) throws SQLException {
 		final String sql = createSQL(tableName, pkColumn, primaryKeyValue, columnList);
 		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		final java.sql.PreparedStatement pstmt = connection.prepareStatement(sql);
-		
+
 		for( final Column c : columnList ) {
 			c.apply(pstmt);
 		}
-		
+
 		try {
-			return pstmt.execute();	
+			return pstmt.execute();
 		} finally {
 			pstmt.close();
 		}

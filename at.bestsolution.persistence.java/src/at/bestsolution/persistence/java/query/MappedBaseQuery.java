@@ -10,7 +10,12 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.query;
 
+import at.bestsolution.persistence.java.DatabaseSupport;
 
 public class MappedBaseQuery<O> extends DynamicBaseQuery<O, O> {
+
+	public MappedBaseQuery(DatabaseSupport db) {
+		super(db);
+	}
 
 }

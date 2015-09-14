@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement;
 
 public class PreparedUpdateStatement extends PreparedStatement implements UpdateStatement {
@@ -25,7 +26,8 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 
-	public PreparedUpdateStatement(String tableName, String pkColumn, String lockColumn) {
+	public PreparedUpdateStatement(DatabaseSupport db, String tableName, String pkColumn, String lockColumn) {
+		super(db);
 		this.tableName = tableName;
 		this.pkColumn = pkColumn;
 		this.lockColumn = lockColumn;
@@ -34,21 +36,21 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 	protected String createSQL(String tableName, String pkColumn, String lockColumn, List<Column> columnList) {
 		StringBuilder b = new StringBuilder();
 		if( lockColumn != null ) {
-			b.append( '"' + lockColumn.toUpperCase() + '"' + " = " + '"' + lockColumn.toUpperCase() + '"' + " + 1");
+			b.append( '"' + correctCase(lockColumn) + '"' + " = " + '"' + correctCase(lockColumn) + '"' + " + 1");
 		}
 
 		for (Column c : columnList) {
 			if (b.length() != 0) {
 				b.append("\n,");
 			}
-			b.append('"' + c.column + '"' + " = ?");
+			b.append('"' + correctCase(c.column) + '"' + " = ?");
 		}
 		if( lockColumn != null ) {
-			return "UPDATE " + '"' + tableName + '"' + " SET " + b
-					+ " WHERE " + '"' + pkColumn + '"' + " = ? AND " + '"' + lockColumn + '"'+ " = ?";
+			return "UPDATE " + '"' + correctCase(tableName) + '"' + " SET " + b
+					+ " WHERE " + '"' + correctCase(pkColumn) + '"' + " = ? AND " + '"' + correctCase(lockColumn) + '"'+ " = ?";
 		}
-		return "UPDATE " + '"' + tableName + '"' + " SET " + b
-				+ " WHERE " + '"' + pkColumn + '"' + " = ?";
+		return "UPDATE " + '"' + correctCase(tableName) + '"' + " SET " + b
+				+ " WHERE " + '"' + correctCase(pkColumn) + '"' + " = ?";
 	}
 
 	@Override

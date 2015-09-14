@@ -47,7 +47,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
-		return new FirebirdQueryBuilder(tableName);
+		return new FirebirdQueryBuilder(this,tableName);
 	}
 
 	@Override
@@ -57,19 +57,19 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-		return new FirebirdMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
+		return new FirebirdMappedQuery<O>(this,rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
 			DynamicListDelegate<T, O> listDelegate) {
-		return new FirebirdSelectQuery<T,O>(rootMapper,rootPrefix,listDelegate);
+		return new FirebirdSelectQuery<T,O>(this,rootMapper,rootPrefix,listDelegate);
 	}
 
 	@Override
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-		return new FirebirdMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
+		return new FirebirdMappedUpdateQuery<O>(this,rootMapper, rootPrefix, updateDelegate);
 	}
 
 	@Override
@@ -128,8 +128,8 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		 * @param rootPrefix
 		 * @param updateDelegate
 		 */
-		public FirebirdMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-			super(rootMapper, rootPrefix, updateDelegate);
+		public FirebirdMappedUpdateQuery(DatabaseSupport db, JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(db, rootMapper, rootPrefix, updateDelegate);
 		}
 
 		@Override
@@ -155,8 +155,8 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	static class FirebirdMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public FirebirdMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public FirebirdMappedQuery(DatabaseSupport db, JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+			super(db, rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -190,8 +190,8 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	static class FirebirdSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
 
-		public FirebirdSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public FirebirdSelectQuery(DatabaseSupport db, JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+			super(db, rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -225,31 +225,33 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 	static class FirebirdQueryBuilder implements QueryBuilder {
 		private String tableName;
+		private DatabaseSupport db;
 
-		public FirebirdQueryBuilder(String tableName) {
+		public FirebirdQueryBuilder(DatabaseSupport db, String tableName) {
 			this.tableName = tableName;
+			this.db = db;
 		}
 
 
 		@Override
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
+			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
 		}
 
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
-			return new PreparedExtendsInsertStatement(tableName, pkColumn);
+			return new PreparedExtendsInsertStatement(db,tableName, pkColumn);
 		}
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn) {
+			return new PreparedInsertStatement(db, tableName, pkColumn, primaryKeyExpression, lockColumn) {
 				@Override
 				protected String createSQL(String tableName, String pkColumn,
 						String primaryKeyExpression, String lockColumn,
 						List<Column> columnList) {
 					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList) + " RETURNING " + '"' + pkColumn + '"';
+							columnList) + " RETURNING " + '"' + correctCase(pkColumn) + '"';
 				}
 
 				@Override

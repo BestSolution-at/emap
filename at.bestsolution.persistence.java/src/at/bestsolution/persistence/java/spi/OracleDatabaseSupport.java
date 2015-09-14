@@ -56,7 +56,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
-		return new OracleQueryBuilder(tableName, rootMapper, connectionProvider);
+		return new OracleQueryBuilder(this,tableName, rootMapper, connectionProvider);
 	}
 
 	@Override
@@ -67,21 +67,21 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper,
 			String rootPrefix, ListDelegate<O> listDelegate) {
-		return new OracleMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
+		return new OracleMappedQuery<O>(this,rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(
 			JavaObjectMapper<O> rootMapper, String rootPrefix,
 			UpdateDelegate<O> updateDelegate) {
-		return new OracleMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
+		return new OracleMappedUpdateQuery<O>(this,rootMapper, rootPrefix, updateDelegate);
 	}
 
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
 			DynamicListDelegate<T, O> listDelegate) {
-		return new OracleSelectQuery<T,O>(rootMapper, rootPrefix, listDelegate);
+		return new OracleSelectQuery<T,O>(this,rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
@@ -108,8 +108,8 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 	static class OracleMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
 
-		public OracleMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-			super(rootMapper, rootPrefix, updateDelegate);
+		public OracleMappedUpdateQuery(DatabaseSupport db,JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(db,rootMapper, rootPrefix, updateDelegate);
 		}
 
 		@Override
@@ -135,8 +135,8 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 	static class OracleMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public OracleMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public OracleMappedQuery(DatabaseSupport db,JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -171,8 +171,8 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 	static class OracleSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
 
-		public OracleSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public OracleSelectQuery(DatabaseSupport db,JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -209,8 +209,10 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		private final String tableName;
 		private final JDBCConnectionProvider connectionProvider;
 		private final JavaObjectMapper<?> rootMapper;
+		private final DatabaseSupport db;
 
-		public OracleQueryBuilder(String tableName, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
+		public OracleQueryBuilder(DatabaseSupport db, String tableName, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
+			this.db = db;
 			this.tableName = tableName;
 			this.connectionProvider = connectionProvider;
 			this.rootMapper = rootMapper;
@@ -219,26 +221,26 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
+			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
 		}
 
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
-			return new PreparedExtendsInsertStatement(tableName, pkColumn);
+			return new PreparedExtendsInsertStatement(db,tableName, pkColumn);
 		}
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
+			return new OracleInsertStatement(db,tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
 		}
 	}
 
 	static class OracleInsertStatement extends PreparedInsertStatement {
 		private final JDBCConnectionProvider connectionProvider;
 		private final JavaObjectMapper<?> rootMapper;
-		public OracleInsertStatement(String tableName, String pkColumn,
+		public OracleInsertStatement(DatabaseSupport db, String tableName, String pkColumn,
 				String primaryKeyExpression, String lockColumn, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
-			super(tableName, pkColumn, primaryKeyExpression, lockColumn);
+			super(db,tableName, pkColumn, primaryKeyExpression, lockColumn);
 			this.rootMapper = rootMapper;
 			this.connectionProvider = connectionProvider;
 		}

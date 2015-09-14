@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.InsertStatement;
 
 public class PreparedInsertStatement extends PreparedStatement implements InsertStatement {
@@ -27,7 +28,8 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 
-	public PreparedInsertStatement(String tableName, String pkColumn, String primaryKeyExpression, String lockColumn) {
+	public PreparedInsertStatement(DatabaseSupport db, String tableName, String pkColumn, String primaryKeyExpression, String lockColumn) {
+		super(db);
 		this.tableName = tableName;
 		this.pkColumn = pkColumn;
 		this.primaryKeyExpression = primaryKeyExpression;
@@ -39,7 +41,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 		StringBuilder val = new StringBuilder();
 
 		if (pkColumn != null && primaryKeyExpression != null) {
-			col.append('"'+pkColumn+'"');
+			col.append('"'+ correctCase(pkColumn) +'"');
 			val.append(primaryKeyExpression);
 		}
 
@@ -48,7 +50,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 				col.append("\n,");
 				val.append("\n,");
 			}
-			col.append('"'+lockColumn.toUpperCase()+'"');
+			col.append('"'+correctCase(lockColumn)+'"');
 			val.append("0");
 		}
 
@@ -57,7 +59,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 				col.append("\n,");
 				val.append("\n,");
 			}
-			col.append('"'+c.column+'"');
+			col.append('"'+correctCase(c.column)+'"');
 			val.append("?");
 		}
 

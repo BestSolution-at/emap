@@ -98,25 +98,25 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
+		return new H2MappedQueryImpl<O>(this,rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
 			DynamicListDelegate<T, O> listDelegate) {
-		return new H2SelectQueryImpl<T,O>(rootMapper,rootPrefix,listDelegate);
+		return new H2SelectQueryImpl<T,O>(this,rootMapper,rootPrefix,listDelegate);
 	}
 
 	@Override
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-		return new H2MappedUpdateQueryImpl<O>(rootMapper, rootPrefix, updateDelegate);
+		return new H2MappedUpdateQueryImpl<O>(this,rootMapper, rootPrefix, updateDelegate);
 	}
 
 	static class H2MappedUpdateQueryImpl<O> extends MappedUpdateQueryImpl<O> {
 
-		public H2MappedUpdateQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-			super(rootMapper, rootPrefix, updateDelegate);
+		public H2MappedUpdateQueryImpl(DatabaseSupport db,JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(db,rootMapper, rootPrefix, updateDelegate);
 		}
 
 		@Override
@@ -127,9 +127,9 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	static class H2MappedQueryImpl<O> extends MappedQueryImpl<O> {
 
-		public H2MappedQueryImpl(JavaObjectMapper<?> rootMapper,
+		public H2MappedQueryImpl(DatabaseSupport db,JavaObjectMapper<?> rootMapper,
 				String rootPrefix, ListDelegate<O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -143,9 +143,9 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	static class H2SelectQueryImpl<T,O> extends DynamicSelectQueryImpl<T,O> {
 
-		public H2SelectQueryImpl(JavaObjectMapper<?> rootMapper,
+		public H2SelectQueryImpl(DatabaseSupport db,JavaObjectMapper<?> rootMapper,
 				String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -159,25 +159,27 @@ public class H2DatabaseSupport implements DatabaseSupport {
 
 	static class H2QueryBuilder implements QueryBuilder {
 		private final String tableName;
+		private final DatabaseSupport db;
 
-		public H2QueryBuilder(String tableName) {
+		public H2QueryBuilder(DatabaseSupport db, String tableName) {
+			this.db = db;
 			this.tableName = tableName;
 		}
 
 		@Override
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
+			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
 		}
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn,
 				String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn);
+			return new PreparedInsertStatement(db, tableName, pkColumn, primaryKeyExpression, lockColumn);
 		}
 
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
-			return new PreparedExtendsInsertStatement(pkColumn, pkColumn);
+			return new PreparedExtendsInsertStatement(db,pkColumn, pkColumn);
 		}
 	}
 }

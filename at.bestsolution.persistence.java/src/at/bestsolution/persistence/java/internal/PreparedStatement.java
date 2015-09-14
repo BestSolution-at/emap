@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.Statement;
 import at.bestsolution.persistence.java.query.JDBCType;
 
@@ -27,6 +28,15 @@ public class PreparedStatement implements Statement {
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 
 	protected final List<Column> columnList = new ArrayList<Column>();
+
+	private final DatabaseSupport db;
+
+	/**
+	 *
+	 */
+	public PreparedStatement(DatabaseSupport db) {
+		this.db = db;
+	}
 
 	@Override
 	public void addInt(String column, int value) {
@@ -246,5 +256,9 @@ public class PreparedStatement implements Statement {
 			pstmt.setBlob(index+1, blob);
 		}
 
+	}
+
+	protected final String correctCase(String value) {
+		return db.isDefaultLowerCase() ? value.toLowerCase() : value.toUpperCase();
 	}
 }

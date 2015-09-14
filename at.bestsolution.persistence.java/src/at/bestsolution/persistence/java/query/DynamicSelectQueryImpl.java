@@ -19,6 +19,7 @@ import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.java.Util;
 import at.bestsolution.persistence.order.OrderColumn;
@@ -31,7 +32,8 @@ public abstract class DynamicSelectQueryImpl<T,O> extends DynamicBaseQuery<T, O>
 	private List<OrderColumn<O>> orderColumns;
 	private int maxRows = -1;
 
-	public DynamicSelectQueryImpl(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+	public DynamicSelectQueryImpl(DatabaseSupport db,JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+		super(db);
 		this.rootMapper = rootMapper;
 		this.rootPrefix = rootPrefix;
 		this.listDelegate = listDelegate;
@@ -79,15 +81,15 @@ public abstract class DynamicSelectQueryImpl<T,O> extends DynamicBaseQuery<T, O>
 		this.expression = expression;
 		return this;
 	}
-	
+
 	protected boolean isJoinQuery() {
 		if( expression != null ) {
 			return isJoinExpression(expression);
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean isJoinExpression(final Expression<O> expression) {
 		switch (expression.type) {
 			case AND:
@@ -107,7 +109,7 @@ public abstract class DynamicSelectQueryImpl<T,O> extends DynamicBaseQuery<T, O>
 			}
 		}
 	}
-	
+
 	public String getCriteriaJoin() {
 		StringBuilder b = new StringBuilder();
 		if (expression != null) {
@@ -134,7 +136,7 @@ public abstract class DynamicSelectQueryImpl<T,O> extends DynamicBaseQuery<T, O>
 		if( orderColumns != null && ! orderColumns.isEmpty() ) {
 			for( OrderColumn<?> c : orderColumns ) {
 				if( b.length() > 0 ) {
-					b.append(", ");	
+					b.append(", ");
 				}
 				b.append(rootMapper.getColumnName(c.column) + (c.asc ? " ASC" : " DESC"));
 			}

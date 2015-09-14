@@ -15,6 +15,7 @@ import java.util.List;
 
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.expr.Expression;
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 
 public abstract class MappedUpdateQueryImpl<O> extends MappedBaseQuery<O> implements MappedUpdateQuery<O>, InternalQueryCriteria {
@@ -22,13 +23,14 @@ public abstract class MappedUpdateQueryImpl<O> extends MappedBaseQuery<O> implem
 	private Expression<O> expression;
 	private final JavaObjectMapper<O> rootMapper;
 	private final String rootPrefix;
-	
-	public MappedUpdateQueryImpl(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+
+	public MappedUpdateQueryImpl(DatabaseSupport db, JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+		super(db);
 		this.rootMapper = rootMapper;
 		this.rootPrefix = rootPrefix;
 		this.updateDelegate = updateDelegate;
 	}
-	
+
 	@Override
 	public int execute() {
 		return updateDelegate.execute(this);

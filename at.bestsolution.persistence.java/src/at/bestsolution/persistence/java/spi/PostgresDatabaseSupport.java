@@ -17,8 +17,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
@@ -38,7 +36,6 @@ import at.bestsolution.persistence.java.query.MappedUpdateQueryImpl;
 import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public class PostgresDatabaseSupport implements DatabaseSupport {
-	private Logger LOGGER = Logger.getLogger(PostgresDatabaseSupport.class);
 
 	@Override
 	public String getDatabaseType() {
@@ -47,7 +44,7 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
-		return new PostgresQueryBuilder(tableName);
+		return new PostgresQueryBuilder(this, tableName);
 	}
 
 	@Override
@@ -57,19 +54,19 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-		return new PostgresMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
+		return new PostgresMappedQuery<O>(this,rootMapper, rootPrefix, listDelegate);
 	}
 
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
 			DynamicListDelegate<T, O> listDelegate) {
-		return new PostgresSelectQuery<T,O>(rootMapper,rootPrefix,listDelegate);
+		return new PostgresSelectQuery<T,O>(this,rootMapper,rootPrefix,listDelegate);
 	}
 
 	@Override
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-		return new PostgresMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
+		return new PostgresMappedUpdateQuery<O>(this,rootMapper, rootPrefix, updateDelegate);
 	}
 
 	@Override
@@ -128,8 +125,8 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 		 * @param rootPrefix
 		 * @param updateDelegate
 		 */
-		public PostgresMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
-			super(rootMapper, rootPrefix, updateDelegate);
+		public PostgresMappedUpdateQuery(DatabaseSupport db,JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate) {
+			super(db,rootMapper, rootPrefix, updateDelegate);
 		}
 
 		@Override
@@ -155,8 +152,8 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	static class PostgresMappedQuery<O> extends MappedQueryImpl<O> {
 
-		public PostgresMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public PostgresMappedQuery(DatabaseSupport db,JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -190,8 +187,8 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	static class PostgresSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
 
-		public PostgresSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
-			super(rootMapper, rootPrefix, listDelegate);
+		public PostgresSelectQuery(DatabaseSupport db,JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
+			super(db,rootMapper, rootPrefix, listDelegate);
 		}
 
 		@Override
@@ -225,25 +222,27 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	static class PostgresQueryBuilder implements QueryBuilder {
 		private String tableName;
+		private DatabaseSupport db;
 
-		public PostgresQueryBuilder(String tableName) {
+		public PostgresQueryBuilder(DatabaseSupport db, String tableName) {
+			this.db = db;
 			this.tableName = tableName;
 		}
 
 
 		@Override
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(tableName, pkColumn, lockColumn);
+			return new PreparedUpdateStatement(db,tableName, pkColumn, lockColumn);
 		}
 
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
-			return new PreparedExtendsInsertStatement(tableName, pkColumn);
+			return new PreparedExtendsInsertStatement(db,tableName, pkColumn);
 		}
 
 		@Override
 		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn) {
+			return new PreparedInsertStatement(db,tableName, pkColumn, primaryKeyExpression, lockColumn) {
 				@Override
 				protected String createSQL(String tableName, String pkColumn,
 						String primaryKeyExpression, String lockColumn,

@@ -23,23 +23,29 @@ import at.bestsolution.persistence.expr.GroupExpression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.expr.QueryFunction;
 import at.bestsolution.persistence.expr.RangeExpression.Range;
+import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
 import at.bestsolution.persistence.order.OrderColumn;
 
 public abstract class DynamicBaseQuery<T,O> {
+	private final DatabaseSupport db;
+	public DynamicBaseQuery(DatabaseSupport db) {
+		this.db = db;
+	}
+
 	public static class Join {
 		public final String joinTable;
 		public final String joinAlias;
 		public final String joinColumn;
-		
+
 		public final String otherAlias;
 		public final String otherColumn;
-		
+
 		public Join(String joinTable, String joinAlias, String joinColumn, String otherAlias, String otherColumn) {
 			this.joinTable = joinTable;
 			this.joinAlias = joinAlias;
 			this.joinColumn = joinColumn;
-			
+
 			this.otherAlias = otherAlias;
 			this.otherColumn = otherColumn;
 		}
@@ -190,7 +196,7 @@ public abstract class DynamicBaseQuery<T,O> {
 			}
 			return columnExpression;
 	}
-	
+
 	protected void appendJoinCriteria(LinkedHashSet<Join> joins, final JavaObjectMapper<?> mapper, final String colPrefix, final Expression<O> expression) {
 		switch (expression.type) {
 			case AND:
@@ -205,20 +211,20 @@ public abstract class DynamicBaseQuery<T,O> {
 			{
 				PropertyExpression<O> p = (PropertyExpression<O>) expression;
 				if( p.property.contains(".") ) {
-					
+
 					String[] segments = p.property.split("\\.");
-					
+
 					String currentTableAlias = colPrefix;
 					JavaObjectMapper<?> currentMapper = mapper;
 					for( int i = 0; i < segments.length-1; i++ ) {
 						JavaObjectMapper<?> oppositeMapper = currentMapper.createMapperForReference(segments[i]);
-						
+
 						String joinTable = oppositeMapper.getTableName();
 						String joinAlias = "emap_" +segments[i];
 						String joinColumn;
-						
+
 						//TODO Need to handle N:M
-						
+
 						String oldColumn;
 						if( currentMapper.getColumnName(segments[i]) != null ) {
 							// this means we are table with the FK
@@ -229,9 +235,9 @@ public abstract class DynamicBaseQuery<T,O> {
 							joinColumn = oppositeMapper.getColumnName(r.getEOpposite().getName());
 							oldColumn = currentMapper.getColumnName(oppositeMapper.getReferenceId(r.getEOpposite().getName()).getName());
 						}
-						
+
 						joins.add(new Join(joinTable, joinAlias,joinColumn,currentTableAlias.isEmpty() ? null : currentTableAlias,oldColumn));
-						
+
 						currentMapper = oppositeMapper;
 						currentTableAlias = joinAlias;
 					}
@@ -240,7 +246,7 @@ public abstract class DynamicBaseQuery<T,O> {
 			}
 		}
 	}
-	
+
 	protected String getColumnExpression(JavaObjectMapper<?> mapper, String colPrefix, Expression<O> expression) {
 		String columnExpression = null;
 		if (expression instanceof PropertyExpression) {
@@ -256,7 +262,7 @@ public abstract class DynamicBaseQuery<T,O> {
 			} else {
 				columnExpression = colPrefix + quoteColumnName(mapper.getColumnName(propertyExpression.property));
 			}
-			
+
 			for( QueryFunction<O, ?, ?> data : propertyExpression.getFunctions() ) {
 				columnExpression = applyCriteriaFunction(columnExpression, data);
 			}
@@ -395,6 +401,6 @@ public abstract class DynamicBaseQuery<T,O> {
 	}
 
 	protected String quoteColumnName(String columnName) {
-		return '"' + columnName + '"';
+		return '"' + (db.isDefaultLowerCase() ? columnName.toLowerCase() : columnName.toUpperCase()) + '"';
 	}
 }
