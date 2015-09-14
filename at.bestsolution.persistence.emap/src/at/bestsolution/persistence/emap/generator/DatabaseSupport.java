@@ -33,4 +33,8 @@ public abstract class DatabaseSupport {
 	public boolean isArrayStoreSupported(Class<?> type) {
 		return false;
 	}
+
+	public boolean isDefaultLowerCase() {
+		return false;
+	}
 }

@@ -203,12 +203,12 @@ class DDLGenerator {
 	/*
 	 * Table for «e.entity.name»
 	 */
-	create table "«e.entity.calcTableName»" (
+	create table "«e.entity.calcTableName.toDefaultCase(db)»" (
 		«var flag = false»
 		«val pk = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[it.pk]»
 			«IF a.columnName != null»
-				«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk» not null«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
+				«IF flag», «ENDIF»"«a.calcColumnName(db)»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk» not null«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
 				«dummy(flag = true)»
 			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 				«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
@@ -216,16 +216,16 @@ class DDLGenerator {
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
-		«IF flag && ! e.entity.extendsEntity», "E_VERSION" integer not null«ENDIF»
+		«IF flag && ! e.entity.extendsEntity», "«IF db.isDefaultLowerCase»e_version«ELSE»E_VERSION«ENDIF»" integer not null«ENDIF»
 		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[!it.pk]»
 			«val f = a.getEStructuralFeature(eClass)»
 			«IF ! f.many»
 				«IF a.columnName != null»
-					«IF flag», «ENDIF»"«a.columnName»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.calcColumnName(db)»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 					«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-					«IF flag», «ENDIF»"«a.parameters.head»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.parameters.head.toDefaultCase(db)»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ENDIF»
 			«ENDIF»
@@ -237,7 +237,7 @@ class DDLGenerator {
 		, «db.getPrimaryKeyAsConstraint(util,e,pk)»
 		«ENDIF»
 		«FOR u : e.uniqueContraints»
-		, constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF» UNIQUE («u.attributes.map['"'+it.columnName+'"'].join(", ")»)
+		, constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF» UNIQUE («u.attributes.map['"'+it.calcColumnName(db)+'"'].join(", ")»)
 		«ENDFOR»
 	);
 
@@ -277,20 +277,20 @@ class DDLGenerator {
 		«FOR a : e.entity.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
 			«val fkConstraint = e.fkConstraints.findFirst[it.attribute == a]»
 
-			alter table "«e.entity.calcTableName»"
+			alter table "«e.entity.calcTableName.toDefaultCase(db)»"
 				add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«a.name»«ENDIF»
-				foreign key ("«a.parameters.head»")
-				references "«(a.query.eContainer as EMappingEntity).calcTableName»" ("«(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].columnName»");
+				foreign key ("«a.parameters.head.toDefaultCase(db)»")
+				references "«(a.query.eContainer as EMappingEntity).calcTableName.toDefaultCase(db)»" ("«(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].calcColumnName(db)»");
 		«ENDFOR»
 		«IF e.entity.extensionType == "extends"»
 		«val localPk = e.entity.attributes.findFirst[it.pk]»
 		«val fkConstraint = e.fkConstraints.findFirst[it.attribute == localPk]»
 
 		/* Extend constraint */
-		alter table "«e.entity.calcTableName»"
+		alter table "«e.entity.calcTableName.toDefaultCase(db)»"
 			add «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»
-			foreign key ("«pk»")
-			references "«e.entity.parent.calcTableName»" ("«e.entity.parent.attributes.findFirst[it.pk].columnName»");
+			foreign key ("«pk.toDefaultCase(db)»")
+			references "«e.entity.parent.calcTableName.toDefaultCase(db)»" ("«e.entity.parent.attributes.findFirst[it.pk].calcColumnName(db)»");
 		«ENDIF»
 	«ENDFOR»
 
@@ -300,13 +300,13 @@ class DDLGenerator {
 		alter table "«r.a1.relationTable»"
 			add constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»
 			foreign key ("«r.a1.relationColumn»")
-			references "«r.a1.entity.calcTableName»" ("«r.a1.parameters.head.toUpperCase»");
+			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toUpperCase»");
 
 		«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
 		alter table "«r.a2.relationTable»"
 			add constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»
 			foreign key ("«r.a2.relationColumn»")
-			references "«r.a2.entity.calcTableName»" ("«r.a2.parameters.head.toUpperCase»");
+			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toUpperCase»");
 
 	«ENDFOR»
 
@@ -321,7 +321,7 @@ class DDLGenerator {
 				alter table "«p.primitiveMultiValuedTableName»"
 					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«p.primitiveMultiValuedTableName»«ENDIF»
 					foreign key ("FK_«p.primitiveMultiValuedTableName»")
-					references "«p.entity.calcTableName»" ("«p.entity.attributes.findFirst[pk].columnName»");
+					references "«p.entity.calcTableName.toDefaultCase(db)»" ("«p.entity.attributes.findFirst[pk].calcColumnName(db)»");
 
 				«ENDFOR»
 			«ENDIF»
@@ -337,7 +337,7 @@ class DDLGenerator {
 		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
 			«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
-			/* Sequence for «e.entity.calcTableName» */
+			/* Sequence for «e.entity.calcTableName.toDefaultCase(db)» */
 			create sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
 
 			«ENDIF»
@@ -350,7 +350,7 @@ class DDLGenerator {
 	 */
 	«FOR e : bundleDef.entities»
 		«FOR i : e.indices»
-			create index «i.name» on "«e.entity.calcTableName»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
+			create index «i.name» on "«e.entity.calcTableName.toDefaultCase(db)»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
 		«ENDFOR»
 	«ENDFOR»
 	'''
@@ -365,7 +365,7 @@ class DDLGenerator {
 			«FOR a : e.entity.collectDerivedAttributes.values.filter[resolved && parameters.size == 1 && parameters.head != pk].sort[a,b|sortAttributes(eClass,a,b)]»
 				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == a]»
 
-				alter table "«e.entity.calcTableName»"
+				alter table "«e.entity.calcTableName.toDefaultCase(db)»"
 					drop constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«e.entity.name»_«a.name»«ENDIF»;
 			«ENDFOR»
 			«IF e.entity.extensionType == "extends"»
@@ -373,7 +373,7 @@ class DDLGenerator {
 			«val fkConstraint = e.fkConstraints.findFirst[it.attribute == localPk]»
 
 			/* Extend constraint */
-			alter table "«e.entity.calcTableName»"
+			alter table "«e.entity.calcTableName.toDefaultCase(db)»"
 				drop «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»;
 			«ENDIF»
 		«ENDFOR»
@@ -419,12 +419,12 @@ class DDLGenerator {
 
 		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
 			«FOR u : e.uniqueContraints»
-			ALTER TABLE "«e.entity.calcTableName»" DROP constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF»;
+			ALTER TABLE "«e.entity.calcTableName.toDefaultCase(db)»" DROP constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF»;
 			«ENDFOR»
 		«ENDFOR»
 
 		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
-			DROP TABLE "«e.entity.calcTableName»";
+			DROP TABLE "«e.entity.calcTableName.toDefaultCase(db)»";
 
 			«IF ! db.isArrayStoreSupported(null)»
 				«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
@@ -443,5 +443,21 @@ class DDLGenerator {
 
 	def void dummy(boolean b) {
 
+	}
+
+	def String calcColumnName(EAttribute e, DatabaseSupport dbSupport) {
+		if( dbSupport.isDefaultLowerCase ) {
+			return e.columnName.toLowerCase
+		} else {
+			return e.columnName.toUpperCase
+		}
+	}
+
+	def String toDefaultCase(String columnName, DatabaseSupport dbSupport) {
+		if( dbSupport.isDefaultLowerCase ) {
+			return columnName.toLowerCase
+		} else {
+			return columnName.toUpperCase
+		}
 	}
 }

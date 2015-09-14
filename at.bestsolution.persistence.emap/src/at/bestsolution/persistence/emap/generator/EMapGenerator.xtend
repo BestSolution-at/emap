@@ -163,8 +163,10 @@ class EMapGenerator implements IGenerator {
 							path = entityDef.package.name.replace('.','/')
 						}
 
-						fsa.generateFile(path+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
-						fsa.generateFile(path+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
+						if( ! e.entity.isAbstract ) {
+							fsa.generateFile(path+"/webservice/dto/DTO"+entityDef.entity.name+".java",dtoGenerator.generateDTO(entityDef,entityDef.entity.lookupEClass))
+							fsa.generateFile(path+"/webservice/mapper/"+entityDef.entity.name+"DTOMapper.java",dtoGenerator.generateMapper(entityDef,entityDef.entity.lookupEClass))
+						}
 					}
 				}
 
@@ -236,7 +238,7 @@ class EMapGenerator implements IGenerator {
 		return ref.get();
 	}
 
-	def generateSqlMetaDataProvider(EMappingBundle bundleDef) '''
+	def generateSqlMetaDataProvider(EMappingBundle bundleDef, DatabaseSupport db) '''
 	package mappings;
 
 	import at.bestsolution.persistence.mybatis.SqlMetaDataProvider;

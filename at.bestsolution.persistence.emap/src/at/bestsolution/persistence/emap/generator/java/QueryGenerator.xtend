@@ -384,7 +384,7 @@ class QueryGenerator {
 				query += " GROUP BY " + groupBy;
 			}
 			«ENDIF»
-			
+
 			String orderBy = criteria.getOrderBy();
 			if( orderBy != null && ! orderBy.isEmpty() ) {
 				query += " ORDER BY " + orderBy;
@@ -444,7 +444,7 @@ class QueryGenerator {
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
 					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
-					
+
 					if( current_«section.submapOwnerSection.prefix»_«section.submapOwner.name» != null ) {
 						if( current_«section.prefix»_«entityEClass.name» != null ) {
 							((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
@@ -509,7 +509,7 @@ class QueryGenerator {
 				«FOR section : query.queries.head.mapping.attributes.collectMappings»
 					«var entityEClass = section.entity.lookupEClass»
 					current_«section.prefix»_«entityEClass.name» = map_«query.name»_«section.prefix»_«entityEClass.name»(connection, set);
-					
+
 					if(current_«section.submapOwnerSection.prefix»_«section.submapOwner.name» != null) {
 						if( current_«section.prefix»_«entityEClass.name» != null ) {
 							((EObject)current_«section.prefix»_«entityEClass.name»).eSetDeliver(false);
@@ -546,7 +546,7 @@ class QueryGenerator {
 		}
     «ENDIF»
 	'''
-	
+
 // TODO XXX this method exists twice - it is a copy from JavaObjectMapperGenerator!!!!!
 	def attrib_resultMapContent(String varName, EObjectSection section, EClass eClass, String columnPrefix) '''
 «««		TODO replace this filter with a utiltiy method
@@ -593,7 +593,7 @@ class QueryGenerator {
 	def submapOwnerSection(EObjectSection section) {
 		return (section.eContainer.eContainer as EObjectSection);
 	}
-	
+
 	def generateIdQuery(EMappingEntityDef entity, EClass eClass) '''
 «««	We should try to get rid of the inner class
 	public final List<Long> selectAllObjectIds() {
@@ -603,7 +603,7 @@ class QueryGenerator {
 			}
 		}).list();
 	}
-	
+
 	public final at.bestsolution.persistence.DynamicSelectQuery<Long,«eClass.name»> selectAllObjectIdsMappedQuery() {
 		return session.getDatabaseSupport().createMappedSelectQuery(this, null, new at.bestsolution.persistence.java.query.DynamicListDelegate<Long,«eClass.name»>() {
 			public List<Long> list(at.bestsolution.persistence.DynamicSelectQuery<Long,«eClass.name»> criteria) {
@@ -611,24 +611,29 @@ class QueryGenerator {
 			}
 		});
 	}
-	
+
 	public final List<Long> selectAllObjectIds(at.bestsolution.persistence.java.query.DynamicSelectQueryImpl<Long,«eClass.name»> criteria) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
-	
-		String query = "SELECT \"«entity.PKAttribute.columnName»\" FROM \"«entity.entity.calcTableName»\"";
-		
+
+		String query;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			query = "SELECT \"«entity.PKAttribute.columnName.toLowerCase»\" FROM \"«entity.entity.calcTableName.toLowerCase»\"";
+		} else {
+			query = "SELECT \"«entity.PKAttribute.columnName.toUpperCase»\" FROM \"«entity.entity.calcTableName.toUpperCase»\"";
+		}
+
 		if( isDebug ) LOGGER.debug("	Plain-Query: " + query);
 
 		String join = criteria.getCriteriaJoin();
 		if( join != null && ! join.isEmpty() ) {
 			query += " " + join;
 		}
-		
+
 		String criteriaStr = criteria.getCriteria();
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 			query += " WHERE (" + criteriaStr + ")";
 		}
-		
+
 		if( isDebug ) LOGGER.debug("	Constructed query: " + query);
 
 		query = criteria.processSQL(query);
@@ -656,5 +661,5 @@ class QueryGenerator {
 		}
 	}
 	'''
-	
+
 }

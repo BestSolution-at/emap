@@ -92,10 +92,15 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
+	public boolean isDefaultLowerCase() {
+		return false;
+	}
+
+	@Override
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new H2MappedQueryImpl<O>(rootMapper, rootPrefix, listDelegate);
 	}
-	
+
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
@@ -135,7 +140,7 @@ public class H2DatabaseSupport implements DatabaseSupport {
 			return sql;
 		}
 	}
-	
+
 	static class H2SelectQueryImpl<T,O> extends DynamicSelectQueryImpl<T,O> {
 
 		public H2SelectQueryImpl(JavaObjectMapper<?> rootMapper,

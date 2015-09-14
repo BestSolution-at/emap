@@ -59,7 +59,7 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate) {
 		return new PostgresMappedQuery<O>(rootMapper, rootPrefix, listDelegate);
 	}
-	
+
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
@@ -114,6 +114,11 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 	public boolean isNestedResultSetsSupported() {
 		// See http://stackoverflow.com/questions/935511/how-can-i-avoid-resultset-is-closed-exception-in-java
 		return false;
+	}
+
+	@Override
+	public boolean isDefaultLowerCase() {
+		return true;
 	}
 
 	static class PostgresMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
@@ -174,11 +179,11 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 			if( getMaxRows() != -1) {
 				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
 			}
-			
+
 			if( isJoinQuery() ) {
 				sql = sql.replaceFirst("SELECT","SELECT DISTINCT ");
 			}
-			
+
 			return sql;
 		}
 	}
@@ -209,11 +214,11 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 			if( getMaxRows() != -1) {
 				sql = sql.replaceFirst("SELECT", "SELECT FIRST " + getMaxRows());
 			}
-			
+
 			if( isJoinQuery() ) {
 				sql = sql.replaceFirst("SELECT","SELECT DISTINCT ");
 			}
-			
+
 			return sql;
 		}
 	}

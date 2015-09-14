@@ -489,7 +489,12 @@ class JavaUtilGenerator {
 	// building query begin
 	«var builderName = sqlName + "Builder"»
 	final StringBuilder «builderName» = new StringBuilder();
-	«builderName».append("DELETE FROM \"«tableName»\" WHERE \"«keyName»\" IN (");
+	if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+		«builderName».append("DELETE FROM \"«tableName.toLowerCase»\" WHERE \"«keyName.toLowerCase»\" IN (");
+	} else {
+		«builderName».append("DELETE FROM \"«tableName.toUpperCase»\" WHERE \"«keyName.toUpperCase»\" IN (");
+	}
+
 	«var itName = sqlName + paramListName + "Iterator"»
 	Iterator<Object> «itName» = «paramListName».iterator();
 	while («itName».hasNext()) {

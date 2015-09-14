@@ -441,7 +441,13 @@ class JavaInsertUpdateGenerator {
 		session.preExecuteDeleteMany(«eClass.toFullQualifiedJavaEClass»);
 
 		// build delete query
-		String deleteQuery = "DELETE FROM \"«entityDef.tableName»\"";
+		String deleteQuery;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			deleteQuery = "DELETE FROM \"«entityDef.tableName.toLowerCase»\"";
+		} else {
+			deleteQuery = "DELETE FROM \"«entityDef.tableName.toUpperCase»\"";
+		}
+
 		if (isDebug) LOGGER.debug("Plain delete query: " + deleteQuery);
 		if( criteriaStr != null && ! criteriaStr.isEmpty() ) {
 			deleteQuery += " WHERE " + criteriaStr;
@@ -537,7 +543,14 @@ class JavaInsertUpdateGenerator {
 		try {
 
 			// find all object ids
-			String objectIdSQL = "SELECT \"«entityDef.PKAttribute.columnName»\" FROM \"«entityDef.tableName»\"";
+			String objectIdSQL;
+
+			if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+				objectIdSQL = "SELECT \"«entityDef.PKAttribute.columnName.toLowerCase»\" FROM \"«entityDef.tableName.toLowerCase»\"";
+			} else {
+				objectIdSQL = "SELECT \"«entityDef.PKAttribute.columnName.toUpperCase»\" FROM \"«entityDef.tableName.toUpperCase»\"";
+			}
+
 			PreparedStatement objectIdStmt = null;
 			ResultSet objectIdResultSet = null;
 			List<Object> objectIds = new ArrayList<Object>();
@@ -561,7 +574,13 @@ class JavaInsertUpdateGenerator {
 			«IF entityDef.isSelfRecursive(eClass)»
 				// this table is self-recursive
 				// we need to clear the fks first
-				String updateSQL = "UPDATE «entityDef.tableName» SET «entityDef.getSelfRecursionFK(eClass)» = null";
+				String updateSQL;
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					updateSQL = "UPDATE «entityDef.tableName.toLowerCase» SET «entityDef.getSelfRecursionFK(eClass).toLowerCase» = null";
+				} else {
+					updateSQL = "UPDATE «entityDef.tableName.toUpperCase» SET «entityDef.getSelfRecursionFK(eClass).toUpperCase» = null";
+				}
+
 				«utilGen.generateExecuteStatement("updateStmt", "updateSQL")»
 
 			«ENDIF»
@@ -579,7 +598,13 @@ class JavaInsertUpdateGenerator {
 				«utilGen.getClearManyToManyForAllMethodName(eClass, a)»(connection);
 			«ENDFOR»
 
-			String sql = "DELETE FROM \"«entityDef.tableName»\"";
+			String sql;
+			if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+				sql = "DELETE FROM \"«entityDef.tableName.toLowerCase»\"";
+			} else {
+				sql = "DELETE FROM \"«entityDef.tableName.toUpperCase»\"";
+			}
+
 			«utilGen.generateExecuteStatement("stmt", "sql")»
 
 			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
@@ -639,11 +664,17 @@ class JavaInsertUpdateGenerator {
 			«val oppositeFk = entityDef.entity.findOppositeForcedFKAttributes(eClass) »
 			«IF !oppositeFk.empty»
 				// handle forced FK and update the opposite with NULL
-				
+
 				«FOR a : oppositeFk»
 					// update «a.entity.calcTableName».«a.parameters.head» to null
 					{
-						StringBuilder sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName»\" SET «a.parameters.head» = NULL WHERE «a.parameters.head» IN (");
+						StringBuilder sqlBuilder;
+						if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+							sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName.toLowerCase»\" SET «a.parameters.head.toLowerCase» = NULL WHERE «a.parameters.head.toLowerCase» IN (");
+						} else {
+							sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName.toUpperCase»\" SET «a.parameters.head.toUpperCase» = NULL WHERE «a.parameters.head.toUpperCase» IN (");
+						}
+
 						Iterator<Object> sqlobjectIdsIterator = objectIds.iterator();
 						while( sqlobjectIdsIterator.hasNext() ) {
 							sqlobjectIdsIterator.next();
@@ -653,13 +684,13 @@ class JavaInsertUpdateGenerator {
 							}
 						}
 						sqlBuilder.append(")");
-						
+
 						final String sql = sqlBuilder.toString();
 						if (!objectIds.isEmpty()) {
 							if (isDebug) {
 								LOGGER.debug(" Executing SQL: " + sql);
 							}
-							
+
 							PreparedStatement stmt = connection.prepareStatement(sql);
 							try {
 								int sqlobjectIdsIdx = 1;
@@ -707,13 +738,13 @@ class JavaInsertUpdateGenerator {
 		if( isDebug ) {
 			LOGGER.debug("delete("+Arrays.toString(object)+")");
 		}
-		
+
 		List<Object> ids = new ArrayList<Object>();
 		for («eClass.name» o : object) {
 			ids.add(getPrimaryKeyValue(o));
 		}
 		deleteById(ids);
-		
+
 «««		«checkTx»
 «««
 «««		final List<Object> objectIds = extractObjectIds(object);

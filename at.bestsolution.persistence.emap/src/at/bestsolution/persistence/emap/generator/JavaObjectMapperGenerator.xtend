@@ -48,7 +48,7 @@ class JavaObjectMapperGenerator {
 
   @Inject
   var JavaUtilGenerator utilGen;
-  
+
   val generatorCredit = "by " + class.simpleName;
 
   def mapperName(EClass eClass) {
@@ -115,12 +115,12 @@ class JavaObjectMapperGenerator {
 		public Class<«eClass.name»> getEntityType() {
 			return «eClass.name».class;
 		}
-		
+
 		@Override
 		public Class<«entityDef.package.name».«entityDef.entity.name»Mapper> getMapperType() {
 			return «entityDef.package.name».«entityDef.entity.name»Mapper.class;
 		}
-		
+
 		@Override
 		public «entityDef.package.name».«entityDef.entity.name»Mapper createMapper(JavaSession session) {
 			return new «entityDef.entity.name»MapperImpl(session);
@@ -134,12 +134,12 @@ class JavaObjectMapperGenerator {
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
 			}
-			
+
 			@Override
 			public Class<«eClass.name»> getEntityType() {
 				return «eClass.name».class;
 			}
-			
+
 			@Override
 			public final JavaSession getSession() {
 				return this.session;
@@ -153,7 +153,11 @@ class JavaObjectMapperGenerator {
 				ResultSet set = null;
 				try {
 					try {
-						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName»\" WHERE «entityDef.entity.PKAttribute.columnName» = ?");
+						if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+							pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName.toLowerCase»\" WHERE \"«entityDef.entity.PKAttribute.columnName.toLowerCase»\" = ?");
+						} else {
+							pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName.toUpperCase»\" WHERE \"«entityDef.entity.PKAttribute.columnName.toUpperCase»\" = ?");
+						}
 						pStmt.setLong(1, (Long) id);
 
 						set = pStmt.executeQuery();
@@ -271,7 +275,7 @@ class JavaObjectMapperGenerator {
 			«FOR query : entityDef.entity.namedQueries»
 				«queryGen.generateQuery(entityDef, eClass, query)»
 			«ENDFOR»
-	
+
 			«IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»
 				«queryGen.generateIdQuery(entityDef, eClass)»
 			«ENDIF»
@@ -366,27 +370,27 @@ class JavaObjectMapperGenerator {
 					«ENDIF»
 				«ENDFOR»
 			}
-			
+
 			public EClass getEClass() {
 				return «eClass.toFullQualifiedJavaEClass»;
 			}
-			
+
 			// «generatorCredit»
 			@Override
 			public boolean containsForcedFkFeatures() {
 				return !REFERENCE_FORCEDFK.isEmpty();
 			}
-			
-			
+
+
 			// «generatorCredit»
 			@Override
 			public final boolean isForcedFkFeature(EReference ref) {
 				return REFERENCE_FORCEDFK.contains(ref);
 			}
-			
+
 
 			public final String getLockColumn() {
-				return "E_VERSION";
+				return session.getDatabaseSupport().isDefaultLowerCase() ? "e_version" : "E_VERSION";
 			}
 
 			public final String getColumnName(String propertyName) {
@@ -396,7 +400,7 @@ class JavaObjectMapperGenerator {
 				}
 				return PROPERTY_COL_MAPPING.get(propertyName);
 			}
-			
+
 			public final <M extends at.bestsolution.persistence.ObjectMapper<?>> M createMapperForReference(String propertyName) {
 				return (M) session.createMapper(REFERENCE_MAPPER.get(propertyName));
 			}
@@ -570,7 +574,7 @@ class JavaObjectMapperGenerator {
           LOGGER.debug("Using cached version");
         }
       }
-     
+
       «IF containerAttrib»
       if (o != null) {
       «ENDIF»
@@ -591,13 +595,13 @@ class JavaObjectMapperGenerator {
 	def camelCase(String x) {
 		return x;
 	}
-	
+
 	def literalCase(String x) {
 		return x;
 	}
-	
-	
-	
+
+
+
   def attrib_resultMapContent(String varName, Iterable<EAttribute> attributes, EClass eClass, String columnPrefix, boolean withReferences) '''
     «FOR a : attributes.sort([a,b|
       val iA = a.sortValue(eClass)
@@ -657,7 +661,7 @@ class JavaObjectMapperGenerator {
   def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
   SELECT
     «IF query.mapping.attributes.empty»
-      "«(namedQuery.eContainer as EMappingEntity).calcTableName»".*
+      «(namedQuery.eContainer as EMappingEntity).calcTableName».*
     «ELSE»
       «query.mapping.mapColumns»
     «ENDIF»

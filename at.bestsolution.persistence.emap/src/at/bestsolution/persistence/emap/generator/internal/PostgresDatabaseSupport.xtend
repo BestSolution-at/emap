@@ -84,4 +84,9 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true;
 	}
+
+	override isDefaultLowerCase() {
+		return true;
+	}
+
 }

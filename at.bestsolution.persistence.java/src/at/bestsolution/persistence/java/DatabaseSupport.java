@@ -29,14 +29,15 @@ public interface DatabaseSupport {
 	public String getDatabaseType();
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName);
 	public PrimaryKeyGenType getPrimaryKeyType();
-	
+
 	public <O> MappedQuery<O> createMappedQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, ListDelegate<O> listDelegate);
 	public <T,O> DynamicSelectQuery<T,O> createMappedSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate);
-	
+
 	public <O> MappedUpdateQuery<O> createMappedUpdateQuery(JavaObjectMapper<O> rootMapper, String rootPrefix, UpdateDelegate<O> updateDelegate);
 	public boolean isArrayStoreSupported(Class<?> type);
 	public boolean isNestedResultSetsSupported();
 	public Timestamp getServerTime(Connection connection);
+	public boolean isDefaultLowerCase();
 
 	public enum PrimaryKeyGenType {
 		AUTO,

@@ -402,7 +402,7 @@ class UtilCollection {
 		if( entity.tableName == null ) {
 			return entity.etype.lookupEClass.name.toUpperCase
 		}
-		return entity.tableName
+		return entity.tableName.toUpperCase
 	}
 
 	def pstmtMethod(EParameter p, String accessExpression, String dataExpression) {
@@ -853,7 +853,7 @@ class UtilCollection {
 	}
 
 	def getPrimitiveMultiValuedFKColName(EAttribute attribute) {
-		"FK_" + attribute.primitiveMultiValuedTableName
+		"FK_" + attribute.getPrimitiveMultiValuedTableName
 	}
 
 	def getPrimitiveMultiValuedTableName(EAttribute attribute) {

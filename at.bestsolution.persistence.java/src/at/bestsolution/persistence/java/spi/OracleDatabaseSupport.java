@@ -42,13 +42,13 @@ import at.bestsolution.persistence.java.query.UpdateDelegate;
 
 public class OracleDatabaseSupport implements DatabaseSupport {
 	static final Logger LOGGER = Logger.getLogger(OracleDatabaseSupport.class);
-	
+
 	private JDBCConnectionProvider connectionProvider;
-	
+
 	public void registerJDBCConnectionProvider(JDBCConnectionProvider connectionProvider) {
 		this.connectionProvider = connectionProvider;
 	}
-	
+
 	@Override
 	public String getDatabaseType() {
 		return "Oracle";
@@ -76,7 +76,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			UpdateDelegate<O> updateDelegate) {
 		return new OracleMappedUpdateQuery<O>(rootMapper, rootPrefix, updateDelegate);
 	}
-	
+
 	@Override
 	public <T, O> DynamicSelectQuery<T, O> createMappedSelectQuery(
 			JavaObjectMapper<?> rootMapper, String rootPrefix,
@@ -99,6 +99,11 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("NOT IMPLEMENTED");
 //		return null;
+	}
+
+	@Override
+	public boolean isDefaultLowerCase() {
+		return false;
 	}
 
 	static class OracleMappedUpdateQuery<O> extends MappedUpdateQueryImpl<O> {
@@ -163,7 +168,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			return sql;
 		}
 	}
-	
+
 	static class OracleSelectQuery<T,O> extends DynamicSelectQueryImpl<T,O> {
 
 		public OracleSelectQuery(JavaObjectMapper<?> rootMapper, String rootPrefix, DynamicListDelegate<T,O> listDelegate) {
@@ -227,7 +232,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			return new OracleInsertStatement(tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
 		}
 	}
-	
+
 	static class OracleInsertStatement extends PreparedInsertStatement {
 		private final JDBCConnectionProvider connectionProvider;
 		private final JavaObjectMapper<?> rootMapper;
@@ -237,16 +242,16 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			this.rootMapper = rootMapper;
 			this.connectionProvider = connectionProvider;
 		}
-		
+
 		@Override
 		public void addBlob(String column, Blob value) {
 			columnList.add(new OracleBlobColumn(rootMapper, columnList.size(), column, value, connectionProvider));
 		}
-		
+
 		@Override
 		protected long execute(PreparedStatement pstmt) throws SQLException {
 			try {
-				return super.execute(pstmt);	
+				return super.execute(pstmt);
 			} finally {
 				boolean isDebug = LOGGER.isDebugEnabled();
 				for( Column c : columnList ) {
@@ -260,7 +265,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			}
 		}
 	}
-	
+
 	static class OracleBlobColumn extends Column {
 		private final Blob blob;
 		private final JDBCConnectionProvider connectionProvider;
@@ -280,7 +285,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 			tempBlob = connectionProvider.createTempBlob(rootMapper.getSession().getConfigurationId(), pstmt.getConnection());
 			OutputStream oracleStream = tempBlob.setBinaryStream(0);
 			InputStream inputStream = blob.getBinaryStream();
-			
+
 			try {
 				byte[] buf = new byte[1024];
 				int l = 0;
@@ -294,7 +299,7 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 				e.printStackTrace();
 			}
 		}
-		
+
 		public void release(Connection connection) throws SQLException {
 			if( tempBlob != null ) {
 				connectionProvider.releaseTempBlob(rootMapper.getSession().getConfigurationId(),connection, blob);
