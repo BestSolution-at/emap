@@ -248,7 +248,7 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 						String primaryKeyExpression, String lockColumn,
 						List<Column> columnList) {
 					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList) + " RETURNING " + '"' + pkColumn + '"';
+							columnList) + " RETURNING " + '"' + correctCase(pkColumn) + '"';
 				}
 
 				@Override
