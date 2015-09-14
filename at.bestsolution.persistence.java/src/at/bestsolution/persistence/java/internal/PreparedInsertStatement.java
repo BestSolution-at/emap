@@ -63,7 +63,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 			val.append("?");
 		}
 
-		return "INSERT INTO "+'"' + tableName + '"' +"(" + col + ") VALUES (" + val + ")";
+		return "INSERT INTO "+'"' + correctCase(tableName) + '"' +"(" + col + ") VALUES (" + val + ")";
 	}
 
 	protected long execute(java.sql.PreparedStatement pstmt) throws SQLException {
