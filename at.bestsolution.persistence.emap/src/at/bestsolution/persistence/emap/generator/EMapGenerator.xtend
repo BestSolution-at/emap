@@ -78,6 +78,8 @@ class EMapGenerator implements IGenerator {
 		try {
 			val participants = getEMapGeneratorParticipants
 
+			participants.forEach[p| p.generate(resource,fsa)];
+
 //			println("Generating " + resource)
 			val root = resource.contents.head as EMapping
 			if( root.root instanceof EMappingEntityDef ) {
