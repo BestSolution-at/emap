@@ -41,6 +41,7 @@
 		<module>../at.bestsolution.persistence.java.c3p0.postgres</module>
 		<module>../at.bestsolution.persistence.java.cglib</module>
 		<module>../at.bestsolution.persistence.java.defaultproxy</module>
+		<module>../at.bestsolution.persistence.emap.junit</module>
 
 		<module>../at.bestsolution.emf.navi</module>
 		<module>../at.bestsolution.emf.navi.databinding</module>
