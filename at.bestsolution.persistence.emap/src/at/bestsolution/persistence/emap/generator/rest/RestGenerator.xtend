@@ -101,7 +101,7 @@ class RestGenerator {
 			return entity;
 		}
 
-		«FOR r : eClass.EAllReferences»
+		«FOR r : eClass.EAllReferences.filter[r|!r.transient]»
 			@javax.ws.rs.GET
 			@javax.ws.rs.Path("{id}/«r.name»")
 			«IF r.isMany»
@@ -133,7 +133,7 @@ class RestGenerator {
 			«ENDIF»
 		«ENDFOR»
 
-		«FOR bin : eClass.EAllAttributes.filter[ a | a.EAttributeType.instanceClassName == "java.sql.Blob"]»
+		«FOR bin : eClass.EAllAttributes.filter[ a | !a.transient && a.EAttributeType.instanceClassName == "java.sql.Blob"]»
 		@javax.ws.rs.GET
 		@javax.ws.rs.Path("{id}/«bin.name»")
 		public javax.ws.rs.core.Response get«bin.name.toFirstUpper»(@javax.ws.rs.PathParam("id") long id) {
