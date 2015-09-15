@@ -532,8 +532,8 @@ public class JavaSessionFactory implements SessionFactory {
 		public <T> ObjectMapper<T> createMapperForType(Class<T> type) {
 			checkValid();
 			ObjectMapperFactory<?, ?> factory;
-			synchronized (factories) {
-				factory = factories.get(type.getName()+"Mapper");
+			synchronized (domainFactories) {
+				factory = domainFactories.get(type.getName());
 			}
 
 			if (factory == null) {
