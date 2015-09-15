@@ -303,9 +303,9 @@ class DDLGenerator {
 			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toDefaultCase(db)»");
 
 		«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
-		alter table "«r.a2.relationTable»"
+		alter table "«r.a2.relationTable.toDefaultCase(db)»"
 			add constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»
-			foreign key ("«r.a2.relationColumn»")
+			foreign key ("«r.a2.relationColumn.toDefaultCase(db)»")
 			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toDefaultCase(db)»");
 
 	«ENDFOR»
