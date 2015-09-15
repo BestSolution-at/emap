@@ -245,9 +245,9 @@ class DDLGenerator {
 		«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
-			create table "«p.primitiveMultiValuedTableName»" (
-				"«p.primitiveMultiValuedFKColName»" «e.entity.PKAttribute.getDataType(true,e, db, bundleDef, e.entity.lookupEClass)» not null,
-				"ELT" «p.getDataType(false,e,db,bundleDef,e.entity.lookupEClass)»
+			create table "«p.primitiveMultiValuedTableName.toDefaultCase(db)»" (
+				"«p.primitiveMultiValuedFKColName.toDefaultCase(db)»" «e.entity.PKAttribute.getDataType(true,e, db, bundleDef, e.entity.lookupEClass)» not null,
+				«"ELT".toDefaultCase(db)» «p.getDataType(false,e,db,bundleDef,e.entity.lookupEClass)»
 			);
 
 			«ENDFOR»
@@ -260,9 +260,9 @@ class DDLGenerator {
 	 */
 	«val nmRelations = bundleDef.findNMRelations»
 	«FOR r : nmRelations»
-		create table "«r.a1.relationTable»" (
-			"«r.a1.relationColumn»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
-			"«r.a2.relationColumn»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
+		create table "«r.a1.relationTable.toDefaultCase(db)»" (
+			"«r.a1.relationColumn.toDefaultCase(db)»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
+			"«r.a2.relationColumn.toDefaultCase(db)»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
 		);
 	«ENDFOR»
 
@@ -297,16 +297,16 @@ class DDLGenerator {
 	/* N:M relation constraints */
 	«FOR r : nmRelations»
 		«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
-		alter table "«r.a1.relationTable»"
+		alter table "«r.a1.relationTable.toDefaultCase(db)»"
 			add constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»
-			foreign key ("«r.a1.relationColumn»")
-			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toUpperCase»");
+			foreign key ("«r.a1.relationColumn.toDefaultCase(db)»")
+			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toDefaultCase(db)»");
 
 		«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
 		alter table "«r.a2.relationTable»"
 			add constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»
 			foreign key ("«r.a2.relationColumn»")
-			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toUpperCase»");
+			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toDefaultCase(db)»");
 
 	«ENDFOR»
 
@@ -318,9 +318,9 @@ class DDLGenerator {
 				«FOR p : primtiveMulti»
 				«val fkConstraint = e.fkConstraints.findFirst[it.attribute == p]»
 				/* «e.entity.name»#«p.name» */
-				alter table "«p.primitiveMultiValuedTableName»"
+				alter table "«p.primitiveMultiValuedTableName.toDefaultCase(db)»"
 					add constraint «IF fkConstraint != null»«fkConstraint.name»«ELSE»fk_«p.primitiveMultiValuedTableName»«ENDIF»
-					foreign key ("FK_«p.primitiveMultiValuedTableName»")
+					foreign key ("«("FK_"+ p.primitiveMultiValuedTableName).toDefaultCase(db)»")
 					references "«p.entity.calcTableName.toDefaultCase(db)»" ("«p.entity.attributes.findFirst[pk].calcColumnName(db)»");
 
 				«ENDFOR»
@@ -350,7 +350,7 @@ class DDLGenerator {
 	 */
 	«FOR e : bundleDef.entities»
 		«FOR i : e.indices»
-			create index «i.name» on "«e.entity.calcTableName.toDefaultCase(db)»" ( «i.attributes.map['"'+columnName+'"'].join(",")» );
+			create index «i.name» on "«e.entity.calcTableName.toDefaultCase(db)»" ( «i.attributes.map['"'+columnName.toDefaultCase(db)+'"'].join(",")» );
 		«ENDFOR»
 	«ENDFOR»
 	'''
