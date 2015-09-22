@@ -869,6 +869,7 @@ class UtilCollection {
 
 	def toObjectType(String type) {
 		switch(type) {
+			case "boolean": return "Boolean"
 			case "int": return "Integer"
 			case "long": return "Long"
 			case "short": return "Short"

@@ -12,13 +12,15 @@ package at.bestsolution.persistence.expr;
 
 import java.util.Date;
 
-import at.bestsolution.persistence.LongFunction;
-
 public class PropertyExpressionFactory<O> {
 	final String property;
 
 	PropertyExpressionFactory(String property) {
 		this.property = property;
+	}
+
+	public final String getProperty() {
+		return this.property;
 	}
 
 	public NullExpression<O> isNotNull() {
@@ -85,36 +87,36 @@ public class PropertyExpressionFactory<O> {
 		return rv;
 	}
 
-	public abstract static class EntityExpressionFactory<O> extends PropertyExpressionFactory<O> {
+	public abstract static class EntityExpressionFactory<O,T> extends PropertyExpressionFactory<O> {
 		public EntityExpressionFactory(String property) {
 			super(property);
 		}
 
-		public EqualsExpression<O> eq(O value) {
+		public EqualsExpression<O> eq(T value) {
 			return PropertyExpressionFactory.equals(property, getSid(value));
 		}
 
-		public InExpression<O> in(O... values) {
+		public InExpression<O> in(T... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 
-		public CompareExpression<O> gt(O data) {
+		public CompareExpression<O> gt(T data) {
 			return CompareExpression.gt(property, getSid(data));
 		}
 
-		public CompareExpression<O> gte(O data) {
+		public CompareExpression<O> gte(T data) {
 			return CompareExpression.gte(property, getSid(data));
 		}
 
-		public CompareExpression<O> lt(O data) {
+		public CompareExpression<O> lt(T data) {
 			return CompareExpression.lt(property, getSid(data));
 		}
 
-		public CompareExpression<O> lte(O data) {
+		public CompareExpression<O> lte(T data) {
 			return CompareExpression.lte(property, getSid(data));
 		}
 
-		private Object[] toObjectArray(O...values ) {
+		private Object[] toObjectArray(T...values ) {
 			Long[] rv = new Long[values.length];
 			for( int i = 0; i < values.length; i++ ) {
 				rv[i] = getSid(values[i]);
@@ -122,7 +124,7 @@ public class PropertyExpressionFactory<O> {
 			return rv;
 		}
 
-		protected abstract long getSid(O value);
+		protected abstract long getSid(T value);
 	}
 
 	public final static class IntegerExpressionFactory<O> extends PropertyExpressionFactory<O> {

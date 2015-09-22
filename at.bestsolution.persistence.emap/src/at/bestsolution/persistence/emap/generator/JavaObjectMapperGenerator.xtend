@@ -130,6 +130,7 @@ class JavaObjectMapperGenerator {
 			private final JavaSession session;
 			private boolean inAutoResolve;
 			private static final Logger LOGGER = Logger.getLogger(«entityDef.entity.name»MapperImpl.class);
+			private static MetaData META_DATA;
 
 			public «entityDef.entity.name»MapperImpl(JavaSession session) {
 				this.session = session;
@@ -143,6 +144,14 @@ class JavaObjectMapperGenerator {
 			@Override
 			public final JavaSession getSession() {
 				return this.session;
+			}
+
+			@Override
+			public final MetaData metaData() {
+				if( META_DATA == null ) {
+					META_DATA = new MetaData();
+				}
+				return META_DATA;
 			}
 
 			// «generatorCredit»
