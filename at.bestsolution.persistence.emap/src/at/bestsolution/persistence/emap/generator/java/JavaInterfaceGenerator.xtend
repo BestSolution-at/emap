@@ -23,7 +23,7 @@ import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator
 class JavaInterfaceGenerator {
 	@Inject extension
   	var UtilCollection util;
-  	
+
   	@Inject
 	var JavaObjectMapperGenerator javaObjectMapperGenerator;
 
@@ -102,6 +102,11 @@ class JavaInterfaceGenerator {
 						 * Join directly on the fk avoiding unneeded joins
 						 */
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_fk() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»"); };
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_obj() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»>("«a.name»") {
+							protected long getSid(«eClass.name» value) {
+								return value.get«a.entity.PKAttribute.name.toFirstUpper»();
+							}
+						}; };
 						«ENDIF»
 					«ELSE»
 						«val eAttribute = a.getEAttribute(eClass)»

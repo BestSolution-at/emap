@@ -12,6 +12,8 @@ package at.bestsolution.persistence.expr;
 
 import java.util.Date;
 
+import at.bestsolution.persistence.LongFunction;
+
 public class PropertyExpressionFactory<O> {
 	final String property;
 
@@ -81,6 +83,46 @@ public class PropertyExpressionFactory<O> {
 			rv[i] = values[i];
 		}
 		return rv;
+	}
+
+	public abstract static class EntityExpressionFactory<O> extends PropertyExpressionFactory<O> {
+		public EntityExpressionFactory(String property) {
+			super(property);
+		}
+
+		public EqualsExpression<O> eq(O value) {
+			return PropertyExpressionFactory.equals(property, getSid(value));
+		}
+
+		public InExpression<O> in(O... values) {
+			return PropertyExpressionFactory.in(property, toObjectArray(values));
+		}
+
+		public CompareExpression<O> gt(O data) {
+			return CompareExpression.gt(property, getSid(data));
+		}
+
+		public CompareExpression<O> gte(O data) {
+			return CompareExpression.gte(property, getSid(data));
+		}
+
+		public CompareExpression<O> lt(O data) {
+			return CompareExpression.lt(property, getSid(data));
+		}
+
+		public CompareExpression<O> lte(O data) {
+			return CompareExpression.lte(property, getSid(data));
+		}
+
+		private Object[] toObjectArray(O...values ) {
+			Long[] rv = new Long[values.length];
+			for( int i = 0; i < values.length; i++ ) {
+				rv[i] = getSid(values[i]);
+			}
+			return rv;
+		}
+
+		protected abstract long getSid(O value);
 	}
 
 	public final static class IntegerExpressionFactory<O> extends PropertyExpressionFactory<O> {
@@ -233,7 +275,7 @@ public class PropertyExpressionFactory<O> {
 			return CompareExpression.lte(property, data);
 		}
 	}
-	
+
 	public static class EnumExpressionFactory<O,T extends Enum<T>> extends PropertyExpressionFactory<O> {
 		public EnumExpressionFactory(String property) {
 			super(property);
@@ -259,7 +301,7 @@ public class PropertyExpressionFactory<O> {
 			return LikeExpression.like(property, value);
 		}
 	}
-	
+
 	public static class GenericExpressionFactory<O,T> extends PropertyExpressionFactory<O> {
 		public GenericExpressionFactory(String property) {
 			super(property);
