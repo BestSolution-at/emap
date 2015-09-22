@@ -102,9 +102,9 @@ class JavaInterfaceGenerator {
 						 * Join directly on the fk avoiding unneeded joins
 						 */
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_fk() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»"); };
-						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_obj() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»>("«a.name»") {
-							protected long getSid(«eClass.name» value) {
-								return value.get«a.entity.PKAttribute.name.toFirstUpper»();
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «a.name.javaReservedNameEscape»_obj() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>("«a.name»") {
+							protected long getSid(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName» value) {
+								return value.get«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name.toFirstUpper»();
 							}
 						}; };
 						«ENDIF»
@@ -153,6 +153,15 @@ class JavaInterfaceGenerator {
 						«ELSE»
 							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
 						«ENDIF»
+					«ENDIF»
+				«ENDFOR»
+			}
+
+			public static class MetaData {
+				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))]»
+					«IF a.resolved»
+					«ELSE»
+
 					«ENDIF»
 				«ENDFOR»
 			}
