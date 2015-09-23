@@ -105,7 +105,7 @@ class JavaInterfaceGenerator {
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»_fk() { return «a.name.javaReservedNameEscape»_fk(); };
 
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «a.name.javaReservedNameEscape»_obj() {
-							return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>(«a.name.javaReservedNameEscape»().«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name»().getProperty()) {
+							return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>("«a.name»") {
 								protected long getSid(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName» value) {
 									return value.get«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name.toFirstUpper»();
 								}
