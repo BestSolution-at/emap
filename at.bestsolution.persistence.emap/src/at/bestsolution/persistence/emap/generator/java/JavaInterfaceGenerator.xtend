@@ -166,6 +166,15 @@ class JavaInterfaceGenerator {
 				«ENDFOR»
 			}
 
+			public static class MetaData {
+				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))]»
+					«IF a.resolved»
+					«ELSE»
+
+					«ENDIF»
+				«ENDFOR»
+			}
+
 			/**
 			 * Do not create instances of this class but use {@link «entityDef.entity.name»Mapper#metaData()}
 			 */
