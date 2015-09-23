@@ -97,16 +97,24 @@ class JavaInterfaceGenerator {
 						 * Join with «((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.name»
 						 */
 						public static final «((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «a.name.javaReservedNameEscape»() { return new «((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»>("«a.name»");};
+						public static final «((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».Join<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»(); }
 						«IF a.opposite == null && a.isSingle(eClass) && (pk == null || pk.parameters.head != a.parameters.head)»
 						/**
 						 * Join directly on the fk avoiding unneeded joins
 						 */
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_fk() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»"); };
-						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «a.name.javaReservedNameEscape»_obj() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>("«a.name»") {
-							protected long getSid(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName» value) {
-								return value.get«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name.toFirstUpper»();
-							}
-						}; };
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»_fk() { return «a.name.javaReservedNameEscape»_fk(); };
+
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «a.name.javaReservedNameEscape»_obj() {
+							return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>(«a.name.javaReservedNameEscape»().«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name»().getProperty()) {
+								protected long getSid(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName» value) {
+									return value.get«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name.toFirstUpper»();
+								}
+							};
+						}
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»_obj() {
+							return «a.name.javaReservedNameEscape»_obj();
+						}
 						«ELSE»
 «««						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»_sid() { return «a.name.javaReservedNameEscape»().«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name»(); };
 						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «a.name.javaReservedNameEscape»_obj() {
@@ -114,7 +122,11 @@ class JavaInterfaceGenerator {
 								protected long getSid(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName» value) {
 									return value.get«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.PKAttribute.name.toFirstUpper»();
 								}
-						};
+							};
+						}
+
+						public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»_obj() {
+							return «a.name.javaReservedNameEscape»_obj();
 						}
 						«ENDIF»
 					«ELSE»
@@ -125,52 +137,57 @@ class JavaInterfaceGenerator {
 						 */
 						«IF eAttribute.boolean»
 							«IF eAttribute.primitive»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ELSE»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ENDIF»
 						«ELSEIF eAttribute.integer»
 							«IF eAttribute.primitive»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ELSE»
 								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ENDIF»
 						«ELSEIF eAttribute.long»
 							«IF eAttribute.primitive»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ELSE»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ENDIF»
 						«ELSEIF eAttribute.double»
 							«IF eAttribute.primitive»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ELSE»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ENDIF»
 						«ELSEIF eAttribute.float»
 							«IF eAttribute.primitive»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ELSE»
-								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»>("«a.name»");};
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»>("«a.name»");}
+								public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 							«ENDIF»
 						«ELSEIF eAttribute.string»
-							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>("«a.name»");};
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>("«a.name»");}
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
-							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>("«a.name»");};
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>("«a.name»");}
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 						«ELSEIF typeof(EEnum).isAssignableFrom(eAttribute.EType.class)»
-							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");}
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 						«ELSE»
-							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");};
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «a.name.javaReservedNameEscape»() { return new at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>("«a.name»");}
+							public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»> «entityDef.entity.name»_«a.name.javaReservedNameEscape»() { return «a.name.javaReservedNameEscape»();}
 						«ENDIF»
-					«ENDIF»
-				«ENDFOR»
-			}
-
-			public static class MetaData {
-				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))]»
-					«IF a.resolved»
-					«ELSE»
-
 					«ENDIF»
 				«ENDFOR»
 			}
