@@ -10,15 +10,14 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.java
 
-import com.google.inject.Inject
-import at.bestsolution.persistence.emap.generator.UtilCollection
-import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
-import org.eclipse.emf.ecore.EClass
-import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.eMap.EMapping
-import at.bestsolution.persistence.emap.eMap.EModelTypeDef
-import org.eclipse.emf.ecore.EEnum
+import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.ReturnType
 import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator
+import at.bestsolution.persistence.emap.generator.UtilCollection
+import com.google.inject.Inject
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EEnum
 
 class JavaInterfaceGenerator {
 	@Inject extension
