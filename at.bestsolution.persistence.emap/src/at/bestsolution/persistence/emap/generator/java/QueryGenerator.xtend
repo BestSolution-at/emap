@@ -56,10 +56,19 @@ class QueryGenerator {
 
 			String query;
 			«IF query.hasSpecificQuery»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+"_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				}
+
 				if( query == null ) {
 			«ENDIF»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+				}
 			«IF query.hasSpecificQuery»
 				}
 			«ENDIF»
@@ -103,10 +112,18 @@ class QueryGenerator {
 		private final void refreshDataOnly(final «eClass.name» object, boolean updateVersion) {
 			String query;
 			«IF query.hasSpecificQuery»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+"_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+				}
 				if( query == null ) {
 			«ENDIF»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+				}
 			«IF query.hasSpecificQuery»
 				}
 			«ENDIF»
@@ -168,10 +185,19 @@ class QueryGenerator {
 
 		String query;
 		«IF query.hasSpecificQuery»
-			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+			if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+"_lc.sql");
+			} else {
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_"+session.getDatabaseType()+".sql");
+			}
+
 			if( query == null ) {
 		«ENDIF»
-			query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+			if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default_lc.sql");
+			} else {
+				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_default.sql");
+			}
 		«IF query.hasSpecificQuery»
 			}
 		«ENDIF»
@@ -347,14 +373,47 @@ class QueryGenerator {
 			«IF query.anyWhere»String where;«ENDIF»
 			«IF query.anyGroupBy»String groupBy;«ENDIF»
 			«IF query.hasSpecificQuery»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
-				«IF query.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_"+session.getDatabaseType()+".sql");«ENDIF»
-				«IF query.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_"+session.getDatabaseType()+".sql");«ENDIF»
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+"_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_"+session.getDatabaseType()+".sql");
+				}
+				«IF query.anyWhere»
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_"+session.getDatabaseType()+"_lc.sql");
+				} else {
+					where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_"+session.getDatabaseType()+".sql");
+				}
+				«ENDIF»
+				«IF query.anyGroupBy»
+					if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+						groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_"+session.getDatabaseType()+"_lc.sql");
+					} else {
+						groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_"+session.getDatabaseType()+".sql");
+					}
+				«ENDIF»
 				if( query == null ) {
 			«ENDIF»
-				query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default.sql");
-				«IF query.anyWhere»where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_default.sql");«ENDIF»
-				«IF query.anyGroupBy»groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_default.sql");«ENDIF»
+				if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default_lc.sql");
+				} else {
+					query = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_default.sql");
+				}
+
+				«IF query.anyWhere»
+					if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+						where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_default_lc.sql");
+					} else {
+						where = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_where_default.sql");
+					}
+				«ENDIF»
+				«IF query.anyGroupBy»
+					if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+						groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_default_lc.sql");
+					} else {
+						groupBy = Util.loadFile(getClass(), "«entityDef.entity.name»_«query.name»_criteria_groupBy_default.sql");
+					}
+				«ENDIF»
 			«IF query.hasSpecificQuery»
 				}
 			«ENDIF»

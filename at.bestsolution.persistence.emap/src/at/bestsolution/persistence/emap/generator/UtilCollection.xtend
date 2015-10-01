@@ -729,15 +729,22 @@ class UtilCollection {
 		return false;
 	}
 
-	def String mapColumns(EObjectSection s) {
+	def String mapColumns(EObjectSection s, boolean lowerCase) {
 		val atts = s.entity.collectAllAttributes
 		val id = atts.findFirst[a|a.pk]
 
 		val StringBuilder b = new StringBuilder;
-		b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head else a.columnName) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
-		b.append(",\n"+s.prefix+".\"E_VERSION\"\t"+s.prefix+"_E_VERSION");
+
+		if( lowerCase ) {
+			b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head.toLowerCase else a.columnName.toLowerCase) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head.toLowerCase else a.columnName.toLowerCase]))
+			b.append(",\n"+s.prefix+".\"e_version\"\t"+s.prefix+"_e_version");
+		} else {
+			b.append(atts.filter[a| ! a.resolved || a.parameters.head != id.columnName ].join(",\n",[a| s.prefix(a) + ".\"" + (if(a.resolved) a.parameters.head else a.columnName) + "\"\t" + s.prefix + "_" + if(a.resolved) a.parameters.head else a.columnName]))
+			b.append(",\n"+s.prefix+".\"E_VERSION\"\t"+s.prefix+"_E_VERSION");
+		}
+
 		for( es : s.attributes.filter[a|a.map!=null] ) {
-			b.append(",\n\n" + es.map.mapColumns)
+			b.append(",\n\n" + es.map.mapColumns(lowerCase))
 		}
 
 		return b.toString;

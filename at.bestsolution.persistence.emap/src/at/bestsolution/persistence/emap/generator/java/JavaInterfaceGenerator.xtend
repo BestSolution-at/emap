@@ -39,7 +39,7 @@ class JavaInterfaceGenerator {
 		/**
 		 * Find elements managed Domain-Elements with a query like this:
 		 * <pre>
-		 «FOR l : javaObjectMapperGenerator.generateSQL(query,query.queries.head,true).toString.split(System.getProperty("line.separator"))»
+		 «FOR l : javaObjectMapperGenerator.generateSQL(query,query.queries.head,true,false).toString.split(System.getProperty("line.separator"))»
 		 * «l»
 		 «ENDFOR»
 		 * </pre>
@@ -354,7 +354,7 @@ class JavaInterfaceGenerator {
 				/**
 				 * Build a query elements for <b>managed</b> Domain-Elements from a base query like this:
 				 * <pre>
-				 «FOR l : javaObjectMapperGenerator.generateSQL(query,query.queries.head,true).toString.split(System.getProperty("line.separator"))»
+				 «FOR l : javaObjectMapperGenerator.generateSQL(query,query.queries.head,true,false).toString.split(System.getProperty("line.separator"))»
 				 * «l»
 				 «ENDFOR»
 				 * </pre>

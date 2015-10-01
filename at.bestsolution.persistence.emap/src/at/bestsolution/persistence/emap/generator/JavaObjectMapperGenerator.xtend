@@ -645,16 +645,16 @@ class JavaObjectMapperGenerator {
     «ENDIF»
   '''
 
-  def generateSQL(ENamedQuery namedQuery, EQuery query) {
-  	return generateSQL(namedQuery,query,false)
-  }
+//  def generateSQL(ENamedQuery namedQuery, EQuery query, boolean lowerCase) {
+//  	return generateSQL(namedQuery,query,false)
+//  }
 
-  def generateSQL(ENamedQuery namedQuery, EQuery query, boolean removeInsets) '''
+  def generateSQL(ENamedQuery namedQuery, EQuery query, boolean removeInsets, boolean lowerCase) '''
   SELECT
     «IF query.mapping.attributes.empty»
       *
     «ELSE»
-      «IF removeInsets»«query.mapping.mapColumns.sanitiesString»«ELSE»«query.mapping.mapColumns»«ENDIF»
+      «IF removeInsets»«query.mapping.mapColumns(lowerCase).sanitiesString»«ELSE»«query.mapping.mapColumns(lowerCase)»«ENDIF»
     «ENDIF»
   FROM
     «IF removeInsets»«query.from.replaceSqlParameters(namedQuery.parameters).sanitiesString»«ELSE»«query.from.replaceSqlParameters(namedQuery.parameters)»«ENDIF»
@@ -667,12 +667,16 @@ class JavaObjectMapperGenerator {
   '''
 
 
-  def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query) '''
+  def generateCriteriaSQL(ENamedQuery namedQuery, EQuery query, boolean lowerCase) '''
   SELECT
     «IF query.mapping.attributes.empty»
-      «(namedQuery.eContainer as EMappingEntity).calcTableName».*
+    	«IF lowerCase»
+    		«(namedQuery.eContainer as EMappingEntity).calcTableName.toLowerCase».*
+    	«ELSE»
+    		«(namedQuery.eContainer as EMappingEntity).calcTableName».*
+    	«ENDIF»
     «ELSE»
-      «query.mapping.mapColumns»
+      «query.mapping.mapColumns(lowerCase)»
     «ENDIF»
   FROM
     «query.from.replaceSqlParameters(namedQuery.parameters)»

@@ -10,32 +10,29 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator
 
-import at.bestsolution.persistence.emap.eMap.EMapping
-import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
-import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IFileSystemAccess
-import org.eclipse.xtext.generator.IGenerator
-import at.bestsolution.persistence.emap.eMap.EMappingBundle
-import com.google.inject.Inject
-import at.bestsolution.persistence.emap.generator.java.RegistryGenerator
-import at.bestsolution.persistence.emap.generator.java.CustomSQLQueryGenerator
-import at.bestsolution.persistence.emap.generator.java.JavaInterfaceGenerator
-import at.bestsolution.persistence.emap.eMap.ETypeDef
-import org.eclipse.core.runtime.ILog
-import org.eclipse.core.runtime.Status
-import org.eclipse.core.runtime.IStatus
-import at.bestsolution.persistence.emap.generator.java.TypeDefGenerator
-import org.eclipse.xtext.validation.ValidationMessageAcceptor
-import org.osgi.framework.FrameworkUtil
 import at.bestsolution.persistence.emap.EMapGeneratorParticipant
 import at.bestsolution.persistence.emap.EMapGeneratorParticipant.FileType
+import at.bestsolution.persistence.emap.eMap.EMapping
+import at.bestsolution.persistence.emap.eMap.EMappingBundle
+import at.bestsolution.persistence.emap.eMap.EMappingEntityDef
+import at.bestsolution.persistence.emap.eMap.ETypeDef
+import at.bestsolution.persistence.emap.generator.java.CustomSQLQueryGenerator
+import at.bestsolution.persistence.emap.generator.java.JavaInterfaceGenerator
+import at.bestsolution.persistence.emap.generator.java.RegistryGenerator
+import at.bestsolution.persistence.emap.generator.java.TypeDefGenerator
+import at.bestsolution.persistence.emap.generator.rest.DTOGenerator
+import at.bestsolution.persistence.emap.generator.rest.RestGenerator
+import com.google.inject.Inject
 import java.util.List
 import java.util.concurrent.atomic.AtomicReference
-import at.bestsolution.persistence.emap.generator.rest.RestGenerator
-import at.bestsolution.persistence.emap.generator.rest.DTOGenerator
-import org.eclipse.xtext.generator.IFileSystemAccessExtension
-import org.eclipse.xtext.generator.IFileSystemAccessExtension2
+import org.eclipse.core.runtime.ILog
+import org.eclipse.core.runtime.IStatus
+import org.eclipse.core.runtime.Status
+import org.eclipse.emf.ecore.resource.Resource
+import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccessExtension3
+import org.eclipse.xtext.generator.IGenerator
+import org.osgi.framework.FrameworkUtil
 
 /**
  * Generates code from your model files on save.
@@ -102,13 +99,17 @@ class EMapGenerator implements IGenerator {
 	//			println("Generating named queries")
 				for( namedQuery : edef.entity.namedQueries ) {
 					for( query : namedQuery.queries ) {
-						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +".sql", javaObjectMapperGenerator.generateSQL(namedQuery,query,false,false).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
+						fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_" + query.dbType +"_lc.sql", javaObjectMapperGenerator.generateSQL(namedQuery,query,false,true).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 						if( namedQuery.parameters.empty ) {
-							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +".sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query,false).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
+							fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_" + query.dbType +"_lc.sql", javaObjectMapperGenerator.generateCriteriaSQL(namedQuery,query,true).processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 							if( query.where != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +"_lc.sql", query.where.processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_where_" + query.dbType +".sql", query.where.processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 							}
 							if( query.groupBy != null ) {
+								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +"_lc.sql", query.groupBy.processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 								fsa.generateFile(edef.package.name.replace('.','/')+"/java/"+edef.entity.name + "_" + namedQuery.name + "_criteria_groupBy_" + query.dbType +".sql", query.groupBy.processOutput(root,EMapGeneratorParticipant.FileType.MAPPED_SELECT,query.dbType,participants));
 							}
 						}
