@@ -633,12 +633,13 @@ class QueryGenerator {
 		      	«ENDIF»
 			«ENDIF»
 		«ENDFOR»
+«««		Only set proxy data if not all references are resolved already
 		«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved] != null»
 			«IF section.entity.allAttributes.filter[a|section.attributes.findFirst[ma|ma.property == a.name] == null].findFirst[resolved && isSingle(eClass)] != null»
 				((LazyEObject)rv).setProxyData(new ProxyData_«eClass.name»(«section.entity.allAttributes.filter[resolved && isSingle(eClass)].map['set.'+query.parameters.head.resultMethodType+'("'+columnPrefix+parameters.head+'")'].join(",")»));
 			«ENDIF»
-			((LazyEObject)rv).setProxyDelegate(this);
 		«ENDIF»
+		((LazyEObject)rv).setProxyDelegate(this);
 	'''
 
 //	def submapName(EObjectSection section) {
