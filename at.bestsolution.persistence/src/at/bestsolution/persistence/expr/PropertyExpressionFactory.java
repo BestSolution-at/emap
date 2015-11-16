@@ -321,6 +321,10 @@ public class PropertyExpressionFactory<O> {
 			return PropertyExpressionFactory.in(property, values);
 		}
 
+		public InExpression<O> notIn(T... values) {
+			return PropertyExpressionFactory.notIn(property, values);
+		}
+
 		public LikeExpression<O> like(String value) {
 			return LikeExpression.like(property, value);
 		}
