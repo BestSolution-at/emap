@@ -100,6 +100,10 @@ public class PropertyExpressionFactory<O> {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 
+		public InExpression<O> notIn(T... values) {
+			return PropertyExpressionFactory.notIn(property, toObjectArray(values));
+		}
+
 		public CompareExpression<O> gt(T data) {
 			return CompareExpression.gt(property, getSid(data));
 		}
@@ -145,6 +149,10 @@ public class PropertyExpressionFactory<O> {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 
+		public InExpression<O> notIn(int... values) {
+			return PropertyExpressionFactory.notIn(property, toObjectArray(values));
+		}
+
 		public CompareExpression<O> gt(int data) {
 			return CompareExpression.gt(property, data);
 		}
@@ -174,6 +182,10 @@ public class PropertyExpressionFactory<O> {
 
 		public InExpression<O> in(double... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
+		}
+
+		public InExpression<O> notIn(double... values) {
+			return PropertyExpressionFactory.notIn(property, toObjectArray(values));
 		}
 
 		public LikeExpression<O> like(String value) {
@@ -209,6 +221,10 @@ public class PropertyExpressionFactory<O> {
 
 		public InExpression<O> in(long... values) {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
+		}
+
+		public InExpression<O> notIn(long... values) {
+			return PropertyExpressionFactory.notIn(property, toObjectArray(values));
 		}
 
 		public LikeExpression<O> like(String value) {
@@ -257,6 +273,10 @@ public class PropertyExpressionFactory<O> {
 			return PropertyExpressionFactory.in(property, toObjectArray(values));
 		}
 
+		public InExpression<O> notIn(float... values) {
+			return PropertyExpressionFactory.notIn(property, toObjectArray(values));
+		}
+
 		public LikeExpression<O> like(String value) {
 			return LikeExpression.like(property, value);
 		}
@@ -297,6 +317,14 @@ public class PropertyExpressionFactory<O> {
 				strVals[i] = values[i].toString();
 			}
 			return StringExpressionFactory.in(property, strVals);
+		}
+
+		public InExpression<O> notIn(T... values) {
+			final String[] strVals = new String[values.length];
+			for (int i = 0; i < values.length; i++) {
+				strVals[i] = values[i].toString();
+			}
+			return StringExpressionFactory.notIn(property, strVals);
 		}
 
 		public LikeExpression<O> like(String value) {
