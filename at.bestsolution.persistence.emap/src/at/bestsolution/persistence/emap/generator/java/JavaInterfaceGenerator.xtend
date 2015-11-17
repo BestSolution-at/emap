@@ -75,6 +75,18 @@ class JavaInterfaceGenerator {
 			 * Build dynamic query filters
 			 */
 			public static final class Expression {
+				public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«entityDef.entity.lookupEClass.instanceClassName»> self_obj() {
+					return new at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«entityDef.entity.lookupEClass.instanceClassName»>("«pk.name»") {
+						protected long getSid(«entityDef.entity.lookupEClass.instanceClassName» value) {
+							return value.get«pk.name.toFirstUpper»();
+						}
+					};
+				}
+
+				public static final at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«entityDef.entity.lookupEClass.instanceClassName»> «entityDef.entity.name»_self_obj() {
+						return self_obj();
+				}
+
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))]»
 «««				«val temp = entityDef.entity.collectAllAttributes»
 «««				«val temp2 = temp.filterDups[t1,t2|
