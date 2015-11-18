@@ -671,9 +671,9 @@ class JavaObjectMapperGenerator {
   SELECT
     «IF query.mapping.attributes.empty»
     	«IF lowerCase»
-    		«(namedQuery.eContainer as EMappingEntity).calcTableName.toLowerCase».*
+    		"«(namedQuery.eContainer as EMappingEntity).calcTableName.toLowerCase»".*
     	«ELSE»
-    		«(namedQuery.eContainer as EMappingEntity).calcTableName».*
+    		"«(namedQuery.eContainer as EMappingEntity).calcTableName.toUpperCase»".*
     	«ENDIF»
     «ELSE»
       «query.mapping.mapColumns(lowerCase)»
