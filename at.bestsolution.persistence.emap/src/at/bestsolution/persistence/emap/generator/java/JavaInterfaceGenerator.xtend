@@ -210,7 +210,7 @@ class JavaInterfaceGenerator {
 				«FOR a : entityDef.entity.collectAllAttributes.filterDups[t1,t2|return eClass.getEStructuralFeature(t1.name).equals(eClass.getEStructuralFeature(t2.name))]»
 					«IF a.resolved»
 						«val eAttribute = a.getEStructuralFeature(eClass)»
-						public at.bestsolution.persistence.ReferenceMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>> «a.name»() {
+						public at.bestsolution.persistence.ReferenceMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>> «a.name.javaReservedNameEscape»() {
 							return new at.bestsolution.persistence.ReferenceMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»_obj());
 						}
 					«ELSEIF a.isSingle(eClass)»
