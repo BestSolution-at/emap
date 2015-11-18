@@ -8,8 +8,8 @@ is designed to be lightweight and configurable through OSGi-Services.
 Nightly Update Sites
 --------------------
 There are 2 updatesites: Runtime and Tooling. Tooling needs to be installted into your ide, while Runtime needs to be added to your target platform.
- * Runtime: http://downloads.foss.bestsolution.at/emap/runtime-nightly/
- * Tooling: http://downloads.foss.bestsolution.at/emap/tooling-nightly/
+ * Runtime: http://downloads.foss.bestsolution.at/emap/runtime-nightly/site/
+ * Tooling: http://downloads.foss.bestsolution.at/emap/tooling-nightly/site/
 
 
 
