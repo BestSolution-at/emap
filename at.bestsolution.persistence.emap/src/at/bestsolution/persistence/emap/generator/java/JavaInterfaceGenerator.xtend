@@ -140,7 +140,7 @@ class JavaInterfaceGenerator {
 							return «a.name.javaReservedNameEscape»_obj();
 						}
 						«ENDIF»
-					«ELSE»
+					«ELSEIF a.isSingle(eClass)»
 						«val eAttribute = a.getEAttribute(eClass)»
 «««						// «a»
 						/**
@@ -213,73 +213,73 @@ class JavaInterfaceGenerator {
 						public at.bestsolution.persistence.ReferenceMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.EntityExpressionFactory<«eClass.name»,«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).entity.lookupEClass.instanceClassName»>> «a.name»() {
 							return new at.bestsolution.persistence.ReferenceMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»_obj());
 						}
-					«ELSE»
+					«ELSEIF a.isSingle(eClass)»
 						«val eAttribute = a.getEAttribute(eClass)»
 						«IF eAttribute.boolean»
 							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ELSE»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.BooleanObjectExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ENDIF»
 						«ELSEIF eAttribute.integer»
 							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ELSE»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.IntegerObjectExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ENDIF»
 						«ELSEIF eAttribute.long»
 							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.LongExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ELSE»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.LongObjectExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ENDIF»
 						«ELSEIF eAttribute.double»
 							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ELSE»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DoubleObjectExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ENDIF»
 						«ELSEIF eAttribute.float»
 							«IF eAttribute.primitive»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName.toObjectType»,at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ELSE»
-								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»>> «a.name»() {
-									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+								public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.FloatObjectExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+									return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 								}
 							«ENDIF»
 						«ELSEIF eAttribute.string»
-							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>> «a.name»() {
-								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.StringExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 							}
 						«ELSEIF eAttribute.EType.instanceClassName == "java.util.Date"»
-							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>> «a.name»() {
-								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.DateExpressionFactory<«eClass.name»>> «a.name.javaReservedNameEscape»() {
+								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 							}
 						«ELSEIF typeof(EEnum).isAssignableFrom(eAttribute.EType.class)»
-							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>> «a.name»() {
-								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.EnumExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>> «a.name.javaReservedNameEscape»() {
+								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 							}
 						«ELSE»
-							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>> «a.name»() {
-								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name»(),Order.«a.name»());
+							public at.bestsolution.persistence.AttributeMetaData<«eClass.name»,«eAttribute.EType.instanceClassName»,at.bestsolution.persistence.expr.PropertyExpressionFactory.GenericExpressionFactory<«eClass.name»,«eAttribute.EType.instanceClassName»>> «a.name.javaReservedNameEscape»() {
+								return new at.bestsolution.persistence.AttributeMetaData<>(«eClass.name».class,«eAttribute.EType.instanceClassName».class,Expression.«a.name.javaReservedNameEscape»(),Order.«a.name.javaReservedNameEscape»());
 							}
 						«ENDIF»
 					«ENDIF»
