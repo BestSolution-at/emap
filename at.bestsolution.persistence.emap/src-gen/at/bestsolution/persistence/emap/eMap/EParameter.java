@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#isId <em>Id</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#getType <em>Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#isList <em>List</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EParameter#getName <em>Name</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEParameter()
  * @model

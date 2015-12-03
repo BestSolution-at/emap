@@ -14,6 +14,9 @@ import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
+import at.bestsolution.persistence.emap.eMap.EBundleEntity
+import at.bestsolution.persistence.emap.generator.UtilCollection
+import javax.inject.Inject
 
 class OracleDatabaseSupport extends DatabaseSupport {
 
@@ -64,8 +67,29 @@ class OracleDatabaseSupport extends DatabaseSupport {
 //		return insert
 //	}
 
+	override isKeyGenerationTypeSupported(KeyGenerationType type) {
+		return type == KeyGenerationType.SEQNEXT || type == KeyGenerationType.QUERY
+	}
+
 	override supportsGeneratedKeys() {
 		return false;
+	}
+	
+	override getPrimaryKeyCreateInlineContribution(UtilCollection util, EAttribute primaryKey) {
+		null
+	}
+	
+	override getPrimaryKeyCreateConstraintContribution(extension UtilCollection util, EBundleEntity bundleEntity, EAttribute primaryKey) {
+		if (bundleEntity.pkConstraintName == null) {
+			'''constraint pk_«bundleEntity.entity.calcTableName» PRIMARY KEY("«primaryKey.columnName»")'''
+		}
+		else {
+			'''constraint «bundleEntity.pkConstraintName» PRIMARY KEY("«primaryKey.columnName»")'''	
+		}
+	}
+	
+	override getPrimaryKeyAlterContribution(UtilCollection util, EAttribute primaryKey) {
+		null
 	}
 
 //	override supportsGeneratedKeyAsResultSet() {

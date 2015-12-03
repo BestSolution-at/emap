@@ -3,27 +3,27 @@
 package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
-import at.bestsolution.persistence.emap.eMap.EPathParam;
+import at.bestsolution.persistence.emap.eMap.EPredefTable;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>EPath Param</b></em>'.
+ * An implementation of the model object '<em><b>EPredef Table</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class EPathParamImpl extends EServiceParamImpl implements EPathParam
+public class EPredefTableImpl extends EPredefImpl implements EPredefTable
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected EPathParamImpl()
+  protected EPredefTableImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class EPathParamImpl extends EServiceParamImpl implements EPathParam
   @Override
   protected EClass eStaticClass()
   {
-    return EMapPackage.Literals.EPATH_PARAM;
+    return EMapPackage.Literals.EPREDEF_TABLE;
   }
 
-} //EPathParamImpl
+} //EPredefTableImpl

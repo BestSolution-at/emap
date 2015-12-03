@@ -23,6 +23,10 @@ import at.bestsolution.persistence.emap.eMap.EBundleEntity
 import at.bestsolution.persistence.emap.eMap.ColSort
 import at.bestsolution.persistence.emap.eMap.ESQLAttTypeDef
 import java.util.LinkedHashSet
+import at.bestsolution.persistence.emap.generator.DatabaseSupport.KeyGenerationType
+import java.util.List
+import at.bestsolution.persistence.emap.eMap.EValueGenerator
+import java.util.Collection
 
 class DDLGenerator {
 
@@ -136,6 +140,11 @@ class DDLGenerator {
 		return db.getDatabaseType(a, fkResolve, dataType)
 	}
 
+	def sortedByOwnerGroups(Collection<EAttribute> collection, ColSort colSort, EClass eClass) {
+		collection.sort[a,b|sortByOwnerGroups(colSort, eClass,a,b)]
+	}
+	
+
 	def sortByOwnerGroups(ColSort sort, EClass eClass, EAttribute a, EAttribute b) {
 		if( sort == ColSort::ALPHABETIC ) {
 			return sortAttributes(eClass,a,b)
@@ -198,56 +207,62 @@ class DDLGenerator {
 	 * Tables
 	 * ------------------------------------
 	 */
-	«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
-	«val eClass = e.entity.lookupEClass»
+	«FOR bundleEntity : bundleDef.entities.withPrimaryKey»
+	«val eClass = bundleEntity.entity.lookupEClass»
 	/*
-	 * Table for «e.entity.name»
+	 * Table for «bundleEntity.entity.name»
 	 */
-	create table "«e.entity.calcTableName.toDefaultCase(db)»" (
+	create table "«bundleEntity.entity.calcTableName.toDefaultCase(db)»" (
 		«var flag = false»
-		«val pk = e.entity.collectDerivedAttributes.values.findFirst[pk]»
-		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[it.pk]»
-			«IF a.columnName != null»
-				«IF flag», «ENDIF»"«a.calcColumnName(db)»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF ! a.valueGenerators.empty && a.valueGenerators.findFirst[it.dbType==db.databaseId].autokey» «db.getAutokeyDefinition(a)»«ENDIF»«IF a.pk» not null«ENDIF»«IF a.pk && db.isPrimaryKeyPartOfColDef(a)» PRIMARY KEY«ENDIF»
+		«val pk = bundleEntity.pk»
+«««		for all primary key attributes
+		«FOR attribute : bundleEntity.entity.collectDerivedAttributes.values.sortedByOwnerGroups(bundleDef.colSort, eClass).filter[it.pk]»
+			«val valueGen = attribute.getValueGenerator(db)»
+			«IF attribute.columnName != null»
+				«IF flag», «ENDIF»"«attribute.calcColumnName(db)»" «attribute.getDataType(false,bundleEntity,db,bundleDef,eClass)»«IF valueGen.autoKey» «db.getAutokeyDefinition(attribute)»«ENDIF» not null«IF db.hasPrimaryKeyCreateInlineContribution(util, attribute)» «db.getPrimaryKeyCreateInlineContribution(util, attribute)»«ENDIF»
 				«dummy(flag = true)»
-			«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
-				«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-				«IF flag», «ENDIF» «a.parameters.head» «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)» not null
+			«ELSEIF attribute.parameters.size == 1 && attribute.parameters.head != pk.columnName»
+				«val pkEClass = (attribute.query.eContainer as EMappingEntity).lookupEClass»
+				«IF flag», «ENDIF» «attribute.parameters.head» «(attribute.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,bundleEntity,db,bundleDef,pkEClass)» not null
 				«dummy(flag = true)»
 			«ENDIF»
 		«ENDFOR»
-		«IF flag && ! e.entity.extendsEntity», "«IF db.isDefaultLowerCase»e_version«ELSE»E_VERSION«ENDIF»" integer not null«ENDIF»
-		«FOR a : e.entity.collectDerivedAttributes.values.sort[a,b|sortByOwnerGroups(bundleDef.colSort, eClass,a,b)].filter[!it.pk]»
+		«IF flag && ! bundleEntity.entity.extendsEntity», "«IF db.isDefaultLowerCase»e_version«ELSE»E_VERSION«ENDIF»" integer not null«ENDIF»
+«««		for all non primary key attributes
+		«FOR a : bundleEntity.entity.collectDerivedAttributes.values.sortedByOwnerGroups(bundleDef.colSort, eClass).filter[!it.pk]»
 			«val f = a.getEStructuralFeature(eClass)»
 			«IF ! f.many»
 				«IF a.columnName != null»
-					«IF flag», «ENDIF»"«a.calcColumnName(db)»" «a.getDataType(false,e,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.calcColumnName(db)»" «a.getDataType(false,bundleEntity,db,bundleDef,eClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ELSEIF a.parameters.size == 1 && a.parameters.head != pk.columnName»
 					«val pkEClass = (a.query.eContainer as EMappingEntity).lookupEClass»
-					«IF flag», «ENDIF»"«a.parameters.head.toDefaultCase(db)»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,e,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
+					«IF flag», «ENDIF»"«a.parameters.head.toDefaultCase(db)»" «(a.query.eContainer as EMappingEntity).attributes.findFirst[it.pk].getDataType(true,bundleEntity,db,bundleDef,pkEClass)»«IF f.lowerBound > 0» not null«ENDIF»
 					«dummy(flag = true)»
 				«ENDIF»
 			«ENDIF»
 		«ENDFOR»
-		«IF e.entity.descriminationColumn != null»
+		«IF bundleEntity.entity.descriminationColumn != null»
 «««			, «e.descriminationColumn» «db.getDatabaseType(EcorePackage::eINSTANCE.EString)»
 		«ENDIF»
-		«IF ! db.isPrimaryKeyPartOfColDef(pk)»
-		, «db.getPrimaryKeyAsConstraint(util,e,pk)»
+«««		«IF ! db.isPrimaryKeyPartOfColDef(pk)»
+«««		, «db.getPrimaryKeyAsConstraint(util, bundleEntity, pk)»
+«««		«ENDIF»
+		«IF db.hasPrimaryKeyCreateConstraintContribution(util, bundleEntity, pk)»
+		, «db.getPrimaryKeyCreateConstraintContribution(util, bundleEntity, pk)»
 		«ENDIF»
-		«FOR u : e.uniqueContraints»
+		«FOR u : bundleEntity.uniqueContraints»
 		, constraint «IF u.name != null»«u.name»«ELSE»uk_«u.attributes.join("_",[it.columnName])»«ENDIF» UNIQUE («u.attributes.map['"'+it.calcColumnName(db)+'"'].join(", ")»)
 		«ENDFOR»
 	);
 
 	«IF ! db.isArrayStoreSupported(null)»
-		«val primtiveMulti = e.entity.findPrimitiveMultiValuedAttributes(e.entity.lookupEClass)»
+		«val primtiveMulti = bundleEntity.entity.findPrimitiveMultiValuedAttributes(bundleEntity.entity.lookupEClass)»
 		«IF ! primtiveMulti.empty»
 			«FOR p : primtiveMulti»
 			create table "«p.primitiveMultiValuedTableName.toDefaultCase(db)»" (
-				"«p.primitiveMultiValuedFKColName.toDefaultCase(db)»" «e.entity.PKAttribute.getDataType(true,e, db, bundleDef, e.entity.lookupEClass)» not null,
-				«"ELT".toDefaultCase(db)» «p.getDataType(false,e,db,bundleDef,e.entity.lookupEClass)»
+				"«p.primitiveMultiValuedFKColName.toDefaultCase(db)»" «bundleEntity.entity.PKAttribute.getDataType(true,bundleEntity, db, bundleDef, bundleEntity.entity.lookupEClass)» not null,
+				«"ELT".toDefaultCase(db)» «p.getDataType(false,bundleEntity,db,bundleDef,bundleEntity.entity.lookupEClass)»
 			);
 
 			«ENDFOR»
@@ -265,6 +280,25 @@ class DDLGenerator {
 			"«r.a2.relationColumn.toDefaultCase(db)»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
 		);
 	«ENDFOR»
+
+««« generate sequences for all SEQNEXT generators
+	«IF db.isKeyGenerationTypeSupported(KeyGenerationType.SEQNEXT)»
+		/* ------------------------------------
+		 * Create sequences
+		 * ------------------------------------
+		 */
+		«FOR e : bundleDef.entities.withPrimaryKeySeqnextGeneration(db)»
+			«val pkCol = e.pk»
+			«val tableName = e.tableName(db)»
+			«val sequenceName = pkCol.sequenceName(db)»
+			«IF ! bundleDef.findPredefinedSequences.contains(sequenceName)»
+				/* Sequence for «tableName» */
+				create sequence «sequenceName»;
+			«ELSE»
+				/* Sequence for «tableName» skipped, («sequenceName» is predefined) */
+			«ENDIF»
+		«ENDFOR»
+	«ENDIF»
 
 	/* ------------------------------------
 	 * Constraints
@@ -291,6 +325,9 @@ class DDLGenerator {
 			add «IF fkConstraint != null»constraint «fkConstraint.name»«ENDIF»
 			foreign key ("«pk.toDefaultCase(db)»")
 			references "«e.entity.parent.calcTableName.toDefaultCase(db)»" ("«e.entity.parent.attributes.findFirst[it.pk].calcColumnName(db)»");
+		«ENDIF»
+		«IF db.hasPrimaryKeyAlterContribution(util, pkCol)»
+			«db.getPrimaryKeyAlterContribution(util, pkCol)»
 		«ENDIF»
 	«ENDFOR»
 
@@ -328,22 +365,6 @@ class DDLGenerator {
 		«ENDIF»
 	«ENDFOR»
 
-	«IF ! db.supportsGeneratedKeys»
-
-		/* ------------------------------------
-		 * Create sequences
-		 * ------------------------------------
-		 */
-		«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
-			«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
-			«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
-			/* Sequence for «e.entity.calcTableName.toDefaultCase(db)» */
-			create sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
-
-			«ENDIF»
-		«ENDFOR»
-	«ENDIF»
-
 	/* ------------------------------------
 	 * Create indices
 	 * ------------------------------------
@@ -380,11 +401,11 @@ class DDLGenerator {
 
 		«FOR r : nmRelations»
 			«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
-			alter table "«r.a1.relationTable»"
+			alter table "«r.a1.relationTable.toDefaultCase(db)»"
 				drop constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»;
 
 			«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
-			alter table "«r.a2.relationTable»"
+			alter table "«r.a2.relationTable.toDefaultCase(db)»"
 				drop constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»;
 		«ENDFOR»
 
@@ -402,14 +423,14 @@ class DDLGenerator {
 			«ENDIF»
 		«ENDFOR»
 
-		«IF ! db.supportsGeneratedKeys»
-			«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
-				«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
-				«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
-				DROP sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
-				«ENDIF»
-			«ENDFOR»
-		«ENDIF»
+«««		«IF ! db.supportsGeneratedKeys»
+«««			«FOR e : bundleDef.entities.filter([entity.allAttributes.findFirst[pk] != null])»
+«««				«val pkCol = e.entity.collectDerivedAttributes.values.findFirst[pk]»
+«««				«IF ! db.supportsGeneratedKeys && pkCol != null && ! pkCol.valueGenerators.empty»
+«««				DROP sequence «pkCol.valueGenerators.findFirst[dbType==db.databaseId].sequence»;
+«««				«ENDIF»
+«««			«ENDFOR»
+«««		«ENDIF»
 
 		«FOR e : bundleDef.entities»
 			«FOR i : e.indices»
@@ -437,27 +458,51 @@ class DDLGenerator {
 		«ENDFOR»
 
 		«FOR r : nmRelations»
-			DROP TABLE "«r.a1.relationTable»";
+			DROP TABLE "«r.a1.relationTable.toDefaultCase(db)»";
 		«ENDFOR»
+		
+		«IF db.isKeyGenerationTypeSupported(KeyGenerationType.SEQNEXT)»
+			/* ------------------------------------
+			 * Drop sequences
+			 * ------------------------------------
+			 */
+			«FOR e : bundleDef.entities.withPrimaryKeySeqnextGeneration(db)»
+				«val pkCol = e.pk»
+				«val sequenceName = pkCol.sequenceName(db)»
+				«IF ! bundleDef.findPredefinedSequences.contains(sequenceName)»
+					DROP sequence «sequenceName»;
+				«ELSE»
+					/* DROP sequence «sequenceName»; skipped (predefined) */
+				«ENDIF»
+			«ENDFOR»
+		«ENDIF»
 	'''
 
 	def void dummy(boolean b) {
 
 	}
 
-	def String calcColumnName(EAttribute e, DatabaseSupport dbSupport) {
-		if( dbSupport.isDefaultLowerCase ) {
-			return e.columnName.toLowerCase
-		} else {
-			return e.columnName.toUpperCase
-		}
+	def pk(EBundleEntity entity) {
+		entity.entity.collectDerivedAttributes.values.findFirst[pk]
 	}
-
-	def String toDefaultCase(String columnName, DatabaseSupport dbSupport) {
-		if( dbSupport.isDefaultLowerCase ) {
-			return columnName.toLowerCase
-		} else {
-			return columnName.toUpperCase
-		}
+	
+	def tableName(EBundleEntity entity, DatabaseSupport db) {
+		entity.entity.calcTableName.toDefaultCase(db)
 	}
+	
+	def sequenceName(EAttribute attribute, DatabaseSupport db) {
+		attribute.valueGenerators.findFirst[dbType==db.databaseId].sequence
+	}
+	
+	def withPrimaryKey(List<EBundleEntity> entities) {
+		entities.filter([entity.allAttributes.findFirst[pk] != null])
+	}
+	
+	def withPrimaryKeySeqnextGeneration(List<EBundleEntity> entities, DatabaseSupport db) {
+		entities.withPrimaryKey.filter([
+			val pkCol = pk
+			pkCol != null && pkCol.valueGenerators.exists[dbType==db.databaseId && isSequence]
+		])
+	}
+	
 }

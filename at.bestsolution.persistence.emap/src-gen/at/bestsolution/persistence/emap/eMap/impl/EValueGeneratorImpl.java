@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl#getDbType <em>Db Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl#isAutokey <em>Autokey</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EValueGeneratorImpl#getSequence <em>Sequence</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

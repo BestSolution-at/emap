@@ -13,17 +13,18 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getParentBundle <em>Parent Bundle</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getPredef <em>Predef</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getEntities <em>Entities</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getTypeDefs <em>Type Defs</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getGenerators <em>Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getDatabases <em>Databases</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EMappingBundle#getColSort <em>Col Sort</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle()
  * @model
@@ -98,6 +99,22 @@ public interface EMappingBundle extends EObject
    * @generated
    */
   void setParentBundle(EMappingBundle value);
+
+  /**
+   * Returns the value of the '<em><b>Predef</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EPredef}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Predef</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Predef</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEMappingBundle_Predef()
+   * @model containment="true"
+   * @generated
+   */
+  EList<EPredef> getPredef();
 
   /**
    * Returns the value of the '<em><b>Entities</b></em>' containment reference list.

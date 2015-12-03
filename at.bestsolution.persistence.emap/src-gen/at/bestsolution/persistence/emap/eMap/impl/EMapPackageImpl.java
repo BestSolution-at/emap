@@ -25,6 +25,9 @@ import at.bestsolution.persistence.emap.eMap.ENamedServiceQuery;
 import at.bestsolution.persistence.emap.eMap.EObjectSection;
 import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EPathParam;
+import at.bestsolution.persistence.emap.eMap.EPredef;
+import at.bestsolution.persistence.emap.eMap.EPredefSequence;
+import at.bestsolution.persistence.emap.eMap.EPredefTable;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EQueryParam;
@@ -72,6 +75,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eMappingBundleEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ePredefEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -323,6 +333,20 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass ePredefSequenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass ePredefTableEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EEnum colSortEEnum = null;
 
   /**
@@ -460,7 +484,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEMappingBundle_Entities()
+  public EReference getEMappingBundle_Predef()
   {
     return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(3);
   }
@@ -470,7 +494,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEMappingBundle_TypeDefs()
+  public EReference getEMappingBundle_Entities()
   {
     return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(4);
   }
@@ -480,7 +504,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getEMappingBundle_Generators()
+  public EReference getEMappingBundle_TypeDefs()
   {
     return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(5);
   }
@@ -490,9 +514,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getEMappingBundle_Generators()
+  {
+    return (EReference)eMappingBundleEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getEMappingBundle_Databases()
   {
-    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(6);
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -502,7 +536,27 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    */
   public EAttribute getEMappingBundle_ColSort()
   {
-    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(7);
+    return (EAttribute)eMappingBundleEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEPredef()
+  {
+    return ePredefEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getEPredef_Name()
+  {
+    return (EAttribute)ePredefEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -2060,6 +2114,26 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getEPredefSequence()
+  {
+    return ePredefSequenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getEPredefTable()
+  {
+    return ePredefTableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getColSort()
   {
     return colSortEEnum;
@@ -2112,11 +2186,15 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__IMPORTS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__NAME);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__PARENT_BUNDLE);
+    createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__PREDEF);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__ENTITIES);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__TYPE_DEFS);
     createEReference(eMappingBundleEClass, EMAPPING_BUNDLE__GENERATORS);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__DATABASES);
     createEAttribute(eMappingBundleEClass, EMAPPING_BUNDLE__COL_SORT);
+
+    ePredefEClass = createEClass(EPREDEF);
+    createEAttribute(ePredefEClass, EPREDEF__NAME);
 
     eGeneratorDefEClass = createEClass(EGENERATOR_DEF);
     createEAttribute(eGeneratorDefEClass, EGENERATOR_DEF__NAME);
@@ -2308,6 +2386,10 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eTypeEClass, ETYPE__URL);
     createEAttribute(eTypeEClass, ETYPE__NAME);
 
+    ePredefSequenceEClass = createEClass(EPREDEF_SEQUENCE);
+
+    ePredefTableEClass = createEClass(EPREDEF_TABLE);
+
     // Create enums
     colSortEEnum = createEEnum(COL_SORT);
     returnTypeEEnum = createEEnum(RETURN_TYPE);
@@ -2347,6 +2429,8 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     ePredefinedTypeEClass.getESuperTypes().add(this.getEReturnType());
     eTypeDefEClass.getESuperTypes().add(this.getEReturnType());
     eModelTypeDefEClass.getESuperTypes().add(this.getEReturnType());
+    ePredefSequenceEClass.getESuperTypes().add(this.getEPredef());
+    ePredefTableEClass.getESuperTypes().add(this.getEPredef());
 
     // Initialize classes and features; add operations and parameters
     initEClass(eMappingEClass, EMapping.class, "EMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2356,11 +2440,15 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEReference(getEMappingBundle_Imports(), this.getImport(), null, "imports", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Name(), ecorePackage.getEString(), "name", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_ParentBundle(), this.getEMappingBundle(), null, "parentBundle", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getEMappingBundle_Predef(), this.getEPredef(), null, "predef", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_Entities(), this.getEBundleEntity(), null, "entities", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_TypeDefs(), this.getESQLTypeDef(), null, "typeDefs", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getEMappingBundle_Generators(), this.getEGeneratorDef(), null, "generators", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_Databases(), ecorePackage.getEString(), "databases", null, 0, -1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEMappingBundle_ColSort(), this.getColSort(), "colSort", null, 0, 1, EMappingBundle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ePredefEClass, EPredef.class, "EPredef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getEPredef_Name(), ecorePackage.getEString(), "name", null, 0, 1, EPredef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eGeneratorDefEClass, EGeneratorDef.class, "EGeneratorDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEGeneratorDef_Name(), ecorePackage.getEString(), "name", null, 0, 1, EGeneratorDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2551,6 +2639,10 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eTypeEClass, EType.class, "EType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getEType_Url(), ecorePackage.getEString(), "url", null, 0, 1, EType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getEType_Name(), ecorePackage.getEString(), "name", null, 0, 1, EType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(ePredefSequenceEClass, EPredefSequence.class, "EPredefSequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(ePredefTableEClass, EPredefTable.class, "EPredefTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Initialize enums and add enum literals
     initEEnum(colSortEEnum, ColSort.class, "ColSort");

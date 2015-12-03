@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EGreedyAttributePath#getGreedyAttribute <em>Greedy Attribute</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EGreedyAttributePath#getSubPathList <em>Sub Path List</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEGreedyAttributePath()
  * @model

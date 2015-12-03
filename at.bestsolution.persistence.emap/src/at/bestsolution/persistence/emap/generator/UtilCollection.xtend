@@ -39,6 +39,10 @@ import at.bestsolution.persistence.emap.eMap.EModelTypeDef
 import org.eclipse.emf.ecore.EClassifier
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.util.EcoreUtil
+import at.bestsolution.persistence.emap.eMap.EMappingBundle
+import at.bestsolution.persistence.emap.eMap.EPredefSequence
+import at.bestsolution.persistence.emap.eMap.EPredefTable
+import at.bestsolution.persistence.emap.eMap.EValueGenerator
 
 class UtilCollection {
 	var Map<String,DatabaseSupport> DB_SUPPORTS = new HashMap<String,DatabaseSupport>();
@@ -48,6 +52,34 @@ class UtilCollection {
 
 	@Inject
  	var IEClassLookupService eClassLookupService;
+
+	def List<String> findPredefinedSequences(EMappingBundle b) {
+		var List<String> predefs = new ArrayList
+		
+		for (predef : b.predef) {
+			if (predef instanceof EPredefSequence) {
+				predefs.add(predef.name)
+			}
+		}
+		if (b.parentBundle != null) {
+			predefs.addAll(b.parentBundle.findPredefinedSequences)
+		}
+		predefs
+	}
+	
+	def List<String> findPredefinedTables(EMappingBundle b) {
+		var List<String> predefs = new ArrayList
+		
+		for (predef : b.predef) {
+			if (predef instanceof EPredefTable) {
+				predefs.add(predef.name)
+			}
+		}
+		if (b.parentBundle != null) {
+			predefs.addAll(b.parentBundle.findPredefinedTables)
+		}
+		predefs
+	}
 
 	def getFeatureClassifier(EStructuralFeature f) {
 		return eClassLookup.getFeatureClassifier(f);
@@ -403,6 +435,22 @@ class UtilCollection {
 			return entity.etype.lookupEClass.name.toUpperCase
 		}
 		return entity.tableName.toUpperCase
+	}
+	
+	def String calcTableName(EMappingEntity entity, DatabaseSupport dbSupport) {
+		if( dbSupport.isDefaultLowerCase ) {
+			return entity.calcTableName.toLowerCase
+		} else {
+			return entity.calcTableName.toUpperCase
+		}
+	}
+	
+	def String calcColumnName(EAttribute e, DatabaseSupport dbSupport) {
+		if( dbSupport.isDefaultLowerCase ) {
+			return e.columnName.toLowerCase
+		} else {
+			return e.columnName.toUpperCase
+		}
 	}
 
 	def pstmtMethod(EParameter p, String accessExpression, String dataExpression) {
@@ -940,4 +988,31 @@ class UtilCollection {
   	}
   	return count
   }
+  
+  
+  
+  def String toDefaultCase(String columnName, DatabaseSupport dbSupport) {
+		if( dbSupport.isDefaultLowerCase ) {
+			return columnName.toLowerCase
+		} else {
+			return columnName.toUpperCase
+		}
+	}
+  
+	def getValueGenerator(EAttribute attribute, DatabaseSupport db) {
+		attribute.valueGenerators.findFirst[dbType == db.databaseId]
+	}
+	
+	def isAutoKey(EValueGenerator gen) {
+		if (gen == null) false else gen.autokey
+	}
+	
+	def isSequence(EValueGenerator gen) {
+		if (gen == null) false else gen.sequence != null
+	}
+	
+	def isQuery(EValueGenerator gen) {
+		if (gen == null) false else gen.query != null
+	}
+	
 }

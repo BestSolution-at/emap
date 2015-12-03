@@ -27,12 +27,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EGeneratorConfigValueImpl#getKey <em>Key</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EGeneratorConfigValueImpl#getSimpleValue <em>Simple Value</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EGeneratorConfigValueImpl#getChildren <em>Children</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

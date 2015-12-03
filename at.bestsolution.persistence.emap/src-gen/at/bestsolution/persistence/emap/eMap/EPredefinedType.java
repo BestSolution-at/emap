@@ -10,10 +10,10 @@ package at.bestsolution.persistence.emap.eMap;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EPredefinedType#getRef <em>Ref</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEPredefinedType()
  * @model

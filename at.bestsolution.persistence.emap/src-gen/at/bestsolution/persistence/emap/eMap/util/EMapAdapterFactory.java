@@ -85,6 +85,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createEMappingBundleAdapter();
       }
       @Override
+      public Adapter caseEPredef(EPredef object)
+      {
+        return createEPredefAdapter();
+      }
+      @Override
       public Adapter caseEGeneratorDef(EGeneratorDef object)
       {
         return createEGeneratorDefAdapter();
@@ -260,6 +265,16 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createETypeAdapter();
       }
       @Override
+      public Adapter caseEPredefSequence(EPredefSequence object)
+      {
+        return createEPredefSequenceAdapter();
+      }
+      @Override
+      public Adapter caseEPredefTable(EPredefTable object)
+      {
+        return createEPredefTableAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -307,6 +322,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createEMappingBundleAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPredef <em>EPredef</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EPredef
+   * @generated
+   */
+  public Adapter createEPredefAdapter()
   {
     return null;
   }
@@ -832,6 +862,36 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createETypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPredefSequence <em>EPredef Sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EPredefSequence
+   * @generated
+   */
+  public Adapter createEPredefSequenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.EPredefTable <em>EPredef Table</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.EPredefTable
+   * @generated
+   */
+  public Adapter createEPredefTableAdapter()
   {
     return null;
   }

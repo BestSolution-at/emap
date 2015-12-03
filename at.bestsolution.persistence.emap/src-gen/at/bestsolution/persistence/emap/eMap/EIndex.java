@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EIndex#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EIndex#getAttributes <em>Attributes</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEIndex()
  * @model

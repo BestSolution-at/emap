@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getQuery <em>Query</em>}</li>
@@ -21,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#isCached <em>Cached</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EModelTypeAttribute#getCacheName <em>Cache Name</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEModelTypeAttribute()
  * @model

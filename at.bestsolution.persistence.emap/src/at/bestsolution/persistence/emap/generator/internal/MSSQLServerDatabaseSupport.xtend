@@ -14,6 +14,8 @@ import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import at.bestsolution.persistence.emap.eMap.EAttribute
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
+import at.bestsolution.persistence.emap.eMap.EBundleEntity
+import at.bestsolution.persistence.emap.generator.UtilCollection
 
 class MSSQLServerDatabaseSupport extends DatabaseSupport {
 
@@ -32,6 +34,10 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 //	override processInsert(EAttribute primaryKey, String insert) {
 //		return insert;
 //	}
+
+	override isKeyGenerationTypeSupported(KeyGenerationType type) {
+		return type == KeyGenerationType.AUTOKEY || type == KeyGenerationType.SEQNEXT || type == KeyGenerationType.QUERY
+	}
 
 	override supportsGeneratedKeys() {
 		return true;
@@ -66,6 +72,18 @@ class MSSQLServerDatabaseSupport extends DatabaseSupport {
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {
 		return true;
+	}
+	
+	override getPrimaryKeyCreateInlineContribution(UtilCollection util, EAttribute primaryKey) {
+		'''PRIMARY KEY'''
+	}
+	
+	override getPrimaryKeyCreateConstraintContribution(UtilCollection util, EBundleEntity bundleEntity, EAttribute primaryKey) {
+		null
+	}
+	
+	override getPrimaryKeyAlterContribution(UtilCollection util, EAttribute primaryKey) {
+		null
 	}
 
 //	override supportsGeneratedKeyAsResultSet() {

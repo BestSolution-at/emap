@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getDbType <em>Db Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getMapping <em>Mapping</em>}</li>
@@ -21,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getOrderby <em>Orderby</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EQuery#getAll <em>All</em>}</li>
  * </ul>
+ * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEQuery()
  * @model

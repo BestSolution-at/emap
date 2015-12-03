@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#isAbstract <em>Abstract</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getName <em>Name</em>}</li>
@@ -44,6 +43,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getTableName <em>Table Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityImpl#getDescriminationColumn <em>Descrimination Column</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

@@ -25,6 +25,8 @@ import at.bestsolution.persistence.emap.eMap.ENamedServiceQuery;
 import at.bestsolution.persistence.emap.eMap.EObjectSection;
 import at.bestsolution.persistence.emap.eMap.EParameter;
 import at.bestsolution.persistence.emap.eMap.EPathParam;
+import at.bestsolution.persistence.emap.eMap.EPredefSequence;
+import at.bestsolution.persistence.emap.eMap.EPredefTable;
 import at.bestsolution.persistence.emap.eMap.EPredefinedType;
 import at.bestsolution.persistence.emap.eMap.EQuery;
 import at.bestsolution.persistence.emap.eMap.EQueryParam;
@@ -125,6 +127,12 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EMapPackage.EPATH_PARAM:
 				sequence_EPathParam(context, (EPathParam) semanticObject); 
+				return; 
+			case EMapPackage.EPREDEF_SEQUENCE:
+				sequence_EPredef(context, (EPredefSequence) semanticObject); 
+				return; 
+			case EMapPackage.EPREDEF_TABLE:
+				sequence_EPredef(context, (EPredefTable) semanticObject); 
 				return; 
 			case EMapPackage.EPREDEFINED_TYPE:
 				sequence_EPredefinedType(context, (EPredefinedType) semanticObject); 
@@ -291,6 +299,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         imports+=Import* 
 	 *         name=ID 
 	 *         parentBundle=[EMappingBundle|QualifiedName]? 
+	 *         (predef+=EPredef predef+=EPredef*)? 
 	 *         entities+=EBundleEntity 
 	 *         entities+=EBundleEntity* 
 	 *         typeDefs+=ESQLTypeDef* 
@@ -419,6 +428,38 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 */
 	protected void sequence_EPathParam(EObject context, EPathParam semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=STRING
+	 */
+	protected void sequence_EPredef(EObject context, EPredefSequence semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPREDEF__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_0_2_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=STRING
+	 */
+	protected void sequence_EPredef(EObject context, EPredefTable semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPREDEF__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_1_2_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	

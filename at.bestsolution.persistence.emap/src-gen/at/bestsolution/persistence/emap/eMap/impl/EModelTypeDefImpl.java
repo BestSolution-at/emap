@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl#getEclassDef <em>Eclass Def</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeDefImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

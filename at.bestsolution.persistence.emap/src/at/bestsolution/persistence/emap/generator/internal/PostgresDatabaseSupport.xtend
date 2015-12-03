@@ -10,10 +10,12 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.internal
 
-import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import at.bestsolution.persistence.emap.eMap.EAttribute
+import at.bestsolution.persistence.emap.eMap.EBundleEntity
+import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
+import at.bestsolution.persistence.emap.generator.UtilCollection
 
 class PostgresDatabaseSupport extends DatabaseSupport {
 
@@ -21,10 +23,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		return "Postgres"
 	}
 
-	override getSequenceStatementNextVal(EAttribute primaryKey) {
-//		return "NEXT VALUE FOR " + primaryKey.valueGenerators.findFirst[dbType==databaseId].sequence;
-		return null;
-	}
+	
 
 //	override getSequenceStatementCurVal(EAttribute primaryKey) {
 //		return null;
@@ -33,6 +32,10 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 //	override processInsert(EAttribute primaryKey, String insert) {
 //		return insert + " RETURNING " + primaryKey.getColumnName();
 //	}
+
+	override isKeyGenerationTypeSupported(KeyGenerationType type) {
+		return type == KeyGenerationType.AUTOKEY || type == KeyGenerationType.SEQNEXT || type == KeyGenerationType.QUERY
+	}
 
 	override supportsGeneratedKeys() {
 		return true;
@@ -53,7 +56,7 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			if( ! fkResolve && attribute.pk ) {
+			if ( !fkResolve && attribute.pk && (attribute.valueGenerators.findFirst[dbType==this.databaseId] == null || attribute.valueGenerators.findFirst[dbType==this.databaseId].autokey)) {
 				return "bigserial"
 			} else {
 				return "bigint";
@@ -87,6 +90,30 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 
 	override isDefaultLowerCase() {
 		return true;
+	}
+	
+	override getSequenceStatementNextVal(EAttribute primaryKey) {
+		return null; // in postgres this comes always from the default value (see getPrimaryKeyAlterContribution)
+	}
+	
+	override getPrimaryKeyCreateInlineContribution(UtilCollection util, EAttribute primaryKey) {
+		'''PRIMARY KEY'''
+	}
+	
+	override getPrimaryKeyCreateConstraintContribution(UtilCollection util, EBundleEntity bundleEntity, EAttribute primaryKey) {
+		null
+	}
+	
+	override getPrimaryKeyAlterContribution(extension UtilCollection util, EAttribute primaryKey) {
+		if (primaryKey.getValueGenerator(this).isSequence){
+			val tableName = primaryKey.entity.calcTableName(this)
+			val columnName = primaryKey.calcColumnName(this)
+			val sequenceName = primaryKey.getValueGenerator(this).sequence
+			'''ALTER TABLE «tableName» ALTER COLUMN «columnName» SET DEFAULT nextval('«sequenceName»'::regclass);'''
+		}
+		else {
+			null
+		}
 	}
 
 }

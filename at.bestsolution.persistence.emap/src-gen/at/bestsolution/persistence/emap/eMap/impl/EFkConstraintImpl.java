@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EFkConstraintImpl#getAttribute <em>Attribute</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EFkConstraintImpl#getName <em>Name</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

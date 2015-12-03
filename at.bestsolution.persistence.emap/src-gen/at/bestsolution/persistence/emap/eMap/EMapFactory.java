@@ -41,6 +41,15 @@ public interface EMapFactory extends EFactory
   EMappingBundle createEMappingBundle();
 
   /**
+   * Returns a new object of class '<em>EPredef</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EPredef</em>'.
+   * @generated
+   */
+  EPredef createEPredef();
+
+  /**
    * Returns a new object of class '<em>EGenerator Def</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -354,6 +363,24 @@ public interface EMapFactory extends EFactory
    * @generated
    */
   EType createEType();
+
+  /**
+   * Returns a new object of class '<em>EPredef Sequence</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EPredef Sequence</em>'.
+   * @generated
+   */
+  EPredefSequence createEPredefSequence();
+
+  /**
+   * Returns a new object of class '<em>EPredef Table</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>EPredef Table</em>'.
+   * @generated
+   */
+  EPredefTable createEPredefTable();
 
   /**
    * Returns the package supported by this factory.

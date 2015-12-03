@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getDescriminatedTypes <em>Descriminated Types</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EObjectSectionImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

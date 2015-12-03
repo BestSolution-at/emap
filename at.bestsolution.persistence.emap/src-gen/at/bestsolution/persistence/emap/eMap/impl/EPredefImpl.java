@@ -3,43 +3,30 @@
 package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
-import at.bestsolution.persistence.emap.eMap.EParameter;
-import at.bestsolution.persistence.emap.eMap.EServiceParam;
+import at.bestsolution.persistence.emap.eMap.EPredef;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>EService Param</b></em>'.
+ * An implementation of the model object '<em><b>EPredef</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl#getParam <em>Param</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EServiceParamImpl#getName <em>Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EPredefImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EServiceParamImpl extends MinimalEObjectImpl.Container implements EServiceParam
+public class EPredefImpl extends MinimalEObjectImpl.Container implements EPredef
 {
-  /**
-   * The cached value of the '{@link #getParam() <em>Param</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getParam()
-   * @generated
-   * @ordered
-   */
-  protected EParameter param;
-
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -65,7 +52,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
    * <!-- end-user-doc -->
    * @generated
    */
-  protected EServiceParamImpl()
+  protected EPredefImpl()
   {
     super();
   }
@@ -78,50 +65,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
   @Override
   protected EClass eStaticClass()
   {
-    return EMapPackage.Literals.ESERVICE_PARAM;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EParameter getParam()
-  {
-    if (param != null && param.eIsProxy())
-    {
-      InternalEObject oldParam = (InternalEObject)param;
-      param = (EParameter)eResolveProxy(oldParam);
-      if (param != oldParam)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.ESERVICE_PARAM__PARAM, oldParam, param));
-      }
-    }
-    return param;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EParameter basicGetParam()
-  {
-    return param;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setParam(EParameter newParam)
-  {
-    EParameter oldParam = param;
-    param = newParam;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ESERVICE_PARAM__PARAM, oldParam, param));
+    return EMapPackage.Literals.EPREDEF;
   }
 
   /**
@@ -144,7 +88,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ESERVICE_PARAM__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.EPREDEF__NAME, oldName, name));
   }
 
   /**
@@ -157,10 +101,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
   {
     switch (featureID)
     {
-      case EMapPackage.ESERVICE_PARAM__PARAM:
-        if (resolve) return getParam();
-        return basicGetParam();
-      case EMapPackage.ESERVICE_PARAM__NAME:
+      case EMapPackage.EPREDEF__NAME:
         return getName();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -176,10 +117,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
   {
     switch (featureID)
     {
-      case EMapPackage.ESERVICE_PARAM__PARAM:
-        setParam((EParameter)newValue);
-        return;
-      case EMapPackage.ESERVICE_PARAM__NAME:
+      case EMapPackage.EPREDEF__NAME:
         setName((String)newValue);
         return;
     }
@@ -196,10 +134,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
   {
     switch (featureID)
     {
-      case EMapPackage.ESERVICE_PARAM__PARAM:
-        setParam((EParameter)null);
-        return;
-      case EMapPackage.ESERVICE_PARAM__NAME:
+      case EMapPackage.EPREDEF__NAME:
         setName(NAME_EDEFAULT);
         return;
     }
@@ -216,9 +151,7 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
   {
     switch (featureID)
     {
-      case EMapPackage.ESERVICE_PARAM__PARAM:
-        return param != null;
-      case EMapPackage.ESERVICE_PARAM__NAME:
+      case EMapPackage.EPREDEF__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
     }
     return super.eIsSet(featureID);
@@ -241,4 +174,4 @@ public class EServiceParamImpl extends MinimalEObjectImpl.Container implements E
     return result.toString();
   }
 
-} //EServiceParamImpl
+} //EPredefImpl

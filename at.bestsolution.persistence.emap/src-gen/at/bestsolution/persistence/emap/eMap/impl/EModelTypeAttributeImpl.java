@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getQuery <em>Query</em>}</li>
@@ -34,6 +33,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#isCached <em>Cached</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EModelTypeAttributeImpl#getCacheName <em>Cache Name</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

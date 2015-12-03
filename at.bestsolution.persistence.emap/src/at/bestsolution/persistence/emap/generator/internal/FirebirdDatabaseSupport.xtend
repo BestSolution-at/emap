@@ -10,8 +10,10 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator.internal
 
-import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import at.bestsolution.persistence.emap.eMap.EAttribute
+import at.bestsolution.persistence.emap.eMap.EBundleEntity
+import at.bestsolution.persistence.emap.generator.DatabaseSupport
+import at.bestsolution.persistence.emap.generator.UtilCollection
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
 
@@ -32,6 +34,10 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 //	override processInsert(EAttribute primaryKey, String insert) {
 //		return insert + " RETURNING " + primaryKey.getColumnName();
 //	}
+
+	override isKeyGenerationTypeSupported(KeyGenerationType type) {
+		return type == KeyGenerationType.SEQNEXT || type == KeyGenerationType.QUERY
+	}
 
 	override supportsGeneratedKeys() {
 		return false;
@@ -74,6 +80,24 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 
 	override getAutokeyDefinition(EAttribute primaryKey) {
 		return ""
+	}
+	
+	
+	override getPrimaryKeyCreateInlineContribution(UtilCollection util, EAttribute primaryKey) {
+		null
+	}
+	
+	override getPrimaryKeyCreateConstraintContribution(extension UtilCollection util, EBundleEntity bundleEntity, EAttribute primaryKey) {
+		if (bundleEntity.pkConstraintName == null) {
+			'''constraint pk_«bundleEntity.entity.calcTableName» PRIMARY KEY("«primaryKey.columnName»")'''
+		}
+		else {
+			'''constraint «bundleEntity.pkConstraintName» PRIMARY KEY("«primaryKey.columnName»")'''	
+		}
+	}
+	
+	override getPrimaryKeyAlterContribution(UtilCollection util, EAttribute primaryKey) {
+		null
 	}
 
 	override isPrimaryKeyPartOfColDef(EAttribute primaryKey) {

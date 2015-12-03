@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EGreedyAttributePathImpl#getGreedyAttribute <em>Greedy Attribute</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EGreedyAttributePathImpl#getSubPathList <em>Sub Path List</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

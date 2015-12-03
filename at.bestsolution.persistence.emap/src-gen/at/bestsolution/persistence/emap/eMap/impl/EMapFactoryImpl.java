@@ -67,6 +67,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
     {
       case EMapPackage.EMAPPING: return createEMapping();
       case EMapPackage.EMAPPING_BUNDLE: return createEMappingBundle();
+      case EMapPackage.EPREDEF: return createEPredef();
       case EMapPackage.EGENERATOR_DEF: return createEGeneratorDef();
       case EMapPackage.EGENERATOR_CONFIG_VALUE: return createEGeneratorConfigValue();
       case EMapPackage.EBUNDLE_ENTITY: return createEBundleEntity();
@@ -102,6 +103,8 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.EOBJECT_SECTION: return createEObjectSection();
       case EMapPackage.EMAPPING_ATTRIBUTE: return createEMappingAttribute();
       case EMapPackage.ETYPE: return createEType();
+      case EMapPackage.EPREDEF_SEQUENCE: return createEPredefSequence();
+      case EMapPackage.EPREDEF_TABLE: return createEPredefTable();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -165,6 +168,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     EMappingBundleImpl eMappingBundle = new EMappingBundleImpl();
     return eMappingBundle;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EPredef createEPredef()
+  {
+    EPredefImpl ePredef = new EPredefImpl();
+    return ePredef;
   }
 
   /**
@@ -550,6 +564,28 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     ETypeImpl eType = new ETypeImpl();
     return eType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EPredefSequence createEPredefSequence()
+  {
+    EPredefSequenceImpl ePredefSequence = new EPredefSequenceImpl();
+    return ePredefSequence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EPredefTable createEPredefTable()
+  {
+    EPredefTableImpl ePredefTable = new EPredefTableImpl();
+    return ePredefTable;
   }
 
   /**

@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl#getReturnType <em>Return Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl#isList <em>List</em>}</li>
@@ -38,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedCustomQueryImpl#getQueries <em>Queries</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

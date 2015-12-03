@@ -7,6 +7,7 @@ import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.EMappingBundle;
+import at.bestsolution.persistence.emap.eMap.EPredef;
 import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
 import at.bestsolution.persistence.emap.eMap.Import;
 
@@ -33,17 +34,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getParentBundle <em>Parent Bundle</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getPredef <em>Predef</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getEntities <em>Entities</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getTypeDefs <em>Type Defs</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getGenerators <em>Generators</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getDatabases <em>Databases</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getColSort <em>Col Sort</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -88,6 +90,16 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * @ordered
    */
   protected EMappingBundle parentBundle;
+
+  /**
+   * The cached value of the '{@link #getPredef() <em>Predef</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPredef()
+   * @generated
+   * @ordered
+   */
+  protected EList<EPredef> predef;
 
   /**
    * The cached value of the '{@link #getEntities() <em>Entities</em>}' containment reference list.
@@ -255,6 +267,20 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<EPredef> getPredef()
+  {
+    if (predef == null)
+    {
+      predef = new EObjectContainmentEList<EPredef>(EPredef.class, this, EMapPackage.EMAPPING_BUNDLE__PREDEF);
+    }
+    return predef;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<EBundleEntity> getEntities()
   {
     if (entities == null)
@@ -341,6 +367,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
     {
       case EMapPackage.EMAPPING_BUNDLE__IMPORTS:
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EMAPPING_BUNDLE__PREDEF:
+        return ((InternalEList<?>)getPredef()).basicRemove(otherEnd, msgs);
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         return ((InternalEList<?>)getEntities()).basicRemove(otherEnd, msgs);
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
@@ -368,6 +396,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_BUNDLE__PARENT_BUNDLE:
         if (resolve) return getParentBundle();
         return basicGetParentBundle();
+      case EMapPackage.EMAPPING_BUNDLE__PREDEF:
+        return getPredef();
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         return getEntities();
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:
@@ -402,6 +432,10 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return;
       case EMapPackage.EMAPPING_BUNDLE__PARENT_BUNDLE:
         setParentBundle((EMappingBundle)newValue);
+        return;
+      case EMapPackage.EMAPPING_BUNDLE__PREDEF:
+        getPredef().clear();
+        getPredef().addAll((Collection<? extends EPredef>)newValue);
         return;
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         getEntities().clear();
@@ -445,6 +479,9 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
       case EMapPackage.EMAPPING_BUNDLE__PARENT_BUNDLE:
         setParentBundle((EMappingBundle)null);
         return;
+      case EMapPackage.EMAPPING_BUNDLE__PREDEF:
+        getPredef().clear();
+        return;
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         getEntities().clear();
         return;
@@ -480,6 +517,8 @@ public class EMappingBundleImpl extends MinimalEObjectImpl.Container implements 
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case EMapPackage.EMAPPING_BUNDLE__PARENT_BUNDLE:
         return parentBundle != null;
+      case EMapPackage.EMAPPING_BUNDLE__PREDEF:
+        return predef != null && !predef.isEmpty();
       case EMapPackage.EMAPPING_BUNDLE__ENTITIES:
         return entities != null && !entities.isEmpty();
       case EMapPackage.EMAPPING_BUNDLE__TYPE_DEFS:

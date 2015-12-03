@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#isPk <em>Pk</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getProperty <em>Property</em>}</li>
@@ -39,6 +38,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#isMapped <em>Mapped</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingAttributeImpl#getMap <em>Map</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

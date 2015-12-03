@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl#getPackage <em>Package</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingEntityDefImpl#getEntity <em>Entity</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

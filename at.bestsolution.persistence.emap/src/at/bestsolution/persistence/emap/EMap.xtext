@@ -18,12 +18,18 @@ EMapping:
 EMappingBundle:
 	imports+=Import*
 	'bundle' name=ID ('extends' parentBundle=[EMappingBundle|QualifiedName])? '{'
+		('predefined' '{' predef += EPredef (',' predef+=EPredef )* '}')?
 		entities += EBundleEntity (',' entities += EBundleEntity)*
 		typeDefs += ESQLTypeDef*
 		('generator' '{'
 			generators+=EGeneratorDef+
 		'}')?
 	'}' ('databases' databases+=STRING (',' databases+=STRING)*)? ('colsort' colSort=ColSort )?
+;
+
+EPredef:
+	{EPredefSequence} 'sequence' name=STRING |
+	{EPredefTable} 'table' name=STRING
 ;
 
 EGeneratorDef:

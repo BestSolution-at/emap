@@ -56,43 +56,55 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cParentBundleEMappingBundleCrossReference_3_1_0 = (CrossReference)cParentBundleAssignment_3_1.eContents().get(0);
 		private final RuleCall cParentBundleEMappingBundleQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cParentBundleEMappingBundleCrossReference_3_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cEntitiesAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cEntitiesEBundleEntityParserRuleCall_5_0 = (RuleCall)cEntitiesAssignment_5.eContents().get(0);
-		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cCommaKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
-		private final Assignment cEntitiesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
-		private final RuleCall cEntitiesEBundleEntityParserRuleCall_6_1_0 = (RuleCall)cEntitiesAssignment_6_1.eContents().get(0);
-		private final Assignment cTypeDefsAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cTypeDefsESQLTypeDefParserRuleCall_7_0 = (RuleCall)cTypeDefsAssignment_7.eContents().get(0);
-		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cGeneratorKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_8_1 = (Keyword)cGroup_8.eContents().get(1);
-		private final Assignment cGeneratorsAssignment_8_2 = (Assignment)cGroup_8.eContents().get(2);
-		private final RuleCall cGeneratorsEGeneratorDefParserRuleCall_8_2_0 = (RuleCall)cGeneratorsAssignment_8_2.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8_3 = (Keyword)cGroup_8.eContents().get(3);
-		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
-		private final Group cGroup_10 = (Group)cGroup.eContents().get(10);
-		private final Keyword cDatabasesKeyword_10_0 = (Keyword)cGroup_10.eContents().get(0);
-		private final Assignment cDatabasesAssignment_10_1 = (Assignment)cGroup_10.eContents().get(1);
-		private final RuleCall cDatabasesSTRINGTerminalRuleCall_10_1_0 = (RuleCall)cDatabasesAssignment_10_1.eContents().get(0);
-		private final Group cGroup_10_2 = (Group)cGroup_10.eContents().get(2);
-		private final Keyword cCommaKeyword_10_2_0 = (Keyword)cGroup_10_2.eContents().get(0);
-		private final Assignment cDatabasesAssignment_10_2_1 = (Assignment)cGroup_10_2.eContents().get(1);
-		private final RuleCall cDatabasesSTRINGTerminalRuleCall_10_2_1_0 = (RuleCall)cDatabasesAssignment_10_2_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cPredefinedKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Assignment cPredefAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cPredefEPredefParserRuleCall_5_2_0 = (RuleCall)cPredefAssignment_5_2.eContents().get(0);
+		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
+		private final Keyword cCommaKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
+		private final Assignment cPredefAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
+		private final RuleCall cPredefEPredefParserRuleCall_5_3_1_0 = (RuleCall)cPredefAssignment_5_3_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
+		private final Assignment cEntitiesAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cEntitiesEBundleEntityParserRuleCall_6_0 = (RuleCall)cEntitiesAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cCommaKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cEntitiesAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cEntitiesEBundleEntityParserRuleCall_7_1_0 = (RuleCall)cEntitiesAssignment_7_1.eContents().get(0);
+		private final Assignment cTypeDefsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cTypeDefsESQLTypeDefParserRuleCall_8_0 = (RuleCall)cTypeDefsAssignment_8.eContents().get(0);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final Keyword cGeneratorKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_9_1 = (Keyword)cGroup_9.eContents().get(1);
+		private final Assignment cGeneratorsAssignment_9_2 = (Assignment)cGroup_9.eContents().get(2);
+		private final RuleCall cGeneratorsEGeneratorDefParserRuleCall_9_2_0 = (RuleCall)cGeneratorsAssignment_9_2.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9_3 = (Keyword)cGroup_9.eContents().get(3);
+		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		private final Group cGroup_11 = (Group)cGroup.eContents().get(11);
-		private final Keyword cColsortKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
-		private final Assignment cColSortAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
-		private final RuleCall cColSortColSortEnumRuleCall_11_1_0 = (RuleCall)cColSortAssignment_11_1.eContents().get(0);
+		private final Keyword cDatabasesKeyword_11_0 = (Keyword)cGroup_11.eContents().get(0);
+		private final Assignment cDatabasesAssignment_11_1 = (Assignment)cGroup_11.eContents().get(1);
+		private final RuleCall cDatabasesSTRINGTerminalRuleCall_11_1_0 = (RuleCall)cDatabasesAssignment_11_1.eContents().get(0);
+		private final Group cGroup_11_2 = (Group)cGroup_11.eContents().get(2);
+		private final Keyword cCommaKeyword_11_2_0 = (Keyword)cGroup_11_2.eContents().get(0);
+		private final Assignment cDatabasesAssignment_11_2_1 = (Assignment)cGroup_11_2.eContents().get(1);
+		private final RuleCall cDatabasesSTRINGTerminalRuleCall_11_2_1_0 = (RuleCall)cDatabasesAssignment_11_2_1.eContents().get(0);
+		private final Group cGroup_12 = (Group)cGroup.eContents().get(12);
+		private final Keyword cColsortKeyword_12_0 = (Keyword)cGroup_12.eContents().get(0);
+		private final Assignment cColSortAssignment_12_1 = (Assignment)cGroup_12.eContents().get(1);
+		private final RuleCall cColSortColSortEnumRuleCall_12_1_0 = (RuleCall)cColSortAssignment_12_1.eContents().get(0);
 		
 		//EMappingBundle:
-		//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
-		//	("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}"
-		//	("databases" databases+=STRING ("," databases+=STRING)*)? ("colsort" colSort=ColSort)?;
+		//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" ("predefined" "{"
+		//	predef+=EPredef ("," predef+=EPredef)* "}")? entities+=EBundleEntity ("," entities+=EBundleEntity)*
+		//	typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}" ("databases" databases+=STRING (","
+		//	databases+=STRING)*)? ("colsort" colSort=ColSort)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
-		//("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}"
-		//("databases" databases+=STRING ("," databases+=STRING)*)? ("colsort" colSort=ColSort)?
+		//imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" ("predefined" "{"
+		//predef+=EPredef ("," predef+=EPredef)* "}")? entities+=EBundleEntity ("," entities+=EBundleEntity)*
+		//typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}" ("databases" databases+=STRING (","
+		//databases+=STRING)*)? ("colsort" colSort=ColSort)?
 		public Group getGroup() { return cGroup; }
 
 		//imports+=Import*
@@ -128,86 +140,168 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 
-		//entities+=EBundleEntity
-		public Assignment getEntitiesAssignment_5() { return cEntitiesAssignment_5; }
+		//("predefined" "{" predef+=EPredef ("," predef+=EPredef)* "}")?
+		public Group getGroup_5() { return cGroup_5; }
 
-		//EBundleEntity
-		public RuleCall getEntitiesEBundleEntityParserRuleCall_5_0() { return cEntitiesEBundleEntityParserRuleCall_5_0; }
-
-		//("," entities+=EBundleEntity)*
-		public Group getGroup_6() { return cGroup_6; }
-
-		//","
-		public Keyword getCommaKeyword_6_0() { return cCommaKeyword_6_0; }
-
-		//entities+=EBundleEntity
-		public Assignment getEntitiesAssignment_6_1() { return cEntitiesAssignment_6_1; }
-
-		//EBundleEntity
-		public RuleCall getEntitiesEBundleEntityParserRuleCall_6_1_0() { return cEntitiesEBundleEntityParserRuleCall_6_1_0; }
-
-		//typeDefs+=ESQLTypeDef*
-		public Assignment getTypeDefsAssignment_7() { return cTypeDefsAssignment_7; }
-
-		//ESQLTypeDef
-		public RuleCall getTypeDefsESQLTypeDefParserRuleCall_7_0() { return cTypeDefsESQLTypeDefParserRuleCall_7_0; }
-
-		//("generator" "{" generators+=EGeneratorDef+ "}")?
-		public Group getGroup_8() { return cGroup_8; }
-
-		//"generator"
-		public Keyword getGeneratorKeyword_8_0() { return cGeneratorKeyword_8_0; }
+		//"predefined"
+		public Keyword getPredefinedKeyword_5_0() { return cPredefinedKeyword_5_0; }
 
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_8_1() { return cLeftCurlyBracketKeyword_8_1; }
+		public Keyword getLeftCurlyBracketKeyword_5_1() { return cLeftCurlyBracketKeyword_5_1; }
 
-		//generators+=EGeneratorDef+
-		public Assignment getGeneratorsAssignment_8_2() { return cGeneratorsAssignment_8_2; }
+		//predef+=EPredef
+		public Assignment getPredefAssignment_5_2() { return cPredefAssignment_5_2; }
 
-		//EGeneratorDef
-		public RuleCall getGeneratorsEGeneratorDefParserRuleCall_8_2_0() { return cGeneratorsEGeneratorDefParserRuleCall_8_2_0; }
+		//EPredef
+		public RuleCall getPredefEPredefParserRuleCall_5_2_0() { return cPredefEPredefParserRuleCall_5_2_0; }
 
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_8_3() { return cRightCurlyBracketKeyword_8_3; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
-
-		//("databases" databases+=STRING ("," databases+=STRING)*)?
-		public Group getGroup_10() { return cGroup_10; }
-
-		//"databases"
-		public Keyword getDatabasesKeyword_10_0() { return cDatabasesKeyword_10_0; }
-
-		//databases+=STRING
-		public Assignment getDatabasesAssignment_10_1() { return cDatabasesAssignment_10_1; }
-
-		//STRING
-		public RuleCall getDatabasesSTRINGTerminalRuleCall_10_1_0() { return cDatabasesSTRINGTerminalRuleCall_10_1_0; }
-
-		//("," databases+=STRING)*
-		public Group getGroup_10_2() { return cGroup_10_2; }
+		//("," predef+=EPredef)*
+		public Group getGroup_5_3() { return cGroup_5_3; }
 
 		//","
-		public Keyword getCommaKeyword_10_2_0() { return cCommaKeyword_10_2_0; }
+		public Keyword getCommaKeyword_5_3_0() { return cCommaKeyword_5_3_0; }
 
-		//databases+=STRING
-		public Assignment getDatabasesAssignment_10_2_1() { return cDatabasesAssignment_10_2_1; }
+		//predef+=EPredef
+		public Assignment getPredefAssignment_5_3_1() { return cPredefAssignment_5_3_1; }
 
-		//STRING
-		public RuleCall getDatabasesSTRINGTerminalRuleCall_10_2_1_0() { return cDatabasesSTRINGTerminalRuleCall_10_2_1_0; }
+		//EPredef
+		public RuleCall getPredefEPredefParserRuleCall_5_3_1_0() { return cPredefEPredefParserRuleCall_5_3_1_0; }
 
-		//("colsort" colSort=ColSort)?
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_5_4() { return cRightCurlyBracketKeyword_5_4; }
+
+		//entities+=EBundleEntity
+		public Assignment getEntitiesAssignment_6() { return cEntitiesAssignment_6; }
+
+		//EBundleEntity
+		public RuleCall getEntitiesEBundleEntityParserRuleCall_6_0() { return cEntitiesEBundleEntityParserRuleCall_6_0; }
+
+		//("," entities+=EBundleEntity)*
+		public Group getGroup_7() { return cGroup_7; }
+
+		//","
+		public Keyword getCommaKeyword_7_0() { return cCommaKeyword_7_0; }
+
+		//entities+=EBundleEntity
+		public Assignment getEntitiesAssignment_7_1() { return cEntitiesAssignment_7_1; }
+
+		//EBundleEntity
+		public RuleCall getEntitiesEBundleEntityParserRuleCall_7_1_0() { return cEntitiesEBundleEntityParserRuleCall_7_1_0; }
+
+		//typeDefs+=ESQLTypeDef*
+		public Assignment getTypeDefsAssignment_8() { return cTypeDefsAssignment_8; }
+
+		//ESQLTypeDef
+		public RuleCall getTypeDefsESQLTypeDefParserRuleCall_8_0() { return cTypeDefsESQLTypeDefParserRuleCall_8_0; }
+
+		//("generator" "{" generators+=EGeneratorDef+ "}")?
+		public Group getGroup_9() { return cGroup_9; }
+
+		//"generator"
+		public Keyword getGeneratorKeyword_9_0() { return cGeneratorKeyword_9_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_9_1() { return cLeftCurlyBracketKeyword_9_1; }
+
+		//generators+=EGeneratorDef+
+		public Assignment getGeneratorsAssignment_9_2() { return cGeneratorsAssignment_9_2; }
+
+		//EGeneratorDef
+		public RuleCall getGeneratorsEGeneratorDefParserRuleCall_9_2_0() { return cGeneratorsEGeneratorDefParserRuleCall_9_2_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_9_3() { return cRightCurlyBracketKeyword_9_3; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
+
+		//("databases" databases+=STRING ("," databases+=STRING)*)?
 		public Group getGroup_11() { return cGroup_11; }
 
+		//"databases"
+		public Keyword getDatabasesKeyword_11_0() { return cDatabasesKeyword_11_0; }
+
+		//databases+=STRING
+		public Assignment getDatabasesAssignment_11_1() { return cDatabasesAssignment_11_1; }
+
+		//STRING
+		public RuleCall getDatabasesSTRINGTerminalRuleCall_11_1_0() { return cDatabasesSTRINGTerminalRuleCall_11_1_0; }
+
+		//("," databases+=STRING)*
+		public Group getGroup_11_2() { return cGroup_11_2; }
+
+		//","
+		public Keyword getCommaKeyword_11_2_0() { return cCommaKeyword_11_2_0; }
+
+		//databases+=STRING
+		public Assignment getDatabasesAssignment_11_2_1() { return cDatabasesAssignment_11_2_1; }
+
+		//STRING
+		public RuleCall getDatabasesSTRINGTerminalRuleCall_11_2_1_0() { return cDatabasesSTRINGTerminalRuleCall_11_2_1_0; }
+
+		//("colsort" colSort=ColSort)?
+		public Group getGroup_12() { return cGroup_12; }
+
 		//"colsort"
-		public Keyword getColsortKeyword_11_0() { return cColsortKeyword_11_0; }
+		public Keyword getColsortKeyword_12_0() { return cColsortKeyword_12_0; }
 
 		//colSort=ColSort
-		public Assignment getColSortAssignment_11_1() { return cColSortAssignment_11_1; }
+		public Assignment getColSortAssignment_12_1() { return cColSortAssignment_12_1; }
 
 		//ColSort
-		public RuleCall getColSortColSortEnumRuleCall_11_1_0() { return cColSortColSortEnumRuleCall_11_1_0; }
+		public RuleCall getColSortColSortEnumRuleCall_12_1_0() { return cColSortColSortEnumRuleCall_12_1_0; }
+	}
+
+	public class EPredefElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "EPredef");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Action cEPredefSequenceAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Keyword cSequenceKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cNameAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cNameSTRINGTerminalRuleCall_0_2_0 = (RuleCall)cNameAssignment_0_2.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Action cEPredefTableAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cTableKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cNameAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cNameSTRINGTerminalRuleCall_1_2_0 = (RuleCall)cNameAssignment_1_2.eContents().get(0);
+		
+		//EPredef:
+		//	{EPredefSequence} "sequence" name=STRING | {EPredefTable} "table" name=STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//{EPredefSequence} "sequence" name=STRING | {EPredefTable} "table" name=STRING
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//{EPredefSequence} "sequence" name=STRING
+		public Group getGroup_0() { return cGroup_0; }
+
+		//{EPredefSequence}
+		public Action getEPredefSequenceAction_0_0() { return cEPredefSequenceAction_0_0; }
+
+		//"sequence"
+		public Keyword getSequenceKeyword_0_1() { return cSequenceKeyword_0_1; }
+
+		//name=STRING
+		public Assignment getNameAssignment_0_2() { return cNameAssignment_0_2; }
+
+		//STRING
+		public RuleCall getNameSTRINGTerminalRuleCall_0_2_0() { return cNameSTRINGTerminalRuleCall_0_2_0; }
+
+		//{EPredefTable} "table" name=STRING
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{EPredefTable}
+		public Action getEPredefTableAction_1_0() { return cEPredefTableAction_1_0; }
+
+		//"table"
+		public Keyword getTableKeyword_1_1() { return cTableKeyword_1_1; }
+
+		//name=STRING
+		public Assignment getNameAssignment_1_2() { return cNameAssignment_1_2; }
+
+		//STRING
+		public RuleCall getNameSTRINGTerminalRuleCall_1_2_0() { return cNameSTRINGTerminalRuleCall_1_2_0; }
 	}
 
 	public class EGeneratorDefElements extends AbstractParserRuleElementFinder {
@@ -2985,6 +3079,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final EMappingElements pEMapping;
 	private final EMappingBundleElements pEMappingBundle;
+	private final EPredefElements pEPredef;
 	private final EGeneratorDefElements pEGeneratorDef;
 	private final EGeneratorConfigValueElements pEGeneratorConfigValue;
 	private final ColSortElements unknownRuleColSort;
@@ -3039,6 +3134,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pEMapping = new EMappingElements();
 		this.pEMappingBundle = new EMappingBundleElements();
+		this.pEPredef = new EPredefElements();
 		this.pEGeneratorDef = new EGeneratorDefElements();
 		this.pEGeneratorConfigValue = new EGeneratorConfigValueElements();
 		this.unknownRuleColSort = new ColSortElements();
@@ -3121,15 +3217,26 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EMappingBundle:
-	//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" entities+=EBundleEntity
-	//	("," entities+=EBundleEntity)* typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}"
-	//	("databases" databases+=STRING ("," databases+=STRING)*)? ("colsort" colSort=ColSort)?;
+	//	imports+=Import* "bundle" name=ID ("extends" parentBundle=[EMappingBundle|QualifiedName])? "{" ("predefined" "{"
+	//	predef+=EPredef ("," predef+=EPredef)* "}")? entities+=EBundleEntity ("," entities+=EBundleEntity)*
+	//	typeDefs+=ESQLTypeDef* ("generator" "{" generators+=EGeneratorDef+ "}")? "}" ("databases" databases+=STRING (","
+	//	databases+=STRING)*)? ("colsort" colSort=ColSort)?;
 	public EMappingBundleElements getEMappingBundleAccess() {
 		return pEMappingBundle;
 	}
 	
 	public ParserRule getEMappingBundleRule() {
 		return getEMappingBundleAccess().getRule();
+	}
+
+	//EPredef:
+	//	{EPredefSequence} "sequence" name=STRING | {EPredefTable} "table" name=STRING;
+	public EPredefElements getEPredefAccess() {
+		return pEPredef;
+	}
+	
+	public ParserRule getEPredefRule() {
+		return getEPredefAccess().getRule();
 	}
 
 	//EGeneratorDef:

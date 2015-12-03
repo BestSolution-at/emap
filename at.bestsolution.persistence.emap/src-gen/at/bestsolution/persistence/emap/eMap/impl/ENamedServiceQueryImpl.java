@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getQuery <em>Query</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getName <em>Name</em>}</li>
@@ -38,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getGreedyAttributePathList <em>Greedy Attribute Path List</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
