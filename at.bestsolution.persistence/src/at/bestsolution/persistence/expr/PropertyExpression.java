@@ -34,4 +34,9 @@ public abstract class PropertyExpression<O> extends Expression<O> {
 	public List<QueryFunction<O, ?, ?>> getFunctions() {
 		return Collections.unmodifiableList(functions);
 	}
+	
+	@Override
+	public String toString() {
+		return property + " " + type + " " + data + (hasFunctions()?" *hasFunctions":"");
+	}
 }
