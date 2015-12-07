@@ -2,6 +2,7 @@
  */
 package at.bestsolution.persistence.emap.eMap.impl;
 
+import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
 import at.bestsolution.persistence.emap.eMap.ENamedServiceQuery;
 import at.bestsolution.persistence.emap.eMap.ERestServiceMapping;
@@ -28,11 +29,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl#getServiceMethods <em>Service Methods</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl#getCustomServiceMethods <em>Custom Service Methods</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ERestServiceMappingImpl#isRest <em>Rest</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -47,6 +49,16 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
    * @ordered
    */
   protected EList<ENamedServiceQuery> serviceMethods;
+
+  /**
+   * The cached value of the '{@link #getCustomServiceMethods() <em>Custom Service Methods</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCustomServiceMethods()
+   * @generated
+   * @ordered
+   */
+  protected EList<ECustomServiceMethods> customServiceMethods;
 
   /**
    * The default value of the '{@link #isRest() <em>Rest</em>}' attribute.
@@ -108,6 +120,20 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ECustomServiceMethods> getCustomServiceMethods()
+  {
+    if (customServiceMethods == null)
+    {
+      customServiceMethods = new EObjectContainmentEList<ECustomServiceMethods>(ECustomServiceMethods.class, this, EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS);
+    }
+    return customServiceMethods;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public boolean isRest()
   {
     return rest;
@@ -138,6 +164,8 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
     {
       case EMapPackage.EREST_SERVICE_MAPPING__SERVICE_METHODS:
         return ((InternalEList<?>)getServiceMethods()).basicRemove(otherEnd, msgs);
+      case EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS:
+        return ((InternalEList<?>)getCustomServiceMethods()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -154,6 +182,8 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
     {
       case EMapPackage.EREST_SERVICE_MAPPING__SERVICE_METHODS:
         return getServiceMethods();
+      case EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS:
+        return getCustomServiceMethods();
       case EMapPackage.EREST_SERVICE_MAPPING__REST:
         return isRest();
     }
@@ -175,6 +205,10 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
         getServiceMethods().clear();
         getServiceMethods().addAll((Collection<? extends ENamedServiceQuery>)newValue);
         return;
+      case EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS:
+        getCustomServiceMethods().clear();
+        getCustomServiceMethods().addAll((Collection<? extends ECustomServiceMethods>)newValue);
+        return;
       case EMapPackage.EREST_SERVICE_MAPPING__REST:
         setRest((Boolean)newValue);
         return;
@@ -195,6 +229,9 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
       case EMapPackage.EREST_SERVICE_MAPPING__SERVICE_METHODS:
         getServiceMethods().clear();
         return;
+      case EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS:
+        getCustomServiceMethods().clear();
+        return;
       case EMapPackage.EREST_SERVICE_MAPPING__REST:
         setRest(REST_EDEFAULT);
         return;
@@ -214,6 +251,8 @@ public class ERestServiceMappingImpl extends MinimalEObjectImpl.Container implem
     {
       case EMapPackage.EREST_SERVICE_MAPPING__SERVICE_METHODS:
         return serviceMethods != null && !serviceMethods.isEmpty();
+      case EMapPackage.EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS:
+        return customServiceMethods != null && !customServiceMethods.isEmpty();
       case EMapPackage.EREST_SERVICE_MAPPING__REST:
         return rest != REST_EDEFAULT;
     }

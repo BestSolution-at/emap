@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue#getKey <em>Key</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue#getSimpleValue <em>Simple Value</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue#getChildren <em>Children</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEGeneratorConfigValue()
  * @model

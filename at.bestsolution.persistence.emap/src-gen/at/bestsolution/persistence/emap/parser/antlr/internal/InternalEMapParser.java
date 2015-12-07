@@ -23,86 +23,87 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalEMapParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'bundle'", "'extends'", "'{'", "'predefined'", "','", "'}'", "'generator'", "'databases'", "'colsort'", "'sequence'", "'table'", "':'", "'pk-constraint'", "'index'", "'('", "')'", "'fk-constraint'", "'unique-constraint'", "'sql-type-def'", "'default'", "'size'", "'webservice'", "'rest'", "'as'", "'greedy'", "'path-param'", "'named'", "'query-param'", "'import'", "'package'", "';'", "'.'", "'abstract'", "'entity'", "'derived'", "'attributes'", "'queries'", "'descriminatedby'", "'primarykey'", "'forced-fk'", "'=>'", "'generatedby'", "'resolve'", "'on'", "'autokey'", "'query'", "'seqnext'", "'int'", "'long'", "'double'", "'float'", "'boolean'", "'map'", "'['", "']'", "'typedef'", "'cached'", "'FROM'", "'WHERE'", "'GROUP BY'", "'ORDER BY'", "'etype'", "'#'", "'*'", "'EMAP'", "'ECORE'", "'ECORE_REVERSED'", "'ALPHABETIC'", "'list'", "'single'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_INT", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'bundle'", "'extends'", "'{'", "'predefined'", "','", "'}'", "'generator'", "'databases'", "'colsort'", "'sequence'", "'table'", "':'", "'pk-constraint'", "'index'", "'('", "')'", "'fk-constraint'", "'unique-constraint'", "'sql-type-def'", "'default'", "'size'", "'webservice'", "'rest'", "'as'", "'greedy'", "'custom'", "'path-param'", "'named'", "'query-param'", "'import'", "'package'", "';'", "'.'", "'abstract'", "'entity'", "'derived'", "'attributes'", "'queries'", "'descriminatedby'", "'primarykey'", "'forced-fk'", "'=>'", "'generatedby'", "'resolve'", "'on'", "'autokey'", "'query'", "'seqnext'", "'int'", "'long'", "'double'", "'float'", "'boolean'", "'map'", "'['", "']'", "'typedef'", "'cached'", "'FROM'", "'WHERE'", "'GROUP BY'", "'ORDER BY'", "'etype'", "'#'", "'*'", "'EMAP'", "'ECORE'", "'ECORE_REVERSED'", "'ALPHABETIC'", "'list'", "'single'"
     };
-    public static final int T__68=68;
-    public static final int T__69=69;
-    public static final int RULE_ID=4;
-    public static final int T__66=66;
-    public static final int T__67=67;
-    public static final int T__64=64;
-    public static final int T__29=29;
-    public static final int T__65=65;
-    public static final int T__28=28;
-    public static final int T__62=62;
-    public static final int T__27=27;
-    public static final int T__63=63;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int T__21=21;
-    public static final int T__20=20;
-    public static final int T__61=61;
-    public static final int T__60=60;
-    public static final int EOF=-1;
-    public static final int T__55=55;
-    public static final int T__56=56;
+    public static final int T__50=50;
     public static final int T__19=19;
+    public static final int T__15=15;
+    public static final int T__59=59;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__11=11;
+    public static final int T__55=55;
+    public static final int T__12=12;
+    public static final int T__56=56;
+    public static final int T__13=13;
     public static final int T__57=57;
+    public static final int T__14=14;
     public static final int T__58=58;
     public static final int T__51=51;
-    public static final int T__16=16;
     public static final int T__52=52;
-    public static final int T__15=15;
     public static final int T__53=53;
-    public static final int T__18=18;
     public static final int T__54=54;
-    public static final int T__17=17;
-    public static final int T__12=12;
-    public static final int T__11=11;
-    public static final int T__14=14;
-    public static final int T__13=13;
-    public static final int T__59=59;
+    public static final int T__60=60;
+    public static final int T__61=61;
+    public static final int RULE_ID=4;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
     public static final int RULE_INT=6;
-    public static final int T__50=50;
-    public static final int T__42=42;
-    public static final int T__43=43;
-    public static final int T__40=40;
-    public static final int T__41=41;
-    public static final int T__80=80;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int RULE_SL_COMMENT=8;
+    public static final int T__29=29;
+    public static final int T__22=22;
+    public static final int T__66=66;
     public static final int RULE_ML_COMMENT=7;
-    public static final int T__30=30;
-    public static final int T__31=31;
-    public static final int RULE_STRING=5;
-    public static final int T__32=32;
-    public static final int T__71=71;
-    public static final int T__33=33;
-    public static final int T__72=72;
-    public static final int T__34=34;
-    public static final int T__35=35;
+    public static final int T__23=23;
+    public static final int T__67=67;
+    public static final int T__24=24;
+    public static final int T__68=68;
+    public static final int T__25=25;
+    public static final int T__69=69;
+    public static final int T__62=62;
+    public static final int T__63=63;
+    public static final int T__20=20;
+    public static final int T__64=64;
+    public static final int T__21=21;
+    public static final int T__65=65;
     public static final int T__70=70;
-    public static final int T__36=36;
+    public static final int T__71=71;
+    public static final int T__72=72;
+    public static final int RULE_STRING=5;
+    public static final int RULE_SL_COMMENT=8;
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
-    public static final int RULE_WS=9;
-    public static final int T__76=76;
-    public static final int T__75=75;
-    public static final int T__74=74;
-    public static final int T__73=73;
-    public static final int T__79=79;
-    public static final int T__78=78;
+    public static final int T__33=33;
     public static final int T__77=77;
+    public static final int T__34=34;
+    public static final int T__78=78;
+    public static final int T__35=35;
+    public static final int T__79=79;
+    public static final int T__36=36;
+    public static final int T__73=73;
+    public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__74=74;
+    public static final int T__31=31;
+    public static final int T__75=75;
+    public static final int T__32=32;
+    public static final int T__76=76;
+    public static final int T__80=80;
+    public static final int T__81=81;
+    public static final int RULE_WS=9;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
 
     // delegates
     // delegators
@@ -118,7 +119,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
         
 
     public String[] getTokenNames() { return InternalEMapParser.tokenNames; }
-    public String getGrammarFileName() { return "../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g"; }
+    public String getGrammarFileName() { return "InternalEMap.g"; }
 
 
 
@@ -143,7 +144,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMapping"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:68:1: entryRuleEMapping returns [EObject current=null] : iv_ruleEMapping= ruleEMapping EOF ;
+    // InternalEMap.g:68:1: entryRuleEMapping returns [EObject current=null] : iv_ruleEMapping= ruleEMapping EOF ;
     public final EObject entryRuleEMapping() throws RecognitionException {
         EObject current = null;
 
@@ -151,13 +152,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:69:2: (iv_ruleEMapping= ruleEMapping EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:70:2: iv_ruleEMapping= ruleEMapping EOF
+            // InternalEMap.g:69:2: (iv_ruleEMapping= ruleEMapping EOF )
+            // InternalEMap.g:70:2: iv_ruleEMapping= ruleEMapping EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMappingRule()); 
             }
-            pushFollow(FOLLOW_ruleEMapping_in_entryRuleEMapping75);
+            pushFollow(FOLLOW_1);
             iv_ruleEMapping=ruleEMapping();
 
             state._fsp--;
@@ -165,7 +166,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMapping; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMapping85); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -183,7 +184,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMapping"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:77:1: ruleEMapping returns [EObject current=null] : ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) ) ;
+    // InternalEMap.g:77:1: ruleEMapping returns [EObject current=null] : ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) ) ;
     public final EObject ruleEMapping() throws RecognitionException {
         EObject current = null;
 
@@ -195,23 +196,23 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:80:28: ( ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:81:1: ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) )
+            // InternalEMap.g:80:28: ( ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) ) )
+            // InternalEMap.g:81:1: ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:81:1: ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:82:1: ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) )
+            // InternalEMap.g:81:1: ( ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) ) )
+            // InternalEMap.g:82:1: ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:82:1: ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:83:1: (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef )
+            // InternalEMap.g:82:1: ( (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef ) )
+            // InternalEMap.g:83:1: (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:83:1: (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef )
+            // InternalEMap.g:83:1: (lv_root_0_1= ruleEMappingBundle | lv_root_0_2= ruleEMappingEntityDef )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
-            if ( (LA1_0==11||LA1_0==39) ) {
+            if ( (LA1_0==11||LA1_0==40) ) {
                 alt1=1;
             }
-            else if ( (LA1_0==40) ) {
+            else if ( (LA1_0==41) ) {
                 alt1=2;
             }
             else {
@@ -223,14 +224,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt1) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:84:3: lv_root_0_1= ruleEMappingBundle
+                    // InternalEMap.g:84:3: lv_root_0_1= ruleEMappingBundle
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingAccess().getRootEMappingBundleParserRuleCall_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEMappingBundle_in_ruleEMapping132);
+                    pushFollow(FOLLOW_2);
                     lv_root_0_1=ruleEMappingBundle();
 
                     state._fsp--;
@@ -244,7 +245,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"root",
                               		lv_root_0_1, 
-                              		"EMappingBundle");
+                              		"at.bestsolution.persistence.emap.EMap.EMappingBundle");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -252,14 +253,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:99:8: lv_root_0_2= ruleEMappingEntityDef
+                    // InternalEMap.g:99:8: lv_root_0_2= ruleEMappingEntityDef
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingAccess().getRootEMappingEntityDefParserRuleCall_0_1()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEMappingEntityDef_in_ruleEMapping151);
+                    pushFollow(FOLLOW_2);
                     lv_root_0_2=ruleEMappingEntityDef();
 
                     state._fsp--;
@@ -273,7 +274,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"root",
                               		lv_root_0_2, 
-                              		"EMappingEntityDef");
+                              		"at.bestsolution.persistence.emap.EMap.EMappingEntityDef");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -309,7 +310,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMappingBundle"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:125:1: entryRuleEMappingBundle returns [EObject current=null] : iv_ruleEMappingBundle= ruleEMappingBundle EOF ;
+    // InternalEMap.g:125:1: entryRuleEMappingBundle returns [EObject current=null] : iv_ruleEMappingBundle= ruleEMappingBundle EOF ;
     public final EObject entryRuleEMappingBundle() throws RecognitionException {
         EObject current = null;
 
@@ -317,13 +318,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:126:2: (iv_ruleEMappingBundle= ruleEMappingBundle EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:127:2: iv_ruleEMappingBundle= ruleEMappingBundle EOF
+            // InternalEMap.g:126:2: (iv_ruleEMappingBundle= ruleEMappingBundle EOF )
+            // InternalEMap.g:127:2: iv_ruleEMappingBundle= ruleEMappingBundle EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMappingBundleRule()); 
             }
-            pushFollow(FOLLOW_ruleEMappingBundle_in_entryRuleEMappingBundle189);
+            pushFollow(FOLLOW_1);
             iv_ruleEMappingBundle=ruleEMappingBundle();
 
             state._fsp--;
@@ -331,7 +332,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMappingBundle; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMappingBundle199); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -349,7 +350,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMappingBundle"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:134:1: ruleEMappingBundle returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? ) ;
+    // InternalEMap.g:134:1: ruleEMappingBundle returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? ) ;
     public final EObject ruleEMappingBundle() throws RecognitionException {
         EObject current = null;
 
@@ -391,36 +392,36 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:137:28: ( ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:138:1: ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? )
+            // InternalEMap.g:137:28: ( ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? ) )
+            // InternalEMap.g:138:1: ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:138:1: ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:138:2: ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )?
+            // InternalEMap.g:138:1: ( ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )? )
+            // InternalEMap.g:138:2: ( (lv_imports_0_0= ruleImport ) )* otherlv_1= 'bundle' ( (lv_name_2_0= RULE_ID ) ) (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )? otherlv_5= '{' (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )? ( (lv_entities_12_0= ruleEBundleEntity ) ) (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )* ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )* (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )? otherlv_20= '}' (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )? (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:138:2: ( (lv_imports_0_0= ruleImport ) )*
+            // InternalEMap.g:138:2: ( (lv_imports_0_0= ruleImport ) )*
             loop2:
             do {
                 int alt2=2;
                 int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==39) ) {
+                if ( (LA2_0==40) ) {
                     alt2=1;
                 }
 
 
                 switch (alt2) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:139:1: (lv_imports_0_0= ruleImport )
+            	    // InternalEMap.g:139:1: (lv_imports_0_0= ruleImport )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:139:1: (lv_imports_0_0= ruleImport )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:140:3: lv_imports_0_0= ruleImport
+            	    // InternalEMap.g:139:1: (lv_imports_0_0= ruleImport )
+            	    // InternalEMap.g:140:3: lv_imports_0_0= ruleImport
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getImportsImportParserRuleCall_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleImport_in_ruleEMappingBundle245);
+            	    pushFollow(FOLLOW_3);
             	    lv_imports_0_0=ruleImport();
 
             	    state._fsp--;
@@ -434,7 +435,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"imports",
             	              		lv_imports_0_0, 
-            	              		"Import");
+            	              		"at.bestsolution.persistence.emap.EMap.Import");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -450,19 +451,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_1=(Token)match(input,11,FOLLOW_11_in_ruleEMappingBundle258); if (state.failed) return current;
+            otherlv_1=(Token)match(input,11,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getEMappingBundleAccess().getBundleKeyword_1());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:160:1: ( (lv_name_2_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:161:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:160:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalEMap.g:161:1: (lv_name_2_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:161:1: (lv_name_2_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:162:3: lv_name_2_0= RULE_ID
+            // InternalEMap.g:161:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:162:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingBundle275); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_5); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_2_0, grammarAccess.getEMappingBundleAccess().getNameIDTerminalRuleCall_2_0()); 
@@ -477,7 +478,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_2_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -486,7 +487,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:178:2: (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )?
+            // InternalEMap.g:178:2: (otherlv_3= 'extends' ( ( ruleQualifiedName ) ) )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -495,19 +496,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt3) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:178:4: otherlv_3= 'extends' ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:178:4: otherlv_3= 'extends' ( ( ruleQualifiedName ) )
                     {
-                    otherlv_3=(Token)match(input,12,FOLLOW_12_in_ruleEMappingBundle293); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,12,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getEMappingBundleAccess().getExtendsKeyword_3_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:182:1: ( ( ruleQualifiedName ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:183:1: ( ruleQualifiedName )
+                    // InternalEMap.g:182:1: ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:183:1: ( ruleQualifiedName )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:183:1: ( ruleQualifiedName )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:184:3: ruleQualifiedName
+                    // InternalEMap.g:183:1: ( ruleQualifiedName )
+                    // InternalEMap.g:184:3: ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
 
@@ -521,7 +522,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getParentBundleEMappingBundleCrossReference_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEMappingBundle316);
+                    pushFollow(FOLLOW_6);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -543,13 +544,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,13,FOLLOW_13_in_ruleEMappingBundle330); if (state.failed) return current;
+            otherlv_5=(Token)match(input,13,FOLLOW_7); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getEMappingBundleAccess().getLeftCurlyBracketKeyword_4());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:201:1: (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )?
+            // InternalEMap.g:201:1: (otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -558,32 +559,32 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:201:3: otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}'
+                    // InternalEMap.g:201:3: otherlv_6= 'predefined' otherlv_7= '{' ( (lv_predef_8_0= ruleEPredef ) ) (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )* otherlv_11= '}'
                     {
-                    otherlv_6=(Token)match(input,14,FOLLOW_14_in_ruleEMappingBundle343); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,14,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_6, grammarAccess.getEMappingBundleAccess().getPredefinedKeyword_5_0());
                           
                     }
-                    otherlv_7=(Token)match(input,13,FOLLOW_13_in_ruleEMappingBundle355); if (state.failed) return current;
+                    otherlv_7=(Token)match(input,13,FOLLOW_8); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_7, grammarAccess.getEMappingBundleAccess().getLeftCurlyBracketKeyword_5_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:209:1: ( (lv_predef_8_0= ruleEPredef ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:210:1: (lv_predef_8_0= ruleEPredef )
+                    // InternalEMap.g:209:1: ( (lv_predef_8_0= ruleEPredef ) )
+                    // InternalEMap.g:210:1: (lv_predef_8_0= ruleEPredef )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:210:1: (lv_predef_8_0= ruleEPredef )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:211:3: lv_predef_8_0= ruleEPredef
+                    // InternalEMap.g:210:1: (lv_predef_8_0= ruleEPredef )
+                    // InternalEMap.g:211:3: lv_predef_8_0= ruleEPredef
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getPredefEPredefParserRuleCall_5_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEPredef_in_ruleEMappingBundle376);
+                    pushFollow(FOLLOW_9);
                     lv_predef_8_0=ruleEPredef();
 
                     state._fsp--;
@@ -597,7 +598,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"predef",
                               		lv_predef_8_0, 
-                              		"EPredef");
+                              		"at.bestsolution.persistence.emap.EMap.EPredef");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -607,7 +608,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:227:2: (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )*
+                    // InternalEMap.g:227:2: (otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -620,26 +621,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:227:4: otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) )
+                    	    // InternalEMap.g:227:4: otherlv_9= ',' ( (lv_predef_10_0= ruleEPredef ) )
                     	    {
-                    	    otherlv_9=(Token)match(input,15,FOLLOW_15_in_ruleEMappingBundle389); if (state.failed) return current;
+                    	    otherlv_9=(Token)match(input,15,FOLLOW_8); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_9, grammarAccess.getEMappingBundleAccess().getCommaKeyword_5_3_0());
                     	          
                     	    }
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:231:1: ( (lv_predef_10_0= ruleEPredef ) )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:232:1: (lv_predef_10_0= ruleEPredef )
+                    	    // InternalEMap.g:231:1: ( (lv_predef_10_0= ruleEPredef ) )
+                    	    // InternalEMap.g:232:1: (lv_predef_10_0= ruleEPredef )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:232:1: (lv_predef_10_0= ruleEPredef )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:233:3: lv_predef_10_0= ruleEPredef
+                    	    // InternalEMap.g:232:1: (lv_predef_10_0= ruleEPredef )
+                    	    // InternalEMap.g:233:3: lv_predef_10_0= ruleEPredef
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getPredefEPredefParserRuleCall_5_3_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEPredef_in_ruleEMappingBundle410);
+                    	    pushFollow(FOLLOW_9);
                     	    lv_predef_10_0=ruleEPredef();
 
                     	    state._fsp--;
@@ -653,7 +654,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"predef",
                     	              		lv_predef_10_0, 
-                    	              		"EPredef");
+                    	              		"at.bestsolution.persistence.emap.EMap.EPredef");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -672,7 +673,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_11=(Token)match(input,16,FOLLOW_16_in_ruleEMappingBundle424); if (state.failed) return current;
+                    otherlv_11=(Token)match(input,16,FOLLOW_7); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_11, grammarAccess.getEMappingBundleAccess().getRightCurlyBracketKeyword_5_4());
@@ -684,18 +685,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:253:3: ( (lv_entities_12_0= ruleEBundleEntity ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:254:1: (lv_entities_12_0= ruleEBundleEntity )
+            // InternalEMap.g:253:3: ( (lv_entities_12_0= ruleEBundleEntity ) )
+            // InternalEMap.g:254:1: (lv_entities_12_0= ruleEBundleEntity )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:254:1: (lv_entities_12_0= ruleEBundleEntity )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:255:3: lv_entities_12_0= ruleEBundleEntity
+            // InternalEMap.g:254:1: (lv_entities_12_0= ruleEBundleEntity )
+            // InternalEMap.g:255:3: lv_entities_12_0= ruleEBundleEntity
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getEntitiesEBundleEntityParserRuleCall_6_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEBundleEntity_in_ruleEMappingBundle447);
+            pushFollow(FOLLOW_10);
             lv_entities_12_0=ruleEBundleEntity();
 
             state._fsp--;
@@ -709,7 +710,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"entities",
                       		lv_entities_12_0, 
-                      		"EBundleEntity");
+                      		"at.bestsolution.persistence.emap.EMap.EBundleEntity");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -719,7 +720,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:271:2: (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )*
+            // InternalEMap.g:271:2: (otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) ) )*
             loop6:
             do {
                 int alt6=2;
@@ -732,26 +733,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt6) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:271:4: otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) )
+            	    // InternalEMap.g:271:4: otherlv_13= ',' ( (lv_entities_14_0= ruleEBundleEntity ) )
             	    {
-            	    otherlv_13=(Token)match(input,15,FOLLOW_15_in_ruleEMappingBundle460); if (state.failed) return current;
+            	    otherlv_13=(Token)match(input,15,FOLLOW_7); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_13, grammarAccess.getEMappingBundleAccess().getCommaKeyword_7_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:275:1: ( (lv_entities_14_0= ruleEBundleEntity ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:276:1: (lv_entities_14_0= ruleEBundleEntity )
+            	    // InternalEMap.g:275:1: ( (lv_entities_14_0= ruleEBundleEntity ) )
+            	    // InternalEMap.g:276:1: (lv_entities_14_0= ruleEBundleEntity )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:276:1: (lv_entities_14_0= ruleEBundleEntity )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:277:3: lv_entities_14_0= ruleEBundleEntity
+            	    // InternalEMap.g:276:1: (lv_entities_14_0= ruleEBundleEntity )
+            	    // InternalEMap.g:277:3: lv_entities_14_0= ruleEBundleEntity
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getEntitiesEBundleEntityParserRuleCall_7_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleEBundleEntity_in_ruleEMappingBundle481);
+            	    pushFollow(FOLLOW_10);
             	    lv_entities_14_0=ruleEBundleEntity();
 
             	    state._fsp--;
@@ -765,7 +766,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"entities",
             	              		lv_entities_14_0, 
-            	              		"EBundleEntity");
+            	              		"at.bestsolution.persistence.emap.EMap.EBundleEntity");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -784,7 +785,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:293:4: ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )*
+            // InternalEMap.g:293:4: ( (lv_typeDefs_15_0= ruleESQLTypeDef ) )*
             loop7:
             do {
                 int alt7=2;
@@ -797,17 +798,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:294:1: (lv_typeDefs_15_0= ruleESQLTypeDef )
+            	    // InternalEMap.g:294:1: (lv_typeDefs_15_0= ruleESQLTypeDef )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:294:1: (lv_typeDefs_15_0= ruleESQLTypeDef )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:295:3: lv_typeDefs_15_0= ruleESQLTypeDef
+            	    // InternalEMap.g:294:1: (lv_typeDefs_15_0= ruleESQLTypeDef )
+            	    // InternalEMap.g:295:3: lv_typeDefs_15_0= ruleESQLTypeDef
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getTypeDefsESQLTypeDefParserRuleCall_8_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleESQLTypeDef_in_ruleEMappingBundle504);
+            	    pushFollow(FOLLOW_11);
             	    lv_typeDefs_15_0=ruleESQLTypeDef();
 
             	    state._fsp--;
@@ -821,7 +822,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"typeDefs",
             	              		lv_typeDefs_15_0, 
-            	              		"ESQLTypeDef");
+            	              		"at.bestsolution.persistence.emap.EMap.ESQLTypeDef");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -837,7 +838,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:311:3: (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )?
+            // InternalEMap.g:311:3: (otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -846,21 +847,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt9) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:311:5: otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}'
+                    // InternalEMap.g:311:5: otherlv_16= 'generator' otherlv_17= '{' ( (lv_generators_18_0= ruleEGeneratorDef ) )+ otherlv_19= '}'
                     {
-                    otherlv_16=(Token)match(input,17,FOLLOW_17_in_ruleEMappingBundle518); if (state.failed) return current;
+                    otherlv_16=(Token)match(input,17,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_16, grammarAccess.getEMappingBundleAccess().getGeneratorKeyword_9_0());
                           
                     }
-                    otherlv_17=(Token)match(input,13,FOLLOW_13_in_ruleEMappingBundle530); if (state.failed) return current;
+                    otherlv_17=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_17, grammarAccess.getEMappingBundleAccess().getLeftCurlyBracketKeyword_9_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:319:1: ( (lv_generators_18_0= ruleEGeneratorDef ) )+
+                    // InternalEMap.g:319:1: ( (lv_generators_18_0= ruleEGeneratorDef ) )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -874,17 +875,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:320:1: (lv_generators_18_0= ruleEGeneratorDef )
+                    	    // InternalEMap.g:320:1: (lv_generators_18_0= ruleEGeneratorDef )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:320:1: (lv_generators_18_0= ruleEGeneratorDef )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:321:3: lv_generators_18_0= ruleEGeneratorDef
+                    	    // InternalEMap.g:320:1: (lv_generators_18_0= ruleEGeneratorDef )
+                    	    // InternalEMap.g:321:3: lv_generators_18_0= ruleEGeneratorDef
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getGeneratorsEGeneratorDefParserRuleCall_9_2_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEGeneratorDef_in_ruleEMappingBundle551);
+                    	    pushFollow(FOLLOW_12);
                     	    lv_generators_18_0=ruleEGeneratorDef();
 
                     	    state._fsp--;
@@ -898,7 +899,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"generators",
                     	              		lv_generators_18_0, 
-                    	              		"EGeneratorDef");
+                    	              		"at.bestsolution.persistence.emap.EMap.EGeneratorDef");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -919,7 +920,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         cnt8++;
                     } while (true);
 
-                    otherlv_19=(Token)match(input,16,FOLLOW_16_in_ruleEMappingBundle564); if (state.failed) return current;
+                    otherlv_19=(Token)match(input,16,FOLLOW_13); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_19, grammarAccess.getEMappingBundleAccess().getRightCurlyBracketKeyword_9_3());
@@ -931,13 +932,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_20=(Token)match(input,16,FOLLOW_16_in_ruleEMappingBundle578); if (state.failed) return current;
+            otherlv_20=(Token)match(input,16,FOLLOW_14); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_20, grammarAccess.getEMappingBundleAccess().getRightCurlyBracketKeyword_10());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:345:1: (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )?
+            // InternalEMap.g:345:1: (otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )* )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -946,21 +947,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt11) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:345:3: otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )*
+                    // InternalEMap.g:345:3: otherlv_21= 'databases' ( (lv_databases_22_0= RULE_STRING ) ) (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )*
                     {
-                    otherlv_21=(Token)match(input,18,FOLLOW_18_in_ruleEMappingBundle591); if (state.failed) return current;
+                    otherlv_21=(Token)match(input,18,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_21, grammarAccess.getEMappingBundleAccess().getDatabasesKeyword_11_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:349:1: ( (lv_databases_22_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:350:1: (lv_databases_22_0= RULE_STRING )
+                    // InternalEMap.g:349:1: ( (lv_databases_22_0= RULE_STRING ) )
+                    // InternalEMap.g:350:1: (lv_databases_22_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:350:1: (lv_databases_22_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:351:3: lv_databases_22_0= RULE_STRING
+                    // InternalEMap.g:350:1: (lv_databases_22_0= RULE_STRING )
+                    // InternalEMap.g:351:3: lv_databases_22_0= RULE_STRING
                     {
-                    lv_databases_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEMappingBundle608); if (state.failed) return current;
+                    lv_databases_22_0=(Token)match(input,RULE_STRING,FOLLOW_16); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_databases_22_0, grammarAccess.getEMappingBundleAccess().getDatabasesSTRINGTerminalRuleCall_11_1_0()); 
@@ -975,7 +976,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"databases",
                               		lv_databases_22_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -984,7 +985,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:367:2: (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )*
+                    // InternalEMap.g:367:2: (otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) ) )*
                     loop10:
                     do {
                         int alt10=2;
@@ -997,21 +998,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:367:4: otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) )
+                    	    // InternalEMap.g:367:4: otherlv_23= ',' ( (lv_databases_24_0= RULE_STRING ) )
                     	    {
-                    	    otherlv_23=(Token)match(input,15,FOLLOW_15_in_ruleEMappingBundle626); if (state.failed) return current;
+                    	    otherlv_23=(Token)match(input,15,FOLLOW_15); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_23, grammarAccess.getEMappingBundleAccess().getCommaKeyword_11_2_0());
                     	          
                     	    }
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:371:1: ( (lv_databases_24_0= RULE_STRING ) )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:372:1: (lv_databases_24_0= RULE_STRING )
+                    	    // InternalEMap.g:371:1: ( (lv_databases_24_0= RULE_STRING ) )
+                    	    // InternalEMap.g:372:1: (lv_databases_24_0= RULE_STRING )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:372:1: (lv_databases_24_0= RULE_STRING )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:373:3: lv_databases_24_0= RULE_STRING
+                    	    // InternalEMap.g:372:1: (lv_databases_24_0= RULE_STRING )
+                    	    // InternalEMap.g:373:3: lv_databases_24_0= RULE_STRING
                     	    {
-                    	    lv_databases_24_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEMappingBundle643); if (state.failed) return current;
+                    	    lv_databases_24_0=(Token)match(input,RULE_STRING,FOLLOW_16); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      			newLeafNode(lv_databases_24_0, grammarAccess.getEMappingBundleAccess().getDatabasesSTRINGTerminalRuleCall_11_2_1_0()); 
@@ -1026,7 +1027,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"databases",
                     	              		lv_databases_24_0, 
-                    	              		"STRING");
+                    	              		"org.eclipse.xtext.common.Terminals.STRING");
                     	      	    
                     	    }
 
@@ -1050,7 +1051,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:389:6: (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )?
+            // InternalEMap.g:389:6: (otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) ) )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1059,26 +1060,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt12) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:389:8: otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) )
+                    // InternalEMap.g:389:8: otherlv_25= 'colsort' ( (lv_colSort_26_0= ruleColSort ) )
                     {
-                    otherlv_25=(Token)match(input,19,FOLLOW_19_in_ruleEMappingBundle665); if (state.failed) return current;
+                    otherlv_25=(Token)match(input,19,FOLLOW_17); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_25, grammarAccess.getEMappingBundleAccess().getColsortKeyword_12_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:393:1: ( (lv_colSort_26_0= ruleColSort ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:394:1: (lv_colSort_26_0= ruleColSort )
+                    // InternalEMap.g:393:1: ( (lv_colSort_26_0= ruleColSort ) )
+                    // InternalEMap.g:394:1: (lv_colSort_26_0= ruleColSort )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:394:1: (lv_colSort_26_0= ruleColSort )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:395:3: lv_colSort_26_0= ruleColSort
+                    // InternalEMap.g:394:1: (lv_colSort_26_0= ruleColSort )
+                    // InternalEMap.g:395:3: lv_colSort_26_0= ruleColSort
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingBundleAccess().getColSortColSortEnumRuleCall_12_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleColSort_in_ruleEMappingBundle686);
+                    pushFollow(FOLLOW_2);
                     lv_colSort_26_0=ruleColSort();
 
                     state._fsp--;
@@ -1092,7 +1093,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"colSort",
                               		lv_colSort_26_0, 
-                              		"ColSort");
+                              		"at.bestsolution.persistence.emap.EMap.ColSort");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -1131,7 +1132,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEPredef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:419:1: entryRuleEPredef returns [EObject current=null] : iv_ruleEPredef= ruleEPredef EOF ;
+    // InternalEMap.g:419:1: entryRuleEPredef returns [EObject current=null] : iv_ruleEPredef= ruleEPredef EOF ;
     public final EObject entryRuleEPredef() throws RecognitionException {
         EObject current = null;
 
@@ -1139,13 +1140,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:420:2: (iv_ruleEPredef= ruleEPredef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:421:2: iv_ruleEPredef= ruleEPredef EOF
+            // InternalEMap.g:420:2: (iv_ruleEPredef= ruleEPredef EOF )
+            // InternalEMap.g:421:2: iv_ruleEPredef= ruleEPredef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEPredefRule()); 
             }
-            pushFollow(FOLLOW_ruleEPredef_in_entryRuleEPredef724);
+            pushFollow(FOLLOW_1);
             iv_ruleEPredef=ruleEPredef();
 
             state._fsp--;
@@ -1153,7 +1154,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEPredef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEPredef734); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -1171,7 +1172,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEPredef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:428:1: ruleEPredef returns [EObject current=null] : ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) ) ;
+    // InternalEMap.g:428:1: ruleEPredef returns [EObject current=null] : ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) ) ;
     public final EObject ruleEPredef() throws RecognitionException {
         EObject current = null;
 
@@ -1183,10 +1184,10 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:431:28: ( ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:1: ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:431:28: ( ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) ) )
+            // InternalEMap.g:432:1: ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:1: ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:432:1: ( ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) ) | ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -1205,13 +1206,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt13) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:2: ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) )
+                    // InternalEMap.g:432:2: ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:2: ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:3: () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) )
+                    // InternalEMap.g:432:2: ( () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) ) )
+                    // InternalEMap.g:432:3: () otherlv_1= 'sequence' ( (lv_name_2_0= RULE_STRING ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:432:3: ()
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:433:5: 
+                    // InternalEMap.g:432:3: ()
+                    // InternalEMap.g:433:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1223,19 +1224,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_1=(Token)match(input,20,FOLLOW_20_in_ruleEPredef781); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,20,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEPredefAccess().getSequenceKeyword_0_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:442:1: ( (lv_name_2_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:443:1: (lv_name_2_0= RULE_STRING )
+                    // InternalEMap.g:442:1: ( (lv_name_2_0= RULE_STRING ) )
+                    // InternalEMap.g:443:1: (lv_name_2_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:443:1: (lv_name_2_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:444:3: lv_name_2_0= RULE_STRING
+                    // InternalEMap.g:443:1: (lv_name_2_0= RULE_STRING )
+                    // InternalEMap.g:444:3: lv_name_2_0= RULE_STRING
                     {
-                    lv_name_2_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEPredef798); if (state.failed) return current;
+                    lv_name_2_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_name_2_0, grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_0_2_0()); 
@@ -1250,7 +1251,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"name",
                               		lv_name_2_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -1266,13 +1267,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:461:6: ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) )
+                    // InternalEMap.g:461:6: ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:461:6: ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:461:7: () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) )
+                    // InternalEMap.g:461:6: ( () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) ) )
+                    // InternalEMap.g:461:7: () otherlv_4= 'table' ( (lv_name_5_0= RULE_STRING ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:461:7: ()
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:462:5: 
+                    // InternalEMap.g:461:7: ()
+                    // InternalEMap.g:462:5: 
                     {
                     if ( state.backtracking==0 ) {
 
@@ -1284,19 +1285,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_4=(Token)match(input,21,FOLLOW_21_in_ruleEPredef832); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,21,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getEPredefAccess().getTableKeyword_1_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:471:1: ( (lv_name_5_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:472:1: (lv_name_5_0= RULE_STRING )
+                    // InternalEMap.g:471:1: ( (lv_name_5_0= RULE_STRING ) )
+                    // InternalEMap.g:472:1: (lv_name_5_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:472:1: (lv_name_5_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:473:3: lv_name_5_0= RULE_STRING
+                    // InternalEMap.g:472:1: (lv_name_5_0= RULE_STRING )
+                    // InternalEMap.g:473:3: lv_name_5_0= RULE_STRING
                     {
-                    lv_name_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEPredef849); if (state.failed) return current;
+                    lv_name_5_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_name_5_0, grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_1_2_0()); 
@@ -1311,7 +1312,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"name",
                               		lv_name_5_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -1349,7 +1350,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEGeneratorDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:497:1: entryRuleEGeneratorDef returns [EObject current=null] : iv_ruleEGeneratorDef= ruleEGeneratorDef EOF ;
+    // InternalEMap.g:497:1: entryRuleEGeneratorDef returns [EObject current=null] : iv_ruleEGeneratorDef= ruleEGeneratorDef EOF ;
     public final EObject entryRuleEGeneratorDef() throws RecognitionException {
         EObject current = null;
 
@@ -1357,13 +1358,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:498:2: (iv_ruleEGeneratorDef= ruleEGeneratorDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:499:2: iv_ruleEGeneratorDef= ruleEGeneratorDef EOF
+            // InternalEMap.g:498:2: (iv_ruleEGeneratorDef= ruleEGeneratorDef EOF )
+            // InternalEMap.g:499:2: iv_ruleEGeneratorDef= ruleEGeneratorDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEGeneratorDefRule()); 
             }
-            pushFollow(FOLLOW_ruleEGeneratorDef_in_entryRuleEGeneratorDef891);
+            pushFollow(FOLLOW_1);
             iv_ruleEGeneratorDef=ruleEGeneratorDef();
 
             state._fsp--;
@@ -1371,7 +1372,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEGeneratorDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEGeneratorDef901); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -1389,7 +1390,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEGeneratorDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:506:1: ruleEGeneratorDef returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? ) ;
+    // InternalEMap.g:506:1: ruleEGeneratorDef returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? ) ;
     public final EObject ruleEGeneratorDef() throws RecognitionException {
         EObject current = null;
 
@@ -1402,19 +1403,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:509:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:510:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? )
+            // InternalEMap.g:509:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? ) )
+            // InternalEMap.g:510:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:510:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:510:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )?
+            // InternalEMap.g:510:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )? )
+            // InternalEMap.g:510:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:510:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:511:1: (lv_name_0_0= RULE_ID )
+            // InternalEMap.g:510:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalEMap.g:511:1: (lv_name_0_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:511:1: (lv_name_0_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:512:3: lv_name_0_0= RULE_ID
+            // InternalEMap.g:511:1: (lv_name_0_0= RULE_ID )
+            // InternalEMap.g:512:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEGeneratorDef943); if (state.failed) return current;
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_0_0, grammarAccess.getEGeneratorDefAccess().getNameIDTerminalRuleCall_0_0()); 
@@ -1429,7 +1430,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_0_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -1438,7 +1439,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:528:2: (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )?
+            // InternalEMap.g:528:2: (otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}' )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -1447,15 +1448,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt15) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:528:4: otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}'
+                    // InternalEMap.g:528:4: otherlv_1= '{' ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+ otherlv_3= '}'
                     {
-                    otherlv_1=(Token)match(input,13,FOLLOW_13_in_ruleEGeneratorDef961); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEGeneratorDefAccess().getLeftCurlyBracketKeyword_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:532:1: ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+
+                    // InternalEMap.g:532:1: ( (lv_parameters_2_0= ruleEGeneratorConfigValue ) )+
                     int cnt14=0;
                     loop14:
                     do {
@@ -1469,17 +1470,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt14) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:533:1: (lv_parameters_2_0= ruleEGeneratorConfigValue )
+                    	    // InternalEMap.g:533:1: (lv_parameters_2_0= ruleEGeneratorConfigValue )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:533:1: (lv_parameters_2_0= ruleEGeneratorConfigValue )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:534:3: lv_parameters_2_0= ruleEGeneratorConfigValue
+                    	    // InternalEMap.g:533:1: (lv_parameters_2_0= ruleEGeneratorConfigValue )
+                    	    // InternalEMap.g:534:3: lv_parameters_2_0= ruleEGeneratorConfigValue
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEGeneratorDefAccess().getParametersEGeneratorConfigValueParserRuleCall_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEGeneratorConfigValue_in_ruleEGeneratorDef982);
+                    	    pushFollow(FOLLOW_12);
                     	    lv_parameters_2_0=ruleEGeneratorConfigValue();
 
                     	    state._fsp--;
@@ -1493,7 +1494,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"parameters",
                     	              		lv_parameters_2_0, 
-                    	              		"EGeneratorConfigValue");
+                    	              		"at.bestsolution.persistence.emap.EMap.EGeneratorConfigValue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -1514,7 +1515,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         cnt14++;
                     } while (true);
 
-                    otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleEGeneratorDef995); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getEGeneratorDefAccess().getRightCurlyBracketKeyword_1_2());
@@ -1549,7 +1550,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEGeneratorConfigValue"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:562:1: entryRuleEGeneratorConfigValue returns [EObject current=null] : iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF ;
+    // InternalEMap.g:562:1: entryRuleEGeneratorConfigValue returns [EObject current=null] : iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF ;
     public final EObject entryRuleEGeneratorConfigValue() throws RecognitionException {
         EObject current = null;
 
@@ -1557,13 +1558,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:563:2: (iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:564:2: iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF
+            // InternalEMap.g:563:2: (iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF )
+            // InternalEMap.g:564:2: iv_ruleEGeneratorConfigValue= ruleEGeneratorConfigValue EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEGeneratorConfigValueRule()); 
             }
-            pushFollow(FOLLOW_ruleEGeneratorConfigValue_in_entryRuleEGeneratorConfigValue1033);
+            pushFollow(FOLLOW_1);
             iv_ruleEGeneratorConfigValue=ruleEGeneratorConfigValue();
 
             state._fsp--;
@@ -1571,7 +1572,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEGeneratorConfigValue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEGeneratorConfigValue1043); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -1589,7 +1590,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEGeneratorConfigValue"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:571:1: ruleEGeneratorConfigValue returns [EObject current=null] : ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) ) ;
+    // InternalEMap.g:571:1: ruleEGeneratorConfigValue returns [EObject current=null] : ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) ) ;
     public final EObject ruleEGeneratorConfigValue() throws RecognitionException {
         EObject current = null;
 
@@ -1604,19 +1605,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:574:28: ( ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:575:1: ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) )
+            // InternalEMap.g:574:28: ( ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) ) )
+            // InternalEMap.g:575:1: ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:575:1: ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:575:2: ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) )
+            // InternalEMap.g:575:1: ( ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) ) )
+            // InternalEMap.g:575:2: ( (lv_key_0_0= RULE_ID ) ) otherlv_1= ':' ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:575:2: ( (lv_key_0_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:1: (lv_key_0_0= RULE_ID )
+            // InternalEMap.g:575:2: ( (lv_key_0_0= RULE_ID ) )
+            // InternalEMap.g:576:1: (lv_key_0_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:576:1: (lv_key_0_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:577:3: lv_key_0_0= RULE_ID
+            // InternalEMap.g:576:1: (lv_key_0_0= RULE_ID )
+            // InternalEMap.g:577:3: lv_key_0_0= RULE_ID
             {
-            lv_key_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEGeneratorConfigValue1085); if (state.failed) return current;
+            lv_key_0_0=(Token)match(input,RULE_ID,FOLLOW_19); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_key_0_0, grammarAccess.getEGeneratorConfigValueAccess().getKeyIDTerminalRuleCall_0_0()); 
@@ -1631,7 +1632,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"key",
                       		lv_key_0_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -1640,13 +1641,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,22,FOLLOW_22_in_ruleEGeneratorConfigValue1102); if (state.failed) return current;
+            otherlv_1=(Token)match(input,22,FOLLOW_20); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getEGeneratorConfigValueAccess().getColonKeyword_1());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:597:1: ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) )
+            // InternalEMap.g:597:1: ( ( (lv_simpleValue_2_0= RULE_STRING ) ) | (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' ) )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -1665,15 +1666,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt17) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:597:2: ( (lv_simpleValue_2_0= RULE_STRING ) )
+                    // InternalEMap.g:597:2: ( (lv_simpleValue_2_0= RULE_STRING ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:597:2: ( (lv_simpleValue_2_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:598:1: (lv_simpleValue_2_0= RULE_STRING )
+                    // InternalEMap.g:597:2: ( (lv_simpleValue_2_0= RULE_STRING ) )
+                    // InternalEMap.g:598:1: (lv_simpleValue_2_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:598:1: (lv_simpleValue_2_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:599:3: lv_simpleValue_2_0= RULE_STRING
+                    // InternalEMap.g:598:1: (lv_simpleValue_2_0= RULE_STRING )
+                    // InternalEMap.g:599:3: lv_simpleValue_2_0= RULE_STRING
                     {
-                    lv_simpleValue_2_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEGeneratorConfigValue1120); if (state.failed) return current;
+                    lv_simpleValue_2_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_simpleValue_2_0, grammarAccess.getEGeneratorConfigValueAccess().getSimpleValueSTRINGTerminalRuleCall_2_0_0()); 
@@ -1688,7 +1689,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"simpleValue",
                               		lv_simpleValue_2_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -1701,18 +1702,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:616:6: (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' )
+                    // InternalEMap.g:616:6: (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:616:6: (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:616:8: otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}'
+                    // InternalEMap.g:616:6: (otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}' )
+                    // InternalEMap.g:616:8: otherlv_3= '{' ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+ otherlv_5= '}'
                     {
-                    otherlv_3=(Token)match(input,13,FOLLOW_13_in_ruleEGeneratorConfigValue1144); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getEGeneratorConfigValueAccess().getLeftCurlyBracketKeyword_2_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:620:1: ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+
+                    // InternalEMap.g:620:1: ( (lv_children_4_0= ruleEGeneratorConfigValue ) )+
                     int cnt16=0;
                     loop16:
                     do {
@@ -1726,17 +1727,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:621:1: (lv_children_4_0= ruleEGeneratorConfigValue )
+                    	    // InternalEMap.g:621:1: (lv_children_4_0= ruleEGeneratorConfigValue )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:621:1: (lv_children_4_0= ruleEGeneratorConfigValue )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:622:3: lv_children_4_0= ruleEGeneratorConfigValue
+                    	    // InternalEMap.g:621:1: (lv_children_4_0= ruleEGeneratorConfigValue )
+                    	    // InternalEMap.g:622:3: lv_children_4_0= ruleEGeneratorConfigValue
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEGeneratorConfigValueAccess().getChildrenEGeneratorConfigValueParserRuleCall_2_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEGeneratorConfigValue_in_ruleEGeneratorConfigValue1165);
+                    	    pushFollow(FOLLOW_12);
                     	    lv_children_4_0=ruleEGeneratorConfigValue();
 
                     	    state._fsp--;
@@ -1750,7 +1751,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"children",
                     	              		lv_children_4_0, 
-                    	              		"EGeneratorConfigValue");
+                    	              		"at.bestsolution.persistence.emap.EMap.EGeneratorConfigValue");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -1771,7 +1772,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                         cnt16++;
                     } while (true);
 
-                    otherlv_5=(Token)match(input,16,FOLLOW_16_in_ruleEGeneratorConfigValue1178); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getEGeneratorConfigValueAccess().getRightCurlyBracketKeyword_2_1_2());
@@ -1809,7 +1810,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEBundleEntity"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:650:1: entryRuleEBundleEntity returns [EObject current=null] : iv_ruleEBundleEntity= ruleEBundleEntity EOF ;
+    // InternalEMap.g:650:1: entryRuleEBundleEntity returns [EObject current=null] : iv_ruleEBundleEntity= ruleEBundleEntity EOF ;
     public final EObject entryRuleEBundleEntity() throws RecognitionException {
         EObject current = null;
 
@@ -1817,13 +1818,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:651:2: (iv_ruleEBundleEntity= ruleEBundleEntity EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:652:2: iv_ruleEBundleEntity= ruleEBundleEntity EOF
+            // InternalEMap.g:651:2: (iv_ruleEBundleEntity= ruleEBundleEntity EOF )
+            // InternalEMap.g:652:2: iv_ruleEBundleEntity= ruleEBundleEntity EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEBundleEntityRule()); 
             }
-            pushFollow(FOLLOW_ruleEBundleEntity_in_entryRuleEBundleEntity1216);
+            pushFollow(FOLLOW_1);
             iv_ruleEBundleEntity=ruleEBundleEntity();
 
             state._fsp--;
@@ -1831,7 +1832,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEBundleEntity; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEBundleEntity1226); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -1849,7 +1850,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEBundleEntity"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:659:1: ruleEBundleEntity returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? ) ;
+    // InternalEMap.g:659:1: ruleEBundleEntity returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? ) ;
     public final EObject ruleEBundleEntity() throws RecognitionException {
         EObject current = null;
 
@@ -1884,17 +1885,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:662:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:663:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? )
+            // InternalEMap.g:662:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? ) )
+            // InternalEMap.g:663:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:663:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:663:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )?
+            // InternalEMap.g:663:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )? )
+            // InternalEMap.g:663:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:663:2: ( (otherlv_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:664:1: (otherlv_0= RULE_ID )
+            // InternalEMap.g:663:2: ( (otherlv_0= RULE_ID ) )
+            // InternalEMap.g:664:1: (otherlv_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:664:1: (otherlv_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:665:3: otherlv_0= RULE_ID
+            // InternalEMap.g:664:1: (otherlv_0= RULE_ID )
+            // InternalEMap.g:665:3: otherlv_0= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -1903,7 +1904,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEBundleEntity1271); if (state.failed) return current;
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_0, grammarAccess.getEBundleEntityAccess().getEntityEMappingEntityCrossReference_0_0()); 
@@ -1915,7 +1916,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:676:2: (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )?
+            // InternalEMap.g:676:2: (otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}' )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -1924,15 +1925,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt28) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:676:4: otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}'
+                    // InternalEMap.g:676:4: otherlv_1= '{' (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )? ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )? ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )? ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )? ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )? ( (lv_rest_16_0= ruleERestServiceMapping ) )? otherlv_17= '}'
                     {
-                    otherlv_1=(Token)match(input,13,FOLLOW_13_in_ruleEBundleEntity1284); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,13,FOLLOW_21); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEBundleEntityAccess().getLeftCurlyBracketKeyword_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:680:1: (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )?
+                    // InternalEMap.g:680:1: (otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) ) )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -1941,21 +1942,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt18) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:680:3: otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) )
+                            // InternalEMap.g:680:3: otherlv_2= 'pk-constraint' ( (lv_pkConstraintName_3_0= RULE_STRING ) )
                             {
-                            otherlv_2=(Token)match(input,23,FOLLOW_23_in_ruleEBundleEntity1297); if (state.failed) return current;
+                            otherlv_2=(Token)match(input,23,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_2, grammarAccess.getEBundleEntityAccess().getPkConstraintKeyword_1_1_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:684:1: ( (lv_pkConstraintName_3_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:685:1: (lv_pkConstraintName_3_0= RULE_STRING )
+                            // InternalEMap.g:684:1: ( (lv_pkConstraintName_3_0= RULE_STRING ) )
+                            // InternalEMap.g:685:1: (lv_pkConstraintName_3_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:685:1: (lv_pkConstraintName_3_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:686:3: lv_pkConstraintName_3_0= RULE_STRING
+                            // InternalEMap.g:685:1: (lv_pkConstraintName_3_0= RULE_STRING )
+                            // InternalEMap.g:686:3: lv_pkConstraintName_3_0= RULE_STRING
                             {
-                            lv_pkConstraintName_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEBundleEntity1314); if (state.failed) return current;
+                            lv_pkConstraintName_3_0=(Token)match(input,RULE_STRING,FOLLOW_22); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_pkConstraintName_3_0, grammarAccess.getEBundleEntityAccess().getPkConstraintNameSTRINGTerminalRuleCall_1_1_1_0()); 
@@ -1970,7 +1971,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"pkConstraintName",
                                       		lv_pkConstraintName_3_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -1985,7 +1986,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:702:4: ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )?
+                    // InternalEMap.g:702:4: ( ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )* )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -1994,20 +1995,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt20) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:702:5: ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )*
+                            // InternalEMap.g:702:5: ( (lv_fkConstraints_4_0= ruleEFkConstraint ) ) (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:702:5: ( (lv_fkConstraints_4_0= ruleEFkConstraint ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:703:1: (lv_fkConstraints_4_0= ruleEFkConstraint )
+                            // InternalEMap.g:702:5: ( (lv_fkConstraints_4_0= ruleEFkConstraint ) )
+                            // InternalEMap.g:703:1: (lv_fkConstraints_4_0= ruleEFkConstraint )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:703:1: (lv_fkConstraints_4_0= ruleEFkConstraint )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:704:3: lv_fkConstraints_4_0= ruleEFkConstraint
+                            // InternalEMap.g:703:1: (lv_fkConstraints_4_0= ruleEFkConstraint )
+                            // InternalEMap.g:704:3: lv_fkConstraints_4_0= ruleEFkConstraint
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getFkConstraintsEFkConstraintParserRuleCall_1_2_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEFkConstraint_in_ruleEBundleEntity1343);
+                            pushFollow(FOLLOW_23);
                             lv_fkConstraints_4_0=ruleEFkConstraint();
 
                             state._fsp--;
@@ -2021,7 +2022,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"fkConstraints",
                                       		lv_fkConstraints_4_0, 
-                                      		"EFkConstraint");
+                                      		"at.bestsolution.persistence.emap.EMap.EFkConstraint");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -2031,7 +2032,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:720:2: (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )*
+                            // InternalEMap.g:720:2: (otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) ) )*
                             loop19:
                             do {
                                 int alt19=2;
@@ -2044,26 +2045,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                                 switch (alt19) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:720:4: otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) )
+                            	    // InternalEMap.g:720:4: otherlv_5= ',' ( (lv_fkConstraints_6_0= ruleEFkConstraint ) )
                             	    {
-                            	    otherlv_5=(Token)match(input,15,FOLLOW_15_in_ruleEBundleEntity1356); if (state.failed) return current;
+                            	    otherlv_5=(Token)match(input,15,FOLLOW_24); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_5, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_2_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:724:1: ( (lv_fkConstraints_6_0= ruleEFkConstraint ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:725:1: (lv_fkConstraints_6_0= ruleEFkConstraint )
+                            	    // InternalEMap.g:724:1: ( (lv_fkConstraints_6_0= ruleEFkConstraint ) )
+                            	    // InternalEMap.g:725:1: (lv_fkConstraints_6_0= ruleEFkConstraint )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:725:1: (lv_fkConstraints_6_0= ruleEFkConstraint )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:726:3: lv_fkConstraints_6_0= ruleEFkConstraint
+                            	    // InternalEMap.g:725:1: (lv_fkConstraints_6_0= ruleEFkConstraint )
+                            	    // InternalEMap.g:726:3: lv_fkConstraints_6_0= ruleEFkConstraint
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getFkConstraintsEFkConstraintParserRuleCall_1_2_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEFkConstraint_in_ruleEBundleEntity1377);
+                            	    pushFollow(FOLLOW_23);
                             	    lv_fkConstraints_6_0=ruleEFkConstraint();
 
                             	    state._fsp--;
@@ -2077,7 +2078,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"fkConstraints",
                             	              		lv_fkConstraints_6_0, 
-                            	              		"EFkConstraint");
+                            	              		"at.bestsolution.persistence.emap.EMap.EFkConstraint");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -2102,7 +2103,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:742:6: ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )?
+                    // InternalEMap.g:742:6: ( ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )* )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2111,20 +2112,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:742:7: ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )*
+                            // InternalEMap.g:742:7: ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) ) (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:742:7: ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:743:1: (lv_uniqueContraints_7_0= ruleEUniqueConstraint )
+                            // InternalEMap.g:742:7: ( (lv_uniqueContraints_7_0= ruleEUniqueConstraint ) )
+                            // InternalEMap.g:743:1: (lv_uniqueContraints_7_0= ruleEUniqueConstraint )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:743:1: (lv_uniqueContraints_7_0= ruleEUniqueConstraint )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:744:3: lv_uniqueContraints_7_0= ruleEUniqueConstraint
+                            // InternalEMap.g:743:1: (lv_uniqueContraints_7_0= ruleEUniqueConstraint )
+                            // InternalEMap.g:744:3: lv_uniqueContraints_7_0= ruleEUniqueConstraint
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEUniqueConstraint_in_ruleEBundleEntity1403);
+                            pushFollow(FOLLOW_25);
                             lv_uniqueContraints_7_0=ruleEUniqueConstraint();
 
                             state._fsp--;
@@ -2138,7 +2139,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"uniqueContraints",
                                       		lv_uniqueContraints_7_0, 
-                                      		"EUniqueConstraint");
+                                      		"at.bestsolution.persistence.emap.EMap.EUniqueConstraint");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -2148,7 +2149,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:760:2: (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )*
+                            // InternalEMap.g:760:2: (otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) ) )*
                             loop21:
                             do {
                                 int alt21=2;
@@ -2161,26 +2162,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                                 switch (alt21) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:760:4: otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) )
+                            	    // InternalEMap.g:760:4: otherlv_8= ',' ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) )
                             	    {
-                            	    otherlv_8=(Token)match(input,15,FOLLOW_15_in_ruleEBundleEntity1416); if (state.failed) return current;
+                            	    otherlv_8=(Token)match(input,15,FOLLOW_26); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_8, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_3_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:764:1: ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:765:1: (lv_uniqueContraints_9_0= ruleEUniqueConstraint )
+                            	    // InternalEMap.g:764:1: ( (lv_uniqueContraints_9_0= ruleEUniqueConstraint ) )
+                            	    // InternalEMap.g:765:1: (lv_uniqueContraints_9_0= ruleEUniqueConstraint )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:765:1: (lv_uniqueContraints_9_0= ruleEUniqueConstraint )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:766:3: lv_uniqueContraints_9_0= ruleEUniqueConstraint
+                            	    // InternalEMap.g:765:1: (lv_uniqueContraints_9_0= ruleEUniqueConstraint )
+                            	    // InternalEMap.g:766:3: lv_uniqueContraints_9_0= ruleEUniqueConstraint
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getUniqueContraintsEUniqueConstraintParserRuleCall_1_3_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEUniqueConstraint_in_ruleEBundleEntity1437);
+                            	    pushFollow(FOLLOW_25);
                             	    lv_uniqueContraints_9_0=ruleEUniqueConstraint();
 
                             	    state._fsp--;
@@ -2194,7 +2195,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"uniqueContraints",
                             	              		lv_uniqueContraints_9_0, 
-                            	              		"EUniqueConstraint");
+                            	              		"at.bestsolution.persistence.emap.EMap.EUniqueConstraint");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -2219,7 +2220,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:782:6: ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )?
+                    // InternalEMap.g:782:6: ( ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )* )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -2228,20 +2229,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt24) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:782:7: ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )*
+                            // InternalEMap.g:782:7: ( (lv_indices_10_0= ruleEIndex ) ) (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:782:7: ( (lv_indices_10_0= ruleEIndex ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:783:1: (lv_indices_10_0= ruleEIndex )
+                            // InternalEMap.g:782:7: ( (lv_indices_10_0= ruleEIndex ) )
+                            // InternalEMap.g:783:1: (lv_indices_10_0= ruleEIndex )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:783:1: (lv_indices_10_0= ruleEIndex )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:784:3: lv_indices_10_0= ruleEIndex
+                            // InternalEMap.g:783:1: (lv_indices_10_0= ruleEIndex )
+                            // InternalEMap.g:784:3: lv_indices_10_0= ruleEIndex
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getIndicesEIndexParserRuleCall_1_4_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEIndex_in_ruleEBundleEntity1463);
+                            pushFollow(FOLLOW_27);
                             lv_indices_10_0=ruleEIndex();
 
                             state._fsp--;
@@ -2255,7 +2256,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"indices",
                                       		lv_indices_10_0, 
-                                      		"EIndex");
+                                      		"at.bestsolution.persistence.emap.EMap.EIndex");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -2265,7 +2266,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:800:2: (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )*
+                            // InternalEMap.g:800:2: (otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) ) )*
                             loop23:
                             do {
                                 int alt23=2;
@@ -2278,26 +2279,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                                 switch (alt23) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:800:4: otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) )
+                            	    // InternalEMap.g:800:4: otherlv_11= ',' ( (lv_indices_12_0= ruleEIndex ) )
                             	    {
-                            	    otherlv_11=(Token)match(input,15,FOLLOW_15_in_ruleEBundleEntity1476); if (state.failed) return current;
+                            	    otherlv_11=(Token)match(input,15,FOLLOW_28); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_11, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_4_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:804:1: ( (lv_indices_12_0= ruleEIndex ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:805:1: (lv_indices_12_0= ruleEIndex )
+                            	    // InternalEMap.g:804:1: ( (lv_indices_12_0= ruleEIndex ) )
+                            	    // InternalEMap.g:805:1: (lv_indices_12_0= ruleEIndex )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:805:1: (lv_indices_12_0= ruleEIndex )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:806:3: lv_indices_12_0= ruleEIndex
+                            	    // InternalEMap.g:805:1: (lv_indices_12_0= ruleEIndex )
+                            	    // InternalEMap.g:806:3: lv_indices_12_0= ruleEIndex
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getIndicesEIndexParserRuleCall_1_4_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEIndex_in_ruleEBundleEntity1497);
+                            	    pushFollow(FOLLOW_27);
                             	    lv_indices_12_0=ruleEIndex();
 
                             	    state._fsp--;
@@ -2311,7 +2312,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"indices",
                             	              		lv_indices_12_0, 
-                            	              		"EIndex");
+                            	              		"at.bestsolution.persistence.emap.EMap.EIndex");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -2336,7 +2337,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:822:6: ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )?
+                    // InternalEMap.g:822:6: ( ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )* )?
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
@@ -2345,20 +2346,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt26) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:822:7: ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )*
+                            // InternalEMap.g:822:7: ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) ) (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:822:7: ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:823:1: (lv_typeDefs_13_0= ruleESQLAttTypeDef )
+                            // InternalEMap.g:822:7: ( (lv_typeDefs_13_0= ruleESQLAttTypeDef ) )
+                            // InternalEMap.g:823:1: (lv_typeDefs_13_0= ruleESQLAttTypeDef )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:823:1: (lv_typeDefs_13_0= ruleESQLAttTypeDef )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:824:3: lv_typeDefs_13_0= ruleESQLAttTypeDef
+                            // InternalEMap.g:823:1: (lv_typeDefs_13_0= ruleESQLAttTypeDef )
+                            // InternalEMap.g:824:3: lv_typeDefs_13_0= ruleESQLAttTypeDef
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_5_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleESQLAttTypeDef_in_ruleEBundleEntity1523);
+                            pushFollow(FOLLOW_29);
                             lv_typeDefs_13_0=ruleESQLAttTypeDef();
 
                             state._fsp--;
@@ -2372,7 +2373,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"typeDefs",
                                       		lv_typeDefs_13_0, 
-                                      		"ESQLAttTypeDef");
+                                      		"at.bestsolution.persistence.emap.EMap.ESQLAttTypeDef");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -2382,7 +2383,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:840:2: (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )*
+                            // InternalEMap.g:840:2: (otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) ) )*
                             loop25:
                             do {
                                 int alt25=2;
@@ -2395,26 +2396,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                                 switch (alt25) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:840:4: otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) )
+                            	    // InternalEMap.g:840:4: otherlv_14= ',' ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) )
                             	    {
-                            	    otherlv_14=(Token)match(input,15,FOLLOW_15_in_ruleEBundleEntity1536); if (state.failed) return current;
+                            	    otherlv_14=(Token)match(input,15,FOLLOW_30); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_14, grammarAccess.getEBundleEntityAccess().getCommaKeyword_1_5_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:844:1: ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:845:1: (lv_typeDefs_15_0= ruleESQLAttTypeDef )
+                            	    // InternalEMap.g:844:1: ( (lv_typeDefs_15_0= ruleESQLAttTypeDef ) )
+                            	    // InternalEMap.g:845:1: (lv_typeDefs_15_0= ruleESQLAttTypeDef )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:845:1: (lv_typeDefs_15_0= ruleESQLAttTypeDef )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:846:3: lv_typeDefs_15_0= ruleESQLAttTypeDef
+                            	    // InternalEMap.g:845:1: (lv_typeDefs_15_0= ruleESQLAttTypeDef )
+                            	    // InternalEMap.g:846:3: lv_typeDefs_15_0= ruleESQLAttTypeDef
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getTypeDefsESQLAttTypeDefParserRuleCall_1_5_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleESQLAttTypeDef_in_ruleEBundleEntity1557);
+                            	    pushFollow(FOLLOW_29);
                             	    lv_typeDefs_15_0=ruleESQLAttTypeDef();
 
                             	    state._fsp--;
@@ -2428,7 +2429,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"typeDefs",
                             	              		lv_typeDefs_15_0, 
-                            	              		"ESQLAttTypeDef");
+                            	              		"at.bestsolution.persistence.emap.EMap.ESQLAttTypeDef");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -2453,7 +2454,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:862:6: ( (lv_rest_16_0= ruleERestServiceMapping ) )?
+                    // InternalEMap.g:862:6: ( (lv_rest_16_0= ruleERestServiceMapping ) )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -2462,17 +2463,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt27) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:863:1: (lv_rest_16_0= ruleERestServiceMapping )
+                            // InternalEMap.g:863:1: (lv_rest_16_0= ruleERestServiceMapping )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:863:1: (lv_rest_16_0= ruleERestServiceMapping )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:864:3: lv_rest_16_0= ruleERestServiceMapping
+                            // InternalEMap.g:863:1: (lv_rest_16_0= ruleERestServiceMapping )
+                            // InternalEMap.g:864:3: lv_rest_16_0= ruleERestServiceMapping
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEBundleEntityAccess().getRestERestServiceMappingParserRuleCall_1_6_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleERestServiceMapping_in_ruleEBundleEntity1582);
+                            pushFollow(FOLLOW_13);
                             lv_rest_16_0=ruleERestServiceMapping();
 
                             state._fsp--;
@@ -2486,7 +2487,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"rest",
                                       		lv_rest_16_0, 
-                                      		"ERestServiceMapping");
+                                      		"at.bestsolution.persistence.emap.EMap.ERestServiceMapping");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -2499,7 +2500,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_17=(Token)match(input,16,FOLLOW_16_in_ruleEBundleEntity1595); if (state.failed) return current;
+                    otherlv_17=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_17, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_7());
@@ -2534,7 +2535,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEIndex"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:892:1: entryRuleEIndex returns [EObject current=null] : iv_ruleEIndex= ruleEIndex EOF ;
+    // InternalEMap.g:892:1: entryRuleEIndex returns [EObject current=null] : iv_ruleEIndex= ruleEIndex EOF ;
     public final EObject entryRuleEIndex() throws RecognitionException {
         EObject current = null;
 
@@ -2542,13 +2543,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:893:2: (iv_ruleEIndex= ruleEIndex EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:894:2: iv_ruleEIndex= ruleEIndex EOF
+            // InternalEMap.g:893:2: (iv_ruleEIndex= ruleEIndex EOF )
+            // InternalEMap.g:894:2: iv_ruleEIndex= ruleEIndex EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEIndexRule()); 
             }
-            pushFollow(FOLLOW_ruleEIndex_in_entryRuleEIndex1633);
+            pushFollow(FOLLOW_1);
             iv_ruleEIndex=ruleEIndex();
 
             state._fsp--;
@@ -2556,7 +2557,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEIndex; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEIndex1643); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -2574,7 +2575,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEIndex"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:901:1: ruleEIndex returns [EObject current=null] : (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) ;
+    // InternalEMap.g:901:1: ruleEIndex returns [EObject current=null] : (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) ;
     public final EObject ruleEIndex() throws RecognitionException {
         EObject current = null;
 
@@ -2587,25 +2588,25 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:904:28: ( (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:905:1: (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:904:28: ( (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) )
+            // InternalEMap.g:905:1: (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:905:1: (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:905:3: otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')'
+            // InternalEMap.g:905:1: (otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:905:3: otherlv_0= 'index' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')'
             {
-            otherlv_0=(Token)match(input,24,FOLLOW_24_in_ruleEIndex1680); if (state.failed) return current;
+            otherlv_0=(Token)match(input,24,FOLLOW_15); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getEIndexAccess().getIndexKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:909:1: ( (lv_name_1_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:910:1: (lv_name_1_0= RULE_STRING )
+            // InternalEMap.g:909:1: ( (lv_name_1_0= RULE_STRING ) )
+            // InternalEMap.g:910:1: (lv_name_1_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:910:1: (lv_name_1_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:911:3: lv_name_1_0= RULE_STRING
+            // InternalEMap.g:910:1: (lv_name_1_0= RULE_STRING )
+            // InternalEMap.g:911:3: lv_name_1_0= RULE_STRING
             {
-            lv_name_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEIndex1697); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_STRING,FOLLOW_31); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getEIndexAccess().getNameSTRINGTerminalRuleCall_1_0()); 
@@ -2620,7 +2621,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -2629,17 +2630,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleEIndex1714); if (state.failed) return current;
+            otherlv_2=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getEIndexAccess().getLeftParenthesisKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:931:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:932:1: ( ruleQualifiedName )
+            // InternalEMap.g:931:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:932:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:932:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:933:3: ruleQualifiedName
+            // InternalEMap.g:932:1: ( ruleQualifiedName )
+            // InternalEMap.g:933:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -2653,7 +2654,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEIndexAccess().getAttributesEAttributeCrossReference_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEIndex1737);
+            pushFollow(FOLLOW_32);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2669,7 +2670,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:946:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )*
+            // InternalEMap.g:946:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )*
             loop29:
             do {
                 int alt29=2;
@@ -2682,19 +2683,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt29) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:946:4: otherlv_4= ',' ( ( ruleQualifiedName ) )
+            	    // InternalEMap.g:946:4: otherlv_4= ',' ( ( ruleQualifiedName ) )
             	    {
-            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleEIndex1750); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,15,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getEIndexAccess().getCommaKeyword_4_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:950:1: ( ( ruleQualifiedName ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:951:1: ( ruleQualifiedName )
+            	    // InternalEMap.g:950:1: ( ( ruleQualifiedName ) )
+            	    // InternalEMap.g:951:1: ( ruleQualifiedName )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:951:1: ( ruleQualifiedName )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:952:3: ruleQualifiedName
+            	    // InternalEMap.g:951:1: ( ruleQualifiedName )
+            	    // InternalEMap.g:952:3: ruleQualifiedName
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -2708,7 +2709,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	      	        newCompositeNode(grammarAccess.getEIndexAccess().getAttributesEAttributeCrossReference_4_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEIndex1773);
+            	    pushFollow(FOLLOW_32);
             	    ruleQualifiedName();
 
             	    state._fsp--;
@@ -2733,7 +2734,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleEIndex1787); if (state.failed) return current;
+            otherlv_6=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getEIndexAccess().getRightParenthesisKeyword_5());
@@ -2762,7 +2763,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEFkConstraint"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:977:1: entryRuleEFkConstraint returns [EObject current=null] : iv_ruleEFkConstraint= ruleEFkConstraint EOF ;
+    // InternalEMap.g:977:1: entryRuleEFkConstraint returns [EObject current=null] : iv_ruleEFkConstraint= ruleEFkConstraint EOF ;
     public final EObject entryRuleEFkConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -2770,13 +2771,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:978:2: (iv_ruleEFkConstraint= ruleEFkConstraint EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:979:2: iv_ruleEFkConstraint= ruleEFkConstraint EOF
+            // InternalEMap.g:978:2: (iv_ruleEFkConstraint= ruleEFkConstraint EOF )
+            // InternalEMap.g:979:2: iv_ruleEFkConstraint= ruleEFkConstraint EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEFkConstraintRule()); 
             }
-            pushFollow(FOLLOW_ruleEFkConstraint_in_entryRuleEFkConstraint1823);
+            pushFollow(FOLLOW_1);
             iv_ruleEFkConstraint=ruleEFkConstraint();
 
             state._fsp--;
@@ -2784,7 +2785,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEFkConstraint; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEFkConstraint1833); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -2802,7 +2803,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEFkConstraint"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:986:1: ruleEFkConstraint returns [EObject current=null] : (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) ) ;
+    // InternalEMap.g:986:1: ruleEFkConstraint returns [EObject current=null] : (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) ) ;
     public final EObject ruleEFkConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -2812,23 +2813,23 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:989:28: ( (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:990:1: (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) )
+            // InternalEMap.g:989:28: ( (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:990:1: (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:990:1: (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:990:3: otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) )
+            // InternalEMap.g:990:1: (otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) ) )
+            // InternalEMap.g:990:3: otherlv_0= 'fk-constraint' ( ( ruleQualifiedName ) ) ( (lv_name_2_0= RULE_STRING ) )
             {
-            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleEFkConstraint1870); if (state.failed) return current;
+            otherlv_0=(Token)match(input,27,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getEFkConstraintAccess().getFkConstraintKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:994:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:995:1: ( ruleQualifiedName )
+            // InternalEMap.g:994:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:995:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:995:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:996:3: ruleQualifiedName
+            // InternalEMap.g:995:1: ( ruleQualifiedName )
+            // InternalEMap.g:996:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -2842,7 +2843,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEFkConstraintAccess().getAttributeEAttributeCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEFkConstraint1893);
+            pushFollow(FOLLOW_15);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2858,13 +2859,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1009:2: ( (lv_name_2_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1010:1: (lv_name_2_0= RULE_STRING )
+            // InternalEMap.g:1009:2: ( (lv_name_2_0= RULE_STRING ) )
+            // InternalEMap.g:1010:1: (lv_name_2_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1010:1: (lv_name_2_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1011:3: lv_name_2_0= RULE_STRING
+            // InternalEMap.g:1010:1: (lv_name_2_0= RULE_STRING )
+            // InternalEMap.g:1011:3: lv_name_2_0= RULE_STRING
             {
-            lv_name_2_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEFkConstraint1910); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_2_0, grammarAccess.getEFkConstraintAccess().getNameSTRINGTerminalRuleCall_2_0()); 
@@ -2879,7 +2880,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_2_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -2911,7 +2912,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEUniqueConstraint"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1035:1: entryRuleEUniqueConstraint returns [EObject current=null] : iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF ;
+    // InternalEMap.g:1035:1: entryRuleEUniqueConstraint returns [EObject current=null] : iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF ;
     public final EObject entryRuleEUniqueConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -2919,13 +2920,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1036:2: (iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1037:2: iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF
+            // InternalEMap.g:1036:2: (iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF )
+            // InternalEMap.g:1037:2: iv_ruleEUniqueConstraint= ruleEUniqueConstraint EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEUniqueConstraintRule()); 
             }
-            pushFollow(FOLLOW_ruleEUniqueConstraint_in_entryRuleEUniqueConstraint1951);
+            pushFollow(FOLLOW_1);
             iv_ruleEUniqueConstraint=ruleEUniqueConstraint();
 
             state._fsp--;
@@ -2933,7 +2934,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEUniqueConstraint; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEUniqueConstraint1961); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -2951,7 +2952,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEUniqueConstraint"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1044:1: ruleEUniqueConstraint returns [EObject current=null] : (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) ;
+    // InternalEMap.g:1044:1: ruleEUniqueConstraint returns [EObject current=null] : (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) ;
     public final EObject ruleEUniqueConstraint() throws RecognitionException {
         EObject current = null;
 
@@ -2964,25 +2965,25 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1047:28: ( (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1048:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:1047:28: ( (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' ) )
+            // InternalEMap.g:1048:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1048:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1048:3: otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')'
+            // InternalEMap.g:1048:1: (otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:1048:3: otherlv_0= 'unique-constraint' ( (lv_name_1_0= RULE_STRING ) ) otherlv_2= '(' ( ( ruleQualifiedName ) ) (otherlv_4= ',' ( ( ruleQualifiedName ) ) )* otherlv_6= ')'
             {
-            otherlv_0=(Token)match(input,28,FOLLOW_28_in_ruleEUniqueConstraint1998); if (state.failed) return current;
+            otherlv_0=(Token)match(input,28,FOLLOW_15); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getEUniqueConstraintAccess().getUniqueConstraintKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1052:1: ( (lv_name_1_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1053:1: (lv_name_1_0= RULE_STRING )
+            // InternalEMap.g:1052:1: ( (lv_name_1_0= RULE_STRING ) )
+            // InternalEMap.g:1053:1: (lv_name_1_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1053:1: (lv_name_1_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1054:3: lv_name_1_0= RULE_STRING
+            // InternalEMap.g:1053:1: (lv_name_1_0= RULE_STRING )
+            // InternalEMap.g:1054:3: lv_name_1_0= RULE_STRING
             {
-            lv_name_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEUniqueConstraint2015); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_STRING,FOLLOW_31); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getEUniqueConstraintAccess().getNameSTRINGTerminalRuleCall_1_0()); 
@@ -2997,7 +2998,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -3006,17 +3007,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleEUniqueConstraint2032); if (state.failed) return current;
+            otherlv_2=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getEUniqueConstraintAccess().getLeftParenthesisKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1074:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1075:1: ( ruleQualifiedName )
+            // InternalEMap.g:1074:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1075:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1075:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1076:3: ruleQualifiedName
+            // InternalEMap.g:1075:1: ( ruleQualifiedName )
+            // InternalEMap.g:1076:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -3030,7 +3031,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEUniqueConstraintAccess().getAttributesEAttributeCrossReference_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint2055);
+            pushFollow(FOLLOW_32);
             ruleQualifiedName();
 
             state._fsp--;
@@ -3046,7 +3047,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1089:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )*
+            // InternalEMap.g:1089:2: (otherlv_4= ',' ( ( ruleQualifiedName ) ) )*
             loop30:
             do {
                 int alt30=2;
@@ -3059,19 +3060,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt30) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1089:4: otherlv_4= ',' ( ( ruleQualifiedName ) )
+            	    // InternalEMap.g:1089:4: otherlv_4= ',' ( ( ruleQualifiedName ) )
             	    {
-            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleEUniqueConstraint2068); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,15,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getEUniqueConstraintAccess().getCommaKeyword_4_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1093:1: ( ( ruleQualifiedName ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1094:1: ( ruleQualifiedName )
+            	    // InternalEMap.g:1093:1: ( ( ruleQualifiedName ) )
+            	    // InternalEMap.g:1094:1: ( ruleQualifiedName )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1094:1: ( ruleQualifiedName )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1095:3: ruleQualifiedName
+            	    // InternalEMap.g:1094:1: ( ruleQualifiedName )
+            	    // InternalEMap.g:1095:3: ruleQualifiedName
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -3085,7 +3086,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	      	        newCompositeNode(grammarAccess.getEUniqueConstraintAccess().getAttributesEAttributeCrossReference_4_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint2091);
+            	    pushFollow(FOLLOW_32);
             	    ruleQualifiedName();
 
             	    state._fsp--;
@@ -3110,7 +3111,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleEUniqueConstraint2105); if (state.failed) return current;
+            otherlv_6=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getEUniqueConstraintAccess().getRightParenthesisKeyword_5());
@@ -3139,7 +3140,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleESQLAttTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1120:1: entryRuleESQLAttTypeDef returns [EObject current=null] : iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF ;
+    // InternalEMap.g:1120:1: entryRuleESQLAttTypeDef returns [EObject current=null] : iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF ;
     public final EObject entryRuleESQLAttTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -3147,13 +3148,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1121:2: (iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1122:2: iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF
+            // InternalEMap.g:1121:2: (iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF )
+            // InternalEMap.g:1122:2: iv_ruleESQLAttTypeDef= ruleESQLAttTypeDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getESQLAttTypeDefRule()); 
             }
-            pushFollow(FOLLOW_ruleESQLAttTypeDef_in_entryRuleESQLAttTypeDef2141);
+            pushFollow(FOLLOW_1);
             iv_ruleESQLAttTypeDef=ruleESQLAttTypeDef();
 
             state._fsp--;
@@ -3161,7 +3162,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleESQLAttTypeDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleESQLAttTypeDef2151); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -3179,7 +3180,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleESQLAttTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1129:1: ruleESQLAttTypeDef returns [EObject current=null] : (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) ;
+    // InternalEMap.g:1129:1: ruleESQLAttTypeDef returns [EObject current=null] : (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) ;
     public final EObject ruleESQLAttTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -3195,23 +3196,23 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1132:28: ( (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1133:1: (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
+            // InternalEMap.g:1132:28: ( (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) )
+            // InternalEMap.g:1133:1: (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1133:1: (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1133:3: otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}'
+            // InternalEMap.g:1133:1: (otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
+            // InternalEMap.g:1133:3: otherlv_0= 'sql-type-def' ( ( ruleQualifiedName ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}'
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_29_in_ruleESQLAttTypeDef2188); if (state.failed) return current;
+            otherlv_0=(Token)match(input,29,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getESQLAttTypeDefAccess().getSqlTypeDefKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1137:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1138:1: ( ruleQualifiedName )
+            // InternalEMap.g:1137:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1138:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1138:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1139:3: ruleQualifiedName
+            // InternalEMap.g:1138:1: ( ruleQualifiedName )
+            // InternalEMap.g:1139:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -3225,7 +3226,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getESQLAttTypeDefAccess().getAttributeEAttributeCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleESQLAttTypeDef2211);
+            pushFollow(FOLLOW_6);
             ruleQualifiedName();
 
             state._fsp--;
@@ -3241,24 +3242,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleESQLAttTypeDef2223); if (state.failed) return current;
+            otherlv_2=(Token)match(input,13,FOLLOW_33); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getESQLAttTypeDefAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1156:1: ( (lv_dbTypes_3_0= ruleESQLDbType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1157:1: (lv_dbTypes_3_0= ruleESQLDbType )
+            // InternalEMap.g:1156:1: ( (lv_dbTypes_3_0= ruleESQLDbType ) )
+            // InternalEMap.g:1157:1: (lv_dbTypes_3_0= ruleESQLDbType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1157:1: (lv_dbTypes_3_0= ruleESQLDbType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1158:3: lv_dbTypes_3_0= ruleESQLDbType
+            // InternalEMap.g:1157:1: (lv_dbTypes_3_0= ruleESQLDbType )
+            // InternalEMap.g:1158:3: lv_dbTypes_3_0= ruleESQLDbType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getESQLAttTypeDefAccess().getDbTypesESQLDbTypeParserRuleCall_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleESQLDbType_in_ruleESQLAttTypeDef2244);
+            pushFollow(FOLLOW_9);
             lv_dbTypes_3_0=ruleESQLDbType();
 
             state._fsp--;
@@ -3272,7 +3273,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"dbTypes",
                       		lv_dbTypes_3_0, 
-                      		"ESQLDbType");
+                      		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -3282,7 +3283,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1174:2: (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )*
+            // InternalEMap.g:1174:2: (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )*
             loop31:
             do {
                 int alt31=2;
@@ -3295,26 +3296,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt31) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1174:4: otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) )
+            	    // InternalEMap.g:1174:4: otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) )
             	    {
-            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleESQLAttTypeDef2257); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,15,FOLLOW_33); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getESQLAttTypeDefAccess().getCommaKeyword_4_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1178:1: ( (lv_dbTypes_5_0= ruleESQLDbType ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1179:1: (lv_dbTypes_5_0= ruleESQLDbType )
+            	    // InternalEMap.g:1178:1: ( (lv_dbTypes_5_0= ruleESQLDbType ) )
+            	    // InternalEMap.g:1179:1: (lv_dbTypes_5_0= ruleESQLDbType )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1179:1: (lv_dbTypes_5_0= ruleESQLDbType )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1180:3: lv_dbTypes_5_0= ruleESQLDbType
+            	    // InternalEMap.g:1179:1: (lv_dbTypes_5_0= ruleESQLDbType )
+            	    // InternalEMap.g:1180:3: lv_dbTypes_5_0= ruleESQLDbType
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getESQLAttTypeDefAccess().getDbTypesESQLDbTypeParserRuleCall_4_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleESQLDbType_in_ruleESQLAttTypeDef2278);
+            	    pushFollow(FOLLOW_9);
             	    lv_dbTypes_5_0=ruleESQLDbType();
 
             	    state._fsp--;
@@ -3328,7 +3329,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"dbTypes",
             	              		lv_dbTypes_5_0, 
-            	              		"ESQLDbType");
+            	              		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -3347,7 +3348,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,16,FOLLOW_16_in_ruleESQLAttTypeDef2292); if (state.failed) return current;
+            otherlv_6=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getESQLAttTypeDefAccess().getRightCurlyBracketKeyword_5());
@@ -3376,7 +3377,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleESQLTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1208:1: entryRuleESQLTypeDef returns [EObject current=null] : iv_ruleESQLTypeDef= ruleESQLTypeDef EOF ;
+    // InternalEMap.g:1208:1: entryRuleESQLTypeDef returns [EObject current=null] : iv_ruleESQLTypeDef= ruleESQLTypeDef EOF ;
     public final EObject entryRuleESQLTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -3384,13 +3385,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1209:2: (iv_ruleESQLTypeDef= ruleESQLTypeDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1210:2: iv_ruleESQLTypeDef= ruleESQLTypeDef EOF
+            // InternalEMap.g:1209:2: (iv_ruleESQLTypeDef= ruleESQLTypeDef EOF )
+            // InternalEMap.g:1210:2: iv_ruleESQLTypeDef= ruleESQLTypeDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getESQLTypeDefRule()); 
             }
-            pushFollow(FOLLOW_ruleESQLTypeDef_in_entryRuleESQLTypeDef2328);
+            pushFollow(FOLLOW_1);
             iv_ruleESQLTypeDef=ruleESQLTypeDef();
 
             state._fsp--;
@@ -3398,7 +3399,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleESQLTypeDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleESQLTypeDef2338); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -3416,7 +3417,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleESQLTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1217:1: ruleESQLTypeDef returns [EObject current=null] : (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) ;
+    // InternalEMap.g:1217:1: ruleESQLTypeDef returns [EObject current=null] : (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) ;
     public final EObject ruleESQLTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -3434,30 +3435,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1220:28: ( (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1221:1: (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
+            // InternalEMap.g:1220:28: ( (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' ) )
+            // InternalEMap.g:1221:1: (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1221:1: (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1221:3: otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}'
+            // InternalEMap.g:1221:1: (otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}' )
+            // InternalEMap.g:1221:3: otherlv_0= 'sql-type-def' ( (lv_etype_1_0= ruleEType ) ) otherlv_2= '{' ( (lv_dbTypes_3_0= ruleESQLDbType ) ) (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )* otherlv_6= '}'
             {
-            otherlv_0=(Token)match(input,29,FOLLOW_29_in_ruleESQLTypeDef2375); if (state.failed) return current;
+            otherlv_0=(Token)match(input,29,FOLLOW_34); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getESQLTypeDefAccess().getSqlTypeDefKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1225:1: ( (lv_etype_1_0= ruleEType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1226:1: (lv_etype_1_0= ruleEType )
+            // InternalEMap.g:1225:1: ( (lv_etype_1_0= ruleEType ) )
+            // InternalEMap.g:1226:1: (lv_etype_1_0= ruleEType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1226:1: (lv_etype_1_0= ruleEType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1227:3: lv_etype_1_0= ruleEType
+            // InternalEMap.g:1226:1: (lv_etype_1_0= ruleEType )
+            // InternalEMap.g:1227:3: lv_etype_1_0= ruleEType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getESQLTypeDefAccess().getEtypeETypeParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEType_in_ruleESQLTypeDef2396);
+            pushFollow(FOLLOW_6);
             lv_etype_1_0=ruleEType();
 
             state._fsp--;
@@ -3471,7 +3472,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"etype",
                       		lv_etype_1_0, 
-                      		"EType");
+                      		"at.bestsolution.persistence.emap.EMap.EType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -3481,24 +3482,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleESQLTypeDef2408); if (state.failed) return current;
+            otherlv_2=(Token)match(input,13,FOLLOW_33); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getESQLTypeDefAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1247:1: ( (lv_dbTypes_3_0= ruleESQLDbType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1248:1: (lv_dbTypes_3_0= ruleESQLDbType )
+            // InternalEMap.g:1247:1: ( (lv_dbTypes_3_0= ruleESQLDbType ) )
+            // InternalEMap.g:1248:1: (lv_dbTypes_3_0= ruleESQLDbType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1248:1: (lv_dbTypes_3_0= ruleESQLDbType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1249:3: lv_dbTypes_3_0= ruleESQLDbType
+            // InternalEMap.g:1248:1: (lv_dbTypes_3_0= ruleESQLDbType )
+            // InternalEMap.g:1249:3: lv_dbTypes_3_0= ruleESQLDbType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getESQLTypeDefAccess().getDbTypesESQLDbTypeParserRuleCall_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleESQLDbType_in_ruleESQLTypeDef2429);
+            pushFollow(FOLLOW_9);
             lv_dbTypes_3_0=ruleESQLDbType();
 
             state._fsp--;
@@ -3512,7 +3513,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"dbTypes",
                       		lv_dbTypes_3_0, 
-                      		"ESQLDbType");
+                      		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -3522,7 +3523,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1265:2: (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )*
+            // InternalEMap.g:1265:2: (otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) ) )*
             loop32:
             do {
                 int alt32=2;
@@ -3535,26 +3536,26 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                 switch (alt32) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1265:4: otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) )
+            	    // InternalEMap.g:1265:4: otherlv_4= ',' ( (lv_dbTypes_5_0= ruleESQLDbType ) )
             	    {
-            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleESQLTypeDef2442); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,15,FOLLOW_33); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getESQLTypeDefAccess().getCommaKeyword_4_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1269:1: ( (lv_dbTypes_5_0= ruleESQLDbType ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1270:1: (lv_dbTypes_5_0= ruleESQLDbType )
+            	    // InternalEMap.g:1269:1: ( (lv_dbTypes_5_0= ruleESQLDbType ) )
+            	    // InternalEMap.g:1270:1: (lv_dbTypes_5_0= ruleESQLDbType )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1270:1: (lv_dbTypes_5_0= ruleESQLDbType )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1271:3: lv_dbTypes_5_0= ruleESQLDbType
+            	    // InternalEMap.g:1270:1: (lv_dbTypes_5_0= ruleESQLDbType )
+            	    // InternalEMap.g:1271:3: lv_dbTypes_5_0= ruleESQLDbType
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getESQLTypeDefAccess().getDbTypesESQLDbTypeParserRuleCall_4_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleESQLDbType_in_ruleESQLTypeDef2463);
+            	    pushFollow(FOLLOW_9);
             	    lv_dbTypes_5_0=ruleESQLDbType();
 
             	    state._fsp--;
@@ -3568,7 +3569,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"dbTypes",
             	              		lv_dbTypes_5_0, 
-            	              		"ESQLDbType");
+            	              		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -3587,7 +3588,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,16,FOLLOW_16_in_ruleESQLTypeDef2477); if (state.failed) return current;
+            otherlv_6=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getESQLTypeDefAccess().getRightCurlyBracketKeyword_5());
@@ -3616,7 +3617,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleESQLDbType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1299:1: entryRuleESQLDbType returns [EObject current=null] : iv_ruleESQLDbType= ruleESQLDbType EOF ;
+    // InternalEMap.g:1299:1: entryRuleESQLDbType returns [EObject current=null] : iv_ruleESQLDbType= ruleESQLDbType EOF ;
     public final EObject entryRuleESQLDbType() throws RecognitionException {
         EObject current = null;
 
@@ -3624,13 +3625,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1300:2: (iv_ruleESQLDbType= ruleESQLDbType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1301:2: iv_ruleESQLDbType= ruleESQLDbType EOF
+            // InternalEMap.g:1300:2: (iv_ruleESQLDbType= ruleESQLDbType EOF )
+            // InternalEMap.g:1301:2: iv_ruleESQLDbType= ruleESQLDbType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getESQLDbTypeRule()); 
             }
-            pushFollow(FOLLOW_ruleESQLDbType_in_entryRuleESQLDbType2513);
+            pushFollow(FOLLOW_1);
             iv_ruleESQLDbType=ruleESQLDbType();
 
             state._fsp--;
@@ -3638,7 +3639,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleESQLDbType; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleESQLDbType2523); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -3656,7 +3657,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleESQLDbType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1308:1: ruleESQLDbType returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? ) ;
+    // InternalEMap.g:1308:1: ruleESQLDbType returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? ) ;
     public final EObject ruleESQLDbType() throws RecognitionException {
         EObject current = null;
 
@@ -3669,19 +3670,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1311:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1312:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? )
+            // InternalEMap.g:1311:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? ) )
+            // InternalEMap.g:1312:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1312:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1312:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )?
+            // InternalEMap.g:1312:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )? )
+            // InternalEMap.g:1312:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_sqlTypeDef_1_0= RULE_STRING ) ) (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1312:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1313:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:1312:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
+            // InternalEMap.g:1313:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1313:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1314:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            // InternalEMap.g:1313:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:1314:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1314:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            // InternalEMap.g:1314:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -3700,9 +3701,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt33) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1315:3: lv_dbType_0_1= 'default'
+                    // InternalEMap.g:1315:3: lv_dbType_0_1= 'default'
                     {
-                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_30_in_ruleESQLDbType2568); if (state.failed) return current;
+                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_dbType_0_1, grammarAccess.getESQLDbTypeAccess().getDbTypeDefaultKeyword_0_0_0());
@@ -3720,9 +3721,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1327:8: lv_dbType_0_2= RULE_STRING
+                    // InternalEMap.g:1327:8: lv_dbType_0_2= RULE_STRING
                     {
-                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleESQLDbType2596); if (state.failed) return current;
+                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_dbType_0_2, grammarAccess.getESQLDbTypeAccess().getDbTypeSTRINGTerminalRuleCall_0_0_1()); 
@@ -3737,7 +3738,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"dbType",
                               		lv_dbType_0_2, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -3752,13 +3753,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1345:2: ( (lv_sqlTypeDef_1_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1346:1: (lv_sqlTypeDef_1_0= RULE_STRING )
+            // InternalEMap.g:1345:2: ( (lv_sqlTypeDef_1_0= RULE_STRING ) )
+            // InternalEMap.g:1346:1: (lv_sqlTypeDef_1_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1346:1: (lv_sqlTypeDef_1_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1347:3: lv_sqlTypeDef_1_0= RULE_STRING
+            // InternalEMap.g:1346:1: (lv_sqlTypeDef_1_0= RULE_STRING )
+            // InternalEMap.g:1347:3: lv_sqlTypeDef_1_0= RULE_STRING
             {
-            lv_sqlTypeDef_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleESQLDbType2621); if (state.failed) return current;
+            lv_sqlTypeDef_1_0=(Token)match(input,RULE_STRING,FOLLOW_35); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_sqlTypeDef_1_0, grammarAccess.getESQLDbTypeAccess().getSqlTypeDefSTRINGTerminalRuleCall_1_0()); 
@@ -3773,7 +3774,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"sqlTypeDef",
                       		lv_sqlTypeDef_1_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -3782,7 +3783,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1363:2: (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )?
+            // InternalEMap.g:1363:2: (otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) ) )?
             int alt34=2;
             int LA34_0 = input.LA(1);
 
@@ -3791,21 +3792,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt34) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1363:4: otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) )
+                    // InternalEMap.g:1363:4: otherlv_2= 'size' ( (lv_size_3_0= RULE_STRING ) )
                     {
-                    otherlv_2=(Token)match(input,31,FOLLOW_31_in_ruleESQLDbType2639); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,31,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getESQLDbTypeAccess().getSizeKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1367:1: ( (lv_size_3_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1368:1: (lv_size_3_0= RULE_STRING )
+                    // InternalEMap.g:1367:1: ( (lv_size_3_0= RULE_STRING ) )
+                    // InternalEMap.g:1368:1: (lv_size_3_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1368:1: (lv_size_3_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1369:3: lv_size_3_0= RULE_STRING
+                    // InternalEMap.g:1368:1: (lv_size_3_0= RULE_STRING )
+                    // InternalEMap.g:1369:3: lv_size_3_0= RULE_STRING
                     {
-                    lv_size_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleESQLDbType2656); if (state.failed) return current;
+                    lv_size_3_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_size_3_0, grammarAccess.getESQLDbTypeAccess().getSizeSTRINGTerminalRuleCall_2_1_0()); 
@@ -3820,7 +3821,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"size",
                               		lv_size_3_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -3858,7 +3859,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleERestServiceMapping"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1393:1: entryRuleERestServiceMapping returns [EObject current=null] : iv_ruleERestServiceMapping= ruleERestServiceMapping EOF ;
+    // InternalEMap.g:1393:1: entryRuleERestServiceMapping returns [EObject current=null] : iv_ruleERestServiceMapping= ruleERestServiceMapping EOF ;
     public final EObject entryRuleERestServiceMapping() throws RecognitionException {
         EObject current = null;
 
@@ -3866,13 +3867,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1394:2: (iv_ruleERestServiceMapping= ruleERestServiceMapping EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1395:2: iv_ruleERestServiceMapping= ruleERestServiceMapping EOF
+            // InternalEMap.g:1394:2: (iv_ruleERestServiceMapping= ruleERestServiceMapping EOF )
+            // InternalEMap.g:1395:2: iv_ruleERestServiceMapping= ruleERestServiceMapping EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getERestServiceMappingRule()); 
             }
-            pushFollow(FOLLOW_ruleERestServiceMapping_in_entryRuleERestServiceMapping2699);
+            pushFollow(FOLLOW_1);
             iv_ruleERestServiceMapping=ruleERestServiceMapping();
 
             state._fsp--;
@@ -3880,7 +3881,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleERestServiceMapping; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleERestServiceMapping2709); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -3898,34 +3899,36 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleERestServiceMapping"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1402:1: ruleERestServiceMapping returns [EObject current=null] : (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )? ( (lv_rest_5_0= 'rest' ) ) ) ;
+    // InternalEMap.g:1402:1: ruleERestServiceMapping returns [EObject current=null] : (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )? ( (lv_rest_6_0= 'rest' ) ) ) ;
     public final EObject ruleERestServiceMapping() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
         Token otherlv_2=null;
-        Token otherlv_4=null;
-        Token lv_rest_5_0=null;
+        Token otherlv_5=null;
+        Token lv_rest_6_0=null;
         EObject lv_serviceMethods_3_0 = null;
+
+        EObject lv_customServiceMethods_4_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1405:28: ( (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )? ( (lv_rest_5_0= 'rest' ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1406:1: (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )? ( (lv_rest_5_0= 'rest' ) ) )
+            // InternalEMap.g:1405:28: ( (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )? ( (lv_rest_6_0= 'rest' ) ) ) )
+            // InternalEMap.g:1406:1: (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )? ( (lv_rest_6_0= 'rest' ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1406:1: (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )? ( (lv_rest_5_0= 'rest' ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1406:3: otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )? ( (lv_rest_5_0= 'rest' ) )
+            // InternalEMap.g:1406:1: (otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )? ( (lv_rest_6_0= 'rest' ) ) )
+            // InternalEMap.g:1406:3: otherlv_0= 'webservice' () (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )? ( (lv_rest_6_0= 'rest' ) )
             {
-            otherlv_0=(Token)match(input,32,FOLLOW_32_in_ruleERestServiceMapping2746); if (state.failed) return current;
+            otherlv_0=(Token)match(input,32,FOLLOW_36); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getERestServiceMappingAccess().getWebserviceKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1410:1: ()
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1411:5: 
+            // InternalEMap.g:1410:1: ()
+            // InternalEMap.g:1411:5: 
             {
             if ( state.backtracking==0 ) {
 
@@ -3937,25 +3940,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1416:2: (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}' )?
-            int alt36=2;
-            int LA36_0 = input.LA(1);
+            // InternalEMap.g:1416:2: (otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}' )?
+            int alt37=2;
+            int LA37_0 = input.LA(1);
 
-            if ( (LA36_0==13) ) {
-                alt36=1;
+            if ( (LA37_0==13) ) {
+                alt37=1;
             }
-            switch (alt36) {
+            switch (alt37) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1416:4: otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+ otherlv_4= '}'
+                    // InternalEMap.g:1416:4: otherlv_2= '{' ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )* ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )* otherlv_5= '}'
                     {
-                    otherlv_2=(Token)match(input,13,FOLLOW_13_in_ruleERestServiceMapping2768); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,13,FOLLOW_37); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getERestServiceMappingAccess().getLeftCurlyBracketKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1420:1: ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )+
-                    int cnt35=0;
+                    // InternalEMap.g:1420:1: ( (lv_serviceMethods_3_0= ruleENamedServiceQuery ) )*
                     loop35:
                     do {
                         int alt35=2;
@@ -3968,17 +3970,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                         switch (alt35) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1421:1: (lv_serviceMethods_3_0= ruleENamedServiceQuery )
+                    	    // InternalEMap.g:1421:1: (lv_serviceMethods_3_0= ruleENamedServiceQuery )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1421:1: (lv_serviceMethods_3_0= ruleENamedServiceQuery )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1422:3: lv_serviceMethods_3_0= ruleENamedServiceQuery
+                    	    // InternalEMap.g:1421:1: (lv_serviceMethods_3_0= ruleENamedServiceQuery )
+                    	    // InternalEMap.g:1422:3: lv_serviceMethods_3_0= ruleENamedServiceQuery
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getERestServiceMappingAccess().getServiceMethodsENamedServiceQueryParserRuleCall_2_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleENamedServiceQuery_in_ruleERestServiceMapping2789);
+                    	    pushFollow(FOLLOW_37);
                     	    lv_serviceMethods_3_0=ruleENamedServiceQuery();
 
                     	    state._fsp--;
@@ -3992,7 +3994,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"serviceMethods",
                     	              		lv_serviceMethods_3_0, 
-                    	              		"ENamedServiceQuery");
+                    	              		"at.bestsolution.persistence.emap.EMap.ENamedServiceQuery");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -4004,19 +4006,67 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt35 >= 1 ) break loop35;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(35, input);
-                                throw eee;
+                    	    break loop35;
                         }
-                        cnt35++;
                     } while (true);
 
-                    otherlv_4=(Token)match(input,16,FOLLOW_16_in_ruleERestServiceMapping2802); if (state.failed) return current;
+                    // InternalEMap.g:1438:3: ( (lv_customServiceMethods_4_0= ruleECustomServiceMethods ) )*
+                    loop36:
+                    do {
+                        int alt36=2;
+                        int LA36_0 = input.LA(1);
+
+                        if ( (LA36_0==36) ) {
+                            alt36=1;
+                        }
+
+
+                        switch (alt36) {
+                    	case 1 :
+                    	    // InternalEMap.g:1439:1: (lv_customServiceMethods_4_0= ruleECustomServiceMethods )
+                    	    {
+                    	    // InternalEMap.g:1439:1: (lv_customServiceMethods_4_0= ruleECustomServiceMethods )
+                    	    // InternalEMap.g:1440:3: lv_customServiceMethods_4_0= ruleECustomServiceMethods
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getERestServiceMappingAccess().getCustomServiceMethodsECustomServiceMethodsParserRuleCall_2_2_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FOLLOW_38);
+                    	    lv_customServiceMethods_4_0=ruleECustomServiceMethods();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getERestServiceMappingRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"customServiceMethods",
+                    	              		lv_customServiceMethods_4_0, 
+                    	              		"at.bestsolution.persistence.emap.EMap.ECustomServiceMethods");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop36;
+                        }
+                    } while (true);
+
+                    otherlv_5=(Token)match(input,16,FOLLOW_39); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_4, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_2());
+                          	newLeafNode(otherlv_5, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_3());
                           
                     }
 
@@ -4025,16 +4075,16 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1442:3: ( (lv_rest_5_0= 'rest' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1443:1: (lv_rest_5_0= 'rest' )
+            // InternalEMap.g:1460:3: ( (lv_rest_6_0= 'rest' ) )
+            // InternalEMap.g:1461:1: (lv_rest_6_0= 'rest' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1443:1: (lv_rest_5_0= 'rest' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1444:3: lv_rest_5_0= 'rest'
+            // InternalEMap.g:1461:1: (lv_rest_6_0= 'rest' )
+            // InternalEMap.g:1462:3: lv_rest_6_0= 'rest'
             {
-            lv_rest_5_0=(Token)match(input,33,FOLLOW_33_in_ruleERestServiceMapping2822); if (state.failed) return current;
+            lv_rest_6_0=(Token)match(input,33,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                      newLeafNode(lv_rest_5_0, grammarAccess.getERestServiceMappingAccess().getRestRestKeyword_3_0());
+                      newLeafNode(lv_rest_6_0, grammarAccess.getERestServiceMappingAccess().getRestRestKeyword_3_0());
                   
             }
             if ( state.backtracking==0 ) {
@@ -4074,7 +4124,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleENamedServiceQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1465:1: entryRuleENamedServiceQuery returns [EObject current=null] : iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF ;
+    // InternalEMap.g:1483:1: entryRuleENamedServiceQuery returns [EObject current=null] : iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF ;
     public final EObject entryRuleENamedServiceQuery() throws RecognitionException {
         EObject current = null;
 
@@ -4082,13 +4132,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1466:2: (iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1467:2: iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF
+            // InternalEMap.g:1484:2: (iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF )
+            // InternalEMap.g:1485:2: iv_ruleENamedServiceQuery= ruleENamedServiceQuery EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getENamedServiceQueryRule()); 
             }
-            pushFollow(FOLLOW_ruleENamedServiceQuery_in_entryRuleENamedServiceQuery2871);
+            pushFollow(FOLLOW_1);
             iv_ruleENamedServiceQuery=ruleENamedServiceQuery();
 
             state._fsp--;
@@ -4096,7 +4146,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleENamedServiceQuery; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleENamedServiceQuery2881); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -4114,7 +4164,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleENamedServiceQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1474:1: ruleENamedServiceQuery returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? ) ;
+    // InternalEMap.g:1492:1: ruleENamedServiceQuery returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? ) ;
     public final EObject ruleENamedServiceQuery() throws RecognitionException {
         EObject current = null;
 
@@ -4134,17 +4184,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1477:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1478:1: ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? )
+            // InternalEMap.g:1495:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? ) )
+            // InternalEMap.g:1496:1: ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1478:1: ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1478:2: ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )?
+            // InternalEMap.g:1496:1: ( ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )? )
+            // InternalEMap.g:1496:2: ( ( ruleQualifiedName ) ) otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1478:2: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1479:1: ( ruleQualifiedName )
+            // InternalEMap.g:1496:2: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1497:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1479:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1480:3: ruleQualifiedName
+            // InternalEMap.g:1497:1: ( ruleQualifiedName )
+            // InternalEMap.g:1498:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -4158,7 +4208,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getQueryENamedQueryCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleENamedServiceQuery2929);
+            pushFollow(FOLLOW_40);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4174,19 +4224,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,34,FOLLOW_34_in_ruleENamedServiceQuery2941); if (state.failed) return current;
+            otherlv_1=(Token)match(input,34,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getENamedServiceQueryAccess().getAsKeyword_1());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1497:1: ( (lv_name_2_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1498:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:1515:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalEMap.g:1516:1: (lv_name_2_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1498:1: (lv_name_2_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1499:3: lv_name_2_0= RULE_ID
+            // InternalEMap.g:1516:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:1517:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleENamedServiceQuery2958); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_15); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_2_0, grammarAccess.getENamedServiceQueryAccess().getNameIDTerminalRuleCall_2_0()); 
@@ -4201,7 +4251,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_2_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -4210,13 +4260,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1515:2: ( (lv_path_3_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1516:1: (lv_path_3_0= RULE_STRING )
+            // InternalEMap.g:1533:2: ( (lv_path_3_0= RULE_STRING ) )
+            // InternalEMap.g:1534:1: (lv_path_3_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1516:1: (lv_path_3_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1517:3: lv_path_3_0= RULE_STRING
+            // InternalEMap.g:1534:1: (lv_path_3_0= RULE_STRING )
+            // InternalEMap.g:1535:3: lv_path_3_0= RULE_STRING
             {
-            lv_path_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleENamedServiceQuery2980); if (state.failed) return current;
+            lv_path_3_0=(Token)match(input,RULE_STRING,FOLLOW_18); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_path_3_0, grammarAccess.getENamedServiceQueryAccess().getPathSTRINGTerminalRuleCall_3_0()); 
@@ -4231,7 +4281,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"path",
                       		lv_path_3_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -4240,47 +4290,47 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1533:2: (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )?
-            int alt40=2;
-            int LA40_0 = input.LA(1);
+            // InternalEMap.g:1551:2: (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}' )?
+            int alt41=2;
+            int LA41_0 = input.LA(1);
 
-            if ( (LA40_0==13) ) {
-                alt40=1;
+            if ( (LA41_0==13) ) {
+                alt41=1;
             }
-            switch (alt40) {
+            switch (alt41) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1533:4: otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}'
+                    // InternalEMap.g:1551:4: otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )? otherlv_10= '}'
                     {
-                    otherlv_4=(Token)match(input,13,FOLLOW_13_in_ruleENamedServiceQuery2998); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,13,FOLLOW_41); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_4_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1537:1: ( (lv_parameters_5_0= ruleEServiceParam ) )*
-                    loop37:
+                    // InternalEMap.g:1555:1: ( (lv_parameters_5_0= ruleEServiceParam ) )*
+                    loop38:
                     do {
-                        int alt37=2;
-                        int LA37_0 = input.LA(1);
+                        int alt38=2;
+                        int LA38_0 = input.LA(1);
 
-                        if ( (LA37_0==36||LA37_0==38) ) {
-                            alt37=1;
+                        if ( (LA38_0==37||LA38_0==39) ) {
+                            alt38=1;
                         }
 
 
-                        switch (alt37) {
+                        switch (alt38) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1538:1: (lv_parameters_5_0= ruleEServiceParam )
+                    	    // InternalEMap.g:1556:1: (lv_parameters_5_0= ruleEServiceParam )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1538:1: (lv_parameters_5_0= ruleEServiceParam )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1539:3: lv_parameters_5_0= ruleEServiceParam
+                    	    // InternalEMap.g:1556:1: (lv_parameters_5_0= ruleEServiceParam )
+                    	    // InternalEMap.g:1557:3: lv_parameters_5_0= ruleEServiceParam
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEServiceParam_in_ruleENamedServiceQuery3019);
+                    	    pushFollow(FOLLOW_41);
                     	    lv_parameters_5_0=ruleEServiceParam();
 
                     	    state._fsp--;
@@ -4294,7 +4344,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"parameters",
                     	              		lv_parameters_5_0, 
-                    	              		"EServiceParam");
+                    	              		"at.bestsolution.persistence.emap.EMap.EServiceParam");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -4306,58 +4356,58 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop37;
+                    	    break loop38;
                         }
                     } while (true);
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1555:3: (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )?
-                    int alt39=2;
-                    int LA39_0 = input.LA(1);
+                    // InternalEMap.g:1573:3: (otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}' )?
+                    int alt40=2;
+                    int LA40_0 = input.LA(1);
 
-                    if ( (LA39_0==35) ) {
-                        alt39=1;
+                    if ( (LA40_0==35) ) {
+                        alt40=1;
                     }
-                    switch (alt39) {
+                    switch (alt40) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1555:5: otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}'
+                            // InternalEMap.g:1573:5: otherlv_6= 'greedy' otherlv_7= '{' ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+ otherlv_9= '}'
                             {
-                            otherlv_6=(Token)match(input,35,FOLLOW_35_in_ruleENamedServiceQuery3033); if (state.failed) return current;
+                            otherlv_6=(Token)match(input,35,FOLLOW_6); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_6, grammarAccess.getENamedServiceQueryAccess().getGreedyKeyword_4_2_0());
                                   
                             }
-                            otherlv_7=(Token)match(input,13,FOLLOW_13_in_ruleENamedServiceQuery3045); if (state.failed) return current;
+                            otherlv_7=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_7, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_4_2_1());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1563:1: ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+
-                            int cnt38=0;
-                            loop38:
+                            // InternalEMap.g:1581:1: ( (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath ) )+
+                            int cnt39=0;
+                            loop39:
                             do {
-                                int alt38=2;
-                                int LA38_0 = input.LA(1);
+                                int alt39=2;
+                                int LA39_0 = input.LA(1);
 
-                                if ( (LA38_0==RULE_ID) ) {
-                                    alt38=1;
+                                if ( (LA39_0==RULE_ID) ) {
+                                    alt39=1;
                                 }
 
 
-                                switch (alt38) {
+                                switch (alt39) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1564:1: (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath )
+                            	    // InternalEMap.g:1582:1: (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1564:1: (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1565:3: lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath
+                            	    // InternalEMap.g:1582:1: (lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath )
+                            	    // InternalEMap.g:1583:3: lv_greedyAttributePathList_8_0= ruleEGreedyAttributePath
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getENamedServiceQueryAccess().getGreedyAttributePathListEGreedyAttributePathParserRuleCall_4_2_2_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEGreedyAttributePath_in_ruleENamedServiceQuery3066);
+                            	    pushFollow(FOLLOW_12);
                             	    lv_greedyAttributePathList_8_0=ruleEGreedyAttributePath();
 
                             	    state._fsp--;
@@ -4371,7 +4421,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"greedyAttributePathList",
                             	              		lv_greedyAttributePathList_8_0, 
-                            	              		"EGreedyAttributePath");
+                            	              		"at.bestsolution.persistence.emap.EMap.EGreedyAttributePath");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -4383,16 +4433,16 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    if ( cnt38 >= 1 ) break loop38;
+                            	    if ( cnt39 >= 1 ) break loop39;
                             	    if (state.backtracking>0) {state.failed=true; return current;}
                                         EarlyExitException eee =
-                                            new EarlyExitException(38, input);
+                                            new EarlyExitException(39, input);
                                         throw eee;
                                 }
-                                cnt38++;
+                                cnt39++;
                             } while (true);
 
-                            otherlv_9=(Token)match(input,16,FOLLOW_16_in_ruleENamedServiceQuery3079); if (state.failed) return current;
+                            otherlv_9=(Token)match(input,16,FOLLOW_13); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_9, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_4_2_3());
@@ -4404,7 +4454,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_10=(Token)match(input,16,FOLLOW_16_in_ruleENamedServiceQuery3093); if (state.failed) return current;
+                    otherlv_10=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_10, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_4_3());
@@ -4438,8 +4488,247 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleENamedServiceQuery"
 
 
+    // $ANTLR start "entryRuleECustomServiceMethods"
+    // InternalEMap.g:1615:1: entryRuleECustomServiceMethods returns [EObject current=null] : iv_ruleECustomServiceMethods= ruleECustomServiceMethods EOF ;
+    public final EObject entryRuleECustomServiceMethods() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleECustomServiceMethods = null;
+
+
+        try {
+            // InternalEMap.g:1616:2: (iv_ruleECustomServiceMethods= ruleECustomServiceMethods EOF )
+            // InternalEMap.g:1617:2: iv_ruleECustomServiceMethods= ruleECustomServiceMethods EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getECustomServiceMethodsRule()); 
+            }
+            pushFollow(FOLLOW_1);
+            iv_ruleECustomServiceMethods=ruleECustomServiceMethods();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleECustomServiceMethods; 
+            }
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleECustomServiceMethods"
+
+
+    // $ANTLR start "ruleECustomServiceMethods"
+    // InternalEMap.g:1624:1: ruleECustomServiceMethods returns [EObject current=null] : (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? ) ;
+    public final EObject ruleECustomServiceMethods() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_0=null;
+        Token otherlv_1=null;
+        Token lv_name_2_0=null;
+        Token lv_path_3_0=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_parameters_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // InternalEMap.g:1627:28: ( (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? ) )
+            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? )
+            {
+            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? )
+            // InternalEMap.g:1628:3: otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )?
+            {
+            otherlv_0=(Token)match(input,36,FOLLOW_40); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_0, grammarAccess.getECustomServiceMethodsAccess().getCustomKeyword_0());
+                  
+            }
+            otherlv_1=(Token)match(input,34,FOLLOW_4); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_1, grammarAccess.getECustomServiceMethodsAccess().getAsKeyword_1());
+                  
+            }
+            // InternalEMap.g:1636:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalEMap.g:1637:1: (lv_name_2_0= RULE_ID )
+            {
+            // InternalEMap.g:1637:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:1638:3: lv_name_2_0= RULE_ID
+            {
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_15); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(lv_name_2_0, grammarAccess.getECustomServiceMethodsAccess().getNameIDTerminalRuleCall_2_0()); 
+              		
+            }
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElement(grammarAccess.getECustomServiceMethodsRule());
+              	        }
+                     		setWithLastConsumed(
+                     			current, 
+                     			"name",
+                      		lv_name_2_0, 
+                      		"org.eclipse.xtext.common.Terminals.ID");
+              	    
+            }
+
+            }
+
+
+            }
+
+            // InternalEMap.g:1654:2: ( (lv_path_3_0= RULE_STRING ) )
+            // InternalEMap.g:1655:1: (lv_path_3_0= RULE_STRING )
+            {
+            // InternalEMap.g:1655:1: (lv_path_3_0= RULE_STRING )
+            // InternalEMap.g:1656:3: lv_path_3_0= RULE_STRING
+            {
+            lv_path_3_0=(Token)match(input,RULE_STRING,FOLLOW_18); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(lv_path_3_0, grammarAccess.getECustomServiceMethodsAccess().getPathSTRINGTerminalRuleCall_3_0()); 
+              		
+            }
+            if ( state.backtracking==0 ) {
+
+              	        if (current==null) {
+              	            current = createModelElement(grammarAccess.getECustomServiceMethodsRule());
+              	        }
+                     		setWithLastConsumed(
+                     			current, 
+                     			"path",
+                      		lv_path_3_0, 
+                      		"org.eclipse.xtext.common.Terminals.STRING");
+              	    
+            }
+
+            }
+
+
+            }
+
+            // InternalEMap.g:1672:2: (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )?
+            int alt43=2;
+            int LA43_0 = input.LA(1);
+
+            if ( (LA43_0==13) ) {
+                alt43=1;
+            }
+            switch (alt43) {
+                case 1 :
+                    // InternalEMap.g:1672:4: otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}'
+                    {
+                    otherlv_4=(Token)match(input,13,FOLLOW_42); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_4, grammarAccess.getECustomServiceMethodsAccess().getLeftCurlyBracketKeyword_4_0());
+                          
+                    }
+                    // InternalEMap.g:1676:1: ( (lv_parameters_5_0= ruleEServiceParam ) )*
+                    loop42:
+                    do {
+                        int alt42=2;
+                        int LA42_0 = input.LA(1);
+
+                        if ( (LA42_0==37||LA42_0==39) ) {
+                            alt42=1;
+                        }
+
+
+                        switch (alt42) {
+                    	case 1 :
+                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEServiceParam )
+                    	    {
+                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEServiceParam )
+                    	    // InternalEMap.g:1678:3: lv_parameters_5_0= ruleEServiceParam
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FOLLOW_42);
+                    	    lv_parameters_5_0=ruleEServiceParam();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getECustomServiceMethodsRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"parameters",
+                    	              		lv_parameters_5_0, 
+                    	              		"at.bestsolution.persistence.emap.EMap.EServiceParam");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop42;
+                        }
+                    } while (true);
+
+                    otherlv_6=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                          	newLeafNode(otherlv_6, grammarAccess.getECustomServiceMethodsAccess().getRightCurlyBracketKeyword_4_2());
+                          
+                    }
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+               leaveRule(); 
+            }
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleECustomServiceMethods"
+
+
     // $ANTLR start "entryRuleEGreedyAttributePath"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1597:1: entryRuleEGreedyAttributePath returns [EObject current=null] : iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF ;
+    // InternalEMap.g:1706:1: entryRuleEGreedyAttributePath returns [EObject current=null] : iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF ;
     public final EObject entryRuleEGreedyAttributePath() throws RecognitionException {
         EObject current = null;
 
@@ -4447,13 +4736,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1598:2: (iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1599:2: iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF
+            // InternalEMap.g:1707:2: (iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF )
+            // InternalEMap.g:1708:2: iv_ruleEGreedyAttributePath= ruleEGreedyAttributePath EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEGreedyAttributePathRule()); 
             }
-            pushFollow(FOLLOW_ruleEGreedyAttributePath_in_entryRuleEGreedyAttributePath3131);
+            pushFollow(FOLLOW_1);
             iv_ruleEGreedyAttributePath=ruleEGreedyAttributePath();
 
             state._fsp--;
@@ -4461,7 +4750,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEGreedyAttributePath; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEGreedyAttributePath3141); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -4479,7 +4768,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEGreedyAttributePath"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1606:1: ruleEGreedyAttributePath returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? ) ;
+    // InternalEMap.g:1715:1: ruleEGreedyAttributePath returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? ) ;
     public final EObject ruleEGreedyAttributePath() throws RecognitionException {
         EObject current = null;
 
@@ -4491,17 +4780,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1609:28: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1610:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? )
+            // InternalEMap.g:1718:28: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? ) )
+            // InternalEMap.g:1719:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1610:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1610:2: ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )?
+            // InternalEMap.g:1719:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )? )
+            // InternalEMap.g:1719:2: ( ( ruleQualifiedName ) ) (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1610:2: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1611:1: ( ruleQualifiedName )
+            // InternalEMap.g:1719:2: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1720:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1611:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1612:3: ruleQualifiedName
+            // InternalEMap.g:1720:1: ( ruleQualifiedName )
+            // InternalEMap.g:1721:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -4515,7 +4804,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEGreedyAttributePathAccess().getGreedyAttributeEAttributeCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEGreedyAttributePath3189);
+            pushFollow(FOLLOW_18);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4531,48 +4820,48 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1625:2: (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )?
-            int alt42=2;
-            int LA42_0 = input.LA(1);
+            // InternalEMap.g:1734:2: (otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}' )?
+            int alt45=2;
+            int LA45_0 = input.LA(1);
 
-            if ( (LA42_0==13) ) {
-                alt42=1;
+            if ( (LA45_0==13) ) {
+                alt45=1;
             }
-            switch (alt42) {
+            switch (alt45) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1625:4: otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}'
+                    // InternalEMap.g:1734:4: otherlv_1= '{' ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+ otherlv_3= '}'
                     {
-                    otherlv_1=(Token)match(input,13,FOLLOW_13_in_ruleEGreedyAttributePath3202); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,13,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEGreedyAttributePathAccess().getLeftCurlyBracketKeyword_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1629:1: ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+
-                    int cnt41=0;
-                    loop41:
+                    // InternalEMap.g:1738:1: ( (lv_subPathList_2_0= ruleEGreedyAttributePath ) )+
+                    int cnt44=0;
+                    loop44:
                     do {
-                        int alt41=2;
-                        int LA41_0 = input.LA(1);
+                        int alt44=2;
+                        int LA44_0 = input.LA(1);
 
-                        if ( (LA41_0==RULE_ID) ) {
-                            alt41=1;
+                        if ( (LA44_0==RULE_ID) ) {
+                            alt44=1;
                         }
 
 
-                        switch (alt41) {
+                        switch (alt44) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1630:1: (lv_subPathList_2_0= ruleEGreedyAttributePath )
+                    	    // InternalEMap.g:1739:1: (lv_subPathList_2_0= ruleEGreedyAttributePath )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1630:1: (lv_subPathList_2_0= ruleEGreedyAttributePath )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1631:3: lv_subPathList_2_0= ruleEGreedyAttributePath
+                    	    // InternalEMap.g:1739:1: (lv_subPathList_2_0= ruleEGreedyAttributePath )
+                    	    // InternalEMap.g:1740:3: lv_subPathList_2_0= ruleEGreedyAttributePath
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEGreedyAttributePathAccess().getSubPathListEGreedyAttributePathParserRuleCall_1_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEGreedyAttributePath_in_ruleEGreedyAttributePath3223);
+                    	    pushFollow(FOLLOW_12);
                     	    lv_subPathList_2_0=ruleEGreedyAttributePath();
 
                     	    state._fsp--;
@@ -4586,7 +4875,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"subPathList",
                     	              		lv_subPathList_2_0, 
-                    	              		"EGreedyAttributePath");
+                    	              		"at.bestsolution.persistence.emap.EMap.EGreedyAttributePath");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -4598,16 +4887,16 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt41 >= 1 ) break loop41;
+                    	    if ( cnt44 >= 1 ) break loop44;
                     	    if (state.backtracking>0) {state.failed=true; return current;}
                                 EarlyExitException eee =
-                                    new EarlyExitException(41, input);
+                                    new EarlyExitException(44, input);
                                 throw eee;
                         }
-                        cnt41++;
+                        cnt44++;
                     } while (true);
 
-                    otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleEGreedyAttributePath3236); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getEGreedyAttributePathAccess().getRightCurlyBracketKeyword_1_2());
@@ -4642,7 +4931,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEServiceParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1659:1: entryRuleEServiceParam returns [EObject current=null] : iv_ruleEServiceParam= ruleEServiceParam EOF ;
+    // InternalEMap.g:1768:1: entryRuleEServiceParam returns [EObject current=null] : iv_ruleEServiceParam= ruleEServiceParam EOF ;
     public final EObject entryRuleEServiceParam() throws RecognitionException {
         EObject current = null;
 
@@ -4650,13 +4939,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1660:2: (iv_ruleEServiceParam= ruleEServiceParam EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1661:2: iv_ruleEServiceParam= ruleEServiceParam EOF
+            // InternalEMap.g:1769:2: (iv_ruleEServiceParam= ruleEServiceParam EOF )
+            // InternalEMap.g:1770:2: iv_ruleEServiceParam= ruleEServiceParam EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEServiceParamRule()); 
             }
-            pushFollow(FOLLOW_ruleEServiceParam_in_entryRuleEServiceParam3274);
+            pushFollow(FOLLOW_1);
             iv_ruleEServiceParam=ruleEServiceParam();
 
             state._fsp--;
@@ -4664,7 +4953,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEServiceParam; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEServiceParam3284); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -4682,7 +4971,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEServiceParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1668:1: ruleEServiceParam returns [EObject current=null] : (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam ) ;
+    // InternalEMap.g:1777:1: ruleEServiceParam returns [EObject current=null] : (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam ) ;
     public final EObject ruleEServiceParam() throws RecognitionException {
         EObject current = null;
 
@@ -4694,36 +4983,36 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1671:28: ( (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1672:1: (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam )
+            // InternalEMap.g:1780:28: ( (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam ) )
+            // InternalEMap.g:1781:1: (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1672:1: (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam )
-            int alt43=2;
-            int LA43_0 = input.LA(1);
+            // InternalEMap.g:1781:1: (this_EPathParam_0= ruleEPathParam | this_EQueryParam_1= ruleEQueryParam )
+            int alt46=2;
+            int LA46_0 = input.LA(1);
 
-            if ( (LA43_0==36) ) {
-                alt43=1;
+            if ( (LA46_0==37) ) {
+                alt46=1;
             }
-            else if ( (LA43_0==38) ) {
-                alt43=2;
+            else if ( (LA46_0==39) ) {
+                alt46=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 43, 0, input);
+                    new NoViableAltException("", 46, 0, input);
 
                 throw nvae;
             }
-            switch (alt43) {
+            switch (alt46) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1673:5: this_EPathParam_0= ruleEPathParam
+                    // InternalEMap.g:1782:5: this_EPathParam_0= ruleEPathParam
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEServiceParamAccess().getEPathParamParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleEPathParam_in_ruleEServiceParam3331);
+                    pushFollow(FOLLOW_2);
                     this_EPathParam_0=ruleEPathParam();
 
                     state._fsp--;
@@ -4738,14 +5027,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1683:5: this_EQueryParam_1= ruleEQueryParam
+                    // InternalEMap.g:1792:5: this_EQueryParam_1= ruleEQueryParam
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEServiceParamAccess().getEQueryParamParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleEQueryParam_in_ruleEServiceParam3358);
+                    pushFollow(FOLLOW_2);
                     this_EQueryParam_1=ruleEQueryParam();
 
                     state._fsp--;
@@ -4782,7 +5071,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEPathParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1699:1: entryRuleEPathParam returns [EObject current=null] : iv_ruleEPathParam= ruleEPathParam EOF ;
+    // InternalEMap.g:1808:1: entryRuleEPathParam returns [EObject current=null] : iv_ruleEPathParam= ruleEPathParam EOF ;
     public final EObject entryRuleEPathParam() throws RecognitionException {
         EObject current = null;
 
@@ -4790,13 +5079,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1700:2: (iv_ruleEPathParam= ruleEPathParam EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1701:2: iv_ruleEPathParam= ruleEPathParam EOF
+            // InternalEMap.g:1809:2: (iv_ruleEPathParam= ruleEPathParam EOF )
+            // InternalEMap.g:1810:2: iv_ruleEPathParam= ruleEPathParam EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEPathParamRule()); 
             }
-            pushFollow(FOLLOW_ruleEPathParam_in_entryRuleEPathParam3393);
+            pushFollow(FOLLOW_1);
             iv_ruleEPathParam=ruleEPathParam();
 
             state._fsp--;
@@ -4804,7 +5093,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEPathParam; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEPathParam3403); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -4822,7 +5111,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEPathParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1708:1: ruleEPathParam returns [EObject current=null] : (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) ;
+    // InternalEMap.g:1817:1: ruleEPathParam returns [EObject current=null] : (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) ;
     public final EObject ruleEPathParam() throws RecognitionException {
         EObject current = null;
 
@@ -4833,23 +5122,23 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1711:28: ( (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1712:1: (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
+            // InternalEMap.g:1820:28: ( (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) )
+            // InternalEMap.g:1821:1: (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1712:1: (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1712:3: otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
+            // InternalEMap.g:1821:1: (otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
+            // InternalEMap.g:1821:3: otherlv_0= 'path-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
             {
-            otherlv_0=(Token)match(input,36,FOLLOW_36_in_ruleEPathParam3440); if (state.failed) return current;
+            otherlv_0=(Token)match(input,37,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getEPathParamAccess().getPathParamKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1716:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1717:1: ( ruleQualifiedName )
+            // InternalEMap.g:1825:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1826:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1717:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1718:3: ruleQualifiedName
+            // InternalEMap.g:1826:1: ( ruleQualifiedName )
+            // InternalEMap.g:1827:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -4863,7 +5152,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEPathParamAccess().getParamEParameterCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEPathParam3463);
+            pushFollow(FOLLOW_43);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4879,30 +5168,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1731:2: (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
-            int alt44=2;
-            int LA44_0 = input.LA(1);
+            // InternalEMap.g:1840:2: (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
+            int alt47=2;
+            int LA47_0 = input.LA(1);
 
-            if ( (LA44_0==37) ) {
-                alt44=1;
+            if ( (LA47_0==38) ) {
+                alt47=1;
             }
-            switch (alt44) {
+            switch (alt47) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1731:4: otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) )
+                    // InternalEMap.g:1840:4: otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) )
                     {
-                    otherlv_2=(Token)match(input,37,FOLLOW_37_in_ruleEPathParam3476); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,38,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getEPathParamAccess().getNamedKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1735:1: ( (lv_name_3_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1736:1: (lv_name_3_0= RULE_ID )
+                    // InternalEMap.g:1844:1: ( (lv_name_3_0= RULE_ID ) )
+                    // InternalEMap.g:1845:1: (lv_name_3_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1736:1: (lv_name_3_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1737:3: lv_name_3_0= RULE_ID
+                    // InternalEMap.g:1845:1: (lv_name_3_0= RULE_ID )
+                    // InternalEMap.g:1846:3: lv_name_3_0= RULE_ID
                     {
-                    lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEPathParam3493); if (state.failed) return current;
+                    lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_name_3_0, grammarAccess.getEPathParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
@@ -4917,7 +5206,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"name",
                               		lv_name_3_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -4955,7 +5244,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEQueryParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1761:1: entryRuleEQueryParam returns [EObject current=null] : iv_ruleEQueryParam= ruleEQueryParam EOF ;
+    // InternalEMap.g:1870:1: entryRuleEQueryParam returns [EObject current=null] : iv_ruleEQueryParam= ruleEQueryParam EOF ;
     public final EObject entryRuleEQueryParam() throws RecognitionException {
         EObject current = null;
 
@@ -4963,13 +5252,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1762:2: (iv_ruleEQueryParam= ruleEQueryParam EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1763:2: iv_ruleEQueryParam= ruleEQueryParam EOF
+            // InternalEMap.g:1871:2: (iv_ruleEQueryParam= ruleEQueryParam EOF )
+            // InternalEMap.g:1872:2: iv_ruleEQueryParam= ruleEQueryParam EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEQueryParamRule()); 
             }
-            pushFollow(FOLLOW_ruleEQueryParam_in_entryRuleEQueryParam3536);
+            pushFollow(FOLLOW_1);
             iv_ruleEQueryParam=ruleEQueryParam();
 
             state._fsp--;
@@ -4977,7 +5266,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEQueryParam; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEQueryParam3546); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -4995,7 +5284,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEQueryParam"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1770:1: ruleEQueryParam returns [EObject current=null] : (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) ;
+    // InternalEMap.g:1879:1: ruleEQueryParam returns [EObject current=null] : (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) ;
     public final EObject ruleEQueryParam() throws RecognitionException {
         EObject current = null;
 
@@ -5006,23 +5295,23 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1773:28: ( (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1774:1: (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
+            // InternalEMap.g:1882:28: ( (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? ) )
+            // InternalEMap.g:1883:1: (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1774:1: (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1774:3: otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
+            // InternalEMap.g:1883:1: (otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )? )
+            // InternalEMap.g:1883:3: otherlv_0= 'query-param' ( ( ruleQualifiedName ) ) (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
             {
-            otherlv_0=(Token)match(input,38,FOLLOW_38_in_ruleEQueryParam3583); if (state.failed) return current;
+            otherlv_0=(Token)match(input,39,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getEQueryParamAccess().getQueryParamKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1778:1: ( ( ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1779:1: ( ruleQualifiedName )
+            // InternalEMap.g:1887:1: ( ( ruleQualifiedName ) )
+            // InternalEMap.g:1888:1: ( ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1779:1: ( ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1780:3: ruleQualifiedName
+            // InternalEMap.g:1888:1: ( ruleQualifiedName )
+            // InternalEMap.g:1889:3: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
 
@@ -5036,7 +5325,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getEQueryParamAccess().getParamEParameterCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEQueryParam3606);
+            pushFollow(FOLLOW_43);
             ruleQualifiedName();
 
             state._fsp--;
@@ -5052,30 +5341,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1793:2: (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
-            int alt45=2;
-            int LA45_0 = input.LA(1);
+            // InternalEMap.g:1902:2: (otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) ) )?
+            int alt48=2;
+            int LA48_0 = input.LA(1);
 
-            if ( (LA45_0==37) ) {
-                alt45=1;
+            if ( (LA48_0==38) ) {
+                alt48=1;
             }
-            switch (alt45) {
+            switch (alt48) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1793:4: otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) )
+                    // InternalEMap.g:1902:4: otherlv_2= 'named' ( (lv_name_3_0= RULE_ID ) )
                     {
-                    otherlv_2=(Token)match(input,37,FOLLOW_37_in_ruleEQueryParam3619); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,38,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getEQueryParamAccess().getNamedKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1797:1: ( (lv_name_3_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1798:1: (lv_name_3_0= RULE_ID )
+                    // InternalEMap.g:1906:1: ( (lv_name_3_0= RULE_ID ) )
+                    // InternalEMap.g:1907:1: (lv_name_3_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1798:1: (lv_name_3_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1799:3: lv_name_3_0= RULE_ID
+                    // InternalEMap.g:1907:1: (lv_name_3_0= RULE_ID )
+                    // InternalEMap.g:1908:3: lv_name_3_0= RULE_ID
                     {
-                    lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEQueryParam3636); if (state.failed) return current;
+                    lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_name_3_0, grammarAccess.getEQueryParamAccess().getNameIDTerminalRuleCall_2_1_0()); 
@@ -5090,7 +5379,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"name",
                               		lv_name_3_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -5128,7 +5417,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMappingEntityDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1823:1: entryRuleEMappingEntityDef returns [EObject current=null] : iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF ;
+    // InternalEMap.g:1932:1: entryRuleEMappingEntityDef returns [EObject current=null] : iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF ;
     public final EObject entryRuleEMappingEntityDef() throws RecognitionException {
         EObject current = null;
 
@@ -5136,13 +5425,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1824:2: (iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1825:2: iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF
+            // InternalEMap.g:1933:2: (iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF )
+            // InternalEMap.g:1934:2: iv_ruleEMappingEntityDef= ruleEMappingEntityDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMappingEntityDefRule()); 
             }
-            pushFollow(FOLLOW_ruleEMappingEntityDef_in_entryRuleEMappingEntityDef3679);
+            pushFollow(FOLLOW_1);
             iv_ruleEMappingEntityDef=ruleEMappingEntityDef();
 
             state._fsp--;
@@ -5150,7 +5439,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMappingEntityDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMappingEntityDef3689); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -5168,7 +5457,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMappingEntityDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1832:1: ruleEMappingEntityDef returns [EObject current=null] : ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) ) ;
+    // InternalEMap.g:1941:1: ruleEMappingEntityDef returns [EObject current=null] : ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) ) ;
     public final EObject ruleEMappingEntityDef() throws RecognitionException {
         EObject current = null;
 
@@ -5182,24 +5471,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1835:28: ( ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1836:1: ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) )
+            // InternalEMap.g:1944:28: ( ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) ) )
+            // InternalEMap.g:1945:1: ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1836:1: ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1836:2: ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) )
+            // InternalEMap.g:1945:1: ( ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) ) )
+            // InternalEMap.g:1945:2: ( (lv_package_0_0= rulePackageDeclaration ) ) ( (lv_imports_1_0= ruleImport ) )* ( (lv_entity_2_0= ruleEMappingEntity ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1836:2: ( (lv_package_0_0= rulePackageDeclaration ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1837:1: (lv_package_0_0= rulePackageDeclaration )
+            // InternalEMap.g:1945:2: ( (lv_package_0_0= rulePackageDeclaration ) )
+            // InternalEMap.g:1946:1: (lv_package_0_0= rulePackageDeclaration )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1837:1: (lv_package_0_0= rulePackageDeclaration )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1838:3: lv_package_0_0= rulePackageDeclaration
+            // InternalEMap.g:1946:1: (lv_package_0_0= rulePackageDeclaration )
+            // InternalEMap.g:1947:3: lv_package_0_0= rulePackageDeclaration
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEMappingEntityDefAccess().getPackagePackageDeclarationParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_rulePackageDeclaration_in_ruleEMappingEntityDef3735);
+            pushFollow(FOLLOW_44);
             lv_package_0_0=rulePackageDeclaration();
 
             state._fsp--;
@@ -5213,7 +5502,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"package",
                       		lv_package_0_0, 
-                      		"PackageDeclaration");
+                      		"at.bestsolution.persistence.emap.EMap.PackageDeclaration");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -5223,30 +5512,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1854:2: ( (lv_imports_1_0= ruleImport ) )*
-            loop46:
+            // InternalEMap.g:1963:2: ( (lv_imports_1_0= ruleImport ) )*
+            loop49:
             do {
-                int alt46=2;
-                int LA46_0 = input.LA(1);
+                int alt49=2;
+                int LA49_0 = input.LA(1);
 
-                if ( (LA46_0==39) ) {
-                    alt46=1;
+                if ( (LA49_0==40) ) {
+                    alt49=1;
                 }
 
 
-                switch (alt46) {
+                switch (alt49) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1855:1: (lv_imports_1_0= ruleImport )
+            	    // InternalEMap.g:1964:1: (lv_imports_1_0= ruleImport )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1855:1: (lv_imports_1_0= ruleImport )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1856:3: lv_imports_1_0= ruleImport
+            	    // InternalEMap.g:1964:1: (lv_imports_1_0= ruleImport )
+            	    // InternalEMap.g:1965:3: lv_imports_1_0= ruleImport
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getEMappingEntityDefAccess().getImportsImportParserRuleCall_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleImport_in_ruleEMappingEntityDef3756);
+            	    pushFollow(FOLLOW_44);
             	    lv_imports_1_0=ruleImport();
 
             	    state._fsp--;
@@ -5260,7 +5549,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"imports",
             	              		lv_imports_1_0, 
-            	              		"Import");
+            	              		"at.bestsolution.persistence.emap.EMap.Import");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -5272,22 +5561,22 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop46;
+            	    break loop49;
                 }
             } while (true);
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1872:3: ( (lv_entity_2_0= ruleEMappingEntity ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1873:1: (lv_entity_2_0= ruleEMappingEntity )
+            // InternalEMap.g:1981:3: ( (lv_entity_2_0= ruleEMappingEntity ) )
+            // InternalEMap.g:1982:1: (lv_entity_2_0= ruleEMappingEntity )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1873:1: (lv_entity_2_0= ruleEMappingEntity )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1874:3: lv_entity_2_0= ruleEMappingEntity
+            // InternalEMap.g:1982:1: (lv_entity_2_0= ruleEMappingEntity )
+            // InternalEMap.g:1983:3: lv_entity_2_0= ruleEMappingEntity
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEMappingEntityDefAccess().getEntityEMappingEntityParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEMappingEntity_in_ruleEMappingEntityDef3778);
+            pushFollow(FOLLOW_2);
             lv_entity_2_0=ruleEMappingEntity();
 
             state._fsp--;
@@ -5301,7 +5590,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"entity",
                       		lv_entity_2_0, 
-                      		"EMappingEntity");
+                      		"at.bestsolution.persistence.emap.EMap.EMappingEntity");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -5334,7 +5623,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleImport"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1898:1: entryRuleImport returns [EObject current=null] : iv_ruleImport= ruleImport EOF ;
+    // InternalEMap.g:2007:1: entryRuleImport returns [EObject current=null] : iv_ruleImport= ruleImport EOF ;
     public final EObject entryRuleImport() throws RecognitionException {
         EObject current = null;
 
@@ -5342,13 +5631,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1899:2: (iv_ruleImport= ruleImport EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1900:2: iv_ruleImport= ruleImport EOF
+            // InternalEMap.g:2008:2: (iv_ruleImport= ruleImport EOF )
+            // InternalEMap.g:2009:2: iv_ruleImport= ruleImport EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getImportRule()); 
             }
-            pushFollow(FOLLOW_ruleImport_in_entryRuleImport3814);
+            pushFollow(FOLLOW_1);
             iv_ruleImport=ruleImport();
 
             state._fsp--;
@@ -5356,7 +5645,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleImport; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleImport3824); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -5374,7 +5663,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleImport"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1907:1: ruleImport returns [EObject current=null] : (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) ) ;
+    // InternalEMap.g:2016:1: ruleImport returns [EObject current=null] : (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) ) ;
     public final EObject ruleImport() throws RecognitionException {
         EObject current = null;
 
@@ -5387,37 +5676,37 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1910:28: ( (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1911:1: (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) )
+            // InternalEMap.g:2019:28: ( (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) ) )
+            // InternalEMap.g:2020:1: (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1911:1: (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1911:3: otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) )
+            // InternalEMap.g:2020:1: (otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) ) )
+            // InternalEMap.g:2020:3: otherlv_0= 'import' ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) )
             {
-            otherlv_0=(Token)match(input,39,FOLLOW_39_in_ruleImport3861); if (state.failed) return current;
+            otherlv_0=(Token)match(input,40,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getImportAccess().getImportKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1915:1: ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1916:1: ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) )
+            // InternalEMap.g:2024:1: ( ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) ) )
+            // InternalEMap.g:2025:1: ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1916:1: ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1917:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )
+            // InternalEMap.g:2025:1: ( (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName ) )
+            // InternalEMap.g:2026:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1917:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )
-            int alt47=2;
-            alt47 = dfa47.predict(input);
-            switch (alt47) {
+            // InternalEMap.g:2026:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )
+            int alt50=2;
+            alt50 = dfa50.predict(input);
+            switch (alt50) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1918:3: lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard
+                    // InternalEMap.g:2027:3: lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_ruleImport3884);
+                    pushFollow(FOLLOW_2);
                     lv_importedNamespace_1_1=ruleQualifiedNameWithWildcard();
 
                     state._fsp--;
@@ -5431,7 +5720,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"importedNamespace",
                               		lv_importedNamespace_1_1, 
-                              		"QualifiedNameWithWildcard");
+                              		"at.bestsolution.persistence.emap.EMap.QualifiedNameWithWildcard");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -5439,14 +5728,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1933:8: lv_importedNamespace_1_2= ruleQualifiedName
+                    // InternalEMap.g:2042:8: lv_importedNamespace_1_2= ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameParserRuleCall_1_0_1()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleImport3903);
+                    pushFollow(FOLLOW_2);
                     lv_importedNamespace_1_2=ruleQualifiedName();
 
                     state._fsp--;
@@ -5460,7 +5749,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"importedNamespace",
                               		lv_importedNamespace_1_2, 
-                              		"QualifiedName");
+                              		"at.bestsolution.persistence.emap.EMap.QualifiedName");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -5499,7 +5788,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePackageDeclaration"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1959:1: entryRulePackageDeclaration returns [EObject current=null] : iv_rulePackageDeclaration= rulePackageDeclaration EOF ;
+    // InternalEMap.g:2068:1: entryRulePackageDeclaration returns [EObject current=null] : iv_rulePackageDeclaration= rulePackageDeclaration EOF ;
     public final EObject entryRulePackageDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -5507,13 +5796,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1960:2: (iv_rulePackageDeclaration= rulePackageDeclaration EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1961:2: iv_rulePackageDeclaration= rulePackageDeclaration EOF
+            // InternalEMap.g:2069:2: (iv_rulePackageDeclaration= rulePackageDeclaration EOF )
+            // InternalEMap.g:2070:2: iv_rulePackageDeclaration= rulePackageDeclaration EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getPackageDeclarationRule()); 
             }
-            pushFollow(FOLLOW_rulePackageDeclaration_in_entryRulePackageDeclaration3942);
+            pushFollow(FOLLOW_1);
             iv_rulePackageDeclaration=rulePackageDeclaration();
 
             state._fsp--;
@@ -5521,7 +5810,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_rulePackageDeclaration; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulePackageDeclaration3952); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -5539,7 +5828,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePackageDeclaration"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1968:1: rulePackageDeclaration returns [EObject current=null] : (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' ) ;
+    // InternalEMap.g:2077:1: rulePackageDeclaration returns [EObject current=null] : (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' ) ;
     public final EObject rulePackageDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -5551,30 +5840,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1971:28: ( (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1972:1: (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' )
+            // InternalEMap.g:2080:28: ( (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' ) )
+            // InternalEMap.g:2081:1: (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1972:1: (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1972:3: otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';'
+            // InternalEMap.g:2081:1: (otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';' )
+            // InternalEMap.g:2081:3: otherlv_0= 'package' ( (lv_name_1_0= ruleQualifiedName ) ) otherlv_2= ';'
             {
-            otherlv_0=(Token)match(input,40,FOLLOW_40_in_rulePackageDeclaration3989); if (state.failed) return current;
+            otherlv_0=(Token)match(input,41,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getPackageDeclarationAccess().getPackageKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1976:1: ( (lv_name_1_0= ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1977:1: (lv_name_1_0= ruleQualifiedName )
+            // InternalEMap.g:2085:1: ( (lv_name_1_0= ruleQualifiedName ) )
+            // InternalEMap.g:2086:1: (lv_name_1_0= ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1977:1: (lv_name_1_0= ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:1978:3: lv_name_1_0= ruleQualifiedName
+            // InternalEMap.g:2086:1: (lv_name_1_0= ruleQualifiedName )
+            // InternalEMap.g:2087:3: lv_name_1_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getPackageDeclarationAccess().getNameQualifiedNameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rulePackageDeclaration4010);
+            pushFollow(FOLLOW_45);
             lv_name_1_0=ruleQualifiedName();
 
             state._fsp--;
@@ -5588,7 +5877,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"QualifiedName");
+                      		"at.bestsolution.persistence.emap.EMap.QualifiedName");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -5598,7 +5887,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,41,FOLLOW_41_in_rulePackageDeclaration4022); if (state.failed) return current;
+            otherlv_2=(Token)match(input,42,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getPackageDeclarationAccess().getSemicolonKeyword_2());
@@ -5627,7 +5916,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFQN"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2006:1: entryRuleFQN returns [String current=null] : iv_ruleFQN= ruleFQN EOF ;
+    // InternalEMap.g:2115:1: entryRuleFQN returns [String current=null] : iv_ruleFQN= ruleFQN EOF ;
     public final String entryRuleFQN() throws RecognitionException {
         String current = null;
 
@@ -5635,13 +5924,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2007:2: (iv_ruleFQN= ruleFQN EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2008:2: iv_ruleFQN= ruleFQN EOF
+            // InternalEMap.g:2116:2: (iv_ruleFQN= ruleFQN EOF )
+            // InternalEMap.g:2117:2: iv_ruleFQN= ruleFQN EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFQNRule()); 
             }
-            pushFollow(FOLLOW_ruleFQN_in_entryRuleFQN4059);
+            pushFollow(FOLLOW_1);
             iv_ruleFQN=ruleFQN();
 
             state._fsp--;
@@ -5649,7 +5938,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleFQN.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleFQN4070); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -5667,7 +5956,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFQN"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2015:1: ruleFQN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) ;
+    // InternalEMap.g:2124:1: ruleFQN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleFQN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5678,13 +5967,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2018:28: ( (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2019:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
+            // InternalEMap.g:2127:28: ( (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) )
+            // InternalEMap.g:2128:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2019:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2019:6: this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
+            // InternalEMap.g:2128:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
+            // InternalEMap.g:2128:6: this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFQN4110); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_46); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -5695,25 +5984,25 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getFQNAccess().getIDTerminalRuleCall_0()); 
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2026:1: ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
-            loop48:
+            // InternalEMap.g:2135:1: ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
+            loop51:
             do {
-                int alt48=2;
-                int LA48_0 = input.LA(1);
+                int alt51=2;
+                int LA51_0 = input.LA(1);
 
-                if ( (LA48_0==42) && (synpred1_InternalEMap())) {
-                    alt48=1;
+                if ( (LA51_0==43) && (synpred1_InternalEMap())) {
+                    alt51=1;
                 }
 
 
-                switch (alt48) {
+                switch (alt51) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2026:2: ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID
+            	    // InternalEMap.g:2135:2: ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2026:2: ( ( '.' )=>kw= '.' )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2026:3: ( '.' )=>kw= '.'
+            	    // InternalEMap.g:2135:2: ( ( '.' )=>kw= '.' )
+            	    // InternalEMap.g:2135:3: ( '.' )=>kw= '.'
             	    {
-            	    kw=(Token)match(input,42,FOLLOW_42_in_ruleFQN4138); if (state.failed) return current;
+            	    kw=(Token)match(input,43,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -5723,7 +6012,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleFQN4154); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_46); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -5739,7 +6028,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop48;
+            	    break loop51;
                 }
             } while (true);
 
@@ -5766,7 +6055,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMappingEntity"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2049:1: entryRuleEMappingEntity returns [EObject current=null] : iv_ruleEMappingEntity= ruleEMappingEntity EOF ;
+    // InternalEMap.g:2158:1: entryRuleEMappingEntity returns [EObject current=null] : iv_ruleEMappingEntity= ruleEMappingEntity EOF ;
     public final EObject entryRuleEMappingEntity() throws RecognitionException {
         EObject current = null;
 
@@ -5774,13 +6063,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2050:2: (iv_ruleEMappingEntity= ruleEMappingEntity EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2051:2: iv_ruleEMappingEntity= ruleEMappingEntity EOF
+            // InternalEMap.g:2159:2: (iv_ruleEMappingEntity= ruleEMappingEntity EOF )
+            // InternalEMap.g:2160:2: iv_ruleEMappingEntity= ruleEMappingEntity EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMappingEntityRule()); 
             }
-            pushFollow(FOLLOW_ruleEMappingEntity_in_entryRuleEMappingEntity4201);
+            pushFollow(FOLLOW_1);
             iv_ruleEMappingEntity=ruleEMappingEntity();
 
             state._fsp--;
@@ -5788,7 +6077,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMappingEntity; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMappingEntity4211); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -5806,7 +6095,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMappingEntity"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2058:1: ruleEMappingEntity returns [EObject current=null] : ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? ) ;
+    // InternalEMap.g:2167:1: ruleEMappingEntity returns [EObject current=null] : ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? ) ;
     public final EObject ruleEMappingEntity() throws RecognitionException {
         EObject current = null;
 
@@ -5847,27 +6136,27 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2061:28: ( ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2062:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? )
+            // InternalEMap.g:2170:28: ( ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? ) )
+            // InternalEMap.g:2171:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2062:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2062:2: ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )?
+            // InternalEMap.g:2171:1: ( ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )? )
+            // InternalEMap.g:2171:2: ( (lv_abstract_0_0= 'abstract' ) )? otherlv_1= 'entity' ( (lv_name_2_0= RULE_ID ) ) ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )? otherlv_5= '{' ( (lv_etype_6_0= ruleEType ) ) (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )? (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )? otherlv_21= '}' (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )? (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2062:2: ( (lv_abstract_0_0= 'abstract' ) )?
-            int alt49=2;
-            int LA49_0 = input.LA(1);
+            // InternalEMap.g:2171:2: ( (lv_abstract_0_0= 'abstract' ) )?
+            int alt52=2;
+            int LA52_0 = input.LA(1);
 
-            if ( (LA49_0==43) ) {
-                alt49=1;
+            if ( (LA52_0==44) ) {
+                alt52=1;
             }
-            switch (alt49) {
+            switch (alt52) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2063:1: (lv_abstract_0_0= 'abstract' )
+                    // InternalEMap.g:2172:1: (lv_abstract_0_0= 'abstract' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2063:1: (lv_abstract_0_0= 'abstract' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2064:3: lv_abstract_0_0= 'abstract'
+                    // InternalEMap.g:2172:1: (lv_abstract_0_0= 'abstract' )
+                    // InternalEMap.g:2173:3: lv_abstract_0_0= 'abstract'
                     {
-                    lv_abstract_0_0=(Token)match(input,43,FOLLOW_43_in_ruleEMappingEntity4254); if (state.failed) return current;
+                    lv_abstract_0_0=(Token)match(input,44,FOLLOW_47); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_abstract_0_0, grammarAccess.getEMappingEntityAccess().getAbstractAbstractKeyword_0_0());
@@ -5890,19 +6179,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,44,FOLLOW_44_in_ruleEMappingEntity4280); if (state.failed) return current;
+            otherlv_1=(Token)match(input,45,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getEMappingEntityAccess().getEntityKeyword_1());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2081:1: ( (lv_name_2_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2082:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:2190:1: ( (lv_name_2_0= RULE_ID ) )
+            // InternalEMap.g:2191:1: (lv_name_2_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2082:1: (lv_name_2_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2083:3: lv_name_2_0= RULE_ID
+            // InternalEMap.g:2191:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:2192:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingEntity4297); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_48); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_2_0, grammarAccess.getEMappingEntityAccess().getNameIDTerminalRuleCall_2_0()); 
@@ -5917,7 +6206,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_2_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -5926,45 +6215,45 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2099:2: ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )?
-            int alt51=2;
-            int LA51_0 = input.LA(1);
+            // InternalEMap.g:2208:2: ( ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) ) )?
+            int alt54=2;
+            int LA54_0 = input.LA(1);
 
-            if ( (LA51_0==12||LA51_0==45) ) {
-                alt51=1;
+            if ( (LA54_0==12||LA54_0==46) ) {
+                alt54=1;
             }
-            switch (alt51) {
+            switch (alt54) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2099:3: ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:2208:3: ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) ) ( ( ruleQualifiedName ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2099:3: ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2100:1: ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) )
+                    // InternalEMap.g:2208:3: ( ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) ) )
+                    // InternalEMap.g:2209:1: ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2100:1: ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2101:1: (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' )
+                    // InternalEMap.g:2209:1: ( (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' ) )
+                    // InternalEMap.g:2210:1: (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2101:1: (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' )
-                    int alt50=2;
-                    int LA50_0 = input.LA(1);
+                    // InternalEMap.g:2210:1: (lv_extensionType_3_1= 'extends' | lv_extensionType_3_2= 'derived' )
+                    int alt53=2;
+                    int LA53_0 = input.LA(1);
 
-                    if ( (LA50_0==12) ) {
-                        alt50=1;
+                    if ( (LA53_0==12) ) {
+                        alt53=1;
                     }
-                    else if ( (LA50_0==45) ) {
-                        alt50=2;
+                    else if ( (LA53_0==46) ) {
+                        alt53=2;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 50, 0, input);
+                            new NoViableAltException("", 53, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt50) {
+                    switch (alt53) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2102:3: lv_extensionType_3_1= 'extends'
+                            // InternalEMap.g:2211:3: lv_extensionType_3_1= 'extends'
                             {
-                            lv_extensionType_3_1=(Token)match(input,12,FOLLOW_12_in_ruleEMappingEntity4323); if (state.failed) return current;
+                            lv_extensionType_3_1=(Token)match(input,12,FOLLOW_4); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_extensionType_3_1, grammarAccess.getEMappingEntityAccess().getExtensionTypeExtendsKeyword_3_0_0_0());
@@ -5982,9 +6271,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2114:8: lv_extensionType_3_2= 'derived'
+                            // InternalEMap.g:2223:8: lv_extensionType_3_2= 'derived'
                             {
-                            lv_extensionType_3_2=(Token)match(input,45,FOLLOW_45_in_ruleEMappingEntity4352); if (state.failed) return current;
+                            lv_extensionType_3_2=(Token)match(input,46,FOLLOW_4); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_extensionType_3_2, grammarAccess.getEMappingEntityAccess().getExtensionTypeDerivedKeyword_3_0_0_1());
@@ -6010,11 +6299,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2129:2: ( ( ruleQualifiedName ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2130:1: ( ruleQualifiedName )
+                    // InternalEMap.g:2238:2: ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:2239:1: ( ruleQualifiedName )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2130:1: ( ruleQualifiedName )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2131:3: ruleQualifiedName
+                    // InternalEMap.g:2239:1: ( ruleQualifiedName )
+                    // InternalEMap.g:2240:3: ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
 
@@ -6028,7 +6317,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getParentEMappingEntityCrossReference_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEMappingEntity4391);
+                    pushFollow(FOLLOW_6);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -6050,24 +6339,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,13,FOLLOW_13_in_ruleEMappingEntity4405); if (state.failed) return current;
+            otherlv_5=(Token)match(input,13,FOLLOW_34); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_4());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2148:1: ( (lv_etype_6_0= ruleEType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2149:1: (lv_etype_6_0= ruleEType )
+            // InternalEMap.g:2257:1: ( (lv_etype_6_0= ruleEType ) )
+            // InternalEMap.g:2258:1: (lv_etype_6_0= ruleEType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2149:1: (lv_etype_6_0= ruleEType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2150:3: lv_etype_6_0= ruleEType
+            // InternalEMap.g:2258:1: (lv_etype_6_0= ruleEType )
+            // InternalEMap.g:2259:3: lv_etype_6_0= ruleEType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getEtypeETypeParserRuleCall_5_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEType_in_ruleEMappingEntity4426);
+            pushFollow(FOLLOW_49);
             lv_etype_6_0=ruleEType();
 
             state._fsp--;
@@ -6081,7 +6370,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"etype",
                       		lv_etype_6_0, 
-                      		"EType");
+                      		"at.bestsolution.persistence.emap.EMap.EType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -6091,41 +6380,41 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2166:2: (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )?
-            int alt53=2;
-            int LA53_0 = input.LA(1);
+            // InternalEMap.g:2275:2: (otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}' )?
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA53_0==46) ) {
-                alt53=1;
+            if ( (LA56_0==47) ) {
+                alt56=1;
             }
-            switch (alt53) {
+            switch (alt56) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2166:4: otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}'
+                    // InternalEMap.g:2275:4: otherlv_7= 'attributes' otherlv_8= '{' ( (lv_attributes_9_0= ruleEAttribute ) ) (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )* otherlv_12= '}'
                     {
-                    otherlv_7=(Token)match(input,46,FOLLOW_46_in_ruleEMappingEntity4439); if (state.failed) return current;
+                    otherlv_7=(Token)match(input,47,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_7, grammarAccess.getEMappingEntityAccess().getAttributesKeyword_6_0());
                           
                     }
-                    otherlv_8=(Token)match(input,13,FOLLOW_13_in_ruleEMappingEntity4451); if (state.failed) return current;
+                    otherlv_8=(Token)match(input,13,FOLLOW_50); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_8, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_6_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2174:1: ( (lv_attributes_9_0= ruleEAttribute ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2175:1: (lv_attributes_9_0= ruleEAttribute )
+                    // InternalEMap.g:2283:1: ( (lv_attributes_9_0= ruleEAttribute ) )
+                    // InternalEMap.g:2284:1: (lv_attributes_9_0= ruleEAttribute )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2175:1: (lv_attributes_9_0= ruleEAttribute )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2176:3: lv_attributes_9_0= ruleEAttribute
+                    // InternalEMap.g:2284:1: (lv_attributes_9_0= ruleEAttribute )
+                    // InternalEMap.g:2285:3: lv_attributes_9_0= ruleEAttribute
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_2_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEAttribute_in_ruleEMappingEntity4472);
+                    pushFollow(FOLLOW_9);
                     lv_attributes_9_0=ruleEAttribute();
 
                     state._fsp--;
@@ -6139,7 +6428,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"attributes",
                               		lv_attributes_9_0, 
-                              		"EAttribute");
+                              		"at.bestsolution.persistence.emap.EMap.EAttribute");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -6149,39 +6438,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2192:2: (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )*
-                    loop52:
+                    // InternalEMap.g:2301:2: (otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) ) )*
+                    loop55:
                     do {
-                        int alt52=2;
-                        int LA52_0 = input.LA(1);
+                        int alt55=2;
+                        int LA55_0 = input.LA(1);
 
-                        if ( (LA52_0==15) ) {
-                            alt52=1;
+                        if ( (LA55_0==15) ) {
+                            alt55=1;
                         }
 
 
-                        switch (alt52) {
+                        switch (alt55) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2192:4: otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) )
+                    	    // InternalEMap.g:2301:4: otherlv_10= ',' ( (lv_attributes_11_0= ruleEAttribute ) )
                     	    {
-                    	    otherlv_10=(Token)match(input,15,FOLLOW_15_in_ruleEMappingEntity4485); if (state.failed) return current;
+                    	    otherlv_10=(Token)match(input,15,FOLLOW_50); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_10, grammarAccess.getEMappingEntityAccess().getCommaKeyword_6_3_0());
                     	          
                     	    }
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2196:1: ( (lv_attributes_11_0= ruleEAttribute ) )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2197:1: (lv_attributes_11_0= ruleEAttribute )
+                    	    // InternalEMap.g:2305:1: ( (lv_attributes_11_0= ruleEAttribute ) )
+                    	    // InternalEMap.g:2306:1: (lv_attributes_11_0= ruleEAttribute )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2197:1: (lv_attributes_11_0= ruleEAttribute )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2198:3: lv_attributes_11_0= ruleEAttribute
+                    	    // InternalEMap.g:2306:1: (lv_attributes_11_0= ruleEAttribute )
+                    	    // InternalEMap.g:2307:3: lv_attributes_11_0= ruleEAttribute
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
                     	      	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getAttributesEAttributeParserRuleCall_6_3_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleEAttribute_in_ruleEMappingEntity4506);
+                    	    pushFollow(FOLLOW_9);
                     	    lv_attributes_11_0=ruleEAttribute();
 
                     	    state._fsp--;
@@ -6195,7 +6484,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"attributes",
                     	              		lv_attributes_11_0, 
-                    	              		"EAttribute");
+                    	              		"at.bestsolution.persistence.emap.EMap.EAttribute");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -6210,11 +6499,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop52;
+                    	    break loop55;
                         }
                     } while (true);
 
-                    otherlv_12=(Token)match(input,16,FOLLOW_16_in_ruleEMappingEntity4520); if (state.failed) return current;
+                    otherlv_12=(Token)match(input,16,FOLLOW_51); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_12, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_6_4());
@@ -6226,94 +6515,94 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2218:3: (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )?
-            int alt57=2;
-            int LA57_0 = input.LA(1);
+            // InternalEMap.g:2327:3: (otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}' )?
+            int alt60=2;
+            int LA60_0 = input.LA(1);
 
-            if ( (LA57_0==47) ) {
-                alt57=1;
+            if ( (LA60_0==48) ) {
+                alt60=1;
             }
-            switch (alt57) {
+            switch (alt60) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2218:5: otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}'
+                    // InternalEMap.g:2327:5: otherlv_13= 'queries' otherlv_14= '{' ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) ) (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )* otherlv_20= '}'
                     {
-                    otherlv_13=(Token)match(input,47,FOLLOW_47_in_ruleEMappingEntity4535); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,48,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_13, grammarAccess.getEMappingEntityAccess().getQueriesKeyword_7_0());
                           
                     }
-                    otherlv_14=(Token)match(input,13,FOLLOW_13_in_ruleEMappingEntity4547); if (state.failed) return current;
+                    otherlv_14=(Token)match(input,13,FOLLOW_52); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_14, grammarAccess.getEMappingEntityAccess().getLeftCurlyBracketKeyword_7_1());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2226:1: ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) )
-                    int alt54=2;
+                    // InternalEMap.g:2335:1: ( ( (lv_namedQueries_15_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) ) )
+                    int alt57=2;
                     switch ( input.LA(1) ) {
-                    case 79:
                     case 80:
+                    case 81:
                         {
-                        alt54=1;
+                        alt57=1;
                         }
                         break;
                     case RULE_ID:
                         {
-                        int LA54_2 = input.LA(2);
+                        int LA57_2 = input.LA(2);
 
-                        if ( (LA54_2==13||LA54_2==25) ) {
-                            alt54=1;
+                        if ( (LA57_2==RULE_ID||LA57_2==43) ) {
+                            alt57=2;
                         }
-                        else if ( (LA54_2==RULE_ID||LA54_2==42) ) {
-                            alt54=2;
+                        else if ( (LA57_2==13||LA57_2==25) ) {
+                            alt57=1;
                         }
                         else {
                             if (state.backtracking>0) {state.failed=true; return current;}
                             NoViableAltException nvae =
-                                new NoViableAltException("", 54, 2, input);
+                                new NoViableAltException("", 57, 2, input);
 
                             throw nvae;
                         }
                         }
                         break;
-                    case 58:
                     case 59:
                     case 60:
                     case 61:
                     case 62:
                     case 63:
                     case 64:
-                    case 66:
-                    case 72:
+                    case 65:
+                    case 67:
+                    case 73:
                         {
-                        alt54=2;
+                        alt57=2;
                         }
                         break;
                     default:
                         if (state.backtracking>0) {state.failed=true; return current;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 54, 0, input);
+                            new NoViableAltException("", 57, 0, input);
 
                         throw nvae;
                     }
 
-                    switch (alt54) {
+                    switch (alt57) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2226:2: ( (lv_namedQueries_15_0= ruleENamedQuery ) )
+                            // InternalEMap.g:2335:2: ( (lv_namedQueries_15_0= ruleENamedQuery ) )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2226:2: ( (lv_namedQueries_15_0= ruleENamedQuery ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2227:1: (lv_namedQueries_15_0= ruleENamedQuery )
+                            // InternalEMap.g:2335:2: ( (lv_namedQueries_15_0= ruleENamedQuery ) )
+                            // InternalEMap.g:2336:1: (lv_namedQueries_15_0= ruleENamedQuery )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2227:1: (lv_namedQueries_15_0= ruleENamedQuery )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2228:3: lv_namedQueries_15_0= ruleENamedQuery
+                            // InternalEMap.g:2336:1: (lv_namedQueries_15_0= ruleENamedQuery )
+                            // InternalEMap.g:2337:3: lv_namedQueries_15_0= ruleENamedQuery
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_2_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleENamedQuery_in_ruleEMappingEntity4569);
+                            pushFollow(FOLLOW_9);
                             lv_namedQueries_15_0=ruleENamedQuery();
 
                             state._fsp--;
@@ -6327,7 +6616,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"namedQueries",
                                       		lv_namedQueries_15_0, 
-                                      		"ENamedQuery");
+                                      		"at.bestsolution.persistence.emap.EMap.ENamedQuery");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -6341,20 +6630,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             }
                             break;
                         case 2 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2245:6: ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) )
+                            // InternalEMap.g:2354:6: ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2245:6: ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2246:1: (lv_namedCustomQueries_16_0= ruleENamedCustomQuery )
+                            // InternalEMap.g:2354:6: ( (lv_namedCustomQueries_16_0= ruleENamedCustomQuery ) )
+                            // InternalEMap.g:2355:1: (lv_namedCustomQueries_16_0= ruleENamedCustomQuery )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2246:1: (lv_namedCustomQueries_16_0= ruleENamedCustomQuery )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2247:3: lv_namedCustomQueries_16_0= ruleENamedCustomQuery
+                            // InternalEMap.g:2355:1: (lv_namedCustomQueries_16_0= ruleENamedCustomQuery )
+                            // InternalEMap.g:2356:3: lv_namedCustomQueries_16_0= ruleENamedCustomQuery
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedCustomQueriesENamedCustomQueryParserRuleCall_7_2_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleENamedCustomQuery_in_ruleEMappingEntity4596);
+                            pushFollow(FOLLOW_9);
                             lv_namedCustomQueries_16_0=ruleENamedCustomQuery();
 
                             state._fsp--;
@@ -6368,7 +6657,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"namedCustomQueries",
                                       		lv_namedCustomQueries_16_0, 
-                                      		"ENamedCustomQuery");
+                                      		"at.bestsolution.persistence.emap.EMap.ENamedCustomQuery");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -6384,92 +6673,92 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2263:3: (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )*
-                    loop56:
+                    // InternalEMap.g:2372:3: (otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) ) )*
+                    loop59:
                     do {
-                        int alt56=2;
-                        int LA56_0 = input.LA(1);
+                        int alt59=2;
+                        int LA59_0 = input.LA(1);
 
-                        if ( (LA56_0==15) ) {
-                            alt56=1;
+                        if ( (LA59_0==15) ) {
+                            alt59=1;
                         }
 
 
-                        switch (alt56) {
+                        switch (alt59) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2263:5: otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) )
+                    	    // InternalEMap.g:2372:5: otherlv_17= ',' ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) )
                     	    {
-                    	    otherlv_17=(Token)match(input,15,FOLLOW_15_in_ruleEMappingEntity4610); if (state.failed) return current;
+                    	    otherlv_17=(Token)match(input,15,FOLLOW_52); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_17, grammarAccess.getEMappingEntityAccess().getCommaKeyword_7_3_0());
                     	          
                     	    }
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2267:1: ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) )
-                    	    int alt55=2;
+                    	    // InternalEMap.g:2376:1: ( ( (lv_namedQueries_18_0= ruleENamedQuery ) ) | ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) ) )
+                    	    int alt58=2;
                     	    switch ( input.LA(1) ) {
-                    	    case 79:
                     	    case 80:
+                    	    case 81:
                     	        {
-                    	        alt55=1;
+                    	        alt58=1;
                     	        }
                     	        break;
                     	    case RULE_ID:
                     	        {
-                    	        int LA55_2 = input.LA(2);
+                    	        int LA58_2 = input.LA(2);
 
-                    	        if ( (LA55_2==13||LA55_2==25) ) {
-                    	            alt55=1;
+                    	        if ( (LA58_2==RULE_ID||LA58_2==43) ) {
+                    	            alt58=2;
                     	        }
-                    	        else if ( (LA55_2==RULE_ID||LA55_2==42) ) {
-                    	            alt55=2;
+                    	        else if ( (LA58_2==13||LA58_2==25) ) {
+                    	            alt58=1;
                     	        }
                     	        else {
                     	            if (state.backtracking>0) {state.failed=true; return current;}
                     	            NoViableAltException nvae =
-                    	                new NoViableAltException("", 55, 2, input);
+                    	                new NoViableAltException("", 58, 2, input);
 
                     	            throw nvae;
                     	        }
                     	        }
                     	        break;
-                    	    case 58:
                     	    case 59:
                     	    case 60:
                     	    case 61:
                     	    case 62:
                     	    case 63:
                     	    case 64:
-                    	    case 66:
-                    	    case 72:
+                    	    case 65:
+                    	    case 67:
+                    	    case 73:
                     	        {
-                    	        alt55=2;
+                    	        alt58=2;
                     	        }
                     	        break;
                     	    default:
                     	        if (state.backtracking>0) {state.failed=true; return current;}
                     	        NoViableAltException nvae =
-                    	            new NoViableAltException("", 55, 0, input);
+                    	            new NoViableAltException("", 58, 0, input);
 
                     	        throw nvae;
                     	    }
 
-                    	    switch (alt55) {
+                    	    switch (alt58) {
                     	        case 1 :
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2267:2: ( (lv_namedQueries_18_0= ruleENamedQuery ) )
+                    	            // InternalEMap.g:2376:2: ( (lv_namedQueries_18_0= ruleENamedQuery ) )
                     	            {
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2267:2: ( (lv_namedQueries_18_0= ruleENamedQuery ) )
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2268:1: (lv_namedQueries_18_0= ruleENamedQuery )
+                    	            // InternalEMap.g:2376:2: ( (lv_namedQueries_18_0= ruleENamedQuery ) )
+                    	            // InternalEMap.g:2377:1: (lv_namedQueries_18_0= ruleENamedQuery )
                     	            {
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2268:1: (lv_namedQueries_18_0= ruleENamedQuery )
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2269:3: lv_namedQueries_18_0= ruleENamedQuery
+                    	            // InternalEMap.g:2377:1: (lv_namedQueries_18_0= ruleENamedQuery )
+                    	            // InternalEMap.g:2378:3: lv_namedQueries_18_0= ruleENamedQuery
                     	            {
                     	            if ( state.backtracking==0 ) {
                     	               
                     	              	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedQueriesENamedQueryParserRuleCall_7_3_1_0_0()); 
                     	              	    
                     	            }
-                    	            pushFollow(FOLLOW_ruleENamedQuery_in_ruleEMappingEntity4632);
+                    	            pushFollow(FOLLOW_9);
                     	            lv_namedQueries_18_0=ruleENamedQuery();
 
                     	            state._fsp--;
@@ -6483,7 +6772,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	                     			current, 
                     	                     			"namedQueries",
                     	                      		lv_namedQueries_18_0, 
-                    	                      		"ENamedQuery");
+                    	                      		"at.bestsolution.persistence.emap.EMap.ENamedQuery");
                     	              	        afterParserOrEnumRuleCall();
                     	              	    
                     	            }
@@ -6497,20 +6786,20 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	            }
                     	            break;
                     	        case 2 :
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2286:6: ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) )
+                    	            // InternalEMap.g:2395:6: ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) )
                     	            {
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2286:6: ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) )
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2287:1: (lv_namedCustomQueries_19_0= ruleENamedCustomQuery )
+                    	            // InternalEMap.g:2395:6: ( (lv_namedCustomQueries_19_0= ruleENamedCustomQuery ) )
+                    	            // InternalEMap.g:2396:1: (lv_namedCustomQueries_19_0= ruleENamedCustomQuery )
                     	            {
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2287:1: (lv_namedCustomQueries_19_0= ruleENamedCustomQuery )
-                    	            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2288:3: lv_namedCustomQueries_19_0= ruleENamedCustomQuery
+                    	            // InternalEMap.g:2396:1: (lv_namedCustomQueries_19_0= ruleENamedCustomQuery )
+                    	            // InternalEMap.g:2397:3: lv_namedCustomQueries_19_0= ruleENamedCustomQuery
                     	            {
                     	            if ( state.backtracking==0 ) {
                     	               
                     	              	        newCompositeNode(grammarAccess.getEMappingEntityAccess().getNamedCustomQueriesENamedCustomQueryParserRuleCall_7_3_1_1_0()); 
                     	              	    
                     	            }
-                    	            pushFollow(FOLLOW_ruleENamedCustomQuery_in_ruleEMappingEntity4659);
+                    	            pushFollow(FOLLOW_9);
                     	            lv_namedCustomQueries_19_0=ruleENamedCustomQuery();
 
                     	            state._fsp--;
@@ -6524,7 +6813,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	                     			current, 
                     	                     			"namedCustomQueries",
                     	                      		lv_namedCustomQueries_19_0, 
-                    	                      		"ENamedCustomQuery");
+                    	                      		"at.bestsolution.persistence.emap.EMap.ENamedCustomQuery");
                     	              	        afterParserOrEnumRuleCall();
                     	              	    
                     	            }
@@ -6545,11 +6834,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop56;
+                    	    break loop59;
                         }
                     } while (true);
 
-                    otherlv_20=(Token)match(input,16,FOLLOW_16_in_ruleEMappingEntity4674); if (state.failed) return current;
+                    otherlv_20=(Token)match(input,16,FOLLOW_13); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_20, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_7_4());
@@ -6561,36 +6850,36 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_21=(Token)match(input,16,FOLLOW_16_in_ruleEMappingEntity4688); if (state.failed) return current;
+            otherlv_21=(Token)match(input,16,FOLLOW_53); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_21, grammarAccess.getEMappingEntityAccess().getRightCurlyBracketKeyword_8());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2312:1: (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )?
-            int alt58=2;
-            int LA58_0 = input.LA(1);
+            // InternalEMap.g:2421:1: (otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) ) )?
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA58_0==34) ) {
-                alt58=1;
+            if ( (LA61_0==34) ) {
+                alt61=1;
             }
-            switch (alt58) {
+            switch (alt61) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2312:3: otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) )
+                    // InternalEMap.g:2421:3: otherlv_22= 'as' ( (lv_tableName_23_0= RULE_ID ) )
                     {
-                    otherlv_22=(Token)match(input,34,FOLLOW_34_in_ruleEMappingEntity4701); if (state.failed) return current;
+                    otherlv_22=(Token)match(input,34,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_22, grammarAccess.getEMappingEntityAccess().getAsKeyword_9_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2316:1: ( (lv_tableName_23_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2317:1: (lv_tableName_23_0= RULE_ID )
+                    // InternalEMap.g:2425:1: ( (lv_tableName_23_0= RULE_ID ) )
+                    // InternalEMap.g:2426:1: (lv_tableName_23_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2317:1: (lv_tableName_23_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2318:3: lv_tableName_23_0= RULE_ID
+                    // InternalEMap.g:2426:1: (lv_tableName_23_0= RULE_ID )
+                    // InternalEMap.g:2427:3: lv_tableName_23_0= RULE_ID
                     {
-                    lv_tableName_23_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingEntity4718); if (state.failed) return current;
+                    lv_tableName_23_0=(Token)match(input,RULE_ID,FOLLOW_54); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_tableName_23_0, grammarAccess.getEMappingEntityAccess().getTableNameIDTerminalRuleCall_9_1_0()); 
@@ -6605,7 +6894,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"tableName",
                               		lv_tableName_23_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -6620,30 +6909,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2334:4: (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )?
-            int alt59=2;
-            int LA59_0 = input.LA(1);
+            // InternalEMap.g:2443:4: (otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) ) )?
+            int alt62=2;
+            int LA62_0 = input.LA(1);
 
-            if ( (LA59_0==48) ) {
-                alt59=1;
+            if ( (LA62_0==49) ) {
+                alt62=1;
             }
-            switch (alt59) {
+            switch (alt62) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2334:6: otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) )
+                    // InternalEMap.g:2443:6: otherlv_24= 'descriminatedby' ( (lv_descriminationColumn_25_0= RULE_ID ) )
                     {
-                    otherlv_24=(Token)match(input,48,FOLLOW_48_in_ruleEMappingEntity4738); if (state.failed) return current;
+                    otherlv_24=(Token)match(input,49,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_24, grammarAccess.getEMappingEntityAccess().getDescriminatedbyKeyword_10_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2338:1: ( (lv_descriminationColumn_25_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2339:1: (lv_descriminationColumn_25_0= RULE_ID )
+                    // InternalEMap.g:2447:1: ( (lv_descriminationColumn_25_0= RULE_ID ) )
+                    // InternalEMap.g:2448:1: (lv_descriminationColumn_25_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2339:1: (lv_descriminationColumn_25_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2340:3: lv_descriminationColumn_25_0= RULE_ID
+                    // InternalEMap.g:2448:1: (lv_descriminationColumn_25_0= RULE_ID )
+                    // InternalEMap.g:2449:3: lv_descriminationColumn_25_0= RULE_ID
                     {
-                    lv_descriminationColumn_25_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingEntity4755); if (state.failed) return current;
+                    lv_descriminationColumn_25_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_descriminationColumn_25_0, grammarAccess.getEMappingEntityAccess().getDescriminationColumnIDTerminalRuleCall_10_1_0()); 
@@ -6658,7 +6947,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"descriminationColumn",
                               		lv_descriminationColumn_25_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -6696,7 +6985,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2364:1: entryRuleEAttribute returns [EObject current=null] : iv_ruleEAttribute= ruleEAttribute EOF ;
+    // InternalEMap.g:2473:1: entryRuleEAttribute returns [EObject current=null] : iv_ruleEAttribute= ruleEAttribute EOF ;
     public final EObject entryRuleEAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -6704,13 +6993,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2365:2: (iv_ruleEAttribute= ruleEAttribute EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2366:2: iv_ruleEAttribute= ruleEAttribute EOF
+            // InternalEMap.g:2474:2: (iv_ruleEAttribute= ruleEAttribute EOF )
+            // InternalEMap.g:2475:2: iv_ruleEAttribute= ruleEAttribute EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEAttributeRule()); 
             }
-            pushFollow(FOLLOW_ruleEAttribute_in_entryRuleEAttribute4798);
+            pushFollow(FOLLOW_1);
             iv_ruleEAttribute=ruleEAttribute();
 
             state._fsp--;
@@ -6718,7 +7007,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEAttribute; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEAttribute4808); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -6736,7 +7025,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2373:1: ruleEAttribute returns [EObject current=null] : ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? ) ;
+    // InternalEMap.g:2482:1: ruleEAttribute returns [EObject current=null] : ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? ) ;
     public final EObject ruleEAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -6767,48 +7056,48 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2376:28: ( ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:1: ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? )
+            // InternalEMap.g:2485:28: ( ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? ) )
+            // InternalEMap.g:2486:1: ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:1: ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:2: ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )?
+            // InternalEMap.g:2486:1: ( ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )? )
+            // InternalEMap.g:2486:2: ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) ) ( (lv_name_2_0= RULE_ID ) ) otherlv_3= '=>' ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) ) (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:2: ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) )
-            int alt61=2;
-            int LA61_0 = input.LA(1);
+            // InternalEMap.g:2486:2: ( ( (lv_pk_0_0= 'primarykey' ) )? | ( (lv_forcedFk_1_0= 'forced-fk' ) ) )
+            int alt64=2;
+            int LA64_0 = input.LA(1);
 
-            if ( (LA61_0==RULE_ID||LA61_0==49) ) {
-                alt61=1;
+            if ( (LA64_0==RULE_ID||LA64_0==50) ) {
+                alt64=1;
             }
-            else if ( (LA61_0==50) ) {
-                alt61=2;
+            else if ( (LA64_0==51) ) {
+                alt64=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 61, 0, input);
+                    new NoViableAltException("", 64, 0, input);
 
                 throw nvae;
             }
-            switch (alt61) {
+            switch (alt64) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:3: ( (lv_pk_0_0= 'primarykey' ) )?
+                    // InternalEMap.g:2486:3: ( (lv_pk_0_0= 'primarykey' ) )?
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2377:3: ( (lv_pk_0_0= 'primarykey' ) )?
-                    int alt60=2;
-                    int LA60_0 = input.LA(1);
+                    // InternalEMap.g:2486:3: ( (lv_pk_0_0= 'primarykey' ) )?
+                    int alt63=2;
+                    int LA63_0 = input.LA(1);
 
-                    if ( (LA60_0==49) ) {
-                        alt60=1;
+                    if ( (LA63_0==50) ) {
+                        alt63=1;
                     }
-                    switch (alt60) {
+                    switch (alt63) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2378:1: (lv_pk_0_0= 'primarykey' )
+                            // InternalEMap.g:2487:1: (lv_pk_0_0= 'primarykey' )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2378:1: (lv_pk_0_0= 'primarykey' )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2379:3: lv_pk_0_0= 'primarykey'
+                            // InternalEMap.g:2487:1: (lv_pk_0_0= 'primarykey' )
+                            // InternalEMap.g:2488:3: lv_pk_0_0= 'primarykey'
                             {
-                            lv_pk_0_0=(Token)match(input,49,FOLLOW_49_in_ruleEAttribute4852); if (state.failed) return current;
+                            lv_pk_0_0=(Token)match(input,50,FOLLOW_4); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_pk_0_0, grammarAccess.getEAttributeAccess().getPkPrimarykeyKeyword_0_0_0());
@@ -6835,15 +7124,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2393:6: ( (lv_forcedFk_1_0= 'forced-fk' ) )
+                    // InternalEMap.g:2502:6: ( (lv_forcedFk_1_0= 'forced-fk' ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2393:6: ( (lv_forcedFk_1_0= 'forced-fk' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2394:1: (lv_forcedFk_1_0= 'forced-fk' )
+                    // InternalEMap.g:2502:6: ( (lv_forcedFk_1_0= 'forced-fk' ) )
+                    // InternalEMap.g:2503:1: (lv_forcedFk_1_0= 'forced-fk' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2394:1: (lv_forcedFk_1_0= 'forced-fk' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2395:3: lv_forcedFk_1_0= 'forced-fk'
+                    // InternalEMap.g:2503:1: (lv_forcedFk_1_0= 'forced-fk' )
+                    // InternalEMap.g:2504:3: lv_forcedFk_1_0= 'forced-fk'
                     {
-                    lv_forcedFk_1_0=(Token)match(input,50,FOLLOW_50_in_ruleEAttribute4890); if (state.failed) return current;
+                    lv_forcedFk_1_0=(Token)match(input,51,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_forcedFk_1_0, grammarAccess.getEAttributeAccess().getForcedFkForcedFkKeyword_0_1_0());
@@ -6869,13 +7158,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2408:3: ( (lv_name_2_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2409:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:2517:3: ( (lv_name_2_0= RULE_ID ) )
+            // InternalEMap.g:2518:1: (lv_name_2_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2409:1: (lv_name_2_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2410:3: lv_name_2_0= RULE_ID
+            // InternalEMap.g:2518:1: (lv_name_2_0= RULE_ID )
+            // InternalEMap.g:2519:3: lv_name_2_0= RULE_ID
             {
-            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEAttribute4921); if (state.failed) return current;
+            lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_55); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_2_0, grammarAccess.getEAttributeAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -6890,7 +7179,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_2_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -6899,43 +7188,43 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,51,FOLLOW_51_in_ruleEAttribute4938); if (state.failed) return current;
+            otherlv_3=(Token)match(input,52,FOLLOW_56); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getEAttributeAccess().getEqualsSignGreaterThanSignKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2430:1: ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) )
-            int alt66=2;
-            int LA66_0 = input.LA(1);
+            // InternalEMap.g:2539:1: ( ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? ) | ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? ) )
+            int alt69=2;
+            int LA69_0 = input.LA(1);
 
-            if ( (LA66_0==RULE_ID) ) {
-                alt66=1;
+            if ( (LA69_0==RULE_ID) ) {
+                alt69=1;
             }
-            else if ( (LA66_0==53) ) {
-                alt66=2;
+            else if ( (LA69_0==54) ) {
+                alt69=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 66, 0, input);
+                    new NoViableAltException("", 69, 0, input);
 
                 throw nvae;
             }
-            switch (alt66) {
+            switch (alt69) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2430:2: ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? )
+                    // InternalEMap.g:2539:2: ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2430:2: ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2430:3: ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )?
+                    // InternalEMap.g:2539:2: ( ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )? )
+                    // InternalEMap.g:2539:3: ( (lv_columnName_4_0= RULE_ID ) ) (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )?
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2430:3: ( (lv_columnName_4_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2431:1: (lv_columnName_4_0= RULE_ID )
+                    // InternalEMap.g:2539:3: ( (lv_columnName_4_0= RULE_ID ) )
+                    // InternalEMap.g:2540:1: (lv_columnName_4_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2431:1: (lv_columnName_4_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2432:3: lv_columnName_4_0= RULE_ID
+                    // InternalEMap.g:2540:1: (lv_columnName_4_0= RULE_ID )
+                    // InternalEMap.g:2541:3: lv_columnName_4_0= RULE_ID
                     {
-                    lv_columnName_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEAttribute4957); if (state.failed) return current;
+                    lv_columnName_4_0=(Token)match(input,RULE_ID,FOLLOW_57); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_columnName_4_0, grammarAccess.getEAttributeAccess().getColumnNameIDTerminalRuleCall_3_0_0_0()); 
@@ -6950,7 +7239,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"columnName",
                               		lv_columnName_4_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -6959,41 +7248,41 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2448:2: (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )?
-                    int alt63=2;
-                    int LA63_0 = input.LA(1);
+                    // InternalEMap.g:2557:2: (otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}' )?
+                    int alt66=2;
+                    int LA66_0 = input.LA(1);
 
-                    if ( (LA63_0==52) ) {
-                        alt63=1;
+                    if ( (LA66_0==53) ) {
+                        alt66=1;
                     }
-                    switch (alt63) {
+                    switch (alt66) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2448:4: otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}'
+                            // InternalEMap.g:2557:4: otherlv_5= 'generatedby' otherlv_6= '{' ( (lv_valueGenerators_7_0= ruleEValueGenerator ) ) (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )* otherlv_10= '}'
                             {
-                            otherlv_5=(Token)match(input,52,FOLLOW_52_in_ruleEAttribute4975); if (state.failed) return current;
+                            otherlv_5=(Token)match(input,53,FOLLOW_6); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_5, grammarAccess.getEAttributeAccess().getGeneratedbyKeyword_3_0_1_0());
                                   
                             }
-                            otherlv_6=(Token)match(input,13,FOLLOW_13_in_ruleEAttribute4987); if (state.failed) return current;
+                            otherlv_6=(Token)match(input,13,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_6, grammarAccess.getEAttributeAccess().getLeftCurlyBracketKeyword_3_0_1_1());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2456:1: ( (lv_valueGenerators_7_0= ruleEValueGenerator ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2457:1: (lv_valueGenerators_7_0= ruleEValueGenerator )
+                            // InternalEMap.g:2565:1: ( (lv_valueGenerators_7_0= ruleEValueGenerator ) )
+                            // InternalEMap.g:2566:1: (lv_valueGenerators_7_0= ruleEValueGenerator )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2457:1: (lv_valueGenerators_7_0= ruleEValueGenerator )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2458:3: lv_valueGenerators_7_0= ruleEValueGenerator
+                            // InternalEMap.g:2566:1: (lv_valueGenerators_7_0= ruleEValueGenerator )
+                            // InternalEMap.g:2567:3: lv_valueGenerators_7_0= ruleEValueGenerator
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEAttributeAccess().getValueGeneratorsEValueGeneratorParserRuleCall_3_0_1_2_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEValueGenerator_in_ruleEAttribute5008);
+                            pushFollow(FOLLOW_9);
                             lv_valueGenerators_7_0=ruleEValueGenerator();
 
                             state._fsp--;
@@ -7007,7 +7296,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"valueGenerators",
                                       		lv_valueGenerators_7_0, 
-                                      		"EValueGenerator");
+                                      		"at.bestsolution.persistence.emap.EMap.EValueGenerator");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -7017,39 +7306,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2474:2: (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )*
-                            loop62:
+                            // InternalEMap.g:2583:2: (otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) ) )*
+                            loop65:
                             do {
-                                int alt62=2;
-                                int LA62_0 = input.LA(1);
+                                int alt65=2;
+                                int LA65_0 = input.LA(1);
 
-                                if ( (LA62_0==15) ) {
-                                    alt62=1;
+                                if ( (LA65_0==15) ) {
+                                    alt65=1;
                                 }
 
 
-                                switch (alt62) {
+                                switch (alt65) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2474:4: otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) )
+                            	    // InternalEMap.g:2583:4: otherlv_8= ',' ( (lv_valueGenerators_9_0= ruleEValueGenerator ) )
                             	    {
-                            	    otherlv_8=(Token)match(input,15,FOLLOW_15_in_ruleEAttribute5021); if (state.failed) return current;
+                            	    otherlv_8=(Token)match(input,15,FOLLOW_15); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_8, grammarAccess.getEAttributeAccess().getCommaKeyword_3_0_1_3_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2478:1: ( (lv_valueGenerators_9_0= ruleEValueGenerator ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2479:1: (lv_valueGenerators_9_0= ruleEValueGenerator )
+                            	    // InternalEMap.g:2587:1: ( (lv_valueGenerators_9_0= ruleEValueGenerator ) )
+                            	    // InternalEMap.g:2588:1: (lv_valueGenerators_9_0= ruleEValueGenerator )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2479:1: (lv_valueGenerators_9_0= ruleEValueGenerator )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2480:3: lv_valueGenerators_9_0= ruleEValueGenerator
+                            	    // InternalEMap.g:2588:1: (lv_valueGenerators_9_0= ruleEValueGenerator )
+                            	    // InternalEMap.g:2589:3: lv_valueGenerators_9_0= ruleEValueGenerator
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEAttributeAccess().getValueGeneratorsEValueGeneratorParserRuleCall_3_0_1_3_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEValueGenerator_in_ruleEAttribute5042);
+                            	    pushFollow(FOLLOW_9);
                             	    lv_valueGenerators_9_0=ruleEValueGenerator();
 
                             	    state._fsp--;
@@ -7063,7 +7352,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"valueGenerators",
                             	              		lv_valueGenerators_9_0, 
-                            	              		"EValueGenerator");
+                            	              		"at.bestsolution.persistence.emap.EMap.EValueGenerator");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -7078,11 +7367,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop62;
+                            	    break loop65;
                                 }
                             } while (true);
 
-                            otherlv_10=(Token)match(input,16,FOLLOW_16_in_ruleEAttribute5056); if (state.failed) return current;
+                            otherlv_10=(Token)match(input,16,FOLLOW_35); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_10, grammarAccess.getEAttributeAccess().getRightCurlyBracketKeyword_3_0_1_4());
@@ -7101,18 +7390,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2501:6: ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? )
+                    // InternalEMap.g:2610:6: ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2501:6: ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2501:7: ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )?
+                    // InternalEMap.g:2610:6: ( ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )? )
+                    // InternalEMap.g:2610:7: ( (lv_resolved_11_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_13= '(' ( (lv_parameters_14_0= RULE_ID ) ) otherlv_15= ')' ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )?
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2501:7: ( (lv_resolved_11_0= 'resolve' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2502:1: (lv_resolved_11_0= 'resolve' )
+                    // InternalEMap.g:2610:7: ( (lv_resolved_11_0= 'resolve' ) )
+                    // InternalEMap.g:2611:1: (lv_resolved_11_0= 'resolve' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2502:1: (lv_resolved_11_0= 'resolve' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2503:3: lv_resolved_11_0= 'resolve'
+                    // InternalEMap.g:2611:1: (lv_resolved_11_0= 'resolve' )
+                    // InternalEMap.g:2612:3: lv_resolved_11_0= 'resolve'
                     {
-                    lv_resolved_11_0=(Token)match(input,53,FOLLOW_53_in_ruleEAttribute5084); if (state.failed) return current;
+                    lv_resolved_11_0=(Token)match(input,54,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_resolved_11_0, grammarAccess.getEAttributeAccess().getResolvedResolveKeyword_3_1_0_0());
@@ -7132,11 +7421,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2516:2: ( ( ruleQualifiedName ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2517:1: ( ruleQualifiedName )
+                    // InternalEMap.g:2625:2: ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:2626:1: ( ruleQualifiedName )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2517:1: ( ruleQualifiedName )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2518:3: ruleQualifiedName
+                    // InternalEMap.g:2626:1: ( ruleQualifiedName )
+                    // InternalEMap.g:2627:3: ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
 
@@ -7150,7 +7439,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getEAttributeAccess().getQueryENamedQueryCrossReference_3_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEAttribute5120);
+                    pushFollow(FOLLOW_31);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -7166,19 +7455,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_13=(Token)match(input,25,FOLLOW_25_in_ruleEAttribute5132); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_13, grammarAccess.getEAttributeAccess().getLeftParenthesisKeyword_3_1_2());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2535:1: ( (lv_parameters_14_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2536:1: (lv_parameters_14_0= RULE_ID )
+                    // InternalEMap.g:2644:1: ( (lv_parameters_14_0= RULE_ID ) )
+                    // InternalEMap.g:2645:1: (lv_parameters_14_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2536:1: (lv_parameters_14_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2537:3: lv_parameters_14_0= RULE_ID
+                    // InternalEMap.g:2645:1: (lv_parameters_14_0= RULE_ID )
+                    // InternalEMap.g:2646:3: lv_parameters_14_0= RULE_ID
                     {
-                    lv_parameters_14_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEAttribute5149); if (state.failed) return current;
+                    lv_parameters_14_0=(Token)match(input,RULE_ID,FOLLOW_58); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_parameters_14_0, grammarAccess.getEAttributeAccess().getParametersIDTerminalRuleCall_3_1_3_0()); 
@@ -7193,7 +7482,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"parameters",
                               		lv_parameters_14_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -7202,28 +7491,28 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_15=(Token)match(input,26,FOLLOW_26_in_ruleEAttribute5166); if (state.failed) return current;
+                    otherlv_15=(Token)match(input,26,FOLLOW_59); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_15, grammarAccess.getEAttributeAccess().getRightParenthesisKeyword_3_1_4());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2557:1: ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )?
-                    int alt65=2;
-                    int LA65_0 = input.LA(1);
+                    // InternalEMap.g:2666:1: ( ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )? )?
+                    int alt68=2;
+                    int LA68_0 = input.LA(1);
 
-                    if ( (LA65_0==RULE_ID) ) {
-                        alt65=1;
+                    if ( (LA68_0==RULE_ID) ) {
+                        alt68=1;
                     }
-                    switch (alt65) {
+                    switch (alt68) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2557:2: ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )?
+                            // InternalEMap.g:2666:2: ( ( ruleQualifiedName ) ) otherlv_17= 'on' ( (lv_relationTable_18_0= RULE_ID ) ) (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )?
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2557:2: ( ( ruleQualifiedName ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2558:1: ( ruleQualifiedName )
+                            // InternalEMap.g:2666:2: ( ( ruleQualifiedName ) )
+                            // InternalEMap.g:2667:1: ( ruleQualifiedName )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2558:1: ( ruleQualifiedName )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2559:3: ruleQualifiedName
+                            // InternalEMap.g:2667:1: ( ruleQualifiedName )
+                            // InternalEMap.g:2668:3: ruleQualifiedName
                             {
                             if ( state.backtracking==0 ) {
 
@@ -7237,7 +7526,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                               	        newCompositeNode(grammarAccess.getEAttributeAccess().getOppositeEAttributeCrossReference_3_1_5_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEAttribute5190);
+                            pushFollow(FOLLOW_60);
                             ruleQualifiedName();
 
                             state._fsp--;
@@ -7253,19 +7542,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_17=(Token)match(input,54,FOLLOW_54_in_ruleEAttribute5202); if (state.failed) return current;
+                            otherlv_17=(Token)match(input,55,FOLLOW_4); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_17, grammarAccess.getEAttributeAccess().getOnKeyword_3_1_5_1());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2576:1: ( (lv_relationTable_18_0= RULE_ID ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2577:1: (lv_relationTable_18_0= RULE_ID )
+                            // InternalEMap.g:2685:1: ( (lv_relationTable_18_0= RULE_ID ) )
+                            // InternalEMap.g:2686:1: (lv_relationTable_18_0= RULE_ID )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2577:1: (lv_relationTable_18_0= RULE_ID )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2578:3: lv_relationTable_18_0= RULE_ID
+                            // InternalEMap.g:2686:1: (lv_relationTable_18_0= RULE_ID )
+                            // InternalEMap.g:2687:3: lv_relationTable_18_0= RULE_ID
                             {
-                            lv_relationTable_18_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEAttribute5219); if (state.failed) return current;
+                            lv_relationTable_18_0=(Token)match(input,RULE_ID,FOLLOW_61); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_relationTable_18_0, grammarAccess.getEAttributeAccess().getRelationTableIDTerminalRuleCall_3_1_5_2_0()); 
@@ -7280,7 +7569,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"relationTable",
                                       		lv_relationTable_18_0, 
-                                      		"ID");
+                                      		"org.eclipse.xtext.common.Terminals.ID");
                               	    
                             }
 
@@ -7289,30 +7578,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2594:2: (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )?
-                            int alt64=2;
-                            int LA64_0 = input.LA(1);
+                            // InternalEMap.g:2703:2: (otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) ) )?
+                            int alt67=2;
+                            int LA67_0 = input.LA(1);
 
-                            if ( (LA64_0==42) ) {
-                                alt64=1;
+                            if ( (LA67_0==43) ) {
+                                alt67=1;
                             }
-                            switch (alt64) {
+                            switch (alt67) {
                                 case 1 :
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2594:4: otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) )
+                                    // InternalEMap.g:2703:4: otherlv_19= '.' ( (lv_relationColumn_20_0= RULE_ID ) )
                                     {
-                                    otherlv_19=(Token)match(input,42,FOLLOW_42_in_ruleEAttribute5237); if (state.failed) return current;
+                                    otherlv_19=(Token)match(input,43,FOLLOW_4); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
                                           	newLeafNode(otherlv_19, grammarAccess.getEAttributeAccess().getFullStopKeyword_3_1_5_3_0());
                                           
                                     }
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2598:1: ( (lv_relationColumn_20_0= RULE_ID ) )
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2599:1: (lv_relationColumn_20_0= RULE_ID )
+                                    // InternalEMap.g:2707:1: ( (lv_relationColumn_20_0= RULE_ID ) )
+                                    // InternalEMap.g:2708:1: (lv_relationColumn_20_0= RULE_ID )
                                     {
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2599:1: (lv_relationColumn_20_0= RULE_ID )
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2600:3: lv_relationColumn_20_0= RULE_ID
+                                    // InternalEMap.g:2708:1: (lv_relationColumn_20_0= RULE_ID )
+                                    // InternalEMap.g:2709:3: lv_relationColumn_20_0= RULE_ID
                                     {
-                                    lv_relationColumn_20_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEAttribute5254); if (state.failed) return current;
+                                    lv_relationColumn_20_0=(Token)match(input,RULE_ID,FOLLOW_35); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
                                       			newLeafNode(lv_relationColumn_20_0, grammarAccess.getEAttributeAccess().getRelationColumnIDTerminalRuleCall_3_1_5_3_1_0()); 
@@ -7327,7 +7616,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                              			current, 
                                              			"relationColumn",
                                               		lv_relationColumn_20_0, 
-                                              		"ID");
+                                              		"org.eclipse.xtext.common.Terminals.ID");
                                       	    
                                     }
 
@@ -7357,30 +7646,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2616:8: (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )?
-            int alt67=2;
-            int LA67_0 = input.LA(1);
+            // InternalEMap.g:2725:8: (otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) ) )?
+            int alt70=2;
+            int LA70_0 = input.LA(1);
 
-            if ( (LA67_0==31) ) {
-                alt67=1;
+            if ( (LA70_0==31) ) {
+                alt70=1;
             }
-            switch (alt67) {
+            switch (alt70) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2616:10: otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) )
+                    // InternalEMap.g:2725:10: otherlv_21= 'size' ( (lv_size_22_0= RULE_STRING ) )
                     {
-                    otherlv_21=(Token)match(input,31,FOLLOW_31_in_ruleEAttribute5278); if (state.failed) return current;
+                    otherlv_21=(Token)match(input,31,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_21, grammarAccess.getEAttributeAccess().getSizeKeyword_4_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2620:1: ( (lv_size_22_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2621:1: (lv_size_22_0= RULE_STRING )
+                    // InternalEMap.g:2729:1: ( (lv_size_22_0= RULE_STRING ) )
+                    // InternalEMap.g:2730:1: (lv_size_22_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2621:1: (lv_size_22_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2622:3: lv_size_22_0= RULE_STRING
+                    // InternalEMap.g:2730:1: (lv_size_22_0= RULE_STRING )
+                    // InternalEMap.g:2731:3: lv_size_22_0= RULE_STRING
                     {
-                    lv_size_22_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEAttribute5295); if (state.failed) return current;
+                    lv_size_22_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_size_22_0, grammarAccess.getEAttributeAccess().getSizeSTRINGTerminalRuleCall_4_1_0()); 
@@ -7395,7 +7684,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"size",
                               		lv_size_22_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -7433,7 +7722,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEValueGenerator"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2646:1: entryRuleEValueGenerator returns [EObject current=null] : iv_ruleEValueGenerator= ruleEValueGenerator EOF ;
+    // InternalEMap.g:2755:1: entryRuleEValueGenerator returns [EObject current=null] : iv_ruleEValueGenerator= ruleEValueGenerator EOF ;
     public final EObject entryRuleEValueGenerator() throws RecognitionException {
         EObject current = null;
 
@@ -7441,13 +7730,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2647:2: (iv_ruleEValueGenerator= ruleEValueGenerator EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2648:2: iv_ruleEValueGenerator= ruleEValueGenerator EOF
+            // InternalEMap.g:2756:2: (iv_ruleEValueGenerator= ruleEValueGenerator EOF )
+            // InternalEMap.g:2757:2: iv_ruleEValueGenerator= ruleEValueGenerator EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEValueGeneratorRule()); 
             }
-            pushFollow(FOLLOW_ruleEValueGenerator_in_entryRuleEValueGenerator5338);
+            pushFollow(FOLLOW_1);
             iv_ruleEValueGenerator=ruleEValueGenerator();
 
             state._fsp--;
@@ -7455,7 +7744,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEValueGenerator; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEValueGenerator5348); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -7473,7 +7762,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEValueGenerator"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2655:1: ruleEValueGenerator returns [EObject current=null] : ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) ) ;
+    // InternalEMap.g:2764:1: ruleEValueGenerator returns [EObject current=null] : ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) ) ;
     public final EObject ruleEValueGenerator() throws RecognitionException {
         EObject current = null;
 
@@ -7487,19 +7776,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2658:28: ( ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2659:1: ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) )
+            // InternalEMap.g:2767:28: ( ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) ) )
+            // InternalEMap.g:2768:1: ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2659:1: ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2659:2: ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:2768:1: ( ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) ) )
+            // InternalEMap.g:2768:2: ( (lv_dbType_0_0= RULE_STRING ) ) ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2659:2: ( (lv_dbType_0_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2660:1: (lv_dbType_0_0= RULE_STRING )
+            // InternalEMap.g:2768:2: ( (lv_dbType_0_0= RULE_STRING ) )
+            // InternalEMap.g:2769:1: (lv_dbType_0_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2660:1: (lv_dbType_0_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2661:3: lv_dbType_0_0= RULE_STRING
+            // InternalEMap.g:2769:1: (lv_dbType_0_0= RULE_STRING )
+            // InternalEMap.g:2770:3: lv_dbType_0_0= RULE_STRING
             {
-            lv_dbType_0_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEValueGenerator5390); if (state.failed) return current;
+            lv_dbType_0_0=(Token)match(input,RULE_STRING,FOLLOW_62); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_dbType_0_0, grammarAccess.getEValueGeneratorAccess().getDbTypeSTRINGTerminalRuleCall_0_0()); 
@@ -7514,7 +7803,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"dbType",
                       		lv_dbType_0_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -7523,43 +7812,43 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2677:2: ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) )
-            int alt68=3;
+            // InternalEMap.g:2786:2: ( ( (lv_autokey_1_0= 'autokey' ) ) | (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) ) | (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) ) )
+            int alt71=3;
             switch ( input.LA(1) ) {
-            case 55:
-                {
-                alt68=1;
-                }
-                break;
             case 56:
                 {
-                alt68=2;
+                alt71=1;
                 }
                 break;
             case 57:
                 {
-                alt68=3;
+                alt71=2;
+                }
+                break;
+            case 58:
+                {
+                alt71=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 68, 0, input);
+                    new NoViableAltException("", 71, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt68) {
+            switch (alt71) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2677:3: ( (lv_autokey_1_0= 'autokey' ) )
+                    // InternalEMap.g:2786:3: ( (lv_autokey_1_0= 'autokey' ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2677:3: ( (lv_autokey_1_0= 'autokey' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2678:1: (lv_autokey_1_0= 'autokey' )
+                    // InternalEMap.g:2786:3: ( (lv_autokey_1_0= 'autokey' ) )
+                    // InternalEMap.g:2787:1: (lv_autokey_1_0= 'autokey' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2678:1: (lv_autokey_1_0= 'autokey' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2679:3: lv_autokey_1_0= 'autokey'
+                    // InternalEMap.g:2787:1: (lv_autokey_1_0= 'autokey' )
+                    // InternalEMap.g:2788:3: lv_autokey_1_0= 'autokey'
                     {
-                    lv_autokey_1_0=(Token)match(input,55,FOLLOW_55_in_ruleEValueGenerator5414); if (state.failed) return current;
+                    lv_autokey_1_0=(Token)match(input,56,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_autokey_1_0, grammarAccess.getEValueGeneratorAccess().getAutokeyAutokeyKeyword_1_0_0());
@@ -7583,24 +7872,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2693:6: (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) )
+                    // InternalEMap.g:2802:6: (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2693:6: (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2693:8: otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) )
+                    // InternalEMap.g:2802:6: (otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) ) )
+                    // InternalEMap.g:2802:8: otherlv_2= 'query' ( (lv_query_3_0= RULE_STRING ) )
                     {
-                    otherlv_2=(Token)match(input,56,FOLLOW_56_in_ruleEValueGenerator5446); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,57,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getEValueGeneratorAccess().getQueryKeyword_1_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2697:1: ( (lv_query_3_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2698:1: (lv_query_3_0= RULE_STRING )
+                    // InternalEMap.g:2806:1: ( (lv_query_3_0= RULE_STRING ) )
+                    // InternalEMap.g:2807:1: (lv_query_3_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2698:1: (lv_query_3_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2699:3: lv_query_3_0= RULE_STRING
+                    // InternalEMap.g:2807:1: (lv_query_3_0= RULE_STRING )
+                    // InternalEMap.g:2808:3: lv_query_3_0= RULE_STRING
                     {
-                    lv_query_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEValueGenerator5463); if (state.failed) return current;
+                    lv_query_3_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_query_3_0, grammarAccess.getEValueGeneratorAccess().getQuerySTRINGTerminalRuleCall_1_1_1_0()); 
@@ -7615,7 +7904,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"query",
                               		lv_query_3_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -7631,24 +7920,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2716:6: (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) )
+                    // InternalEMap.g:2825:6: (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2716:6: (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2716:8: otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) )
+                    // InternalEMap.g:2825:6: (otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) ) )
+                    // InternalEMap.g:2825:8: otherlv_4= 'seqnext' ( (lv_sequence_5_0= RULE_STRING ) )
                     {
-                    otherlv_4=(Token)match(input,57,FOLLOW_57_in_ruleEValueGenerator5488); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,58,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getEValueGeneratorAccess().getSeqnextKeyword_1_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2720:1: ( (lv_sequence_5_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2721:1: (lv_sequence_5_0= RULE_STRING )
+                    // InternalEMap.g:2829:1: ( (lv_sequence_5_0= RULE_STRING ) )
+                    // InternalEMap.g:2830:1: (lv_sequence_5_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2721:1: (lv_sequence_5_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2722:3: lv_sequence_5_0= RULE_STRING
+                    // InternalEMap.g:2830:1: (lv_sequence_5_0= RULE_STRING )
+                    // InternalEMap.g:2831:3: lv_sequence_5_0= RULE_STRING
                     {
-                    lv_sequence_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEValueGenerator5505); if (state.failed) return current;
+                    lv_sequence_5_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_sequence_5_0, grammarAccess.getEValueGeneratorAccess().getSequenceSTRINGTerminalRuleCall_1_2_1_0()); 
@@ -7663,7 +7952,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"sequence",
                               		lv_sequence_5_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -7704,7 +7993,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleENamedQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2746:1: entryRuleENamedQuery returns [EObject current=null] : iv_ruleENamedQuery= ruleENamedQuery EOF ;
+    // InternalEMap.g:2855:1: entryRuleENamedQuery returns [EObject current=null] : iv_ruleENamedQuery= ruleENamedQuery EOF ;
     public final EObject entryRuleENamedQuery() throws RecognitionException {
         EObject current = null;
 
@@ -7712,13 +8001,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2747:2: (iv_ruleENamedQuery= ruleENamedQuery EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2748:2: iv_ruleENamedQuery= ruleENamedQuery EOF
+            // InternalEMap.g:2856:2: (iv_ruleENamedQuery= ruleENamedQuery EOF )
+            // InternalEMap.g:2857:2: iv_ruleENamedQuery= ruleENamedQuery EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getENamedQueryRule()); 
             }
-            pushFollow(FOLLOW_ruleENamedQuery_in_entryRuleENamedQuery5548);
+            pushFollow(FOLLOW_1);
             iv_ruleENamedQuery=ruleENamedQuery();
 
             state._fsp--;
@@ -7726,7 +8015,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleENamedQuery; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleENamedQuery5558); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -7744,7 +8033,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleENamedQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2755:1: ruleENamedQuery returns [EObject current=null] : ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' ) ;
+    // InternalEMap.g:2864:1: ruleENamedQuery returns [EObject current=null] : ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' ) ;
     public final EObject ruleENamedQuery() throws RecognitionException {
         EObject current = null;
 
@@ -7769,32 +8058,32 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2758:28: ( ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2759:1: ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' )
+            // InternalEMap.g:2867:28: ( ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' ) )
+            // InternalEMap.g:2868:1: ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2759:1: ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2759:2: ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}'
+            // InternalEMap.g:2868:1: ( ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}' )
+            // InternalEMap.g:2868:2: ( (lv_returnType_0_0= ruleReturnType ) )? ( (lv_name_1_0= RULE_ID ) ) (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )? otherlv_7= '{' ( (lv_queries_8_0= ruleEQuery ) ) (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )* otherlv_11= '}'
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2759:2: ( (lv_returnType_0_0= ruleReturnType ) )?
-            int alt69=2;
-            int LA69_0 = input.LA(1);
+            // InternalEMap.g:2868:2: ( (lv_returnType_0_0= ruleReturnType ) )?
+            int alt72=2;
+            int LA72_0 = input.LA(1);
 
-            if ( ((LA69_0>=79 && LA69_0<=80)) ) {
-                alt69=1;
+            if ( ((LA72_0>=80 && LA72_0<=81)) ) {
+                alt72=1;
             }
-            switch (alt69) {
+            switch (alt72) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2760:1: (lv_returnType_0_0= ruleReturnType )
+                    // InternalEMap.g:2869:1: (lv_returnType_0_0= ruleReturnType )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2760:1: (lv_returnType_0_0= ruleReturnType )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2761:3: lv_returnType_0_0= ruleReturnType
+                    // InternalEMap.g:2869:1: (lv_returnType_0_0= ruleReturnType )
+                    // InternalEMap.g:2870:3: lv_returnType_0_0= ruleReturnType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getENamedQueryAccess().getReturnTypeReturnTypeEnumRuleCall_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleReturnType_in_ruleENamedQuery5604);
+                    pushFollow(FOLLOW_4);
                     lv_returnType_0_0=ruleReturnType();
 
                     state._fsp--;
@@ -7808,7 +8097,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"returnType",
                               		lv_returnType_0_0, 
-                              		"ReturnType");
+                              		"at.bestsolution.persistence.emap.EMap.ReturnType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -7821,13 +8110,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2777:3: ( (lv_name_1_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2778:1: (lv_name_1_0= RULE_ID )
+            // InternalEMap.g:2886:3: ( (lv_name_1_0= RULE_ID ) )
+            // InternalEMap.g:2887:1: (lv_name_1_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2778:1: (lv_name_1_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2779:3: lv_name_1_0= RULE_ID
+            // InternalEMap.g:2887:1: (lv_name_1_0= RULE_ID )
+            // InternalEMap.g:2888:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleENamedQuery5622); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_63); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getENamedQueryAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -7842,7 +8131,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -7851,46 +8140,46 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2795:2: (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )?
-            int alt72=2;
-            int LA72_0 = input.LA(1);
+            // InternalEMap.g:2904:2: (otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')' )?
+            int alt75=2;
+            int LA75_0 = input.LA(1);
 
-            if ( (LA72_0==25) ) {
-                alt72=1;
+            if ( (LA75_0==25) ) {
+                alt75=1;
             }
-            switch (alt72) {
+            switch (alt75) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2795:4: otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')'
+                    // InternalEMap.g:2904:4: otherlv_2= '(' ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )? otherlv_6= ')'
                     {
-                    otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleENamedQuery5640); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,25,FOLLOW_64); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getENamedQueryAccess().getLeftParenthesisKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2799:1: ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )?
-                    int alt71=2;
-                    int LA71_0 = input.LA(1);
+                    // InternalEMap.g:2908:1: ( ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )* )?
+                    int alt74=2;
+                    int LA74_0 = input.LA(1);
 
-                    if ( (LA71_0==RULE_ID||LA71_0==49||(LA71_0>=58 && LA71_0<=62)||LA71_0==64) ) {
-                        alt71=1;
+                    if ( (LA74_0==RULE_ID||LA74_0==50||(LA74_0>=59 && LA74_0<=63)||LA74_0==65) ) {
+                        alt74=1;
                     }
-                    switch (alt71) {
+                    switch (alt74) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2799:2: ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )*
+                            // InternalEMap.g:2908:2: ( (lv_parameters_3_0= ruleEParameter ) ) (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2799:2: ( (lv_parameters_3_0= ruleEParameter ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2800:1: (lv_parameters_3_0= ruleEParameter )
+                            // InternalEMap.g:2908:2: ( (lv_parameters_3_0= ruleEParameter ) )
+                            // InternalEMap.g:2909:1: (lv_parameters_3_0= ruleEParameter )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2800:1: (lv_parameters_3_0= ruleEParameter )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2801:3: lv_parameters_3_0= ruleEParameter
+                            // InternalEMap.g:2909:1: (lv_parameters_3_0= ruleEParameter )
+                            // InternalEMap.g:2910:3: lv_parameters_3_0= ruleEParameter
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getENamedQueryAccess().getParametersEParameterParserRuleCall_2_1_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEParameter_in_ruleENamedQuery5662);
+                            pushFollow(FOLLOW_32);
                             lv_parameters_3_0=ruleEParameter();
 
                             state._fsp--;
@@ -7904,7 +8193,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"parameters",
                                       		lv_parameters_3_0, 
-                                      		"EParameter");
+                                      		"at.bestsolution.persistence.emap.EMap.EParameter");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -7914,39 +8203,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2817:2: (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )*
-                            loop70:
+                            // InternalEMap.g:2926:2: (otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) ) )*
+                            loop73:
                             do {
-                                int alt70=2;
-                                int LA70_0 = input.LA(1);
+                                int alt73=2;
+                                int LA73_0 = input.LA(1);
 
-                                if ( (LA70_0==15) ) {
-                                    alt70=1;
+                                if ( (LA73_0==15) ) {
+                                    alt73=1;
                                 }
 
 
-                                switch (alt70) {
+                                switch (alt73) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2817:4: otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) )
+                            	    // InternalEMap.g:2926:4: otherlv_4= ',' ( (lv_parameters_5_0= ruleEParameter ) )
                             	    {
-                            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleENamedQuery5675); if (state.failed) return current;
+                            	    otherlv_4=(Token)match(input,15,FOLLOW_65); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_4, grammarAccess.getENamedQueryAccess().getCommaKeyword_2_1_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2821:1: ( (lv_parameters_5_0= ruleEParameter ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2822:1: (lv_parameters_5_0= ruleEParameter )
+                            	    // InternalEMap.g:2930:1: ( (lv_parameters_5_0= ruleEParameter ) )
+                            	    // InternalEMap.g:2931:1: (lv_parameters_5_0= ruleEParameter )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2822:1: (lv_parameters_5_0= ruleEParameter )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2823:3: lv_parameters_5_0= ruleEParameter
+                            	    // InternalEMap.g:2931:1: (lv_parameters_5_0= ruleEParameter )
+                            	    // InternalEMap.g:2932:3: lv_parameters_5_0= ruleEParameter
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getENamedQueryAccess().getParametersEParameterParserRuleCall_2_1_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEParameter_in_ruleENamedQuery5696);
+                            	    pushFollow(FOLLOW_32);
                             	    lv_parameters_5_0=ruleEParameter();
 
                             	    state._fsp--;
@@ -7960,7 +8249,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"parameters",
                             	              		lv_parameters_5_0, 
-                            	              		"EParameter");
+                            	              		"at.bestsolution.persistence.emap.EMap.EParameter");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -7975,7 +8264,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop70;
+                            	    break loop73;
                                 }
                             } while (true);
 
@@ -7985,7 +8274,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleENamedQuery5712); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,26,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_6, grammarAccess.getENamedQueryAccess().getRightParenthesisKeyword_2_2());
@@ -7997,24 +8286,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,13,FOLLOW_13_in_ruleENamedQuery5726); if (state.failed) return current;
+            otherlv_7=(Token)match(input,13,FOLLOW_33); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_7, grammarAccess.getENamedQueryAccess().getLeftCurlyBracketKeyword_3());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2847:1: ( (lv_queries_8_0= ruleEQuery ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2848:1: (lv_queries_8_0= ruleEQuery )
+            // InternalEMap.g:2956:1: ( (lv_queries_8_0= ruleEQuery ) )
+            // InternalEMap.g:2957:1: (lv_queries_8_0= ruleEQuery )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2848:1: (lv_queries_8_0= ruleEQuery )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2849:3: lv_queries_8_0= ruleEQuery
+            // InternalEMap.g:2957:1: (lv_queries_8_0= ruleEQuery )
+            // InternalEMap.g:2958:3: lv_queries_8_0= ruleEQuery
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getENamedQueryAccess().getQueriesEQueryParserRuleCall_4_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEQuery_in_ruleENamedQuery5747);
+            pushFollow(FOLLOW_9);
             lv_queries_8_0=ruleEQuery();
 
             state._fsp--;
@@ -8028,7 +8317,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"queries",
                       		lv_queries_8_0, 
-                      		"EQuery");
+                      		"at.bestsolution.persistence.emap.EMap.EQuery");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -8038,39 +8327,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2865:2: (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )*
-            loop73:
+            // InternalEMap.g:2974:2: (otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) ) )*
+            loop76:
             do {
-                int alt73=2;
-                int LA73_0 = input.LA(1);
+                int alt76=2;
+                int LA76_0 = input.LA(1);
 
-                if ( (LA73_0==15) ) {
-                    alt73=1;
+                if ( (LA76_0==15) ) {
+                    alt76=1;
                 }
 
 
-                switch (alt73) {
+                switch (alt76) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2865:4: otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) )
+            	    // InternalEMap.g:2974:4: otherlv_9= ',' ( (lv_queries_10_0= ruleEQuery ) )
             	    {
-            	    otherlv_9=(Token)match(input,15,FOLLOW_15_in_ruleENamedQuery5760); if (state.failed) return current;
+            	    otherlv_9=(Token)match(input,15,FOLLOW_33); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_9, grammarAccess.getENamedQueryAccess().getCommaKeyword_5_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2869:1: ( (lv_queries_10_0= ruleEQuery ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2870:1: (lv_queries_10_0= ruleEQuery )
+            	    // InternalEMap.g:2978:1: ( (lv_queries_10_0= ruleEQuery ) )
+            	    // InternalEMap.g:2979:1: (lv_queries_10_0= ruleEQuery )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2870:1: (lv_queries_10_0= ruleEQuery )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2871:3: lv_queries_10_0= ruleEQuery
+            	    // InternalEMap.g:2979:1: (lv_queries_10_0= ruleEQuery )
+            	    // InternalEMap.g:2980:3: lv_queries_10_0= ruleEQuery
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getENamedQueryAccess().getQueriesEQueryParserRuleCall_5_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleEQuery_in_ruleENamedQuery5781);
+            	    pushFollow(FOLLOW_9);
             	    lv_queries_10_0=ruleEQuery();
 
             	    state._fsp--;
@@ -8084,7 +8373,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"queries",
             	              		lv_queries_10_0, 
-            	              		"EQuery");
+            	              		"at.bestsolution.persistence.emap.EMap.EQuery");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -8099,11 +8388,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop73;
+            	    break loop76;
                 }
             } while (true);
 
-            otherlv_11=(Token)match(input,16,FOLLOW_16_in_ruleENamedQuery5795); if (state.failed) return current;
+            otherlv_11=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_11, grammarAccess.getENamedQueryAccess().getRightCurlyBracketKeyword_6());
@@ -8132,7 +8421,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEPrimtiveType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2899:1: entryRuleEPrimtiveType returns [String current=null] : iv_ruleEPrimtiveType= ruleEPrimtiveType EOF ;
+    // InternalEMap.g:3008:1: entryRuleEPrimtiveType returns [String current=null] : iv_ruleEPrimtiveType= ruleEPrimtiveType EOF ;
     public final String entryRuleEPrimtiveType() throws RecognitionException {
         String current = null;
 
@@ -8140,13 +8429,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2900:2: (iv_ruleEPrimtiveType= ruleEPrimtiveType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2901:2: iv_ruleEPrimtiveType= ruleEPrimtiveType EOF
+            // InternalEMap.g:3009:2: (iv_ruleEPrimtiveType= ruleEPrimtiveType EOF )
+            // InternalEMap.g:3010:2: iv_ruleEPrimtiveType= ruleEPrimtiveType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEPrimtiveTypeRule()); 
             }
-            pushFollow(FOLLOW_ruleEPrimtiveType_in_entryRuleEPrimtiveType5832);
+            pushFollow(FOLLOW_1);
             iv_ruleEPrimtiveType=ruleEPrimtiveType();
 
             state._fsp--;
@@ -8154,7 +8443,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEPrimtiveType.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEPrimtiveType5843); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -8172,7 +8461,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEPrimtiveType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2908:1: ruleEPrimtiveType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN ) ;
+    // InternalEMap.g:3017:1: ruleEPrimtiveType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN ) ;
     public final AntlrDatatypeRuleToken ruleEPrimtiveType() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -8183,55 +8472,55 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2911:28: ( (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2912:1: (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN )
+            // InternalEMap.g:3020:28: ( (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN ) )
+            // InternalEMap.g:3021:1: (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2912:1: (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN )
-            int alt74=6;
+            // InternalEMap.g:3021:1: (kw= 'int' | kw= 'long' | kw= 'double' | kw= 'float' | kw= 'boolean' | this_FQN_5= ruleFQN )
+            int alt77=6;
             switch ( input.LA(1) ) {
-            case 58:
-                {
-                alt74=1;
-                }
-                break;
             case 59:
                 {
-                alt74=2;
+                alt77=1;
                 }
                 break;
             case 60:
                 {
-                alt74=3;
+                alt77=2;
                 }
                 break;
             case 61:
                 {
-                alt74=4;
+                alt77=3;
                 }
                 break;
             case 62:
                 {
-                alt74=5;
+                alt77=4;
+                }
+                break;
+            case 63:
+                {
+                alt77=5;
                 }
                 break;
             case RULE_ID:
                 {
-                alt74=6;
+                alt77=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 74, 0, input);
+                    new NoViableAltException("", 77, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt74) {
+            switch (alt77) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2913:2: kw= 'int'
+                    // InternalEMap.g:3022:2: kw= 'int'
                     {
-                    kw=(Token)match(input,58,FOLLOW_58_in_ruleEPrimtiveType5881); if (state.failed) return current;
+                    kw=(Token)match(input,59,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8242,9 +8531,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2920:2: kw= 'long'
+                    // InternalEMap.g:3029:2: kw= 'long'
                     {
-                    kw=(Token)match(input,59,FOLLOW_59_in_ruleEPrimtiveType5900); if (state.failed) return current;
+                    kw=(Token)match(input,60,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8255,9 +8544,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2927:2: kw= 'double'
+                    // InternalEMap.g:3036:2: kw= 'double'
                     {
-                    kw=(Token)match(input,60,FOLLOW_60_in_ruleEPrimtiveType5919); if (state.failed) return current;
+                    kw=(Token)match(input,61,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8268,9 +8557,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2934:2: kw= 'float'
+                    // InternalEMap.g:3043:2: kw= 'float'
                     {
-                    kw=(Token)match(input,61,FOLLOW_61_in_ruleEPrimtiveType5938); if (state.failed) return current;
+                    kw=(Token)match(input,62,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8281,9 +8570,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2941:2: kw= 'boolean'
+                    // InternalEMap.g:3050:2: kw= 'boolean'
                     {
-                    kw=(Token)match(input,62,FOLLOW_62_in_ruleEPrimtiveType5957); if (state.failed) return current;
+                    kw=(Token)match(input,63,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -8294,14 +8583,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 6 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2948:5: this_FQN_5= ruleFQN
+                    // InternalEMap.g:3057:5: this_FQN_5= ruleFQN
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEPrimtiveTypeAccess().getFQNParserRuleCall_5()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleFQN_in_ruleEPrimtiveType5985);
+                    pushFollow(FOLLOW_2);
                     this_FQN_5=ruleFQN();
 
                     state._fsp--;
@@ -8342,7 +8631,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMapType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2966:1: entryRuleEMapType returns [String current=null] : iv_ruleEMapType= ruleEMapType EOF ;
+    // InternalEMap.g:3075:1: entryRuleEMapType returns [String current=null] : iv_ruleEMapType= ruleEMapType EOF ;
     public final String entryRuleEMapType() throws RecognitionException {
         String current = null;
 
@@ -8350,13 +8639,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2967:2: (iv_ruleEMapType= ruleEMapType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2968:2: iv_ruleEMapType= ruleEMapType EOF
+            // InternalEMap.g:3076:2: (iv_ruleEMapType= ruleEMapType EOF )
+            // InternalEMap.g:3077:2: iv_ruleEMapType= ruleEMapType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMapTypeRule()); 
             }
-            pushFollow(FOLLOW_ruleEMapType_in_entryRuleEMapType6031);
+            pushFollow(FOLLOW_1);
             iv_ruleEMapType=ruleEMapType();
 
             state._fsp--;
@@ -8364,7 +8653,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMapType.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMapType6042); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -8382,7 +8671,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMapType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2975:1: ruleEMapType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'map' ;
+    // InternalEMap.g:3084:1: ruleEMapType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'map' ;
     public final AntlrDatatypeRuleToken ruleEMapType() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -8391,10 +8680,10 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2978:28: (kw= 'map' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2980:2: kw= 'map'
+            // InternalEMap.g:3087:28: (kw= 'map' )
+            // InternalEMap.g:3089:2: kw= 'map'
             {
-            kw=(Token)match(input,63,FOLLOW_63_in_ruleEMapType6079); if (state.failed) return current;
+            kw=(Token)match(input,64,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -8421,7 +8710,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleENamedCustomQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2993:1: entryRuleENamedCustomQuery returns [EObject current=null] : iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF ;
+    // InternalEMap.g:3102:1: entryRuleENamedCustomQuery returns [EObject current=null] : iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF ;
     public final EObject entryRuleENamedCustomQuery() throws RecognitionException {
         EObject current = null;
 
@@ -8429,13 +8718,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2994:2: (iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2995:2: iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF
+            // InternalEMap.g:3103:2: (iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF )
+            // InternalEMap.g:3104:2: iv_ruleENamedCustomQuery= ruleENamedCustomQuery EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getENamedCustomQueryRule()); 
             }
-            pushFollow(FOLLOW_ruleENamedCustomQuery_in_entryRuleENamedCustomQuery6118);
+            pushFollow(FOLLOW_1);
             iv_ruleENamedCustomQuery=ruleENamedCustomQuery();
 
             state._fsp--;
@@ -8443,7 +8732,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleENamedCustomQuery; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleENamedCustomQuery6128); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -8461,7 +8750,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleENamedCustomQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3002:1: ruleENamedCustomQuery returns [EObject current=null] : ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' ) ;
+    // InternalEMap.g:3111:1: ruleENamedCustomQuery returns [EObject current=null] : ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' ) ;
     public final EObject ruleENamedCustomQuery() throws RecognitionException {
         EObject current = null;
 
@@ -8490,45 +8779,45 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3005:28: ( ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:1: ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' )
+            // InternalEMap.g:3114:28: ( ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' ) )
+            // InternalEMap.g:3115:1: ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:1: ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:2: ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}'
+            // InternalEMap.g:3115:1: ( ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}' )
+            // InternalEMap.g:3115:2: ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) ) ( (lv_name_4_0= RULE_ID ) ) (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )? otherlv_10= '{' ( (lv_queries_11_0= ruleECustomQuery ) ) (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )* otherlv_14= '}'
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:2: ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) )
-            int alt75=2;
-            int LA75_0 = input.LA(1);
+            // InternalEMap.g:3115:2: ( ( (lv_returnType_0_0= ruleEReturnType ) ) | ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' ) )
+            int alt78=2;
+            int LA78_0 = input.LA(1);
 
-            if ( (LA75_0==RULE_ID||(LA75_0>=58 && LA75_0<=63)||LA75_0==66||LA75_0==72) ) {
-                alt75=1;
+            if ( (LA78_0==RULE_ID||(LA78_0>=59 && LA78_0<=64)||LA78_0==67||LA78_0==73) ) {
+                alt78=1;
             }
-            else if ( (LA75_0==64) ) {
-                alt75=2;
+            else if ( (LA78_0==65) ) {
+                alt78=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 75, 0, input);
+                    new NoViableAltException("", 78, 0, input);
 
                 throw nvae;
             }
-            switch (alt75) {
+            switch (alt78) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:3: ( (lv_returnType_0_0= ruleEReturnType ) )
+                    // InternalEMap.g:3115:3: ( (lv_returnType_0_0= ruleEReturnType ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3006:3: ( (lv_returnType_0_0= ruleEReturnType ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3007:1: (lv_returnType_0_0= ruleEReturnType )
+                    // InternalEMap.g:3115:3: ( (lv_returnType_0_0= ruleEReturnType ) )
+                    // InternalEMap.g:3116:1: (lv_returnType_0_0= ruleEReturnType )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3007:1: (lv_returnType_0_0= ruleEReturnType )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3008:3: lv_returnType_0_0= ruleEReturnType
+                    // InternalEMap.g:3116:1: (lv_returnType_0_0= ruleEReturnType )
+                    // InternalEMap.g:3117:3: lv_returnType_0_0= ruleEReturnType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getReturnTypeEReturnTypeParserRuleCall_0_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEReturnType_in_ruleENamedCustomQuery6175);
+                    pushFollow(FOLLOW_4);
                     lv_returnType_0_0=ruleEReturnType();
 
                     state._fsp--;
@@ -8542,7 +8831,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"returnType",
                               		lv_returnType_0_0, 
-                              		"EReturnType");
+                              		"at.bestsolution.persistence.emap.EMap.EReturnType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -8556,18 +8845,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3025:6: ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' )
+                    // InternalEMap.g:3134:6: ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3025:6: ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3025:7: ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']'
+                    // InternalEMap.g:3134:6: ( ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']' )
+                    // InternalEMap.g:3134:7: ( (lv_list_1_0= '[' ) ) ( (lv_returnType_2_0= ruleEReturnType ) ) otherlv_3= ']'
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3025:7: ( (lv_list_1_0= '[' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3026:1: (lv_list_1_0= '[' )
+                    // InternalEMap.g:3134:7: ( (lv_list_1_0= '[' ) )
+                    // InternalEMap.g:3135:1: (lv_list_1_0= '[' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3026:1: (lv_list_1_0= '[' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3027:3: lv_list_1_0= '['
+                    // InternalEMap.g:3135:1: (lv_list_1_0= '[' )
+                    // InternalEMap.g:3136:3: lv_list_1_0= '['
                     {
-                    lv_list_1_0=(Token)match(input,64,FOLLOW_64_in_ruleENamedCustomQuery6200); if (state.failed) return current;
+                    lv_list_1_0=(Token)match(input,65,FOLLOW_66); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_list_1_0, grammarAccess.getENamedCustomQueryAccess().getListLeftSquareBracketKeyword_0_1_0_0());
@@ -8587,18 +8876,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3040:2: ( (lv_returnType_2_0= ruleEReturnType ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3041:1: (lv_returnType_2_0= ruleEReturnType )
+                    // InternalEMap.g:3149:2: ( (lv_returnType_2_0= ruleEReturnType ) )
+                    // InternalEMap.g:3150:1: (lv_returnType_2_0= ruleEReturnType )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3041:1: (lv_returnType_2_0= ruleEReturnType )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3042:3: lv_returnType_2_0= ruleEReturnType
+                    // InternalEMap.g:3150:1: (lv_returnType_2_0= ruleEReturnType )
+                    // InternalEMap.g:3151:3: lv_returnType_2_0= ruleEReturnType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getReturnTypeEReturnTypeParserRuleCall_0_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEReturnType_in_ruleENamedCustomQuery6234);
+                    pushFollow(FOLLOW_67);
                     lv_returnType_2_0=ruleEReturnType();
 
                     state._fsp--;
@@ -8612,7 +8901,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"returnType",
                               		lv_returnType_2_0, 
-                              		"EReturnType");
+                              		"at.bestsolution.persistence.emap.EMap.EReturnType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -8622,7 +8911,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,65,FOLLOW_65_in_ruleENamedCustomQuery6246); if (state.failed) return current;
+                    otherlv_3=(Token)match(input,66,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_3, grammarAccess.getENamedCustomQueryAccess().getRightSquareBracketKeyword_0_1_2());
@@ -8637,13 +8926,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3062:3: ( (lv_name_4_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3063:1: (lv_name_4_0= RULE_ID )
+            // InternalEMap.g:3171:3: ( (lv_name_4_0= RULE_ID ) )
+            // InternalEMap.g:3172:1: (lv_name_4_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3063:1: (lv_name_4_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3064:3: lv_name_4_0= RULE_ID
+            // InternalEMap.g:3172:1: (lv_name_4_0= RULE_ID )
+            // InternalEMap.g:3173:3: lv_name_4_0= RULE_ID
             {
-            lv_name_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleENamedCustomQuery6265); if (state.failed) return current;
+            lv_name_4_0=(Token)match(input,RULE_ID,FOLLOW_63); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_4_0, grammarAccess.getENamedCustomQueryAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -8658,7 +8947,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_4_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -8667,46 +8956,46 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3080:2: (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )?
-            int alt78=2;
-            int LA78_0 = input.LA(1);
+            // InternalEMap.g:3189:2: (otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')' )?
+            int alt81=2;
+            int LA81_0 = input.LA(1);
 
-            if ( (LA78_0==25) ) {
-                alt78=1;
+            if ( (LA81_0==25) ) {
+                alt81=1;
             }
-            switch (alt78) {
+            switch (alt81) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3080:4: otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')'
+                    // InternalEMap.g:3189:4: otherlv_5= '(' ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )? otherlv_9= ')'
                     {
-                    otherlv_5=(Token)match(input,25,FOLLOW_25_in_ruleENamedCustomQuery6283); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,25,FOLLOW_64); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getENamedCustomQueryAccess().getLeftParenthesisKeyword_2_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3084:1: ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )?
-                    int alt77=2;
-                    int LA77_0 = input.LA(1);
+                    // InternalEMap.g:3193:1: ( ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )* )?
+                    int alt80=2;
+                    int LA80_0 = input.LA(1);
 
-                    if ( (LA77_0==RULE_ID||LA77_0==49||(LA77_0>=58 && LA77_0<=62)||LA77_0==64) ) {
-                        alt77=1;
+                    if ( (LA80_0==RULE_ID||LA80_0==50||(LA80_0>=59 && LA80_0<=63)||LA80_0==65) ) {
+                        alt80=1;
                     }
-                    switch (alt77) {
+                    switch (alt80) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3084:2: ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )*
+                            // InternalEMap.g:3193:2: ( (lv_parameters_6_0= ruleEParameter ) ) (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )*
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3084:2: ( (lv_parameters_6_0= ruleEParameter ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3085:1: (lv_parameters_6_0= ruleEParameter )
+                            // InternalEMap.g:3193:2: ( (lv_parameters_6_0= ruleEParameter ) )
+                            // InternalEMap.g:3194:1: (lv_parameters_6_0= ruleEParameter )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3085:1: (lv_parameters_6_0= ruleEParameter )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3086:3: lv_parameters_6_0= ruleEParameter
+                            // InternalEMap.g:3194:1: (lv_parameters_6_0= ruleEParameter )
+                            // InternalEMap.g:3195:3: lv_parameters_6_0= ruleEParameter
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getParametersEParameterParserRuleCall_2_1_0_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEParameter_in_ruleENamedCustomQuery6305);
+                            pushFollow(FOLLOW_32);
                             lv_parameters_6_0=ruleEParameter();
 
                             state._fsp--;
@@ -8720,7 +9009,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"parameters",
                                       		lv_parameters_6_0, 
-                                      		"EParameter");
+                                      		"at.bestsolution.persistence.emap.EMap.EParameter");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -8730,39 +9019,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3102:2: (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )*
-                            loop76:
+                            // InternalEMap.g:3211:2: (otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) ) )*
+                            loop79:
                             do {
-                                int alt76=2;
-                                int LA76_0 = input.LA(1);
+                                int alt79=2;
+                                int LA79_0 = input.LA(1);
 
-                                if ( (LA76_0==15) ) {
-                                    alt76=1;
+                                if ( (LA79_0==15) ) {
+                                    alt79=1;
                                 }
 
 
-                                switch (alt76) {
+                                switch (alt79) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3102:4: otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) )
+                            	    // InternalEMap.g:3211:4: otherlv_7= ',' ( (lv_parameters_8_0= ruleEParameter ) )
                             	    {
-                            	    otherlv_7=(Token)match(input,15,FOLLOW_15_in_ruleENamedCustomQuery6318); if (state.failed) return current;
+                            	    otherlv_7=(Token)match(input,15,FOLLOW_65); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_7, grammarAccess.getENamedCustomQueryAccess().getCommaKeyword_2_1_1_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3106:1: ( (lv_parameters_8_0= ruleEParameter ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3107:1: (lv_parameters_8_0= ruleEParameter )
+                            	    // InternalEMap.g:3215:1: ( (lv_parameters_8_0= ruleEParameter ) )
+                            	    // InternalEMap.g:3216:1: (lv_parameters_8_0= ruleEParameter )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3107:1: (lv_parameters_8_0= ruleEParameter )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3108:3: lv_parameters_8_0= ruleEParameter
+                            	    // InternalEMap.g:3216:1: (lv_parameters_8_0= ruleEParameter )
+                            	    // InternalEMap.g:3217:3: lv_parameters_8_0= ruleEParameter
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getParametersEParameterParserRuleCall_2_1_1_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEParameter_in_ruleENamedCustomQuery6339);
+                            	    pushFollow(FOLLOW_32);
                             	    lv_parameters_8_0=ruleEParameter();
 
                             	    state._fsp--;
@@ -8776,7 +9065,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"parameters",
                             	              		lv_parameters_8_0, 
-                            	              		"EParameter");
+                            	              		"at.bestsolution.persistence.emap.EMap.EParameter");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -8791,7 +9080,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop76;
+                            	    break loop79;
                                 }
                             } while (true);
 
@@ -8801,7 +9090,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_9=(Token)match(input,26,FOLLOW_26_in_ruleENamedCustomQuery6355); if (state.failed) return current;
+                    otherlv_9=(Token)match(input,26,FOLLOW_6); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_9, grammarAccess.getENamedCustomQueryAccess().getRightParenthesisKeyword_2_2());
@@ -8813,24 +9102,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,13,FOLLOW_13_in_ruleENamedCustomQuery6369); if (state.failed) return current;
+            otherlv_10=(Token)match(input,13,FOLLOW_33); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_10, grammarAccess.getENamedCustomQueryAccess().getLeftCurlyBracketKeyword_3());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3132:1: ( (lv_queries_11_0= ruleECustomQuery ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3133:1: (lv_queries_11_0= ruleECustomQuery )
+            // InternalEMap.g:3241:1: ( (lv_queries_11_0= ruleECustomQuery ) )
+            // InternalEMap.g:3242:1: (lv_queries_11_0= ruleECustomQuery )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3133:1: (lv_queries_11_0= ruleECustomQuery )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3134:3: lv_queries_11_0= ruleECustomQuery
+            // InternalEMap.g:3242:1: (lv_queries_11_0= ruleECustomQuery )
+            // InternalEMap.g:3243:3: lv_queries_11_0= ruleECustomQuery
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getQueriesECustomQueryParserRuleCall_4_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleECustomQuery_in_ruleENamedCustomQuery6390);
+            pushFollow(FOLLOW_9);
             lv_queries_11_0=ruleECustomQuery();
 
             state._fsp--;
@@ -8844,7 +9133,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"queries",
                       		lv_queries_11_0, 
-                      		"ECustomQuery");
+                      		"at.bestsolution.persistence.emap.EMap.ECustomQuery");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -8854,39 +9143,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3150:2: (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )*
-            loop79:
+            // InternalEMap.g:3259:2: (otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) ) )*
+            loop82:
             do {
-                int alt79=2;
-                int LA79_0 = input.LA(1);
+                int alt82=2;
+                int LA82_0 = input.LA(1);
 
-                if ( (LA79_0==15) ) {
-                    alt79=1;
+                if ( (LA82_0==15) ) {
+                    alt82=1;
                 }
 
 
-                switch (alt79) {
+                switch (alt82) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3150:4: otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) )
+            	    // InternalEMap.g:3259:4: otherlv_12= ',' ( (lv_queries_13_0= ruleECustomQuery ) )
             	    {
-            	    otherlv_12=(Token)match(input,15,FOLLOW_15_in_ruleENamedCustomQuery6403); if (state.failed) return current;
+            	    otherlv_12=(Token)match(input,15,FOLLOW_33); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_12, grammarAccess.getENamedCustomQueryAccess().getCommaKeyword_5_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3154:1: ( (lv_queries_13_0= ruleECustomQuery ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3155:1: (lv_queries_13_0= ruleECustomQuery )
+            	    // InternalEMap.g:3263:1: ( (lv_queries_13_0= ruleECustomQuery ) )
+            	    // InternalEMap.g:3264:1: (lv_queries_13_0= ruleECustomQuery )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3155:1: (lv_queries_13_0= ruleECustomQuery )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3156:3: lv_queries_13_0= ruleECustomQuery
+            	    // InternalEMap.g:3264:1: (lv_queries_13_0= ruleECustomQuery )
+            	    // InternalEMap.g:3265:3: lv_queries_13_0= ruleECustomQuery
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getENamedCustomQueryAccess().getQueriesECustomQueryParserRuleCall_5_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleECustomQuery_in_ruleENamedCustomQuery6424);
+            	    pushFollow(FOLLOW_9);
             	    lv_queries_13_0=ruleECustomQuery();
 
             	    state._fsp--;
@@ -8900,7 +9189,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"queries",
             	              		lv_queries_13_0, 
-            	              		"ECustomQuery");
+            	              		"at.bestsolution.persistence.emap.EMap.ECustomQuery");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -8915,11 +9204,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop79;
+            	    break loop82;
                 }
             } while (true);
 
-            otherlv_14=(Token)match(input,16,FOLLOW_16_in_ruleENamedCustomQuery6438); if (state.failed) return current;
+            otherlv_14=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_14, grammarAccess.getENamedCustomQueryAccess().getRightCurlyBracketKeyword_6());
@@ -8948,7 +9237,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEReturnType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3184:1: entryRuleEReturnType returns [EObject current=null] : iv_ruleEReturnType= ruleEReturnType EOF ;
+    // InternalEMap.g:3293:1: entryRuleEReturnType returns [EObject current=null] : iv_ruleEReturnType= ruleEReturnType EOF ;
     public final EObject entryRuleEReturnType() throws RecognitionException {
         EObject current = null;
 
@@ -8956,13 +9245,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3185:2: (iv_ruleEReturnType= ruleEReturnType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3186:2: iv_ruleEReturnType= ruleEReturnType EOF
+            // InternalEMap.g:3294:2: (iv_ruleEReturnType= ruleEReturnType EOF )
+            // InternalEMap.g:3295:2: iv_ruleEReturnType= ruleEReturnType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEReturnTypeRule()); 
             }
-            pushFollow(FOLLOW_ruleEReturnType_in_entryRuleEReturnType6474);
+            pushFollow(FOLLOW_1);
             iv_ruleEReturnType=ruleEReturnType();
 
             state._fsp--;
@@ -8970,7 +9259,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEReturnType; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEReturnType6484); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -8988,7 +9277,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEReturnType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3193:1: ruleEReturnType returns [EObject current=null] : (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef ) ;
+    // InternalEMap.g:3302:1: ruleEReturnType returns [EObject current=null] : (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef ) ;
     public final EObject ruleEReturnType() throws RecognitionException {
         EObject current = null;
 
@@ -9002,51 +9291,51 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3196:28: ( (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3197:1: (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef )
+            // InternalEMap.g:3305:28: ( (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef ) )
+            // InternalEMap.g:3306:1: (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3197:1: (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef )
-            int alt80=3;
+            // InternalEMap.g:3306:1: (this_EPredefinedType_0= ruleEPredefinedType | this_ETypeDef_1= ruleETypeDef | this_EModelTypeDef_2= ruleEModelTypeDef )
+            int alt83=3;
             switch ( input.LA(1) ) {
             case RULE_ID:
-            case 58:
             case 59:
             case 60:
             case 61:
             case 62:
             case 63:
+            case 64:
                 {
-                alt80=1;
+                alt83=1;
                 }
                 break;
-            case 66:
+            case 67:
                 {
-                alt80=2;
+                alt83=2;
                 }
                 break;
-            case 72:
+            case 73:
                 {
-                alt80=3;
+                alt83=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 80, 0, input);
+                    new NoViableAltException("", 83, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt80) {
+            switch (alt83) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3198:5: this_EPredefinedType_0= ruleEPredefinedType
+                    // InternalEMap.g:3307:5: this_EPredefinedType_0= ruleEPredefinedType
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEReturnTypeAccess().getEPredefinedTypeParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleEPredefinedType_in_ruleEReturnType6531);
+                    pushFollow(FOLLOW_2);
                     this_EPredefinedType_0=ruleEPredefinedType();
 
                     state._fsp--;
@@ -9061,14 +9350,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3208:5: this_ETypeDef_1= ruleETypeDef
+                    // InternalEMap.g:3317:5: this_ETypeDef_1= ruleETypeDef
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEReturnTypeAccess().getETypeDefParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleETypeDef_in_ruleEReturnType6558);
+                    pushFollow(FOLLOW_2);
                     this_ETypeDef_1=ruleETypeDef();
 
                     state._fsp--;
@@ -9083,14 +9372,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3218:5: this_EModelTypeDef_2= ruleEModelTypeDef
+                    // InternalEMap.g:3327:5: this_EModelTypeDef_2= ruleEModelTypeDef
                     {
                     if ( state.backtracking==0 ) {
                        
                               newCompositeNode(grammarAccess.getEReturnTypeAccess().getEModelTypeDefParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleEModelTypeDef_in_ruleEReturnType6585);
+                    pushFollow(FOLLOW_2);
                     this_EModelTypeDef_2=ruleEModelTypeDef();
 
                     state._fsp--;
@@ -9127,7 +9416,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEPredefinedType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3234:1: entryRuleEPredefinedType returns [EObject current=null] : iv_ruleEPredefinedType= ruleEPredefinedType EOF ;
+    // InternalEMap.g:3343:1: entryRuleEPredefinedType returns [EObject current=null] : iv_ruleEPredefinedType= ruleEPredefinedType EOF ;
     public final EObject entryRuleEPredefinedType() throws RecognitionException {
         EObject current = null;
 
@@ -9135,13 +9424,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3235:2: (iv_ruleEPredefinedType= ruleEPredefinedType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3236:2: iv_ruleEPredefinedType= ruleEPredefinedType EOF
+            // InternalEMap.g:3344:2: (iv_ruleEPredefinedType= ruleEPredefinedType EOF )
+            // InternalEMap.g:3345:2: iv_ruleEPredefinedType= ruleEPredefinedType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEPredefinedTypeRule()); 
             }
-            pushFollow(FOLLOW_ruleEPredefinedType_in_entryRuleEPredefinedType6620);
+            pushFollow(FOLLOW_1);
             iv_ruleEPredefinedType=ruleEPredefinedType();
 
             state._fsp--;
@@ -9149,7 +9438,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEPredefinedType; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEPredefinedType6630); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -9167,7 +9456,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEPredefinedType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3243:1: ruleEPredefinedType returns [EObject current=null] : ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) ) ;
+    // InternalEMap.g:3352:1: ruleEPredefinedType returns [EObject current=null] : ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) ) ;
     public final EObject ruleEPredefinedType() throws RecognitionException {
         EObject current = null;
 
@@ -9179,42 +9468,42 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3246:28: ( ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3247:1: ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) )
+            // InternalEMap.g:3355:28: ( ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) ) )
+            // InternalEMap.g:3356:1: ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3247:1: ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3248:1: ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) )
+            // InternalEMap.g:3356:1: ( ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) ) )
+            // InternalEMap.g:3357:1: ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3248:1: ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3249:1: (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType )
+            // InternalEMap.g:3357:1: ( (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType ) )
+            // InternalEMap.g:3358:1: (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3249:1: (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType )
-            int alt81=2;
-            int LA81_0 = input.LA(1);
+            // InternalEMap.g:3358:1: (lv_ref_0_1= ruleEMapType | lv_ref_0_2= ruleEPrimtiveType )
+            int alt84=2;
+            int LA84_0 = input.LA(1);
 
-            if ( (LA81_0==63) ) {
-                alt81=1;
+            if ( (LA84_0==64) ) {
+                alt84=1;
             }
-            else if ( (LA81_0==RULE_ID||(LA81_0>=58 && LA81_0<=62)) ) {
-                alt81=2;
+            else if ( (LA84_0==RULE_ID||(LA84_0>=59 && LA84_0<=63)) ) {
+                alt84=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 81, 0, input);
+                    new NoViableAltException("", 84, 0, input);
 
                 throw nvae;
             }
-            switch (alt81) {
+            switch (alt84) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3250:3: lv_ref_0_1= ruleEMapType
+                    // InternalEMap.g:3359:3: lv_ref_0_1= ruleEMapType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEPredefinedTypeAccess().getRefEMapTypeParserRuleCall_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEMapType_in_ruleEPredefinedType6677);
+                    pushFollow(FOLLOW_2);
                     lv_ref_0_1=ruleEMapType();
 
                     state._fsp--;
@@ -9228,7 +9517,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"ref",
                               		lv_ref_0_1, 
-                              		"EMapType");
+                              		"at.bestsolution.persistence.emap.EMap.EMapType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -9236,14 +9525,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3265:8: lv_ref_0_2= ruleEPrimtiveType
+                    // InternalEMap.g:3374:8: lv_ref_0_2= ruleEPrimtiveType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEPredefinedTypeAccess().getRefEPrimtiveTypeParserRuleCall_0_1()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEPrimtiveType_in_ruleEPredefinedType6696);
+                    pushFollow(FOLLOW_2);
                     lv_ref_0_2=ruleEPrimtiveType();
 
                     state._fsp--;
@@ -9257,7 +9546,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"ref",
                               		lv_ref_0_2, 
-                              		"EPrimtiveType");
+                              		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -9293,7 +9582,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleETypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3291:1: entryRuleETypeDef returns [EObject current=null] : iv_ruleETypeDef= ruleETypeDef EOF ;
+    // InternalEMap.g:3400:1: entryRuleETypeDef returns [EObject current=null] : iv_ruleETypeDef= ruleETypeDef EOF ;
     public final EObject entryRuleETypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -9301,13 +9590,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3292:2: (iv_ruleETypeDef= ruleETypeDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3293:2: iv_ruleETypeDef= ruleETypeDef EOF
+            // InternalEMap.g:3401:2: (iv_ruleETypeDef= ruleETypeDef EOF )
+            // InternalEMap.g:3402:2: iv_ruleETypeDef= ruleETypeDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getETypeDefRule()); 
             }
-            pushFollow(FOLLOW_ruleETypeDef_in_entryRuleETypeDef6734);
+            pushFollow(FOLLOW_1);
             iv_ruleETypeDef=ruleETypeDef();
 
             state._fsp--;
@@ -9315,7 +9604,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleETypeDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleETypeDef6744); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -9333,7 +9622,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleETypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3300:1: ruleETypeDef returns [EObject current=null] : (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' ) ;
+    // InternalEMap.g:3409:1: ruleETypeDef returns [EObject current=null] : (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' ) ;
     public final EObject ruleETypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -9351,30 +9640,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3303:28: ( (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3304:1: (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:3412:28: ( (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' ) )
+            // InternalEMap.g:3413:1: (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3304:1: (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3304:3: otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')'
+            // InternalEMap.g:3413:1: (otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')' )
+            // InternalEMap.g:3413:3: otherlv_0= 'typedef' ( (lv_name_1_0= ruleFQN ) ) otherlv_2= '(' ( (lv_types_3_0= ruleEValueTypeAttribute ) ) (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )* otherlv_6= ')'
             {
-            otherlv_0=(Token)match(input,66,FOLLOW_66_in_ruleETypeDef6781); if (state.failed) return current;
+            otherlv_0=(Token)match(input,67,FOLLOW_68); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getETypeDefAccess().getTypedefKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3308:1: ( (lv_name_1_0= ruleFQN ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3309:1: (lv_name_1_0= ruleFQN )
+            // InternalEMap.g:3417:1: ( (lv_name_1_0= ruleFQN ) )
+            // InternalEMap.g:3418:1: (lv_name_1_0= ruleFQN )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3309:1: (lv_name_1_0= ruleFQN )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3310:3: lv_name_1_0= ruleFQN
+            // InternalEMap.g:3418:1: (lv_name_1_0= ruleFQN )
+            // InternalEMap.g:3419:3: lv_name_1_0= ruleFQN
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getETypeDefAccess().getNameFQNParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleFQN_in_ruleETypeDef6802);
+            pushFollow(FOLLOW_31);
             lv_name_1_0=ruleFQN();
 
             state._fsp--;
@@ -9388,7 +9677,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"FQN");
+                      		"at.bestsolution.persistence.emap.EMap.FQN");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -9398,24 +9687,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleETypeDef6814); if (state.failed) return current;
+            otherlv_2=(Token)match(input,25,FOLLOW_68); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getETypeDefAccess().getLeftParenthesisKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3330:1: ( (lv_types_3_0= ruleEValueTypeAttribute ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3331:1: (lv_types_3_0= ruleEValueTypeAttribute )
+            // InternalEMap.g:3439:1: ( (lv_types_3_0= ruleEValueTypeAttribute ) )
+            // InternalEMap.g:3440:1: (lv_types_3_0= ruleEValueTypeAttribute )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3331:1: (lv_types_3_0= ruleEValueTypeAttribute )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3332:3: lv_types_3_0= ruleEValueTypeAttribute
+            // InternalEMap.g:3440:1: (lv_types_3_0= ruleEValueTypeAttribute )
+            // InternalEMap.g:3441:3: lv_types_3_0= ruleEValueTypeAttribute
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getETypeDefAccess().getTypesEValueTypeAttributeParserRuleCall_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEValueTypeAttribute_in_ruleETypeDef6835);
+            pushFollow(FOLLOW_32);
             lv_types_3_0=ruleEValueTypeAttribute();
 
             state._fsp--;
@@ -9429,7 +9718,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"types",
                       		lv_types_3_0, 
-                      		"EValueTypeAttribute");
+                      		"at.bestsolution.persistence.emap.EMap.EValueTypeAttribute");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -9439,39 +9728,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3348:2: (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )*
-            loop82:
+            // InternalEMap.g:3457:2: (otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) ) )*
+            loop85:
             do {
-                int alt82=2;
-                int LA82_0 = input.LA(1);
+                int alt85=2;
+                int LA85_0 = input.LA(1);
 
-                if ( (LA82_0==15) ) {
-                    alt82=1;
+                if ( (LA85_0==15) ) {
+                    alt85=1;
                 }
 
 
-                switch (alt82) {
+                switch (alt85) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3348:4: otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) )
+            	    // InternalEMap.g:3457:4: otherlv_4= ',' ( (lv_types_5_0= ruleEValueTypeAttribute ) )
             	    {
-            	    otherlv_4=(Token)match(input,15,FOLLOW_15_in_ruleETypeDef6848); if (state.failed) return current;
+            	    otherlv_4=(Token)match(input,15,FOLLOW_68); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_4, grammarAccess.getETypeDefAccess().getCommaKeyword_4_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3352:1: ( (lv_types_5_0= ruleEValueTypeAttribute ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3353:1: (lv_types_5_0= ruleEValueTypeAttribute )
+            	    // InternalEMap.g:3461:1: ( (lv_types_5_0= ruleEValueTypeAttribute ) )
+            	    // InternalEMap.g:3462:1: (lv_types_5_0= ruleEValueTypeAttribute )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3353:1: (lv_types_5_0= ruleEValueTypeAttribute )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3354:3: lv_types_5_0= ruleEValueTypeAttribute
+            	    // InternalEMap.g:3462:1: (lv_types_5_0= ruleEValueTypeAttribute )
+            	    // InternalEMap.g:3463:3: lv_types_5_0= ruleEValueTypeAttribute
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getETypeDefAccess().getTypesEValueTypeAttributeParserRuleCall_4_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleEValueTypeAttribute_in_ruleETypeDef6869);
+            	    pushFollow(FOLLOW_32);
             	    lv_types_5_0=ruleEValueTypeAttribute();
 
             	    state._fsp--;
@@ -9485,7 +9774,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"types",
             	              		lv_types_5_0, 
-            	              		"EValueTypeAttribute");
+            	              		"at.bestsolution.persistence.emap.EMap.EValueTypeAttribute");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -9500,11 +9789,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop82;
+            	    break loop85;
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,26,FOLLOW_26_in_ruleETypeDef6883); if (state.failed) return current;
+            otherlv_6=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_6, grammarAccess.getETypeDefAccess().getRightParenthesisKeyword_5());
@@ -9533,7 +9822,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEModelTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3382:1: entryRuleEModelTypeDef returns [EObject current=null] : iv_ruleEModelTypeDef= ruleEModelTypeDef EOF ;
+    // InternalEMap.g:3491:1: entryRuleEModelTypeDef returns [EObject current=null] : iv_ruleEModelTypeDef= ruleEModelTypeDef EOF ;
     public final EObject entryRuleEModelTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -9541,13 +9830,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3383:2: (iv_ruleEModelTypeDef= ruleEModelTypeDef EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3384:2: iv_ruleEModelTypeDef= ruleEModelTypeDef EOF
+            // InternalEMap.g:3492:2: (iv_ruleEModelTypeDef= ruleEModelTypeDef EOF )
+            // InternalEMap.g:3493:2: iv_ruleEModelTypeDef= ruleEModelTypeDef EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEModelTypeDefRule()); 
             }
-            pushFollow(FOLLOW_ruleEModelTypeDef_in_entryRuleEModelTypeDef6919);
+            pushFollow(FOLLOW_1);
             iv_ruleEModelTypeDef=ruleEModelTypeDef();
 
             state._fsp--;
@@ -9555,7 +9844,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEModelTypeDef; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEModelTypeDef6929); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -9573,7 +9862,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEModelTypeDef"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3391:1: ruleEModelTypeDef returns [EObject current=null] : ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' ) ;
+    // InternalEMap.g:3500:1: ruleEModelTypeDef returns [EObject current=null] : ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' ) ;
     public final EObject ruleEModelTypeDef() throws RecognitionException {
         EObject current = null;
 
@@ -9590,24 +9879,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3394:28: ( ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3395:1: ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' )
+            // InternalEMap.g:3503:28: ( ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' ) )
+            // InternalEMap.g:3504:1: ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3395:1: ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3395:2: ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')'
+            // InternalEMap.g:3504:1: ( ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')' )
+            // InternalEMap.g:3504:2: ( (lv_eclassDef_0_0= ruleEType ) ) otherlv_1= '(' ( (lv_attributes_2_0= ruleEModelTypeAttribute ) ) (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )* otherlv_5= ')'
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3395:2: ( (lv_eclassDef_0_0= ruleEType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3396:1: (lv_eclassDef_0_0= ruleEType )
+            // InternalEMap.g:3504:2: ( (lv_eclassDef_0_0= ruleEType ) )
+            // InternalEMap.g:3505:1: (lv_eclassDef_0_0= ruleEType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3396:1: (lv_eclassDef_0_0= ruleEType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3397:3: lv_eclassDef_0_0= ruleEType
+            // InternalEMap.g:3505:1: (lv_eclassDef_0_0= ruleEType )
+            // InternalEMap.g:3506:3: lv_eclassDef_0_0= ruleEType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEModelTypeDefAccess().getEclassDefETypeParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEType_in_ruleEModelTypeDef6975);
+            pushFollow(FOLLOW_31);
             lv_eclassDef_0_0=ruleEType();
 
             state._fsp--;
@@ -9621,7 +9910,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"eclassDef",
                       		lv_eclassDef_0_0, 
-                      		"EType");
+                      		"at.bestsolution.persistence.emap.EMap.EType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -9631,24 +9920,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,25,FOLLOW_25_in_ruleEModelTypeDef6987); if (state.failed) return current;
+            otherlv_1=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getEModelTypeDefAccess().getLeftParenthesisKeyword_1());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3417:1: ( (lv_attributes_2_0= ruleEModelTypeAttribute ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3418:1: (lv_attributes_2_0= ruleEModelTypeAttribute )
+            // InternalEMap.g:3526:1: ( (lv_attributes_2_0= ruleEModelTypeAttribute ) )
+            // InternalEMap.g:3527:1: (lv_attributes_2_0= ruleEModelTypeAttribute )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3418:1: (lv_attributes_2_0= ruleEModelTypeAttribute )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3419:3: lv_attributes_2_0= ruleEModelTypeAttribute
+            // InternalEMap.g:3527:1: (lv_attributes_2_0= ruleEModelTypeAttribute )
+            // InternalEMap.g:3528:3: lv_attributes_2_0= ruleEModelTypeAttribute
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEModelTypeDefAccess().getAttributesEModelTypeAttributeParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEModelTypeAttribute_in_ruleEModelTypeDef7008);
+            pushFollow(FOLLOW_32);
             lv_attributes_2_0=ruleEModelTypeAttribute();
 
             state._fsp--;
@@ -9662,7 +9951,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"attributes",
                       		lv_attributes_2_0, 
-                      		"EModelTypeAttribute");
+                      		"at.bestsolution.persistence.emap.EMap.EModelTypeAttribute");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -9672,39 +9961,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3435:2: (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )*
-            loop83:
+            // InternalEMap.g:3544:2: (otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) ) )*
+            loop86:
             do {
-                int alt83=2;
-                int LA83_0 = input.LA(1);
+                int alt86=2;
+                int LA86_0 = input.LA(1);
 
-                if ( (LA83_0==15) ) {
-                    alt83=1;
+                if ( (LA86_0==15) ) {
+                    alt86=1;
                 }
 
 
-                switch (alt83) {
+                switch (alt86) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3435:4: otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) )
+            	    // InternalEMap.g:3544:4: otherlv_3= ',' ( (lv_attributes_4_0= ruleEModelTypeAttribute ) )
             	    {
-            	    otherlv_3=(Token)match(input,15,FOLLOW_15_in_ruleEModelTypeDef7021); if (state.failed) return current;
+            	    otherlv_3=(Token)match(input,15,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	          	newLeafNode(otherlv_3, grammarAccess.getEModelTypeDefAccess().getCommaKeyword_3_0());
             	          
             	    }
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3439:1: ( (lv_attributes_4_0= ruleEModelTypeAttribute ) )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3440:1: (lv_attributes_4_0= ruleEModelTypeAttribute )
+            	    // InternalEMap.g:3548:1: ( (lv_attributes_4_0= ruleEModelTypeAttribute ) )
+            	    // InternalEMap.g:3549:1: (lv_attributes_4_0= ruleEModelTypeAttribute )
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3440:1: (lv_attributes_4_0= ruleEModelTypeAttribute )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3441:3: lv_attributes_4_0= ruleEModelTypeAttribute
+            	    // InternalEMap.g:3549:1: (lv_attributes_4_0= ruleEModelTypeAttribute )
+            	    // InternalEMap.g:3550:3: lv_attributes_4_0= ruleEModelTypeAttribute
             	    {
             	    if ( state.backtracking==0 ) {
             	       
             	      	        newCompositeNode(grammarAccess.getEModelTypeDefAccess().getAttributesEModelTypeAttributeParserRuleCall_3_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleEModelTypeAttribute_in_ruleEModelTypeDef7042);
+            	    pushFollow(FOLLOW_32);
             	    lv_attributes_4_0=ruleEModelTypeAttribute();
 
             	    state._fsp--;
@@ -9718,7 +10007,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	             			current, 
             	             			"attributes",
             	              		lv_attributes_4_0, 
-            	              		"EModelTypeAttribute");
+            	              		"at.bestsolution.persistence.emap.EMap.EModelTypeAttribute");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -9733,11 +10022,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop83;
+            	    break loop86;
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleEModelTypeDef7056); if (state.failed) return current;
+            otherlv_5=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_5, grammarAccess.getEModelTypeDefAccess().getRightParenthesisKeyword_4());
@@ -9766,7 +10055,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEModelTypeAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3469:1: entryRuleEModelTypeAttribute returns [EObject current=null] : iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF ;
+    // InternalEMap.g:3578:1: entryRuleEModelTypeAttribute returns [EObject current=null] : iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF ;
     public final EObject entryRuleEModelTypeAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -9774,13 +10063,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3470:2: (iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3471:2: iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF
+            // InternalEMap.g:3579:2: (iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF )
+            // InternalEMap.g:3580:2: iv_ruleEModelTypeAttribute= ruleEModelTypeAttribute EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEModelTypeAttributeRule()); 
             }
-            pushFollow(FOLLOW_ruleEModelTypeAttribute_in_entryRuleEModelTypeAttribute7092);
+            pushFollow(FOLLOW_1);
             iv_ruleEModelTypeAttribute=ruleEModelTypeAttribute();
 
             state._fsp--;
@@ -9788,7 +10077,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEModelTypeAttribute; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEModelTypeAttribute7102); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -9806,7 +10095,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEModelTypeAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3478:1: ruleEModelTypeAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? ) ;
+    // InternalEMap.g:3587:1: ruleEModelTypeAttribute returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? ) ;
     public final EObject ruleEModelTypeAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -9823,19 +10112,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3481:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3482:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? )
+            // InternalEMap.g:3590:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? ) )
+            // InternalEMap.g:3591:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3482:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3482:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )?
+            // InternalEMap.g:3591:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )? )
+            // InternalEMap.g:3591:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3482:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3483:1: (lv_name_0_0= RULE_ID )
+            // InternalEMap.g:3591:2: ( (lv_name_0_0= RULE_ID ) )
+            // InternalEMap.g:3592:1: (lv_name_0_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3483:1: (lv_name_0_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3484:3: lv_name_0_0= RULE_ID
+            // InternalEMap.g:3592:1: (lv_name_0_0= RULE_ID )
+            // InternalEMap.g:3593:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7144); if (state.failed) return current;
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_69); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_0_0, grammarAccess.getEModelTypeAttributeAccess().getNameIDTerminalRuleCall_0_0()); 
@@ -9850,7 +10139,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_0_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -9859,28 +10148,28 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3500:2: (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )?
-            int alt89=2;
-            int LA89_0 = input.LA(1);
+            // InternalEMap.g:3609:2: (otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )? )?
+            int alt92=2;
+            int LA92_0 = input.LA(1);
 
-            if ( (LA89_0==53) ) {
-                alt89=1;
+            if ( (LA92_0==54) ) {
+                alt92=1;
             }
-            switch (alt89) {
+            switch (alt92) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3500:4: otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )?
+                    // InternalEMap.g:3609:4: otherlv_1= 'resolve' ( ( ruleQualifiedName ) ) (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )? ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )?
                     {
-                    otherlv_1=(Token)match(input,53,FOLLOW_53_in_ruleEModelTypeAttribute7162); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,54,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEModelTypeAttributeAccess().getResolveKeyword_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3504:1: ( ( ruleQualifiedName ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3505:1: ( ruleQualifiedName )
+                    // InternalEMap.g:3613:1: ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:3614:1: ( ruleQualifiedName )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3505:1: ( ruleQualifiedName )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3506:3: ruleQualifiedName
+                    // InternalEMap.g:3614:1: ( ruleQualifiedName )
+                    // InternalEMap.g:3615:3: ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
 
@@ -9894,7 +10183,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getEModelTypeAttributeAccess().getQueryENamedCustomQueryCrossReference_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEModelTypeAttribute7185);
+                    pushFollow(FOLLOW_70);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -9910,41 +10199,41 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3519:2: (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )?
-                    int alt86=2;
-                    int LA86_0 = input.LA(1);
+                    // InternalEMap.g:3628:2: (otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')' )?
+                    int alt89=2;
+                    int LA89_0 = input.LA(1);
 
-                    if ( (LA86_0==25) ) {
-                        alt86=1;
+                    if ( (LA89_0==25) ) {
+                        alt89=1;
                     }
-                    switch (alt86) {
+                    switch (alt89) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3519:4: otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')'
+                            // InternalEMap.g:3628:4: otherlv_3= '(' ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )? otherlv_7= ')'
                             {
-                            otherlv_3=(Token)match(input,25,FOLLOW_25_in_ruleEModelTypeAttribute7198); if (state.failed) return current;
+                            otherlv_3=(Token)match(input,25,FOLLOW_71); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_3, grammarAccess.getEModelTypeAttributeAccess().getLeftParenthesisKeyword_1_2_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3523:1: ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )?
-                            int alt85=2;
-                            int LA85_0 = input.LA(1);
+                            // InternalEMap.g:3632:1: ( ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )* )?
+                            int alt88=2;
+                            int LA88_0 = input.LA(1);
 
-                            if ( (LA85_0==RULE_ID) ) {
-                                alt85=1;
+                            if ( (LA88_0==RULE_ID) ) {
+                                alt88=1;
                             }
-                            switch (alt85) {
+                            switch (alt88) {
                                 case 1 :
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3523:2: ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )*
+                                    // InternalEMap.g:3632:2: ( (lv_parameters_4_0= RULE_ID ) ) (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )*
                                     {
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3523:2: ( (lv_parameters_4_0= RULE_ID ) )
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3524:1: (lv_parameters_4_0= RULE_ID )
+                                    // InternalEMap.g:3632:2: ( (lv_parameters_4_0= RULE_ID ) )
+                                    // InternalEMap.g:3633:1: (lv_parameters_4_0= RULE_ID )
                                     {
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3524:1: (lv_parameters_4_0= RULE_ID )
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3525:3: lv_parameters_4_0= RULE_ID
+                                    // InternalEMap.g:3633:1: (lv_parameters_4_0= RULE_ID )
+                                    // InternalEMap.g:3634:3: lv_parameters_4_0= RULE_ID
                                     {
-                                    lv_parameters_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7216); if (state.failed) return current;
+                                    lv_parameters_4_0=(Token)match(input,RULE_ID,FOLLOW_32); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
                                       			newLeafNode(lv_parameters_4_0, grammarAccess.getEModelTypeAttributeAccess().getParametersIDTerminalRuleCall_1_2_1_0_0()); 
@@ -9959,7 +10248,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                              			current, 
                                              			"parameters",
                                               		lv_parameters_4_0, 
-                                              		"ID");
+                                              		"org.eclipse.xtext.common.Terminals.ID");
                                       	    
                                     }
 
@@ -9968,34 +10257,34 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                                     }
 
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3541:2: (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )*
-                                    loop84:
+                                    // InternalEMap.g:3650:2: (otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) ) )*
+                                    loop87:
                                     do {
-                                        int alt84=2;
-                                        int LA84_0 = input.LA(1);
+                                        int alt87=2;
+                                        int LA87_0 = input.LA(1);
 
-                                        if ( (LA84_0==15) ) {
-                                            alt84=1;
+                                        if ( (LA87_0==15) ) {
+                                            alt87=1;
                                         }
 
 
-                                        switch (alt84) {
+                                        switch (alt87) {
                                     	case 1 :
-                                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3541:4: otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) )
+                                    	    // InternalEMap.g:3650:4: otherlv_5= ',' ( (lv_parameters_6_0= RULE_ID ) )
                                     	    {
-                                    	    otherlv_5=(Token)match(input,15,FOLLOW_15_in_ruleEModelTypeAttribute7234); if (state.failed) return current;
+                                    	    otherlv_5=(Token)match(input,15,FOLLOW_4); if (state.failed) return current;
                                     	    if ( state.backtracking==0 ) {
 
                                     	          	newLeafNode(otherlv_5, grammarAccess.getEModelTypeAttributeAccess().getCommaKeyword_1_2_1_1_0());
                                     	          
                                     	    }
-                                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3545:1: ( (lv_parameters_6_0= RULE_ID ) )
-                                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3546:1: (lv_parameters_6_0= RULE_ID )
+                                    	    // InternalEMap.g:3654:1: ( (lv_parameters_6_0= RULE_ID ) )
+                                    	    // InternalEMap.g:3655:1: (lv_parameters_6_0= RULE_ID )
                                     	    {
-                                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3546:1: (lv_parameters_6_0= RULE_ID )
-                                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3547:3: lv_parameters_6_0= RULE_ID
+                                    	    // InternalEMap.g:3655:1: (lv_parameters_6_0= RULE_ID )
+                                    	    // InternalEMap.g:3656:3: lv_parameters_6_0= RULE_ID
                                     	    {
-                                    	    lv_parameters_6_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7251); if (state.failed) return current;
+                                    	    lv_parameters_6_0=(Token)match(input,RULE_ID,FOLLOW_32); if (state.failed) return current;
                                     	    if ( state.backtracking==0 ) {
 
                                     	      			newLeafNode(lv_parameters_6_0, grammarAccess.getEModelTypeAttributeAccess().getParametersIDTerminalRuleCall_1_2_1_1_1_0()); 
@@ -10010,7 +10299,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                     	             			current, 
                                     	             			"parameters",
                                     	              		lv_parameters_6_0, 
-                                    	              		"ID");
+                                    	              		"org.eclipse.xtext.common.Terminals.ID");
                                     	      	    
                                     	    }
 
@@ -10024,7 +10313,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                     	    break;
 
                                     	default :
-                                    	    break loop84;
+                                    	    break loop87;
                                         }
                                     } while (true);
 
@@ -10034,7 +10323,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_7=(Token)match(input,26,FOLLOW_26_in_ruleEModelTypeAttribute7272); if (state.failed) return current;
+                            otherlv_7=(Token)match(input,26,FOLLOW_72); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_7, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2());
@@ -10046,24 +10335,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3567:3: ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )?
-                    int alt88=2;
-                    int LA88_0 = input.LA(1);
+                    // InternalEMap.g:3676:3: ( ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )? )?
+                    int alt91=2;
+                    int LA91_0 = input.LA(1);
 
-                    if ( (LA88_0==67) ) {
-                        alt88=1;
+                    if ( (LA91_0==68) ) {
+                        alt91=1;
                     }
-                    switch (alt88) {
+                    switch (alt91) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3567:4: ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )?
+                            // InternalEMap.g:3676:4: ( (lv_cached_8_0= 'cached' ) ) ( (lv_cacheName_9_0= RULE_ID ) )?
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3567:4: ( (lv_cached_8_0= 'cached' ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3568:1: (lv_cached_8_0= 'cached' )
+                            // InternalEMap.g:3676:4: ( (lv_cached_8_0= 'cached' ) )
+                            // InternalEMap.g:3677:1: (lv_cached_8_0= 'cached' )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3568:1: (lv_cached_8_0= 'cached' )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3569:3: lv_cached_8_0= 'cached'
+                            // InternalEMap.g:3677:1: (lv_cached_8_0= 'cached' )
+                            // InternalEMap.g:3678:3: lv_cached_8_0= 'cached'
                             {
-                            lv_cached_8_0=(Token)match(input,67,FOLLOW_67_in_ruleEModelTypeAttribute7293); if (state.failed) return current;
+                            lv_cached_8_0=(Token)match(input,68,FOLLOW_73); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                       newLeafNode(lv_cached_8_0, grammarAccess.getEModelTypeAttributeAccess().getCachedCachedKeyword_1_3_0_0());
@@ -10083,21 +10372,21 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3582:2: ( (lv_cacheName_9_0= RULE_ID ) )?
-                            int alt87=2;
-                            int LA87_0 = input.LA(1);
+                            // InternalEMap.g:3691:2: ( (lv_cacheName_9_0= RULE_ID ) )?
+                            int alt90=2;
+                            int LA90_0 = input.LA(1);
 
-                            if ( (LA87_0==RULE_ID) ) {
-                                alt87=1;
+                            if ( (LA90_0==RULE_ID) ) {
+                                alt90=1;
                             }
-                            switch (alt87) {
+                            switch (alt90) {
                                 case 1 :
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3583:1: (lv_cacheName_9_0= RULE_ID )
+                                    // InternalEMap.g:3692:1: (lv_cacheName_9_0= RULE_ID )
                                     {
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3583:1: (lv_cacheName_9_0= RULE_ID )
-                                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3584:3: lv_cacheName_9_0= RULE_ID
+                                    // InternalEMap.g:3692:1: (lv_cacheName_9_0= RULE_ID )
+                                    // InternalEMap.g:3693:3: lv_cacheName_9_0= RULE_ID
                                     {
-                                    lv_cacheName_9_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7323); if (state.failed) return current;
+                                    lv_cacheName_9_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
                                     if ( state.backtracking==0 ) {
 
                                       			newLeafNode(lv_cacheName_9_0, grammarAccess.getEModelTypeAttributeAccess().getCacheNameIDTerminalRuleCall_1_3_1_0()); 
@@ -10112,7 +10401,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                              			current, 
                                              			"cacheName",
                                               		lv_cacheName_9_0, 
-                                              		"ID");
+                                              		"org.eclipse.xtext.common.Terminals.ID");
                                       	    
                                     }
 
@@ -10159,7 +10448,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEValueTypeAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3608:1: entryRuleEValueTypeAttribute returns [EObject current=null] : iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF ;
+    // InternalEMap.g:3717:1: entryRuleEValueTypeAttribute returns [EObject current=null] : iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF ;
     public final EObject entryRuleEValueTypeAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -10167,13 +10456,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3609:2: (iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3610:2: iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF
+            // InternalEMap.g:3718:2: (iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF )
+            // InternalEMap.g:3719:2: iv_ruleEValueTypeAttribute= ruleEValueTypeAttribute EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEValueTypeAttributeRule()); 
             }
-            pushFollow(FOLLOW_ruleEValueTypeAttribute_in_entryRuleEValueTypeAttribute7369);
+            pushFollow(FOLLOW_1);
             iv_ruleEValueTypeAttribute=ruleEValueTypeAttribute();
 
             state._fsp--;
@@ -10181,7 +10470,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEValueTypeAttribute; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEValueTypeAttribute7379); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -10199,7 +10488,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEValueTypeAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3617:1: ruleEValueTypeAttribute returns [EObject current=null] : ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) ) ;
+    // InternalEMap.g:3726:1: ruleEValueTypeAttribute returns [EObject current=null] : ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) ) ;
     public final EObject ruleEValueTypeAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -10210,24 +10499,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3620:28: ( ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3621:1: ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalEMap.g:3729:28: ( ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) ) )
+            // InternalEMap.g:3730:1: ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3621:1: ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3621:2: ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) )
+            // InternalEMap.g:3730:1: ( ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) ) )
+            // InternalEMap.g:3730:2: ( (lv_type_0_0= ruleEPrimtiveType ) ) ( (lv_name_1_0= RULE_ID ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3621:2: ( (lv_type_0_0= ruleEPrimtiveType ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3622:1: (lv_type_0_0= ruleEPrimtiveType )
+            // InternalEMap.g:3730:2: ( (lv_type_0_0= ruleEPrimtiveType ) )
+            // InternalEMap.g:3731:1: (lv_type_0_0= ruleEPrimtiveType )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3622:1: (lv_type_0_0= ruleEPrimtiveType )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3623:3: lv_type_0_0= ruleEPrimtiveType
+            // InternalEMap.g:3731:1: (lv_type_0_0= ruleEPrimtiveType )
+            // InternalEMap.g:3732:3: lv_type_0_0= ruleEPrimtiveType
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEValueTypeAttributeAccess().getTypeEPrimtiveTypeParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEPrimtiveType_in_ruleEValueTypeAttribute7425);
+            pushFollow(FOLLOW_4);
             lv_type_0_0=ruleEPrimtiveType();
 
             state._fsp--;
@@ -10241,7 +10530,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"type",
                       		lv_type_0_0, 
-                      		"EPrimtiveType");
+                      		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -10251,13 +10540,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3639:2: ( (lv_name_1_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3640:1: (lv_name_1_0= RULE_ID )
+            // InternalEMap.g:3748:2: ( (lv_name_1_0= RULE_ID ) )
+            // InternalEMap.g:3749:1: (lv_name_1_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3640:1: (lv_name_1_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3641:3: lv_name_1_0= RULE_ID
+            // InternalEMap.g:3749:1: (lv_name_1_0= RULE_ID )
+            // InternalEMap.g:3750:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEValueTypeAttribute7442); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_1_0, grammarAccess.getEValueTypeAttributeAccess().getNameIDTerminalRuleCall_1_0()); 
@@ -10272,7 +10561,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_1_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -10304,7 +10593,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEParameter"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3665:1: entryRuleEParameter returns [EObject current=null] : iv_ruleEParameter= ruleEParameter EOF ;
+    // InternalEMap.g:3774:1: entryRuleEParameter returns [EObject current=null] : iv_ruleEParameter= ruleEParameter EOF ;
     public final EObject entryRuleEParameter() throws RecognitionException {
         EObject current = null;
 
@@ -10312,13 +10601,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3666:2: (iv_ruleEParameter= ruleEParameter EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3667:2: iv_ruleEParameter= ruleEParameter EOF
+            // InternalEMap.g:3775:2: (iv_ruleEParameter= ruleEParameter EOF )
+            // InternalEMap.g:3776:2: iv_ruleEParameter= ruleEParameter EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEParameterRule()); 
             }
-            pushFollow(FOLLOW_ruleEParameter_in_entryRuleEParameter7483);
+            pushFollow(FOLLOW_1);
             iv_ruleEParameter=ruleEParameter();
 
             state._fsp--;
@@ -10326,7 +10615,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEParameter; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEParameter7493); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -10344,7 +10633,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEParameter"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3674:1: ruleEParameter returns [EObject current=null] : ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) ) ;
+    // InternalEMap.g:3783:1: ruleEParameter returns [EObject current=null] : ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) ) ;
     public final EObject ruleEParameter() throws RecognitionException {
         EObject current = null;
 
@@ -10360,27 +10649,27 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3677:28: ( ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3678:1: ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) )
+            // InternalEMap.g:3786:28: ( ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) ) )
+            // InternalEMap.g:3787:1: ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3678:1: ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3678:2: ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) )
+            // InternalEMap.g:3787:1: ( ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) ) )
+            // InternalEMap.g:3787:2: ( (lv_id_0_0= 'primarykey' ) )? ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) ) ( (lv_name_5_0= RULE_ID ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3678:2: ( (lv_id_0_0= 'primarykey' ) )?
-            int alt90=2;
-            int LA90_0 = input.LA(1);
+            // InternalEMap.g:3787:2: ( (lv_id_0_0= 'primarykey' ) )?
+            int alt93=2;
+            int LA93_0 = input.LA(1);
 
-            if ( (LA90_0==49) ) {
-                alt90=1;
+            if ( (LA93_0==50) ) {
+                alt93=1;
             }
-            switch (alt90) {
+            switch (alt93) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3679:1: (lv_id_0_0= 'primarykey' )
+                    // InternalEMap.g:3788:1: (lv_id_0_0= 'primarykey' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3679:1: (lv_id_0_0= 'primarykey' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3680:3: lv_id_0_0= 'primarykey'
+                    // InternalEMap.g:3788:1: (lv_id_0_0= 'primarykey' )
+                    // InternalEMap.g:3789:3: lv_id_0_0= 'primarykey'
                     {
-                    lv_id_0_0=(Token)match(input,49,FOLLOW_49_in_ruleEParameter7536); if (state.failed) return current;
+                    lv_id_0_0=(Token)match(input,50,FOLLOW_74); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_id_0_0, grammarAccess.getEParameterAccess().getIdPrimarykeyKeyword_0_0());
@@ -10403,39 +10692,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3693:3: ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) )
-            int alt91=2;
-            int LA91_0 = input.LA(1);
+            // InternalEMap.g:3802:3: ( ( (lv_type_1_0= ruleEPrimtiveType ) ) | ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' ) )
+            int alt94=2;
+            int LA94_0 = input.LA(1);
 
-            if ( (LA91_0==RULE_ID||(LA91_0>=58 && LA91_0<=62)) ) {
-                alt91=1;
+            if ( (LA94_0==RULE_ID||(LA94_0>=59 && LA94_0<=63)) ) {
+                alt94=1;
             }
-            else if ( (LA91_0==64) ) {
-                alt91=2;
+            else if ( (LA94_0==65) ) {
+                alt94=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 91, 0, input);
+                    new NoViableAltException("", 94, 0, input);
 
                 throw nvae;
             }
-            switch (alt91) {
+            switch (alt94) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3693:4: ( (lv_type_1_0= ruleEPrimtiveType ) )
+                    // InternalEMap.g:3802:4: ( (lv_type_1_0= ruleEPrimtiveType ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3693:4: ( (lv_type_1_0= ruleEPrimtiveType ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3694:1: (lv_type_1_0= ruleEPrimtiveType )
+                    // InternalEMap.g:3802:4: ( (lv_type_1_0= ruleEPrimtiveType ) )
+                    // InternalEMap.g:3803:1: (lv_type_1_0= ruleEPrimtiveType )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3694:1: (lv_type_1_0= ruleEPrimtiveType )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3695:3: lv_type_1_0= ruleEPrimtiveType
+                    // InternalEMap.g:3803:1: (lv_type_1_0= ruleEPrimtiveType )
+                    // InternalEMap.g:3804:3: lv_type_1_0= ruleEPrimtiveType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEParameterAccess().getTypeEPrimtiveTypeParserRuleCall_1_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEPrimtiveType_in_ruleEParameter7572);
+                    pushFollow(FOLLOW_4);
                     lv_type_1_0=ruleEPrimtiveType();
 
                     state._fsp--;
@@ -10449,7 +10738,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"type",
                               		lv_type_1_0, 
-                              		"EPrimtiveType");
+                              		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -10463,18 +10752,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3712:6: ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' )
+                    // InternalEMap.g:3821:6: ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3712:6: ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3712:7: ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']'
+                    // InternalEMap.g:3821:6: ( ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']' )
+                    // InternalEMap.g:3821:7: ( (lv_list_2_0= '[' ) ) ( (lv_type_3_0= ruleEPrimtiveType ) ) otherlv_4= ']'
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3712:7: ( (lv_list_2_0= '[' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3713:1: (lv_list_2_0= '[' )
+                    // InternalEMap.g:3821:7: ( (lv_list_2_0= '[' ) )
+                    // InternalEMap.g:3822:1: (lv_list_2_0= '[' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3713:1: (lv_list_2_0= '[' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3714:3: lv_list_2_0= '['
+                    // InternalEMap.g:3822:1: (lv_list_2_0= '[' )
+                    // InternalEMap.g:3823:3: lv_list_2_0= '['
                     {
-                    lv_list_2_0=(Token)match(input,64,FOLLOW_64_in_ruleEParameter7597); if (state.failed) return current;
+                    lv_list_2_0=(Token)match(input,65,FOLLOW_68); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_list_2_0, grammarAccess.getEParameterAccess().getListLeftSquareBracketKeyword_1_1_0_0());
@@ -10494,18 +10783,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3727:2: ( (lv_type_3_0= ruleEPrimtiveType ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3728:1: (lv_type_3_0= ruleEPrimtiveType )
+                    // InternalEMap.g:3836:2: ( (lv_type_3_0= ruleEPrimtiveType ) )
+                    // InternalEMap.g:3837:1: (lv_type_3_0= ruleEPrimtiveType )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3728:1: (lv_type_3_0= ruleEPrimtiveType )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3729:3: lv_type_3_0= ruleEPrimtiveType
+                    // InternalEMap.g:3837:1: (lv_type_3_0= ruleEPrimtiveType )
+                    // InternalEMap.g:3838:3: lv_type_3_0= ruleEPrimtiveType
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEParameterAccess().getTypeEPrimtiveTypeParserRuleCall_1_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEPrimtiveType_in_ruleEParameter7631);
+                    pushFollow(FOLLOW_67);
                     lv_type_3_0=ruleEPrimtiveType();
 
                     state._fsp--;
@@ -10519,7 +10808,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"type",
                               		lv_type_3_0, 
-                              		"EPrimtiveType");
+                              		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -10529,7 +10818,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_4=(Token)match(input,65,FOLLOW_65_in_ruleEParameter7643); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,66,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_4, grammarAccess.getEParameterAccess().getRightSquareBracketKeyword_1_1_2());
@@ -10544,13 +10833,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3749:3: ( (lv_name_5_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3750:1: (lv_name_5_0= RULE_ID )
+            // InternalEMap.g:3858:3: ( (lv_name_5_0= RULE_ID ) )
+            // InternalEMap.g:3859:1: (lv_name_5_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3750:1: (lv_name_5_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3751:3: lv_name_5_0= RULE_ID
+            // InternalEMap.g:3859:1: (lv_name_5_0= RULE_ID )
+            // InternalEMap.g:3860:3: lv_name_5_0= RULE_ID
             {
-            lv_name_5_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEParameter7662); if (state.failed) return current;
+            lv_name_5_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_5_0, grammarAccess.getEParameterAccess().getNameIDTerminalRuleCall_2_0()); 
@@ -10565,7 +10854,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_5_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -10597,7 +10886,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3775:1: entryRuleEQuery returns [EObject current=null] : iv_ruleEQuery= ruleEQuery EOF ;
+    // InternalEMap.g:3884:1: entryRuleEQuery returns [EObject current=null] : iv_ruleEQuery= ruleEQuery EOF ;
     public final EObject entryRuleEQuery() throws RecognitionException {
         EObject current = null;
 
@@ -10605,13 +10894,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3776:2: (iv_ruleEQuery= ruleEQuery EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3777:2: iv_ruleEQuery= ruleEQuery EOF
+            // InternalEMap.g:3885:2: (iv_ruleEQuery= ruleEQuery EOF )
+            // InternalEMap.g:3886:2: iv_ruleEQuery= ruleEQuery EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEQueryRule()); 
             }
-            pushFollow(FOLLOW_ruleEQuery_in_entryRuleEQuery7703);
+            pushFollow(FOLLOW_1);
             iv_ruleEQuery=ruleEQuery();
 
             state._fsp--;
@@ -10619,7 +10908,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEQuery; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEQuery7713); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -10637,7 +10926,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3784:1: ruleEQuery returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) ;
+    // InternalEMap.g:3893:1: ruleEQuery returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) ;
     public final EObject ruleEQuery() throws RecognitionException {
         EObject current = null;
 
@@ -10658,40 +10947,40 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3787:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3788:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:3896:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) )
+            // InternalEMap.g:3897:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3788:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3788:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
+            // InternalEMap.g:3897:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:3897:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_mapping_1_0= ruleEObjectSection ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3788:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3789:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:3897:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
+            // InternalEMap.g:3898:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3789:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3790:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            // InternalEMap.g:3898:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:3899:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3790:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
-            int alt92=2;
-            int LA92_0 = input.LA(1);
+            // InternalEMap.g:3899:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            int alt95=2;
+            int LA95_0 = input.LA(1);
 
-            if ( (LA92_0==30) ) {
-                alt92=1;
+            if ( (LA95_0==30) ) {
+                alt95=1;
             }
-            else if ( (LA92_0==RULE_STRING) ) {
-                alt92=2;
+            else if ( (LA95_0==RULE_STRING) ) {
+                alt95=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 92, 0, input);
+                    new NoViableAltException("", 95, 0, input);
 
                 throw nvae;
             }
-            switch (alt92) {
+            switch (alt95) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3791:3: lv_dbType_0_1= 'default'
+                    // InternalEMap.g:3900:3: lv_dbType_0_1= 'default'
                     {
-                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_30_in_ruleEQuery7758); if (state.failed) return current;
+                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_dbType_0_1, grammarAccess.getEQueryAccess().getDbTypeDefaultKeyword_0_0_0());
@@ -10709,9 +10998,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3803:8: lv_dbType_0_2= RULE_STRING
+                    // InternalEMap.g:3912:8: lv_dbType_0_2= RULE_STRING
                     {
-                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7786); if (state.failed) return current;
+                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_dbType_0_2, grammarAccess.getEQueryAccess().getDbTypeSTRINGTerminalRuleCall_0_0_1()); 
@@ -10726,7 +11015,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"dbType",
                               		lv_dbType_0_2, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -10741,18 +11030,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3821:2: ( (lv_mapping_1_0= ruleEObjectSection ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3822:1: (lv_mapping_1_0= ruleEObjectSection )
+            // InternalEMap.g:3930:2: ( (lv_mapping_1_0= ruleEObjectSection ) )
+            // InternalEMap.g:3931:1: (lv_mapping_1_0= ruleEObjectSection )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3822:1: (lv_mapping_1_0= ruleEObjectSection )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3823:3: lv_mapping_1_0= ruleEObjectSection
+            // InternalEMap.g:3931:1: (lv_mapping_1_0= ruleEObjectSection )
+            // InternalEMap.g:3932:3: lv_mapping_1_0= ruleEObjectSection
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEQueryAccess().getMappingEObjectSectionParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleEObjectSection_in_ruleEQuery7815);
+            pushFollow(FOLLOW_75);
             lv_mapping_1_0=ruleEObjectSection();
 
             state._fsp--;
@@ -10766,7 +11055,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"mapping",
                       		lv_mapping_1_0, 
-                      		"EObjectSection");
+                      		"at.bestsolution.persistence.emap.EMap.EObjectSection");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -10776,43 +11065,43 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3839:2: ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
-            int alt96=2;
-            int LA96_0 = input.LA(1);
+            // InternalEMap.g:3948:2: ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
+            int alt99=2;
+            int LA99_0 = input.LA(1);
 
-            if ( (LA96_0==68) ) {
-                alt96=1;
+            if ( (LA99_0==69) ) {
+                alt99=1;
             }
-            else if ( (LA96_0==RULE_STRING) ) {
-                alt96=2;
+            else if ( (LA99_0==RULE_STRING) ) {
+                alt99=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 96, 0, input);
+                    new NoViableAltException("", 99, 0, input);
 
                 throw nvae;
             }
-            switch (alt96) {
+            switch (alt99) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3839:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
+                    // InternalEMap.g:3948:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3839:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3839:5: otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
+                    // InternalEMap.g:3948:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
+                    // InternalEMap.g:3948:5: otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
                     {
-                    otherlv_2=(Token)match(input,68,FOLLOW_68_in_ruleEQuery7829); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,69,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getEQueryAccess().getFROMKeyword_2_0_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3843:1: ( (lv_from_3_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3844:1: (lv_from_3_0= RULE_STRING )
+                    // InternalEMap.g:3952:1: ( (lv_from_3_0= RULE_STRING ) )
+                    // InternalEMap.g:3953:1: (lv_from_3_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3844:1: (lv_from_3_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3845:3: lv_from_3_0= RULE_STRING
+                    // InternalEMap.g:3953:1: (lv_from_3_0= RULE_STRING )
+                    // InternalEMap.g:3954:3: lv_from_3_0= RULE_STRING
                     {
-                    lv_from_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7846); if (state.failed) return current;
+                    lv_from_3_0=(Token)match(input,RULE_STRING,FOLLOW_76); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_from_3_0, grammarAccess.getEQueryAccess().getFromSTRINGTerminalRuleCall_2_0_1_0()); 
@@ -10827,7 +11116,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"from",
                               		lv_from_3_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -10836,30 +11125,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3861:2: (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )?
-                    int alt93=2;
-                    int LA93_0 = input.LA(1);
+                    // InternalEMap.g:3970:2: (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )?
+                    int alt96=2;
+                    int LA96_0 = input.LA(1);
 
-                    if ( (LA93_0==69) ) {
-                        alt93=1;
+                    if ( (LA96_0==70) ) {
+                        alt96=1;
                     }
-                    switch (alt93) {
+                    switch (alt96) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3861:4: otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) )
+                            // InternalEMap.g:3970:4: otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) )
                             {
-                            otherlv_4=(Token)match(input,69,FOLLOW_69_in_ruleEQuery7864); if (state.failed) return current;
+                            otherlv_4=(Token)match(input,70,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_4, grammarAccess.getEQueryAccess().getWHEREKeyword_2_0_2_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3865:1: ( (lv_where_5_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3866:1: (lv_where_5_0= RULE_STRING )
+                            // InternalEMap.g:3974:1: ( (lv_where_5_0= RULE_STRING ) )
+                            // InternalEMap.g:3975:1: (lv_where_5_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3866:1: (lv_where_5_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3867:3: lv_where_5_0= RULE_STRING
+                            // InternalEMap.g:3975:1: (lv_where_5_0= RULE_STRING )
+                            // InternalEMap.g:3976:3: lv_where_5_0= RULE_STRING
                             {
-                            lv_where_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7881); if (state.failed) return current;
+                            lv_where_5_0=(Token)match(input,RULE_STRING,FOLLOW_77); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_where_5_0, grammarAccess.getEQueryAccess().getWhereSTRINGTerminalRuleCall_2_0_2_1_0()); 
@@ -10874,7 +11163,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"where",
                                       		lv_where_5_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -10889,30 +11178,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3883:4: (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )?
-                    int alt94=2;
-                    int LA94_0 = input.LA(1);
+                    // InternalEMap.g:3992:4: (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )?
+                    int alt97=2;
+                    int LA97_0 = input.LA(1);
 
-                    if ( (LA94_0==70) ) {
-                        alt94=1;
+                    if ( (LA97_0==71) ) {
+                        alt97=1;
                     }
-                    switch (alt94) {
+                    switch (alt97) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3883:6: otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) )
+                            // InternalEMap.g:3992:6: otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) )
                             {
-                            otherlv_6=(Token)match(input,70,FOLLOW_70_in_ruleEQuery7901); if (state.failed) return current;
+                            otherlv_6=(Token)match(input,71,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_6, grammarAccess.getEQueryAccess().getGROUPBYKeyword_2_0_3_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3887:1: ( (lv_groupBy_7_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3888:1: (lv_groupBy_7_0= RULE_STRING )
+                            // InternalEMap.g:3996:1: ( (lv_groupBy_7_0= RULE_STRING ) )
+                            // InternalEMap.g:3997:1: (lv_groupBy_7_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3888:1: (lv_groupBy_7_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3889:3: lv_groupBy_7_0= RULE_STRING
+                            // InternalEMap.g:3997:1: (lv_groupBy_7_0= RULE_STRING )
+                            // InternalEMap.g:3998:3: lv_groupBy_7_0= RULE_STRING
                             {
-                            lv_groupBy_7_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7918); if (state.failed) return current;
+                            lv_groupBy_7_0=(Token)match(input,RULE_STRING,FOLLOW_78); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_groupBy_7_0, grammarAccess.getEQueryAccess().getGroupBySTRINGTerminalRuleCall_2_0_3_1_0()); 
@@ -10927,7 +11216,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"groupBy",
                                       		lv_groupBy_7_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -10942,30 +11231,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3905:4: (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
-                    int alt95=2;
-                    int LA95_0 = input.LA(1);
+                    // InternalEMap.g:4014:4: (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
+                    int alt98=2;
+                    int LA98_0 = input.LA(1);
 
-                    if ( (LA95_0==71) ) {
-                        alt95=1;
+                    if ( (LA98_0==72) ) {
+                        alt98=1;
                     }
-                    switch (alt95) {
+                    switch (alt98) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3905:6: otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) )
+                            // InternalEMap.g:4014:6: otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) )
                             {
-                            otherlv_8=(Token)match(input,71,FOLLOW_71_in_ruleEQuery7938); if (state.failed) return current;
+                            otherlv_8=(Token)match(input,72,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_8, grammarAccess.getEQueryAccess().getORDERBYKeyword_2_0_4_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3909:1: ( (lv_orderby_9_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3910:1: (lv_orderby_9_0= RULE_STRING )
+                            // InternalEMap.g:4018:1: ( (lv_orderby_9_0= RULE_STRING ) )
+                            // InternalEMap.g:4019:1: (lv_orderby_9_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3910:1: (lv_orderby_9_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3911:3: lv_orderby_9_0= RULE_STRING
+                            // InternalEMap.g:4019:1: (lv_orderby_9_0= RULE_STRING )
+                            // InternalEMap.g:4020:3: lv_orderby_9_0= RULE_STRING
                             {
-                            lv_orderby_9_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7955); if (state.failed) return current;
+                            lv_orderby_9_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_orderby_9_0, grammarAccess.getEQueryAccess().getOrderbySTRINGTerminalRuleCall_2_0_4_1_0()); 
@@ -10980,7 +11269,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"orderby",
                                       		lv_orderby_9_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -11002,15 +11291,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3928:6: ( (lv_all_10_0= RULE_STRING ) )
+                    // InternalEMap.g:4037:6: ( (lv_all_10_0= RULE_STRING ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3928:6: ( (lv_all_10_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3929:1: (lv_all_10_0= RULE_STRING )
+                    // InternalEMap.g:4037:6: ( (lv_all_10_0= RULE_STRING ) )
+                    // InternalEMap.g:4038:1: (lv_all_10_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3929:1: (lv_all_10_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3930:3: lv_all_10_0= RULE_STRING
+                    // InternalEMap.g:4038:1: (lv_all_10_0= RULE_STRING )
+                    // InternalEMap.g:4039:3: lv_all_10_0= RULE_STRING
                     {
-                    lv_all_10_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEQuery7986); if (state.failed) return current;
+                    lv_all_10_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_all_10_0, grammarAccess.getEQueryAccess().getAllSTRINGTerminalRuleCall_2_1_0()); 
@@ -11025,7 +11314,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"all",
                               		lv_all_10_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -11063,7 +11352,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleECustomQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3954:1: entryRuleECustomQuery returns [EObject current=null] : iv_ruleECustomQuery= ruleECustomQuery EOF ;
+    // InternalEMap.g:4063:1: entryRuleECustomQuery returns [EObject current=null] : iv_ruleECustomQuery= ruleECustomQuery EOF ;
     public final EObject entryRuleECustomQuery() throws RecognitionException {
         EObject current = null;
 
@@ -11071,13 +11360,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3955:2: (iv_ruleECustomQuery= ruleECustomQuery EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3956:2: iv_ruleECustomQuery= ruleECustomQuery EOF
+            // InternalEMap.g:4064:2: (iv_ruleECustomQuery= ruleECustomQuery EOF )
+            // InternalEMap.g:4065:2: iv_ruleECustomQuery= ruleECustomQuery EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getECustomQueryRule()); 
             }
-            pushFollow(FOLLOW_ruleECustomQuery_in_entryRuleECustomQuery8028);
+            pushFollow(FOLLOW_1);
             iv_ruleECustomQuery=ruleECustomQuery();
 
             state._fsp--;
@@ -11085,7 +11374,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleECustomQuery; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleECustomQuery8038); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -11103,7 +11392,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleECustomQuery"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3963:1: ruleECustomQuery returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) ;
+    // InternalEMap.g:4072:1: ruleECustomQuery returns [EObject current=null] : ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) ;
     public final EObject ruleECustomQuery() throws RecognitionException {
         EObject current = null;
 
@@ -11123,40 +11412,40 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3966:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3967:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:4075:28: ( ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) ) )
+            // InternalEMap.g:4076:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3967:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3967:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
+            // InternalEMap.g:4076:1: ( ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) ) )
+            // InternalEMap.g:4076:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) ) ( (lv_columns_1_0= RULE_STRING ) ) ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3967:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3968:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:4076:2: ( ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) ) )
+            // InternalEMap.g:4077:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3968:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3969:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            // InternalEMap.g:4077:1: ( (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING ) )
+            // InternalEMap.g:4078:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3969:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
-            int alt97=2;
-            int LA97_0 = input.LA(1);
+            // InternalEMap.g:4078:1: (lv_dbType_0_1= 'default' | lv_dbType_0_2= RULE_STRING )
+            int alt100=2;
+            int LA100_0 = input.LA(1);
 
-            if ( (LA97_0==30) ) {
-                alt97=1;
+            if ( (LA100_0==30) ) {
+                alt100=1;
             }
-            else if ( (LA97_0==RULE_STRING) ) {
-                alt97=2;
+            else if ( (LA100_0==RULE_STRING) ) {
+                alt100=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 97, 0, input);
+                    new NoViableAltException("", 100, 0, input);
 
                 throw nvae;
             }
-            switch (alt97) {
+            switch (alt100) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3970:3: lv_dbType_0_1= 'default'
+                    // InternalEMap.g:4079:3: lv_dbType_0_1= 'default'
                     {
-                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_30_in_ruleECustomQuery8083); if (state.failed) return current;
+                    lv_dbType_0_1=(Token)match(input,30,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_dbType_0_1, grammarAccess.getECustomQueryAccess().getDbTypeDefaultKeyword_0_0_0());
@@ -11174,9 +11463,9 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:3982:8: lv_dbType_0_2= RULE_STRING
+                    // InternalEMap.g:4091:8: lv_dbType_0_2= RULE_STRING
                     {
-                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8111); if (state.failed) return current;
+                    lv_dbType_0_2=(Token)match(input,RULE_STRING,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_dbType_0_2, grammarAccess.getECustomQueryAccess().getDbTypeSTRINGTerminalRuleCall_0_0_1()); 
@@ -11191,7 +11480,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"dbType",
                               		lv_dbType_0_2, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -11206,13 +11495,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4000:2: ( (lv_columns_1_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4001:1: (lv_columns_1_0= RULE_STRING )
+            // InternalEMap.g:4109:2: ( (lv_columns_1_0= RULE_STRING ) )
+            // InternalEMap.g:4110:1: (lv_columns_1_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4001:1: (lv_columns_1_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4002:3: lv_columns_1_0= RULE_STRING
+            // InternalEMap.g:4110:1: (lv_columns_1_0= RULE_STRING )
+            // InternalEMap.g:4111:3: lv_columns_1_0= RULE_STRING
             {
-            lv_columns_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8136); if (state.failed) return current;
+            lv_columns_1_0=(Token)match(input,RULE_STRING,FOLLOW_75); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_columns_1_0, grammarAccess.getECustomQueryAccess().getColumnsSTRINGTerminalRuleCall_1_0()); 
@@ -11227,7 +11516,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"columns",
                       		lv_columns_1_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -11236,43 +11525,43 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4018:2: ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
-            int alt101=2;
-            int LA101_0 = input.LA(1);
+            // InternalEMap.g:4127:2: ( (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? ) | ( (lv_all_10_0= RULE_STRING ) ) )
+            int alt104=2;
+            int LA104_0 = input.LA(1);
 
-            if ( (LA101_0==68) ) {
-                alt101=1;
+            if ( (LA104_0==69) ) {
+                alt104=1;
             }
-            else if ( (LA101_0==RULE_STRING) ) {
-                alt101=2;
+            else if ( (LA104_0==RULE_STRING) ) {
+                alt104=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 101, 0, input);
+                    new NoViableAltException("", 104, 0, input);
 
                 throw nvae;
             }
-            switch (alt101) {
+            switch (alt104) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4018:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
+                    // InternalEMap.g:4127:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4018:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4018:5: otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
+                    // InternalEMap.g:4127:3: (otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )? )
+                    // InternalEMap.g:4127:5: otherlv_2= 'FROM' ( (lv_from_3_0= RULE_STRING ) ) (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )? (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )? (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
                     {
-                    otherlv_2=(Token)match(input,68,FOLLOW_68_in_ruleECustomQuery8155); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,69,FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getECustomQueryAccess().getFROMKeyword_2_0_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4022:1: ( (lv_from_3_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4023:1: (lv_from_3_0= RULE_STRING )
+                    // InternalEMap.g:4131:1: ( (lv_from_3_0= RULE_STRING ) )
+                    // InternalEMap.g:4132:1: (lv_from_3_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4023:1: (lv_from_3_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4024:3: lv_from_3_0= RULE_STRING
+                    // InternalEMap.g:4132:1: (lv_from_3_0= RULE_STRING )
+                    // InternalEMap.g:4133:3: lv_from_3_0= RULE_STRING
                     {
-                    lv_from_3_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8172); if (state.failed) return current;
+                    lv_from_3_0=(Token)match(input,RULE_STRING,FOLLOW_76); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_from_3_0, grammarAccess.getECustomQueryAccess().getFromSTRINGTerminalRuleCall_2_0_1_0()); 
@@ -11287,7 +11576,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"from",
                               		lv_from_3_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -11296,30 +11585,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4040:2: (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )?
-                    int alt98=2;
-                    int LA98_0 = input.LA(1);
+                    // InternalEMap.g:4149:2: (otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) ) )?
+                    int alt101=2;
+                    int LA101_0 = input.LA(1);
 
-                    if ( (LA98_0==69) ) {
-                        alt98=1;
+                    if ( (LA101_0==70) ) {
+                        alt101=1;
                     }
-                    switch (alt98) {
+                    switch (alt101) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4040:4: otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) )
+                            // InternalEMap.g:4149:4: otherlv_4= 'WHERE' ( (lv_where_5_0= RULE_STRING ) )
                             {
-                            otherlv_4=(Token)match(input,69,FOLLOW_69_in_ruleECustomQuery8190); if (state.failed) return current;
+                            otherlv_4=(Token)match(input,70,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_4, grammarAccess.getECustomQueryAccess().getWHEREKeyword_2_0_2_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4044:1: ( (lv_where_5_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4045:1: (lv_where_5_0= RULE_STRING )
+                            // InternalEMap.g:4153:1: ( (lv_where_5_0= RULE_STRING ) )
+                            // InternalEMap.g:4154:1: (lv_where_5_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4045:1: (lv_where_5_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4046:3: lv_where_5_0= RULE_STRING
+                            // InternalEMap.g:4154:1: (lv_where_5_0= RULE_STRING )
+                            // InternalEMap.g:4155:3: lv_where_5_0= RULE_STRING
                             {
-                            lv_where_5_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8207); if (state.failed) return current;
+                            lv_where_5_0=(Token)match(input,RULE_STRING,FOLLOW_77); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_where_5_0, grammarAccess.getECustomQueryAccess().getWhereSTRINGTerminalRuleCall_2_0_2_1_0()); 
@@ -11334,7 +11623,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"where",
                                       		lv_where_5_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -11349,30 +11638,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4062:4: (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )?
-                    int alt99=2;
-                    int LA99_0 = input.LA(1);
+                    // InternalEMap.g:4171:4: (otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) ) )?
+                    int alt102=2;
+                    int LA102_0 = input.LA(1);
 
-                    if ( (LA99_0==70) ) {
-                        alt99=1;
+                    if ( (LA102_0==71) ) {
+                        alt102=1;
                     }
-                    switch (alt99) {
+                    switch (alt102) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4062:6: otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) )
+                            // InternalEMap.g:4171:6: otherlv_6= 'GROUP BY' ( (lv_groupBy_7_0= RULE_STRING ) )
                             {
-                            otherlv_6=(Token)match(input,70,FOLLOW_70_in_ruleECustomQuery8227); if (state.failed) return current;
+                            otherlv_6=(Token)match(input,71,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_6, grammarAccess.getECustomQueryAccess().getGROUPBYKeyword_2_0_3_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4066:1: ( (lv_groupBy_7_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4067:1: (lv_groupBy_7_0= RULE_STRING )
+                            // InternalEMap.g:4175:1: ( (lv_groupBy_7_0= RULE_STRING ) )
+                            // InternalEMap.g:4176:1: (lv_groupBy_7_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4067:1: (lv_groupBy_7_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4068:3: lv_groupBy_7_0= RULE_STRING
+                            // InternalEMap.g:4176:1: (lv_groupBy_7_0= RULE_STRING )
+                            // InternalEMap.g:4177:3: lv_groupBy_7_0= RULE_STRING
                             {
-                            lv_groupBy_7_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8244); if (state.failed) return current;
+                            lv_groupBy_7_0=(Token)match(input,RULE_STRING,FOLLOW_78); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_groupBy_7_0, grammarAccess.getECustomQueryAccess().getGroupBySTRINGTerminalRuleCall_2_0_3_1_0()); 
@@ -11387,7 +11676,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"groupBy",
                                       		lv_groupBy_7_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -11402,30 +11691,30 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4084:4: (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
-                    int alt100=2;
-                    int LA100_0 = input.LA(1);
+                    // InternalEMap.g:4193:4: (otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) ) )?
+                    int alt103=2;
+                    int LA103_0 = input.LA(1);
 
-                    if ( (LA100_0==71) ) {
-                        alt100=1;
+                    if ( (LA103_0==72) ) {
+                        alt103=1;
                     }
-                    switch (alt100) {
+                    switch (alt103) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4084:6: otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) )
+                            // InternalEMap.g:4193:6: otherlv_8= 'ORDER BY' ( (lv_orderby_9_0= RULE_STRING ) )
                             {
-                            otherlv_8=(Token)match(input,71,FOLLOW_71_in_ruleECustomQuery8264); if (state.failed) return current;
+                            otherlv_8=(Token)match(input,72,FOLLOW_15); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_8, grammarAccess.getECustomQueryAccess().getORDERBYKeyword_2_0_4_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4088:1: ( (lv_orderby_9_0= RULE_STRING ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4089:1: (lv_orderby_9_0= RULE_STRING )
+                            // InternalEMap.g:4197:1: ( (lv_orderby_9_0= RULE_STRING ) )
+                            // InternalEMap.g:4198:1: (lv_orderby_9_0= RULE_STRING )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4089:1: (lv_orderby_9_0= RULE_STRING )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4090:3: lv_orderby_9_0= RULE_STRING
+                            // InternalEMap.g:4198:1: (lv_orderby_9_0= RULE_STRING )
+                            // InternalEMap.g:4199:3: lv_orderby_9_0= RULE_STRING
                             {
-                            lv_orderby_9_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8281); if (state.failed) return current;
+                            lv_orderby_9_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               			newLeafNode(lv_orderby_9_0, grammarAccess.getECustomQueryAccess().getOrderbySTRINGTerminalRuleCall_2_0_4_1_0()); 
@@ -11440,7 +11729,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"orderby",
                                       		lv_orderby_9_0, 
-                                      		"STRING");
+                                      		"org.eclipse.xtext.common.Terminals.STRING");
                               	    
                             }
 
@@ -11462,15 +11751,15 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4107:6: ( (lv_all_10_0= RULE_STRING ) )
+                    // InternalEMap.g:4216:6: ( (lv_all_10_0= RULE_STRING ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4107:6: ( (lv_all_10_0= RULE_STRING ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4108:1: (lv_all_10_0= RULE_STRING )
+                    // InternalEMap.g:4216:6: ( (lv_all_10_0= RULE_STRING ) )
+                    // InternalEMap.g:4217:1: (lv_all_10_0= RULE_STRING )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4108:1: (lv_all_10_0= RULE_STRING )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4109:3: lv_all_10_0= RULE_STRING
+                    // InternalEMap.g:4217:1: (lv_all_10_0= RULE_STRING )
+                    // InternalEMap.g:4218:3: lv_all_10_0= RULE_STRING
                     {
-                    lv_all_10_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleECustomQuery8312); if (state.failed) return current;
+                    lv_all_10_0=(Token)match(input,RULE_STRING,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_all_10_0, grammarAccess.getECustomQueryAccess().getAllSTRINGTerminalRuleCall_2_1_0()); 
@@ -11485,7 +11774,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"all",
                               		lv_all_10_0, 
-                              		"STRING");
+                              		"org.eclipse.xtext.common.Terminals.STRING");
                       	    
                     }
 
@@ -11523,7 +11812,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEObjectSection"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4133:1: entryRuleEObjectSection returns [EObject current=null] : iv_ruleEObjectSection= ruleEObjectSection EOF ;
+    // InternalEMap.g:4242:1: entryRuleEObjectSection returns [EObject current=null] : iv_ruleEObjectSection= ruleEObjectSection EOF ;
     public final EObject entryRuleEObjectSection() throws RecognitionException {
         EObject current = null;
 
@@ -11531,13 +11820,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4134:2: (iv_ruleEObjectSection= ruleEObjectSection EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4135:2: iv_ruleEObjectSection= ruleEObjectSection EOF
+            // InternalEMap.g:4243:2: (iv_ruleEObjectSection= ruleEObjectSection EOF )
+            // InternalEMap.g:4244:2: iv_ruleEObjectSection= ruleEObjectSection EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEObjectSectionRule()); 
             }
-            pushFollow(FOLLOW_ruleEObjectSection_in_entryRuleEObjectSection8354);
+            pushFollow(FOLLOW_1);
             iv_ruleEObjectSection=ruleEObjectSection();
 
             state._fsp--;
@@ -11545,7 +11834,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEObjectSection; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEObjectSection8364); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -11563,7 +11852,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEObjectSection"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4142:1: ruleEObjectSection returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? ) ;
+    // InternalEMap.g:4251:1: ruleEObjectSection returns [EObject current=null] : ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? ) ;
     public final EObject ruleEObjectSection() throws RecognitionException {
         EObject current = null;
 
@@ -11585,17 +11874,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4145:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4146:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? )
+            // InternalEMap.g:4254:28: ( ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? ) )
+            // InternalEMap.g:4255:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4146:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4146:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )?
+            // InternalEMap.g:4255:1: ( ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )? )
+            // InternalEMap.g:4255:2: ( (otherlv_0= RULE_ID ) ) (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )? ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )?
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4146:2: ( (otherlv_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4147:1: (otherlv_0= RULE_ID )
+            // InternalEMap.g:4255:2: ( (otherlv_0= RULE_ID ) )
+            // InternalEMap.g:4256:1: (otherlv_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4147:1: (otherlv_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4148:3: otherlv_0= RULE_ID
+            // InternalEMap.g:4256:1: (otherlv_0= RULE_ID )
+            // InternalEMap.g:4257:3: otherlv_0= RULE_ID
             {
             if ( state.backtracking==0 ) {
 
@@ -11604,7 +11893,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
               	        }
                       
             }
-            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEObjectSection8409); if (state.failed) return current;
+            otherlv_0=(Token)match(input,RULE_ID,FOLLOW_79); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		newLeafNode(otherlv_0, grammarAccess.getEObjectSectionAccess().getEntityEMappingEntityCrossReference_0_0()); 
@@ -11616,28 +11905,28 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4159:2: (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )?
-            int alt103=2;
-            int LA103_0 = input.LA(1);
+            // InternalEMap.g:4268:2: (otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')' )?
+            int alt106=2;
+            int LA106_0 = input.LA(1);
 
-            if ( (LA103_0==25) ) {
-                alt103=1;
+            if ( (LA106_0==25) ) {
+                alt106=1;
             }
-            switch (alt103) {
+            switch (alt106) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4159:4: otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')'
+                    // InternalEMap.g:4268:4: otherlv_1= '(' ( (otherlv_2= RULE_ID ) ) (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+ otherlv_5= ')'
                     {
-                    otherlv_1=(Token)match(input,25,FOLLOW_25_in_ruleEObjectSection8422); if (state.failed) return current;
+                    otherlv_1=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_1, grammarAccess.getEObjectSectionAccess().getLeftParenthesisKeyword_1_0());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4163:1: ( (otherlv_2= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4164:1: (otherlv_2= RULE_ID )
+                    // InternalEMap.g:4272:1: ( (otherlv_2= RULE_ID ) )
+                    // InternalEMap.g:4273:1: (otherlv_2= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4164:1: (otherlv_2= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4165:3: otherlv_2= RULE_ID
+                    // InternalEMap.g:4273:1: (otherlv_2= RULE_ID )
+                    // InternalEMap.g:4274:3: otherlv_2= RULE_ID
                     {
                     if ( state.backtracking==0 ) {
 
@@ -11646,7 +11935,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        }
                               
                     }
-                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEObjectSection8442); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,RULE_ID,FOLLOW_80); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		newLeafNode(otherlv_2, grammarAccess.getEObjectSectionAccess().getDescriminatedTypesEMappingEntityCrossReference_1_1_0()); 
@@ -11658,33 +11947,33 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4176:2: (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+
-                    int cnt102=0;
-                    loop102:
+                    // InternalEMap.g:4285:2: (otherlv_3= ',' ( (otherlv_4= RULE_ID ) ) )+
+                    int cnt105=0;
+                    loop105:
                     do {
-                        int alt102=2;
-                        int LA102_0 = input.LA(1);
+                        int alt105=2;
+                        int LA105_0 = input.LA(1);
 
-                        if ( (LA102_0==15) ) {
-                            alt102=1;
+                        if ( (LA105_0==15) ) {
+                            alt105=1;
                         }
 
 
-                        switch (alt102) {
+                        switch (alt105) {
                     	case 1 :
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4176:4: otherlv_3= ',' ( (otherlv_4= RULE_ID ) )
+                    	    // InternalEMap.g:4285:4: otherlv_3= ',' ( (otherlv_4= RULE_ID ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,15,FOLLOW_15_in_ruleEObjectSection8455); if (state.failed) return current;
+                    	    otherlv_3=(Token)match(input,15,FOLLOW_4); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	          	newLeafNode(otherlv_3, grammarAccess.getEObjectSectionAccess().getCommaKeyword_1_2_0());
                     	          
                     	    }
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4180:1: ( (otherlv_4= RULE_ID ) )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4181:1: (otherlv_4= RULE_ID )
+                    	    // InternalEMap.g:4289:1: ( (otherlv_4= RULE_ID ) )
+                    	    // InternalEMap.g:4290:1: (otherlv_4= RULE_ID )
                     	    {
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4181:1: (otherlv_4= RULE_ID )
-                    	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4182:3: otherlv_4= RULE_ID
+                    	    // InternalEMap.g:4290:1: (otherlv_4= RULE_ID )
+                    	    // InternalEMap.g:4291:3: otherlv_4= RULE_ID
                     	    {
                     	    if ( state.backtracking==0 ) {
 
@@ -11693,7 +11982,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	      	        }
                     	              
                     	    }
-                    	    otherlv_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEObjectSection8475); if (state.failed) return current;
+                    	    otherlv_4=(Token)match(input,RULE_ID,FOLLOW_32); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      		newLeafNode(otherlv_4, grammarAccess.getEObjectSectionAccess().getDescriminatedTypesEMappingEntityCrossReference_1_2_1_0()); 
@@ -11710,16 +11999,16 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    if ( cnt102 >= 1 ) break loop102;
+                    	    if ( cnt105 >= 1 ) break loop105;
                     	    if (state.backtracking>0) {state.failed=true; return current;}
                                 EarlyExitException eee =
-                                    new EarlyExitException(102, input);
+                                    new EarlyExitException(105, input);
                                 throw eee;
                         }
-                        cnt102++;
+                        cnt105++;
                     } while (true);
 
-                    otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleEObjectSection8489); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,26,FOLLOW_73); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getEObjectSectionAccess().getRightParenthesisKeyword_1_3());
@@ -11731,24 +12020,24 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4197:3: ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )?
-            int alt106=2;
-            int LA106_0 = input.LA(1);
+            // InternalEMap.g:4306:3: ( ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )? )?
+            int alt109=2;
+            int LA109_0 = input.LA(1);
 
-            if ( (LA106_0==RULE_ID) ) {
-                alt106=1;
+            if ( (LA109_0==RULE_ID) ) {
+                alt109=1;
             }
-            switch (alt106) {
+            switch (alt109) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4197:4: ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )?
+                    // InternalEMap.g:4306:4: ( (lv_prefix_6_0= RULE_ID ) ) (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )?
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4197:4: ( (lv_prefix_6_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4198:1: (lv_prefix_6_0= RULE_ID )
+                    // InternalEMap.g:4306:4: ( (lv_prefix_6_0= RULE_ID ) )
+                    // InternalEMap.g:4307:1: (lv_prefix_6_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4198:1: (lv_prefix_6_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4199:3: lv_prefix_6_0= RULE_ID
+                    // InternalEMap.g:4307:1: (lv_prefix_6_0= RULE_ID )
+                    // InternalEMap.g:4308:3: lv_prefix_6_0= RULE_ID
                     {
-                    lv_prefix_6_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEObjectSection8509); if (state.failed) return current;
+                    lv_prefix_6_0=(Token)match(input,RULE_ID,FOLLOW_18); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_prefix_6_0, grammarAccess.getEObjectSectionAccess().getPrefixIDTerminalRuleCall_2_0_0()); 
@@ -11763,7 +12052,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"prefix",
                               		lv_prefix_6_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -11772,35 +12061,35 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4215:2: (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )?
-                    int alt105=2;
-                    int LA105_0 = input.LA(1);
+                    // InternalEMap.g:4324:2: (otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}' )?
+                    int alt108=2;
+                    int LA108_0 = input.LA(1);
 
-                    if ( (LA105_0==13) ) {
-                        alt105=1;
+                    if ( (LA108_0==13) ) {
+                        alt108=1;
                     }
-                    switch (alt105) {
+                    switch (alt108) {
                         case 1 :
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4215:4: otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}'
+                            // InternalEMap.g:4324:4: otherlv_7= '{' ( (lv_attributes_8_0= ruleEMappingAttribute ) ) (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )* otherlv_11= '}'
                             {
-                            otherlv_7=(Token)match(input,13,FOLLOW_13_in_ruleEObjectSection8527); if (state.failed) return current;
+                            otherlv_7=(Token)match(input,13,FOLLOW_81); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_7, grammarAccess.getEObjectSectionAccess().getLeftCurlyBracketKeyword_2_1_0());
                                   
                             }
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4219:1: ( (lv_attributes_8_0= ruleEMappingAttribute ) )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4220:1: (lv_attributes_8_0= ruleEMappingAttribute )
+                            // InternalEMap.g:4328:1: ( (lv_attributes_8_0= ruleEMappingAttribute ) )
+                            // InternalEMap.g:4329:1: (lv_attributes_8_0= ruleEMappingAttribute )
                             {
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4220:1: (lv_attributes_8_0= ruleEMappingAttribute )
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4221:3: lv_attributes_8_0= ruleEMappingAttribute
+                            // InternalEMap.g:4329:1: (lv_attributes_8_0= ruleEMappingAttribute )
+                            // InternalEMap.g:4330:3: lv_attributes_8_0= ruleEMappingAttribute
                             {
                             if ( state.backtracking==0 ) {
                                
                               	        newCompositeNode(grammarAccess.getEObjectSectionAccess().getAttributesEMappingAttributeParserRuleCall_2_1_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleEMappingAttribute_in_ruleEObjectSection8548);
+                            pushFollow(FOLLOW_9);
                             lv_attributes_8_0=ruleEMappingAttribute();
 
                             state._fsp--;
@@ -11814,7 +12103,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                                      			current, 
                                      			"attributes",
                                       		lv_attributes_8_0, 
-                                      		"EMappingAttribute");
+                                      		"at.bestsolution.persistence.emap.EMap.EMappingAttribute");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -11824,39 +12113,39 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4237:2: (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )*
-                            loop104:
+                            // InternalEMap.g:4346:2: (otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) ) )*
+                            loop107:
                             do {
-                                int alt104=2;
-                                int LA104_0 = input.LA(1);
+                                int alt107=2;
+                                int LA107_0 = input.LA(1);
 
-                                if ( (LA104_0==15) ) {
-                                    alt104=1;
+                                if ( (LA107_0==15) ) {
+                                    alt107=1;
                                 }
 
 
-                                switch (alt104) {
+                                switch (alt107) {
                             	case 1 :
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4237:4: otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) )
+                            	    // InternalEMap.g:4346:4: otherlv_9= ',' ( (lv_attributes_10_0= ruleEMappingAttribute ) )
                             	    {
-                            	    otherlv_9=(Token)match(input,15,FOLLOW_15_in_ruleEObjectSection8561); if (state.failed) return current;
+                            	    otherlv_9=(Token)match(input,15,FOLLOW_81); if (state.failed) return current;
                             	    if ( state.backtracking==0 ) {
 
                             	          	newLeafNode(otherlv_9, grammarAccess.getEObjectSectionAccess().getCommaKeyword_2_1_2_0());
                             	          
                             	    }
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4241:1: ( (lv_attributes_10_0= ruleEMappingAttribute ) )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4242:1: (lv_attributes_10_0= ruleEMappingAttribute )
+                            	    // InternalEMap.g:4350:1: ( (lv_attributes_10_0= ruleEMappingAttribute ) )
+                            	    // InternalEMap.g:4351:1: (lv_attributes_10_0= ruleEMappingAttribute )
                             	    {
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4242:1: (lv_attributes_10_0= ruleEMappingAttribute )
-                            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4243:3: lv_attributes_10_0= ruleEMappingAttribute
+                            	    // InternalEMap.g:4351:1: (lv_attributes_10_0= ruleEMappingAttribute )
+                            	    // InternalEMap.g:4352:3: lv_attributes_10_0= ruleEMappingAttribute
                             	    {
                             	    if ( state.backtracking==0 ) {
                             	       
                             	      	        newCompositeNode(grammarAccess.getEObjectSectionAccess().getAttributesEMappingAttributeParserRuleCall_2_1_2_1_0()); 
                             	      	    
                             	    }
-                            	    pushFollow(FOLLOW_ruleEMappingAttribute_in_ruleEObjectSection8582);
+                            	    pushFollow(FOLLOW_9);
                             	    lv_attributes_10_0=ruleEMappingAttribute();
 
                             	    state._fsp--;
@@ -11870,7 +12159,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	             			current, 
                             	             			"attributes",
                             	              		lv_attributes_10_0, 
-                            	              		"EMappingAttribute");
+                            	              		"at.bestsolution.persistence.emap.EMap.EMappingAttribute");
                             	      	        afterParserOrEnumRuleCall();
                             	      	    
                             	    }
@@ -11885,11 +12174,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                             	    break;
 
                             	default :
-                            	    break loop104;
+                            	    break loop107;
                                 }
                             } while (true);
 
-                            otherlv_11=(Token)match(input,16,FOLLOW_16_in_ruleEObjectSection8596); if (state.failed) return current;
+                            otherlv_11=(Token)match(input,16,FOLLOW_2); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                                   	newLeafNode(otherlv_11, grammarAccess.getEObjectSectionAccess().getRightCurlyBracketKeyword_2_1_3());
@@ -11930,7 +12219,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEMappingAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4271:1: entryRuleEMappingAttribute returns [EObject current=null] : iv_ruleEMappingAttribute= ruleEMappingAttribute EOF ;
+    // InternalEMap.g:4380:1: entryRuleEMappingAttribute returns [EObject current=null] : iv_ruleEMappingAttribute= ruleEMappingAttribute EOF ;
     public final EObject entryRuleEMappingAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -11938,13 +12227,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4272:2: (iv_ruleEMappingAttribute= ruleEMappingAttribute EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4273:2: iv_ruleEMappingAttribute= ruleEMappingAttribute EOF
+            // InternalEMap.g:4381:2: (iv_ruleEMappingAttribute= ruleEMappingAttribute EOF )
+            // InternalEMap.g:4382:2: iv_ruleEMappingAttribute= ruleEMappingAttribute EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getEMappingAttributeRule()); 
             }
-            pushFollow(FOLLOW_ruleEMappingAttribute_in_entryRuleEMappingAttribute8636);
+            pushFollow(FOLLOW_1);
             iv_ruleEMappingAttribute=ruleEMappingAttribute();
 
             state._fsp--;
@@ -11952,7 +12241,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEMappingAttribute; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEMappingAttribute8646); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -11970,7 +12259,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEMappingAttribute"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4280:1: ruleEMappingAttribute returns [EObject current=null] : ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) ) ;
+    // InternalEMap.g:4389:1: ruleEMappingAttribute returns [EObject current=null] : ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) ) ;
     public final EObject ruleEMappingAttribute() throws RecognitionException {
         EObject current = null;
 
@@ -11990,27 +12279,27 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4283:28: ( ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4284:1: ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) )
+            // InternalEMap.g:4392:28: ( ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) ) )
+            // InternalEMap.g:4393:1: ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4284:1: ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4284:2: ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) )
+            // InternalEMap.g:4393:1: ( ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) ) )
+            // InternalEMap.g:4393:2: ( (lv_pk_0_0= 'primarykey' ) )? ( (lv_property_1_0= ruleQualifiedName ) ) otherlv_2= '=>' ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4284:2: ( (lv_pk_0_0= 'primarykey' ) )?
-            int alt107=2;
-            int LA107_0 = input.LA(1);
+            // InternalEMap.g:4393:2: ( (lv_pk_0_0= 'primarykey' ) )?
+            int alt110=2;
+            int LA110_0 = input.LA(1);
 
-            if ( (LA107_0==49) ) {
-                alt107=1;
+            if ( (LA110_0==50) ) {
+                alt110=1;
             }
-            switch (alt107) {
+            switch (alt110) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4285:1: (lv_pk_0_0= 'primarykey' )
+                    // InternalEMap.g:4394:1: (lv_pk_0_0= 'primarykey' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4285:1: (lv_pk_0_0= 'primarykey' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4286:3: lv_pk_0_0= 'primarykey'
+                    // InternalEMap.g:4394:1: (lv_pk_0_0= 'primarykey' )
+                    // InternalEMap.g:4395:3: lv_pk_0_0= 'primarykey'
                     {
-                    lv_pk_0_0=(Token)match(input,49,FOLLOW_49_in_ruleEMappingAttribute8689); if (state.failed) return current;
+                    lv_pk_0_0=(Token)match(input,50,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_pk_0_0, grammarAccess.getEMappingAttributeAccess().getPkPrimarykeyKeyword_0_0());
@@ -12033,18 +12322,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4299:3: ( (lv_property_1_0= ruleQualifiedName ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4300:1: (lv_property_1_0= ruleQualifiedName )
+            // InternalEMap.g:4408:3: ( (lv_property_1_0= ruleQualifiedName ) )
+            // InternalEMap.g:4409:1: (lv_property_1_0= ruleQualifiedName )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4300:1: (lv_property_1_0= ruleQualifiedName )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4301:3: lv_property_1_0= ruleQualifiedName
+            // InternalEMap.g:4409:1: (lv_property_1_0= ruleQualifiedName )
+            // InternalEMap.g:4410:3: lv_property_1_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
               	        newCompositeNode(grammarAccess.getEMappingAttributeAccess().getPropertyQualifiedNameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleEMappingAttribute8724);
+            pushFollow(FOLLOW_55);
             lv_property_1_0=ruleQualifiedName();
 
             state._fsp--;
@@ -12058,7 +12347,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"property",
                       		lv_property_1_0, 
-                      		"QualifiedName");
+                      		"at.bestsolution.persistence.emap.EMap.QualifiedName");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -12068,49 +12357,49 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,51,FOLLOW_51_in_ruleEMappingAttribute8736); if (state.failed) return current;
+            otherlv_2=(Token)match(input,52,FOLLOW_82); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getEMappingAttributeAccess().getEqualsSignGreaterThanSignKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4321:1: ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) )
-            int alt108=3;
+            // InternalEMap.g:4430:1: ( ( (lv_columnName_3_0= RULE_ID ) ) | ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' ) | ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) ) )
+            int alt111=3;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                alt108=1;
+                alt111=1;
                 }
                 break;
-            case 53:
+            case 54:
                 {
-                alt108=2;
+                alt111=2;
                 }
                 break;
-            case 63:
+            case 64:
                 {
-                alt108=3;
+                alt111=3;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 108, 0, input);
+                    new NoViableAltException("", 111, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt108) {
+            switch (alt111) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4321:2: ( (lv_columnName_3_0= RULE_ID ) )
+                    // InternalEMap.g:4430:2: ( (lv_columnName_3_0= RULE_ID ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4321:2: ( (lv_columnName_3_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4322:1: (lv_columnName_3_0= RULE_ID )
+                    // InternalEMap.g:4430:2: ( (lv_columnName_3_0= RULE_ID ) )
+                    // InternalEMap.g:4431:1: (lv_columnName_3_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4322:1: (lv_columnName_3_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4323:3: lv_columnName_3_0= RULE_ID
+                    // InternalEMap.g:4431:1: (lv_columnName_3_0= RULE_ID )
+                    // InternalEMap.g:4432:3: lv_columnName_3_0= RULE_ID
                     {
-                    lv_columnName_3_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingAttribute8754); if (state.failed) return current;
+                    lv_columnName_3_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_columnName_3_0, grammarAccess.getEMappingAttributeAccess().getColumnNameIDTerminalRuleCall_3_0_0()); 
@@ -12125,7 +12414,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"columnName",
                               		lv_columnName_3_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -12138,18 +12427,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4340:6: ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' )
+                    // InternalEMap.g:4449:6: ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4340:6: ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4340:7: ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')'
+                    // InternalEMap.g:4449:6: ( ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')' )
+                    // InternalEMap.g:4449:7: ( (lv_resolved_4_0= 'resolve' ) ) ( ( ruleQualifiedName ) ) otherlv_6= '(' ( (lv_parameters_7_0= RULE_ID ) ) otherlv_8= ')'
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4340:7: ( (lv_resolved_4_0= 'resolve' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4341:1: (lv_resolved_4_0= 'resolve' )
+                    // InternalEMap.g:4449:7: ( (lv_resolved_4_0= 'resolve' ) )
+                    // InternalEMap.g:4450:1: (lv_resolved_4_0= 'resolve' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4341:1: (lv_resolved_4_0= 'resolve' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4342:3: lv_resolved_4_0= 'resolve'
+                    // InternalEMap.g:4450:1: (lv_resolved_4_0= 'resolve' )
+                    // InternalEMap.g:4451:3: lv_resolved_4_0= 'resolve'
                     {
-                    lv_resolved_4_0=(Token)match(input,53,FOLLOW_53_in_ruleEMappingAttribute8784); if (state.failed) return current;
+                    lv_resolved_4_0=(Token)match(input,54,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_resolved_4_0, grammarAccess.getEMappingAttributeAccess().getResolvedResolveKeyword_3_1_0_0());
@@ -12169,11 +12458,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4355:2: ( ( ruleQualifiedName ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4356:1: ( ruleQualifiedName )
+                    // InternalEMap.g:4464:2: ( ( ruleQualifiedName ) )
+                    // InternalEMap.g:4465:1: ( ruleQualifiedName )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4356:1: ( ruleQualifiedName )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4357:3: ruleQualifiedName
+                    // InternalEMap.g:4465:1: ( ruleQualifiedName )
+                    // InternalEMap.g:4466:3: ruleQualifiedName
                     {
                     if ( state.backtracking==0 ) {
 
@@ -12187,7 +12476,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getEMappingAttributeAccess().getQueryENamedQueryCrossReference_3_1_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleEMappingAttribute8820);
+                    pushFollow(FOLLOW_31);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -12203,19 +12492,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_6=(Token)match(input,25,FOLLOW_25_in_ruleEMappingAttribute8832); if (state.failed) return current;
+                    otherlv_6=(Token)match(input,25,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_6, grammarAccess.getEMappingAttributeAccess().getLeftParenthesisKeyword_3_1_2());
                           
                     }
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4374:1: ( (lv_parameters_7_0= RULE_ID ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4375:1: (lv_parameters_7_0= RULE_ID )
+                    // InternalEMap.g:4483:1: ( (lv_parameters_7_0= RULE_ID ) )
+                    // InternalEMap.g:4484:1: (lv_parameters_7_0= RULE_ID )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4375:1: (lv_parameters_7_0= RULE_ID )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4376:3: lv_parameters_7_0= RULE_ID
+                    // InternalEMap.g:4484:1: (lv_parameters_7_0= RULE_ID )
+                    // InternalEMap.g:4485:3: lv_parameters_7_0= RULE_ID
                     {
-                    lv_parameters_7_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEMappingAttribute8849); if (state.failed) return current;
+                    lv_parameters_7_0=(Token)match(input,RULE_ID,FOLLOW_58); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       			newLeafNode(lv_parameters_7_0, grammarAccess.getEMappingAttributeAccess().getParametersIDTerminalRuleCall_3_1_3_0()); 
@@ -12230,7 +12519,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"parameters",
                               		lv_parameters_7_0, 
-                              		"ID");
+                              		"org.eclipse.xtext.common.Terminals.ID");
                       	    
                     }
 
@@ -12239,7 +12528,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_8=(Token)match(input,26,FOLLOW_26_in_ruleEMappingAttribute8866); if (state.failed) return current;
+                    otherlv_8=(Token)match(input,26,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_8, grammarAccess.getEMappingAttributeAccess().getRightParenthesisKeyword_3_1_4());
@@ -12252,18 +12541,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4397:6: ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) )
+                    // InternalEMap.g:4506:6: ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4397:6: ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4397:7: ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) )
+                    // InternalEMap.g:4506:6: ( ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) ) )
+                    // InternalEMap.g:4506:7: ( (lv_mapped_9_0= 'map' ) ) ( (lv_map_10_0= ruleEObjectSection ) )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4397:7: ( (lv_mapped_9_0= 'map' ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4398:1: (lv_mapped_9_0= 'map' )
+                    // InternalEMap.g:4506:7: ( (lv_mapped_9_0= 'map' ) )
+                    // InternalEMap.g:4507:1: (lv_mapped_9_0= 'map' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4398:1: (lv_mapped_9_0= 'map' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4399:3: lv_mapped_9_0= 'map'
+                    // InternalEMap.g:4507:1: (lv_mapped_9_0= 'map' )
+                    // InternalEMap.g:4508:3: lv_mapped_9_0= 'map'
                     {
-                    lv_mapped_9_0=(Token)match(input,63,FOLLOW_63_in_ruleEMappingAttribute8892); if (state.failed) return current;
+                    lv_mapped_9_0=(Token)match(input,64,FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_mapped_9_0, grammarAccess.getEMappingAttributeAccess().getMappedMapKeyword_3_2_0_0());
@@ -12283,18 +12572,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4412:2: ( (lv_map_10_0= ruleEObjectSection ) )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4413:1: (lv_map_10_0= ruleEObjectSection )
+                    // InternalEMap.g:4521:2: ( (lv_map_10_0= ruleEObjectSection ) )
+                    // InternalEMap.g:4522:1: (lv_map_10_0= ruleEObjectSection )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4413:1: (lv_map_10_0= ruleEObjectSection )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4414:3: lv_map_10_0= ruleEObjectSection
+                    // InternalEMap.g:4522:1: (lv_map_10_0= ruleEObjectSection )
+                    // InternalEMap.g:4523:3: lv_map_10_0= ruleEObjectSection
                     {
                     if ( state.backtracking==0 ) {
                        
                       	        newCompositeNode(grammarAccess.getEMappingAttributeAccess().getMapEObjectSectionParserRuleCall_3_2_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleEObjectSection_in_ruleEMappingAttribute8926);
+                    pushFollow(FOLLOW_2);
                     lv_map_10_0=ruleEObjectSection();
 
                     state._fsp--;
@@ -12308,7 +12597,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                              			current, 
                              			"map",
                               		lv_map_10_0, 
-                              		"EObjectSection");
+                              		"at.bestsolution.persistence.emap.EMap.EObjectSection");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -12350,7 +12639,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4438:1: entryRuleEType returns [EObject current=null] : iv_ruleEType= ruleEType EOF ;
+    // InternalEMap.g:4547:1: entryRuleEType returns [EObject current=null] : iv_ruleEType= ruleEType EOF ;
     public final EObject entryRuleEType() throws RecognitionException {
         EObject current = null;
 
@@ -12358,13 +12647,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4439:2: (iv_ruleEType= ruleEType EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4440:2: iv_ruleEType= ruleEType EOF
+            // InternalEMap.g:4548:2: (iv_ruleEType= ruleEType EOF )
+            // InternalEMap.g:4549:2: iv_ruleEType= ruleEType EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getETypeRule()); 
             }
-            pushFollow(FOLLOW_ruleEType_in_entryRuleEType8964);
+            pushFollow(FOLLOW_1);
             iv_ruleEType=ruleEType();
 
             state._fsp--;
@@ -12372,7 +12661,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleEType; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleEType8974); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -12390,7 +12679,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4447:1: ruleEType returns [EObject current=null] : (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) ) ;
+    // InternalEMap.g:4556:1: ruleEType returns [EObject current=null] : (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) ) ;
     public final EObject ruleEType() throws RecognitionException {
         EObject current = null;
 
@@ -12402,25 +12691,25 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4450:28: ( (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4451:1: (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) )
+            // InternalEMap.g:4559:28: ( (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) ) )
+            // InternalEMap.g:4560:1: (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4451:1: (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4451:3: otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) )
+            // InternalEMap.g:4560:1: (otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) ) )
+            // InternalEMap.g:4560:3: otherlv_0= 'etype' ( (lv_url_1_0= RULE_STRING ) ) otherlv_2= '#' ( (lv_name_3_0= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,72,FOLLOW_72_in_ruleEType9011); if (state.failed) return current;
+            otherlv_0=(Token)match(input,73,FOLLOW_15); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getETypeAccess().getEtypeKeyword_0());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4455:1: ( (lv_url_1_0= RULE_STRING ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4456:1: (lv_url_1_0= RULE_STRING )
+            // InternalEMap.g:4564:1: ( (lv_url_1_0= RULE_STRING ) )
+            // InternalEMap.g:4565:1: (lv_url_1_0= RULE_STRING )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4456:1: (lv_url_1_0= RULE_STRING )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4457:3: lv_url_1_0= RULE_STRING
+            // InternalEMap.g:4565:1: (lv_url_1_0= RULE_STRING )
+            // InternalEMap.g:4566:3: lv_url_1_0= RULE_STRING
             {
-            lv_url_1_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleEType9028); if (state.failed) return current;
+            lv_url_1_0=(Token)match(input,RULE_STRING,FOLLOW_83); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_url_1_0, grammarAccess.getETypeAccess().getUrlSTRINGTerminalRuleCall_1_0()); 
@@ -12435,7 +12724,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"url",
                       		lv_url_1_0, 
-                      		"STRING");
+                      		"org.eclipse.xtext.common.Terminals.STRING");
               	    
             }
 
@@ -12444,19 +12733,19 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,73,FOLLOW_73_in_ruleEType9045); if (state.failed) return current;
+            otherlv_2=(Token)match(input,74,FOLLOW_4); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getETypeAccess().getNumberSignKeyword_2());
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4477:1: ( (lv_name_3_0= RULE_ID ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4478:1: (lv_name_3_0= RULE_ID )
+            // InternalEMap.g:4586:1: ( (lv_name_3_0= RULE_ID ) )
+            // InternalEMap.g:4587:1: (lv_name_3_0= RULE_ID )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4478:1: (lv_name_3_0= RULE_ID )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4479:3: lv_name_3_0= RULE_ID
+            // InternalEMap.g:4587:1: (lv_name_3_0= RULE_ID )
+            // InternalEMap.g:4588:3: lv_name_3_0= RULE_ID
             {
-            lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleEType9062); if (state.failed) return current;
+            lv_name_3_0=(Token)match(input,RULE_ID,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(lv_name_3_0, grammarAccess.getETypeAccess().getNameIDTerminalRuleCall_3_0()); 
@@ -12471,7 +12760,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                      			current, 
                      			"name",
                       		lv_name_3_0, 
-                      		"ID");
+                      		"org.eclipse.xtext.common.Terminals.ID");
               	    
             }
 
@@ -12503,7 +12792,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4503:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // InternalEMap.g:4612:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -12511,13 +12800,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4504:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4505:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // InternalEMap.g:4613:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // InternalEMap.g:4614:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName9104);
+            pushFollow(FOLLOW_1);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
@@ -12525,7 +12814,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedName.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedName9115); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -12543,7 +12832,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4512:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) ;
+    // InternalEMap.g:4621:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12554,13 +12843,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4515:28: ( (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4516:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
+            // InternalEMap.g:4624:28: ( (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* ) )
+            // InternalEMap.g:4625:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4516:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4516:6: this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
+            // InternalEMap.g:4625:1: (this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )* )
+            // InternalEMap.g:4625:6: this_ID_0= RULE_ID ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName9155); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_46); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -12571,31 +12860,31 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                   newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                   
             }
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4523:1: ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
-            loop109:
+            // InternalEMap.g:4632:1: ( ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID )*
+            loop112:
             do {
-                int alt109=2;
-                int LA109_0 = input.LA(1);
+                int alt112=2;
+                int LA112_0 = input.LA(1);
 
-                if ( (LA109_0==42) ) {
-                    int LA109_2 = input.LA(2);
+                if ( (LA112_0==43) ) {
+                    int LA112_2 = input.LA(2);
 
-                    if ( (LA109_2==RULE_ID) && (synpred2_InternalEMap())) {
-                        alt109=1;
+                    if ( (LA112_2==RULE_ID) && (synpred2_InternalEMap())) {
+                        alt112=1;
                     }
 
 
                 }
 
 
-                switch (alt109) {
+                switch (alt112) {
             	case 1 :
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4523:2: ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID
+            	    // InternalEMap.g:4632:2: ( ( '.' )=>kw= '.' ) this_ID_2= RULE_ID
             	    {
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4523:2: ( ( '.' )=>kw= '.' )
-            	    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4523:3: ( '.' )=>kw= '.'
+            	    // InternalEMap.g:4632:2: ( ( '.' )=>kw= '.' )
+            	    // InternalEMap.g:4632:3: ( '.' )=>kw= '.'
             	    {
-            	    kw=(Token)match(input,42,FOLLOW_42_in_ruleQualifiedName9183); if (state.failed) return current;
+            	    kw=(Token)match(input,43,FOLLOW_4); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
@@ -12605,7 +12894,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQualifiedName9199); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_46); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -12621,7 +12910,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop109;
+            	    break loop112;
                 }
             } while (true);
 
@@ -12648,7 +12937,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedNameWithWildcard"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4546:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
+    // InternalEMap.g:4655:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
     public final String entryRuleQualifiedNameWithWildcard() throws RecognitionException {
         String current = null;
 
@@ -12656,13 +12945,13 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4547:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4548:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
+            // InternalEMap.g:4656:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
+            // InternalEMap.g:4657:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameWithWildcardRule()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard9247);
+            pushFollow(FOLLOW_1);
             iv_ruleQualifiedNameWithWildcard=ruleQualifiedNameWithWildcard();
 
             state._fsp--;
@@ -12670,7 +12959,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedNameWithWildcard.getText(); 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard9258); if (state.failed) return current;
+            match(input,EOF,FOLLOW_2); if (state.failed) return current;
 
             }
 
@@ -12688,7 +12977,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedNameWithWildcard"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4555:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' ) ;
+    // InternalEMap.g:4664:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedNameWithWildcard() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -12699,18 +12988,18 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4558:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4559:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' )
+            // InternalEMap.g:4667:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' ) )
+            // InternalEMap.g:4668:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4559:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4560:5: this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*'
+            // InternalEMap.g:4668:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*' )
+            // InternalEMap.g:4669:5: this_QualifiedName_0= ruleQualifiedName kw= '.' kw= '*'
             {
             if ( state.backtracking==0 ) {
                
                       newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
                   
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard9305);
+            pushFollow(FOLLOW_84);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -12725,14 +13014,14 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            kw=(Token)match(input,42,FOLLOW_42_in_ruleQualifiedNameWithWildcard9323); if (state.failed) return current;
+            kw=(Token)match(input,43,FOLLOW_85); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
                       newLeafNode(kw, grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopKeyword_1()); 
                   
             }
-            kw=(Token)match(input,74,FOLLOW_74_in_ruleQualifiedNameWithWildcard9336); if (state.failed) return current;
+            kw=(Token)match(input,75,FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -12762,7 +13051,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleColSort"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4590:1: ruleColSort returns [Enumerator current=null] : ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) ) ;
+    // InternalEMap.g:4699:1: ruleColSort returns [Enumerator current=null] : ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) ) ;
     public final Enumerator ruleColSort() throws RecognitionException {
         Enumerator current = null;
 
@@ -12773,48 +13062,48 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4592:28: ( ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4593:1: ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) )
+            // InternalEMap.g:4701:28: ( ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) ) )
+            // InternalEMap.g:4702:1: ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4593:1: ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) )
-            int alt110=4;
+            // InternalEMap.g:4702:1: ( (enumLiteral_0= 'EMAP' ) | (enumLiteral_1= 'ECORE' ) | (enumLiteral_2= 'ECORE_REVERSED' ) | (enumLiteral_3= 'ALPHABETIC' ) )
+            int alt113=4;
             switch ( input.LA(1) ) {
-            case 75:
-                {
-                alt110=1;
-                }
-                break;
             case 76:
                 {
-                alt110=2;
+                alt113=1;
                 }
                 break;
             case 77:
                 {
-                alt110=3;
+                alt113=2;
                 }
                 break;
             case 78:
                 {
-                alt110=4;
+                alt113=3;
+                }
+                break;
+            case 79:
+                {
+                alt113=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 110, 0, input);
+                    new NoViableAltException("", 113, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt110) {
+            switch (alt113) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4593:2: (enumLiteral_0= 'EMAP' )
+                    // InternalEMap.g:4702:2: (enumLiteral_0= 'EMAP' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4593:2: (enumLiteral_0= 'EMAP' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4593:4: enumLiteral_0= 'EMAP'
+                    // InternalEMap.g:4702:2: (enumLiteral_0= 'EMAP' )
+                    // InternalEMap.g:4702:4: enumLiteral_0= 'EMAP'
                     {
-                    enumLiteral_0=(Token)match(input,75,FOLLOW_75_in_ruleColSort9390); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,76,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getColSortAccess().getEMAPEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -12828,12 +13117,12 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4599:6: (enumLiteral_1= 'ECORE' )
+                    // InternalEMap.g:4708:6: (enumLiteral_1= 'ECORE' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4599:6: (enumLiteral_1= 'ECORE' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4599:8: enumLiteral_1= 'ECORE'
+                    // InternalEMap.g:4708:6: (enumLiteral_1= 'ECORE' )
+                    // InternalEMap.g:4708:8: enumLiteral_1= 'ECORE'
                     {
-                    enumLiteral_1=(Token)match(input,76,FOLLOW_76_in_ruleColSort9407); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,77,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getColSortAccess().getECOREEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -12847,12 +13136,12 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4605:6: (enumLiteral_2= 'ECORE_REVERSED' )
+                    // InternalEMap.g:4714:6: (enumLiteral_2= 'ECORE_REVERSED' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4605:6: (enumLiteral_2= 'ECORE_REVERSED' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4605:8: enumLiteral_2= 'ECORE_REVERSED'
+                    // InternalEMap.g:4714:6: (enumLiteral_2= 'ECORE_REVERSED' )
+                    // InternalEMap.g:4714:8: enumLiteral_2= 'ECORE_REVERSED'
                     {
-                    enumLiteral_2=(Token)match(input,77,FOLLOW_77_in_ruleColSort9424); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,78,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getColSortAccess().getECORE_REVERSEDEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -12866,12 +13155,12 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4611:6: (enumLiteral_3= 'ALPHABETIC' )
+                    // InternalEMap.g:4720:6: (enumLiteral_3= 'ALPHABETIC' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4611:6: (enumLiteral_3= 'ALPHABETIC' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4611:8: enumLiteral_3= 'ALPHABETIC'
+                    // InternalEMap.g:4720:6: (enumLiteral_3= 'ALPHABETIC' )
+                    // InternalEMap.g:4720:8: enumLiteral_3= 'ALPHABETIC'
                     {
-                    enumLiteral_3=(Token)match(input,78,FOLLOW_78_in_ruleColSort9441); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,79,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getColSortAccess().getALPHABETICEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -12907,7 +13196,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleReturnType"
-    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4621:1: ruleReturnType returns [Enumerator current=null] : ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) ) ;
+    // InternalEMap.g:4730:1: ruleReturnType returns [Enumerator current=null] : ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) ) ;
     public final Enumerator ruleReturnType() throws RecognitionException {
         Enumerator current = null;
 
@@ -12916,34 +13205,34 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4623:28: ( ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) ) )
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4624:1: ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) )
+            // InternalEMap.g:4732:28: ( ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) ) )
+            // InternalEMap.g:4733:1: ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) )
             {
-            // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4624:1: ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) )
-            int alt111=2;
-            int LA111_0 = input.LA(1);
+            // InternalEMap.g:4733:1: ( (enumLiteral_0= 'list' ) | (enumLiteral_1= 'single' ) )
+            int alt114=2;
+            int LA114_0 = input.LA(1);
 
-            if ( (LA111_0==79) ) {
-                alt111=1;
+            if ( (LA114_0==80) ) {
+                alt114=1;
             }
-            else if ( (LA111_0==80) ) {
-                alt111=2;
+            else if ( (LA114_0==81) ) {
+                alt114=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 111, 0, input);
+                    new NoViableAltException("", 114, 0, input);
 
                 throw nvae;
             }
-            switch (alt111) {
+            switch (alt114) {
                 case 1 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4624:2: (enumLiteral_0= 'list' )
+                    // InternalEMap.g:4733:2: (enumLiteral_0= 'list' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4624:2: (enumLiteral_0= 'list' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4624:4: enumLiteral_0= 'list'
+                    // InternalEMap.g:4733:2: (enumLiteral_0= 'list' )
+                    // InternalEMap.g:4733:4: enumLiteral_0= 'list'
                     {
-                    enumLiteral_0=(Token)match(input,79,FOLLOW_79_in_ruleReturnType9486); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,80,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getReturnTypeAccess().getListEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -12957,12 +13246,12 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4630:6: (enumLiteral_1= 'single' )
+                    // InternalEMap.g:4739:6: (enumLiteral_1= 'single' )
                     {
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4630:6: (enumLiteral_1= 'single' )
-                    // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4630:8: enumLiteral_1= 'single'
+                    // InternalEMap.g:4739:6: (enumLiteral_1= 'single' )
+                    // InternalEMap.g:4739:8: enumLiteral_1= 'single'
                     {
-                    enumLiteral_1=(Token)match(input,80,FOLLOW_80_in_ruleReturnType9503); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,81,FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getReturnTypeAccess().getSingleEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -12998,10 +13287,10 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred1_InternalEMap
     public final void synpred1_InternalEMap_fragment() throws RecognitionException {   
-        // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2026:3: ( '.' )
-        // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:2027:2: '.'
+        // InternalEMap.g:2135:3: ( '.' )
+        // InternalEMap.g:2136:2: '.'
         {
-        match(input,42,FOLLOW_42_in_synpred1_InternalEMap4129); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
     }
@@ -13009,10 +13298,10 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
     // $ANTLR start synpred2_InternalEMap
     public final void synpred2_InternalEMap_fragment() throws RecognitionException {   
-        // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4523:3: ( '.' )
-        // ../at.bestsolution.persistence.emap/src-gen/at/bestsolution/persistence/emap/parser/antlr/internal/InternalEMap.g:4524:2: '.'
+        // InternalEMap.g:4632:3: ( '.' )
+        // InternalEMap.g:4633:2: '.'
         {
-        match(input,42,FOLLOW_42_in_synpred2_InternalEMap9174); if (state.failed) return ;
+        match(input,43,FOLLOW_2); if (state.failed) return ;
 
         }
     }
@@ -13020,20 +13309,6 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
     // Delegated rules
 
-    public final boolean synpred2_InternalEMap() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred2_InternalEMap_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
     public final boolean synpred1_InternalEMap() {
         state.backtracking++;
         int start = input.mark();
@@ -13048,480 +13323,149 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-
-
-    protected DFA47 dfa47 = new DFA47(this);
-    static final String DFA47_eotS =
-        "\6\uffff";
-    static final String DFA47_eofS =
-        "\1\uffff\1\3\3\uffff\1\3";
-    static final String DFA47_minS =
-        "\1\4\1\13\1\4\2\uffff\1\13";
-    static final String DFA47_maxS =
-        "\1\4\1\54\1\112\2\uffff\1\54";
-    static final String DFA47_acceptS =
-        "\3\uffff\1\2\1\1\1\uffff";
-    static final String DFA47_specialS =
-        "\6\uffff}>";
-    static final String[] DFA47_transitionS = {
-            "\1\1",
-            "\1\3\33\uffff\1\3\2\uffff\1\2\2\3",
-            "\1\5\105\uffff\1\4",
-            "",
-            "",
-            "\1\3\33\uffff\1\3\2\uffff\1\2\2\3"
-    };
-
-    static final short[] DFA47_eot = DFA.unpackEncodedString(DFA47_eotS);
-    static final short[] DFA47_eof = DFA.unpackEncodedString(DFA47_eofS);
-    static final char[] DFA47_min = DFA.unpackEncodedStringToUnsignedChars(DFA47_minS);
-    static final char[] DFA47_max = DFA.unpackEncodedStringToUnsignedChars(DFA47_maxS);
-    static final short[] DFA47_accept = DFA.unpackEncodedString(DFA47_acceptS);
-    static final short[] DFA47_special = DFA.unpackEncodedString(DFA47_specialS);
-    static final short[][] DFA47_transition;
-
-    static {
-        int numStates = DFA47_transitionS.length;
-        DFA47_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
-            DFA47_transition[i] = DFA.unpackEncodedString(DFA47_transitionS[i]);
+    public final boolean synpred2_InternalEMap() {
+        state.backtracking++;
+        int start = input.mark();
+        try {
+            synpred2_InternalEMap_fragment(); // can never throw exception
+        } catch (RecognitionException re) {
+            System.err.println("impossible: "+re);
         }
+        boolean success = !state.failed;
+        input.rewind(start);
+        state.backtracking--;
+        state.failed=false;
+        return success;
     }
 
-    class DFA47 extends DFA {
 
-        public DFA47(BaseRecognizer recognizer) {
+    protected DFA50 dfa50 = new DFA50(this);
+    static final String dfa_1s = "\6\uffff";
+    static final String dfa_2s = "\1\uffff\1\3\2\uffff\1\3\1\uffff";
+    static final String dfa_3s = "\1\4\1\13\1\4\1\uffff\1\13\1\uffff";
+    static final String dfa_4s = "\1\4\1\55\1\113\1\uffff\1\55\1\uffff";
+    static final String dfa_5s = "\3\uffff\1\2\1\uffff\1\1";
+    static final String dfa_6s = "\6\uffff}>";
+    static final String[] dfa_7s = {
+            "\1\1",
+            "\1\3\34\uffff\1\3\2\uffff\1\2\2\3",
+            "\1\4\106\uffff\1\5",
+            "",
+            "\1\3\34\uffff\1\3\2\uffff\1\2\2\3",
+            ""
+    };
+
+    static final short[] dfa_1 = DFA.unpackEncodedString(dfa_1s);
+    static final short[] dfa_2 = DFA.unpackEncodedString(dfa_2s);
+    static final char[] dfa_3 = DFA.unpackEncodedStringToUnsignedChars(dfa_3s);
+    static final char[] dfa_4 = DFA.unpackEncodedStringToUnsignedChars(dfa_4s);
+    static final short[] dfa_5 = DFA.unpackEncodedString(dfa_5s);
+    static final short[] dfa_6 = DFA.unpackEncodedString(dfa_6s);
+    static final short[][] dfa_7 = unpackEncodedStringArray(dfa_7s);
+
+    class DFA50 extends DFA {
+
+        public DFA50(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 47;
-            this.eot = DFA47_eot;
-            this.eof = DFA47_eof;
-            this.min = DFA47_min;
-            this.max = DFA47_max;
-            this.accept = DFA47_accept;
-            this.special = DFA47_special;
-            this.transition = DFA47_transition;
+            this.decisionNumber = 50;
+            this.eot = dfa_1;
+            this.eof = dfa_2;
+            this.min = dfa_3;
+            this.max = dfa_4;
+            this.accept = dfa_5;
+            this.special = dfa_6;
+            this.transition = dfa_7;
         }
         public String getDescription() {
-            return "1917:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )";
+            return "2026:1: (lv_importedNamespace_1_1= ruleQualifiedNameWithWildcard | lv_importedNamespace_1_2= ruleQualifiedName )";
         }
     }
  
 
-    public static final BitSet FOLLOW_ruleEMapping_in_entryRuleEMapping75 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMapping85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMappingBundle_in_ruleEMapping132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMappingEntityDef_in_ruleEMapping151 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMappingBundle_in_entryRuleEMappingBundle189 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMappingBundle199 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImport_in_ruleEMappingBundle245 = new BitSet(new long[]{0x0000008000000800L});
-    public static final BitSet FOLLOW_11_in_ruleEMappingBundle258 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingBundle275 = new BitSet(new long[]{0x0000000000003000L});
-    public static final BitSet FOLLOW_12_in_ruleEMappingBundle293 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEMappingBundle316 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingBundle330 = new BitSet(new long[]{0x0000000000004010L});
-    public static final BitSet FOLLOW_14_in_ruleEMappingBundle343 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingBundle355 = new BitSet(new long[]{0x0000000000300000L});
-    public static final BitSet FOLLOW_ruleEPredef_in_ruleEMappingBundle376 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleEMappingBundle389 = new BitSet(new long[]{0x0000000000300000L});
-    public static final BitSet FOLLOW_ruleEPredef_in_ruleEMappingBundle410 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingBundle424 = new BitSet(new long[]{0x0000000000004010L});
-    public static final BitSet FOLLOW_ruleEBundleEntity_in_ruleEMappingBundle447 = new BitSet(new long[]{0x0000000020038000L});
-    public static final BitSet FOLLOW_15_in_ruleEMappingBundle460 = new BitSet(new long[]{0x0000000000004010L});
-    public static final BitSet FOLLOW_ruleEBundleEntity_in_ruleEMappingBundle481 = new BitSet(new long[]{0x0000000020038000L});
-    public static final BitSet FOLLOW_ruleESQLTypeDef_in_ruleEMappingBundle504 = new BitSet(new long[]{0x0000000020030000L});
-    public static final BitSet FOLLOW_17_in_ruleEMappingBundle518 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingBundle530 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEGeneratorDef_in_ruleEMappingBundle551 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingBundle564 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingBundle578 = new BitSet(new long[]{0x00000000000C0002L});
-    public static final BitSet FOLLOW_18_in_ruleEMappingBundle591 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEMappingBundle608 = new BitSet(new long[]{0x0000000000088002L});
-    public static final BitSet FOLLOW_15_in_ruleEMappingBundle626 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEMappingBundle643 = new BitSet(new long[]{0x0000000000088002L});
-    public static final BitSet FOLLOW_19_in_ruleEMappingBundle665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000007800L});
-    public static final BitSet FOLLOW_ruleColSort_in_ruleEMappingBundle686 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPredef_in_entryRuleEPredef724 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEPredef734 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_ruleEPredef781 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEPredef798 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_ruleEPredef832 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEPredef849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEGeneratorDef_in_entryRuleEGeneratorDef891 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEGeneratorDef901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEGeneratorDef943 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_ruleEGeneratorDef961 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEGeneratorConfigValue_in_ruleEGeneratorDef982 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleEGeneratorDef995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEGeneratorConfigValue_in_entryRuleEGeneratorConfigValue1033 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEGeneratorConfigValue1043 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEGeneratorConfigValue1085 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleEGeneratorConfigValue1102 = new BitSet(new long[]{0x0000000000002020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEGeneratorConfigValue1120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_ruleEGeneratorConfigValue1144 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEGeneratorConfigValue_in_ruleEGeneratorConfigValue1165 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleEGeneratorConfigValue1178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEBundleEntity_in_entryRuleEBundleEntity1216 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEBundleEntity1226 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEBundleEntity1271 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_ruleEBundleEntity1284 = new BitSet(new long[]{0x0000000139810000L});
-    public static final BitSet FOLLOW_23_in_ruleEBundleEntity1297 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEBundleEntity1314 = new BitSet(new long[]{0x0000000139010000L});
-    public static final BitSet FOLLOW_ruleEFkConstraint_in_ruleEBundleEntity1343 = new BitSet(new long[]{0x0000000131018000L});
-    public static final BitSet FOLLOW_15_in_ruleEBundleEntity1356 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_ruleEFkConstraint_in_ruleEBundleEntity1377 = new BitSet(new long[]{0x0000000131018000L});
-    public static final BitSet FOLLOW_ruleEUniqueConstraint_in_ruleEBundleEntity1403 = new BitSet(new long[]{0x0000000121018000L});
-    public static final BitSet FOLLOW_15_in_ruleEBundleEntity1416 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_ruleEUniqueConstraint_in_ruleEBundleEntity1437 = new BitSet(new long[]{0x0000000121018000L});
-    public static final BitSet FOLLOW_ruleEIndex_in_ruleEBundleEntity1463 = new BitSet(new long[]{0x0000000120018000L});
-    public static final BitSet FOLLOW_15_in_ruleEBundleEntity1476 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_ruleEIndex_in_ruleEBundleEntity1497 = new BitSet(new long[]{0x0000000120018000L});
-    public static final BitSet FOLLOW_ruleESQLAttTypeDef_in_ruleEBundleEntity1523 = new BitSet(new long[]{0x0000000100018000L});
-    public static final BitSet FOLLOW_15_in_ruleEBundleEntity1536 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_ruleESQLAttTypeDef_in_ruleEBundleEntity1557 = new BitSet(new long[]{0x0000000100018000L});
-    public static final BitSet FOLLOW_ruleERestServiceMapping_in_ruleEBundleEntity1582 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleEBundleEntity1595 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEIndex_in_entryRuleEIndex1633 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEIndex1643 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_ruleEIndex1680 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEIndex1697 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleEIndex1714 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEIndex1737 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleEIndex1750 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEIndex1773 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleEIndex1787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEFkConstraint_in_entryRuleEFkConstraint1823 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEFkConstraint1833 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_ruleEFkConstraint1870 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEFkConstraint1893 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEFkConstraint1910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEUniqueConstraint_in_entryRuleEUniqueConstraint1951 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEUniqueConstraint1961 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ruleEUniqueConstraint1998 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEUniqueConstraint2015 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleEUniqueConstraint2032 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint2055 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleEUniqueConstraint2068 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEUniqueConstraint2091 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleEUniqueConstraint2105 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleESQLAttTypeDef_in_entryRuleESQLAttTypeDef2141 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleESQLAttTypeDef2151 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_ruleESQLAttTypeDef2188 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleESQLAttTypeDef2211 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleESQLAttTypeDef2223 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleESQLDbType_in_ruleESQLAttTypeDef2244 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleESQLAttTypeDef2257 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleESQLDbType_in_ruleESQLAttTypeDef2278 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleESQLAttTypeDef2292 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleESQLTypeDef_in_entryRuleESQLTypeDef2328 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleESQLTypeDef2338 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_ruleESQLTypeDef2375 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_ruleEType_in_ruleESQLTypeDef2396 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleESQLTypeDef2408 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleESQLDbType_in_ruleESQLTypeDef2429 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleESQLTypeDef2442 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleESQLDbType_in_ruleESQLTypeDef2463 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleESQLTypeDef2477 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleESQLDbType_in_entryRuleESQLDbType2513 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleESQLDbType2523 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleESQLDbType2568 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleESQLDbType2596 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleESQLDbType2621 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_31_in_ruleESQLDbType2639 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleESQLDbType2656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleERestServiceMapping_in_entryRuleERestServiceMapping2699 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleERestServiceMapping2709 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_ruleERestServiceMapping2746 = new BitSet(new long[]{0x0000000200002000L});
-    public static final BitSet FOLLOW_13_in_ruleERestServiceMapping2768 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleENamedServiceQuery_in_ruleERestServiceMapping2789 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleERestServiceMapping2802 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_ruleERestServiceMapping2822 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleENamedServiceQuery_in_entryRuleENamedServiceQuery2871 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleENamedServiceQuery2881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleENamedServiceQuery2929 = new BitSet(new long[]{0x0000000400000000L});
-    public static final BitSet FOLLOW_34_in_ruleENamedServiceQuery2941 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleENamedServiceQuery2958 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleENamedServiceQuery2980 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_ruleENamedServiceQuery2998 = new BitSet(new long[]{0x0000005800010000L});
-    public static final BitSet FOLLOW_ruleEServiceParam_in_ruleENamedServiceQuery3019 = new BitSet(new long[]{0x0000005800010000L});
-    public static final BitSet FOLLOW_35_in_ruleENamedServiceQuery3033 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleENamedServiceQuery3045 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEGreedyAttributePath_in_ruleENamedServiceQuery3066 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleENamedServiceQuery3079 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleENamedServiceQuery3093 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEGreedyAttributePath_in_entryRuleEGreedyAttributePath3131 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEGreedyAttributePath3141 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEGreedyAttributePath3189 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_ruleEGreedyAttributePath3202 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEGreedyAttributePath_in_ruleEGreedyAttributePath3223 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_16_in_ruleEGreedyAttributePath3236 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEServiceParam_in_entryRuleEServiceParam3274 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEServiceParam3284 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPathParam_in_ruleEServiceParam3331 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEQueryParam_in_ruleEServiceParam3358 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPathParam_in_entryRuleEPathParam3393 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEPathParam3403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_ruleEPathParam3440 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEPathParam3463 = new BitSet(new long[]{0x0000002000000002L});
-    public static final BitSet FOLLOW_37_in_ruleEPathParam3476 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEPathParam3493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEQueryParam_in_entryRuleEQueryParam3536 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEQueryParam3546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_ruleEQueryParam3583 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEQueryParam3606 = new BitSet(new long[]{0x0000002000000002L});
-    public static final BitSet FOLLOW_37_in_ruleEQueryParam3619 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEQueryParam3636 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMappingEntityDef_in_entryRuleEMappingEntityDef3679 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMappingEntityDef3689 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePackageDeclaration_in_ruleEMappingEntityDef3735 = new BitSet(new long[]{0x0000188000000800L});
-    public static final BitSet FOLLOW_ruleImport_in_ruleEMappingEntityDef3756 = new BitSet(new long[]{0x0000188000000800L});
-    public static final BitSet FOLLOW_ruleEMappingEntity_in_ruleEMappingEntityDef3778 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImport_in_entryRuleImport3814 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleImport3824 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_ruleImport3861 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_ruleImport3884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleImport3903 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePackageDeclaration_in_entryRulePackageDeclaration3942 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePackageDeclaration3952 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_rulePackageDeclaration3989 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePackageDeclaration4010 = new BitSet(new long[]{0x0000020000000000L});
-    public static final BitSet FOLLOW_41_in_rulePackageDeclaration4022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFQN_in_entryRuleFQN4059 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleFQN4070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFQN4110 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_42_in_ruleFQN4138 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleFQN4154 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_ruleEMappingEntity_in_entryRuleEMappingEntity4201 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMappingEntity4211 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_43_in_ruleEMappingEntity4254 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_44_in_ruleEMappingEntity4280 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingEntity4297 = new BitSet(new long[]{0x0000200000003000L});
-    public static final BitSet FOLLOW_12_in_ruleEMappingEntity4323 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_45_in_ruleEMappingEntity4352 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEMappingEntity4391 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingEntity4405 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_ruleEType_in_ruleEMappingEntity4426 = new BitSet(new long[]{0x0000C00000010000L});
-    public static final BitSet FOLLOW_46_in_ruleEMappingEntity4439 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingEntity4451 = new BitSet(new long[]{0x0006000000000010L});
-    public static final BitSet FOLLOW_ruleEAttribute_in_ruleEMappingEntity4472 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleEMappingEntity4485 = new BitSet(new long[]{0x0006000000000010L});
-    public static final BitSet FOLLOW_ruleEAttribute_in_ruleEMappingEntity4506 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingEntity4520 = new BitSet(new long[]{0x0000800000010000L});
-    public static final BitSet FOLLOW_47_in_ruleEMappingEntity4535 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEMappingEntity4547 = new BitSet(new long[]{0xFC00000000000010L,0x0000000000018105L});
-    public static final BitSet FOLLOW_ruleENamedQuery_in_ruleEMappingEntity4569 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_ruleENamedCustomQuery_in_ruleEMappingEntity4596 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleEMappingEntity4610 = new BitSet(new long[]{0xFC00000000000010L,0x0000000000018105L});
-    public static final BitSet FOLLOW_ruleENamedQuery_in_ruleEMappingEntity4632 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_ruleENamedCustomQuery_in_ruleEMappingEntity4659 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingEntity4674 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleEMappingEntity4688 = new BitSet(new long[]{0x0001000400000002L});
-    public static final BitSet FOLLOW_34_in_ruleEMappingEntity4701 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingEntity4718 = new BitSet(new long[]{0x0001000000000002L});
-    public static final BitSet FOLLOW_48_in_ruleEMappingEntity4738 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingEntity4755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEAttribute_in_entryRuleEAttribute4798 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEAttribute4808 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_ruleEAttribute4852 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_50_in_ruleEAttribute4890 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEAttribute4921 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleEAttribute4938 = new BitSet(new long[]{0x0020000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEAttribute4957 = new BitSet(new long[]{0x0010000080000002L});
-    public static final BitSet FOLLOW_52_in_ruleEAttribute4975 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleEAttribute4987 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleEValueGenerator_in_ruleEAttribute5008 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleEAttribute5021 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleEValueGenerator_in_ruleEAttribute5042 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleEAttribute5056 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_53_in_ruleEAttribute5084 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEAttribute5120 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleEAttribute5132 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEAttribute5149 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleEAttribute5166 = new BitSet(new long[]{0x0000000080000012L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEAttribute5190 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_54_in_ruleEAttribute5202 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEAttribute5219 = new BitSet(new long[]{0x0000040080000002L});
-    public static final BitSet FOLLOW_42_in_ruleEAttribute5237 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEAttribute5254 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_31_in_ruleEAttribute5278 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEAttribute5295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEValueGenerator_in_entryRuleEValueGenerator5338 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEValueGenerator5348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEValueGenerator5390 = new BitSet(new long[]{0x0380000000000000L});
-    public static final BitSet FOLLOW_55_in_ruleEValueGenerator5414 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_ruleEValueGenerator5446 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEValueGenerator5463 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_57_in_ruleEValueGenerator5488 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEValueGenerator5505 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleENamedQuery_in_entryRuleENamedQuery5548 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleENamedQuery5558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReturnType_in_ruleENamedQuery5604 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleENamedQuery5622 = new BitSet(new long[]{0x0000000002002000L});
-    public static final BitSet FOLLOW_25_in_ruleENamedQuery5640 = new BitSet(new long[]{0xFC02000004000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleEParameter_in_ruleENamedQuery5662 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleENamedQuery5675 = new BitSet(new long[]{0xFC02000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleEParameter_in_ruleENamedQuery5696 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleENamedQuery5712 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleENamedQuery5726 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleEQuery_in_ruleENamedQuery5747 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleENamedQuery5760 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleEQuery_in_ruleENamedQuery5781 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleENamedQuery5795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPrimtiveType_in_entryRuleEPrimtiveType5832 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEPrimtiveType5843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_ruleEPrimtiveType5881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_ruleEPrimtiveType5900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_ruleEPrimtiveType5919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_ruleEPrimtiveType5938 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_62_in_ruleEPrimtiveType5957 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFQN_in_ruleEPrimtiveType5985 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMapType_in_entryRuleEMapType6031 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMapType6042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_ruleEMapType6079 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleENamedCustomQuery_in_entryRuleENamedCustomQuery6118 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleENamedCustomQuery6128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEReturnType_in_ruleENamedCustomQuery6175 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_64_in_ruleENamedCustomQuery6200 = new BitSet(new long[]{0xFC00000000000010L,0x0000000000000104L});
-    public static final BitSet FOLLOW_ruleEReturnType_in_ruleENamedCustomQuery6234 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleENamedCustomQuery6246 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleENamedCustomQuery6265 = new BitSet(new long[]{0x0000000002002000L});
-    public static final BitSet FOLLOW_25_in_ruleENamedCustomQuery6283 = new BitSet(new long[]{0xFC02000004000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleEParameter_in_ruleENamedCustomQuery6305 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleENamedCustomQuery6318 = new BitSet(new long[]{0xFC02000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleEParameter_in_ruleENamedCustomQuery6339 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleENamedCustomQuery6355 = new BitSet(new long[]{0x0000000000002000L});
-    public static final BitSet FOLLOW_13_in_ruleENamedCustomQuery6369 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleECustomQuery_in_ruleENamedCustomQuery6390 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleENamedCustomQuery6403 = new BitSet(new long[]{0x0000000040000020L});
-    public static final BitSet FOLLOW_ruleECustomQuery_in_ruleENamedCustomQuery6424 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleENamedCustomQuery6438 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEReturnType_in_entryRuleEReturnType6474 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEReturnType6484 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPredefinedType_in_ruleEReturnType6531 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleETypeDef_in_ruleEReturnType6558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEModelTypeDef_in_ruleEReturnType6585 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPredefinedType_in_entryRuleEPredefinedType6620 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEPredefinedType6630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMapType_in_ruleEPredefinedType6677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPrimtiveType_in_ruleEPredefinedType6696 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleETypeDef_in_entryRuleETypeDef6734 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleETypeDef6744 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_ruleETypeDef6781 = new BitSet(new long[]{0xFC00000000000010L});
-    public static final BitSet FOLLOW_ruleFQN_in_ruleETypeDef6802 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleETypeDef6814 = new BitSet(new long[]{0xFC00000000000010L});
-    public static final BitSet FOLLOW_ruleEValueTypeAttribute_in_ruleETypeDef6835 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleETypeDef6848 = new BitSet(new long[]{0xFC00000000000010L});
-    public static final BitSet FOLLOW_ruleEValueTypeAttribute_in_ruleETypeDef6869 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleETypeDef6883 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEModelTypeDef_in_entryRuleEModelTypeDef6919 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEModelTypeDef6929 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEType_in_ruleEModelTypeDef6975 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleEModelTypeDef6987 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEModelTypeAttribute_in_ruleEModelTypeDef7008 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleEModelTypeDef7021 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEModelTypeAttribute_in_ruleEModelTypeDef7042 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleEModelTypeDef7056 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEModelTypeAttribute_in_entryRuleEModelTypeAttribute7092 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEModelTypeAttribute7102 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7144 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_53_in_ruleEModelTypeAttribute7162 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEModelTypeAttribute7185 = new BitSet(new long[]{0x0000000002000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_25_in_ruleEModelTypeAttribute7198 = new BitSet(new long[]{0x0000000004000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7216 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_15_in_ruleEModelTypeAttribute7234 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7251 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleEModelTypeAttribute7272 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_67_in_ruleEModelTypeAttribute7293 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEModelTypeAttribute7323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEValueTypeAttribute_in_entryRuleEValueTypeAttribute7369 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEValueTypeAttribute7379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEPrimtiveType_in_ruleEValueTypeAttribute7425 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEValueTypeAttribute7442 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEParameter_in_entryRuleEParameter7483 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEParameter7493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_ruleEParameter7536 = new BitSet(new long[]{0xFC00000000000010L,0x0000000000000001L});
-    public static final BitSet FOLLOW_ruleEPrimtiveType_in_ruleEParameter7572 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_64_in_ruleEParameter7597 = new BitSet(new long[]{0xFC00000000000010L});
-    public static final BitSet FOLLOW_ruleEPrimtiveType_in_ruleEParameter7631 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_ruleEParameter7643 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEParameter7662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEQuery_in_entryRuleEQuery7703 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEQuery7713 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleEQuery7758 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7786 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEObjectSection_in_ruleEQuery7815 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_ruleEQuery7829 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7846 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000E0L});
-    public static final BitSet FOLLOW_69_in_ruleEQuery7864 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7881 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000C0L});
-    public static final BitSet FOLLOW_70_in_ruleEQuery7901 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7918 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
-    public static final BitSet FOLLOW_71_in_ruleEQuery7938 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEQuery7986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleECustomQuery_in_entryRuleECustomQuery8028 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleECustomQuery8038 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleECustomQuery8083 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8111 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8136 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_ruleECustomQuery8155 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8172 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000E0L});
-    public static final BitSet FOLLOW_69_in_ruleECustomQuery8190 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8207 = new BitSet(new long[]{0x0000000000000002L,0x00000000000000C0L});
-    public static final BitSet FOLLOW_70_in_ruleECustomQuery8227 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8244 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
-    public static final BitSet FOLLOW_71_in_ruleECustomQuery8264 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8281 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleECustomQuery8312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEObjectSection_in_entryRuleEObjectSection8354 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEObjectSection8364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEObjectSection8409 = new BitSet(new long[]{0x0000000002000012L});
-    public static final BitSet FOLLOW_25_in_ruleEObjectSection8422 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEObjectSection8442 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ruleEObjectSection8455 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEObjectSection8475 = new BitSet(new long[]{0x0000000004008000L});
-    public static final BitSet FOLLOW_26_in_ruleEObjectSection8489 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEObjectSection8509 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_ruleEObjectSection8527 = new BitSet(new long[]{0x0002000000000010L});
-    public static final BitSet FOLLOW_ruleEMappingAttribute_in_ruleEObjectSection8548 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_15_in_ruleEObjectSection8561 = new BitSet(new long[]{0x0002000000000010L});
-    public static final BitSet FOLLOW_ruleEMappingAttribute_in_ruleEObjectSection8582 = new BitSet(new long[]{0x0000000000018000L});
-    public static final BitSet FOLLOW_16_in_ruleEObjectSection8596 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEMappingAttribute_in_entryRuleEMappingAttribute8636 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEMappingAttribute8646 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_ruleEMappingAttribute8689 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEMappingAttribute8724 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_51_in_ruleEMappingAttribute8736 = new BitSet(new long[]{0x8020000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingAttribute8754 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_ruleEMappingAttribute8784 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleEMappingAttribute8820 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleEMappingAttribute8832 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEMappingAttribute8849 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleEMappingAttribute8866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_ruleEMappingAttribute8892 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleEObjectSection_in_ruleEMappingAttribute8926 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleEType_in_entryRuleEType8964 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleEType8974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_ruleEType9011 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleEType9028 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_73_in_ruleEType9045 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleEType9062 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName9104 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName9115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName9155 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_42_in_ruleQualifiedName9183 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName9199 = new BitSet(new long[]{0x0000040000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_entryRuleQualifiedNameWithWildcard9247 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedNameWithWildcard9258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleQualifiedNameWithWildcard9305 = new BitSet(new long[]{0x0000040000000000L});
-    public static final BitSet FOLLOW_42_in_ruleQualifiedNameWithWildcard9323 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_74_in_ruleQualifiedNameWithWildcard9336 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_ruleColSort9390 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_76_in_ruleColSort9407 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_77_in_ruleColSort9424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_78_in_ruleColSort9441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_79_in_ruleReturnType9486 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_80_in_ruleReturnType9503 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_synpred1_InternalEMap4129 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_synpred2_InternalEMap9174 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000010000000800L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000000000003000L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000002000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000004010L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000300000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000018000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000020038000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000020030000L});
+    public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000000010010L});
+    public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x00000000000C0002L});
+    public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000088002L});
+    public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000000000000000L,0x000000000000F000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000002002L});
+    public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000139810000L});
+    public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000139010000L});
+    public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000131018000L});
+    public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000121018000L});
+    public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000120018000L});
+    public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000100018000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000004008000L});
+    public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000040000020L});
+    public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000000200002000L});
+    public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0000001000010010L});
+    public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000001000010000L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x000000A800010000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x000000A000010000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000004000000002L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000310000000800L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000040000000000L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000080000000002L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0000200000000000L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000400000003000L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0001800000010000L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x000C000000000010L});
+    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0001000000010000L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0xF800000000000010L,0x000000000003020BL});
+    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0002000400000002L});
+    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0002000000000002L});
+    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x0010000000000000L});
+    public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x0040000000000010L});
+    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0020000080000002L});
+    public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x0000000080000012L});
+    public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0000080080000002L});
+    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0700000000000000L});
+    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000002002000L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0xF804000004000010L,0x0000000000000003L});
+    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0xF804000000000010L,0x0000000000000003L});
+    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000209L});
+    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000001L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000002000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000004000010L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000003L});
+    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000020L});
+    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000002L,0x00000000000001C0L});
+    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000180L});
+    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0000000002000012L});
+    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0004000000000010L});
+    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0040000000000010L,0x0000000000000001L});
+    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
 
 }

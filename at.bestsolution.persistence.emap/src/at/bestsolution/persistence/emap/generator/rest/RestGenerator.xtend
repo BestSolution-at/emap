@@ -24,6 +24,7 @@ import at.bestsolution.persistence.emap.eMap.EQueryParam
 import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath
 import java.util.ArrayList
 import java.util.List
+import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods
 
 class RestGenerator {
 	@Inject extension
@@ -315,6 +316,14 @@ class RestGenerator {
 			}
 			«ENDFOR»
 		«ENDFOR»
+
+		«FOR sm : restMapping.customServiceMethods»
+			@javax.ws.rs.GET
+			@javax.ws.rs.Path("«sm.path»")
+			public java.util.List<«mapping.packageName».dto.DTO«eClass.name»> «sm.name»(«sm.parameters.map[p | p.toRestAnnotation + " " + p.param.parameterType + " " + p.param.name].join(", ")») {
+				throw new UnsupportedOperationException();
+			}
+		«ENDFOR»
 	}
 	'''
 	def static List<EGreedyAttributePath> collectAllGreedyPaths(ENamedServiceQuery query) {
@@ -421,6 +430,11 @@ class RestGenerator {
 				}
 			«ENDIF»
 		«ENDFOR»
+		«FOR sm : restMapping.customServiceMethods»
+			«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
+				this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
+			}
+		«ENDFOR»
 	}'''
 
 	def packageName(EMappingEntity entity) {
@@ -428,6 +442,23 @@ class RestGenerator {
 	}
 
 	def createPathString(ENamedServiceQuery sm) {
+		var path = sm.path
+		for( p : sm.parameters.filter(typeof(EPathParam)) ) {
+			path = path.replace("{"+p.toRestParamName+"}", '"+'+p.param.name+'+"')
+		}
+		for( p : sm.parameters.filter(typeof(EQueryParam)).indexed ) {
+			if( p.key == 0 ) {
+				path += "?"
+			} else {
+				path += "&"
+			}
+			path += p.value.toRestParamName + "=" + '"+'+p.value.param.name +'+"'
+		}
+
+		return path
+	}
+
+	def createPathString(ECustomServiceMethods sm) {
 		var path = sm.path
 		for( p : sm.parameters.filter(typeof(EPathParam)) ) {
 			path = path.replace("{"+p.toRestParamName+"}", '"+'+p.param.name+'+"')

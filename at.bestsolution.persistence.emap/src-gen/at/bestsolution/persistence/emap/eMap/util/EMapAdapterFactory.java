@@ -145,6 +145,11 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
         return createENamedServiceQueryAdapter();
       }
       @Override
+      public Adapter caseECustomServiceMethods(ECustomServiceMethods object)
+      {
+        return createECustomServiceMethodsAdapter();
+      }
+      @Override
       public Adapter caseEGreedyAttributePath(EGreedyAttributePath object)
       {
         return createEGreedyAttributePathAdapter();
@@ -502,6 +507,21 @@ public class EMapAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createENamedServiceQueryAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods <em>ECustom Service Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomServiceMethods
+   * @generated
+   */
+  public Adapter createECustomServiceMethodsAdapter()
   {
     return null;
   }

@@ -6,6 +6,7 @@ package at.bestsolution.persistence.emap.serializer;
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
+import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue;
 import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
@@ -43,17 +44,15 @@ import at.bestsolution.persistence.emap.eMap.Import;
 import at.bestsolution.persistence.emap.eMap.PackageDeclaration;
 import at.bestsolution.persistence.emap.services.EMapGrammarAccess;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
 @SuppressWarnings("all")
@@ -63,8 +62,13 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	private EMapGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == EMapPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == EMapPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case EMapPackage.EATTRIBUTE:
 				sequence_EAttribute(context, (EAttribute) semanticObject); 
 				return; 
@@ -73,6 +77,9 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				return; 
 			case EMapPackage.ECUSTOM_QUERY:
 				sequence_ECustomQuery(context, (ECustomQuery) semanticObject); 
+				return; 
+			case EMapPackage.ECUSTOM_SERVICE_METHODS:
+				sequence_ECustomServiceMethods(context, (ECustomServiceMethods) semanticObject); 
 				return; 
 			case EMapPackage.EFK_CONSTRAINT:
 				sequence_EFkConstraint(context, (EFkConstraint) semanticObject); 
@@ -177,13 +184,17 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				sequence_PackageDeclaration(context, (PackageDeclaration) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     EAttribute returns EAttribute
+	 *
 	 * Constraint:
 	 *     (
-	 *         (pk?='primarykey'? | forcedFk?='forced-fk') 
+	 *         (pk?='primarykey' | forcedFk?='forced-fk')? 
 	 *         name=ID 
 	 *         (
 	 *             (columnName=ID (valueGenerators+=EValueGenerator valueGenerators+=EValueGenerator*)?) | 
@@ -192,52 +203,70 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         size=STRING?
 	 *     )
 	 */
-	protected void sequence_EAttribute(EObject context, EAttribute semanticObject) {
+	protected void sequence_EAttribute(ISerializationContext context, EAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EBundleEntity returns EBundleEntity
+	 *
 	 * Constraint:
 	 *     (
 	 *         entity=[EMappingEntity|ID] 
-	 *         (
-	 *             pkConstraintName=STRING? 
-	 *             (fkConstraints+=EFkConstraint fkConstraints+=EFkConstraint*)? 
-	 *             (uniqueContraints+=EUniqueConstraint uniqueContraints+=EUniqueConstraint*)? 
-	 *             (indices+=EIndex indices+=EIndex*)? 
-	 *             (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)? 
-	 *             rest=ERestServiceMapping?
-	 *         )?
+	 *         pkConstraintName=STRING? 
+	 *         (fkConstraints+=EFkConstraint fkConstraints+=EFkConstraint*)? 
+	 *         (uniqueContraints+=EUniqueConstraint uniqueContraints+=EUniqueConstraint*)? 
+	 *         (indices+=EIndex indices+=EIndex*)? 
+	 *         (typeDefs+=ESQLAttTypeDef typeDefs+=ESQLAttTypeDef*)? 
+	 *         rest=ERestServiceMapping?
 	 *     )
 	 */
-	protected void sequence_EBundleEntity(EObject context, EBundleEntity semanticObject) {
+	protected void sequence_EBundleEntity(ISerializationContext context, EBundleEntity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ECustomQuery returns ECustomQuery
+	 *
 	 * Constraint:
 	 *     ((dbType='default' | dbType=STRING) columns=STRING ((from=STRING where=STRING? groupBy=STRING? orderby=STRING?) | all=STRING))
 	 */
-	protected void sequence_ECustomQuery(EObject context, ECustomQuery semanticObject) {
+	protected void sequence_ECustomQuery(ISerializationContext context, ECustomQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ECustomServiceMethods returns ECustomServiceMethods
+	 *
+	 * Constraint:
+	 *     (name=ID path=STRING parameters+=EServiceParam*)
+	 */
+	protected void sequence_ECustomServiceMethods(ISerializationContext context, ECustomServiceMethods semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     EFkConstraint returns EFkConstraint
+	 *
 	 * Constraint:
 	 *     (attribute=[EAttribute|QualifiedName] name=STRING)
 	 */
-	protected void sequence_EFkConstraint(EObject context, EFkConstraint semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__ATTRIBUTE) == ValueTransient.YES)
+	protected void sequence_EFkConstraint(ISerializationContext context, EFkConstraint semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__ATTRIBUTE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__ATTRIBUTE));
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__NAME) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EFK_CONSTRAINT__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEFkConstraintAccess().getAttributeEAttributeQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAttribute());
 		feeder.accept(grammarAccess.getEFkConstraintAccess().getNameSTRINGTerminalRuleCall_2_0(), semanticObject.getName());
 		feeder.finish();
@@ -245,42 +274,57 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	
 	/**
+	 * Contexts:
+	 *     EGeneratorConfigValue returns EGeneratorConfigValue
+	 *
 	 * Constraint:
 	 *     (key=ID (simpleValue=STRING | children+=EGeneratorConfigValue+))
 	 */
-	protected void sequence_EGeneratorConfigValue(EObject context, EGeneratorConfigValue semanticObject) {
+	protected void sequence_EGeneratorConfigValue(ISerializationContext context, EGeneratorConfigValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EGeneratorDef returns EGeneratorDef
+	 *
 	 * Constraint:
 	 *     (name=ID parameters+=EGeneratorConfigValue*)
 	 */
-	protected void sequence_EGeneratorDef(EObject context, EGeneratorDef semanticObject) {
+	protected void sequence_EGeneratorDef(ISerializationContext context, EGeneratorDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EGreedyAttributePath returns EGreedyAttributePath
+	 *
 	 * Constraint:
 	 *     (greedyAttribute=[EAttribute|QualifiedName] subPathList+=EGreedyAttributePath*)
 	 */
-	protected void sequence_EGreedyAttributePath(EObject context, EGreedyAttributePath semanticObject) {
+	protected void sequence_EGreedyAttributePath(ISerializationContext context, EGreedyAttributePath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EIndex returns EIndex
+	 *
 	 * Constraint:
 	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]*)
 	 */
-	protected void sequence_EIndex(EObject context, EIndex semanticObject) {
+	protected void sequence_EIndex(ISerializationContext context, EIndex semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMappingAttribute returns EMappingAttribute
+	 *
 	 * Constraint:
 	 *     (
 	 *         pk?='primarykey'? 
@@ -288,12 +332,15 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         (columnName=ID | (resolved?='resolve' query=[ENamedQuery|QualifiedName] parameters+=ID) | (mapped?='map' map=EObjectSection))
 	 *     )
 	 */
-	protected void sequence_EMappingAttribute(EObject context, EMappingAttribute semanticObject) {
+	protected void sequence_EMappingAttribute(ISerializationContext context, EMappingAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMappingBundle returns EMappingBundle
+	 *
 	 * Constraint:
 	 *     (
 	 *         imports+=Import* 
@@ -308,21 +355,27 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         colSort=ColSort?
 	 *     )
 	 */
-	protected void sequence_EMappingBundle(EObject context, EMappingBundle semanticObject) {
+	protected void sequence_EMappingBundle(ISerializationContext context, EMappingBundle semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMappingEntityDef returns EMappingEntityDef
+	 *
 	 * Constraint:
 	 *     (package=PackageDeclaration imports+=Import* entity=EMappingEntity)
 	 */
-	protected void sequence_EMappingEntityDef(EObject context, EMappingEntityDef semanticObject) {
+	protected void sequence_EMappingEntityDef(ISerializationContext context, EMappingEntityDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMappingEntity returns EMappingEntity
+	 *
 	 * Constraint:
 	 *     (
 	 *         abstract?='abstract'? 
@@ -330,44 +383,61 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         ((extensionType='extends' | extensionType='derived') parent=[EMappingEntity|QualifiedName])? 
 	 *         etype=EType 
 	 *         (attributes+=EAttribute attributes+=EAttribute*)? 
-	 *         ((namedQueries+=ENamedQuery | namedCustomQueries+=ENamedCustomQuery) (namedQueries+=ENamedQuery | namedCustomQueries+=ENamedCustomQuery)*)? 
+	 *         (
+	 *             (namedQueries+=ENamedQuery | namedCustomQueries+=ENamedCustomQuery) 
+	 *             namedQueries+=ENamedQuery? 
+	 *             (namedCustomQueries+=ENamedCustomQuery? namedQueries+=ENamedQuery?)*
+	 *         )? 
 	 *         tableName=ID? 
 	 *         descriminationColumn=ID?
 	 *     )
 	 */
-	protected void sequence_EMappingEntity(EObject context, EMappingEntity semanticObject) {
+	protected void sequence_EMappingEntity(ISerializationContext context, EMappingEntity semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMapping returns EMapping
+	 *
 	 * Constraint:
 	 *     (root=EMappingBundle | root=EMappingEntityDef)
 	 */
-	protected void sequence_EMapping(EObject context, EMapping semanticObject) {
+	protected void sequence_EMapping(ISerializationContext context, EMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EModelTypeAttribute returns EModelTypeAttribute
+	 *
 	 * Constraint:
 	 *     (name=ID (query=[ENamedCustomQuery|QualifiedName] (parameters+=ID parameters+=ID*)? (cached?='cached' cacheName=ID?)?)?)
 	 */
-	protected void sequence_EModelTypeAttribute(EObject context, EModelTypeAttribute semanticObject) {
+	protected void sequence_EModelTypeAttribute(ISerializationContext context, EModelTypeAttribute semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EReturnType returns EModelTypeDef
+	 *     EModelTypeDef returns EModelTypeDef
+	 *
 	 * Constraint:
 	 *     (eclassDef=EType attributes+=EModelTypeAttribute attributes+=EModelTypeAttribute*)
 	 */
-	protected void sequence_EModelTypeDef(EObject context, EModelTypeDef semanticObject) {
+	protected void sequence_EModelTypeDef(ISerializationContext context, EModelTypeDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ENamedCustomQuery returns ENamedCustomQuery
+	 *
 	 * Constraint:
 	 *     (
 	 *         (returnType=EReturnType | (list?='[' returnType=EReturnType)) 
@@ -377,30 +447,39 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         queries+=ECustomQuery*
 	 *     )
 	 */
-	protected void sequence_ENamedCustomQuery(EObject context, ENamedCustomQuery semanticObject) {
+	protected void sequence_ENamedCustomQuery(ISerializationContext context, ENamedCustomQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ENamedQuery returns ENamedQuery
+	 *
 	 * Constraint:
 	 *     (returnType=ReturnType? name=ID (parameters+=EParameter parameters+=EParameter*)? queries+=EQuery queries+=EQuery*)
 	 */
-	protected void sequence_ENamedQuery(EObject context, ENamedQuery semanticObject) {
+	protected void sequence_ENamedQuery(ISerializationContext context, ENamedQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ENamedServiceQuery returns ENamedServiceQuery
+	 *
 	 * Constraint:
-	 *     (query=[ENamedQuery|QualifiedName] name=ID path=STRING (parameters+=EServiceParam* greedyAttributePathList+=EGreedyAttributePath*)?)
+	 *     (query=[ENamedQuery|QualifiedName] name=ID path=STRING parameters+=EServiceParam* greedyAttributePathList+=EGreedyAttributePath*)
 	 */
-	protected void sequence_ENamedServiceQuery(EObject context, ENamedServiceQuery semanticObject) {
+	protected void sequence_ENamedServiceQuery(ISerializationContext context, ENamedServiceQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EObjectSection returns EObjectSection
+	 *
 	 * Constraint:
 	 *     (
 	 *         entity=[EMappingEntity|ID] 
@@ -408,146 +487,186 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *         (prefix=ID (attributes+=EMappingAttribute attributes+=EMappingAttribute*)?)?
 	 *     )
 	 */
-	protected void sequence_EObjectSection(EObject context, EObjectSection semanticObject) {
+	protected void sequence_EObjectSection(ISerializationContext context, EObjectSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EParameter returns EParameter
+	 *
 	 * Constraint:
 	 *     (id?='primarykey'? (type=EPrimtiveType | (list?='[' type=EPrimtiveType)) name=ID)
 	 */
-	protected void sequence_EParameter(EObject context, EParameter semanticObject) {
+	protected void sequence_EParameter(ISerializationContext context, EParameter semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EServiceParam returns EPathParam
+	 *     EPathParam returns EPathParam
+	 *
 	 * Constraint:
 	 *     (param=[EParameter|QualifiedName] name=ID?)
 	 */
-	protected void sequence_EPathParam(EObject context, EPathParam semanticObject) {
+	protected void sequence_EPathParam(ISerializationContext context, EPathParam semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EPredef returns EPredefSequence
+	 *
 	 * Constraint:
 	 *     name=STRING
 	 */
-	protected void sequence_EPredef(EObject context, EPredefSequence semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
+	protected void sequence_EPredef(ISerializationContext context, EPredefSequence semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPREDEF__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_0_2_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EPredef returns EPredefTable
+	 *
 	 * Constraint:
 	 *     name=STRING
 	 */
-	protected void sequence_EPredef(EObject context, EPredefTable semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
+	protected void sequence_EPredef(ISerializationContext context, EPredefTable semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EPREDEF__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EPREDEF__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEPredefAccess().getNameSTRINGTerminalRuleCall_1_2_0(), semanticObject.getName());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EReturnType returns EPredefinedType
+	 *     EPredefinedType returns EPredefinedType
+	 *
 	 * Constraint:
 	 *     (ref=EMapType | ref=EPrimtiveType)
 	 */
-	protected void sequence_EPredefinedType(EObject context, EPredefinedType semanticObject) {
+	protected void sequence_EPredefinedType(ISerializationContext context, EPredefinedType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EServiceParam returns EQueryParam
+	 *     EQueryParam returns EQueryParam
+	 *
 	 * Constraint:
 	 *     (param=[EParameter|QualifiedName] name=ID?)
 	 */
-	protected void sequence_EQueryParam(EObject context, EQueryParam semanticObject) {
+	protected void sequence_EQueryParam(ISerializationContext context, EQueryParam semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EQuery returns EQuery
+	 *
 	 * Constraint:
 	 *     ((dbType='default' | dbType=STRING) mapping=EObjectSection ((from=STRING where=STRING? groupBy=STRING? orderby=STRING?) | all=STRING))
 	 */
-	protected void sequence_EQuery(EObject context, EQuery semanticObject) {
+	protected void sequence_EQuery(ISerializationContext context, EQuery semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ERestServiceMapping returns ERestServiceMapping
+	 *
 	 * Constraint:
-	 *     (serviceMethods+=ENamedServiceQuery* rest?='rest')
+	 *     (serviceMethods+=ENamedServiceQuery* customServiceMethods+=ECustomServiceMethods* rest?='rest')
 	 */
-	protected void sequence_ERestServiceMapping(EObject context, ERestServiceMapping semanticObject) {
+	protected void sequence_ERestServiceMapping(ISerializationContext context, ERestServiceMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ESQLAttTypeDef returns ESQLAttTypeDef
+	 *
 	 * Constraint:
 	 *     (attribute=[EAttribute|QualifiedName] dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
 	 */
-	protected void sequence_ESQLAttTypeDef(EObject context, ESQLAttTypeDef semanticObject) {
+	protected void sequence_ESQLAttTypeDef(ISerializationContext context, ESQLAttTypeDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ESQLDbType returns ESQLDbType
+	 *
 	 * Constraint:
 	 *     ((dbType='default' | dbType=STRING) sqlTypeDef=STRING size=STRING?)
 	 */
-	protected void sequence_ESQLDbType(EObject context, ESQLDbType semanticObject) {
+	protected void sequence_ESQLDbType(ISerializationContext context, ESQLDbType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ESQLTypeDef returns ESQLTypeDef
+	 *
 	 * Constraint:
 	 *     (etype=EType dbTypes+=ESQLDbType dbTypes+=ESQLDbType*)
 	 */
-	protected void sequence_ESQLTypeDef(EObject context, ESQLTypeDef semanticObject) {
+	protected void sequence_ESQLTypeDef(ISerializationContext context, ESQLTypeDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EReturnType returns ETypeDef
+	 *     ETypeDef returns ETypeDef
+	 *
 	 * Constraint:
 	 *     (name=FQN types+=EValueTypeAttribute types+=EValueTypeAttribute*)
 	 */
-	protected void sequence_ETypeDef(EObject context, ETypeDef semanticObject) {
+	protected void sequence_ETypeDef(ISerializationContext context, ETypeDef semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EType returns EType
+	 *
 	 * Constraint:
 	 *     (url=STRING name=ID)
 	 */
-	protected void sequence_EType(EObject context, EType semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.ETYPE__URL) == ValueTransient.YES)
+	protected void sequence_EType(ISerializationContext context, EType semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.ETYPE__URL) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.ETYPE__URL));
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.ETYPE__NAME) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.ETYPE__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.ETYPE__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getETypeAccess().getUrlSTRINGTerminalRuleCall_1_0(), semanticObject.getUrl());
 		feeder.accept(grammarAccess.getETypeAccess().getNameIDTerminalRuleCall_3_0(), semanticObject.getName());
 		feeder.finish();
@@ -555,36 +674,44 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	
 	/**
+	 * Contexts:
+	 *     EUniqueConstraint returns EUniqueConstraint
+	 *
 	 * Constraint:
 	 *     (name=STRING attributes+=[EAttribute|QualifiedName] attributes+=[EAttribute|QualifiedName]*)
 	 */
-	protected void sequence_EUniqueConstraint(EObject context, EUniqueConstraint semanticObject) {
+	protected void sequence_EUniqueConstraint(ISerializationContext context, EUniqueConstraint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EValueGenerator returns EValueGenerator
+	 *
 	 * Constraint:
 	 *     (dbType=STRING (autokey?='autokey' | query=STRING | sequence=STRING))
 	 */
-	protected void sequence_EValueGenerator(EObject context, EValueGenerator semanticObject) {
+	protected void sequence_EValueGenerator(ISerializationContext context, EValueGenerator semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EValueTypeAttribute returns EValueTypeAttribute
+	 *
 	 * Constraint:
 	 *     (type=EPrimtiveType name=ID)
 	 */
-	protected void sequence_EValueTypeAttribute(EObject context, EValueTypeAttribute semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__TYPE) == ValueTransient.YES)
+	protected void sequence_EValueTypeAttribute(ISerializationContext context, EValueTypeAttribute semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__TYPE) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__TYPE));
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__NAME) == ValueTransient.YES)
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.EVALUE_TYPE_ATTRIBUTE__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getEValueTypeAttributeAccess().getTypeEPrimtiveTypeParserRuleCall_0_0(), semanticObject.getType());
 		feeder.accept(grammarAccess.getEValueTypeAttributeAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
@@ -592,26 +719,33 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	
 	/**
+	 * Contexts:
+	 *     Import returns Import
+	 *
 	 * Constraint:
 	 *     (importedNamespace=QualifiedNameWithWildcard | importedNamespace=QualifiedName)
 	 */
-	protected void sequence_Import(EObject context, Import semanticObject) {
+	protected void sequence_Import(ISerializationContext context, Import semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PackageDeclaration returns PackageDeclaration
+	 *
 	 * Constraint:
 	 *     name=QualifiedName
 	 */
-	protected void sequence_PackageDeclaration(EObject context, PackageDeclaration semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, EMapPackage.Literals.PACKAGE_DECLARATION__NAME) == ValueTransient.YES)
+	protected void sequence_PackageDeclaration(ISerializationContext context, PackageDeclaration semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, EMapPackage.Literals.PACKAGE_DECLARATION__NAME) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, EMapPackage.Literals.PACKAGE_DECLARATION__NAME));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getPackageDeclarationAccess().getNameQualifiedNameParserRuleCall_1_0(), semanticObject.getName());
 		feeder.finish();
 	}
+	
+	
 }

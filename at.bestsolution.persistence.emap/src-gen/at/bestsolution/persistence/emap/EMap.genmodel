@@ -4,7 +4,7 @@
     editorDirectory="/at.bestsolution.persistence.emap.editor/src" modelPluginID="at.bestsolution.persistence.emap"
     forceOverwrite="true" modelName="EMap" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="at.bestsolution.persistence.emap.edit"
-    editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.10">
+    editorPluginID="at.bestsolution.persistence.emap.editor" runtimeVersion="2.11">
   <genPackages prefix="EMap" basePackage="at.bestsolution.persistence.emap" disposableProviderFactory="true"
       fileExtensions="emap" ecorePackage="EMap.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMap.ecore#//ColSort">
@@ -79,6 +79,7 @@
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ERestServiceMapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ERestServiceMapping/serviceMethods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ERestServiceMapping/customServiceMethods"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ERestServiceMapping/rest"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//ENamedServiceQuery">
@@ -87,6 +88,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ENamedServiceQuery/path"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ENamedServiceQuery/greedyAttributePathList"/>
+    </genClasses>
+    <genClasses ecoreClass="EMap.ecore#//ECustomServiceMethods">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomServiceMethods/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMap.ecore#//ECustomServiceMethods/path"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMap.ecore#//ECustomServiceMethods/parameters"/>
     </genClasses>
     <genClasses ecoreClass="EMap.ecore#//EGreedyAttributePath">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMap.ecore#//EGreedyAttributePath/greedyAttribute"/>

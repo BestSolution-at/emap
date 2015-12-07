@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getPkConstraintName <em>Pk Constraint Name</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getTypeDefs <em>Type Defs</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EBundleEntity#getRest <em>Rest</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEBundleEntity()
  * @model

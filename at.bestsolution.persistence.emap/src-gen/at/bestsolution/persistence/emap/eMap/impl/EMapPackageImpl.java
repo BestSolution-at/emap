@@ -5,6 +5,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 import at.bestsolution.persistence.emap.eMap.ColSort;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
 import at.bestsolution.persistence.emap.eMap.ECustomQuery;
+import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods;
 import at.bestsolution.persistence.emap.eMap.EFkConstraint;
 import at.bestsolution.persistence.emap.eMap.EGeneratorConfigValue;
 import at.bestsolution.persistence.emap.eMap.EGeneratorDef;
@@ -159,6 +160,13 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * @generated
    */
   private EClass eNamedServiceQueryEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass eCustomServiceMethodsEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -924,9 +932,19 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getERestServiceMapping_CustomServiceMethods()
+  {
+    return (EReference)eRestServiceMappingEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getERestServiceMapping_Rest()
   {
-    return (EAttribute)eRestServiceMappingEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)eRestServiceMappingEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -987,6 +1005,46 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
   public EReference getENamedServiceQuery_GreedyAttributePathList()
   {
     return (EReference)eNamedServiceQueryEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getECustomServiceMethods()
+  {
+    return eCustomServiceMethodsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getECustomServiceMethods_Name()
+  {
+    return (EAttribute)eCustomServiceMethodsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getECustomServiceMethods_Path()
+  {
+    return (EAttribute)eCustomServiceMethodsEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getECustomServiceMethods_Parameters()
+  {
+    return (EReference)eCustomServiceMethodsEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -2241,6 +2299,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     eRestServiceMappingEClass = createEClass(EREST_SERVICE_MAPPING);
     createEReference(eRestServiceMappingEClass, EREST_SERVICE_MAPPING__SERVICE_METHODS);
+    createEReference(eRestServiceMappingEClass, EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS);
     createEAttribute(eRestServiceMappingEClass, EREST_SERVICE_MAPPING__REST);
 
     eNamedServiceQueryEClass = createEClass(ENAMED_SERVICE_QUERY);
@@ -2249,6 +2308,11 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     createEAttribute(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PATH);
     createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__PARAMETERS);
     createEReference(eNamedServiceQueryEClass, ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST);
+
+    eCustomServiceMethodsEClass = createEClass(ECUSTOM_SERVICE_METHODS);
+    createEAttribute(eCustomServiceMethodsEClass, ECUSTOM_SERVICE_METHODS__NAME);
+    createEAttribute(eCustomServiceMethodsEClass, ECUSTOM_SERVICE_METHODS__PATH);
+    createEReference(eCustomServiceMethodsEClass, ECUSTOM_SERVICE_METHODS__PARAMETERS);
 
     eGreedyAttributePathEClass = createEClass(EGREEDY_ATTRIBUTE_PATH);
     createEReference(eGreedyAttributePathEClass, EGREEDY_ATTRIBUTE_PATH__GREEDY_ATTRIBUTE);
@@ -2495,6 +2559,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
 
     initEClass(eRestServiceMappingEClass, ERestServiceMapping.class, "ERestServiceMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getERestServiceMapping_ServiceMethods(), this.getENamedServiceQuery(), null, "serviceMethods", null, 0, -1, ERestServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getERestServiceMapping_CustomServiceMethods(), this.getECustomServiceMethods(), null, "customServiceMethods", null, 0, -1, ERestServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getERestServiceMapping_Rest(), ecorePackage.getEBoolean(), "rest", null, 0, 1, ERestServiceMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eNamedServiceQueryEClass, ENamedServiceQuery.class, "ENamedServiceQuery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2503,6 +2568,11 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEAttribute(getENamedServiceQuery_Path(), ecorePackage.getEString(), "path", null, 0, 1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getENamedServiceQuery_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getENamedServiceQuery_GreedyAttributePathList(), this.getEGreedyAttributePath(), null, "greedyAttributePathList", null, 0, -1, ENamedServiceQuery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(eCustomServiceMethodsEClass, ECustomServiceMethods.class, "ECustomServiceMethods", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getECustomServiceMethods_Name(), ecorePackage.getEString(), "name", null, 0, 1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getECustomServiceMethods_Path(), ecorePackage.getEString(), "path", null, 0, 1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getECustomServiceMethods_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eGreedyAttributePathEClass, EGreedyAttributePath.class, "EGreedyAttributePath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEGreedyAttributePath_GreedyAttribute(), this.getEAttribute(), null, "greedyAttribute", null, 0, 1, EGreedyAttributePath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

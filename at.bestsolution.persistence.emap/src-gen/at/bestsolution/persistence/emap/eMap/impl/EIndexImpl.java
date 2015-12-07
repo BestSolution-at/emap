@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EIndexImpl#getName <em>Name</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EIndexImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

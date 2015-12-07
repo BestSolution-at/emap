@@ -50,7 +50,7 @@ public class EMapSwitch<T> extends Switch<T>
    * Checks whether this is a switch for the given package.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @parameter ePackage the package in question.
+   * @param ePackage the package in question.
    * @return whether this is a switch for the given package.
    * @generated
    */
@@ -167,6 +167,13 @@ public class EMapSwitch<T> extends Switch<T>
       {
         ENamedServiceQuery eNamedServiceQuery = (ENamedServiceQuery)theEObject;
         T result = caseENamedServiceQuery(eNamedServiceQuery);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case EMapPackage.ECUSTOM_SERVICE_METHODS:
+      {
+        ECustomServiceMethods eCustomServiceMethods = (ECustomServiceMethods)theEObject;
+        T result = caseECustomServiceMethods(eCustomServiceMethods);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -583,6 +590,22 @@ public class EMapSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseENamedServiceQuery(ENamedServiceQuery object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>ECustom Service Methods</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>ECustom Service Methods</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseECustomServiceMethods(ECustomServiceMethods object)
   {
     return null;
   }

@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getDbType <em>Db Type</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getSqlTypeDef <em>Sql Type Def</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ESQLDbType#getSize <em>Size</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getESQLDbType()
  * @model

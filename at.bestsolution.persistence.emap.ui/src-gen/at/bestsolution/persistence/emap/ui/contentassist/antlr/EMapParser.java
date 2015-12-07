@@ -103,6 +103,8 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getENamedServiceQueryAccess().getGroup(), "rule__ENamedServiceQuery__Group__0");
 					put(grammarAccess.getENamedServiceQueryAccess().getGroup_4(), "rule__ENamedServiceQuery__Group_4__0");
 					put(grammarAccess.getENamedServiceQueryAccess().getGroup_4_2(), "rule__ENamedServiceQuery__Group_4_2__0");
+					put(grammarAccess.getECustomServiceMethodsAccess().getGroup(), "rule__ECustomServiceMethods__Group__0");
+					put(grammarAccess.getECustomServiceMethodsAccess().getGroup_4(), "rule__ECustomServiceMethods__Group_4__0");
 					put(grammarAccess.getEGreedyAttributePathAccess().getGroup(), "rule__EGreedyAttributePath__Group__0");
 					put(grammarAccess.getEGreedyAttributePathAccess().getGroup_1(), "rule__EGreedyAttributePath__Group_1__0");
 					put(grammarAccess.getEPathParamAccess().getGroup(), "rule__EPathParam__Group__0");
@@ -229,12 +231,16 @@ public class EMapParser extends AbstractContentAssistParser {
 					put(grammarAccess.getESQLDbTypeAccess().getSqlTypeDefAssignment_1(), "rule__ESQLDbType__SqlTypeDefAssignment_1");
 					put(grammarAccess.getESQLDbTypeAccess().getSizeAssignment_2_1(), "rule__ESQLDbType__SizeAssignment_2_1");
 					put(grammarAccess.getERestServiceMappingAccess().getServiceMethodsAssignment_2_1(), "rule__ERestServiceMapping__ServiceMethodsAssignment_2_1");
+					put(grammarAccess.getERestServiceMappingAccess().getCustomServiceMethodsAssignment_2_2(), "rule__ERestServiceMapping__CustomServiceMethodsAssignment_2_2");
 					put(grammarAccess.getERestServiceMappingAccess().getRestAssignment_3(), "rule__ERestServiceMapping__RestAssignment_3");
 					put(grammarAccess.getENamedServiceQueryAccess().getQueryAssignment_0(), "rule__ENamedServiceQuery__QueryAssignment_0");
 					put(grammarAccess.getENamedServiceQueryAccess().getNameAssignment_2(), "rule__ENamedServiceQuery__NameAssignment_2");
 					put(grammarAccess.getENamedServiceQueryAccess().getPathAssignment_3(), "rule__ENamedServiceQuery__PathAssignment_3");
 					put(grammarAccess.getENamedServiceQueryAccess().getParametersAssignment_4_1(), "rule__ENamedServiceQuery__ParametersAssignment_4_1");
 					put(grammarAccess.getENamedServiceQueryAccess().getGreedyAttributePathListAssignment_4_2_2(), "rule__ENamedServiceQuery__GreedyAttributePathListAssignment_4_2_2");
+					put(grammarAccess.getECustomServiceMethodsAccess().getNameAssignment_2(), "rule__ECustomServiceMethods__NameAssignment_2");
+					put(grammarAccess.getECustomServiceMethodsAccess().getPathAssignment_3(), "rule__ECustomServiceMethods__PathAssignment_3");
+					put(grammarAccess.getECustomServiceMethodsAccess().getParametersAssignment_4_1(), "rule__ECustomServiceMethods__ParametersAssignment_4_1");
 					put(grammarAccess.getEGreedyAttributePathAccess().getGreedyAttributeAssignment_0(), "rule__EGreedyAttributePath__GreedyAttributeAssignment_0");
 					put(grammarAccess.getEGreedyAttributePathAccess().getSubPathListAssignment_1_1(), "rule__EGreedyAttributePath__SubPathListAssignment_1_1");
 					put(grammarAccess.getEPathParamAccess().getParamAssignment_1(), "rule__EPathParam__ParamAssignment_1");

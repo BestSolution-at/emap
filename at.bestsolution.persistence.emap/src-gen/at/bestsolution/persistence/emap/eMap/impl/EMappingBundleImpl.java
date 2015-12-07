@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getImports <em>Imports</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getName <em>Name</em>}</li>
@@ -45,7 +46,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getDatabases <em>Databases</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EMappingBundleImpl#getColSort <em>Col Sort</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

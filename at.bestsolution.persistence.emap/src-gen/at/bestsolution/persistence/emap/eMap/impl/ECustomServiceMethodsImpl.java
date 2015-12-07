@@ -2,10 +2,8 @@
  */
 package at.bestsolution.persistence.emap.eMap.impl;
 
-import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath;
+import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
-import at.bestsolution.persistence.emap.eMap.ENamedQuery;
-import at.bestsolution.persistence.emap.eMap.ENamedServiceQuery;
 import at.bestsolution.persistence.emap.eMap.EServiceParam;
 
 import java.util.Collection;
@@ -26,33 +24,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>ENamed Service Query</b></em>'.
+ * An implementation of the model object '<em><b>ECustom Service Methods</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getQuery <em>Query</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getName <em>Name</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getPath <em>Path</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl#getGreedyAttributePathList <em>Greedy Attribute Path List</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl#getName <em>Name</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl#getPath <em>Path</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container implements ENamedServiceQuery
+public class ECustomServiceMethodsImpl extends MinimalEObjectImpl.Container implements ECustomServiceMethods
 {
-  /**
-   * The cached value of the '{@link #getQuery() <em>Query</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getQuery()
-   * @generated
-   * @ordered
-   */
-  protected ENamedQuery query;
-
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -104,21 +90,11 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   protected EList<EServiceParam> parameters;
 
   /**
-   * The cached value of the '{@link #getGreedyAttributePathList() <em>Greedy Attribute Path List</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getGreedyAttributePathList()
-   * @generated
-   * @ordered
-   */
-  protected EList<EGreedyAttributePath> greedyAttributePathList;
-
-  /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ENamedServiceQueryImpl()
+  protected ECustomServiceMethodsImpl()
   {
     super();
   }
@@ -131,50 +107,7 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   @Override
   protected EClass eStaticClass()
   {
-    return EMapPackage.Literals.ENAMED_SERVICE_QUERY;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ENamedQuery getQuery()
-  {
-    if (query != null && query.eIsProxy())
-    {
-      InternalEObject oldQuery = (InternalEObject)query;
-      query = (ENamedQuery)eResolveProxy(oldQuery);
-      if (query != oldQuery)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMapPackage.ENAMED_SERVICE_QUERY__QUERY, oldQuery, query));
-      }
-    }
-    return query;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ENamedQuery basicGetQuery()
-  {
-    return query;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setQuery(ENamedQuery newQuery)
-  {
-    ENamedQuery oldQuery = query;
-    query = newQuery;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ENAMED_SERVICE_QUERY__QUERY, oldQuery, query));
+    return EMapPackage.Literals.ECUSTOM_SERVICE_METHODS;
   }
 
   /**
@@ -197,7 +130,7 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
     String oldName = name;
     name = newName;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ENAMED_SERVICE_QUERY__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ECUSTOM_SERVICE_METHODS__NAME, oldName, name));
   }
 
   /**
@@ -220,7 +153,7 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
     String oldPath = path;
     path = newPath;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ENAMED_SERVICE_QUERY__PATH, oldPath, path));
+      eNotify(new ENotificationImpl(this, Notification.SET, EMapPackage.ECUSTOM_SERVICE_METHODS__PATH, oldPath, path));
   }
 
   /**
@@ -232,23 +165,9 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<EServiceParam>(EServiceParam.class, this, EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS);
+      parameters = new EObjectContainmentEList<EServiceParam>(EServiceParam.class, this, EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS);
     }
     return parameters;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<EGreedyAttributePath> getGreedyAttributePathList()
-  {
-    if (greedyAttributePathList == null)
-    {
-      greedyAttributePathList = new EObjectContainmentEList<EGreedyAttributePath>(EGreedyAttributePath.class, this, EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST);
-    }
-    return greedyAttributePathList;
   }
 
   /**
@@ -261,10 +180,8 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
-      case EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST:
-        return ((InternalEList<?>)getGreedyAttributePathList()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -279,17 +196,12 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case EMapPackage.ENAMED_SERVICE_QUERY__QUERY:
-        if (resolve) return getQuery();
-        return basicGetQuery();
-      case EMapPackage.ENAMED_SERVICE_QUERY__NAME:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__NAME:
         return getName();
-      case EMapPackage.ENAMED_SERVICE_QUERY__PATH:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PATH:
         return getPath();
-      case EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         return getParameters();
-      case EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST:
-        return getGreedyAttributePathList();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -305,22 +217,15 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case EMapPackage.ENAMED_SERVICE_QUERY__QUERY:
-        setQuery((ENamedQuery)newValue);
-        return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__NAME:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__NAME:
         setName((String)newValue);
         return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__PATH:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PATH:
         setPath((String)newValue);
         return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         getParameters().clear();
         getParameters().addAll((Collection<? extends EServiceParam>)newValue);
-        return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST:
-        getGreedyAttributePathList().clear();
-        getGreedyAttributePathList().addAll((Collection<? extends EGreedyAttributePath>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -336,20 +241,14 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case EMapPackage.ENAMED_SERVICE_QUERY__QUERY:
-        setQuery((ENamedQuery)null);
-        return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__NAME:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__NAME:
         setName(NAME_EDEFAULT);
         return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__PATH:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PATH:
         setPath(PATH_EDEFAULT);
         return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         getParameters().clear();
-        return;
-      case EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST:
-        getGreedyAttributePathList().clear();
         return;
     }
     super.eUnset(featureID);
@@ -365,16 +264,12 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
   {
     switch (featureID)
     {
-      case EMapPackage.ENAMED_SERVICE_QUERY__QUERY:
-        return query != null;
-      case EMapPackage.ENAMED_SERVICE_QUERY__NAME:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case EMapPackage.ENAMED_SERVICE_QUERY__PATH:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PATH:
         return PATH_EDEFAULT == null ? path != null : !PATH_EDEFAULT.equals(path);
-      case EMapPackage.ENAMED_SERVICE_QUERY__PARAMETERS:
+      case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
-      case EMapPackage.ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST:
-        return greedyAttributePathList != null && !greedyAttributePathList.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -398,4 +293,4 @@ public class ENamedServiceQueryImpl extends MinimalEObjectImpl.Container impleme
     return result.toString();
   }
 
-} //ENamedServiceQueryImpl
+} //ECustomServiceMethodsImpl

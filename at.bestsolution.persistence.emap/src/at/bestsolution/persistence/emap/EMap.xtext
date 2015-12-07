@@ -93,7 +93,8 @@ ESQLDbType:
 
 ERestServiceMapping:
 	'webservice' {ERestServiceMapping} ('{'
-		serviceMethods+=ENamedServiceQuery+
+		serviceMethods += ENamedServiceQuery*
+		customServiceMethods += ECustomServiceMethods*
 	'}')? rest?='rest'
 ;
 
@@ -104,6 +105,11 @@ ENamedServiceQuery:
 			greedyAttributePathList += EGreedyAttributePath+
 		'}')?
 	'}')?
+;
+
+ECustomServiceMethods:
+	'custom' 'as' name=ID path=STRING
+		( '{' parameters+=EServiceParam* '}')?
 ;
 
 EGreedyAttributePath:

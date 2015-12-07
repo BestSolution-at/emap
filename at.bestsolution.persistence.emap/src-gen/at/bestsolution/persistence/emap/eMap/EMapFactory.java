@@ -149,6 +149,15 @@ public interface EMapFactory extends EFactory
   ENamedServiceQuery createENamedServiceQuery();
 
   /**
+   * Returns a new object of class '<em>ECustom Service Methods</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>ECustom Service Methods</em>'.
+   * @generated
+   */
+  ECustomServiceMethods createECustomServiceMethods();
+
+  /**
    * Returns a new object of class '<em>EGreedy Attribute Path</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

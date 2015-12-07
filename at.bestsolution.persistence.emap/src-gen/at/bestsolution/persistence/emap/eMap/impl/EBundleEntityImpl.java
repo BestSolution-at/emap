@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getPkConstraintName <em>Pk Constraint Name</em>}</li>
@@ -42,7 +43,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getTypeDefs <em>Type Defs</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.impl.EBundleEntityImpl#getRest <em>Rest</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

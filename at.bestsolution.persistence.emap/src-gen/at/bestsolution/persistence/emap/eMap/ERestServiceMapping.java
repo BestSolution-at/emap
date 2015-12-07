@@ -13,11 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getServiceMethods <em>Service Methods</em>}</li>
+ *   <li>{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getCustomServiceMethods <em>Custom Service Methods</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#isRest <em>Rest</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getERestServiceMapping()
  * @model
@@ -40,6 +41,22 @@ public interface ERestServiceMapping extends EObject
    * @generated
    */
   EList<ENamedServiceQuery> getServiceMethods();
+
+  /**
+   * Returns the value of the '<em><b>Custom Service Methods</b></em>' containment reference list.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Custom Service Methods</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Custom Service Methods</em>' containment reference list.
+   * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getERestServiceMapping_CustomServiceMethods()
+   * @model containment="true"
+   * @generated
+   */
+  EList<ECustomServiceMethods> getCustomServiceMethods();
 
   /**
    * Returns the value of the '<em><b>Rest</b></em>' attribute.

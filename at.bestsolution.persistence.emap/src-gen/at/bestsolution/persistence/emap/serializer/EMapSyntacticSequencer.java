@@ -22,19 +22,23 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected EMapGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q;
+	protected AbstractElementAlias match_ECustomServiceMethods___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_2__q;
 	protected AbstractElementAlias match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q;
 	protected AbstractElementAlias match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q;
+	protected AbstractElementAlias match_ERestServiceMapping___LeftCurlyBracketKeyword_2_0_RightCurlyBracketKeyword_2_3__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (EMapGrammarAccess) access;
 		match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getLeftCurlyBracketKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getEBundleEntityAccess().getRightCurlyBracketKeyword_1_7()));
+		match_ECustomServiceMethods___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getECustomServiceMethodsAccess().getLeftCurlyBracketKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getECustomServiceMethodsAccess().getRightCurlyBracketKeyword_4_2()));
 		match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getLeftParenthesisKeyword_1_2_0()), new TokenAlias(false, false, grammarAccess.getEModelTypeAttributeAccess().getRightParenthesisKeyword_1_2_2()));
 		match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedCustomQueryAccess().getRightParenthesisKeyword_2_2()));
 		match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getENamedQueryAccess().getRightParenthesisKeyword_2_2()));
 		match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getLeftCurlyBracketKeyword_4_0()), new TokenAlias(false, false, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_4_3()));
+		match_ERestServiceMapping___LeftCurlyBracketKeyword_2_0_RightCurlyBracketKeyword_2_3__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getERestServiceMappingAccess().getLeftCurlyBracketKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_3()));
 	}
 	
 	@Override
@@ -49,16 +53,20 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q.equals(syntax))
+			if (match_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q.equals(syntax))
 				emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q.equals(syntax))
+			else if (match_ECustomServiceMethods___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_2__q.equals(syntax))
+				emit_ECustomServiceMethods___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q.equals(syntax))
 				emit_EModelTypeAttribute___LeftParenthesisKeyword_1_2_0_RightParenthesisKeyword_1_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
+			else if (match_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_ENamedCustomQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
+			else if (match_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
 				emit_ENamedQuery___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q.equals(syntax))
+			else if (match_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q.equals(syntax))
 				emit_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ERestServiceMapping___LeftCurlyBracketKeyword_2_0_RightCurlyBracketKeyword_2_3__q.equals(syntax))
+				emit_ERestServiceMapping___LeftCurlyBracketKeyword_2_0_RightCurlyBracketKeyword_2_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -71,6 +79,17 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     entity=[EMappingEntity|ID] (ambiguity) (rule end)
 	 */
 	protected void emit_EBundleEntity___LeftCurlyBracketKeyword_1_0_RightCurlyBracketKeyword_1_7__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('{' '}')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     path=STRING (ambiguity) (rule end)
+	 */
+	protected void emit_ECustomServiceMethods___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -116,6 +135,17 @@ public class EMapSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     path=STRING (ambiguity) (rule end)
 	 */
 	protected void emit_ENamedServiceQuery___LeftCurlyBracketKeyword_4_0_RightCurlyBracketKeyword_4_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ('{' '}')?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) 'webservice' (ambiguity) rest?='rest'
+	 */
+	protected void emit_ERestServiceMapping___LeftCurlyBracketKeyword_2_0_RightCurlyBracketKeyword_2_3__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

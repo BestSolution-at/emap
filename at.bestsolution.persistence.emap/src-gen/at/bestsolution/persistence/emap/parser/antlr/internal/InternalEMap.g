@@ -92,7 +92,7 @@ ruleEMapping returns [EObject current=null]
        			$current, 
        			"root",
         		lv_root_0_1, 
-        		"EMappingBundle");
+        		"at.bestsolution.persistence.emap.EMap.EMappingBundle");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -107,7 +107,7 @@ ruleEMapping returns [EObject current=null]
        			$current, 
        			"root",
         		lv_root_0_2, 
-        		"EMappingEntityDef");
+        		"at.bestsolution.persistence.emap.EMap.EMappingEntityDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -148,7 +148,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"imports",
         		lv_imports_0_0, 
-        		"Import");
+        		"at.bestsolution.persistence.emap.EMap.Import");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -171,7 +171,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -219,7 +219,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"predef",
         		lv_predef_8_0, 
-        		"EPredef");
+        		"at.bestsolution.persistence.emap.EMap.EPredef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -241,7 +241,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"predef",
         		lv_predef_10_0, 
-        		"EPredef");
+        		"at.bestsolution.persistence.emap.EMap.EPredef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -263,7 +263,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"entities",
         		lv_entities_12_0, 
-        		"EBundleEntity");
+        		"at.bestsolution.persistence.emap.EMap.EBundleEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -285,7 +285,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"entities",
         		lv_entities_14_0, 
-        		"EBundleEntity");
+        		"at.bestsolution.persistence.emap.EMap.EBundleEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -303,7 +303,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"typeDefs",
         		lv_typeDefs_15_0, 
-        		"ESQLTypeDef");
+        		"at.bestsolution.persistence.emap.EMap.ESQLTypeDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -329,7 +329,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"generators",
         		lv_generators_18_0, 
-        		"EGeneratorDef");
+        		"at.bestsolution.persistence.emap.EMap.EGeneratorDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -360,7 +360,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"databases",
         		lv_databases_22_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -382,7 +382,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"databases",
         		lv_databases_24_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -403,7 +403,7 @@ ruleEMappingBundle returns [EObject current=null]
        			$current, 
        			"colSort",
         		lv_colSort_26_0, 
-        		"ColSort");
+        		"at.bestsolution.persistence.emap.EMap.ColSort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -453,7 +453,7 @@ ruleEPredef returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -482,7 +482,7 @@ ruleEPredef returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -521,7 +521,7 @@ ruleEGeneratorDef returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -542,7 +542,7 @@ ruleEGeneratorDef returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_2_0, 
-        		"EGeneratorConfigValue");
+        		"at.bestsolution.persistence.emap.EMap.EGeneratorConfigValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -586,7 +586,7 @@ ruleEGeneratorConfigValue returns [EObject current=null]
        			$current, 
        			"key",
         		lv_key_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -608,7 +608,7 @@ ruleEGeneratorConfigValue returns [EObject current=null]
        			$current, 
        			"simpleValue",
         		lv_simpleValue_2_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -630,7 +630,7 @@ ruleEGeneratorConfigValue returns [EObject current=null]
        			$current, 
        			"children",
         		lv_children_4_0, 
-        		"EGeneratorConfigValue");
+        		"at.bestsolution.persistence.emap.EMap.EGeneratorConfigValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -695,7 +695,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"pkConstraintName",
         		lv_pkConstraintName_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -712,7 +712,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"fkConstraints",
         		lv_fkConstraints_4_0, 
-        		"EFkConstraint");
+        		"at.bestsolution.persistence.emap.EMap.EFkConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -734,7 +734,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"fkConstraints",
         		lv_fkConstraints_6_0, 
-        		"EFkConstraint");
+        		"at.bestsolution.persistence.emap.EMap.EFkConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -752,7 +752,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"uniqueContraints",
         		lv_uniqueContraints_7_0, 
-        		"EUniqueConstraint");
+        		"at.bestsolution.persistence.emap.EMap.EUniqueConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -774,7 +774,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"uniqueContraints",
         		lv_uniqueContraints_9_0, 
-        		"EUniqueConstraint");
+        		"at.bestsolution.persistence.emap.EMap.EUniqueConstraint");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -792,7 +792,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"indices",
         		lv_indices_10_0, 
-        		"EIndex");
+        		"at.bestsolution.persistence.emap.EMap.EIndex");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -814,7 +814,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"indices",
         		lv_indices_12_0, 
-        		"EIndex");
+        		"at.bestsolution.persistence.emap.EMap.EIndex");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -832,7 +832,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"typeDefs",
         		lv_typeDefs_13_0, 
-        		"ESQLAttTypeDef");
+        		"at.bestsolution.persistence.emap.EMap.ESQLAttTypeDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -854,7 +854,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"typeDefs",
         		lv_typeDefs_15_0, 
-        		"ESQLAttTypeDef");
+        		"at.bestsolution.persistence.emap.EMap.ESQLAttTypeDef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -872,7 +872,7 @@ ruleEBundleEntity returns [EObject current=null]
        			$current, 
        			"rest",
         		lv_rest_16_0, 
-        		"ERestServiceMapping");
+        		"at.bestsolution.persistence.emap.EMap.ERestServiceMapping");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -920,7 +920,7 @@ ruleEIndex returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1020,7 +1020,7 @@ ruleEFkConstraint returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1063,7 +1063,7 @@ ruleEUniqueConstraint returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1166,7 +1166,7 @@ ruleESQLAttTypeDef returns [EObject current=null]
        			$current, 
        			"dbTypes",
         		lv_dbTypes_3_0, 
-        		"ESQLDbType");
+        		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1188,7 +1188,7 @@ ruleESQLAttTypeDef returns [EObject current=null]
        			$current, 
        			"dbTypes",
         		lv_dbTypes_5_0, 
-        		"ESQLDbType");
+        		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1235,7 +1235,7 @@ ruleESQLTypeDef returns [EObject current=null]
        			$current, 
        			"etype",
         		lv_etype_1_0, 
-        		"EType");
+        		"at.bestsolution.persistence.emap.EMap.EType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1257,7 +1257,7 @@ ruleESQLTypeDef returns [EObject current=null]
        			$current, 
        			"dbTypes",
         		lv_dbTypes_3_0, 
-        		"ESQLDbType");
+        		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1279,7 +1279,7 @@ ruleESQLTypeDef returns [EObject current=null]
        			$current, 
        			"dbTypes",
         		lv_dbTypes_5_0, 
-        		"ESQLDbType");
+        		"at.bestsolution.persistence.emap.EMap.ESQLDbType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1336,7 +1336,7 @@ ruleESQLDbType returns [EObject current=null]
        			$current, 
        			"dbType",
         		lv_dbType_0_2, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1356,7 +1356,7 @@ ruleESQLDbType returns [EObject current=null]
        			$current, 
        			"sqlTypeDef",
         		lv_sqlTypeDef_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1378,7 +1378,7 @@ ruleESQLDbType returns [EObject current=null]
        			$current, 
        			"size",
         		lv_size_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1430,20 +1430,38 @@ ruleERestServiceMapping returns [EObject current=null]
        			$current, 
        			"serviceMethods",
         		lv_serviceMethods_3_0, 
-        		"ENamedServiceQuery");
+        		"at.bestsolution.persistence.emap.EMap.ENamedServiceQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_4='}' 
+)*(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getERestServiceMappingAccess().getCustomServiceMethodsECustomServiceMethodsParserRuleCall_2_2_0()); 
+	    }
+		lv_customServiceMethods_4_0=ruleECustomServiceMethods		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getERestServiceMappingRule());
+	        }
+       		add(
+       			$current, 
+       			"customServiceMethods",
+        		lv_customServiceMethods_4_0, 
+        		"at.bestsolution.persistence.emap.EMap.ECustomServiceMethods");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_5='}' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_2());
+    	newLeafNode(otherlv_5, grammarAccess.getERestServiceMappingAccess().getRightCurlyBracketKeyword_2_3());
     }
 )?(
 (
-		lv_rest_5_0=	'rest' 
+		lv_rest_6_0=	'rest' 
     {
-        newLeafNode(lv_rest_5_0, grammarAccess.getERestServiceMappingAccess().getRestRestKeyword_3_0());
+        newLeafNode(lv_rest_6_0, grammarAccess.getERestServiceMappingAccess().getRestRestKeyword_3_0());
     }
  
 	    {
@@ -1508,7 +1526,7 @@ ruleENamedServiceQuery returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -1526,7 +1544,7 @@ ruleENamedServiceQuery returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -1547,7 +1565,7 @@ ruleENamedServiceQuery returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_5_0, 
-        		"EServiceParam");
+        		"at.bestsolution.persistence.emap.EMap.EServiceParam");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1573,7 +1591,7 @@ ruleENamedServiceQuery returns [EObject current=null]
        			$current, 
        			"greedyAttributePathList",
         		lv_greedyAttributePathList_8_0, 
-        		"EGreedyAttributePath");
+        		"at.bestsolution.persistence.emap.EMap.EGreedyAttributePath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1585,6 +1603,97 @@ ruleENamedServiceQuery returns [EObject current=null]
 )?	otherlv_10='}' 
     {
     	newLeafNode(otherlv_10, grammarAccess.getENamedServiceQueryAccess().getRightCurlyBracketKeyword_4_3());
+    }
+)?)
+;
+
+
+
+
+
+// Entry rule entryRuleECustomServiceMethods
+entryRuleECustomServiceMethods returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getECustomServiceMethodsRule()); }
+	 iv_ruleECustomServiceMethods=ruleECustomServiceMethods 
+	 { $current=$iv_ruleECustomServiceMethods.current; } 
+	 EOF 
+;
+
+// Rule ECustomServiceMethods
+ruleECustomServiceMethods returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='custom' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getECustomServiceMethodsAccess().getCustomKeyword_0());
+    }
+	otherlv_1='as' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getECustomServiceMethodsAccess().getAsKeyword_1());
+    }
+(
+(
+		lv_name_2_0=RULE_ID
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getECustomServiceMethodsAccess().getNameIDTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getECustomServiceMethodsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"org.eclipse.xtext.common.Terminals.ID");
+	    }
+
+)
+)(
+(
+		lv_path_3_0=RULE_STRING
+		{
+			newLeafNode(lv_path_3_0, grammarAccess.getECustomServiceMethodsAccess().getPathSTRINGTerminalRuleCall_3_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getECustomServiceMethodsRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"path",
+        		lv_path_3_0, 
+        		"org.eclipse.xtext.common.Terminals.STRING");
+	    }
+
+)
+)(	otherlv_4='{' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getECustomServiceMethodsAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+	    }
+		lv_parameters_5_0=ruleEServiceParam		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getECustomServiceMethodsRule());
+	        }
+       		add(
+       			$current, 
+       			"parameters",
+        		lv_parameters_5_0, 
+        		"at.bestsolution.persistence.emap.EMap.EServiceParam");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)*	otherlv_6='}' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getECustomServiceMethodsAccess().getRightCurlyBracketKeyword_4_2());
     }
 )?)
 ;
@@ -1639,7 +1748,7 @@ ruleEGreedyAttributePath returns [EObject current=null]
        			$current, 
        			"subPathList",
         		lv_subPathList_2_0, 
-        		"EGreedyAttributePath");
+        		"at.bestsolution.persistence.emap.EMap.EGreedyAttributePath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1746,7 +1855,7 @@ ruleEPathParam returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -1808,7 +1917,7 @@ ruleEQueryParam returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -1846,7 +1955,7 @@ ruleEMappingEntityDef returns [EObject current=null]
        			$current, 
        			"package",
         		lv_package_0_0, 
-        		"PackageDeclaration");
+        		"at.bestsolution.persistence.emap.EMap.PackageDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1864,7 +1973,7 @@ ruleEMappingEntityDef returns [EObject current=null]
        			$current, 
        			"imports",
         		lv_imports_1_0, 
-        		"Import");
+        		"at.bestsolution.persistence.emap.EMap.Import");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1882,7 +1991,7 @@ ruleEMappingEntityDef returns [EObject current=null]
        			$current, 
        			"entity",
         		lv_entity_2_0, 
-        		"EMappingEntity");
+        		"at.bestsolution.persistence.emap.EMap.EMappingEntity");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1926,7 +2035,7 @@ ruleImport returns [EObject current=null]
        			$current, 
        			"importedNamespace",
         		lv_importedNamespace_1_1, 
-        		"QualifiedNameWithWildcard");
+        		"at.bestsolution.persistence.emap.EMap.QualifiedNameWithWildcard");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1941,7 +2050,7 @@ ruleImport returns [EObject current=null]
        			$current, 
        			"importedNamespace",
         		lv_importedNamespace_1_2, 
-        		"QualifiedName");
+        		"at.bestsolution.persistence.emap.EMap.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1986,7 +2095,7 @@ rulePackageDeclaration returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"QualifiedName");
+        		"at.bestsolution.persistence.emap.EMap.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2092,7 +2201,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2158,7 +2267,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"etype",
         		lv_etype_6_0, 
-        		"EType");
+        		"at.bestsolution.persistence.emap.EMap.EType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2184,7 +2293,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_9_0, 
-        		"EAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2206,7 +2315,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_11_0, 
-        		"EAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2236,7 +2345,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"namedQueries",
         		lv_namedQueries_15_0, 
-        		"ENamedQuery");
+        		"at.bestsolution.persistence.emap.EMap.ENamedQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2255,7 +2364,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"namedCustomQueries",
         		lv_namedCustomQueries_16_0, 
-        		"ENamedCustomQuery");
+        		"at.bestsolution.persistence.emap.EMap.ENamedCustomQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2277,7 +2386,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"namedQueries",
         		lv_namedQueries_18_0, 
-        		"ENamedQuery");
+        		"at.bestsolution.persistence.emap.EMap.ENamedQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2296,7 +2405,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"namedCustomQueries",
         		lv_namedCustomQueries_19_0, 
-        		"ENamedCustomQuery");
+        		"at.bestsolution.persistence.emap.EMap.ENamedCustomQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2327,7 +2436,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"tableName",
         		lv_tableName_23_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2349,7 +2458,7 @@ ruleEMappingEntity returns [EObject current=null]
        			$current, 
        			"descriminationColumn",
         		lv_descriminationColumn_25_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2419,7 +2528,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2441,7 +2550,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"columnName",
         		lv_columnName_4_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2466,7 +2575,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"valueGenerators",
         		lv_valueGenerators_7_0, 
-        		"EValueGenerator");
+        		"at.bestsolution.persistence.emap.EMap.EValueGenerator");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2488,7 +2597,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"valueGenerators",
         		lv_valueGenerators_9_0, 
-        		"EValueGenerator");
+        		"at.bestsolution.persistence.emap.EMap.EValueGenerator");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2546,7 +2655,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_14_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2587,7 +2696,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"relationTable",
         		lv_relationTable_18_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2609,7 +2718,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"relationColumn",
         		lv_relationColumn_20_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2631,7 +2740,7 @@ ruleEAttribute returns [EObject current=null]
        			$current, 
        			"size",
         		lv_size_22_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2670,7 +2779,7 @@ ruleEValueGenerator returns [EObject current=null]
        			$current, 
        			"dbType",
         		lv_dbType_0_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2708,7 +2817,7 @@ ruleEValueGenerator returns [EObject current=null]
        			$current, 
        			"query",
         		lv_query_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2731,7 +2840,7 @@ ruleEValueGenerator returns [EObject current=null]
        			$current, 
        			"sequence",
         		lv_sequence_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -2769,7 +2878,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"returnType",
         		lv_returnType_0_0, 
-        		"ReturnType");
+        		"at.bestsolution.persistence.emap.EMap.ReturnType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2788,7 +2897,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2809,7 +2918,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_3_0, 
-        		"EParameter");
+        		"at.bestsolution.persistence.emap.EMap.EParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2831,7 +2940,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_5_0, 
-        		"EParameter");
+        		"at.bestsolution.persistence.emap.EMap.EParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2857,7 +2966,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"queries",
         		lv_queries_8_0, 
-        		"EQuery");
+        		"at.bestsolution.persistence.emap.EMap.EQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2879,7 +2988,7 @@ ruleENamedQuery returns [EObject current=null]
        			$current, 
        			"queries",
         		lv_queries_10_0, 
-        		"EQuery");
+        		"at.bestsolution.persistence.emap.EMap.EQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3016,7 +3125,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"returnType",
         		lv_returnType_0_0, 
-        		"EReturnType");
+        		"at.bestsolution.persistence.emap.EMap.EReturnType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3050,7 +3159,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"returnType",
         		lv_returnType_2_0, 
-        		"EReturnType");
+        		"at.bestsolution.persistence.emap.EMap.EReturnType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3073,7 +3182,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3094,7 +3203,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"EParameter");
+        		"at.bestsolution.persistence.emap.EMap.EParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3116,7 +3225,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_8_0, 
-        		"EParameter");
+        		"at.bestsolution.persistence.emap.EMap.EParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3142,7 +3251,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"queries",
         		lv_queries_11_0, 
-        		"ECustomQuery");
+        		"at.bestsolution.persistence.emap.EMap.ECustomQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3164,7 +3273,7 @@ ruleENamedCustomQuery returns [EObject current=null]
        			$current, 
        			"queries",
         		lv_queries_13_0, 
-        		"ECustomQuery");
+        		"at.bestsolution.persistence.emap.EMap.ECustomQuery");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3258,7 +3367,7 @@ ruleEPredefinedType returns [EObject current=null]
        			$current, 
        			"ref",
         		lv_ref_0_1, 
-        		"EMapType");
+        		"at.bestsolution.persistence.emap.EMap.EMapType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3273,7 +3382,7 @@ ruleEPredefinedType returns [EObject current=null]
        			$current, 
        			"ref",
         		lv_ref_0_2, 
-        		"EPrimtiveType");
+        		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3318,7 +3427,7 @@ ruleETypeDef returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"FQN");
+        		"at.bestsolution.persistence.emap.EMap.FQN");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3340,7 +3449,7 @@ ruleETypeDef returns [EObject current=null]
        			$current, 
        			"types",
         		lv_types_3_0, 
-        		"EValueTypeAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EValueTypeAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3362,7 +3471,7 @@ ruleETypeDef returns [EObject current=null]
        			$current, 
        			"types",
         		lv_types_5_0, 
-        		"EValueTypeAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EValueTypeAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3405,7 +3514,7 @@ ruleEModelTypeDef returns [EObject current=null]
        			$current, 
        			"eclassDef",
         		lv_eclassDef_0_0, 
-        		"EType");
+        		"at.bestsolution.persistence.emap.EMap.EType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3427,7 +3536,7 @@ ruleEModelTypeDef returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_2_0, 
-        		"EModelTypeAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EModelTypeAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3449,7 +3558,7 @@ ruleEModelTypeDef returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_4_0, 
-        		"EModelTypeAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EModelTypeAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3493,7 +3602,7 @@ ruleEModelTypeAttribute returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3534,7 +3643,7 @@ ruleEModelTypeAttribute returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_4_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3556,7 +3665,7 @@ ruleEModelTypeAttribute returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_6_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3593,7 +3702,7 @@ ruleEModelTypeAttribute returns [EObject current=null]
        			$current, 
        			"cacheName",
         		lv_cacheName_9_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3631,7 +3740,7 @@ ruleEValueTypeAttribute returns [EObject current=null]
        			$current, 
        			"type",
         		lv_type_0_0, 
-        		"EPrimtiveType");
+        		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3650,7 +3759,7 @@ ruleEValueTypeAttribute returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3703,7 +3812,7 @@ ruleEParameter returns [EObject current=null]
        			$current, 
        			"type",
         		lv_type_1_0, 
-        		"EPrimtiveType");
+        		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3737,7 +3846,7 @@ ruleEParameter returns [EObject current=null]
        			$current, 
        			"type",
         		lv_type_3_0, 
-        		"EPrimtiveType");
+        		"at.bestsolution.persistence.emap.EMap.EPrimtiveType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3760,7 +3869,7 @@ ruleEParameter returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -3812,7 +3921,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"dbType",
         		lv_dbType_0_2, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3831,7 +3940,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"mapping",
         		lv_mapping_1_0, 
-        		"EObjectSection");
+        		"at.bestsolution.persistence.emap.EMap.EObjectSection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3854,7 +3963,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"from",
         		lv_from_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3876,7 +3985,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"where",
         		lv_where_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3898,7 +4007,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"groupBy",
         		lv_groupBy_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3920,7 +4029,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"orderby",
         		lv_orderby_9_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3939,7 +4048,7 @@ ruleEQuery returns [EObject current=null]
        			$current, 
        			"all",
         		lv_all_10_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -3991,7 +4100,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"dbType",
         		lv_dbType_0_2, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4011,7 +4120,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"columns",
         		lv_columns_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4033,7 +4142,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"from",
         		lv_from_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4055,7 +4164,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"where",
         		lv_where_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4077,7 +4186,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"groupBy",
         		lv_groupBy_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4099,7 +4208,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"orderby",
         		lv_orderby_9_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4118,7 +4227,7 @@ ruleECustomQuery returns [EObject current=null]
        			$current, 
        			"all",
         		lv_all_10_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4208,7 +4317,7 @@ ruleEObjectSection returns [EObject current=null]
        			$current, 
        			"prefix",
         		lv_prefix_6_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -4229,7 +4338,7 @@ ruleEObjectSection returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_8_0, 
-        		"EMappingAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EMappingAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4251,7 +4360,7 @@ ruleEObjectSection returns [EObject current=null]
        			$current, 
        			"attributes",
         		lv_attributes_10_0, 
-        		"EMappingAttribute");
+        		"at.bestsolution.persistence.emap.EMap.EMappingAttribute");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4309,7 +4418,7 @@ ruleEMappingAttribute returns [EObject current=null]
        			$current, 
        			"property",
         		lv_property_1_0, 
-        		"QualifiedName");
+        		"at.bestsolution.persistence.emap.EMap.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4332,7 +4441,7 @@ ruleEMappingAttribute returns [EObject current=null]
        			$current, 
        			"columnName",
         		lv_columnName_3_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -4385,7 +4494,7 @@ ruleEMappingAttribute returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_7_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -4422,7 +4531,7 @@ ruleEMappingAttribute returns [EObject current=null]
        			$current, 
        			"map",
         		lv_map_10_0, 
-        		"EObjectSection");
+        		"at.bestsolution.persistence.emap.EMap.EObjectSection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4466,7 +4575,7 @@ ruleEType returns [EObject current=null]
        			$current, 
        			"url",
         		lv_url_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -4488,7 +4597,7 @@ ruleEType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_3_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )

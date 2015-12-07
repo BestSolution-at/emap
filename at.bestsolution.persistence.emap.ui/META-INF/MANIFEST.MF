@@ -23,5 +23,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence.emap.ui.quickfix,
  at.bestsolution.persistence.emap.ui.contentassist,
  at.bestsolution.persistence.emap.ui.contentassist.antlr,
- at.bestsolution.persistence.emap.ui.internal
+ at.bestsolution.persistence.emap.ui.internal,
+ at.bestsolution.persistence.emap.ui.contentassist.antlr.internal
 Bundle-Activator: at.bestsolution.persistence.emap.ui.internal.EMapActivator

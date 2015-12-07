@@ -629,13 +629,22 @@ public interface EMapPackage extends EPackage
   int EREST_SERVICE_MAPPING__SERVICE_METHODS = 0;
 
   /**
+   * The feature id for the '<em><b>Custom Service Methods</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS = 1;
+
+  /**
    * The feature id for the '<em><b>Rest</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int EREST_SERVICE_MAPPING__REST = 1;
+  int EREST_SERVICE_MAPPING__REST = 2;
 
   /**
    * The number of structural features of the '<em>ERest Service Mapping</em>' class.
@@ -644,7 +653,7 @@ public interface EMapPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EREST_SERVICE_MAPPING_FEATURE_COUNT = 2;
+  int EREST_SERVICE_MAPPING_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ENamedServiceQueryImpl <em>ENamed Service Query</em>}' class.
@@ -711,6 +720,52 @@ public interface EMapPackage extends EPackage
   int ENAMED_SERVICE_QUERY_FEATURE_COUNT = 5;
 
   /**
+   * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl <em>ECustom Service Methods</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl
+   * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomServiceMethods()
+   * @generated
+   */
+  int ECUSTOM_SERVICE_METHODS = 14;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_SERVICE_METHODS__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Path</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_SERVICE_METHODS__PATH = 1;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_SERVICE_METHODS__PARAMETERS = 2;
+
+  /**
+   * The number of structural features of the '<em>ECustom Service Methods</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ECUSTOM_SERVICE_METHODS_FEATURE_COUNT = 3;
+
+  /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.impl.EGreedyAttributePathImpl <em>EGreedy Attribute Path</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -718,7 +773,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEGreedyAttributePath()
    * @generated
    */
-  int EGREEDY_ATTRIBUTE_PATH = 14;
+  int EGREEDY_ATTRIBUTE_PATH = 15;
 
   /**
    * The feature id for the '<em><b>Greedy Attribute</b></em>' reference.
@@ -755,7 +810,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEServiceParam()
    * @generated
    */
-  int ESERVICE_PARAM = 15;
+  int ESERVICE_PARAM = 16;
 
   /**
    * The feature id for the '<em><b>Param</b></em>' reference.
@@ -792,7 +847,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPathParam()
    * @generated
    */
-  int EPATH_PARAM = 16;
+  int EPATH_PARAM = 17;
 
   /**
    * The feature id for the '<em><b>Param</b></em>' reference.
@@ -829,7 +884,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQueryParam()
    * @generated
    */
-  int EQUERY_PARAM = 17;
+  int EQUERY_PARAM = 18;
 
   /**
    * The feature id for the '<em><b>Param</b></em>' reference.
@@ -866,7 +921,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingEntityDef()
    * @generated
    */
-  int EMAPPING_ENTITY_DEF = 18;
+  int EMAPPING_ENTITY_DEF = 19;
 
   /**
    * The feature id for the '<em><b>Package</b></em>' containment reference.
@@ -912,7 +967,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getImport()
    * @generated
    */
-  int IMPORT = 19;
+  int IMPORT = 20;
 
   /**
    * The feature id for the '<em><b>Imported Namespace</b></em>' attribute.
@@ -940,7 +995,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getPackageDeclaration()
    * @generated
    */
-  int PACKAGE_DECLARATION = 20;
+  int PACKAGE_DECLARATION = 21;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -968,7 +1023,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingEntity()
    * @generated
    */
-  int EMAPPING_ENTITY = 21;
+  int EMAPPING_ENTITY = 22;
 
   /**
    * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -1077,7 +1132,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEAttribute()
    * @generated
    */
-  int EATTRIBUTE = 22;
+  int EATTRIBUTE = 23;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -1204,7 +1259,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueGenerator()
    * @generated
    */
-  int EVALUE_GENERATOR = 23;
+  int EVALUE_GENERATOR = 24;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -1259,7 +1314,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedQuery()
    * @generated
    */
-  int ENAMED_QUERY = 24;
+  int ENAMED_QUERY = 25;
 
   /**
    * The feature id for the '<em><b>Return Type</b></em>' attribute.
@@ -1314,7 +1369,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getENamedCustomQuery()
    * @generated
    */
-  int ENAMED_CUSTOM_QUERY = 25;
+  int ENAMED_CUSTOM_QUERY = 26;
 
   /**
    * The feature id for the '<em><b>Return Type</b></em>' containment reference.
@@ -1378,7 +1433,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEReturnType()
    * @generated
    */
-  int ERETURN_TYPE = 26;
+  int ERETURN_TYPE = 27;
 
   /**
    * The number of structural features of the '<em>EReturn Type</em>' class.
@@ -1397,7 +1452,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefinedType()
    * @generated
    */
-  int EPREDEFINED_TYPE = 27;
+  int EPREDEFINED_TYPE = 28;
 
   /**
    * The feature id for the '<em><b>Ref</b></em>' attribute.
@@ -1425,7 +1480,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getETypeDef()
    * @generated
    */
-  int ETYPE_DEF = 28;
+  int ETYPE_DEF = 29;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1462,7 +1517,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeDef()
    * @generated
    */
-  int EMODEL_TYPE_DEF = 29;
+  int EMODEL_TYPE_DEF = 30;
 
   /**
    * The feature id for the '<em><b>Eclass Def</b></em>' containment reference.
@@ -1499,7 +1554,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEModelTypeAttribute()
    * @generated
    */
-  int EMODEL_TYPE_ATTRIBUTE = 30;
+  int EMODEL_TYPE_ATTRIBUTE = 31;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1563,7 +1618,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEValueTypeAttribute()
    * @generated
    */
-  int EVALUE_TYPE_ATTRIBUTE = 31;
+  int EVALUE_TYPE_ATTRIBUTE = 32;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -1600,7 +1655,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEParameter()
    * @generated
    */
-  int EPARAMETER = 32;
+  int EPARAMETER = 33;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1655,7 +1710,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEQuery()
    * @generated
    */
-  int EQUERY = 33;
+  int EQUERY = 34;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -1737,7 +1792,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomQuery()
    * @generated
    */
-  int ECUSTOM_QUERY = 34;
+  int ECUSTOM_QUERY = 35;
 
   /**
    * The feature id for the '<em><b>Db Type</b></em>' attribute.
@@ -1819,7 +1874,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEObjectSection()
    * @generated
    */
-  int EOBJECT_SECTION = 35;
+  int EOBJECT_SECTION = 36;
 
   /**
    * The feature id for the '<em><b>Entity</b></em>' reference.
@@ -1874,7 +1929,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEMappingAttribute()
    * @generated
    */
-  int EMAPPING_ATTRIBUTE = 36;
+  int EMAPPING_ATTRIBUTE = 37;
 
   /**
    * The feature id for the '<em><b>Pk</b></em>' attribute.
@@ -1965,7 +2020,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEType()
    * @generated
    */
-  int ETYPE = 37;
+  int ETYPE = 38;
 
   /**
    * The feature id for the '<em><b>Url</b></em>' attribute.
@@ -2002,7 +2057,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefSequence()
    * @generated
    */
-  int EPREDEF_SEQUENCE = 38;
+  int EPREDEF_SEQUENCE = 39;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2030,7 +2085,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getEPredefTable()
    * @generated
    */
-  int EPREDEF_TABLE = 39;
+  int EPREDEF_TABLE = 40;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2058,7 +2113,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getColSort()
    * @generated
    */
-  int COL_SORT = 40;
+  int COL_SORT = 41;
 
   /**
    * The meta object id for the '{@link at.bestsolution.persistence.emap.eMap.ReturnType <em>Return Type</em>}' enum.
@@ -2068,7 +2123,7 @@ public interface EMapPackage extends EPackage
    * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 41;
+  int RETURN_TYPE = 42;
 
 
   /**
@@ -2609,6 +2664,17 @@ public interface EMapPackage extends EPackage
   EReference getERestServiceMapping_ServiceMethods();
 
   /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getCustomServiceMethods <em>Custom Service Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Custom Service Methods</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ERestServiceMapping#getCustomServiceMethods()
+   * @see #getERestServiceMapping()
+   * @generated
+   */
+  EReference getERestServiceMapping_CustomServiceMethods();
+
+  /**
    * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ERestServiceMapping#isRest <em>Rest</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2683,6 +2749,49 @@ public interface EMapPackage extends EPackage
    * @generated
    */
   EReference getENamedServiceQuery_GreedyAttributePathList();
+
+  /**
+   * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods <em>ECustom Service Methods</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>ECustom Service Methods</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomServiceMethods
+   * @generated
+   */
+  EClass getECustomServiceMethods();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getName()
+   * @see #getECustomServiceMethods()
+   * @generated
+   */
+  EAttribute getECustomServiceMethods_Name();
+
+  /**
+   * Returns the meta object for the attribute '{@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getPath <em>Path</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Path</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getPath()
+   * @see #getECustomServiceMethods()
+   * @generated
+   */
+  EAttribute getECustomServiceMethods_Path();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Parameters</em>'.
+   * @see at.bestsolution.persistence.emap.eMap.ECustomServiceMethods#getParameters()
+   * @see #getECustomServiceMethods()
+   * @generated
+   */
+  EReference getECustomServiceMethods_Parameters();
 
   /**
    * Returns the meta object for class '{@link at.bestsolution.persistence.emap.eMap.EGreedyAttributePath <em>EGreedy Attribute Path</em>}'.
@@ -4382,6 +4491,14 @@ public interface EMapPackage extends EPackage
     EReference EREST_SERVICE_MAPPING__SERVICE_METHODS = eINSTANCE.getERestServiceMapping_ServiceMethods();
 
     /**
+     * The meta object literal for the '<em><b>Custom Service Methods</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EREST_SERVICE_MAPPING__CUSTOM_SERVICE_METHODS = eINSTANCE.getERestServiceMapping_CustomServiceMethods();
+
+    /**
      * The meta object literal for the '<em><b>Rest</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4438,6 +4555,40 @@ public interface EMapPackage extends EPackage
      * @generated
      */
     EReference ENAMED_SERVICE_QUERY__GREEDY_ATTRIBUTE_PATH_LIST = eINSTANCE.getENamedServiceQuery_GreedyAttributePathList();
+
+    /**
+     * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl <em>ECustom Service Methods</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see at.bestsolution.persistence.emap.eMap.impl.ECustomServiceMethodsImpl
+     * @see at.bestsolution.persistence.emap.eMap.impl.EMapPackageImpl#getECustomServiceMethods()
+     * @generated
+     */
+    EClass ECUSTOM_SERVICE_METHODS = eINSTANCE.getECustomServiceMethods();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_SERVICE_METHODS__NAME = eINSTANCE.getECustomServiceMethods_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Path</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ECUSTOM_SERVICE_METHODS__PATH = eINSTANCE.getECustomServiceMethods_Path();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ECUSTOM_SERVICE_METHODS__PARAMETERS = eINSTANCE.getECustomServiceMethods_Parameters();
 
     /**
      * The meta object literal for the '{@link at.bestsolution.persistence.emap.eMap.impl.EGreedyAttributePathImpl <em>EGreedy Attribute Path</em>}' class.

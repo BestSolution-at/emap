@@ -13,13 +13,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getEntity <em>Entity</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getDescriminatedTypes <em>Descriminated Types</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getPrefix <em>Prefix</em>}</li>
  *   <li>{@link at.bestsolution.persistence.emap.eMap.EObjectSection#getAttributes <em>Attributes</em>}</li>
  * </ul>
- * </p>
  *
  * @see at.bestsolution.persistence.emap.eMap.EMapPackage#getEObjectSection()
  * @model

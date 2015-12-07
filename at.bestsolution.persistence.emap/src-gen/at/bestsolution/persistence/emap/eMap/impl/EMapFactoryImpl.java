@@ -79,6 +79,7 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
       case EMapPackage.ESQL_DB_TYPE: return createESQLDbType();
       case EMapPackage.EREST_SERVICE_MAPPING: return createERestServiceMapping();
       case EMapPackage.ENAMED_SERVICE_QUERY: return createENamedServiceQuery();
+      case EMapPackage.ECUSTOM_SERVICE_METHODS: return createECustomServiceMethods();
       case EMapPackage.EGREEDY_ATTRIBUTE_PATH: return createEGreedyAttributePath();
       case EMapPackage.ESERVICE_PARAM: return createEServiceParam();
       case EMapPackage.EPATH_PARAM: return createEPathParam();
@@ -300,6 +301,17 @@ public class EMapFactoryImpl extends EFactoryImpl implements EMapFactory
   {
     ENamedServiceQueryImpl eNamedServiceQuery = new ENamedServiceQueryImpl();
     return eNamedServiceQuery;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ECustomServiceMethods createECustomServiceMethods()
+  {
+    ECustomServiceMethodsImpl eCustomServiceMethods = new ECustomServiceMethodsImpl();
+    return eCustomServiceMethods;
   }
 
   /**
