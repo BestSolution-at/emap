@@ -412,11 +412,11 @@ class RestGenerator {
 
 		«FOR sm : restMapping.serviceMethods»
 			«IF sm.query.returnType == ReturnType::LIST»
-				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<«eClass.name»> ) {
+				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
 					this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
 				}
 			«ELSE»
-				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<«eClass.name»> ) {
+				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»> ) {
 					this.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
 				}
 			«ENDIF»
