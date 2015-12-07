@@ -461,16 +461,16 @@ class RestGenerator {
 
 	def createPathString(ECustomServiceMethods sm) {
 		var path = sm.path
-		for( p : sm.parameters.filter(typeof(EPathParam)) ) {
-			path = path.replace("{"+p.toRestParamName+"}", '"+'+p.param.name+'+"')
-		}
-		for( p : sm.parameters.filter(typeof(EQueryParam)).indexed ) {
+//		for( p : sm.parameters.filter(typeof(EPathParam)) ) {
+//			path = path.replace("{"+p.toRestParamName+"}", '"+'+p.param.name+'+"')
+//		}
+		for( p : sm.parameters.indexed ) {
 			if( p.key == 0 ) {
 				path += "?"
 			} else {
 				path += "&"
 			}
-			path += p.value.toRestParamName + "=" + '"+'+p.value.param.name +'+"'
+			path += p.value.name + "=" + '"+'+p.value.name +'+"'
 		}
 
 		return path
