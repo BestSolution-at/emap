@@ -55,7 +55,7 @@ class RestGenerator {
 	package «mapping.packageName».base;
 
 	public abstract class Base«mapping.entity.name»Service {
-		private at.bestsolution.persistence.SessionFactory sessionFactory;
+		protected at.bestsolution.persistence.SessionFactory sessionFactory;
 
 		public void setSessionFactory(at.bestsolution.persistence.SessionFactory sessionFactory) {
 			this.sessionFactory = sessionFactory;
