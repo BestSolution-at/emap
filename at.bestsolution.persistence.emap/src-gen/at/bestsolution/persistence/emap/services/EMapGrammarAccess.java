@@ -1093,14 +1093,14 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cParametersAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cParametersEServiceParamParserRuleCall_4_1_0 = (RuleCall)cParametersAssignment_4_1.eContents().get(0);
+		private final RuleCall cParametersEParameterParserRuleCall_4_1_0 = (RuleCall)cParametersAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
 		
 		//ECustomServiceMethods:
-		//	'custom' 'as' name=ID path=STRING ('{' parameters+=EServiceParam* '}')?;
+		//	'custom' 'as' name=ID path=STRING ('{' parameters+=EParameter* '}')?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'custom' 'as' name=ID path=STRING ('{' parameters+=EServiceParam* '}')?
+		//'custom' 'as' name=ID path=STRING ('{' parameters+=EParameter* '}')?
 		public Group getGroup() { return cGroup; }
 
 		//'custom'
@@ -1121,17 +1121,17 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getPathSTRINGTerminalRuleCall_3_0() { return cPathSTRINGTerminalRuleCall_3_0; }
 
-		//('{' parameters+=EServiceParam* '}')?
+		//('{' parameters+=EParameter* '}')?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//'{'
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
-		//parameters+=EServiceParam*
+		//parameters+=EParameter*
 		public Assignment getParametersAssignment_4_1() { return cParametersAssignment_4_1; }
 
-		//EServiceParam
-		public RuleCall getParametersEServiceParamParserRuleCall_4_1_0() { return cParametersEServiceParamParserRuleCall_4_1_0; }
+		//EParameter
+		public RuleCall getParametersEParameterParserRuleCall_4_1_0() { return cParametersEParameterParserRuleCall_4_1_0; }
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
@@ -3482,7 +3482,7 @@ public class EMapGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ECustomServiceMethods:
-	//	'custom' 'as' name=ID path=STRING ('{' parameters+=EServiceParam* '}')?;
+	//	'custom' 'as' name=ID path=STRING ('{' parameters+=EParameter* '}')?;
 	public ECustomServiceMethodsElements getECustomServiceMethodsAccess() {
 		return pECustomServiceMethods;
 	}

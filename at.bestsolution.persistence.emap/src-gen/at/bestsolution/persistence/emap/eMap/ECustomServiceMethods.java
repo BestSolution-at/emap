@@ -80,7 +80,7 @@ public interface ECustomServiceMethods extends EObject
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EServiceParam}.
+   * The list contents are of type {@link at.bestsolution.persistence.emap.eMap.EParameter}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
@@ -92,6 +92,6 @@ public interface ECustomServiceMethods extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<EServiceParam> getParameters();
+  EList<EParameter> getParameters();
 
 } // ECustomServiceMethods

@@ -109,7 +109,7 @@ ENamedServiceQuery:
 
 ECustomServiceMethods:
 	'custom' 'as' name=ID path=STRING
-		( '{' parameters+=EServiceParam* '}')?
+		( '{' parameters+=EParameter* '}')?
 ;
 
 EGreedyAttributePath:

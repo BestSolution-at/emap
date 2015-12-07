@@ -245,7 +245,7 @@ public class EMapSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     ECustomServiceMethods returns ECustomServiceMethods
 	 *
 	 * Constraint:
-	 *     (name=ID path=STRING parameters+=EServiceParam*)
+	 *     (name=ID path=STRING parameters+=EParameter*)
 	 */
 	protected void sequence_ECustomServiceMethods(ISerializationContext context, ECustomServiceMethods semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

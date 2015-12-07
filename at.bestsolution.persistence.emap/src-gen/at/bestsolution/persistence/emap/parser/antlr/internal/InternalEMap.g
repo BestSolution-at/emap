@@ -1676,9 +1676,9 @@ ruleECustomServiceMethods returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); 
 	    }
-		lv_parameters_5_0=ruleEServiceParam		{
+		lv_parameters_5_0=ruleEParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getECustomServiceMethodsRule());
 	        }
@@ -1686,7 +1686,7 @@ ruleECustomServiceMethods returns [EObject current=null]
        			$current, 
        			"parameters",
         		lv_parameters_5_0, 
-        		"at.bestsolution.persistence.emap.EMap.EServiceParam");
+        		"at.bestsolution.persistence.emap.EMap.EParameter");
 	        afterParserOrEnumRuleCall();
 	    }
 

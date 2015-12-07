@@ -4529,7 +4529,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleECustomServiceMethods"
-    // InternalEMap.g:1624:1: ruleECustomServiceMethods returns [EObject current=null] : (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? ) ;
+    // InternalEMap.g:1624:1: ruleECustomServiceMethods returns [EObject current=null] : (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )? ) ;
     public final EObject ruleECustomServiceMethods() throws RecognitionException {
         EObject current = null;
 
@@ -4545,11 +4545,11 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalEMap.g:1627:28: ( (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? ) )
-            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? )
+            // InternalEMap.g:1627:28: ( (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )? ) )
+            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )? )
             {
-            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )? )
-            // InternalEMap.g:1628:3: otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )?
+            // InternalEMap.g:1628:1: (otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )? )
+            // InternalEMap.g:1628:3: otherlv_0= 'custom' otherlv_1= 'as' ( (lv_name_2_0= RULE_ID ) ) ( (lv_path_3_0= RULE_STRING ) ) (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )?
             {
             otherlv_0=(Token)match(input,36,FOLLOW_40); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4623,7 +4623,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalEMap.g:1672:2: (otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}' )?
+            // InternalEMap.g:1672:2: (otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}' )?
             int alt43=2;
             int LA43_0 = input.LA(1);
 
@@ -4632,7 +4632,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
             }
             switch (alt43) {
                 case 1 :
-                    // InternalEMap.g:1672:4: otherlv_4= '{' ( (lv_parameters_5_0= ruleEServiceParam ) )* otherlv_6= '}'
+                    // InternalEMap.g:1672:4: otherlv_4= '{' ( (lv_parameters_5_0= ruleEParameter ) )* otherlv_6= '}'
                     {
                     otherlv_4=(Token)match(input,13,FOLLOW_42); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -4640,31 +4640,31 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                           	newLeafNode(otherlv_4, grammarAccess.getECustomServiceMethodsAccess().getLeftCurlyBracketKeyword_4_0());
                           
                     }
-                    // InternalEMap.g:1676:1: ( (lv_parameters_5_0= ruleEServiceParam ) )*
+                    // InternalEMap.g:1676:1: ( (lv_parameters_5_0= ruleEParameter ) )*
                     loop42:
                     do {
                         int alt42=2;
                         int LA42_0 = input.LA(1);
 
-                        if ( (LA42_0==37||LA42_0==39) ) {
+                        if ( (LA42_0==RULE_ID||LA42_0==50||(LA42_0>=59 && LA42_0<=63)||LA42_0==65) ) {
                             alt42=1;
                         }
 
 
                         switch (alt42) {
                     	case 1 :
-                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEServiceParam )
+                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEParameter )
                     	    {
-                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEServiceParam )
-                    	    // InternalEMap.g:1678:3: lv_parameters_5_0= ruleEServiceParam
+                    	    // InternalEMap.g:1677:1: (lv_parameters_5_0= ruleEParameter )
+                    	    // InternalEMap.g:1678:3: lv_parameters_5_0= ruleEParameter
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
-                    	      	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+                    	      	        newCompositeNode(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); 
                     	      	    
                     	    }
                     	    pushFollow(FOLLOW_42);
-                    	    lv_parameters_5_0=ruleEServiceParam();
+                    	    lv_parameters_5_0=ruleEParameter();
 
                     	    state._fsp--;
                     	    if (state.failed) return current;
@@ -4677,7 +4677,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
                     	             			current, 
                     	             			"parameters",
                     	              		lv_parameters_5_0, 
-                    	              		"at.bestsolution.persistence.emap.EMap.EServiceParam");
+                    	              		"at.bestsolution.persistence.emap.EMap.EParameter");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -13423,7 +13423,7 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0000000200000000L});
     public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0000000400000000L});
     public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x000000A800010000L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x000000A000010000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0xF804000000010010L,0x0000000000000002L});
     public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0000004000000002L});
     public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0000310000000800L});
     public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000040000000000L});
@@ -13445,17 +13445,17 @@ public class InternalEMapParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0000080080000002L});
     public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0700000000000000L});
     public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000002002000L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0xF804000004000010L,0x0000000000000003L});
-    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0xF804000000000010L,0x0000000000000003L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0xF804000004000010L,0x0000000000000002L});
+    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0xF804000000000010L,0x0000000000000002L});
     public static final BitSet FOLLOW_66 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000209L});
     public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
-    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000001L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0xF800000000000010L});
     public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0040000000000002L});
     public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000002000002L,0x0000000000000010L});
     public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000004000010L});
     public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
     public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000003L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0xF800000000000010L,0x0000000000000002L});
     public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000020L});
     public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000000000002L,0x00000000000001C0L});
     public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000180L});

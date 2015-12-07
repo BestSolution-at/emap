@@ -2572,7 +2572,7 @@ public class EMapPackageImpl extends EPackageImpl implements EMapPackage
     initEClass(eCustomServiceMethodsEClass, ECustomServiceMethods.class, "ECustomServiceMethods", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getECustomServiceMethods_Name(), ecorePackage.getEString(), "name", null, 0, 1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getECustomServiceMethods_Path(), ecorePackage.getEString(), "path", null, 0, 1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getECustomServiceMethods_Parameters(), this.getEServiceParam(), null, "parameters", null, 0, -1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getECustomServiceMethods_Parameters(), this.getEParameter(), null, "parameters", null, 0, -1, ECustomServiceMethods.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(eGreedyAttributePathEClass, EGreedyAttributePath.class, "EGreedyAttributePath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEGreedyAttributePath_GreedyAttribute(), this.getEAttribute(), null, "greedyAttribute", null, 0, 1, EGreedyAttributePath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

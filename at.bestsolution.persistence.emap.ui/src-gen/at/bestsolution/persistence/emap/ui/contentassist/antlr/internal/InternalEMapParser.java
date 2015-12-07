@@ -19523,7 +19523,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
                 int alt64=2;
                 int LA64_0 = input.LA(1);
 
-                if ( (LA64_0==49||LA64_0==51) ) {
+                if ( (LA64_0==RULE_ID||(LA64_0>=15 && LA64_0<=19)||LA64_0==77||LA64_0==80) ) {
                     alt64=1;
                 }
 
@@ -19532,7 +19532,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalEMap.g:6626:2: rule__ECustomServiceMethods__ParametersAssignment_4_1
             	    {
-            	    pushFollow(FOLLOW_38);
+            	    pushFollow(FOLLOW_40);
             	    rule__ECustomServiceMethods__ParametersAssignment_4_1();
 
             	    state._fsp--;
@@ -20206,7 +20206,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:6871:1: ( rule__EPathParam__Group__1__Impl rule__EPathParam__Group__2 )
             // InternalEMap.g:6872:2: rule__EPathParam__Group__1__Impl rule__EPathParam__Group__2
             {
-            pushFollow(FOLLOW_40);
+            pushFollow(FOLLOW_41);
             rule__EPathParam__Group__1__Impl();
 
             state._fsp--;
@@ -20632,7 +20632,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7028:1: ( rule__EQueryParam__Group__1__Impl rule__EQueryParam__Group__2 )
             // InternalEMap.g:7029:2: rule__EQueryParam__Group__1__Impl rule__EQueryParam__Group__2
             {
-            pushFollow(FOLLOW_40);
+            pushFollow(FOLLOW_41);
             rule__EQueryParam__Group__1__Impl();
 
             state._fsp--;
@@ -20979,7 +20979,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7154:1: ( rule__EMappingEntityDef__Group__0__Impl rule__EMappingEntityDef__Group__1 )
             // InternalEMap.g:7155:2: rule__EMappingEntityDef__Group__0__Impl rule__EMappingEntityDef__Group__1
             {
-            pushFollow(FOLLOW_41);
+            pushFollow(FOLLOW_42);
             rule__EMappingEntityDef__Group__0__Impl();
 
             state._fsp--;
@@ -21068,7 +21068,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7183:1: ( rule__EMappingEntityDef__Group__1__Impl rule__EMappingEntityDef__Group__2 )
             // InternalEMap.g:7184:2: rule__EMappingEntityDef__Group__1__Impl rule__EMappingEntityDef__Group__2
             {
-            pushFollow(FOLLOW_41);
+            pushFollow(FOLLOW_42);
             rule__EMappingEntityDef__Group__1__Impl();
 
             state._fsp--;
@@ -21501,7 +21501,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7340:1: ( rule__PackageDeclaration__Group__1__Impl rule__PackageDeclaration__Group__2 )
             // InternalEMap.g:7341:2: rule__PackageDeclaration__Group__1__Impl rule__PackageDeclaration__Group__2
             {
-            pushFollow(FOLLOW_42);
+            pushFollow(FOLLOW_43);
             rule__PackageDeclaration__Group__1__Impl();
 
             state._fsp--;
@@ -21664,7 +21664,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7405:1: ( rule__FQN__Group__0__Impl rule__FQN__Group__1 )
             // InternalEMap.g:7406:2: rule__FQN__Group__0__Impl rule__FQN__Group__1
             {
-            pushFollow(FOLLOW_43);
+            pushFollow(FOLLOW_44);
             rule__FQN__Group__0__Impl();
 
             state._fsp--;
@@ -21797,7 +21797,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalEMap.g:7448:2: rule__FQN__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_44);
+            	    pushFollow(FOLLOW_45);
             	    rule__FQN__Group_1__0();
 
             	    state._fsp--;
@@ -22004,7 +22004,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7529:1: ( rule__EMappingEntity__Group__0__Impl rule__EMappingEntity__Group__1 )
             // InternalEMap.g:7530:2: rule__EMappingEntity__Group__0__Impl rule__EMappingEntity__Group__1
             {
-            pushFollow(FOLLOW_41);
+            pushFollow(FOLLOW_42);
             rule__EMappingEntity__Group__0__Impl();
 
             state._fsp--;
@@ -22183,7 +22183,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7589:1: ( rule__EMappingEntity__Group__2__Impl rule__EMappingEntity__Group__3 )
             // InternalEMap.g:7590:2: rule__EMappingEntity__Group__2__Impl rule__EMappingEntity__Group__3
             {
-            pushFollow(FOLLOW_45);
+            pushFollow(FOLLOW_46);
             rule__EMappingEntity__Group__2__Impl();
 
             state._fsp--;
@@ -22272,7 +22272,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7618:1: ( rule__EMappingEntity__Group__3__Impl rule__EMappingEntity__Group__4 )
             // InternalEMap.g:7619:2: rule__EMappingEntity__Group__3__Impl rule__EMappingEntity__Group__4
             {
-            pushFollow(FOLLOW_45);
+            pushFollow(FOLLOW_46);
             rule__EMappingEntity__Group__3__Impl();
 
             state._fsp--;
@@ -22451,7 +22451,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7678:1: ( rule__EMappingEntity__Group__5__Impl rule__EMappingEntity__Group__6 )
             // InternalEMap.g:7679:2: rule__EMappingEntity__Group__5__Impl rule__EMappingEntity__Group__6
             {
-            pushFollow(FOLLOW_46);
+            pushFollow(FOLLOW_47);
             rule__EMappingEntity__Group__5__Impl();
 
             state._fsp--;
@@ -22540,7 +22540,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7707:1: ( rule__EMappingEntity__Group__6__Impl rule__EMappingEntity__Group__7 )
             // InternalEMap.g:7708:2: rule__EMappingEntity__Group__6__Impl rule__EMappingEntity__Group__7
             {
-            pushFollow(FOLLOW_46);
+            pushFollow(FOLLOW_47);
             rule__EMappingEntity__Group__6__Impl();
 
             state._fsp--;
@@ -22640,7 +22640,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7736:1: ( rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8 )
             // InternalEMap.g:7737:2: rule__EMappingEntity__Group__7__Impl rule__EMappingEntity__Group__8
             {
-            pushFollow(FOLLOW_46);
+            pushFollow(FOLLOW_47);
             rule__EMappingEntity__Group__7__Impl();
 
             state._fsp--;
@@ -22740,7 +22740,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7765:1: ( rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9 )
             // InternalEMap.g:7766:2: rule__EMappingEntity__Group__8__Impl rule__EMappingEntity__Group__9
             {
-            pushFollow(FOLLOW_47);
+            pushFollow(FOLLOW_48);
             rule__EMappingEntity__Group__8__Impl();
 
             state._fsp--;
@@ -22819,7 +22819,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7796:1: ( rule__EMappingEntity__Group__9__Impl rule__EMappingEntity__Group__10 )
             // InternalEMap.g:7797:2: rule__EMappingEntity__Group__9__Impl rule__EMappingEntity__Group__10
             {
-            pushFollow(FOLLOW_47);
+            pushFollow(FOLLOW_48);
             rule__EMappingEntity__Group__9__Impl();
 
             state._fsp--;
@@ -23266,7 +23266,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:7967:1: ( rule__EMappingEntity__Group_6__1__Impl rule__EMappingEntity__Group_6__2 )
             // InternalEMap.g:7968:2: rule__EMappingEntity__Group_6__1__Impl rule__EMappingEntity__Group_6__2
             {
-            pushFollow(FOLLOW_48);
+            pushFollow(FOLLOW_49);
             rule__EMappingEntity__Group_6__1__Impl();
 
             state._fsp--;
@@ -23615,7 +23615,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8096:1: ( rule__EMappingEntity__Group_6_3__0__Impl rule__EMappingEntity__Group_6_3__1 )
             // InternalEMap.g:8097:2: rule__EMappingEntity__Group_6_3__0__Impl rule__EMappingEntity__Group_6_3__1
             {
-            pushFollow(FOLLOW_48);
+            pushFollow(FOLLOW_49);
             rule__EMappingEntity__Group_6_3__0__Impl();
 
             state._fsp--;
@@ -23857,7 +23857,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8190:1: ( rule__EMappingEntity__Group_7__1__Impl rule__EMappingEntity__Group_7__2 )
             // InternalEMap.g:8191:2: rule__EMappingEntity__Group_7__1__Impl rule__EMappingEntity__Group_7__2
             {
-            pushFollow(FOLLOW_49);
+            pushFollow(FOLLOW_50);
             rule__EMappingEntity__Group_7__1__Impl();
 
             state._fsp--;
@@ -24206,7 +24206,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8319:1: ( rule__EMappingEntity__Group_7_3__0__Impl rule__EMappingEntity__Group_7_3__1 )
             // InternalEMap.g:8320:2: rule__EMappingEntity__Group_7_3__0__Impl rule__EMappingEntity__Group_7_3__1
             {
-            pushFollow(FOLLOW_49);
+            pushFollow(FOLLOW_50);
             rule__EMappingEntity__Group_7_3__0__Impl();
 
             state._fsp--;
@@ -24784,7 +24784,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8537:1: ( rule__EAttribute__Group__1__Impl rule__EAttribute__Group__2 )
             // InternalEMap.g:8538:2: rule__EAttribute__Group__1__Impl rule__EAttribute__Group__2
             {
-            pushFollow(FOLLOW_50);
+            pushFollow(FOLLOW_51);
             rule__EAttribute__Group__1__Impl();
 
             state._fsp--;
@@ -24873,7 +24873,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8566:1: ( rule__EAttribute__Group__2__Impl rule__EAttribute__Group__3 )
             // InternalEMap.g:8567:2: rule__EAttribute__Group__2__Impl rule__EAttribute__Group__3
             {
-            pushFollow(FOLLOW_51);
+            pushFollow(FOLLOW_52);
             rule__EAttribute__Group__2__Impl();
 
             state._fsp--;
@@ -25136,7 +25136,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:8664:1: ( rule__EAttribute__Group_3_0__0__Impl rule__EAttribute__Group_3_0__1 )
             // InternalEMap.g:8665:2: rule__EAttribute__Group_3_0__0__Impl rule__EAttribute__Group_3_0__1
             {
-            pushFollow(FOLLOW_52);
+            pushFollow(FOLLOW_53);
             rule__EAttribute__Group_3_0__0__Impl();
 
             state._fsp--;
@@ -26168,7 +26168,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9037:1: ( rule__EAttribute__Group_3_1__3__Impl rule__EAttribute__Group_3_1__4 )
             // InternalEMap.g:9038:2: rule__EAttribute__Group_3_1__3__Impl rule__EAttribute__Group_3_1__4
             {
-            pushFollow(FOLLOW_53);
+            pushFollow(FOLLOW_54);
             rule__EAttribute__Group_3_1__3__Impl();
 
             state._fsp--;
@@ -26431,7 +26431,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9137:1: ( rule__EAttribute__Group_3_1_5__0__Impl rule__EAttribute__Group_3_1_5__1 )
             // InternalEMap.g:9138:2: rule__EAttribute__Group_3_1_5__0__Impl rule__EAttribute__Group_3_1_5__1
             {
-            pushFollow(FOLLOW_54);
+            pushFollow(FOLLOW_55);
             rule__EAttribute__Group_3_1_5__0__Impl();
 
             state._fsp--;
@@ -26599,7 +26599,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9197:1: ( rule__EAttribute__Group_3_1_5__2__Impl rule__EAttribute__Group_3_1_5__3 )
             // InternalEMap.g:9198:2: rule__EAttribute__Group_3_1_5__2__Impl rule__EAttribute__Group_3_1_5__3
             {
-            pushFollow(FOLLOW_43);
+            pushFollow(FOLLOW_44);
             rule__EAttribute__Group_3_1_5__2__Impl();
 
             state._fsp--;
@@ -27109,7 +27109,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9388:1: ( rule__EValueGenerator__Group__0__Impl rule__EValueGenerator__Group__1 )
             // InternalEMap.g:9389:2: rule__EValueGenerator__Group__0__Impl rule__EValueGenerator__Group__1
             {
-            pushFollow(FOLLOW_55);
+            pushFollow(FOLLOW_56);
             rule__EValueGenerator__Group__0__Impl();
 
             state._fsp--;
@@ -27608,7 +27608,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9575:1: ( rule__ENamedQuery__Group__0__Impl rule__ENamedQuery__Group__1 )
             // InternalEMap.g:9576:2: rule__ENamedQuery__Group__0__Impl rule__ENamedQuery__Group__1
             {
-            pushFollow(FOLLOW_56);
+            pushFollow(FOLLOW_57);
             rule__ENamedQuery__Group__0__Impl();
 
             state._fsp--;
@@ -27708,7 +27708,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9604:1: ( rule__ENamedQuery__Group__1__Impl rule__ENamedQuery__Group__2 )
             // InternalEMap.g:9605:2: rule__ENamedQuery__Group__1__Impl rule__ENamedQuery__Group__2
             {
-            pushFollow(FOLLOW_57);
+            pushFollow(FOLLOW_58);
             rule__ENamedQuery__Group__1__Impl();
 
             state._fsp--;
@@ -27797,7 +27797,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9633:1: ( rule__ENamedQuery__Group__2__Impl rule__ENamedQuery__Group__3 )
             // InternalEMap.g:9634:2: rule__ENamedQuery__Group__2__Impl rule__ENamedQuery__Group__3
             {
-            pushFollow(FOLLOW_57);
+            pushFollow(FOLLOW_58);
             rule__ENamedQuery__Group__2__Impl();
 
             state._fsp--;
@@ -28246,7 +28246,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9795:1: ( rule__ENamedQuery__Group_2__0__Impl rule__ENamedQuery__Group_2__1 )
             // InternalEMap.g:9796:2: rule__ENamedQuery__Group_2__0__Impl rule__ENamedQuery__Group_2__1
             {
-            pushFollow(FOLLOW_58);
+            pushFollow(FOLLOW_59);
             rule__ENamedQuery__Group_2__0__Impl();
 
             state._fsp--;
@@ -28325,7 +28325,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9826:1: ( rule__ENamedQuery__Group_2__1__Impl rule__ENamedQuery__Group_2__2 )
             // InternalEMap.g:9827:2: rule__ENamedQuery__Group_2__1__Impl rule__ENamedQuery__Group_2__2
             {
-            pushFollow(FOLLOW_58);
+            pushFollow(FOLLOW_59);
             rule__ENamedQuery__Group_2__1__Impl();
 
             state._fsp--;
@@ -28690,7 +28690,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:9952:1: ( rule__ENamedQuery__Group_2_1_1__0__Impl rule__ENamedQuery__Group_2_1_1__1 )
             // InternalEMap.g:9953:2: rule__ENamedQuery__Group_2_1_1__0__Impl rule__ENamedQuery__Group_2_1_1__1
             {
-            pushFollow(FOLLOW_59);
+            pushFollow(FOLLOW_60);
             rule__ENamedQuery__Group_2_1_1__0__Impl();
 
             state._fsp--;
@@ -29105,7 +29105,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10107:1: ( rule__ENamedCustomQuery__Group__1__Impl rule__ENamedCustomQuery__Group__2 )
             // InternalEMap.g:10108:2: rule__ENamedCustomQuery__Group__1__Impl rule__ENamedCustomQuery__Group__2
             {
-            pushFollow(FOLLOW_57);
+            pushFollow(FOLLOW_58);
             rule__ENamedCustomQuery__Group__1__Impl();
 
             state._fsp--;
@@ -29194,7 +29194,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10136:1: ( rule__ENamedCustomQuery__Group__2__Impl rule__ENamedCustomQuery__Group__3 )
             // InternalEMap.g:10137:2: rule__ENamedCustomQuery__Group__2__Impl rule__ENamedCustomQuery__Group__3
             {
-            pushFollow(FOLLOW_57);
+            pushFollow(FOLLOW_58);
             rule__ENamedCustomQuery__Group__2__Impl();
 
             state._fsp--;
@@ -29643,7 +29643,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10298:1: ( rule__ENamedCustomQuery__Group_0_1__0__Impl rule__ENamedCustomQuery__Group_0_1__1 )
             // InternalEMap.g:10299:2: rule__ENamedCustomQuery__Group_0_1__0__Impl rule__ENamedCustomQuery__Group_0_1__1
             {
-            pushFollow(FOLLOW_60);
+            pushFollow(FOLLOW_61);
             rule__ENamedCustomQuery__Group_0_1__0__Impl();
 
             state._fsp--;
@@ -29732,7 +29732,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10327:1: ( rule__ENamedCustomQuery__Group_0_1__1__Impl rule__ENamedCustomQuery__Group_0_1__2 )
             // InternalEMap.g:10328:2: rule__ENamedCustomQuery__Group_0_1__1__Impl rule__ENamedCustomQuery__Group_0_1__2
             {
-            pushFollow(FOLLOW_61);
+            pushFollow(FOLLOW_62);
             rule__ENamedCustomQuery__Group_0_1__1__Impl();
 
             state._fsp--;
@@ -29895,7 +29895,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10392:1: ( rule__ENamedCustomQuery__Group_2__0__Impl rule__ENamedCustomQuery__Group_2__1 )
             // InternalEMap.g:10393:2: rule__ENamedCustomQuery__Group_2__0__Impl rule__ENamedCustomQuery__Group_2__1
             {
-            pushFollow(FOLLOW_58);
+            pushFollow(FOLLOW_59);
             rule__ENamedCustomQuery__Group_2__0__Impl();
 
             state._fsp--;
@@ -29974,7 +29974,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10423:1: ( rule__ENamedCustomQuery__Group_2__1__Impl rule__ENamedCustomQuery__Group_2__2 )
             // InternalEMap.g:10424:2: rule__ENamedCustomQuery__Group_2__1__Impl rule__ENamedCustomQuery__Group_2__2
             {
-            pushFollow(FOLLOW_58);
+            pushFollow(FOLLOW_59);
             rule__ENamedCustomQuery__Group_2__1__Impl();
 
             state._fsp--;
@@ -30339,7 +30339,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10549:1: ( rule__ENamedCustomQuery__Group_2_1_1__0__Impl rule__ENamedCustomQuery__Group_2_1_1__1 )
             // InternalEMap.g:10550:2: rule__ENamedCustomQuery__Group_2_1_1__0__Impl rule__ENamedCustomQuery__Group_2_1_1__1
             {
-            pushFollow(FOLLOW_59);
+            pushFollow(FOLLOW_60);
             rule__ENamedCustomQuery__Group_2_1_1__0__Impl();
 
             state._fsp--;
@@ -30665,7 +30665,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10675:1: ( rule__ETypeDef__Group__0__Impl rule__ETypeDef__Group__1 )
             // InternalEMap.g:10676:2: rule__ETypeDef__Group__0__Impl rule__ETypeDef__Group__1
             {
-            pushFollow(FOLLOW_62);
+            pushFollow(FOLLOW_63);
             rule__ETypeDef__Group__0__Impl();
 
             state._fsp--;
@@ -30833,7 +30833,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10735:1: ( rule__ETypeDef__Group__2__Impl rule__ETypeDef__Group__3 )
             // InternalEMap.g:10736:2: rule__ETypeDef__Group__2__Impl rule__ETypeDef__Group__3
             {
-            pushFollow(FOLLOW_62);
+            pushFollow(FOLLOW_63);
             rule__ETypeDef__Group__2__Impl();
 
             state._fsp--;
@@ -31182,7 +31182,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:10866:1: ( rule__ETypeDef__Group_4__0__Impl rule__ETypeDef__Group_4__1 )
             // InternalEMap.g:10867:2: rule__ETypeDef__Group_4__0__Impl rule__ETypeDef__Group_4__1
             {
-            pushFollow(FOLLOW_62);
+            pushFollow(FOLLOW_63);
             rule__ETypeDef__Group_4__0__Impl();
 
             state._fsp--;
@@ -31946,7 +31946,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11150:1: ( rule__EModelTypeAttribute__Group__0__Impl rule__EModelTypeAttribute__Group__1 )
             // InternalEMap.g:11151:2: rule__EModelTypeAttribute__Group__0__Impl rule__EModelTypeAttribute__Group__1
             {
-            pushFollow(FOLLOW_63);
+            pushFollow(FOLLOW_64);
             rule__EModelTypeAttribute__Group__0__Impl();
 
             state._fsp--;
@@ -32209,7 +32209,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11242:1: ( rule__EModelTypeAttribute__Group_1__1__Impl rule__EModelTypeAttribute__Group_1__2 )
             // InternalEMap.g:11243:2: rule__EModelTypeAttribute__Group_1__1__Impl rule__EModelTypeAttribute__Group_1__2
             {
-            pushFollow(FOLLOW_64);
+            pushFollow(FOLLOW_65);
             rule__EModelTypeAttribute__Group_1__1__Impl();
 
             state._fsp--;
@@ -32298,7 +32298,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11271:1: ( rule__EModelTypeAttribute__Group_1__2__Impl rule__EModelTypeAttribute__Group_1__3 )
             // InternalEMap.g:11272:2: rule__EModelTypeAttribute__Group_1__2__Impl rule__EModelTypeAttribute__Group_1__3
             {
-            pushFollow(FOLLOW_64);
+            pushFollow(FOLLOW_65);
             rule__EModelTypeAttribute__Group_1__2__Impl();
 
             state._fsp--;
@@ -32493,7 +32493,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11336:1: ( rule__EModelTypeAttribute__Group_1_2__0__Impl rule__EModelTypeAttribute__Group_1_2__1 )
             // InternalEMap.g:11337:2: rule__EModelTypeAttribute__Group_1_2__0__Impl rule__EModelTypeAttribute__Group_1_2__1
             {
-            pushFollow(FOLLOW_65);
+            pushFollow(FOLLOW_66);
             rule__EModelTypeAttribute__Group_1_2__0__Impl();
 
             state._fsp--;
@@ -32572,7 +32572,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11367:1: ( rule__EModelTypeAttribute__Group_1_2__1__Impl rule__EModelTypeAttribute__Group_1_2__2 )
             // InternalEMap.g:11368:2: rule__EModelTypeAttribute__Group_1_2__1__Impl rule__EModelTypeAttribute__Group_1_2__2
             {
-            pushFollow(FOLLOW_65);
+            pushFollow(FOLLOW_66);
             rule__EModelTypeAttribute__Group_1_2__1__Impl();
 
             state._fsp--;
@@ -33457,7 +33457,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11678:1: ( rule__EParameter__Group__0__Impl rule__EParameter__Group__1 )
             // InternalEMap.g:11679:2: rule__EParameter__Group__0__Impl rule__EParameter__Group__1
             {
-            pushFollow(FOLLOW_59);
+            pushFollow(FOLLOW_60);
             rule__EParameter__Group__0__Impl();
 
             state._fsp--;
@@ -33730,7 +33730,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11770:1: ( rule__EParameter__Group_1_1__0__Impl rule__EParameter__Group_1_1__1 )
             // InternalEMap.g:11771:2: rule__EParameter__Group_1_1__0__Impl rule__EParameter__Group_1_1__1
             {
-            pushFollow(FOLLOW_62);
+            pushFollow(FOLLOW_63);
             rule__EParameter__Group_1_1__0__Impl();
 
             state._fsp--;
@@ -33819,7 +33819,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11799:1: ( rule__EParameter__Group_1_1__1__Impl rule__EParameter__Group_1_1__2 )
             // InternalEMap.g:11800:2: rule__EParameter__Group_1_1__1__Impl rule__EParameter__Group_1_1__2
             {
-            pushFollow(FOLLOW_61);
+            pushFollow(FOLLOW_62);
             rule__EParameter__Group_1_1__1__Impl();
 
             state._fsp--;
@@ -34071,7 +34071,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11893:1: ( rule__EQuery__Group__1__Impl rule__EQuery__Group__2 )
             // InternalEMap.g:11894:2: rule__EQuery__Group__1__Impl rule__EQuery__Group__2
             {
-            pushFollow(FOLLOW_66);
+            pushFollow(FOLLOW_67);
             rule__EQuery__Group__1__Impl();
 
             state._fsp--;
@@ -34323,7 +34323,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:11987:1: ( rule__EQuery__Group_2_0__1__Impl rule__EQuery__Group_2_0__2 )
             // InternalEMap.g:11988:2: rule__EQuery__Group_2_0__1__Impl rule__EQuery__Group_2_0__2
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__EQuery__Group_2_0__1__Impl();
 
             state._fsp--;
@@ -34412,7 +34412,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12016:1: ( rule__EQuery__Group_2_0__2__Impl rule__EQuery__Group_2_0__3 )
             // InternalEMap.g:12017:2: rule__EQuery__Group_2_0__2__Impl rule__EQuery__Group_2_0__3
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__EQuery__Group_2_0__2__Impl();
 
             state._fsp--;
@@ -34512,7 +34512,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12045:1: ( rule__EQuery__Group_2_0__3__Impl rule__EQuery__Group_2_0__4 )
             // InternalEMap.g:12046:2: rule__EQuery__Group_2_0__3__Impl rule__EQuery__Group_2_0__4
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__EQuery__Group_2_0__3__Impl();
 
             state._fsp--;
@@ -35285,7 +35285,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12330:1: ( rule__ECustomQuery__Group__1__Impl rule__ECustomQuery__Group__2 )
             // InternalEMap.g:12331:2: rule__ECustomQuery__Group__1__Impl rule__ECustomQuery__Group__2
             {
-            pushFollow(FOLLOW_66);
+            pushFollow(FOLLOW_67);
             rule__ECustomQuery__Group__1__Impl();
 
             state._fsp--;
@@ -35537,7 +35537,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12424:1: ( rule__ECustomQuery__Group_2_0__1__Impl rule__ECustomQuery__Group_2_0__2 )
             // InternalEMap.g:12425:2: rule__ECustomQuery__Group_2_0__1__Impl rule__ECustomQuery__Group_2_0__2
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__ECustomQuery__Group_2_0__1__Impl();
 
             state._fsp--;
@@ -35626,7 +35626,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12453:1: ( rule__ECustomQuery__Group_2_0__2__Impl rule__ECustomQuery__Group_2_0__3 )
             // InternalEMap.g:12454:2: rule__ECustomQuery__Group_2_0__2__Impl rule__ECustomQuery__Group_2_0__3
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__ECustomQuery__Group_2_0__2__Impl();
 
             state._fsp--;
@@ -35726,7 +35726,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12482:1: ( rule__ECustomQuery__Group_2_0__3__Impl rule__ECustomQuery__Group_2_0__4 )
             // InternalEMap.g:12483:2: rule__ECustomQuery__Group_2_0__3__Impl rule__ECustomQuery__Group_2_0__4
             {
-            pushFollow(FOLLOW_67);
+            pushFollow(FOLLOW_68);
             rule__ECustomQuery__Group_2_0__3__Impl();
 
             state._fsp--;
@@ -36410,7 +36410,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12738:1: ( rule__EObjectSection__Group__0__Impl rule__EObjectSection__Group__1 )
             // InternalEMap.g:12739:2: rule__EObjectSection__Group__0__Impl rule__EObjectSection__Group__1
             {
-            pushFollow(FOLLOW_68);
+            pushFollow(FOLLOW_69);
             rule__EObjectSection__Group__0__Impl();
 
             state._fsp--;
@@ -36499,7 +36499,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12767:1: ( rule__EObjectSection__Group__1__Impl rule__EObjectSection__Group__2 )
             // InternalEMap.g:12768:2: rule__EObjectSection__Group__1__Impl rule__EObjectSection__Group__2
             {
-            pushFollow(FOLLOW_68);
+            pushFollow(FOLLOW_69);
             rule__EObjectSection__Group__1__Impl();
 
             state._fsp--;
@@ -36862,7 +36862,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:12890:1: ( rule__EObjectSection__Group_1__2__Impl rule__EObjectSection__Group_1__3 )
             // InternalEMap.g:12891:2: rule__EObjectSection__Group_1__2__Impl rule__EObjectSection__Group_1__3
             {
-            pushFollow(FOLLOW_53);
+            pushFollow(FOLLOW_54);
             rule__EObjectSection__Group_1__2__Impl();
 
             state._fsp--;
@@ -37419,7 +37419,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13088:1: ( rule__EObjectSection__Group_2_1__0__Impl rule__EObjectSection__Group_2_1__1 )
             // InternalEMap.g:13089:2: rule__EObjectSection__Group_2_1__0__Impl rule__EObjectSection__Group_2_1__1
             {
-            pushFollow(FOLLOW_69);
+            pushFollow(FOLLOW_70);
             rule__EObjectSection__Group_2_1__0__Impl();
 
             state._fsp--;
@@ -37768,7 +37768,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13215:1: ( rule__EObjectSection__Group_2_1_2__0__Impl rule__EObjectSection__Group_2_1_2__1 )
             // InternalEMap.g:13216:2: rule__EObjectSection__Group_2_1_2__0__Impl rule__EObjectSection__Group_2_1_2__1
             {
-            pushFollow(FOLLOW_69);
+            pushFollow(FOLLOW_70);
             rule__EObjectSection__Group_2_1_2__0__Impl();
 
             state._fsp--;
@@ -37931,7 +37931,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13278:1: ( rule__EMappingAttribute__Group__0__Impl rule__EMappingAttribute__Group__1 )
             // InternalEMap.g:13279:2: rule__EMappingAttribute__Group__0__Impl rule__EMappingAttribute__Group__1
             {
-            pushFollow(FOLLOW_69);
+            pushFollow(FOLLOW_70);
             rule__EMappingAttribute__Group__0__Impl();
 
             state._fsp--;
@@ -38031,7 +38031,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13307:1: ( rule__EMappingAttribute__Group__1__Impl rule__EMappingAttribute__Group__2 )
             // InternalEMap.g:13308:2: rule__EMappingAttribute__Group__1__Impl rule__EMappingAttribute__Group__2
             {
-            pushFollow(FOLLOW_50);
+            pushFollow(FOLLOW_51);
             rule__EMappingAttribute__Group__1__Impl();
 
             state._fsp--;
@@ -38120,7 +38120,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13336:1: ( rule__EMappingAttribute__Group__2__Impl rule__EMappingAttribute__Group__3 )
             // InternalEMap.g:13337:2: rule__EMappingAttribute__Group__2__Impl rule__EMappingAttribute__Group__3
             {
-            pushFollow(FOLLOW_70);
+            pushFollow(FOLLOW_71);
             rule__EMappingAttribute__Group__2__Impl();
 
             state._fsp--;
@@ -38540,7 +38540,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13492:1: ( rule__EMappingAttribute__Group_3_1__3__Impl rule__EMappingAttribute__Group_3_1__4 )
             // InternalEMap.g:13493:2: rule__EMappingAttribute__Group_3_1__3__Impl rule__EMappingAttribute__Group_3_1__4
             {
-            pushFollow(FOLLOW_53);
+            pushFollow(FOLLOW_54);
             rule__EMappingAttribute__Group_3_1__3__Impl();
 
             state._fsp--;
@@ -38955,7 +38955,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13653:1: ( rule__EType__Group__1__Impl rule__EType__Group__2 )
             // InternalEMap.g:13654:2: rule__EType__Group__1__Impl rule__EType__Group__2
             {
-            pushFollow(FOLLOW_71);
+            pushFollow(FOLLOW_72);
             rule__EType__Group__1__Impl();
 
             state._fsp--;
@@ -39207,7 +39207,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13749:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
             // InternalEMap.g:13750:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_43);
+            pushFollow(FOLLOW_44);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
@@ -39346,7 +39346,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             	case 1 :
             	    // InternalEMap.g:13792:2: rule__QualifiedName__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_44);
+            	    pushFollow(FOLLOW_45);
             	    rule__QualifiedName__Group_1__0();
 
             	    state._fsp--;
@@ -39553,7 +39553,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13873:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
             // InternalEMap.g:13874:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
             {
-            pushFollow(FOLLOW_43);
+            pushFollow(FOLLOW_44);
             rule__QualifiedNameWithWildcard__Group__0__Impl();
 
             state._fsp--;
@@ -39636,7 +39636,7 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
             // InternalEMap.g:13902:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl rule__QualifiedNameWithWildcard__Group__2 )
             // InternalEMap.g:13903:2: rule__QualifiedNameWithWildcard__Group__1__Impl rule__QualifiedNameWithWildcard__Group__2
             {
-            pushFollow(FOLLOW_72);
+            pushFollow(FOLLOW_73);
             rule__QualifiedNameWithWildcard__Group__1__Impl();
 
             state._fsp--;
@@ -42442,28 +42442,28 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ECustomServiceMethods__ParametersAssignment_4_1"
-    // InternalEMap.g:14882:1: rule__ECustomServiceMethods__ParametersAssignment_4_1 : ( ruleEServiceParam ) ;
+    // InternalEMap.g:14882:1: rule__ECustomServiceMethods__ParametersAssignment_4_1 : ( ruleEParameter ) ;
     public final void rule__ECustomServiceMethods__ParametersAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalEMap.g:14886:1: ( ( ruleEServiceParam ) )
-            // InternalEMap.g:14887:1: ( ruleEServiceParam )
+            // InternalEMap.g:14886:1: ( ( ruleEParameter ) )
+            // InternalEMap.g:14887:1: ( ruleEParameter )
             {
-            // InternalEMap.g:14887:1: ( ruleEServiceParam )
-            // InternalEMap.g:14888:1: ruleEServiceParam
+            // InternalEMap.g:14887:1: ( ruleEParameter )
+            // InternalEMap.g:14888:1: ruleEParameter
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+               before(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); 
             }
             pushFollow(FOLLOW_2);
-            ruleEServiceParam();
+            ruleEParameter();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); 
+               after(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); 
             }
 
             }
@@ -47388,39 +47388,40 @@ public class InternalEMapParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x0000400000000000L});
     public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x000A800010000000L});
     public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x000A000000000002L});
-    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x000A000010000000L});
-    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0110000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0080000000000002L});
-    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0000000008006000L});
-    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0600000010000000L});
-    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0800400000000000L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0000000000000000L,0x0000000000006000L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x00000000030F8820L,0x0000000000010104L});
-    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x1000000000000000L});
-    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000008L});
-    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x0000010000000000L});
-    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x4000000000000000L});
-    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x8000000000000000L,0x0000000000008001L});
-    public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x0000000003000020L});
-    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0000008008000000L});
-    public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x00000100000F8820L,0x0000000000012000L});
-    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x00000000000F8820L,0x0000000000012000L});
-    public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x00000000000F8820L,0x0000000000000104L});
-    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
-    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x00000000000F8820L});
-    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000008000000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000010000000020L});
-    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000000000010L,0x0000000000000010L});
-    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000000000L,0x00000000000000E0L});
-    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000008000000020L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000000020L,0x0000000000002000L});
-    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000000820L,0x0000000000000008L});
-    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x00000000100F8020L,0x0000000000012000L});
+    public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x00000000000F8022L,0x0000000000012000L});
+    public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0110000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_44 = new BitSet(new long[]{0x0080000000000000L});
+    public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0080000000000002L});
+    public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0000000008006000L});
+    public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0600000010000000L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0800400000000000L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0000000000000000L,0x0000000000006000L});
+    public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x00000000030F8820L,0x0000000000010104L});
+    public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x1000000000000000L});
+    public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0000000000000020L,0x0000000000000008L});
+    public static final BitSet FOLLOW_53 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_54 = new BitSet(new long[]{0x0000010000000000L});
+    public static final BitSet FOLLOW_55 = new BitSet(new long[]{0x4000000000000000L});
+    public static final BitSet FOLLOW_56 = new BitSet(new long[]{0x8000000000000000L,0x0000000000008001L});
+    public static final BitSet FOLLOW_57 = new BitSet(new long[]{0x0000000003000020L});
+    public static final BitSet FOLLOW_58 = new BitSet(new long[]{0x0000008008000000L});
+    public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x00000100000F8020L,0x0000000000012000L});
+    public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x00000000000F8020L,0x0000000000012000L});
+    public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x00000000000F8820L,0x0000000000000104L});
+    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+    public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x00000000000F8020L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000008000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000010000000020L});
+    public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000000010L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000000000L,0x00000000000000E0L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000008000000020L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000000020L,0x0000000000002000L});
+    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000820L,0x0000000000000008L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
 
 }

@@ -4,7 +4,7 @@ package at.bestsolution.persistence.emap.eMap.impl;
 
 import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods;
 import at.bestsolution.persistence.emap.eMap.EMapPackage;
-import at.bestsolution.persistence.emap.eMap.EServiceParam;
+import at.bestsolution.persistence.emap.eMap.EParameter;
 
 import java.util.Collection;
 
@@ -87,7 +87,7 @@ public class ECustomServiceMethodsImpl extends MinimalEObjectImpl.Container impl
    * @generated
    * @ordered
    */
-  protected EList<EServiceParam> parameters;
+  protected EList<EParameter> parameters;
 
   /**
    * <!-- begin-user-doc -->
@@ -161,11 +161,11 @@ public class ECustomServiceMethodsImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<EServiceParam> getParameters()
+  public EList<EParameter> getParameters()
   {
     if (parameters == null)
     {
-      parameters = new EObjectContainmentEList<EServiceParam>(EServiceParam.class, this, EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS);
+      parameters = new EObjectContainmentEList<EParameter>(EParameter.class, this, EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS);
     }
     return parameters;
   }
@@ -225,7 +225,7 @@ public class ECustomServiceMethodsImpl extends MinimalEObjectImpl.Container impl
         return;
       case EMapPackage.ECUSTOM_SERVICE_METHODS__PARAMETERS:
         getParameters().clear();
-        getParameters().addAll((Collection<? extends EServiceParam>)newValue);
+        getParameters().addAll((Collection<? extends EParameter>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

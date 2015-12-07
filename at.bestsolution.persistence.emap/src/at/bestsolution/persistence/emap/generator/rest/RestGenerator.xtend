@@ -25,6 +25,7 @@ import at.bestsolution.persistence.emap.eMap.EGreedyAttributePath
 import java.util.ArrayList
 import java.util.List
 import at.bestsolution.persistence.emap.eMap.ECustomServiceMethods
+import at.bestsolution.persistence.emap.eMap.EParameter
 
 class RestGenerator {
 	@Inject extension
@@ -320,7 +321,7 @@ class RestGenerator {
 		«FOR sm : restMapping.customServiceMethods»
 			@javax.ws.rs.GET
 			@javax.ws.rs.Path("«sm.path»")
-			public java.util.List<«mapping.packageName».dto.DTO«eClass.name»> «sm.name»(«sm.parameters.map[p | p.toRestAnnotation + " " + p.param.parameterType + " " + p.param.name].join(", ")») {
+			public java.util.List<«mapping.packageName».dto.DTO«eClass.name»> «sm.name»(«sm.parameters.map[p | p.toRestAnnotation + " " + p.parameterType + " " + p.name].join(", ")») {
 				throw new UnsupportedOperationException();
 			}
 		«ENDFOR»
@@ -431,7 +432,7 @@ class RestGenerator {
 			«ENDIF»
 		«ENDFOR»
 		«FOR sm : restMapping.customServiceMethods»
-			«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
+			«sm.name»( «sm.parameters.map[p | p.name + " : " + p.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
 				this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
 			}
 		«ENDFOR»
@@ -493,6 +494,10 @@ class RestGenerator {
 		} else {
 			return '@javax.ws.rs.QueryParam("'+ p.toRestParamName +'")'
 		}
+	}
+
+	def static toRestAnnotation(EParameter p) {
+		return '@javax.ws.rs.QueryParam("'+ p.name +'")'
 	}
 
 	def static toRestParamName(EServiceParam p) {

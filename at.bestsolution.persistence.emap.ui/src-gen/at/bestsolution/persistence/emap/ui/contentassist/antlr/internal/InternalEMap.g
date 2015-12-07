@@ -14885,8 +14885,8 @@ rule__ECustomServiceMethods__ParametersAssignment_4_1
     }
 :
 (
-{ before(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); }
-	ruleEServiceParam{ after(grammarAccess.getECustomServiceMethodsAccess().getParametersEServiceParamParserRuleCall_4_1_0()); }
+{ before(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); }
+	ruleEParameter{ after(grammarAccess.getECustomServiceMethodsAccess().getParametersEParameterParserRuleCall_4_1_0()); }
 )
 
 ;
