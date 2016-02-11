@@ -353,13 +353,41 @@ class RestGenerator {
 			this.urlPrefix = urlPrefix
 		}
 
-		getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
-			this.listRequest(this.urlPrefix + "/«eClass.name.toLowerCase»", callback);
-		}
+		«IF usePromise»
+			getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) : Promise<DTO«eClass.name»[]> {
+				var self = this;
+				return new Promise<DTO«eClass.name»[]>( ( resolve, reject ) => {
+					self.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»", ( v, err ) => {
+						if( err ) {
+							reject( err );
+						} else {
+							resolve( v );
+						}
+					} );
+				} );
+			}
 
-		get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
-			this.valueRequest(this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, callback);
-		}
+			get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
+				var self = this;
+				return new Promise<DTO«eClass.name»>( ( resolve, reject ) => {
+					self.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, ( v, err ) => {
+						if( err ) {
+							reject( err );
+						} else {
+							resolve( v );
+						}
+					} );
+				} );
+			}
+		«ELSE»
+			getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
+				this.listRequest(this.urlPrefix + "/«eClass.name.toLowerCase»", callback);
+			}
+
+			get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
+				this.valueRequest(this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, callback);
+			}
+		«ENDIF»
 
 		create( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 			$.ajax({
