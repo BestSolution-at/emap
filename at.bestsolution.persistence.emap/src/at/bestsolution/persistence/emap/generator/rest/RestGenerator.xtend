@@ -240,7 +240,10 @@ class RestGenerator {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				checkAccess_delete(id, s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
-				mapper.deleteById(id);
+				s.runInTransaction(se -> {
+					mapper.deleteById(id);
+					return true;
+				});
 			}
 		}
 
@@ -253,7 +256,10 @@ class RestGenerator {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				checkAccess_deleteAll(s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
-				mapper.deleteAll();
+				s.runInTransaction(se -> {
+					mapper.deleteAll();
+					return true;
+				});
 			}
 		}
 
