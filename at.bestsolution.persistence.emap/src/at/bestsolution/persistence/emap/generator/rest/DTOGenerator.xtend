@@ -254,7 +254,7 @@ class DTOGenerator {
 	}
 	'''
 
-	def generateTypeScriptClass(EClass eClass) '''
+	def generateTypeScriptClass(EClass eClass, boolean usePromise) '''
 	«FOR r : eClass.EAllReferences.map[EReferenceType].filter[t | t != eClass].filterDups[p1, p2| p1.equals(p2)]»
 	/// <reference path="DTO«r.name».ts"/>
 	«ENDFOR»

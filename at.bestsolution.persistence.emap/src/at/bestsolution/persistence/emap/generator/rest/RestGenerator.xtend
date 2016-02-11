@@ -341,9 +341,9 @@ class RestGenerator {
 		return rv;
 	}
 
-	def generateTypeScriptServiceClass(EMappingEntityDef entityDef, ERestServiceMapping restMapping, EClass eClass) '''
+	def generateTypeScriptServiceClass(EMappingEntityDef entityDef, ERestServiceMapping restMapping, EClass eClass, boolean usePromise) '''
 	/// <reference path="../../typings/jquery/jquery.d.ts"/>
-	/// <reference path="../util/bestUtils.ts"/>
+	/// <reference path="../../typings/es6-promise/es6-promise.d.ts"/>
 	/// <reference path="DTO«eClass.name».ts"/>
 
 	class «eClass.name»Service {
@@ -353,15 +353,15 @@ class RestGenerator {
 			this.urlPrefix = urlPrefix
 		}
 
-		getAll( callback : Consumer<DTO«eClass.name»[]> ) {
+		getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
 			this.listRequest(this.urlPrefix + "/«eClass.name.toLowerCase»", callback);
 		}
 
-		get( id : number, callback : Consumer<DTO«eClass.name»> ) {
+		get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 			this.valueRequest(this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, callback);
 		}
 
-		create( entity : DTO«eClass.name», callback : Consumer<DTO«eClass.name»> ) {
+		create( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 			$.ajax({
 	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»",
 	    		type: "PUT",
@@ -376,7 +376,7 @@ class RestGenerator {
 			} );
 		}
 
-		update( entity : DTO«eClass.name», callback : Consumer<DTO«eClass.name»> ) {
+		update( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 			$.ajax({
 	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»/"+entity.«entityDef.PKAttribute.name»,
 	    		type: "PUT",
@@ -391,7 +391,7 @@ class RestGenerator {
 			} );
 		}
 
-		private listRequest(path : string, callback : Consumer<DTO«eClass.name»[]> ) {
+		private listRequest(path : string, callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
 			$.ajax({
 				dataType: "json",
 				type: "GET",
@@ -404,7 +404,7 @@ class RestGenerator {
 			});
 		}
 
-		private valueRequest(path : string, callback : Consumer<DTO«eClass.name»> ) {
+		private valueRequest(path : string, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 			$.ajax({
 				dataType: "json",
 				type: "GET",
@@ -421,20 +421,65 @@ class RestGenerator {
 		}
 
 		«FOR sm : restMapping.serviceMethods»
-			«IF sm.query.returnType == ReturnType::LIST»
-				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
-					this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
-				}
+			«IF usePromise»
+				«IF sm.query.returnType == ReturnType::LIST»
+					«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")») : Promise<DTO«eClass.name»[]> {
+						var self = this;
+						return new Promise<DTO«eClass.name»[]>( ( resolve, reject ) => {
+							self.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", ( v, err ) => {
+								if( err ) {
+									reject( err );
+								} else {
+									resolve( v );
+								}
+							} );
+						} );
+					}
+				«ELSE»
+					«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»() : Promise<DTO«eClass.name»> {
+						var self = this;
+						return new Promise<DTO«eClass.name»>( ( resolve, reject ) => {
+							self.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", ( v, err ) => {
+								if( err ) {
+									reject( err );
+								} else {
+									resolve( v );
+								}
+							} );
+						} );
+					}
+				«ENDIF»
 			«ELSE»
-				«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»> ) {
-					this.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
-				}
+				«IF sm.query.returnType == ReturnType::LIST»
+					«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
+						this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
+					}
+				«ELSE»
+					«sm.name»( «sm.parameters.map[p | p.param.name + " : " + p.param.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»> ) {
+						this.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
+					}
+				«ENDIF»
 			«ENDIF»
 		«ENDFOR»
 		«FOR sm : restMapping.customServiceMethods»
-			«sm.name»( «sm.parameters.map[p | p.name + " : " + p.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
-				this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
-			}
+			«IF usePromise»
+				«sm.name»( «sm.parameters.map[p | p.name + " : " + p.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Promise<DTO«eClass.name»[]> ) {
+					var self = this;
+					return new Promise<DTO«eClass.name»[]>( ( resolve, reject ) => {
+						self.listRequest( listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", ( v, err ) => {
+							if( err ) {
+								reject( err );
+							} else {
+								resolve( v );
+							}
+						} );
+					} );
+				}
+			«ELSE»
+				«sm.name»( «sm.parameters.map[p | p.name + " : " + p.parameterType.toTypeScriptType].join(",")»«IF !sm.parameters.isEmpty», «ENDIF»callback : Consumer<DTO«eClass.name»[]> ) {
+					this.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/«sm.createPathString»", callback  );
+				}
+			«ENDIF»
 		«ENDFOR»
 	}'''
 

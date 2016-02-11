@@ -202,6 +202,9 @@ class EMapGenerator implements IGenerator {
 
 					if( ts != null ) {
 						var String path;
+						var usePromise = ts.parameters.findFirst[v|v.key == "promise"]?.simpleValue == "true"
+						System.err.println("USING PROMISE: " + usePromise);
+
 						if(ts.parameters.findFirst[v|v.key == "project"] != null) {
 							path = "/" + ts.parameters.findFirst[v|v.key == "project"].simpleValue
 							if(ts.parameters.findFirst[v|v.key == "folder"] != null ) {
@@ -211,8 +214,8 @@ class EMapGenerator implements IGenerator {
 							path = entityDef.package.name.replace('.','/')+"/webservice/dto/ts/"
 						}
 
-						fsa.generateFile(path + "/DTO"+entityDef.entity.name+".ts",dtoGenerator.generateTypeScriptClass(entityDef.entity.lookupEClass))
-						fsa.generateFile(path + "/"+entityDef.entity.name+"Service.ts",restGenerator.generateTypeScriptServiceClass(entityDef,e.rest,entityDef.entity.lookupEClass))
+						fsa.generateFile(path + "/DTO"+entityDef.entity.name+".ts",dtoGenerator.generateTypeScriptClass(entityDef.entity.lookupEClass,usePromise))
+						fsa.generateFile(path + "/"+entityDef.entity.name+"Service.ts",restGenerator.generateTypeScriptServiceClass(entityDef,e.rest,entityDef.entity.lookupEClass,usePromise))
 					}
 				}
 			}
