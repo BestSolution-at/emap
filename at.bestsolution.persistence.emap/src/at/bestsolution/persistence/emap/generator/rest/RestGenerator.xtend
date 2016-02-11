@@ -421,7 +421,7 @@ class RestGenerator {
 			delete( id : number ) {
 				return new Promise<boolean>( ( resolve, reject ) => {
 					$.ajax({
-						url: this.urlPrefix + "/" + id,
+						url: this.urlPrefix + "/«eClass.name.toLowerCase»/" + id,
 						type: "DELETE",
 						data: {},
 						cache : false
