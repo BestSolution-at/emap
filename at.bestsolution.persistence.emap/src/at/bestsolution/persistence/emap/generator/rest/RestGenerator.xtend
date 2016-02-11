@@ -354,7 +354,7 @@ class RestGenerator {
 		}
 
 		«IF usePromise»
-			getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) : Promise<DTO«eClass.name»[]> {
+			getAll() : Promise<DTO«eClass.name»[]> {
 				var self = this;
 				return new Promise<DTO«eClass.name»[]>( ( resolve, reject ) => {
 					self.listRequest( this.urlPrefix + "/«eClass.name.toLowerCase»", ( v, err ) => {
@@ -367,7 +367,7 @@ class RestGenerator {
 				} );
 			}
 
-			get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
+			get( id : number ) {
 				var self = this;
 				return new Promise<DTO«eClass.name»>( ( resolve, reject ) => {
 					self.valueRequest( this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, ( v, err ) => {
