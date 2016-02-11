@@ -393,7 +393,9 @@ class RestGenerator {
 							entity = new DTO«eClass.name»(data);
 						}
 						resolve(entity);
-					} );
+					}).fail(function( request, err ) {
+						reject( err );
+					});
 				});
 			}
 
@@ -409,8 +411,25 @@ class RestGenerator {
 						if( data ) {
 							entity = new DTO«eClass.name»(data);
 						}
-						resolve(entity, null);
-					} );
+						resolve(entity);
+					}).fail(function( request, err ) {
+						reject( err );
+					});
+				});
+			}
+
+			delete( id : number ) {
+				return new Promise<boolean>( ( resolve, reject ) => {
+					$.ajax({
+						url: this.urlPrefix + "/" + id,
+						type: "DELETE",
+						data: {},
+						cache : false
+					}).done( function(data : any) {
+						resolve(true);
+					}).fail(function( request, err ) {
+						reject( err );
+					});
 				});
 			}
 		«ELSE»
@@ -463,7 +482,9 @@ class RestGenerator {
 			}).done(function(data : any[]) {
 				var entityList : DTO«eClass.name»[] = data.map( function( o ) { return new DTO«eClass.name»(o); } );
 				callback(entityList, null);
-			});
+			}).fail( function( request, err ) {
+				callback(null,err);
+			} );
 		}
 
 		private valueRequest(path : string, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
@@ -479,7 +500,9 @@ class RestGenerator {
 					entity = new DTO«eClass.name»(data);
 				}
 				callback(entity, null);
-			});
+			}).fail( function( request, err ) {
+				callback(null,err);
+			} );
 		}
 
 		«FOR sm : restMapping.serviceMethods»
