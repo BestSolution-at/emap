@@ -379,6 +379,40 @@ class RestGenerator {
 					} );
 				} );
 			}
+
+			create( entity : DTO«eClass.name» ) {
+				return new Promise<DTO«eClass.name»>( ( resolve, reject ) => {
+					$.ajax({
+						url: this.urlPrefix + "/«eClass.name.toLowerCase»",
+						type: "PUT",
+						data: JSON.stringify(entity),
+						contentType: "application/json"
+					}).done( function(data : any) {
+						var entity : DTO«eClass.name»;
+						if( data ) {
+							entity = new DTO«eClass.name»(data);
+						}
+						resolve(entity);
+					} );
+				});
+			}
+
+			update( entity : DTO«eClass.name» ) {
+				return new Promise<DTO«eClass.name»>( ( resolve, reject ) => {
+					$.ajax({
+						url: this.urlPrefix + "/«eClass.name.toLowerCase»/"+entity.«entityDef.PKAttribute.name»,
+						type: "PUT",
+						data: JSON.stringify(entity),
+						contentType: "application/json"
+					}).done( function(data : any) {
+						var entity : DTO«eClass.name»;
+						if( data ) {
+							entity = new DTO«eClass.name»(data);
+						}
+						resolve(entity, null);
+					} );
+				});
+			}
 		«ELSE»
 			getAll( callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
 				this.listRequest(this.urlPrefix + "/«eClass.name.toLowerCase»", callback);
@@ -387,37 +421,37 @@ class RestGenerator {
 			get( id : number, callback : ( rv : DTO«eClass.name», err : any ) => void ) {
 				this.valueRequest(this.urlPrefix + "/«eClass.name.toLowerCase»/"+id, callback);
 			}
+
+			create( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
+				$.ajax({
+					url: this.urlPrefix + "/«eClass.name.toLowerCase»",
+					type: "PUT",
+					data: JSON.stringify(entity),
+					contentType: "application/json"
+				}).done( function(data : any) {
+					var entity : DTO«eClass.name»;
+					if( data ) {
+						entity = new DTO«eClass.name»(data);
+					}
+					callback(entity, null);
+				} );
+			}
+
+			update( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
+				$.ajax({
+					url: this.urlPrefix + "/«eClass.name.toLowerCase»/"+entity.«entityDef.PKAttribute.name»,
+					type: "PUT",
+					data: JSON.stringify(entity),
+					contentType: "application/json"
+				}).done( function(data : any) {
+					var entity : DTO«eClass.name»;
+					if( data ) {
+						entity = new DTO«eClass.name»(data);
+					}
+					callback(entity, null);
+				} );
+			}
 		«ENDIF»
-
-		create( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
-			$.ajax({
-	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»",
-	    		type: "PUT",
-	    		data: JSON.stringify(entity),
-	    		contentType: "application/json"
-			}).done( function(data : any) {
-				var entity : DTO«eClass.name»;
-				if( data ) {
-					entity = new DTO«eClass.name»(data);
-				}
-				callback(entity, null);
-			} );
-		}
-
-		update( entity : DTO«eClass.name», callback : ( rv : DTO«eClass.name», err : any ) => void ) {
-			$.ajax({
-	    		url: this.urlPrefix + "/«eClass.name.toLowerCase»/"+entity.«entityDef.PKAttribute.name»,
-	    		type: "PUT",
-	    		data: JSON.stringify(entity),
-	    		contentType: "application/json"
-			}).done( function(data : any) {
-				var entity : DTO«eClass.name»;
-				if( data ) {
-					entity = new DTO«eClass.name»(data);
-				}
-				callback(entity, null);
-			} );
-		}
 
 		private listRequest(path : string, callback : ( rv : DTO«eClass.name»[], err : any ) => void ) {
 			$.ajax({
