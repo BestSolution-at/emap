@@ -49,6 +49,12 @@ class EMapValidator extends AbstractEMapValidator {
 
 	@Check
 	def checkMissingSelectAllQuery(EMappingEntity entity) {
+		
+		// No missing check for abstract entites
+		if (entity.abstract) {
+			return
+		}
+		
 		if (!entity.namedQueries.exists[it.name == "selectAll"]) {
 			warning("No 'selectAll' query defined!", entity, EMapPackage$Literals::EMAPPING_ENTITY__NAME, SELECT_ALL_MISSING);
 
@@ -67,6 +73,12 @@ class EMapValidator extends AbstractEMapValidator {
 
 	@Check
 	def checkMissingAttributes(EMappingEntity entity) {
+		
+		// No missing check for abstract entites
+		if (entity.abstract) {
+			return
+		}
+		
 		val type = entity.etype;
 		val eClass = type.lookupEClass;
 		val missing = eClass.EAllStructuralFeatures.filter[f|!f.transient && entity.allAttributes.findFirst[it.name == f.name] == null]
