@@ -236,7 +236,7 @@ class RestGenerator {
 
 		@javax.ws.rs.DELETE
 		@javax.ws.rs.Path("{id}")
-		public void delete(@javax.ws.rs.PathParam("id") long id) {
+		public boolean delete(@javax.ws.rs.PathParam("id") long id) {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				checkAccess_delete(id, s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
@@ -245,6 +245,7 @@ class RestGenerator {
 					return true;
 				});
 			}
+			return true;
 		}
 
 		protected void checkAccess_delete(long id, at.bestsolution.persistence.Session session) {
@@ -252,7 +253,7 @@ class RestGenerator {
 		}
 
 		@javax.ws.rs.DELETE
-		public void deleteAll() {
+		public boolean deleteAll() {
 			try( at.bestsolution.persistence.Session s = sessionFactory.createSession() ) {
 				checkAccess_deleteAll(s);
 				«mapping.package.name».«mapping.entity.name»Mapper mapper = s.createMapper(«mapping.package.name».«mapping.entity.name»Mapper.class);
@@ -261,6 +262,7 @@ class RestGenerator {
 					return true;
 				});
 			}
+			return true;
 		}
 
 		protected void checkAccess_deleteAll(at.bestsolution.persistence.Session session) {
