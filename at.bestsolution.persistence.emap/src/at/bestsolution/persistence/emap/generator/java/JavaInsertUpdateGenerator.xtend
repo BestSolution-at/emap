@@ -245,7 +245,7 @@ class JavaInsertUpdateGenerator {
 			«FOR a : simpleDirectMappedAttributes»
 			«val aType = a.getEAttribute(eClass).EType»
 			// * «a.name»
-			«IF aType.instanceClassName.primitive»
+			«IF aType.instanceClassName.primitive || aType.instanceClassName == "java.math.BigDecimal"»
 				stmt.«a.statementMethod(eClass)»("«a.columnName»", («(eClass.getEStructuralFeature(a.name) as org.eclipse.emf.ecore.EAttribute).objectType»)session.getTransactionAttribute(object,«eClass.getEStructuralFeature(a.name).toFullQualifiedJavaEStructuralFeature»));
 			«ELSEIF aType instanceof EDataType && (aType as EDataType).isCustomType»
 				«val dat = aType as EDataType»

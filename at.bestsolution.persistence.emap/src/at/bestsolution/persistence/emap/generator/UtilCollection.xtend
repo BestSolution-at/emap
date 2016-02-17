@@ -55,7 +55,7 @@ class UtilCollection {
 
 	def List<String> findPredefinedSequences(EMappingBundle b) {
 		var List<String> predefs = new ArrayList
-		
+
 		for (predef : b.predef) {
 			if (predef instanceof EPredefSequence) {
 				predefs.add(predef.name)
@@ -66,10 +66,10 @@ class UtilCollection {
 		}
 		predefs
 	}
-	
+
 	def List<String> findPredefinedTables(EMappingBundle b) {
 		var List<String> predefs = new ArrayList
-		
+
 		for (predef : b.predef) {
 			if (predef instanceof EPredefTable) {
 				predefs.add(predef.name)
@@ -354,6 +354,7 @@ class UtilCollection {
 			case "java.util.Date": return "addTimestamp"
 			case "java.lang.String": return "addString"
 			case "java.sql.Blob": return "addBlob"
+			case "java.math.BigDecimal": return "addBigDecimal"
 		}
 	}
 
@@ -376,6 +377,8 @@ class UtilCollection {
 			return varName + '.getTimestamp("'+keyName+'")'
 		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
 			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
+		} else if( "java.math.BigDecimal" == f.EType.instanceClassName ) {
+			return varName + '.getBigDecimal("'+keyName+'")'
 		} else if (f.EType instanceof EDataType && (f.EType as EDataType).isCustomType) {
 			return varName + '.getString("'+keyName+'")'
 		} else {
@@ -392,8 +395,10 @@ class UtilCollection {
 			return varName + '.getInt('+idx+')'
 		} else if( "double" == f.EType.instanceClassName ) {
 			return varName + '.getDouble('+idx+')'
-		} else if( "boolean" == f.EType.instanceClassName ) {
-			return varName + '.getBoolean('+idx+')'
+		} else if( "double" == f.EType.instanceClassName ) {
+			return varName + '.getDouble('+idx+')'
+		} else if( "java.math.BigDecimal" == f.EType.instanceClassName ) {
+			return varName + '.getBigDecimal('+idx+')'
 //		} else if( "java.sql.Blob" == f.EType.instanceClassName ) {
 //			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
 		} else if( "java.util.Date" == f.EType.instanceClassName ) {
@@ -436,7 +441,7 @@ class UtilCollection {
 		}
 		return entity.tableName.toUpperCase
 	}
-	
+
 	def String calcTableName(EMappingEntity entity, DatabaseSupport dbSupport) {
 		if( dbSupport.isDefaultLowerCase ) {
 			return entity.calcTableName.toLowerCase
@@ -444,7 +449,7 @@ class UtilCollection {
 			return entity.calcTableName.toUpperCase
 		}
 	}
-	
+
 	def String calcColumnName(EAttribute e, DatabaseSupport dbSupport) {
 		if( dbSupport.isDefaultLowerCase ) {
 			return e.columnName.toLowerCase
@@ -500,7 +505,7 @@ class UtilCollection {
 			case "java.lang.Float": false
 			case "double": false
 			case "java.lang.Double": false
-
+			case "java.math.BigDecimal": false
 			case "java.util.Date": false
 			case "java.lang.String": false
 			case "java.sql.Blob": false
@@ -988,9 +993,9 @@ class UtilCollection {
   	}
   	return count
   }
-  
-  
-  
+
+
+
   def String toDefaultCase(String columnName, DatabaseSupport dbSupport) {
 		if( dbSupport.isDefaultLowerCase ) {
 			return columnName.toLowerCase
@@ -998,21 +1003,21 @@ class UtilCollection {
 			return columnName.toUpperCase
 		}
 	}
-  
+
 	def getValueGenerator(EAttribute attribute, DatabaseSupport db) {
 		attribute.valueGenerators.findFirst[dbType == db.databaseId]
 	}
-	
+
 	def isAutoKey(EValueGenerator gen) {
 		if (gen == null) false else gen.autokey
 	}
-	
+
 	def isSequence(EValueGenerator gen) {
 		if (gen == null) false else gen.sequence != null
 	}
-	
+
 	def isQuery(EValueGenerator gen) {
 		if (gen == null) false else gen.query != null
 	}
-	
+
 }
