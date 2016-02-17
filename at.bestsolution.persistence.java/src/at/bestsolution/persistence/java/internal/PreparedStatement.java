@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.internal;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -101,6 +102,15 @@ public class PreparedStatement implements Statement {
 	}
 
 	@Override
+	public void addBigDecimal(String column, BigDecimal value) {
+		if( value == null ) {
+			columnList.add(new NullColumn(columnList.size(), column, JDBCType.DOUBLE));
+		} else {
+			columnList.add(new BigDecimalColumn(columnList.size(), column, value));
+		}
+	}
+
+	@Override
 	public void addLong(String column, long value) {
 		columnList.add(new LongColumn(columnList.size(), column, value));
 	}
@@ -134,6 +144,21 @@ public class PreparedStatement implements Statement {
 		}
 
 		public abstract void apply(java.sql.PreparedStatement pstmt) throws SQLException;
+	}
+
+	static class BigDecimalColumn extends Column {
+		private final BigDecimal value;
+
+		public BigDecimalColumn(int index, String column, BigDecimal value) {
+			super(index, column);
+			this.value = value;
+		}
+
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
+			pstmt.setBigDecimal(index+1, value);
+		}
 	}
 
 	static class DoubleColumn extends Column {

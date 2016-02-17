@@ -10,6 +10,7 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -56,6 +57,7 @@ public interface DatabaseSupport {
 
 		public void addDouble(String column, double value);
 		public void addDouble(String column, Double value);
+		public void addBigDecimal(String column, BigDecimal value);
 
 		public void addString(String column, String value);
 
