@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+<extension point="org.eclipse.ui.popupMenus"> 
+   <viewerContribution 
+      id="at.bestsolution.persistence.emap.ecoregenerator.ui.genModelEditorContribution"
+   targetID="org.eclipse.emf.codegen.ecore.genmodel.presentation.GenModelEditorID"> 
+      <action
+         id="at.bestsolution.persistence.emap.ecoregenerator.ui.genModelEditorContribution.generate" 
+         label="%genModelGenerateAction.popupMenu"
+         menubarPath="org.eclipse.emf.codegen.ecore.genmodelMenuID" 
+         class="at.bestsolution.persistence.emap.ecoregenerator.GenModelGenerateDoctrineActionDelegate"> 
+      </action> 
+   </viewerContribution> 
+</extension>
+<extension
+      point="org.eclipse.ui.preferencePages">
+   <page
+         class="at.bestsolution.persistence.emap.ecoregenerator.preferences.DoctrinePreferencePage"
+         id="at.bestsolution.persistence.emap.ecoregenerator.preferences.DoctrinePreferencePage"
+         name="%preferencesPage.name">
+   </page>
+</extension>
+<extension
+      point="org.eclipse.core.runtime.preferences">
+   <initializer
+         class="at.bestsolution.persistence.emap.ecoregenerator.preferences.PreferenceInitializer">
+   </initializer>
+</extension>
+</plugin>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="true">
+  <fileset name="all" enabled="true" check-config-name="BeSo" local="false">
+    <file-match-pattern match-pattern="." include-pattern="true"/>
+  </fileset>
+  <filter name="WriteProtectedFiles" enabled="true"/>
+  <filter name="FilesFromPackage" enabled="true">
+    <filter-data value="xtend-gen"/>
+    <filter-data value="src/at/bestsolution/ecore/generator/php/doctrine/i18n"/>
+  </filter>
+</fileset-config>
