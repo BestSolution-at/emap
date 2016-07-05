@@ -119,9 +119,11 @@ class JavaInsertUpdateGenerator {
 		Connection connection = session.checkoutConnection();
 		try {
 			«IF entityDef.extendsEntity»
-			session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
+				long version = getLockColumn() != null ? getVersionForTx(object) : -1;
+				session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
+			«ELSE»
+				long version = getLockColumn() != null ? getVersionForTx(object) : -1;
 			«ENDIF»
-			long version = getLockColumn() != null ? getVersionForTx(object) : -1;
 			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.javaReservedNameEscape.toFirstUpper»(),version);
 
 			if( getLockColumn() != null && ! success ) {
