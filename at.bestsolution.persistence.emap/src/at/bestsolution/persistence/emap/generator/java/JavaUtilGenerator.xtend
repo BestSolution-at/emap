@@ -132,7 +132,13 @@ class JavaUtilGenerator {
 				b.append(", ");
 			}
 		}
-		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" IN ("+b.toString()+")";
+		
+		String sql;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toLowerCase»\" WHERE \"«attribute.findRelationColumn.toLowerCase»\" IN ("+b.toString()+")";
+		} else {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toUpperCase»\" WHERE \"«attribute.findRelationColumn.toUpperCase»\" IN ("+b.toString()+")";
+		}
 
 		if (isDebug) {
 			LOGGER.debug("Executing Query: " + sql);
@@ -171,8 +177,13 @@ class JavaUtilGenerator {
 		if( isDebug ) {
 			LOGGER.debug("clear many to many «attribute.name.toFirstUpper» for all");
 		}
-
-		String sql = "DELETE FROM \"«attribute.findRelationTable»\"";
+		String sql;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toLowerCase»\"";
+		} else {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toUpperCase»\"";
+		}
+		
 		«generateExecuteStatement("stmt", "sql")»
 	}
 	'''
@@ -185,7 +196,12 @@ class JavaUtilGenerator {
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
 	private final RelationSQL «getCreateInsertManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
-		final String sql = "INSERT INTO \"«attribute.findRelationTable»\" (\"«attribute.findRelationColumn»\",\"«attribute.findOppositeRelationColumn»\") VALUES (?,?)";
+		final String sql;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			sql = "INSERT INTO \"«attribute.findRelationTable.toLowerCase»\" (\"«attribute.findRelationColumn.toLowerCase»\",\"«attribute.findOppositeRelationColumn.toLowerCase»\") VALUES (?,?)";
+		} else {
+			sql = "INSERT INTO \"«attribute.findRelationTable.toUpperCase»\" (\"«attribute.findRelationColumn.toUpperCase»\",\"«attribute.findOppositeRelationColumn.toUpperCase»\") VALUES (?,?)";
+		}
 			return new RelationSQL() {
 				public EObject getSelf() {
 					return (EObject)self;
@@ -250,7 +266,12 @@ class JavaUtilGenerator {
 	«val oppositeEntity = attribute.opposite.getEntity»
 	«val oppositeEntityDef = oppositeEntity.eContainer as EMappingEntityDef»
 	private final RelationSQL «getCreateDeleteManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self, final «attribute.getOpposite(eClass).EContainingClass.instanceClassName» opposite) {
-		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" = ? AND \"«attribute.findOppositeRelationColumn»\" = ?";
+		final String sql;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toLowerCase»\" WHERE \"«attribute.findRelationColumn.toLowerCase»\" = ? AND \"«attribute.findOppositeRelationColumn.toLowerCase»\" = ?";
+		} else {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toUpperCase»\" WHERE \"«attribute.findRelationColumn.toUpperCase»\" = ? AND \"«attribute.findOppositeRelationColumn.toUpperCase»\" = ?";
+		}
 			return new RelationSQL() {
 				public EObject getSelf() {
 					return (EObject)self;
@@ -313,7 +334,13 @@ class JavaUtilGenerator {
 
 	def generateCreateClearManyToManyRelationSQL(EMappingEntityDef entityDef, EClass eClass, EAttribute attribute) '''
 	private final RelationSQL «getCreateClearManyToManyRelationSQLMethodName(eClass, attribute)»(final JavaSession session, final Connection c, final «eClass.name» self) {
-		final String sql = "DELETE FROM \"«attribute.findRelationTable»\" WHERE \"«attribute.findRelationColumn»\" = ?";
+		final String sql;
+		if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toLowerCase»\" WHERE \"«attribute.findRelationColumn.toLowerCase»\" = ?";
+		} else {
+			sql = "DELETE FROM \"«attribute.findRelationTable.toUpperCase»\" WHERE \"«attribute.findRelationColumn.toUpperCase»\" = ?";
+		}
+		
 		return new RelationSQL() {
 			public EObject getSelf() {
 				return (EObject)self;
