@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Emap
+Bundle-SymbolicName: test.model.emap
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: at.bestsolution.persistence;bundle-version="1.0.0",
+ at.bestsolution.persistence.java;bundle-version="1.0.1",
+ at.bestsolution.persistence.model;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15",
+ test.model;bundle-version="1.0.0"
+Import-Package: org.osgi.service.component.annotations;version="1.2.0"
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/mappings.xml
+Export-Package: test.model.emap.test

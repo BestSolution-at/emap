@@ -1,0 +1,10 @@
+<dataset>
+    <PERSON ID="1" E_VERSION="1" NAME="Heinzi" />
+    <PERSON ID="2" E_VERSION="1" NAME="Sarah" />
+   	<ADDRESS />
+    <PLACE ID="1" E_VERSION="1" NAME="Magical Forest" />
+    <PLACE ID="2" E_VERSION="1" NAME="Wonderland" />
+    <LIKES_PERSON_PLACE FK_PERSON="1" FK_PLACE="2" />
+    <LIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="1" />
+    <LIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="2" />
+</dataset>

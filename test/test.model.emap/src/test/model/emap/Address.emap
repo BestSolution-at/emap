@@ -1,0 +1,24 @@
+package test.model.emap.test;
+
+entity Address {
+	etype "test"#Address
+	attributes {
+		primarykey id => ID generatedby {
+			"Firebird" seqnext "SEQ_ADDRESS_ID",
+			"Postgres" autokey
+		},
+		
+		street => STREET,
+		
+		person => resolve Person.selectById(FK_PERSON)
+	}
+	queries {
+		single selectById(primarykey long id) {
+			default Address FROM "ADDRESS" WHERE "ID = ${id}"
+		},
+		
+		selectAllForPerson(long personId) {
+			default Address FROM "ADDRESS" WHERE "FK_PERSON = ${personId}"
+		}
+	}
+}    

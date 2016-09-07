@@ -1,0 +1,26 @@
+package test.model.emap.test;
+
+entity Person {
+	etype "test"#Person
+	attributes {
+		primarykey id => ID generatedby {
+			"Firebird" seqnext "SEQ_PERSON_ID",
+			"Postgres" autokey
+		}
+		
+		, name => NAME
+		
+		, addresses => resolve Address.selectAllForPerson(ID)
+		
+		, likes => resolve Place.selectAllForPerson(ID) Place.likedBy on LIKES_PERSON_PLACE.FK_PERSON
+	}
+	queries {
+		single selectById(primarykey long id) {
+			default Person FROM "PERSON" WHERE "ID = ${id}"
+		},
+		
+		selectAllForPlace(long placeId) {
+			default Person FROM "PERSON, LIKES_PERSON_PLACE" WHERE "PERSON.ID = LIKES_PERSON_PLACE.FK_PERSON AND LIKES_PERSON_PLACE.FK_PLACE = ${placeId}"
+		} 
+	}
+}    

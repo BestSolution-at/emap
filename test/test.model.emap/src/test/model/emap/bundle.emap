@@ -1,0 +1,9 @@
+bundle Test {
+	Address,
+	
+	Person,
+	
+	Place
+	
+} databases "Firebird", "Postgres"
+  

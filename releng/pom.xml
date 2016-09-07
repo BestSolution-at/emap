@@ -32,8 +32,6 @@
 		<module>../at.bestsolution.persistence.compat</module>
 		<module>../at.bestsolution.persistence.firebird</module>
 		<module>../at.bestsolution.persistence.postgres</module>
-		<module>../at.bestsolution.emap.oracle.dummy</module>
-		<module>../at.bestsolution.persistence.java.c3p0.oracle.blob</module>
 		<module>../at.bestsolution.persistence.model</module>
 		<module>../at.bestsolution.persistence.java</module>
 		<module>../at.bestsolution.persistence.java.c3p0</module>
@@ -50,22 +48,46 @@
 		<module>../at.bestsolution.persistence.runtime.updatesite</module>
 
 		<!-- Tooling -->
-		<module>../at.bestsolution.persistence.emap</module>
-		<module>../at.bestsolution.persistence.emap.ui</module>
-		<module>../at.bestsolution.persistence.tooling.feature</module>
-		<module>../at.bestsolution.persistence.tooling.updatesite</module>
+
+		<module>../test</module>
 	</modules>
 
 	<repositories>
-		<repository>
+		<!--repository>
 			<id>mars</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/mars</url>
-		</repository>
+		</repository-->
 		<repository>
+			<id>mars-201602261000</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/mars/201602261000/</url>
+		</repository>
+		<!--repository>
 			<id>xtext</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
+		</repository-->
+		<repository>
+			<id>xtext-2.10.0</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/</url>
+		</repository>
+		<!--repository>
+			<id>emf-2.10.x</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/modeling/emf/emf/updates/2.10.x/</url>
+		</repository-->
+		<repository>
+			<id>maven.oracle.com</id>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>https://maven.oracle.com</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 
@@ -166,21 +188,20 @@
 					<configuration>
 						<encoding>UTF-8</encoding>
 						<extraClasspathElements>
-				            <extraClasspathElement>
-				                <groupId>com.oracle</groupId>
-				                <artifactId>javafx</artifactId>
-				                <version>8.0.0-SNAPSHOT</version>
-				                <systemPath>${java.home}/lib/jfxswt.jar</systemPath>
-				                <scope>system</scope>
-				            </extraClasspathElement>
-				            <extraClasspathElement>
+							<!--extraClasspathElement>
+								<groupId>com.oracle.jdbc</groupId>
+								<artifactId>ojdbc14</artifactId>
+								<version>10.2.0.1</version>
+							</extraClasspathElement-->
+
+				            <!--extraClasspathElement>
 				                <groupId>com.oracle</groupId>
 				                <artifactId>jdbc</artifactId>
 				                <version>10.2.0.1.0</version>
 				                <systemPath>/var/lib/jenkins/build-libs/ojdbc14.jar</systemPath>
 				                <scope>system</scope>
-				            </extraClasspathElement>
-        				</extraClasspathElements>
+				            </extraClasspathElement-->
+        					</extraClasspathElements>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -225,7 +246,45 @@
 		</pluginManagement>
 	</build>
 	<profiles>
-	<profile>
+		<profile>
+			<id>tooling</id>
+			<modules>
+				<module>../at.bestsolution.persistence.emap</module>
+				<module>../at.bestsolution.persistence.emap.ui</module>
+				<module>../at.bestsolution.persistence.tooling.feature</module>
+				<module>../at.bestsolution.persistence.tooling.updatesite</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>with-oracle</id>
+			<modules>
+				<module>../at.bestsolution.persistence.java.c3p0.oracle.blob</module>
+				<module>../at.bestsolution.emap.oracle.dummy</module>
+				<module>../at.bestsolution.persistence.runtime.oracle.feature</module>
+			</modules>
+			<build>
+				<pluginManagement>
+					<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-compiler-plugin</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+							<!-- TODO fix me -->
+							<extraClasspathElements>
+								<extraClasspathElement>
+									<groupId>com.oracle.jdbc</groupId>
+									<artifactId>ojdbc14</artifactId>
+									<version>10.2.0.1</version>
+								</extraClasspathElement>
+							</extraClasspathElements>
+						</configuration>
+					</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<profile>
       <id>build-server</id>
       <build>
         <plugins>

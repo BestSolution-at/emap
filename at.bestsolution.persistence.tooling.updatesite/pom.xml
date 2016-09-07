@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<name>emap - persistence runtime updatesite</name>
+	<name>emap - persistence tooling updatesite</name>
 	<groupId>at.bestsolution.persistence</groupId>
 	<artifactId>at.bestsolution.persistence.tooling.updatesite</artifactId>
 	<packaging>eclipse-update-site</packaging>

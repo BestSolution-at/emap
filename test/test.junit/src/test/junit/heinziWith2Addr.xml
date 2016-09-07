@@ -1,0 +1,7 @@
+<dataset>
+    <PERSON ID="1" E_VERSION="0" NAME="Heinzi" />
+   	<ADDRESS ID="1" E_VERSION="0" STREET="Street Zero" FK_PERSON="1" />
+   	<ADDRESS ID="2" E_VERSION="0" STREET="Street One" FK_PERSON="1" />
+    <PLACE />
+    <LIKES_PERSON_PLACE />
+</dataset>

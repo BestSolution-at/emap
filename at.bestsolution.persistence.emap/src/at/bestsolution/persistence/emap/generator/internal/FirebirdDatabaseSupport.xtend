@@ -58,7 +58,7 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 		} else if( "EInt" == dataType.name || "EIntegerObject" == dataType.name ) {
 			return "integer";
 		} else if( "ELong" == dataType.name || "ELongObject" == dataType.name ) {
-			return "int64";
+			return "bigint";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
 		} else if( "EString" == dataType.name ) {
