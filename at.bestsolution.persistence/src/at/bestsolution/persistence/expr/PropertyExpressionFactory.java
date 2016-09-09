@@ -10,7 +10,11 @@
  *******************************************************************************/
 package at.bestsolution.persistence.expr;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import at.bestsolution.persistence.Key;
 
 public class PropertyExpressionFactory<O> {
 	final String property;
@@ -131,6 +135,52 @@ public class PropertyExpressionFactory<O> {
 		protected abstract long getSid(T value);
 	}
 
+	public final static class KeyExpressionFactory<O, K extends Key<O>> {
+
+		private O entity;
+		
+		public KeyExpressionFactory(O entity) {
+			this.entity = entity;
+		}
+		
+		public Expression<O> eq(K value) {
+			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
+			for (String property : value.getAttributes()) {
+				propChecks.add(EqualsExpression.<O>eq(property, value.getValue(property)));
+			}
+			return new AndExpression<O>(propChecks);
+		}
+		
+		public Expression<O> neq(K value) {
+			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
+			for (String property : value.getAttributes()) {
+				propChecks.add(EqualsExpression.<O>neq(property, value.getValue(property)));
+			}
+			return new OrExpresion<O>(propChecks);
+		}
+		
+		public Expression<O> in(K... values) {
+			// TODO = ?
+			throw new UnsupportedOperationException();
+//			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
+//			for (String property : values.getProperties()) {
+//				
+//				
+//				new InExpression<O>(ExpressionType.IN, property, values);
+//				propChecks.add(EqualsExpression.<O>eq(property, value.getValue(property)));
+//			}
+//			return new AndExpression<O>(propChecks);
+//			
+//			
+//			return PropertyExpressionFactory.in(property, (Object[]) values);
+		}
+
+		public Expression<O> notIn(K... values) {
+			// TODO = ?
+			throw new UnsupportedOperationException();
+		}
+	}
+	
 	public final static class IntegerExpressionFactory<O> extends PropertyExpressionFactory<O> {
 
 		public IntegerExpressionFactory(String property) {

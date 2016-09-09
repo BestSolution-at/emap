@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
 import java.util.Arrays
+import java.util.List
 
 class JavaObjectMapperGenerator {
 
@@ -111,6 +112,44 @@ class JavaObjectMapperGenerator {
 	// «generatorCredit»
 	@SuppressWarnings("all")
 	public final class «entityDef.entity.name»MapperFactory implements ObjectMapperFactory<«entityDef.package.name».«entityDef.entity.name»Mapper,«eClass.name»> {
+		
+		final static at.bestsolution.persistence.java.KeyLayout<«entityDef.entity.name»Mapper.Key> KeyLayout = new at.bestsolution.persistence.java.KeyLayout<«entityDef.entity.name»Mapper.Key>(«
+			entityDef.findPKAttributes.join(", ", [a|
+				'''new at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry("«a.name»", "«a.columnName»", «a.getEAttribute(eClass).EType.instanceClassName».class)'''
+			])») {
+			@Override
+			public «entityDef.entity.name»Mapper.Key create(Map<String, Object> values) {
+				return new KeyImpl(values);
+			}
+		};
+		
+		final static class KeyImpl extends at.bestsolution.persistence.java.AMapBasedKey<«entityDef.entity.name»> implements «entityDef.entity.name»Mapper.Key {
+			KeyImpl(Map<String, Object> values) {
+				super(«entityDef.entity.name».class, values);
+			}
+			
+			@Override
+			public at.bestsolution.persistence.java.KeyLayout getKeyLayout() {
+				return KeyLayout;
+			}
+			
+			«FOR pk : entityDef.findPKAttributes»
+			@Override
+			public «pk.getEAttribute(eClass).EType.instanceClassName» «pk.name»() {
+				return getValue("«pk.name»");
+			}
+			
+			«ENDFOR»
+		}
+		
+		public static final «entityDef.entity.name»Mapper.Key createKey(«entityDef.findPKAttributes.join(", ", [a|a.getEAttribute(eClass).EType.instanceClassName + " " + a.name])») {
+			Map<String, Object> values = new HashMap<String, Object>();
+			«FOR pk : entityDef.findPKAttributes»
+			values.put("«pk.name»", «pk.name»);
+			«ENDFOR»
+			return new KeyImpl(values);
+		}
+		
 		@Override
 		public Class<«eClass.name»> getEntityType() {
 			return «eClass.name».class;
@@ -152,6 +191,50 @@ class JavaObjectMapperGenerator {
 					META_DATA = new MetaData();
 				}
 				return META_DATA;
+			}
+
+			// «generatorCredit»
+			@Override
+			public <K extends at.bestsolution.persistence.Key<«entityDef.entity.name»>> long selectVersion(K id) {
+				final Connection connection = session.checkoutConnection();
+				PreparedStatement pStmt = null;
+				ResultSet set = null;
+				try {
+					try {
+						if( session.getDatabaseSupport().isDefaultLowerCase() ) {
+							pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName.toLowerCase»\" WHERE \"«entityDef.entity.buildPrimaryKeyClause(true)»");
+						} else {
+							pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"«entityDef.tableName.toUpperCase»\" WHERE \"«entityDef.entity.buildPrimaryKeyClause(false)»");
+						}
+						«val List<EAttribute> pks = entityDef.findPKAttributes.toList»
+						«FOR a : pks»
+							«IF a.getEAttribute(eClass).EType.instanceClassName == "java.lang.Long" || a.getEAttribute(eClass).EType.instanceClassName == "long"»
+								pStmt.setLong(«1 + pks.indexOf(a)», (Long) id.getValue("«a.name»"));
+							«ELSEIF a.getEAttribute(eClass).EType.instanceClassName == "java.lang.String"»
+								pStmt.setString(«1 + pks.indexOf(a)», (String) id.getValue("«a.name»"));
+							«ENDIF»
+						«ENDFOR»
+
+						set = pStmt.executeQuery();
+
+						if (set.next()) {
+							return set.getLong(1);
+						}
+						else {
+							return -1;
+						}
+					}
+					finally {
+						if (set != null) set.close();
+						if (pStmt != null) pStmt.close();
+					}
+				}
+				catch (SQLException e) {
+					throw new PersistanceException(e);
+				}
+				finally {
+					session.returnConnection(connection);
+				}
 			}
 
 			// «generatorCredit»

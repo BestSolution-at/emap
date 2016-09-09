@@ -35,7 +35,11 @@ public interface Session extends Closeable {
 	public String getId();
 	public String getConfigurationId();
 	public String getDatabaseType();
+	
+	@Deprecated
 	public <O> O get(Class<O> clazz, Object id);
+	
+	public <O, K extends Key<O>> O get(Class<O> clazz, K key);
 	
 	public <M extends ObjectMapper<?>> M createMapper(Class<M> mapper);
 	public <T> ObjectMapper<T> createMapperForType(Class<T> type);

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement;
 
@@ -66,6 +67,16 @@ public class PreparedUpdateStatement extends PreparedStatement implements Update
 			pstmt.setLong(columnList.size()+2, version);
 		}
 		return pstmt.executeUpdate() != 0;
+	}
+
+	/* (non-Javadoc)
+	 * @see at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement#execute(java.sql.Connection, at.bestsolution.persistence.Key, long)
+	 */
+	@Override
+	public boolean execute(Connection connection, Key<?> primaryKeyValue, long version) throws SQLException {
+		// TODO NEWKEYS
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

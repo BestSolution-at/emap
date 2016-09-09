@@ -35,6 +35,13 @@ class JavaInterfaceGenerator {
 	import «eClass.instanceClassName»;
 
 	public interface «entityDef.entity.name»Mapper extends «IF entityDef.entity.namedQueries.findFirst[name == "selectAll" && parameters.empty] != null»at.bestsolution.persistence.ConcreteObjectMapper<«eClass.instanceClassName»,at.bestsolution.persistence.MappedQuery<«eClass.name»>>«ELSE»at.bestsolution.persistence.ObjectMapper<«eClass.instanceClassName»>«ENDIF» {
+		
+		public static interface Key extends at.bestsolution.persistence.Key<«entityDef.entity.name»> {
+			«FOR pk : entityDef.findPKAttributes»
+			public «pk.getEAttribute(eClass).EType.instanceClassName» «pk.name»();
+			«ENDFOR»
+		}
+		
 		«FOR query : entityDef.entity.namedQueries»
 		/**
 		 * Find elements managed Domain-Elements with a query like this:

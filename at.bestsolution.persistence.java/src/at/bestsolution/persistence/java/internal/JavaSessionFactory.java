@@ -55,6 +55,7 @@ import at.bestsolution.persistence.BasicFuture;
 import at.bestsolution.persistence.Callback;
 import at.bestsolution.persistence.Consumer;
 import at.bestsolution.persistence.Function;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.ObjectChange;
 import at.bestsolution.persistence.ObjectChangePersistParticipant;
@@ -438,6 +439,20 @@ public class JavaSessionFactory implements SessionFactory {
 				}
 			}
 		}
+		
+		@Override
+		public <O, K extends Key<O>> O get(Class<O> clazz, K key) {
+			checkValid();
+			ObjectMapperFactory<?, ?> factory = domainFactories.get(clazz.getName());
+			if( factory != null ) {
+				NamedQuery<O> q = (NamedQuery<O>) factory.createNamedQuery(this, "selectById");
+				if( q != null ) {
+					return q.queryForOne(key);
+				}
+				throw new IllegalArgumentException("No 'selectById' query available for '"+clazz+"'");
+			}
+			throw new IllegalArgumentException("No mapper for '"+clazz+"' is available");
+		}
 
 		@Override
 		public <O> O get(Class<O> clazz, Object id) {
@@ -716,7 +731,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public <O, P> void registerPrimaryKey(O object, P key) {
+		public <O, P extends Key<O>> void registerPrimaryKey(O object, P key) {
 			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
@@ -736,7 +751,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@SuppressWarnings("unchecked")
-		private <O,P> P getPrimaryKeyFromTransactionCache(O object) {
+		private <O, P extends Key<O>> P getPrimaryKeyFromTransactionCache(O object) {
 			Transaction transaction = getTransaction();
 			if (transaction == null) {
 				return null;
@@ -778,7 +793,7 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public <O,P> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
+		public <O, P extends Key<O>> P getPrimaryKey(ObjectMapper<O> mapper, O object) {
 			checkValid();
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
@@ -794,7 +809,7 @@ public class JavaSessionFactory implements SessionFactory {
 				return key;
 			}
 
-			key = mapper.getPrimaryKeyValue(object);
+			key = mapper.getPrimaryKey(object);
 			if( isDebug ) {
 				LOGGER.debug(" got key from object => " + key);
 			}

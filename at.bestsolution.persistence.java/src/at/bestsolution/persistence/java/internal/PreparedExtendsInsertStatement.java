@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement;
 import at.bestsolution.persistence.java.DatabaseSupport.InsertStatement;
@@ -69,5 +70,15 @@ public class PreparedExtendsInsertStatement extends PreparedStatement implements
 		} finally {
 			pstmt.close();
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement#execute(java.sql.Connection, at.bestsolution.persistence.Key)
+	 */
+	@Override
+	public boolean execute(Connection connection, Key<?> primaryKeyValue) throws SQLException {
+		// TODO NEWKEYS
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

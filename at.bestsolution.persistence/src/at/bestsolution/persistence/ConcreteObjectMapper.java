@@ -16,6 +16,10 @@ public interface ConcreteObjectMapper<O, C extends MappedQuery<O>> extends Objec
 	public List<Long> selectAllObjectIds();
 	public DynamicSelectQuery<Long,O> selectAllObjectIdsMappedQuery();
 
+	
+	public List<Key<O>> selectAllObjectIds2();
+	public DynamicSelectQuery<Key<O>, O> selectAllObjectIdsMappedQuery2();
+	
 	public List<O> selectAll();
 	public C selectAllMappedQuery();
 }

@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.MappedQuery;
@@ -22,6 +23,7 @@ import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.KeyLayout;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
@@ -172,11 +174,11 @@ public class H2DatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(String pkColumn,
-				String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(db, tableName, pkColumn, primaryKeyExpression, lockColumn);
+		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames,
+				String lockColumn) {
+			return new PreparedInsertStatement(db, tableName, pkLayout, sequenceNames, lockColumn);
 		}
-
+		
 		@Override
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn) {
 			return new PreparedExtendsInsertStatement(db,pkColumn, pkColumn);

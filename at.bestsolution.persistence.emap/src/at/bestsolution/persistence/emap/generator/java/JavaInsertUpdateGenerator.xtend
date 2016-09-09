@@ -226,17 +226,22 @@ class JavaInsertUpdateGenerator {
 
 		«IF !entityDef.extendsEntity»
 		// Handle Expressions
-		String sequenceExpression = null;
+		Map<String, String> sequenceExpressions = new HashMap<String, String>();
 		«val dbSupport = pkAttribute.findDatabaseSupport»
 		«FOR d : dbSupport»
 		if( "«d.databaseId»".equals(session.getDatabaseType()) ) {
-			sequenceExpression = «IF d.getSequenceStatementNextVal(pkAttribute)!=null»"«d.getSequenceStatementNextVal(pkAttribute)»"«ELSE»null«ENDIF»;
+			«FOR pk : entityDef.findPKAttributes»
+				«IF d.getSequenceStatementNextVal(pk)!=null»
+					sequenceExpressions.put("«pk.columnName»","«d.getSequenceStatementNextVal(pk)»");
+				«ENDIF»
+			«ENDFOR»
 		}
 		«ENDFOR»
 		// Build the SQL
-		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createInsertStatement("«pkAttribute.columnName»", sequenceExpression, getLockColumn());
+		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createInsertStatement(KeyLayout, sequenceExpressions, getLockColumn());
 		«ELSE»
 		// Build the SQL
+		« /* TODO PRIMARYKEY !!! */»
 		at.bestsolution.persistence.java.DatabaseSupport.ExtendsInsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createExtendsInsertStatement("«pkAttribute.columnName»");
 		«ENDIF»
 
@@ -322,13 +327,15 @@ class JavaInsertUpdateGenerator {
 				// insert self
 				stmt.execute(connection, (Long)getPrimaryKeyForTx(object));
 			«ELSE»
-				final long primaryKey = stmt.execute(connection);
+				final at.bestsolution.persistence.Key<«entityDef.entity.name»> primaryKey = stmt.execute(connection);
 				session.registerPrimaryKey(object, primaryKey);
 				session.updateVersion(object,0);
 				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
 					@Override
 					public void runAfterTx(JavaSession session) {
-						object.set«pkAttribute.name.toFirstUpper»(primaryKey);
+						«FOR a : entityDef.findPKAttributes»
+						object.set«a.name.toFirstUpper»(primaryKey.getValue("«a.name»"));
+						«ENDFOR»
 					}
 				});
 			«ENDIF»

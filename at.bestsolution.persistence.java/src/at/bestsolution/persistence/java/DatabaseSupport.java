@@ -16,8 +16,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.java.query.DynamicListDelegate;
@@ -47,7 +49,7 @@ public interface DatabaseSupport {
 
 	public interface QueryBuilder {
 		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn);
-		public InsertStatement createInsertStatement(String pkColumn, String sequenceName, String lockColumn);
+		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames, String lockColumn);
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn);
 	}
 
@@ -75,14 +77,17 @@ public interface DatabaseSupport {
 	}
 
 	public interface InsertStatement extends Statement {
-		public long execute(Connection connection) throws SQLException;
+		public <O> Key<O> execute(Connection connection) throws SQLException;
 	}
 
 	public interface ExtendsInsertStatement extends Statement {
-		public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
+		@Deprecated public boolean execute(Connection connection, long primaryKeyValue) throws SQLException;
+		public boolean execute(Connection connection, Key<?> primaryKeyValue) throws SQLException;
 	}
-
+	
 	public interface UpdateStatement extends Statement {
-		public boolean execute(Connection connection, long primaryKeyValue, long version) throws SQLException;
+		@Deprecated public boolean execute(Connection connection, long primaryKeyValue, long version) throws SQLException;
+		public boolean execute(Connection connection, Key<?> primaryKeyValue, long version) throws SQLException;
 	}
+	
 }

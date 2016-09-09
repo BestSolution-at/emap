@@ -600,6 +600,14 @@ class UtilCollection {
 	def getPKAttribute(EMappingEntity entity) {
 		entity.collectDerivedAttributes.values.findFirst[pk]
 	}
+	
+	def findPKAttributes(EMappingEntityDef entityDef) {
+		entityDef.entity.findPKAttributes
+	}
+	
+	def findPKAttributes(EMappingEntity entity) {
+		entity.collectDerivedAttributesOrderdByDefinition.filter[a|a.pk]
+	}
 
 	// Filter predicates
 
@@ -671,6 +679,22 @@ class UtilCollection {
 		val map = new HashMap<String,EAttribute>
 		entity.allDerivedAttributes(map)
 		return map
+	}
+	
+	def collectDerivedAttributesOrderdByDefinition(EMappingEntity entity) {
+		val List<EAttribute> res = new ArrayList<EAttribute>
+		entity.allDerivedAttributesOrderdByDefinition(res)
+		return res
+	}
+	
+	
+	def void allDerivedAttributesOrderdByDefinition(EMappingEntity entity, List<EAttribute> res) {
+		if( entity.parent != null && entity.extensionType == "derived" ) {
+			entity.parent.allDerivedAttributesOrderdByDefinition(res)
+		}
+		for( a : entity.attributes ) {
+			res.add(a);
+		}
 	}
 
 	def void allDerivedAttributes(EMappingEntity entity, Map<String, EAttribute> map) {
@@ -1018,6 +1042,10 @@ class UtilCollection {
 
 	def isQuery(EValueGenerator gen) {
 		if (gen == null) false else gen.query != null
+	}
+
+	def String buildPrimaryKeyClause(EMappingEntity entity, boolean lower) {
+		entity.findPKAttributes.join("(", " AND ", ")", [a| "\\\"" + (if (lower) a.columnName.toLowerCase else a.columnName.toUpperCase()) + "\\\" = ?"])
 	}
 
 }

@@ -15,11 +15,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.Lists;
+
 import at.bestsolution.persistence.DynamicSelectQuery;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
@@ -27,6 +32,7 @@ import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.KeyLayout;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
@@ -244,16 +250,24 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(db, tableName, pkColumn, primaryKeyExpression, lockColumn) {
+		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames, String lockColumn) {
+			return new PreparedInsertStatement(db, tableName, pkLayout, sequenceNames, lockColumn) {
+				
 				@Override
-				protected String createSQL(String tableName, String pkColumn,
-						String primaryKeyExpression, String lockColumn,
-						List<Column> columnList) {
-					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList) + " RETURNING " + '"' + correctCase(pkColumn) + '"';
+				protected String createSQL(String tableName, KeyLayout pkLayout, Map<String, String> pkExpressions, String lockColumn, List<Column> columnList) {
+					
+					String whereIsMyStreamAPI = "";
+					Iterator<String> colIt = pkLayout.getColumns().iterator();
+					while (colIt.hasNext()) {
+						String cur = colIt.next();
+						whereIsMyStreamAPI += '"' + correctCase(cur) + '"';
+						if (colIt.hasNext()) {
+							whereIsMyStreamAPI += ", ";
+						}
+					}
+					return super.createSQL(tableName, pkLayout, pkExpressions, lockColumn, columnList)  + " RETURNING " + whereIsMyStreamAPI;
 				}
-
+				
 				@Override
 				protected PreparedStatement createPreparedStatement(
 						Connection connection, String query)
@@ -261,16 +275,18 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 					return connection.prepareStatement(query);
 				}
 
-				@Override
-				protected long execute(PreparedStatement pstmt)
-						throws SQLException {
-					ResultSet set = pstmt.executeQuery();
-					if( set.next() ) {
-						return set.getLong(1);
-					}
-					throw new SQLException("Unable to retrieve insert ID");
-				}
+				// TODO PRIMARYKEYS OJE OJE OJE
+//				@Override
+//				protected <O> Key<O> execute(PreparedStatement pstmt)
+//						throws SQLException {
+//					ResultSet set = pstmt.executeQuery();
+//					if( set.next() ) {
+//						return set.getLong(1);
+//					}
+//					throw new SQLException("Unable to retrieve insert ID");
+//				}
 			};
 		}
+		
 	}
 }

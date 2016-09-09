@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import at.bestsolution.persistence.Callback;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.ObjectMapper;
 import at.bestsolution.persistence.PersistParticipant;
 import at.bestsolution.persistence.PersistParticipant.Type;
@@ -43,10 +44,10 @@ public interface JavaSession extends Session {
 	public void scheduleRelationSQL(RelationSQL sql);
 
 	public void scheduleAfterTransaction(AfterTxRunnable r);
-	public <O, P> P getPrimaryKey(ObjectMapper<O> mapper, O object);
+	public <O, P extends Key<O>> P getPrimaryKey(ObjectMapper<O> mapper, O object);
 	public <O> long getVersion(ObjectMapper<O> mapper, O object);
 	public <O> void updateVersion(O object, long version);
-	public <O, P> void registerPrimaryKey(O object, P key);
+	public <O, P extends Key<O>> void registerPrimaryKey(O object, P key);
 	public <O, P> P getTransactionAttribute(O object, EAttribute attribute);
 	public <O> void preExecuteInsert(ObjectMapper<O> mapper, O object);
 	public <O> void preExecuteUpdate(ObjectMapper<O> mapper, O object);
