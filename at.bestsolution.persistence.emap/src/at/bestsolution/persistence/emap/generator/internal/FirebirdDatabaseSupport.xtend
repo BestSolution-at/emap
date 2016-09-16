@@ -116,6 +116,8 @@ class FirebirdDatabaseSupport extends DatabaseSupport {
 			return "bigint";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
+		} else if( "EBigInteger" == dataType.name) {
+			return "numeric(65,0)";
 		} else if( "EString" == dataType.name ) {
 			if( size != null ) {
 				return "varchar("+size+")";

@@ -37,7 +37,7 @@ create table "PLACE" (
  * Table for MAddress
  */
 create table "MADDRESS" (
-	"ID" ***UNKOWN EBigInteger*** not null
+	"ID" numeric(65,0) not null
 	, "E_VERSION" integer not null
 	, "STREET" varchar(255)
 	, "FK_PERSON" varchar(255)
@@ -68,11 +68,11 @@ create table "MPLACE" (
  * Table for MTag
  */
 create table "MTAG" (
-	"ID" ***UNKOWN EBigInteger*** not null
+	"ID" numeric(65,0) not null
 	, "E_VERSION" integer not null
 	, "VALUE" varchar(255)
-	, "ENDLESSINT" ***UNKOWN EBigInteger***
-	, "FK_ADDRESS" ***UNKOWN EBigInteger***
+	, "ENDLESSINT" numeric(65,0)
+	, "FK_ADDRESS" numeric(65,0)
 , constraint pk_MTAG PRIMARY KEY("ID")
 );
 
