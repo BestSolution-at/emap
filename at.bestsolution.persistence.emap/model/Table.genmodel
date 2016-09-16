@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.bestsolution.persistence.emap/src" modelPluginID="at.bestsolution.persistence.emap"
+    modelName="Table" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../src-gen/at/bestsolution/persistence/emap/EMap.genmodel#//eMap"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>Table.ecore</foreignModel>
+  <genPackages prefix="Table" basePackage="at.bestsolution.persistence.emap.model"
+      disposableProviderFactory="true" ecorePackage="Table.ecore#/">
+    <genClasses ecoreClass="Table.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Table.ecore#//Table/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Table.ecore#//Table/columns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Table.ecore#//Table/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Table.ecore#//Table/foreignKeys"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//Table/lockColumn"/>
+    </genClasses>
+    <genClasses ecoreClass="Table.ecore#//Column">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Table.ecore#//Column/table"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Table.ecore#//Column/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//Column/dataType"/>
+    </genClasses>
+    <genClasses ecoreClass="Table.ecore#//PrimaryKey">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Table.ecore#//PrimaryKey/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//PrimaryKey/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="Table.ecore#//ForeignKey">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Table.ecore#//ForeignKey/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//ForeignKey/refKey"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//ForeignKey/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="Table.ecore#//TableModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Table.ecore#//TableModel/tables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//TableModel/nmTables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Table.ecore#//TableModel/mappedBundle"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Table.ecore#//Constraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Table.ecore#//Constraint/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

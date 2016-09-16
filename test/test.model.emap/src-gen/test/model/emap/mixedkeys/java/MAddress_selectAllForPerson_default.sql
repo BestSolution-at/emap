@@ -1,0 +1,6 @@
+SELECT
+  *
+FROM
+  MADDRESS
+  WHERE
+    FK_PERSON = #{personId}

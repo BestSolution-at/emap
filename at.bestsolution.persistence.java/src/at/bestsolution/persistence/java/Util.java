@@ -12,6 +12,8 @@ package at.bestsolution.persistence.java;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -30,7 +32,9 @@ import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
 
 import at.bestsolution.persistence.Function;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.JavaSession.ChangeDescription;
+import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.TypedValue;
 
@@ -326,5 +330,77 @@ public class Util {
 		String reference = propertyName.substring(0,propertyName.indexOf('.'));
 		propertyName = propertyName.substring(propertyName.indexOf('.')+1,propertyName.length());
 		return new String[] { reference, propertyName };
+	}
+	
+	public static <K extends Key<?>> void setKeyValue(PreparedStatement stmt, int stmtIdx, KeyLayout<K> keyLayout, K key, String attribute) throws SQLException {
+		for (KeyLayoutEntry e : keyLayout.getEntries()) {
+			if (e.name.equals(attribute)) {
+				// hit
+				if (e.type == long.class || e.type == Long.class) {
+					stmt.setLong(stmtIdx, (Long) key.getValue(attribute));
+				}
+				else if (e.type == int.class || e.type == Integer.class) {
+					stmt.setInt(stmtIdx, (Integer) key.getValue(attribute));
+				}
+				else if (e.type == String.class) {
+					stmt.setString(stmtIdx, (String) key.getValue(attribute));
+				}
+				else if (e.type == float.class || e.type == Float.class) {
+					stmt.setFloat(stmtIdx, (Float) key.getValue(attribute));
+				}
+				else if (e.type == double.class || e.type == Double.class) {
+					stmt.setDouble(stmtIdx, (Double) key.getValue(attribute));
+				}
+				else if (e.type == boolean.class || e.type == Boolean.class) {
+					stmt.setBoolean(stmtIdx, (Boolean) key.getValue(attribute));
+				}
+				else if (e.type == BigInteger.class) {
+					stmt.setBigDecimal(stmtIdx, new BigDecimal((BigInteger)key.getValue(attribute)));
+				}
+				else if (e.type == BigDecimal.class) {
+					stmt.setBigDecimal(stmtIdx, (BigDecimal) key.getValue(attribute));
+				}
+				else {
+					stmt.setObject(stmtIdx, key.getValue(attribute));
+				}
+				return;
+			}
+		}
+		throw new SQLException("attribute not in layout! " + attribute);
+		
+	}
+	
+	public static <K extends Key<?>> K extractKey(KeyLayout<K> keyLayout, ResultSet rs) throws SQLException {
+		final Map<String, Object> pkValues = new HashMap<String, Object>();
+		for (KeyLayoutEntry e : keyLayout.getEntries()) {
+			if (e.type == long.class || e.type == Long.class) {
+				pkValues.put(e.name, rs.getLong(e.colName));
+			}
+			else if (e.type == int.class || e.type == Integer.class) {
+				pkValues.put(e.name, rs.getInt(e.colName));
+			}
+			else if (e.type == String.class) {
+				pkValues.put(e.name, rs.getString(e.colName));
+			}
+			else if (e.type == float.class || e.type == Float.class) {
+				pkValues.put(e.name, rs.getFloat(e.colName));
+			}
+			else if (e.type == double.class || e.type == Double.class) {
+				pkValues.put(e.name, rs.getDouble(e.colName));
+			}
+			else if (e.type == boolean.class || e.type == Boolean.class) {
+				pkValues.put(e.name, rs.getBoolean(e.colName));
+			}
+			else if (e.type == BigInteger.class) {
+				pkValues.put(e.name, rs.getBigDecimal(e.colName).toBigInteger());
+			}
+			else if (e.type == BigDecimal.class) {
+				pkValues.put(e.name, rs.getBigDecimal(e.colName));
+			}
+			else {
+				pkValues.put(e.name, rs.getObject(e.colName));
+			}
+		}
+		return keyLayout.create(pkValues);
 	}
 }

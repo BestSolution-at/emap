@@ -10,20 +10,21 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import at.bestsolution.persistence.Key;
 
 public class UnregisterObjectAfterTx implements AfterTxRunnable {
 
 	private final Object object;
-	private final Object id;
+	private final Key<?> id;
 	
-	public UnregisterObjectAfterTx(Object object, Object id) {
+	public UnregisterObjectAfterTx(Object object, Key<?> id) {
 		this.object = object; 
 		this.id = id; 
 	}
 	
 	@Override
 	public void runAfterTx(JavaSession session) {
-		 session.unregisterObject(object , id);
+		 session.unregisterObject(object, id);
 	}
 	
 	@Override

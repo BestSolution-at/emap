@@ -23,6 +23,8 @@ import at.bestsolution.persistence.emap.generator.EClassLookup;
 import at.bestsolution.persistence.emap.generator.IEClassLookupService;
 import at.bestsolution.persistence.emap.generator.JavaObjectMapperGenerator;
 import at.bestsolution.persistence.emap.generator.UtilCollection;
+import at.bestsolution.persistence.emap.generator.java.KeyGenerator;
+import at.bestsolution.persistence.emap.model.TableModelConverter;
 
 import com.google.inject.Binder;
 import com.google.inject.Provider;
@@ -47,6 +49,8 @@ public class EMapRuntimeModule extends at.bestsolution.persistence.emap.Abstract
 		binder.bind(DDLGenerator.class);
 		binder.bind(UtilCollection.class);
 		binder.bind(JavaObjectMapperGenerator.class);
+		binder.bind(KeyGenerator.class);
+		binder.bind(TableModelConverter.class);
 		
 		binder.bind(IEClassLookupService.class).toProvider(new Provider<IEClassLookupService>() {
 			@Override

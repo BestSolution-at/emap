@@ -79,17 +79,17 @@ class QueryGenerator {
 			try {
 				final ProcessedSQL processedSQL = Util.processSQL(query);
 				pStmt = connection.prepareStatement(processedSQL.sql);
-				long id = ((Number)getPrimaryKeyValue(object)).longValue();
-				pStmt.setLong(1, id);
+				final Key key = getPrimaryKey(object);
+				pStmt.«entityDef.PKAttribute.type(eClass).statementSetMethod»(1, key.«entityDef.PKAttribute.name»());
 				set = pStmt.executeQuery();
 				if( set.next() ) {
 					refreshedObjects.add(object);
 					map_default_«eClass.name»_complete_refresh(object,connection,set,refreshedObjects);
 					if( getLockColumn() != null ) {
-						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+						session.getCache().updateVersion((EObject)object, key, set.getLong(getLockColumn()));
 					}
 				} else {
-					throw new PersistanceException("Object with id '"+id+"' not available");
+					throw new PersistanceException("Object with id '"+key+"' not available");
 				}
 			} catch(SQLException e) {
 				throw new PersistanceException(e);
@@ -134,16 +134,16 @@ class QueryGenerator {
 			try {
 				final ProcessedSQL processedSQL = Util.processSQL(query);
 				pStmt = connection.prepareStatement(processedSQL.sql);
-				long id = ((Number)getPrimaryKeyValue(object)).longValue();
-				pStmt.setLong(1, id);
+				final Key key = getPrimaryKey(object);
+				pStmt.«entityDef.PKAttribute.type(eClass).statementSetMethod»(1, key.«entityDef.PKAttribute.name»());
 				set = pStmt.executeQuery();
 				if( set.next() ) {
 					map_default_«eClass.name»_data_refresh(object,connection,set);
 					if( updateVersion && getLockColumn() != null ) {
-						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+						session.getCache().updateVersion((EObject)object, key, set.getLong(getLockColumn()));
 					}
 				} else {
-					throw new PersistanceException("Object with id '"+id+"' not available");
+					throw new PersistanceException("Object with id '"+key+"' not available");
 				}
 			} catch(SQLException e) {
 				throw new PersistanceException(e);
@@ -174,7 +174,9 @@ class QueryGenerator {
 			if( isDebug ) LOGGER.debug("Check id cache for object");
 			{
 				final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
-				final «eClass.name» rv = session.getCache().getObject(eClass,«query.parameters.head.name»);
+				final Key key = PKLayout.create(Collections.singletonMap("«query.parameters.head.name»", (Object) «query.parameters.head.name»));
+				
+				final «eClass.name» rv = session.getCache().getObject(eClass, key);
 				if( rv != null ) {
 					if( isDebug ) LOGGER.debug("Using cached object");
 					return rv;
@@ -247,7 +249,12 @@ class QueryGenerator {
 							}
 						}
 					«ELSE»
+						// DAMN THIS ONE
+					
 						pStmt.«query.parameters.head.pstmtMethod("paramIndex++",query.parameters.head.name)»;
+						
+						//final Key key = PKLayout.create(Collections.singletonMap("«query.parameters.head.name»", (Object) «query.parameters.head.name»));
+						//Util.setKeyValue(pStmt, paramIndex++, PKLayout, key, "«query.parameters.head.name»");
 					«ENDIF»
 				}
 			«FOR p : query.parameters.filter[it!=query.parameters.head]»

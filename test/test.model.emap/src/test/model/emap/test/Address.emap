@@ -20,5 +20,5 @@ entity Address {
 		selectAllForPerson(long personId) {
 			default Address FROM "ADDRESS" WHERE "FK_PERSON = ${personId}"
 		}
-	}
-}    
+	} 
+}                             

@@ -12,12 +12,14 @@ package at.bestsolution.persistence.java;
 
 import org.eclipse.emf.ecore.EObject;
 
+import at.bestsolution.persistence.Key;
+
 public class VersionUpdaterAfterTx implements AfterTxRunnable {
 	private final Object object;
-	private final Object id;
+	private final Key<?> id;
 	private final long version;
 
-	public VersionUpdaterAfterTx(Object object, Object id, long version) {
+	public VersionUpdaterAfterTx(Object object, Key<?> id, long version) {
 		this.object = object;
 		this.id = id;
 		this.version = version;

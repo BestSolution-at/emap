@@ -10,13 +10,15 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import at.bestsolution.persistence.Key;
+
 public class RegisterObjectAfterTx implements AfterTxRunnable {
 
 	private final Object object;
-	private final Object id;
+	private final Key<?> id;
 	private final long version; 
 	
-	public RegisterObjectAfterTx(Object object, Object id, long version) {
+	public RegisterObjectAfterTx(Object object, Key<?> id, long version) {
 		this.object = object; 
 		this.id = id; 
 		this.version = version;

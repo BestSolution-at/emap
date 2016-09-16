@@ -10,14 +10,20 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java.spi;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
@@ -25,6 +31,9 @@ import at.bestsolution.persistence.expr.Expression;
 import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.KeyLayout;
+import at.bestsolution.persistence.java.Util;
+import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedUpdateStatement;
@@ -231,8 +240,8 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 
 		@Override
-		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(db,tableName, pkColumn, lockColumn);
+		public <K extends Key<?>> UpdateStatement createUpdateStatement(KeyLayout<K> pkLayout, String lockColumn) {
+			return new PreparedUpdateStatement(db, tableName, pkLayout, lockColumn);
 		}
 
 		@Override
@@ -241,14 +250,22 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new PreparedInsertStatement(db,tableName, pkColumn, primaryKeyExpression, lockColumn) {
+		public <K extends Key<?>> InsertStatement createInsertStatement(final KeyLayout<K> pkLayout, Map<String, String> pkExpressions, String lockColumn) {
+			return new PreparedInsertStatement(db, tableName, pkLayout, pkExpressions, lockColumn) {
+				
 				@Override
-				protected String createSQL(String tableName, String pkColumn,
-						String primaryKeyExpression, String lockColumn,
-						List<Column> columnList) {
-					return super.createSQL(tableName, pkColumn, primaryKeyExpression, lockColumn,
-							columnList) + " RETURNING " + '"' + correctCase(pkColumn) + '"';
+				protected String createSQL(String tableName, KeyLayout pkLayout, Map<String, String> pkExpressions,
+						String lockColumn, List<Column> columnList) {
+					String whereIsMyStreamAPI = "";
+					Iterator<String> colIt = pkLayout.getColumns().iterator();
+					while (colIt.hasNext()) {
+						String cur = colIt.next();
+						whereIsMyStreamAPI += '"' + correctCase(cur) + '"';
+						if (colIt.hasNext()) {
+							whereIsMyStreamAPI += ", ";
+						}
+					}
+					return super.createSQL(tableName, pkLayout, pkExpressions, lockColumn, columnList) + " RETURNING " + whereIsMyStreamAPI;
 				}
 
 				@Override
@@ -257,16 +274,16 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 						throws SQLException {
 					return connection.prepareStatement(query);
 				}
-
+				
 				@Override
-				protected long execute(PreparedStatement pstmt)
-						throws SQLException {
-					ResultSet set = pstmt.executeQuery();
+				protected <K extends Key<?>> K execute(PreparedStatement pstmt) throws SQLException {
+					final ResultSet set = pstmt.executeQuery();
 					if( set.next() ) {
-						return set.getLong(1);
+						return (K) Util.extractKey(pkLayout, set);
 					}
-					throw new SQLException("Unable to retrieve insert ID");
+					throw new SQLException("Unable to retrieve insert pk");
 				}
+
 			};
 		}
 	}

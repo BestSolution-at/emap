@@ -240,8 +240,8 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 
 
 		@Override
-		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
+		public <K extends Key<?>> UpdateStatement createUpdateStatement(KeyLayout<K> pkLayout, String lockColumn) {
+			return new PreparedUpdateStatement(db, tableName, pkLayout, lockColumn);
 		}
 
 		@Override
@@ -250,7 +250,7 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames, String lockColumn) {
+		public <K extends Key<?>> InsertStatement createInsertStatement(KeyLayout<K> pkLayout, Map<String, String> sequenceNames, String lockColumn) {
 			return new PreparedInsertStatement(db, tableName, pkLayout, sequenceNames, lockColumn) {
 				
 				@Override

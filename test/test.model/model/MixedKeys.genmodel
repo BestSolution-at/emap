@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/test.model/src" modelPluginID="test.model" modelName="MixedKeys"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>MixedKeys.ecore</foreignModel>
+  <genPackages prefix="Mixedkeys" basePackage="test.model" disposableProviderFactory="true"
+      ecorePackage="MixedKeys.ecore#/">
+    <genClasses ecoreClass="MixedKeys.ecore#//Person">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Person/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Person/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MixedKeys.ecore#//Person/addresses"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MixedKeys.ecore#//Person/likes"/>
+    </genClasses>
+    <genClasses ecoreClass="MixedKeys.ecore#//Address">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Address/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Address/street"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference MixedKeys.ecore#//Address/person"/>
+    </genClasses>
+    <genClasses ecoreClass="MixedKeys.ecore#//Place">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Place/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MixedKeys.ecore#//Place/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference MixedKeys.ecore#//Place/likedBy"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

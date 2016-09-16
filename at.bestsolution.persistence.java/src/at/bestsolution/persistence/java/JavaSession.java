@@ -56,10 +56,10 @@ public interface JavaSession extends Session {
 	public void preExecuteDeleteMany(EClass eClass);
 //	public <O, P> void setTransactionAttribute(O object, EAttribute attribute, P value);
 
-	public void registerObject(Object object, Object id, long version);
+	public <K extends Key<?>> void registerObject(Object object, K id, long version);
 //	public void updateVersion(Object object, Object id, long version);
-	public void unregisterObject(Object object, Object id);
-	public void unregisterObject(EClass eClass, Object id);
+	public <K extends Key<?>> void unregisterObject(Object object, K id);
+	public <K extends Key<?>> void unregisterObject(EClass eClass, K id);
 	public void unregisterAllObjects(EClass eClass);
 
 	public List<ChangeDescription> getChangeDescription(Object object);

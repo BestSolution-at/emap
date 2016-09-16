@@ -26,20 +26,9 @@ public interface ObjectMapper<O> {
 	public String getColumnName(String propertyName);
 	
 
-	@Deprecated
-	public long selectVersion(Object id);
-	
 	public <K extends Key<O>> long selectVersion(K id);
 	
-	
-	@Deprecated
-	public void deleteById(Object... id);
-	
-	public void deleteById(Key<O>... id);
-	
-	
-	@Deprecated
-	public <P> P getPrimaryKeyValue(O object);
+	public <K extends Key<O>> void deleteById(K... keys);
 	
 	public <K extends Key<O>> K getPrimaryKey(O object);
 	

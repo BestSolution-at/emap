@@ -27,11 +27,23 @@ import at.bestsolution.persistence.emap.generator.DatabaseSupport.KeyGenerationT
 import java.util.List
 import at.bestsolution.persistence.emap.eMap.EValueGenerator
 import java.util.Collection
+import at.bestsolution.persistence.emap.model.table.TableModel
+import at.bestsolution.persistence.emap.model.table.Column
+import at.bestsolution.persistence.emap.model.TableModelConverter
+import java.util.regex.Pattern
+import org.eclipse.emf.ecore.util.EcoreUtil
+import org.eclipse.xtext.EcoreUtil2
+import at.bestsolution.persistence.emap.model.table.PrimaryKey
+import at.bestsolution.persistence.emap.model.table.Table
+import at.bestsolution.persistence.emap.model.table.ForeignKey
 
 class DDLGenerator {
 
 	@Inject extension
 	var UtilCollection util;
+	
+	@Inject
+	var TableModelConverter tableModelConverter;
 
 	def ESQLDbType findSqlDefs(EDataType type, EMappingBundle bundleDef, DatabaseSupport db) {
 		val t = bundleDef.typeDefs.findFirst[t|t.etype.lookupEDataType == type]
@@ -87,6 +99,7 @@ class DDLGenerator {
 			}
 		}
 	}
+
 
 	def getDataType(EAttribute a, boolean fkResolve, EBundleEntity be, DatabaseSupport db, EMappingBundle bundleDef, EClass eClass) {
 //		println("====> Working for " + a)
@@ -201,8 +214,27 @@ class DDLGenerator {
 		}
 		return relations;
 	}
+	
+	def findType(Column column, DatabaseSupport db) {
+		val tableModel = column.table.eContainer as TableModel
+		val bundle = tableModel.mappedBundle
+		
+		val map = tableModelConverter.getETypeMapping(db, bundle)
+		
+		val types = map.get(column.dataType)
+		if (types == null) return "Oh no, no types at all for " + column.dataType
+		var type = types.dbTypes.findFirst[it.dbType == db.databaseId]
+		if (type == null) type = types.dbTypes.findFirst[dbType == "default"]
+		
+		var size = type.size
+		if (column.dataTypeSize != null) {
+			size = column.dataTypeSize
+		}
+		
+		return type.sqlTypeDef.replaceAll(Pattern.quote("${size}"), size)
+	}
 
-	def CharSequence generatedDDL(EMappingBundle bundleDef, DatabaseSupport db) '''
+	def CharSequence generatedDDL(GeneratorContext ctx, EMappingBundle bundleDef, DatabaseSupport db) '''
 	/* ------------------------------------
 	 * Tables
 	 * ------------------------------------
@@ -276,10 +308,52 @@ class DDLGenerator {
 	«val nmRelations = bundleDef.findNMRelations»
 	«FOR r : nmRelations»
 		create table "«r.a1.relationTable.toDefaultCase(db)»" (
-			"«r.a1.relationColumn.toDefaultCase(db)»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null,
-			"«r.a2.relationColumn.toDefaultCase(db)»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null
+			"«r.a1.relationColumn.toDefaultCase(db)»" «r.a2.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a2.opposite.entity.lookupEClass)» not null,
+			"«r.a2.relationColumn.toDefaultCase(db)»" «r.a1.opposite.entity.attributes.findFirst[pk].getDataType(true,null,db,bundleDef,r.a1.opposite.entity.lookupEClass)» not null
 		);
 	«ENDFOR»
+	
+«««	/* n:m Tables #2 
+«««	«FOR table : ctx.tableModel.nmTables»
+«««		create table "«table.name.toDefaultCase(db)»" (
+«««			«table.columns.join(",\n", [
+«««				'''"«it.name.toDefaultCase(db)»" «findType(it, db)» not null'''
+«««			])»
+«««		);
+«««	«ENDFOR»
+«««	*/
+«««	
+«««	
+«««	/**************
+«««	«FOR table : ctx.tableModel.tables»
+«««		create table "«table.name.toDefaultCase(db)»" (
+«««			«table.columns.join(",\n", [
+«««				'''"«it.name.toDefaultCase(db)»" «findType(db)»«IF notNull» not null«ENDIF»'''
+«««			])»
+«««		);
+«««	«ENDFOR»
+«««	
+«««	
+«««	«FOR o : EcoreUtil2.eAllContents(ctx.tableModel)»
+«««	«IF o instanceof PrimaryKey»
+«««		«val table = o.eContainer as Table»
+«««		alter table "«table.name.toDefaultCase(db)»"
+«««			add constraint «o.name.toDefaultCase(db)»
+«««			primary key («o.columns.join(",", [name.toDefaultCase(db)])»);
+«««	«ENDIF»
+«««	«ENDFOR»
+«««	
+«««	«FOR o : EcoreUtil2.eAllContents(ctx.tableModel)»
+«««	«IF o instanceof ForeignKey»
+«««		«val table = o.table»
+«««		«val refTable = o.refKey.table»
+«««		alter table "«table.name.toDefaultCase(db)»"
+«««			add constraint «o.name.toDefaultCase(db)»
+«««			foreign key («o.columns.join(",", [name.toDefaultCase(db)])»)
+«««			references "«refTable.name.toDefaultCase(db)»" («o.refKey.columns.join(",", [name.toDefaultCase(db)])»);
+«««	«ENDIF»
+«««	«ENDFOR»
+«««	**************/
 
 ««« generate sequences for all SEQNEXT generators
 	«IF db.isKeyGenerationTypeSupported(KeyGenerationType.SEQNEXT)»
@@ -336,14 +410,14 @@ class DDLGenerator {
 		«val fkConstraint1 = r.e1.fkConstraints.findFirst[it.attribute == r.a1]»
 		alter table "«r.a1.relationTable.toDefaultCase(db)»"
 			add constraint «IF fkConstraint1 != null»«fkConstraint1.name»«ELSE»fk_«r.a1.opposite.entity.name»_«r.a1.opposite.name»«ENDIF»
-			foreign key ("«r.a1.relationColumn.toDefaultCase(db)»")
-			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toDefaultCase(db)»");
+			foreign key ("«r.a2.relationColumn.toDefaultCase(db)»")
+			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a1.parameters.head.toDefaultCase(db)»");
 
 		«val fkConstraint2 = r.e2.fkConstraints.findFirst[it.attribute == r.a2]»
 		alter table "«r.a2.relationTable.toDefaultCase(db)»"
 			add constraint «IF fkConstraint2 != null»«fkConstraint2.name»«ELSE»fk_«r.a2.opposite.entity.name»_«r.a2.opposite.name»«ENDIF»
-			foreign key ("«r.a2.relationColumn.toDefaultCase(db)»")
-			references "«r.a2.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toDefaultCase(db)»");
+			foreign key ("«r.a1.relationColumn.toDefaultCase(db)»")
+			references "«r.a1.entity.calcTableName.toDefaultCase(db)»" ("«r.a2.parameters.head.toDefaultCase(db)»");
 
 	«ENDFOR»
 

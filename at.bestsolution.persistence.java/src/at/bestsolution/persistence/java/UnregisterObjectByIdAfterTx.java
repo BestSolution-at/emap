@@ -12,13 +12,15 @@ package at.bestsolution.persistence.java;
 
 import org.eclipse.emf.ecore.EClass;
 
+import at.bestsolution.persistence.Key;
+
 
 public class UnregisterObjectByIdAfterTx implements AfterTxRunnable {
 
 	private final EClass eClass;
-	private final Object id;
+	private final Key<?> id;
 	
-	public UnregisterObjectByIdAfterTx(EClass eClass, Object id) {
+	public UnregisterObjectByIdAfterTx(EClass eClass, Key<?> id) {
 		this.eClass = eClass; 
 		this.id = id; 
 	}

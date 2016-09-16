@@ -51,6 +51,7 @@ import at.bestsolution.persistence.java.RefreshableObjectMapper;
 // by JavaObjectMapperGenerator
 @SuppressWarnings("all")
 public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.emap.test.PlaceMapper,Place> {
+	
 	@Override
 	public Class<Place> getEntityType() {
 		return Place.class;
@@ -96,18 +97,18 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 
 		// by JavaObjectMapperGenerator
 		@Override
-		public long selectVersion(Object id) {
+		public <K extends at.bestsolution.persistence.Key<Place>> long selectVersion(K id) {
 			final Connection connection = session.checkoutConnection();
 			PreparedStatement pStmt = null;
 			ResultSet set = null;
 			try {
 				try {
 					if( session.getDatabaseSupport().isDefaultLowerCase() ) {
-						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"place\" WHERE \"id\" = ?");
+						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"place\" WHERE \"(\"id\" = ?)");
 					} else {
-						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"PLACE\" WHERE \"ID\" = ?");
+						pStmt = connection.prepareStatement("SELECT " + getLockColumn() + " FROM \"PLACE\" WHERE \"(\"ID\" = ?)");
 					}
-					pStmt.setLong(1, (Long) id);
+					pStmt.setLong(1, (Long) id.getValue("id"));
 
 					set = pStmt.executeQuery();
 
@@ -132,6 +133,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		}
 
 
+
 		// by JavaObjectMapperGenerator
 		@Override
 		public final at.bestsolution.persistence.MappedUpdateQuery<Place> deleteAllMappedQuery() {
@@ -143,7 +145,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 
 		// by JavaObjectMapperGenerator
 		public final Place map_default_Place(Connection connection, ResultSet set) throws SQLException {
-			Long id = set.getLong("ID");
+			Key id = Util.extractKey(PKLayout, set);
 			final EClass eClass = test.model.test.TestPackage.eINSTANCE.getPlace();
 			Place rv = session.getCache().getObject(eClass,id);
 			if( rv != null ) {
@@ -158,15 +160,17 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			rv.setName(set.getString("NAME"));
 			((LazyEObject)rv).setProxyDelegate(this);
 			((EObject)rv).eSetDeliver(true);
-			session.registerObject(rv,getPrimaryKeyValue(rv),getLockColumn() != null ? set.getLong(getLockColumn()) : -1);
+			session.registerObject(rv, getPrimaryKey(rv), getLockColumn() != null ? set.getLong(getLockColumn()) : -1);
 			return rv;
 		}
-
+		
+		// by JavaObjectMapperGenerator
 		private final void map_default_Place_data_refresh(Place rv, Connection connection, ResultSet set) throws SQLException {
 			rv.setId(set.getLong("ID"));
 			rv.setName(set.getString("NAME"));
 		}
 
+		// by JavaObjectMapperGenerator
 		private final void map_default_Place_complete_refresh(Place rv, Connection connection, ResultSet set, Set<Object> refreshedObjects) throws SQLException {
 			rv.setId(set.getLong("ID"));
 			rv.setName(set.getString("NAME"));
@@ -177,7 +181,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				if( ((LazyEObject)rv).isResolved(r) ) {
 					test.model.emap.test.PersonMapper m = session.createMapper(test.model.emap.test.PersonMapper.class);
 					RefreshableObjectMapper<test.model.test.Person> mr = (RefreshableObjectMapper<test.model.test.Person>)m;
-					List<test.model.test.Person> list = m.selectAllForPlace(((Number)getPrimaryKeyValue(rv)).longValue());
+					List<test.model.test.Person> list = m.selectAllForPlace((long)getPrimaryKey(rv).getValue("id"));
 					Util.syncLists(rv.getLikedBy(), list);
 					for( test.model.test.Person e : rv.getLikedBy() ) {
 						if( ! refreshedObjects.contains(e) ) {
@@ -190,10 +194,10 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 
 			// Utilities
 			
-			private List<Object> extractObjectIds(Place... object) {
-				List<Object> objectIds = new ArrayList<Object>();
+			private List<Key> extractObjectIds(Place... object) {
+				List<Key> objectIds = new ArrayList<>();
 				for (Place o : object) {
-					objectIds.add(getPrimaryKeyForTx(o));
+					objectIds.add((Key) getPrimaryKeyForTx(o));
 				}
 				return objectIds;
 			}
@@ -206,7 +210,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				clearManyToManyById_LikedBy(connection, extractObjectIds(object));
 			}
 			
-			private final void clearManyToManyById_LikedBy(Connection connection, List<Object> objectIds) throws SQLException {
+			private final void clearManyToManyById_LikedBy(Connection connection, List<Key> objectIds) throws SQLException {
 				final boolean isDebug = LOGGER.isDebugEnabled();
 				if( isDebug ) {
 					LOGGER.debug("clear many to many LikedBy for "+objectIds);
@@ -220,7 +224,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				}
 			
 				final StringBuilder b = new StringBuilder();
-				Iterator<Object> it = objectIds.iterator();
+				Iterator<Key> it = objectIds.iterator();
 				while (it.hasNext()) {
 					it.next();
 					b.append("?");
@@ -246,11 +250,11 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					int idx = 1;
 					it = objectIds.iterator();
 					while (it.hasNext()) {
-						final Object obj = it.next();
+						final Key obj = it.next();
 						if (isDebug) {
 							LOGGER.debug(" With Parameter " + idx + ": " + obj);
 						}
-						stmt.setLong(idx, (Long)obj);
+						stmt.setLong(idx, obj.id());
 						idx++;
 					}
 					stmt.execute();
@@ -312,8 +316,8 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 							boolean isDebug = LOGGER.isDebugEnabled();
 							final test.model.emap.test.PlaceMapper selfMapper = session.createMapper(test.model.emap.test.PlaceMapper.class);
 							final test.model.emap.test.PersonMapper oppositeMapper = session.createMapper(test.model.emap.test.PersonMapper.class);
-							final Object selfId = session.getPrimaryKey(selfMapper, self);
-							final Object oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
+							final test.model.emap.test.PlaceMapper.Key selfId = session.getPrimaryKey(selfMapper, self);
+							final test.model.emap.test.PersonMapper.Key oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
 							if( isDebug ) {
 								LOGGER.debug("Started deleteing relation");
 								LOGGER.debug("Executing Relation SQL: " + sql);
@@ -323,8 +327,8 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 							PreparedStatement pstmt = null;
 							try {
 								pstmt = c.prepareStatement(sql);
-								pstmt.setLong(1, (Long) selfId);
-								pstmt.setLong(2, (Long) oppositeId);
+								pstmt.setLong(1, selfId.id());
+								pstmt.setLong(2, oppositeId.id());
 								pstmt.execute();
 								if( isDebug ) {
 									LOGGER.debug("Finished deleteing relation");
@@ -370,8 +374,8 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 							boolean isDebug = LOGGER.isDebugEnabled();
 							final test.model.emap.test.PlaceMapper selfMapper = session.createMapper(test.model.emap.test.PlaceMapper.class);
 							final test.model.emap.test.PersonMapper oppositeMapper = session.createMapper(test.model.emap.test.PersonMapper.class);
-							final Object selfId = session.getPrimaryKey(selfMapper, self);
-							final Object oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
+							final test.model.emap.test.PlaceMapper.Key selfId = session.getPrimaryKey(selfMapper, self);
+							final test.model.emap.test.PersonMapper.Key oppositeId = session.getPrimaryKey(oppositeMapper, opposite);
 							if( isDebug ) {
 								LOGGER.debug("Started creating relation");
 								LOGGER.debug("Executing Relation Insert SQL: " + sql);
@@ -380,8 +384,8 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 							PreparedStatement pstmt = null;
 							try {
 								pstmt = c.prepareStatement(sql);
-								pstmt.setLong(1, (Long) selfId);
-								pstmt.setLong(2, (Long) oppositeId);
+								pstmt.setLong(1, selfId.id());
+								pstmt.setLong(2, oppositeId.id());
 			
 								pstmt.execute();
 								if( isDebug ) {
@@ -428,7 +432,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					public void execute() throws PersistanceException {
 						boolean isDebug = LOGGER.isDebugEnabled();
 						final test.model.emap.test.PlaceMapper selfMapper = session.createMapper(test.model.emap.test.PlaceMapper.class);
-						final Object selfId = session.getPrimaryKey(selfMapper, self);
+						final test.model.emap.test.PlaceMapper.Key selfId = session.getPrimaryKey(selfMapper, self);
 						if( isDebug ) {
 							LOGGER.debug("Started clearing relation");
 							LOGGER.debug("Executing Relation SQL: " + sql);
@@ -438,7 +442,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 						PreparedStatement pstmt = null;
 						try {
 							pstmt = c.prepareStatement(sql);
-							pstmt.setLong(1, (Long) selfId);
+							pstmt.setLong(1, selfId.id());
 							pstmt.execute();
 							if( isDebug ) {
 								LOGGER.debug("Finished clearing relation");
@@ -468,7 +472,9 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			if( isDebug ) LOGGER.debug("Check id cache for object");
 			{
 				final EClass eClass = test.model.test.TestPackage.eINSTANCE.getPlace();
-				final Place rv = session.getCache().getObject(eClass,id);
+				final Key key = PKLayout.create(Collections.singletonMap("id", (Object) id));
+				
+				final Place rv = session.getCache().getObject(eClass, key);
 				if( rv != null ) {
 					if( isDebug ) LOGGER.debug("Using cached object");
 					return rv;
@@ -505,7 +511,12 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					if( isDebug ) {
 						debugParams.add("id = " + id);
 					}
-					pStmt.setLong(paramIndex++,id);
+						// DAMN THIS ONE
+					
+						pStmt.setLong(paramIndex++,id);
+						
+						//final Key key = PKLayout.create(Collections.singletonMap("id", (Object) id));
+						//Util.setKeyValue(pStmt, paramIndex++, PKLayout, key, "id");
 				}
 			}
 			if( isDebug ) {
@@ -583,7 +594,12 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					if( isDebug ) {
 						debugParams.add("personId = " + personId);
 					}
-					pStmt.setLong(paramIndex++,personId);
+						// DAMN THIS ONE
+					
+						pStmt.setLong(paramIndex++,personId);
+						
+						//final Key key = PKLayout.create(Collections.singletonMap("personId", (Object) personId));
+						//Util.setKeyValue(pStmt, paramIndex++, PKLayout, key, "personId");
 				}
 			}
 			if( isDebug ) {
@@ -662,17 +678,17 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			try {
 				final ProcessedSQL processedSQL = Util.processSQL(query);
 				pStmt = connection.prepareStatement(processedSQL.sql);
-				long id = ((Number)getPrimaryKeyValue(object)).longValue();
-				pStmt.setLong(1, id);
+				final Key key = getPrimaryKey(object);
+				pStmt.setLong(1, key.id());
 				set = pStmt.executeQuery();
 				if( set.next() ) {
 					refreshedObjects.add(object);
 					map_default_Place_complete_refresh(object,connection,set,refreshedObjects);
 					if( getLockColumn() != null ) {
-						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+						session.getCache().updateVersion((EObject)object, key, set.getLong(getLockColumn()));
 					}
 				} else {
-					throw new PersistanceException("Object with id '"+id+"' not available");
+					throw new PersistanceException("Object with id '"+key+"' not available");
 				}
 			} catch(SQLException e) {
 				throw new PersistanceException(e);
@@ -706,16 +722,16 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			try {
 				final ProcessedSQL processedSQL = Util.processSQL(query);
 				pStmt = connection.prepareStatement(processedSQL.sql);
-				long id = ((Number)getPrimaryKeyValue(object)).longValue();
-				pStmt.setLong(1, id);
+				final Key key = getPrimaryKey(object);
+				pStmt.setLong(1, key.id());
 				set = pStmt.executeQuery();
 				if( set.next() ) {
 					map_default_Place_data_refresh(object,connection,set);
 					if( updateVersion && getLockColumn() != null ) {
-						session.getCache().updateVersion((EObject)object,id,set.getLong(getLockColumn()));
+						session.getCache().updateVersion((EObject)object, key, set.getLong(getLockColumn()));
 					}
 				} else {
-					throw new PersistanceException("Object with id '"+id+"' not available");
+					throw new PersistanceException("Object with id '"+key+"' not available");
 				}
 			} catch(SQLException e) {
 				throw new PersistanceException(e);
@@ -736,6 +752,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		}
 
 		// update stuff
+		// by JavaInsertUpdateGenerator
 		@Override
 		public final void update(final Place object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -751,7 +768,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			session.preExecuteUpdate(this,object);
 		
 			// Built the query
-			at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"PLACE").createUpdateStatement("ID", getLockColumn());
+			at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"PLACE").createUpdateStatement(PKLayout, getLockColumn());
 			// NEW:
 			// simple direct mapped attributes
 			// * name
@@ -760,8 +777,8 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			// Execute the query
 			Connection connection = session.checkoutConnection();
 			try {
-				long version = getLockColumn() != null ? getVersionForTx(object) : -1;
-				boolean success = stmt.execute(connection, object.getId(),version);
+				final long version = getLockColumn() != null ? getVersionForTx(object) : -1;
+				final boolean success = stmt.execute(connection, getPrimaryKey(object), version);
 		
 				if( getLockColumn() != null && ! success ) {
 					throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
@@ -791,13 +808,15 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 						}
 		
 						for (Object addition : delta.getAdditions()) {
-							final Object oppositePK = oppositeMapper.getPrimaryKeyValue((test.model.test.Person)addition);
+							final test.model.emap.test.PersonMapper.Key oppositePK = oppositeMapper.getPrimaryKey((test.model.test.Person)addition);
+							//final Object oppositePK = oppositeMapper.getPrimaryKeyValue((test.model.test.Person)addition);
 							// TODO test for new object?
 							session.scheduleRelationSQL(createInsertManyToManyRelationSQL_likedBy(session, connection, object, (test.model.test.Person)addition));
 						}
 		
 						for (Object removal : delta.getRemovals()) {
-							final Object oppositePK = oppositeMapper.getPrimaryKeyValue((test.model.test.Person)removal);
+							final test.model.emap.test.PersonMapper.Key oppositePK = oppositeMapper.getPrimaryKey((test.model.test.Person)removal);
+							//final Object oppositePK = oppositeMapper.getPrimaryKeyValue((test.model.test.Person)removal);
 							// TODO test for new object?
 							session.scheduleRelationSQL(createDeleteManyToManyRelationSQL_likedBy(session, connection, object, (test.model.test.Person)removal));
 						}
@@ -819,6 +838,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		}
 
 		// insert stuff
+		// by JavaInsertUpdateGenerator
 		@Override
 		public final void insert(final Place object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -835,15 +855,14 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		
 		
 			// Handle Expressions
-			String sequenceExpression = null;
+			Map<String, String> sequenceExpressions = new HashMap<String, String>();
 			if( "Firebird".equals(session.getDatabaseType()) ) {
-				sequenceExpression = "NEXT VALUE FOR SEQ_PLACE_ID";
+				sequenceExpressions.put("ID","NEXT VALUE FOR SEQ_PLACE_ID");
 			}
 			if( "Postgres".equals(session.getDatabaseType()) ) {
-				sequenceExpression = null;
 			}
 			// Build the SQL
-			at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"PLACE").createInsertStatement("ID", sequenceExpression, getLockColumn());
+			at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"PLACE").createInsertStatement(PKLayout, sequenceExpressions, getLockColumn());
 		
 		
 			// handle simple direct mapped attributes
@@ -861,13 +880,13 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			// Execute the query
 			final Connection connection = session.checkoutConnection();
 			try {
-				final long primaryKey = stmt.execute(connection);
+				final Key primaryKey = stmt.execute(connection);
 				session.registerPrimaryKey(object, primaryKey);
 				session.updateVersion(object,0);
 				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
 					@Override
 					public void runAfterTx(JavaSession session) {
-						object.setId(primaryKey);
+						object.setId(primaryKey.id());
 					}
 				});
 		
@@ -887,6 +906,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		}
 
 		// delete stuff
+		// by JavaInsertUpdateGenerator
 		@Override
 		public final void delete(Place object) {
 			delete(new Place[] { object });
@@ -924,7 +944,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				if (isDebug) LOGGER.debug("Final select query: " + selectQuery);
 		
 				// execute select
-				List<Object> objectIds = new ArrayList<Object>();
+				List<Key> objectIds = new ArrayList<>();
 				PreparedStatement pstmtSelect = null;
 				ResultSet resultSetSelect = null;
 				try {
@@ -936,7 +956,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		
 					resultSetSelect = pstmtSelect.executeQuery();
 					while (resultSetSelect.next()) {
-						objectIds.add(resultSetSelect.getLong("ID"));
+						objectIds.add(Util.extractKey(PKLayout, resultSetSelect));
 					}
 				}
 				finally {
@@ -980,6 +1000,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 		
 		}
 		
+		// by JavaInsertUpdateGenerator
 		@Override
 		public final void deleteAll() {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -1068,12 +1089,27 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			}
 		}
 		
+		// by JavaInsertUpdateGenerator
 		@Override
-		public void deleteById(Object... id) {
-			deleteById(Arrays.asList(id));
+		public <K extends at.bestsolution.persistence.Key<Place>> void deleteById(K... keys) {
+			final List<Key> keyz= new ArrayList<Key>();
+			for (at.bestsolution.persistence.Key<Place> key : keys) {
+				if (key instanceof Key) {
+					final Key id = (Key) key;
+					if (key.getAttributes().size() > 1) {
+						throw new PersistanceException("Multi valued primary keys are not yet supported!!!");
+					}
+					keyz.add(id);
+				}
+				else {
+					throw new PersistanceException("Wrong Key type: " + key);
+				}
+			}
+			deleteById(keyz);
 		}
 		
-		public final void deleteById(List<Object> objectIds) {
+		// by JavaInsertUpdateGenerator
+		public final void deleteById(List<Key> objectIds) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
 			if( isDebug ) {
 				LOGGER.debug("deleteById("+objectIds+")");
@@ -1085,7 +1121,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			final EClass eClass = test.model.test.TestPackage.eINSTANCE.getPlace();
 			session.preExecuteDeleteById(eClass,objectIds);
 		
-			for(Object id : objectIds) {
+			for(Key id : objectIds) {
 				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
 			}
 		
@@ -1103,7 +1139,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					sqlBuilder.append("DELETE FROM \"PLACE\" WHERE \"ID\" IN (");
 				}
 				
-				Iterator<Object> sqlobjectIdsIterator = objectIds.iterator();
+				Iterator<Key> sqlobjectIdsIterator = objectIds.iterator();
 				while (sqlobjectIdsIterator.hasNext()) {
 					sqlobjectIdsIterator.next();
 					sqlBuilder.append("?");
@@ -1122,15 +1158,15 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 					PreparedStatement stmt = connection.prepareStatement(sql);
 					try {
 						int sqlobjectIdsIdx = 1;
-						Iterator<Object> stmtParamIt = objectIds.iterator();
-								while (stmtParamIt.hasNext()) {
-									final Object obj = stmtParamIt.next();
-									if (isDebug) {
-										LOGGER.debug(" With Parameter " + sqlobjectIdsIdx + ": " + obj);
-									}
-									stmt.setLong(sqlobjectIdsIdx, (Long)obj);
-									sqlobjectIdsIdx++;
-								}
+						Iterator<Key> stmtParamIt = objectIds.iterator();
+						while (stmtParamIt.hasNext()) {
+							final Key obj = stmtParamIt.next();
+							if (isDebug) {
+								LOGGER.debug(" With Parameter " + sqlobjectIdsIdx + ": " + obj);
+							}
+							Util.setKeyValue(stmt, sqlobjectIdsIdx, test.model.emap.test.PlaceMapper.PKLayout, obj, "id");
+							sqlobjectIdsIdx++;
+						}
 						stmt.execute();
 					}
 					finally {
@@ -1155,6 +1191,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			}
 		}
 		
+		// by JavaInsertUpdateGenerator
 		@Override
 		public final void delete(Place... object) {
 			final boolean isDebug = LOGGER.isDebugEnabled();
@@ -1162,11 +1199,18 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				LOGGER.debug("delete("+Arrays.toString(object)+")");
 			}
 		
-			List<Object> ids = new ArrayList<Object>();
+			List<at.bestsolution.persistence.Key<Place>> keyList = new ArrayList<>();
 			for (Place o : object) {
-				ids.add(getPrimaryKeyValue(o));
+				keyList.add(getPrimaryKey(o));
 			}
-			deleteById(ids);
+			
+			deleteById(keyList.toArray(new at.bestsolution.persistence.Key[] {}));
+		
+			//List<Object> ids = new ArrayList<Object>();
+			//for (Place o : object) {
+			//	ids.add(getPrimaryKeyValue(o));
+			//}
+			//deleteById(ids);
 		
 		}
 
@@ -1194,7 +1238,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 				switch(f.getFeatureID()) {
 				  // likedBy
 				  case test.model.test.TestPackage.PLACE__LIKED_BY: {
-				    target.getLikedBy().addAll(session.createMapper(test.model.emap.test.PersonMapper.class).selectAllForPlace(target.getId()));
+				    target.getLikedBy().addAll(session.createMapper(test.model.emap.test.PersonMapper.class).selectAllForPlace((long)getPrimaryKey(target).getValue("id")));
 				    return true;
 				  }
 				  default : {
@@ -1225,6 +1269,7 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			REFERENCE_MAPPER.put("likedBy",test.model.emap.test.PersonMapper.class);
 		}
 
+		// by JavaObjectMapperGenerator
 		public EClass getEClass() {
 			return test.model.test.TestPackage.eINSTANCE.getPlace();
 		}
@@ -1242,11 +1287,12 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			return REFERENCE_FORCEDFK.contains(ref);
 		}
 
-
+		// by JavaObjectMapperGenerator
 		public final String getLockColumn() {
 			return session.getDatabaseSupport().isDefaultLowerCase() ? "e_version" : "E_VERSION";
 		}
 
+		// by JavaObjectMapperGenerator
 		public final String getColumnName(String propertyName) {
 			if( propertyName.contains(".") ) {
 				String[] segs = Util.splitOfSegment(propertyName);
@@ -1255,10 +1301,12 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			return PROPERTY_COL_MAPPING.get(propertyName);
 		}
 
+		// by JavaObjectMapperGenerator
 		public final <M extends at.bestsolution.persistence.ObjectMapper<?>> M createMapperForReference(String propertyName) {
 			return (M) session.createMapper(REFERENCE_MAPPER.get(propertyName));
 		}
 
+		// by JavaObjectMapperGenerator
 		public final JDBCType getJDBCType(String propertyName) {
 			if( propertyName.contains(".") ) {
 				String[] segs = Util.splitOfSegment(propertyName);
@@ -1267,70 +1315,86 @@ public final class PlaceMapperFactory implements ObjectMapperFactory<test.model.
 			}
 			return TYPE_MAPPING.get(propertyName);
 		}
-
+		
+		// by JavaObjectMapperGenerator
 		public final EStructuralFeature getReferenceId(String property) {
 			return REF_ID_FEATURES.get(property);
 		}
 
+		// by JavaObjectMapperGenerator
 		public final Set<EReference> getReferenceFeatures() {
 			return Collections.unmodifiableSet(REFERENCE_FEATURES);
 		}
 
-		public final <P> P getPrimaryKeyValue(Place o) {
-			return (P)(Object)o.getId();
+		// by JavaObjectMapperGenerator
+		public final Key getPrimaryKey(Place o) {
+			final Map<String, Object> values = new HashMap<>();
+			values.put("id", o.getId());
+			return PKLayout.create(values);
 		}
 
-		protected final <P> P getPrimaryKeyForTx(Place o) {
+		// by JavaObjectMapperGenerator
+		protected final Key getPrimaryKeyForTx(Place o) {
 			return session.getPrimaryKey(this, o);
 		}
 
+		// by JavaObjectMapperGenerator
 		protected final long getVersionForTx(Place o) {
 			return session.getVersion(this, o);
 		}
+		
+		// by JavaObjectMapperGenerator
+		private Map<String, Object> parseFKValuesForLikedBy(ResultSet set) throws SQLException {
+			final Map<String, Object> result = new HashMap<>();
+			result.put("id", set.getLong("ID"));
+			return result;
+		}
 	}
 
-public final NamedQuery<test.model.test.Place> createNamedQuery(final JavaSession session, String name) {
-	if( "selectById".equals(name) ) {
-		return new NamedQuery<test.model.test.Place>() {
-			public final List<test.model.test.Place> queryForList(Object... parameters) {
-				throw new UnsupportedOperationException("This is a single value query");
-			}
+	// by JavaObjectMapperGenerator
+	public final NamedQuery<test.model.test.Place> createNamedQuery(final JavaSession session, String name) {
+			if( "selectById".equals(name) ) {
+				return new NamedQuery<test.model.test.Place>() {
+					public final List<test.model.test.Place> queryForList(Object... parameters) {
+						throw new UnsupportedOperationException("This is a single value query");
+					}
 
-			public final test.model.test.Place queryForOne(Object... parameters) {
-				return createMapper(session).selectById(((Long)parameters[0]).longValue());
-			}
+					public final test.model.test.Place queryForOne(Object... parameters) {
+						return createMapper(session).selectById(((Long)parameters[0]).longValue());
+					}
 
-			public final String[] getParameterNames() {
-				String[] rv = new String[1];
-				int i = 0;
-				rv[i++] = "id";
-				return rv;
+					public final String[] getParameterNames() {
+						String[] rv = new String[1];
+						int i = 0;
+						rv[i++] = "id";
+						return rv;
+					}
+				};
 			}
-		};
+			if( "selectAllForPerson".equals(name) ) {
+				return new NamedQuery<test.model.test.Place>() {
+					public final List<test.model.test.Place> queryForList(Object... parameters) {
+						return createMapper(session).selectAllForPerson(((Long)parameters[0]).longValue());
+					}
+
+					public final test.model.test.Place queryForOne(Object... parameters) {
+						throw new UnsupportedOperationException("This is a list value query");
+					}
+
+					public final String[] getParameterNames() {
+						String[] rv = new String[1];
+						int i = 0;
+						rv[i++] = "personId";
+						return rv;
+					}
+				};
+			}
+		throw new UnsupportedOperationException("Unknown query '"+getClass().getSimpleName()+"."+name+"'");
 	}
-	if( "selectAllForPerson".equals(name) ) {
-		return new NamedQuery<test.model.test.Place>() {
-			public final List<test.model.test.Place> queryForList(Object... parameters) {
-				return createMapper(session).selectAllForPerson(((Long)parameters[0]).longValue());
-			}
 
-			public final test.model.test.Place queryForOne(Object... parameters) {
-				throw new UnsupportedOperationException("This is a list value query");
-			}
-
-			public final String[] getParameterNames() {
-				String[] rv = new String[1];
-				int i = 0;
-				rv[i++] = "personId";
-				return rv;
-			}
-		};
+	// by JavaObjectMapperGenerator
+	public final MappedQuery<Place> mappedQuery(JavaSession session, String name) {
+		throw new UnsupportedOperationException("Unknown criteria query '"+getClass().getSimpleName()+"."+name+"'");
 	}
-	throw new UnsupportedOperationException("Unknown query '"+getClass().getSimpleName()+"."+name+"'");
-}
 
-public final MappedQuery<Place> mappedQuery(JavaSession session, String name) {
-	throw new UnsupportedOperationException("Unknown criteria query '"+getClass().getSimpleName()+"."+name+"'");
-}
-
-}
+																											}

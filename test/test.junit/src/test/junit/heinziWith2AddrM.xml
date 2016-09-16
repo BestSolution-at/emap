@@ -1,0 +1,13 @@
+<dataset>
+    <MPERSON ID="1" E_VERSION="0" NAME="Heinzi" />
+   	<MADDRESS ID="1" E_VERSION="0" STREET="Street Zero" FK_PERSON="1" />
+   	<MADDRESS ID="2" E_VERSION="0" STREET="Street One" FK_PERSON="1" />
+    <MPLACE />
+    <MLIKES_PERSON_PLACE />
+    <MTAG />
+    
+    <PERSON />
+   	<ADDRESS />
+    <PLACE />
+    <LIKES_PERSON_PLACE />
+</dataset>

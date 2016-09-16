@@ -1,7 +1,6 @@
 package test.junit;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,7 +9,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -19,9 +17,7 @@ import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.DefaultTable;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
@@ -33,7 +29,6 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
-import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
 
 import at.bestsolution.persistence.Session;
@@ -74,7 +69,7 @@ public class TestCase {
 	}
 	
 	@Before
-	public void before() {
+	public void before() throws Exception {
 		System.err.println("Setting up database " + database);
 		session = getSessionFactory().createSession(database);
 		
@@ -83,6 +78,7 @@ public class TestCase {
 			dbUnitConn = new DatabaseConnection(testConnection);
 		} catch (DatabaseUnitException e1) {
 			e1.printStackTrace(System.out);
+			throw e1;
 		}
 		System.out.println("Session: " + session);
 		try (Reader reader = openCreateDDL(session.getDatabaseType())){
@@ -90,17 +86,19 @@ public class TestCase {
 		}
 		catch (IOException e) {
 			e.printStackTrace(System.out);
+			throw e;
 		}
 	}
 	
 	@After
-	public void after() {
+	public void after() throws Exception {
 		System.err.println("Cleaning up database " + database);
 		try (Reader reader = openDropDDL(session.getDatabaseType())){
 			executeScript(reader);
 		}
 		catch (IOException e) {
 			e.printStackTrace(System.out);
+			throw e;
 		}
 		
 		((JavaSession)session).returnConnection(testConnection);
@@ -118,14 +116,16 @@ public class TestCase {
 				}
 				catch (SQLException e) {
 					e.printStackTrace(System.out);
+					throw new RuntimeException(e);
 				}
 				catch (IOException e) {
 					e.printStackTrace(System.out);
+					throw new RuntimeException(e);
 				}
 				finally {
 					((JavaSession) s).returnConnection(conn);
 				}
-				return false;
+				//return false;
 			}
 		});
 	}
@@ -201,6 +201,7 @@ public class TestCase {
 	
 	@Test
 	public void insertOneToMany() throws Exception {
+
 		DatabaseOperation.CLEAN_INSERT.execute(getConnection(), getXmlDataSet("onlyHeinzi.xml"));
 		
 		PersonMapper m = session.createMapper(PersonMapper.class);

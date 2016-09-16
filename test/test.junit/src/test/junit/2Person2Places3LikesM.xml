@@ -1,0 +1,16 @@
+<dataset>
+    <MPERSON ID="1" E_VERSION="1" NAME="Heinzi" />
+    <MPERSON ID="2" E_VERSION="1" NAME="Sarah" />
+   	<MADDRESS />
+    <MPLACE ID="1" E_VERSION="1" NAME="Magical Forest" />
+    <MPLACE ID="2" E_VERSION="1" NAME="Wonderland" />
+    <MLIKES_PERSON_PLACE FK_PERSON="1" FK_PLACE="2" />
+    <MLIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="1" />
+    <MLIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="2" />
+    <MTAG />
+    
+    <PERSON />
+   	<ADDRESS />
+    <PLACE />
+    <LIKES_PERSON_PLACE />
+</dataset>

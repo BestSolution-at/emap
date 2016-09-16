@@ -20,6 +20,7 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.SessionCache;
 import at.bestsolution.persistence.java.SessionCacheFactory;
 
@@ -59,7 +60,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public <O extends EObject> O getObject(EClass eClass, Object id) {
+		public <O extends EObject, K extends Key<O>> O getObject(EClass eClass, K id) {
 			Map<Object, VersionedEObject> map = cacheMap.get(eClass);
 			if( map != null ) {
 				VersionedEObject vo = map.get(id);
@@ -85,7 +86,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
-		public void evictObject(EClass eClass, Object id) {
+		public <K extends Key<?>> void evictObject(EClass eClass, K id) {
 			Map<Object, VersionedEObject> map = cacheMap.get(eClass);
 			if( map != null ) {
 				map.remove(id);	
@@ -98,7 +99,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
-		public void putObject(EObject object, Object id, long version) {
+		public <K extends Key<?>> void putObject(EObject object, K id, long version) {
 			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map == null ) {
 				map = new HashMap<Object, VersionedEObject>();
@@ -122,7 +123,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
-		public long getVersion(EObject object, Object id) {
+		public <K extends Key<?>> long getVersion(EObject object, K id) {
 			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map != null ) {
 				VersionedEObject o = map.get(id);
@@ -134,7 +135,7 @@ public class DefaultSessionCacheFactory implements SessionCacheFactory {
 		}
 
 		@Override
-		public boolean updateVersion(EObject object, Object id, long version) {
+		public <K extends Key<?>> boolean updateVersion(EObject object, K id, long version) {
 			Map<Object, VersionedEObject> map = cacheMap.get(object.eClass());
 			if( map != null ) {
 				VersionedEObject o = map.get(id);

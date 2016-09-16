@@ -10,10 +10,14 @@
  *******************************************************************************/
 package at.bestsolution.persistence.emap.generator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.ecore.EDataType;
 
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
+import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
 
 public abstract class DatabaseSupport {
 	public static enum KeyGenerationType {
@@ -26,6 +30,20 @@ public abstract class DatabaseSupport {
 	public abstract boolean supportsGeneratedKeys();
 	public abstract String getSequenceStatementNextVal(EAttribute primaryKey);
 	public abstract String getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType);
+	
+	
+	public Map<EDataType, ESQLTypeDef> getDatabaseTypeMapping() {
+		final Map<EDataType, ESQLTypeDef> result = new HashMap<EDataType, ESQLTypeDef>();
+		defineDatatypeMapping(result);
+		return result;
+	}
+	
+	protected abstract void defineDatatypeMapping(Map<EDataType, ESQLTypeDef> mapping);
+	
+	
+	public abstract String getDatabaseType(EAttribute attribute, EDataType dataType);
+	public abstract String getDatabaseType(String javaType);
+	
 	public abstract String getAutokeyDefinition(EAttribute primaryKey);
 	
 	/** @deprecated replaced by has {@link #hasPrimaryKeyCreateInlineContribution(EAttribute)} and {@link #getPrimaryKeyCreateInlineContribution(EAttribute)} */

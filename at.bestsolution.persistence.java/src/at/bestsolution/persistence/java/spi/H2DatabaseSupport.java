@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.PersistanceException;
@@ -169,12 +170,12 @@ public class H2DatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
+		public <K extends Key<?>> UpdateStatement createUpdateStatement(KeyLayout<K> pkLayout, String lockColumn) {
+			return new PreparedUpdateStatement(db, tableName, pkLayout, lockColumn);
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames,
+		public <K extends Key<?>> InsertStatement createInsertStatement(KeyLayout<K> pkLayout, Map<String, String> sequenceNames,
 				String lockColumn) {
 			return new PreparedInsertStatement(db, tableName, pkLayout, sequenceNames, lockColumn);
 		}

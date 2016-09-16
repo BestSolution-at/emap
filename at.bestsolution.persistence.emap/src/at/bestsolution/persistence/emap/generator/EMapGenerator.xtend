@@ -33,6 +33,9 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IFileSystemAccessExtension3
 import org.eclipse.xtext.generator.IGenerator
 import org.osgi.framework.FrameworkUtil
+import at.bestsolution.persistence.emap.model.TableModelConverter
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
+import at.bestsolution.persistence.emap.eMap.EMapPackage
 
 /**
  * Generates code from your model files on save.
@@ -71,6 +74,12 @@ class EMapGenerator implements IGenerator {
 	@Inject
 	var DTOGenerator dtoGenerator;
 
+	@Inject
+	var TableModelConverter tableModelConverter;
+	
+	@Inject
+	var ResourceDescriptionsProvider rdp;
+
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		try {
 			val participants = getEMapGeneratorParticipants
@@ -79,8 +88,13 @@ class EMapGenerator implements IGenerator {
 
 //			println("Generating " + resource)
 			val root = resource.contents.head as EMapping
+			
+			// TODO work more on table model
+			val tableModel = null //tableModelConverter.createTableModel(resource)
+			
+			val ctx = new GeneratorContext(tableModel)
+			
 			if( root.root instanceof EMappingEntityDef ) {
-
 				val edef = root.root as EMappingEntityDef
 
 				fsa.generateFile(edef.package.name.replace('.','/')+"/"+edef.entity.name + "Mapper.java", javaInterfaceGenerator.generateJavaMapper(edef, edef.entity.etype.lookupEClass).processOutput(root,EMapGeneratorParticipant.FileType.JAVA_INTERFACE,null,participants))
@@ -149,7 +163,7 @@ class EMapGenerator implements IGenerator {
 	//			fsa.generateFile("mappings/"+bundleDef.name+"SqlMetaDataProvider.java", generateSqlMetaDataProvider(bundleDef));
 				fsa.generateFile("mappings/"+bundleDef.name+"ObjectMapperFactoriesProvider.java",javaRegistryGenerator.generateMapperRegistry(bundleDef).processOutput(root,EMapGeneratorParticipant.FileType.JAVA_SERVICE_COMPONENT,null,participants))
 				for( d : bundleDef.databases ) {
-					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.CREATE_DDL,null,participants));
+					fsa.generateFile("ddls/create_"+d+".sql",ddlGenerator.generatedDDL(ctx, bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.CREATE_DDL,null,participants));
 					fsa.generateFile("ddls/drop_"+d+".sql",ddlGenerator.generatedDropDDL(bundleDef,getDatabaseSupport(d)).processOutput(root,EMapGeneratorParticipant.FileType.DROP_DDL,null,participants));
 				}
 

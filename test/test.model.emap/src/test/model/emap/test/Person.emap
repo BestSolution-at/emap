@@ -1,4 +1,4 @@
-package test.model.emap.test;
+ package test.model.emap.test;
 
 entity Person {
 	etype "test"#Person
@@ -23,4 +23,4 @@ entity Person {
 			default Person FROM "PERSON, LIKES_PERSON_PLACE" WHERE "PERSON.ID = LIKES_PERSON_PLACE.FK_PERSON AND LIKES_PERSON_PLACE.FK_PLACE = ${placeId}"
 		} 
 	}
-}    
+}                                         

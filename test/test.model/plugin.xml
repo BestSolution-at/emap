@@ -14,4 +14,12 @@
             genModel="model/Test.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated MixedKeys -->
+      <package
+            uri="mixedkeys"
+            class="test.model.mixedkeys.MixedkeysPackage"
+            genModel="model/MixedKeys.genmodel"/>
+   </extension>
+
 </plugin>

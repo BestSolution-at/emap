@@ -3,4 +3,11 @@
    	<ADDRESS />
     <PLACE />
     <LIKES_PERSON_PLACE />
+    
+    <MPERSON />
+   	<MADDRESS />
+    <MPLACE />
+    <MLIKES_PERSON_PLACE />
+    <MTAG />
+    
 </dataset>

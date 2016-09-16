@@ -11,6 +11,7 @@
 package at.bestsolution.persistence.java.internal;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,7 +21,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.DatabaseSupport;
+import at.bestsolution.persistence.java.KeyLayout;
+import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.DatabaseSupport.Statement;
 import at.bestsolution.persistence.java.query.JDBCType;
 
@@ -109,6 +113,15 @@ public class PreparedStatement implements Statement {
 			columnList.add(new BigDecimalColumn(columnList.size(), column, value));
 		}
 	}
+	
+	@Override
+	public void addBigInteger(String column, BigInteger value) {
+		if( value == null ) {
+			columnList.add(new NullColumn(columnList.size(), column, JDBCType.INT));
+		} else {
+			columnList.add(new BigIntegerColumn(columnList.size(), column, value));
+		}
+	}
 
 	@Override
 	public void addLong(String column, long value) {
@@ -132,6 +145,88 @@ public class PreparedStatement implements Statement {
 	@Override
 	public void addBlob(String column, Blob value) {
 		columnList.add(new BlobColumn(columnList.size(), column, value));
+	}
+	
+	@Override
+	public <K extends Key<?>> void addKey(KeyLayout<K> layout, K key) {
+		for (KeyLayoutEntry e : layout.getEntries()) {
+			final Object value = key.getValue(e.name);
+			
+			if (e.type == long.class || e.type == Long.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.LONG));
+				}
+				else {
+					columnList.add(new LongColumn(columnList.size(), e.colName, (Long) value));
+				}
+			}
+			else if (e.type == int.class || e.type == Integer.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.INT));
+				}
+				else {
+					columnList.add(new IntColumn(columnList.size(), e.colName, (Integer) value));
+				}
+			}
+			else if (e.type == String.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.STRING));
+				}
+				else {
+					columnList.add(new StringColumn(columnList.size(), e.colName, (String) value));
+				}
+			}
+			else if (e.type == float.class || e.type == Float.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.FLOAT));
+				}
+				else {
+					// XXX no float support !?
+					columnList.add(new DoubleColumn(columnList.size(), e.colName, (Float) value));
+				}
+			}
+			else if (e.type == double.class || e.type == Double.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.DOUBLE));
+				}
+				else {
+					columnList.add(new DoubleColumn(columnList.size(), e.colName, (Double) value));
+				}
+			}
+			else if (e.type == boolean.class || e.type == Boolean.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.BOOLEAN));
+				}
+				else {
+					columnList.add(new BooleanColumn(columnList.size(), e.colName, (Boolean) value));
+				}
+			}
+			else if (e.type == BigInteger.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.UNKNOWN));
+				}
+				else {
+					columnList.add(new BigIntegerColumn(columnList.size(), e.colName, (BigInteger) value));
+				}
+			}
+			else if (e.type == BigDecimal.class) {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.UNKNOWN));
+				}
+				else {
+					columnList.add(new BigDecimalColumn(columnList.size(), e.colName, (BigDecimal) value));
+				}
+			}
+			else {
+				if (value == null) {
+					columnList.add(new NullColumn(columnList.size(), e.colName, JDBCType.UNKNOWN));
+				}
+				else {
+					columnList.add(new ObjectColumn(columnList.size(), e.colName, value));
+				}
+			}
+		}
+		
 	}
 
 	public static abstract class Column {
@@ -251,6 +346,21 @@ public class PreparedStatement implements Statement {
 			pstmt.setString(index+1, value);
 		}
 	}
+	
+	static class ObjectColumn extends Column {
+		private final Object value;
+
+		public ObjectColumn(int index, String column, Object value) {
+			super(index, column);
+			this.value = value;
+		}
+
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
+			pstmt.setObject(index+1, value);
+		}
+	}
 
 	static class NullColumn extends Column {
 		private final JDBCType type;
@@ -265,6 +375,22 @@ public class PreparedStatement implements Statement {
 			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => null");
 			pstmt.setObject(index+1, null);
 		}
+	}
+	
+	static class BigIntegerColumn extends Column {
+		private final BigInteger value;
+		
+		public BigIntegerColumn(int index, String column, BigInteger value) {
+			super(index, column);
+			this.value = value;
+		}
+		
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
+			pstmt.setBigDecimal(index+1, new BigDecimal(value));
+		}
+		
 	}
 
 	static class BlobColumn extends Column {

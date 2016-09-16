@@ -16,13 +16,15 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import at.bestsolution.persistence.Key;
+
 public interface SessionCache {
-	public <O extends EObject> O getObject(EClass eClass, Object id);
-	public void putObject(EObject object, Object id, long version);
-	public long getVersion(EObject object, Object id);
-	public boolean updateVersion(EObject object, Object id, long version);
+	public <O extends EObject, K extends Key<O>> O getObject(EClass eClass, K id);
+	public <K extends Key<?>> void putObject(EObject object, K id, long version);
+	public <K extends Key<?>> long getVersion(EObject object, K id);
+	public <K extends Key<?>> boolean updateVersion(EObject object, K id, long version);
 	public void evitObject(EObject object);
-	public void evictObject(EClass eClass, Object id);
+	public <K extends Key<?>> void evictObject(EClass eClass, K id);
 	public void evictObjects(EClass eClass);
 	public boolean isCached(EObject object);
 	public void clear();

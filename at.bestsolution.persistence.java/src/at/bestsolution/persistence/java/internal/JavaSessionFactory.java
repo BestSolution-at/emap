@@ -344,10 +344,6 @@ public class JavaSessionFactory implements SessionFactory {
 		return factoryId;
 	}
 
-	static final boolean isNewObject(Object idValue) {
-		return idValue == null || (idValue instanceof Number && ((Number)idValue).longValue() == 0);
-	}
-
 	@Override
 	public Blob createBlob() {
 		return new LocalBlob();
@@ -832,7 +828,7 @@ public class JavaSessionFactory implements SessionFactory {
 				return version;
 			}
 
-			version = getCache().getVersion((EObject)object, mapper.getPrimaryKeyValue(object));
+			version = getCache().getVersion((EObject)object, mapper.getPrimaryKey(object));
 			if( isDebug ) {
 				LOGGER.debug(" got version from object => " + version);
 			}
@@ -1488,10 +1484,10 @@ public class JavaSessionFactory implements SessionFactory {
 
 //				final Object l = m.getPrimaryKeyValue(e);
 				// WE NEED TO GET THE KEY FROM THE CACHE!
-				final Object txKey = getPrimaryKeyFromTransactionCache(e);
+				final Key<EObject> txKey = getPrimaryKeyFromTransactionCache(e);
 				if (txKey == null) {
-					final Object l = getPrimaryKey(m, e);
-					if( isNewObject(l) ) {
+					Key<EObject> key = getPrimaryKey(m, e);
+					if( key.isNew() ) {
 						LOGGER.debug("New object insert");
 						m.insert(e);
 					} else {
@@ -1514,15 +1510,22 @@ public class JavaSessionFactory implements SessionFactory {
 				if( eo instanceof PersistedEObject ) {
 					return isAttached(eo);
 				} else {
-					Object primaryKey = m.getPrimaryKeyValue(eo);
-
-					if( primaryKey instanceof Number ) {
-						if( ((Number)primaryKey).longValue() > 0 ) {
-							return isAttached(eo);
-						}
-					} else if( primaryKey != null ) {
+					Key<EObject> primaryKey = m.getPrimaryKey(eo);
+					
+					if ( !primaryKey.isNew() ) {
 						return isAttached(eo);
 					}
+					
+					// XXX is this equivalent to the above???
+//					Object primaryKey = m.getPrimaryKeyValue(eo);
+//
+//					if( primaryKey instanceof Number ) {
+//						if( ((Number)primaryKey).longValue() > 0 ) {
+//							return isAttached(eo);
+//						}
+//					} else if( primaryKey != null ) {
+//						return isAttached(eo);
+//					}
 
 					return true;
 				}
@@ -1557,11 +1560,10 @@ public class JavaSessionFactory implements SessionFactory {
 							throw new IllegalStateException("There's no mapper known for '"+refInstance.eClass().getInstanceClassName()+"'");
 						}
 						ObjectMapper<Object> tmpMapper = (ObjectMapper<Object>) tmpFactory.createMapper(this);
-						Object tmpValue = tmpMapper.getPrimaryKeyValue(refInstance);
-
-						if( isNewObject(tmpValue) ) {
+						Key<Object> key = tmpMapper.getPrimaryKey(refInstance);
+						if( key.isNew() ) {
 							if( LOGGER.isDebugEnabled() ) {
-								LOGGER.debug("Found reference who not yet has assigned a primary key: "+tmpValue+"");
+								LOGGER.debug("Found reference who not yet has assigned a primary key: "+refInstance+"");
 								LOGGER.debug("Saving reference first.");
 							}
 
@@ -1668,13 +1670,13 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public void registerObject(Object object, Object id, long version) {
+		public <K extends Key<?>> void registerObject(Object object, K id, long version) {
 			checkValid();
 			EObject eo = (EObject) object;
 			if( ! changeStorage.containsKey(eo) ) {
 				changeStorage.put(eo, new ArrayList<FeatureChange>());
 				eo.eAdapters().add(objectAdapter);
-				getCache().putObject(eo,id, version);
+				getCache().putObject(eo, id, version);
 			}
 		}
 
@@ -1686,7 +1688,7 @@ public class JavaSessionFactory implements SessionFactory {
 //		}
 
 		@Override
-		public void unregisterObject(Object object, Object id) {
+		public <K extends Key<?>> void unregisterObject(Object object, K id) {
 			checkValid();
 			EObject eo = (EObject) object;
 			if( changeStorage.remove(eo) != null ) {
@@ -1696,9 +1698,9 @@ public class JavaSessionFactory implements SessionFactory {
 		}
 
 		@Override
-		public void unregisterObject(EClass eClass, Object id) {
+		public <K extends Key<?>> void unregisterObject(EClass eClass, K id) {
 			checkValid();
-			EObject object = getCache().getObject(eClass, id);
+			EObject object = getCache().getObject(eClass, (Key<EObject>) id);
 			if (object != null) {
 				// we need to remove it from our changeStorage
 				if (changeStorage.remove(object) != null) {

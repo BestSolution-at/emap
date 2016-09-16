@@ -39,5 +39,8 @@ Export-Package: at.bestsolution.persistence.emap,
  at.bestsolution.persistence.emap.scoping,
  at.bestsolution.persistence.emap.generator,
  at.bestsolution.persistence.emap.formatting,
- at.bestsolution.persistence.emap.serializer
+ at.bestsolution.persistence.emap.serializer,
+  at.bestsolution.persistence.emap.model.table,
+ at.bestsolution.persistence.emap.model.table.impl,
+ at.bestsolution.persistence.emap.model.table.util
 Service-Component: OSGI-INF/services/firebirdsupport.xml,OSGI-INF/services/mssqlsupport.xml,OSGI-INF/services/h2support.xml,OSGI-INF/services/oracle.xml,OSGI-INF/services/eclasslookupservice.xml,OSGI-INF/services/postgressupport.xml

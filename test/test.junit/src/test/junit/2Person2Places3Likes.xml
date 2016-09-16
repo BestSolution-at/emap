@@ -7,4 +7,11 @@
     <LIKES_PERSON_PLACE FK_PERSON="1" FK_PLACE="2" />
     <LIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="1" />
     <LIKES_PERSON_PLACE FK_PERSON="2" FK_PLACE="2" />
+    
+    <MPERSON />
+   	<MADDRESS />
+    <MPLACE />
+    <MLIKES_PERSON_PLACE />
+    <MTAG />
+    
 </dataset>

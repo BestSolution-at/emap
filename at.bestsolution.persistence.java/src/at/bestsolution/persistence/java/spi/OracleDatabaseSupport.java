@@ -18,10 +18,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
+import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedQuery;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.expr.Expression;
@@ -29,6 +31,7 @@ import at.bestsolution.persistence.expr.PropertyExpression;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.JDBCConnectionProvider;
 import at.bestsolution.persistence.java.JavaObjectMapper;
+import at.bestsolution.persistence.java.KeyLayout;
 import at.bestsolution.persistence.java.internal.PreparedExtendsInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedInsertStatement;
 import at.bestsolution.persistence.java.internal.PreparedStatement.Column;
@@ -220,8 +223,8 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 
 
 		@Override
-		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn) {
-			return new PreparedUpdateStatement(db, tableName, pkColumn, lockColumn);
+		public <K extends Key<?>> UpdateStatement createUpdateStatement(KeyLayout<K> pkLayout, String lockColumn) {
+			return new PreparedUpdateStatement(db, tableName, pkLayout, lockColumn);
 		}
 
 		@Override
@@ -230,82 +233,88 @@ public class OracleDatabaseSupport implements DatabaseSupport {
 		}
 
 		@Override
-		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
-			return new OracleInsertStatement(db,tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
+		public <K extends Key<?>> InsertStatement createInsertStatement(KeyLayout<K> pkLayout, Map<String, String> sequenceNames,
+				String lockColumn) {
+			throw new RuntimeException("Oracle Support is missing!");
 		}
+		
+//		@Override
+//		public InsertStatement createInsertStatement(String pkColumn, String primaryKeyExpression, String lockColumn) {
+//			return new OracleInsertStatement(db,tableName, pkColumn, primaryKeyExpression, lockColumn, rootMapper, connectionProvider);
+//		}
 	}
 
-	static class OracleInsertStatement extends PreparedInsertStatement {
-		private final JDBCConnectionProvider connectionProvider;
-		private final JavaObjectMapper<?> rootMapper;
-		public OracleInsertStatement(DatabaseSupport db, String tableName, String pkColumn,
-				String primaryKeyExpression, String lockColumn, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
-			super(db,tableName, pkColumn, primaryKeyExpression, lockColumn);
-			this.rootMapper = rootMapper;
-			this.connectionProvider = connectionProvider;
-		}
-
-		@Override
-		public void addBlob(String column, Blob value) {
-			columnList.add(new OracleBlobColumn(rootMapper, columnList.size(), column, value, connectionProvider));
-		}
-
-		@Override
-		protected long execute(PreparedStatement pstmt) throws SQLException {
-			try {
-				return super.execute(pstmt);
-			} finally {
-				boolean isDebug = LOGGER.isDebugEnabled();
-				for( Column c : columnList ) {
-					if( c instanceof OracleBlobColumn ) {
-						if( isDebug ) {
-							LOGGER.debug("Freeing oracle blob for column '"+c+"'");
-						}
-						((OracleBlobColumn) c).release(pstmt.getConnection());
-					}
-				}
-			}
-		}
-	}
-
-	static class OracleBlobColumn extends Column {
-		private final Blob blob;
-		private final JDBCConnectionProvider connectionProvider;
-		private Blob tempBlob;
-		private final JavaObjectMapper<?> rootMapper;
-
-		public OracleBlobColumn(JavaObjectMapper<?> rootMapper, int index, String column, Blob blob, JDBCConnectionProvider connectionProvider) {
-			super(index, column);
-			this.rootMapper = rootMapper;
-			this.blob = blob;
-			this.connectionProvider = connectionProvider;
-		}
-
-		@Override
-		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
-			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
-			tempBlob = connectionProvider.createTempBlob(rootMapper.getSession().getConfigurationId(), pstmt.getConnection());
-			OutputStream oracleStream = tempBlob.setBinaryStream(0);
-			InputStream inputStream = blob.getBinaryStream();
-
-			try {
-				byte[] buf = new byte[1024];
-				int l = 0;
-				while( (l = inputStream.read(buf)) != -1 ) {
-					oracleStream.write(buf, 0, l);
-				}
-				inputStream.close();
-				pstmt.setBlob(index+1, tempBlob);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		public void release(Connection connection) throws SQLException {
-			if( tempBlob != null ) {
-				connectionProvider.releaseTempBlob(rootMapper.getSession().getConfigurationId(),connection, blob);
-			}
-		}
-	}
+//	static class OracleInsertStatement extends PreparedInsertStatement {
+//		private final JDBCConnectionProvider connectionProvider;
+//		private final JavaObjectMapper<?> rootMapper;
+//		public OracleInsertStatement(DatabaseSupport db, String tableName, String pkColumn,
+//				String primaryKeyExpression, String lockColumn, JavaObjectMapper<?> rootMapper, JDBCConnectionProvider connectionProvider) {
+//			super(db,tableName, pkColumn, primaryKeyExpression, lockColumn);
+//			this.rootMapper = rootMapper;
+//			this.connectionProvider = connectionProvider;
+//		}
+//
+//		@Override
+//		public void addBlob(String column, Blob value) {
+//			columnList.add(new OracleBlobColumn(rootMapper, columnList.size(), column, value, connectionProvider));
+//		}
+//
+//		@Override
+//		protected long execute(PreparedStatement pstmt) throws SQLException {
+//			try {
+//				return super.execute(pstmt);
+//			} finally {
+//				boolean isDebug = LOGGER.isDebugEnabled();
+//				for( Column c : columnList ) {
+//					if( c instanceof OracleBlobColumn ) {
+//						if( isDebug ) {
+//							LOGGER.debug("Freeing oracle blob for column '"+c+"'");
+//						}
+//						((OracleBlobColumn) c).release(pstmt.getConnection());
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+//	static class OracleBlobColumn extends Column {
+//		private final Blob blob;
+//		private final JDBCConnectionProvider connectionProvider;
+//		private Blob tempBlob;
+//		private final JavaObjectMapper<?> rootMapper;
+//
+//		public OracleBlobColumn(JavaObjectMapper<?> rootMapper, int index, String column, Blob blob, JDBCConnectionProvider connectionProvider) {
+//			super(index, column);
+//			this.rootMapper = rootMapper;
+//			this.blob = blob;
+//			this.connectionProvider = connectionProvider;
+//		}
+//
+//		@Override
+//		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+//			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => Blob(" + blob.length() + ")");
+//			tempBlob = connectionProvider.createTempBlob(rootMapper.getSession().getConfigurationId(), pstmt.getConnection());
+//			OutputStream oracleStream = tempBlob.setBinaryStream(0);
+//			InputStream inputStream = blob.getBinaryStream();
+//
+//			try {
+//				byte[] buf = new byte[1024];
+//				int l = 0;
+//				while( (l = inputStream.read(buf)) != -1 ) {
+//					oracleStream.write(buf, 0, l);
+//				}
+//				inputStream.close();
+//				pstmt.setBlob(index+1, tempBlob);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//
+//		public void release(Connection connection) throws SQLException {
+//			if( tempBlob != null ) {
+//				connectionProvider.releaseTempBlob(rootMapper.getSession().getConfigurationId(),connection, blob);
+//			}
+//		}
+//	}
 }

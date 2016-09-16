@@ -16,6 +16,14 @@ import at.bestsolution.persistence.emap.generator.DatabaseSupport
 import org.eclipse.emf.ecore.EDataType
 import org.eclipse.emf.ecore.EEnum
 import at.bestsolution.persistence.emap.generator.UtilCollection
+import java.util.Map
+import at.bestsolution.persistence.emap.eMap.ESQLTypeDef
+import java.util.HashMap
+import org.eclipse.emf.ecore.EcoreFactory
+import org.eclipse.emf.ecore.EcorePackage
+import at.bestsolution.persistence.emap.eMap.EMapFactory
+import at.bestsolution.persistence.emap.eMap.EType
+import at.bestsolution.persistence.emap.eMap.ESQLDbType
 
 class PostgresDatabaseSupport extends DatabaseSupport {
 
@@ -45,6 +53,92 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 //		return true;
 //	}
 
+	def createType(EDataType dataType, String sqlTypeDef) {
+		return createType(dataType, sqlTypeDef, null)
+	}
+
+	def createType(EDataType dataType, String sqlTypeDef, String size) {
+		val ESQLTypeDef t = EMapFactory.eINSTANCE.createESQLTypeDef
+		val EType etype = EMapFactory.eINSTANCE.createEType
+		etype.name = dataType.name
+		etype.url = dataType.EPackage.nsURI
+		t.etype = etype
+		
+		val ESQLDbType dbType = EMapFactory.eINSTANCE.createESQLDbType
+		dbType.dbType = getDatabaseId
+		dbType.sqlTypeDef = sqlTypeDef
+		dbType.size = size
+		t.dbTypes.add(dbType)
+		
+		return t
+	}
+	
+	def addType(Map<EDataType, ESQLTypeDef> it, EDataType dataType, String sqlTypeDef, String size) {
+		it.put(dataType, createType(dataType, sqlTypeDef, size))
+	}
+	def addType(Map<EDataType, ESQLTypeDef> it, EDataType dataType, String sqlTypeDef) {
+		it.put(dataType, createType(dataType, sqlTypeDef))
+	}
+	
+	override protected defineDatatypeMapping(Map<EDataType, ESQLTypeDef> mapping) {
+		mapping.addType(EcorePackage.Literals.EINT, 			"integer")
+		mapping.addType(EcorePackage.Literals.EINTEGER_OBJECT, 	"integer")
+		mapping.addType(EcorePackage.Literals.ELONG, 			"bigint")
+		mapping.addType(EcorePackage.Literals.ELONG_OBJECT, 	"bigint")
+		mapping.addType(EcorePackage.Literals.ESTRING,			"varchar(${size})", "255")
+		mapping.addType(EcorePackage.Literals.EDOUBLE, 			"decimal")
+		mapping.addType(EcorePackage.Literals.EDOUBLE_OBJECT, 	"decimal")
+		mapping.addType(EcorePackage.Literals.EFLOAT, 			"decimal")
+		mapping.addType(EcorePackage.Literals.EFLOAT_OBJECT,	"decimal")
+		mapping.addType(EcorePackage.Literals.EBIG_DECIMAL,		"decimal")
+		mapping.addType(EcorePackage.Literals.EBIG_INTEGER,		"numeric")
+		mapping.addType(EcorePackage.Literals.EDATE,			"timestamp")
+	}
+
+	override getDatabaseType(EAttribute attribute, EDataType dataType) {
+		val size = attribute?.size;
+
+		if (dataType instanceof EEnum) return if (size != null) '''varchar(«size»)''' else "varchar(255)"
+		
+		switch (dataType.name) {
+			case "EInt": 			return "integer"
+			case "EIntegerObject": 	return "integer"
+			case "ELong":			return "bigint"
+			case "ELongObject":		return "bigint"
+			case "EDouble":			return "decimal"
+			case "EDoubleObject":	return "decimal"
+			case "EBigDecimal":		return "decimal"
+			case "EBoolean":		return "boolean"
+			case "EBooleanObject":	return "boolean"
+			case "EString":			return if (size != null) '''varchar(«size»)''' else "varchar(255)"
+			case "java.sql.Clob":	return "text"
+			case "java.sql.Blob":	return "bytea"
+			case "EDate":			return "timestamp"
+		}
+		
+		return "***UNKOWN "+dataType.name+"***";
+	}
+	
+	override getDatabaseType(String javaType) {
+		switch(javaType) {
+			case "int":						return "integer"
+			case "java.lang.Integer":		return "integer"
+			case "long":					return "bigint"
+			case "java.lang.Long":			return "bigint"
+			case "double":					return "decimal"
+			case "java.lang.Double":		return "decimal"
+			case "float":					return "decimal"
+			case "java.lang.Float":			return "decimal"
+			case "java.math.BigDecimal":	return "decimal"
+			case "java.lang.String":		return "varchar(255)"
+			case "java.sql.Clob":			return "text"
+			case "java.sql.Blob":			return "bytea"
+			case "java.util.Date":			return "timestamp"
+		}
+		
+		return "***UNKOWN "+javaType+"***";
+	}
+
 	override getDatabaseType(EAttribute attribute, boolean fkResolve, EDataType dataType) {
 		val size = attribute?.size;
 
@@ -61,6 +155,8 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 			} else {
 				return "bigint";
 			}
+		} else if( "EBigInteger" == dataType.name) {
+			return "numeric";
 		} else if( "EDouble" == dataType.name || "EDoubleObject" == dataType.name || "EBigDecimal" == dataType.name ) {
 			return "decimal";
 		} else if( "EString" == dataType.name ) {

@@ -1,0 +1,25 @@
+package test.model.emap.mixedkeys;
+
+entity MTag {
+	etype "mixedkeys"#Tag
+	attributes {
+		primarykey id => ID generatedby {
+			"Firebird" seqnext "SEQ_MADDRESS_ID",
+			"Postgres" seqnext "nextMTagId"
+		},
+		  
+		value => VALUE,
+		endlessInt => ENDLESSINT, 
+		
+		address => resolve MAddress.selectById(FK_ADDRESS)
+	}
+	queries {
+		single selectById(primarykey java.math.BigInteger id) {
+			default MTag FROM "MTAG" WHERE "ID = ${id}"
+		},
+		
+		selectAllForAddress(java.math.BigInteger addressId) {
+			default MTag FROM "MTAG" WHERE "FK_ADDRESS = ${addressId}"
+		}
+	}           
+} as MTAG                                                                                                                                               

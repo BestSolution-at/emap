@@ -25,6 +25,7 @@ import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.InsertStatement;
 import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.KeyLayout;
+import at.bestsolution.persistence.java.Util;
 
 public class PreparedInsertStatement extends PreparedStatement implements InsertStatement {
 	private final String tableName;
@@ -72,7 +73,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 		return "INSERT INTO "+'"' + correctCase(tableName) + '"' +"(" + col + ") VALUES (" + val + ")";
 	}
 
-	protected <O> Key<O> execute(java.sql.PreparedStatement pstmt) throws SQLException {
+	protected <K extends Key<?>> K execute(java.sql.PreparedStatement pstmt) throws SQLException {
 		ResultSet set = null;
 		try {
 			pstmt.executeUpdate();
@@ -82,22 +83,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 					LOGGER.debug("The generated key is '" + set.getLong(1)+"'");
 				}
 				
-				Map<String, Object> pkValues = new HashMap<String, Object>();
-				
-				for (KeyLayoutEntry e : pkLayout.getEntries()) {
-					int colNr = set.findColumn(e.colName);
-					
-					if (Long.class == e.type || long.class == e.type) {
-						pkValues.put(e.name, set.getLong(colNr));
-					}
-					else if (String.class == e.type) {
-						pkValues.put(e.name, set.getString(colNr));
-					}
-					
-				}
-				
-				return (Key<O>) pkLayout.create(pkValues);
-				
+				return (K) Util.extractKey(pkLayout, set);
 			}
 			throw new SQLException("No generated key");
 		} finally {
@@ -112,7 +98,7 @@ public class PreparedInsertStatement extends PreparedStatement implements Insert
 	}
 
 	@Override
-	public final <O> Key<O> execute(Connection connection) throws SQLException {
+	public final <K extends Key<?>> K execute(Connection connection) throws SQLException {
 		String sql = createSQL(tableName, pkLayout, pkExpressions, lockColumn, columnList);
 		if (LOGGER.isDebugEnabled()) LOGGER.debug("Executing statement \n'"+sql+"'");
 		java.sql.PreparedStatement pstmt = createPreparedStatement(connection, sql);

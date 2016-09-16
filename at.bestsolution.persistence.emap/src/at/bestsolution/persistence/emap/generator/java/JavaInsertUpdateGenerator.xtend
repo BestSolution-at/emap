@@ -28,12 +28,18 @@ class JavaInsertUpdateGenerator {
   	@Inject extension
   	var JavaUtilGenerator utilGen;
 
+	@Inject extension
+	var KeyGenerator keyGenerator;
+
+	val generatorCredit = "by " + class.simpleName;
+
 	def generateUpdate(EMappingEntityDef entityDef, EClass eClass) '''
 	«val simpleDirectMappedAttributes = 	entityDef.entity.findSimpleDirectMappedAttributes(eClass)»
 	«val blobDirectMappedAttributes = 		entityDef.entity.findBlobDirectMappedAttributes(eClass)»
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val oneToOneReferences = 				entityDef.entity.findOneToOneReferences(eClass)»
 	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
+	// «generatorCredit»
 	@Override
 	public final void update(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -48,7 +54,7 @@ class JavaInsertUpdateGenerator {
 
 		// Built the query
 		«val pkAttribute = entityDef.entity.allAttributes.findFirst[pk]»
-		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createUpdateStatement("«pkAttribute.columnName»", «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
+		at.bestsolution.persistence.java.DatabaseSupport.UpdateStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createUpdateStatement(PKLayout, «IF entityDef.extendsEntity»null«ELSE»getLockColumn()«ENDIF»);
 		// NEW:
 «««		Handle simple direct mapped attributes
 		«IF !simpleDirectMappedAttributes.empty»
@@ -100,14 +106,17 @@ class JavaInsertUpdateGenerator {
 			// one to one references
 			«FOR a : oneToOneReferences»
 			«IF a.parameters.head != pkAttribute.columnName»
-				// * «a.name»
+				«val refEClass = (eClass.getEStructuralFeature(a.name) as EReference).EReferenceType»
+				// * «a.name» («refEClass.name»)
 				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
-					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
+					final «entity.fqn».Key refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
+					stmt.addKey(«a.FKLayoutName», refKey);
 				} else {
-					stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
+					«FOR pk : entity.findPKAttributes»
+						stmt.addNull("«a.parameters.head»",getJDBCType("«a.name»"));
+					«ENDFOR»
 				}
 			«ELSE»
 				// * skipping «a.name», because it would overwrite the primary key column
@@ -119,12 +128,12 @@ class JavaInsertUpdateGenerator {
 		Connection connection = session.checkoutConnection();
 		try {
 			«IF entityDef.extendsEntity»
-				long version = getLockColumn() != null ? getVersionForTx(object) : -1;
+				final long version = getLockColumn() != null ? getVersionForTx(object) : -1;
 				session.createMapper(«(entityDef.entity.parent.eContainer as EMappingEntityDef).fqn».class).update(object);
 			«ELSE»
-				long version = getLockColumn() != null ? getVersionForTx(object) : -1;
+				final long version = getLockColumn() != null ? getVersionForTx(object) : -1;
 			«ENDIF»
-			boolean success = stmt.execute(connection, object.get«entityDef.entity.allAttributes.findFirst[pk].name.javaReservedNameEscape.toFirstUpper»(),version);
+			final boolean success = stmt.execute(connection, getPrimaryKey(object), version);
 
 			if( getLockColumn() != null && ! success ) {
 				throw new PersistanceException("The entity '"+object.getClass().getName()+"' is stale");
@@ -174,13 +183,15 @@ class JavaInsertUpdateGenerator {
 							}
 
 							for (Object addition : delta.getAdditions()) {
-								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)addition);
+								final «oppositeMapper».Key oppositePK = oppositeMapper.getPrimaryKey((«oppositeType»)addition);
+								//final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)addition);
 								// TODO test for new object?
 								session.scheduleRelationSQL(«getCreateInsertManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)addition));
 							}
 
 							for (Object removal : delta.getRemovals()) {
-								final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)removal);
+								final «oppositeMapper».Key oppositePK = oppositeMapper.getPrimaryKey((«oppositeType»)removal);
+								//final Object oppositePK = oppositeMapper.getPrimaryKeyValue((«oppositeType»)removal);
 								// TODO test for new object?
 								session.scheduleRelationSQL(«getCreateDeleteManyToManyRelationSQLMethodName(eClass, a)»(session, connection, object, («oppositeType»)removal));
 							}
@@ -210,6 +221,7 @@ class JavaInsertUpdateGenerator {
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val oneToOneReferences = 				entityDef.entity.findOneToOneReferences(eClass)»
 	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
+	// «generatorCredit»
 	@Override
 	public final void insert(final «eClass.name» object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -238,7 +250,7 @@ class JavaInsertUpdateGenerator {
 		}
 		«ENDFOR»
 		// Build the SQL
-		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createInsertStatement(KeyLayout, sequenceExpressions, getLockColumn());
+		at.bestsolution.persistence.java.DatabaseSupport.InsertStatement stmt = session.getDatabaseSupport().createQueryBuilder(this,"«entityDef.tableName»").createInsertStatement(PKLayout, sequenceExpressions, getLockColumn());
 		«ELSE»
 		// Build the SQL
 		« /* TODO PRIMARYKEY !!! */»
@@ -306,9 +318,8 @@ class JavaInsertUpdateGenerator {
 				if( object.get«a.name.toFirstUpper»() != null ) {
 					«val entity = (a.query.eContainer as EMappingEntity)»
 					final «entity.fqn» refMapper = session.createMapper(«entity.fqn».class);
-					final «a.type(eClass)» refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
-					stmt.«a.statementMethod(eClass)»("«a.parameters.head»", refKey);
-					//stmt.«a.statementMethod(eClass)»("«a.parameters.head»",object.get«a.name.toFirstUpper»().get«(a.query.eContainer as EMappingEntity).allAttributes.findFirst[pk].name.toFirstUpper»());
+					final «entity.fqn».Key refKey = session.getPrimaryKey(refMapper, object.get«a.name.javaReservedNameEscape.toFirstUpper»());
+					stmt.addKey(«a.FKLayoutName», refKey);
 				}
 			«ELSE»
 				// * skipping «a.name», because it would overwrite the primary key column
@@ -327,14 +338,14 @@ class JavaInsertUpdateGenerator {
 				// insert self
 				stmt.execute(connection, (Long)getPrimaryKeyForTx(object));
 			«ELSE»
-				final at.bestsolution.persistence.Key<«entityDef.entity.name»> primaryKey = stmt.execute(connection);
+				final Key primaryKey = stmt.execute(connection);
 				session.registerPrimaryKey(object, primaryKey);
 				session.updateVersion(object,0);
 				session.scheduleAfterTransaction(new at.bestsolution.persistence.java.AfterTxRunnable() {
 					@Override
 					public void runAfterTx(JavaSession session) {
 						«FOR a : entityDef.findPKAttributes»
-						object.set«a.name.toFirstUpper»(primaryKey.getValue("«a.name»"));
+						object.set«a.name.toFirstUpper»(primaryKey.«a.name»());
 						«ENDFOR»
 					}
 				});
@@ -398,7 +409,7 @@ class JavaInsertUpdateGenerator {
 		}
 	}
 
-	def String generateDeleteByIdsExtends(EMappingEntity entity, String paramListName) '''
+	def String generateDeleteByIdsExtends(EMappingEntity entity, EClass eClass, String paramListName) '''
 		«val entityDef = entity.eContainer as EMappingEntityDef»
 		«IF entity.extendsEntity»
 			«val parentEntity = entity.parent»
@@ -407,9 +418,9 @@ class JavaInsertUpdateGenerator {
 			«val sqlName = "sql_" + parentEntity.name»
 			«val stmtName = "stmt_" + parentEntity.name»
 			«utilGen.generateDeleteInSql(sqlName, parentEntityDef.tableName, parentEntity.PKAttribute.columnName, paramListName)»
-			«utilGen.generateExecuteInStatement(stmtName, sqlName, paramListName)»
+			«utilGen.generateExecuteInStatement(stmtName, sqlName, paramListName, entityDef.fqn + ".PKLayout", entity.PKAttribute.name)»
 
-			«generateDeleteByIdsExtends(entity.parent, paramListName)»
+			«generateDeleteByIdsExtends(entity.parent, eClass, paramListName)»
 		«ENDIF»
 	'''
 
@@ -437,6 +448,7 @@ class JavaInsertUpdateGenerator {
 	def generateDelete(EMappingEntityDef entityDef, EClass eClass) '''
 	«val primitiveMultiValuedAttributes = 	entityDef.entity.findPrimitiveMultiValuedAttributes(eClass)»
 	«val manyToManyReferences = 			entityDef.entity.findManyToManyReferences(eClass)»
+	// «generatorCredit»
 	@Override
 	public final void delete(«eClass.name» object) {
 		delete(new «eClass.name»[] { object });
@@ -475,7 +487,7 @@ class JavaInsertUpdateGenerator {
 				if (isDebug) LOGGER.debug("Final select query: " + selectQuery);
 
 				// execute select
-				List<Object> objectIds = new ArrayList<Object>();
+				List<Key> objectIds = new ArrayList<>();
 				PreparedStatement pstmtSelect = null;
 				ResultSet resultSetSelect = null;
 				try {
@@ -487,7 +499,7 @@ class JavaInsertUpdateGenerator {
 
 					resultSetSelect = pstmtSelect.executeQuery();
 					while (resultSetSelect.next()) {
-						objectIds.add(resultSetSelect.getLong("«entityDef.PKAttribute.columnName»"));
+						objectIds.add(Util.extractKey(PKLayout, resultSetSelect));
 					}
 				}
 				finally {
@@ -534,6 +546,7 @@ class JavaInsertUpdateGenerator {
 
 	}
 
+	// «generatorCredit»
 	@Override
 	public final void deleteAll() {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -616,7 +629,7 @@ class JavaInsertUpdateGenerator {
 
 			«utilGen.generateExecuteStatement("stmt", "sql")»
 
-			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
+			«generateDeleteByIdsExtends(entityDef.entity, eClass, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
 				LOGGER.debug("deleteAll() failed", e);
@@ -631,12 +644,27 @@ class JavaInsertUpdateGenerator {
 		}
 	}
 
+	// «generatorCredit»
 	@Override
-	public void deleteById(Object... id) {
-		deleteById(Arrays.asList(id));
+	public <K extends at.bestsolution.persistence.Key<«eClass.name»>> void deleteById(K... keys) {
+		final List<Key> keyz= new ArrayList<Key>();
+		for (at.bestsolution.persistence.Key<«eClass.name»> key : keys) {
+			if (key instanceof Key) {
+				final Key id = (Key) key;
+				if (key.getAttributes().size() > 1) {
+					throw new PersistanceException("Multi valued primary keys are not yet supported!!!");
+				}
+				keyz.add(id);
+			}
+			else {
+				throw new PersistanceException("Wrong Key type: " + key);
+			}
+		}
+		deleteById(keyz);
 	}
 
-	public final void deleteById(List<Object> objectIds) {
+	// «generatorCredit»
+	public final void deleteById(List<Key> objectIds) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) {
 			LOGGER.debug("deleteById("+objectIds+")");
@@ -646,7 +674,7 @@ class JavaInsertUpdateGenerator {
 		final EClass eClass = «eClass.toFullQualifiedJavaEClass»;
 		session.preExecuteDeleteById(eClass,objectIds);
 
-		for(Object id : objectIds) {
+		for(Key id : objectIds) {
 			session.scheduleAfterTransaction(new at.bestsolution.persistence.java.UnregisterObjectByIdAfterTx(eClass, id));
 		}
 
@@ -684,7 +712,7 @@ class JavaInsertUpdateGenerator {
 							sqlBuilder = new StringBuilder("UPDATE \"«a.entity.calcTableName.toUpperCase»\" SET «a.parameters.head.toUpperCase» = NULL WHERE «a.parameters.head.toUpperCase» IN (");
 						}
 
-						Iterator<Object> sqlobjectIdsIterator = objectIds.iterator();
+						Iterator<Key> sqlobjectIdsIterator = objectIds.iterator();
 						while( sqlobjectIdsIterator.hasNext() ) {
 							sqlobjectIdsIterator.next();
 							sqlBuilder.append("?");
@@ -703,13 +731,14 @@ class JavaInsertUpdateGenerator {
 							PreparedStatement stmt = connection.prepareStatement(sql);
 							try {
 								int sqlobjectIdsIdx = 1;
-								Iterator<Object> stmtParamIt = objectIds.iterator();
+								Iterator<Key> stmtParamIt = objectIds.iterator();
 								while (stmtParamIt.hasNext()) {
-									final Object obj = stmtParamIt.next();
+									final Key obj = stmtParamIt.next();
 									if (isDebug) {
 										LOGGER.debug(" With Parameter " + sqlobjectIdsIdx + ": " + obj);
 									}
-									stmt.setLong(sqlobjectIdsIdx, (Long)obj);
+									stmt.«entityDef.PKAttribute.type(eClass).statementSetMethod»(sqlobjectIdsIdx, obj.«entityDef.PKAttribute.name»());
+«««									stmt.setLong(sqlobjectIdsIdx, (Long)obj);
 									sqlobjectIdsIdx++;
 								}
 								stmt.execute();
@@ -724,9 +753,9 @@ class JavaInsertUpdateGenerator {
 			«ENDIF»
 
 			«utilGen.generateDeleteInSql("sql", entityDef.tableName, entityDef.entity.PKAttribute.columnName, "objectIds")»
-			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds")»
+			«utilGen.generateExecuteInStatement("stmt", "sql", "objectIds", entityDef.fqn + ".PKLayout", entityDef.PKAttribute.name)»
 
-			«generateDeleteByIdsExtends(entityDef.entity, "objectIds")»
+			«generateDeleteByIdsExtends(entityDef.entity, eClass, "objectIds")»
 		} catch(SQLException e) {
 			if( isDebug ) {
 				LOGGER.debug("delete() failed", e);
@@ -741,6 +770,7 @@ class JavaInsertUpdateGenerator {
 		}
 	}
 
+	// «generatorCredit»
 	@Override
 	public final void delete(«eClass.name»... object) {
 		final boolean isDebug = LOGGER.isDebugEnabled();
@@ -748,11 +778,18 @@ class JavaInsertUpdateGenerator {
 			LOGGER.debug("delete("+Arrays.toString(object)+")");
 		}
 
-		List<Object> ids = new ArrayList<Object>();
+		List<at.bestsolution.persistence.Key<«eClass.name»>> keyList = new ArrayList<>();
 		for («eClass.name» o : object) {
-			ids.add(getPrimaryKeyValue(o));
+			keyList.add(getPrimaryKey(o));
 		}
-		deleteById(ids);
+		
+		deleteById(keyList.toArray(new at.bestsolution.persistence.Key[] {}));
+
+		//List<Object> ids = new ArrayList<Object>();
+		//for («eClass.name» o : object) {
+		//	ids.add(getPrimaryKeyValue(o));
+		//}
+		//deleteById(ids);
 
 «««		«checkTx»
 «««

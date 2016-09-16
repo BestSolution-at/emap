@@ -10,11 +10,14 @@
  *******************************************************************************/
 package at.bestsolution.persistence.java;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import at.bestsolution.persistence.Key;
 
@@ -58,4 +61,5 @@ public abstract class KeyLayout<K extends Key<?>> {
 		}
 		return res;
 	}
+	
 }

@@ -91,13 +91,14 @@ public class PropertyExpressionFactory<O> {
 		return rv;
 	}
 
+	// TODO multivalued primarykey support
 	public abstract static class EntityExpressionFactory<O,T> extends PropertyExpressionFactory<O> {
 		public EntityExpressionFactory(String property) {
 			super(property);
 		}
 
 		public EqualsExpression<O> eq(T value) {
-			return PropertyExpressionFactory.equals(property, getSid(value));
+			return PropertyExpressionFactory.equals(property, getKey(value));
 		}
 
 		public InExpression<O> in(T... values) {
@@ -109,77 +110,87 @@ public class PropertyExpressionFactory<O> {
 		}
 
 		public CompareExpression<O> gt(T data) {
-			return CompareExpression.gt(property, getSid(data));
+			return CompareExpression.gt(property, getKey(data));
 		}
 
 		public CompareExpression<O> gte(T data) {
-			return CompareExpression.gte(property, getSid(data));
+			return CompareExpression.gte(property, getKey(data));
 		}
 
 		public CompareExpression<O> lt(T data) {
-			return CompareExpression.lt(property, getSid(data));
+			return CompareExpression.lt(property, getKey(data));
 		}
 
 		public CompareExpression<O> lte(T data) {
-			return CompareExpression.lte(property, getSid(data));
+			return CompareExpression.lte(property, getKey(data));
 		}
 
 		private Object[] toObjectArray(T...values ) {
 			Long[] rv = new Long[values.length];
 			for( int i = 0; i < values.length; i++ ) {
-				rv[i] = getSid(values[i]);
+				rv[i] = getKey(values[i]);
 			}
 			return rv;
 		}
 
-		protected abstract long getSid(T value);
+		//protected abstract long getSid(T value);
+		
+		protected abstract <K extends Key<T>> K getKey(T value);
 	}
 
-	public final static class KeyExpressionFactory<O, K extends Key<O>> {
-
-		private O entity;
-		
-		public KeyExpressionFactory(O entity) {
-			this.entity = entity;
-		}
-		
-		public Expression<O> eq(K value) {
-			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
-			for (String property : value.getAttributes()) {
-				propChecks.add(EqualsExpression.<O>eq(property, value.getValue(property)));
-			}
-			return new AndExpression<O>(propChecks);
-		}
-		
-		public Expression<O> neq(K value) {
-			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
-			for (String property : value.getAttributes()) {
-				propChecks.add(EqualsExpression.<O>neq(property, value.getValue(property)));
-			}
-			return new OrExpresion<O>(propChecks);
-		}
-		
-		public Expression<O> in(K... values) {
-			// TODO = ?
-			throw new UnsupportedOperationException();
+//	public final static class EntityExpressionFactory<O, T> {
+//
+//		private O entity;
+//		
+//		public EntityExpressionFactory(O entity) {
+//			this.entity = entity;
+//		}
+//		
+//		public EqualsExpression<O> eq(T value) {
+//			return PropertyExpressionFactory.equals(property, getSid(value));
+//		}
+//		
+//		public Expression<O> eq(K value) {
 //			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
-//			for (String property : values.getProperties()) {
-//				
-//				
-//				new InExpression<O>(ExpressionType.IN, property, values);
+//			for (String property : value.getAttributes()) {
 //				propChecks.add(EqualsExpression.<O>eq(property, value.getValue(property)));
 //			}
 //			return new AndExpression<O>(propChecks);
+//		}
+//		
+//		public Expression<O> neq(K value) {
+//			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
+//			for (String property : value.getAttributes()) {
+//				propChecks.add(EqualsExpression.<O>neq(property, value.getValue(property)));
+//			}
+//			return new OrExpresion<O>(propChecks);
+//		}
+//		
+//		public Expression<O> in(K... values) {
+//			// TODO = ?
+//			throw new UnsupportedOperationException();
+////			final List<Expression<O>> propChecks = new ArrayList<Expression<O>>();
+////			for (String property : values.getProperties()) {
+////				
+////				
+////				new InExpression<O>(ExpressionType.IN, property, values);
+////				propChecks.add(EqualsExpression.<O>eq(property, value.getValue(property)));
+////			}
+////			return new AndExpression<O>(propChecks);
+////			
+////			
+////			return PropertyExpressionFactory.in(property, (Object[]) values);
+//		}
+//
+//		public Expression<O> notIn(K... values) {
+//			// TODO = ?
+//			throw new UnsupportedOperationException();
+//		}
+//		
+//		protected <K extends Key<T>> K getKey(T o) {
 //			
-//			
-//			return PropertyExpressionFactory.in(property, (Object[]) values);
-		}
-
-		public Expression<O> notIn(K... values) {
-			// TODO = ?
-			throw new UnsupportedOperationException();
-		}
-	}
+//		}
+//	}
 	
 	public final static class IntegerExpressionFactory<O> extends PropertyExpressionFactory<O> {
 

@@ -13,4 +13,12 @@
 
 
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Table -->
+      <package
+            uri="http://at.bestsolution.persitence.emap.model.table"
+            class="at.bestsolution.persistence.emap.model.table.TablePackage"
+            genModel="model/Table.genmodel"/>
+   </extension>
+
 </plugin>

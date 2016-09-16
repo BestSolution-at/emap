@@ -1,9 +1,15 @@
 bundle Test {
 	Address,
-	
 	Person,
+	Place,
 	
-	Place
-	
+	MAddress {
+		
+	},  
+	MPerson,  
+	MPlace,
+	MTag  
+	 
 } databases "Firebird", "Postgres"
-  
+       
+                                       

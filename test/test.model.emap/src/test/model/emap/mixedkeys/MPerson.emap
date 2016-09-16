@@ -1,0 +1,27 @@
+package test.model.emap.mixedkeys;  
+
+entity MPerson {
+	etype "mixedkeys"#Person
+	attributes {
+		primarykey id => ID generatedby {
+			"Firebird" seqnext "SEQ_MPERSON_ID",
+			"Postgres" seqnext "HelloString"
+		}
+		 
+		, name => NAME
+		
+		, addresses => resolve MAddress.selectAllForPerson(ID)
+		
+		, likes => resolve MPlace.selectAllForPerson(ID) MPlace.likedBy on MLIKES_PERSON_PLACE.FK_PERSON 
+	}
+	queries {
+		single selectById(primarykey String id) {
+			default MPerson FROM "MPERSON" WHERE "ID = ${id}"
+		},
+		
+		selectAllForPlace(long placeId) {
+			default MPerson FROM "MPERSON, MLIKES_PERSON_PLACE" WHERE "MPERSON.ID = MLIKES_PERSON_PLACE.FK_PERSON AND MLIKES_PERSON_PLACE.FK_PLACE = ${placeId}"
+		}      
+	}        
+} as MPERSON                
+                                                     

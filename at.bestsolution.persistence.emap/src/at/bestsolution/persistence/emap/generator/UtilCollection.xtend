@@ -292,6 +292,10 @@ class UtilCollection {
 	def jdbcType(EAttribute p, EClass eClass) {
 		return getEAttribute(p,eClass).jdbcType;
 	}
+	
+	def javaType(EAttribute it, EClass eClass) {
+		eClass.getEStructuralFeature(name).EType.instanceClassName
+	}
 
 	def collectMappings(Iterable<EMappingAttribute> attributeList) {
 		val l = new ArrayList<EObjectSection>;
@@ -354,6 +358,7 @@ class UtilCollection {
 			case "java.util.Date": return "addTimestamp"
 			case "java.lang.String": return "addString"
 			case "java.sql.Blob": return "addBlob"
+			case "java.math.BigInteger": return "addBigInteger"
 			case "java.math.BigDecimal": return "addBigDecimal"
 		}
 	}
@@ -379,6 +384,8 @@ class UtilCollection {
 			return 'session.handleBlob("'+(attribute.eContainer as EMappingEntity).calcTableName+'","'+keyName+'","'+prefix+(attribute.eContainer as EMappingEntity).getAllAttributes.findFirst[pk].columnName+'",' +varName +')'
 		} else if( "java.math.BigDecimal" == f.EType.instanceClassName ) {
 			return varName + '.getBigDecimal("'+keyName+'")'
+		} else if( "java.math.BigInteger" == f.EType.instanceClassName ) {
+			return '''«varName».getBigDecimal("«keyName»").toBigInteger()'''
 		} else if (f.EType instanceof EDataType && (f.EType as EDataType).isCustomType) {
 			return varName + '.getString("'+keyName+'")'
 		} else {
@@ -407,6 +414,9 @@ class UtilCollection {
 			return "("+f.EType.instanceClassName+") session.convertType("+f.EType.instanceClassName+".class, " + varName + '.getObject('+idx+'))'
 		}
 	}
+	
+	def resultSetGetter(EParameter p, int colIdx) '''«p.resultMethodType»(«colIdx»)'''
+	def resultSetGetter(EParameter p, String colName) '''«p.resultMethodType»("«colName»")'''
 
 	def resultMethodType(EParameter p) {
 		if( "String" == p.type ) {
@@ -425,6 +435,27 @@ class UtilCollection {
 			return "getTimestamp"
 		} else {
 			return "getObject"
+		}
+	}
+	
+	def statementSetMethod(String type) {
+		val t = type
+		if( "String" == t || "java.lang.String" == t) {
+			return "setString"
+		} else if( "long" == t || "java.lang.Long" == t) {
+			return "setLong"
+		} else if( "int" == t || "java.lang.Integer" == t ) {
+			return "setInt"
+		} else if( "double" == t || "java.lang.Double" == t ) {
+			return "setDouble"
+		} else if( "float" == t || "java.lang.Float" == t ) {
+			return "setFloat"
+		} else if( "boolean" == t || "java.lang.Boolean" == t ) {
+			return "setBoolean"
+		} else if( "java.util.Date" == t ) {
+			return "setTimestamp"
+		} else {
+			return "setObject"
 		}
 	}
 
@@ -469,8 +500,12 @@ class UtilCollection {
 			return "setBoolean("+accessExpression+","+dataExpression+")";
 		} else if( p.type == "java.util.Date" ) {
 			return "setTimestamp("+accessExpression+",new java.sql.Timestamp("+dataExpression+".getTime()))"
+		} else if (p.type == "java.math.BigInteger") {
+			return '''setBigDecimal(«accessExpression», new java.math.BigDecimal(«dataExpression»))'''
+		} else if (p.type == "java.math.BigDecimal") {
+			return '''setBigDecimal(«accessExpression», «dataExpression»)'''
 		} else {
-			return "setObject";
+			return '''setObject(«accessExpression», «dataExpression»)''';
 		}
 	}
 
@@ -505,6 +540,7 @@ class UtilCollection {
 			case "java.lang.Float": false
 			case "double": false
 			case "java.lang.Double": false
+			case "java.math.BigInteger": false
 			case "java.math.BigDecimal": false
 			case "java.util.Date": false
 			case "java.lang.String": false
@@ -1047,5 +1083,9 @@ class UtilCollection {
 	def String buildPrimaryKeyClause(EMappingEntity entity, boolean lower) {
 		entity.findPKAttributes.join("(", " AND ", ")", [a| "\\\"" + (if (lower) a.columnName.toLowerCase else a.columnName.toUpperCase()) + "\\\" = ?"])
 	}
+	
+	def String toGetter(String propertyName) '''get«propertyName.toFirstUpper»()'''
+	
+	def String toSetter(String propertyName, String value) '''set«propertyName.toFirstUpper»(«value»)'''
 
 }

@@ -12,6 +12,7 @@ package at.bestsolution.persistence.java;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public abstract class AMapBasedKey<O> extends AKey<O> {
 
@@ -24,8 +25,26 @@ public abstract class AMapBasedKey<O> extends AKey<O> {
 	}
 
 	@Override
-	public <O> O getValue(String attribute) {
-		return (O) values.get(attribute);
+	public <K> K getValue(String attribute) {
+		return (K) values.get(attribute);
+	}
+	
+	@Override
+	public boolean isNew() {
+		for (Entry<String, Object> e : values.entrySet()) {
+			if (e.getValue() instanceof Number) {
+				Number key = (Number) e.getValue();
+				if (key.doubleValue() == 0) {
+					return true;
+				}
+			}
+			else {
+				if (e.getValue() == null) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -65,6 +84,9 @@ public abstract class AMapBasedKey<O> extends AKey<O> {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return values.toString();
+	}
 	
 }

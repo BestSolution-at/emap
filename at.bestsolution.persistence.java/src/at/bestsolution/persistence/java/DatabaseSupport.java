@@ -11,17 +11,21 @@
 package at.bestsolution.persistence.java;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
 import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.MappedUpdateQuery;
 import at.bestsolution.persistence.MappedQuery;
+import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.query.DynamicListDelegate;
 import at.bestsolution.persistence.java.query.JDBCType;
 import at.bestsolution.persistence.java.query.ListDelegate;
@@ -48,8 +52,8 @@ public interface DatabaseSupport {
 	}
 
 	public interface QueryBuilder {
-		public UpdateStatement createUpdateStatement(String pkColumn, String lockColumn);
-		public InsertStatement createInsertStatement(KeyLayout<?> pkLayout, Map<String, String> sequenceNames, String lockColumn);
+		public <K extends Key<?>> UpdateStatement createUpdateStatement(KeyLayout<K> pkLayout, String lockColumn);
+		public <K extends Key<?>> InsertStatement createInsertStatement(KeyLayout<K> pkLayout, Map<String, String> sequenceNames, String lockColumn);
 		public ExtendsInsertStatement createExtendsInsertStatement(String pkColumn);
 	}
 
@@ -59,8 +63,10 @@ public interface DatabaseSupport {
 
 		public void addDouble(String column, double value);
 		public void addDouble(String column, Double value);
+		
 		public void addBigDecimal(String column, BigDecimal value);
-
+		public void addBigInteger(String column, BigInteger value);
+		
 		public void addString(String column, String value);
 
 		public void addTimestamp(String column, Date value);
@@ -74,10 +80,13 @@ public interface DatabaseSupport {
 		public void addNull(String column, JDBCType type);
 		public void addEnum(String column, Enum<?> value);
 		public void addBlob(String column, Blob value);
+		
+		public <K extends Key<?>> void addKey(KeyLayout<K> layout, K key);
+		
 	}
 
 	public interface InsertStatement extends Statement {
-		public <O> Key<O> execute(Connection connection) throws SQLException;
+		public <K extends Key<?>> K execute(Connection connection) throws SQLException;
 	}
 
 	public interface ExtendsInsertStatement extends Statement {
@@ -89,5 +98,7 @@ public interface DatabaseSupport {
 		@Deprecated public boolean execute(Connection connection, long primaryKeyValue, long version) throws SQLException;
 		public boolean execute(Connection connection, Key<?> primaryKeyValue, long version) throws SQLException;
 	}
+	
+	
 	
 }

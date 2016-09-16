@@ -15,6 +15,8 @@ import java.util.List;
 public interface Key<O> {
 
 	List<String> getAttributes();
-	<O> O getValue(String attribute);
+	<K> K getValue(String attribute);
+	
+	boolean isNew();
 	
 }
