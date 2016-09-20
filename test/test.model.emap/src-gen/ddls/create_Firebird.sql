@@ -37,7 +37,7 @@ create table "PLACE" (
  * Table for MAddress
  */
 create table "MADDRESS" (
-	"ID" numeric(65,0) not null
+	"ID" varchar(255) not null
 	, "E_VERSION" integer not null
 	, "STREET" varchar(255)
 	, "FK_PERSON" varchar(255)
@@ -68,11 +68,11 @@ create table "MPLACE" (
  * Table for MTag
  */
 create table "MTAG" (
-	"ID" numeric(65,0) not null
+	"ID" varchar(255) not null
 	, "E_VERSION" integer not null
-	, "VALUE" varchar(255)
-	, "ENDLESSINT" numeric(65,0)
-	, "FK_ADDRESS" numeric(65,0)
+	, "VAL" varchar(255)
+	, "ENDLESSINT" varchar(255)
+	, "FK_ADDRESS" varchar(255)
 , constraint pk_MTAG PRIMARY KEY("ID")
 );
 
@@ -107,7 +107,7 @@ create sequence SEQ_MPERSON_ID;
 /* Sequence for MPLACE */
 create sequence SEQ_MPLACE_ID;
 /* Sequence for MTAG */
-create sequence SEQ_MADDRESS_ID;
+create sequence SEQ_MTAG_ID;
 
 /* ------------------------------------
  * Constraints

@@ -157,7 +157,7 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 			((EObject)rv).eSetDeliver(false);
 			rv.setId(set.getBigDecimal("ID").toBigInteger());
 			rv.setEndlessInt(set.getBigDecimal("ENDLESSINT").toBigInteger());
-			rv.setValue(set.getString("VALUE"));
+			rv.setValue(set.getString("VAL"));
 			ProxyData_Tag proxy = new ProxyData_Tag(Util.extractKey(FKAddressLayout, set));
 			((LazyEObject)rv).setProxyData(proxy);
 			((LazyEObject)rv).setProxyDelegate(this);
@@ -170,14 +170,14 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 		private final void map_default_Tag_data_refresh(Tag rv, Connection connection, ResultSet set) throws SQLException {
 			rv.setId(set.getBigDecimal("ID").toBigInteger());
 			rv.setEndlessInt(set.getBigDecimal("ENDLESSINT").toBigInteger());
-			rv.setValue(set.getString("VALUE"));
+			rv.setValue(set.getString("VAL"));
 		}
 
 		// by JavaObjectMapperGenerator
 		private final void map_default_Tag_complete_refresh(Tag rv, Connection connection, ResultSet set, Set<Object> refreshedObjects) throws SQLException {
 			rv.setId(set.getBigDecimal("ID").toBigInteger());
 			rv.setEndlessInt(set.getBigDecimal("ENDLESSINT").toBigInteger());
-			rv.setValue(set.getString("VALUE"));
+			rv.setValue(set.getString("VAL"));
 			ProxyData_Tag proxy = new ProxyData_Tag(Util.extractKey(FKAddressLayout, set));
 			((LazyEObject)rv).setProxyData(proxy);
 			((LazyEObject)rv).setProxyDelegate(this);
@@ -535,7 +535,7 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 			// * endlessInt
 			stmt.addBigInteger("ENDLESSINT", (java.math.BigInteger)session.getTransactionAttribute(object,test.model.mixedkeys.MixedkeysPackage.eINSTANCE.getTag_EndlessInt()));
 			// * value
-			stmt.addString("VALUE", (java.lang.String)session.getTransactionAttribute(object,test.model.mixedkeys.MixedkeysPackage.eINSTANCE.getTag_Value()));
+			stmt.addString("VAL", (java.lang.String)session.getTransactionAttribute(object,test.model.mixedkeys.MixedkeysPackage.eINSTANCE.getTag_Value()));
 			// one to one references
 			// * address (Address)
 			if( object.getAddress() != null ) {
@@ -588,7 +588,7 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 			// Handle Expressions
 			Map<String, String> sequenceExpressions = new HashMap<String, String>();
 			if( "Firebird".equals(session.getDatabaseType()) ) {
-				sequenceExpressions.put("ID","NEXT VALUE FOR SEQ_MADDRESS_ID");
+				sequenceExpressions.put("ID","NEXT VALUE FOR SEQ_MTAG_ID");
 			}
 			if( "Postgres".equals(session.getDatabaseType()) ) {
 			}
@@ -608,7 +608,7 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 			{
 				Object o = session.getTransactionAttribute(object,test.model.mixedkeys.MixedkeysPackage.eINSTANCE.getTag_Value());
 				if( o != null ) {
-					stmt.addString("VALUE", (java.lang.String)o);
+					stmt.addString("VAL", (java.lang.String)o);
 				}
 			}
 		
@@ -981,7 +981,7 @@ public final class MTagMapperFactory implements ObjectMapperFactory<test.model.e
 		static {
 			PROPERTY_COL_MAPPING.put("id","ID");
 			PROPERTY_COL_MAPPING.put("endlessInt","ENDLESSINT");
-			PROPERTY_COL_MAPPING.put("value","VALUE");
+			PROPERTY_COL_MAPPING.put("value","VAL");
 			PROPERTY_COL_MAPPING.put("address","FK_ADDRESS");
 			TYPE_MAPPING.put("id",JDBCType.UNKNOWN);
 			TYPE_MAPPING.put("endlessInt",JDBCType.UNKNOWN);

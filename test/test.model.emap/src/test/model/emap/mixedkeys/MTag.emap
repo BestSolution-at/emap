@@ -4,11 +4,11 @@ entity MTag {
 	etype "mixedkeys"#Tag
 	attributes {
 		primarykey id => ID generatedby {
-			"Firebird" seqnext "SEQ_MADDRESS_ID",
+			"Firebird" seqnext "SEQ_MTAG_ID",
 			"Postgres" seqnext "nextMTagId"
 		},
 		  
-		value => VALUE,
+		value => VAL,
 		endlessInt => ENDLESSINT, 
 		
 		address => resolve MAddress.selectById(FK_ADDRESS)

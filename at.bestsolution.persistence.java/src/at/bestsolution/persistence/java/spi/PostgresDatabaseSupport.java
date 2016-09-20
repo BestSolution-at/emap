@@ -251,40 +251,46 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 		@Override
 		public <K extends Key<?>> InsertStatement createInsertStatement(final KeyLayout<K> pkLayout, Map<String, String> pkExpressions, String lockColumn) {
-			return new PreparedInsertStatement(db, tableName, pkLayout, pkExpressions, lockColumn) {
-				
-				@Override
-				protected String createSQL(String tableName, KeyLayout pkLayout, Map<String, String> pkExpressions,
-						String lockColumn, List<Column> columnList) {
-					String whereIsMyStreamAPI = "";
-					Iterator<String> colIt = pkLayout.getColumns().iterator();
-					while (colIt.hasNext()) {
-						String cur = colIt.next();
-						whereIsMyStreamAPI += '"' + correctCase(cur) + '"';
-						if (colIt.hasNext()) {
-							whereIsMyStreamAPI += ", ";
-						}
-					}
-					return super.createSQL(tableName, pkLayout, pkExpressions, lockColumn, columnList) + " RETURNING " + whereIsMyStreamAPI;
-				}
+			return new PostgresPreparedInsertStatement(db, tableName, pkLayout, pkExpressions, lockColumn);
+		}
+		
+	}
+	
+	private static class PostgresPreparedInsertStatement extends PreparedInsertStatement {
 
-				@Override
-				protected PreparedStatement createPreparedStatement(
-						Connection connection, String query)
-						throws SQLException {
-					return connection.prepareStatement(query);
-				}
-				
-				@Override
-				protected <K extends Key<?>> K execute(PreparedStatement pstmt) throws SQLException {
-					final ResultSet set = pstmt.executeQuery();
-					if( set.next() ) {
-						return (K) Util.extractKey(pkLayout, set);
-					}
-					throw new SQLException("Unable to retrieve insert pk");
-				}
+		public PostgresPreparedInsertStatement(DatabaseSupport db, String tableName, KeyLayout pkLayout, Map<String, String> pkExpressions, String lockColumn) {
+			super(db, tableName, pkLayout, pkExpressions, lockColumn);
+		}
 
-			};
+		@Override
+		protected String createSQL(String tableName, KeyLayout pkLayout, Map<String, String> pkExpressions,
+				String lockColumn, List<Column> columnList) {
+			String whereIsMyStreamAPI = "";
+			Iterator<String> colIt = pkLayout.getColumns().iterator();
+			while (colIt.hasNext()) {
+				String cur = colIt.next();
+				whereIsMyStreamAPI += '"' + correctCase(cur) + '"';
+				if (colIt.hasNext()) {
+					whereIsMyStreamAPI += ", ";
+				}
+			}
+			return super.createSQL(tableName, pkLayout, pkExpressions, lockColumn, columnList) + " RETURNING " + whereIsMyStreamAPI;
+		}
+
+		@Override
+		protected PreparedStatement createPreparedStatement(
+				Connection connection, String query)
+				throws SQLException {
+			return connection.prepareStatement(query);
+		}
+		
+		@Override
+		protected <K extends Key<?>> K execute(PreparedStatement pstmt) throws SQLException {
+			final ResultSet set = pstmt.executeQuery();
+			if( set.next() ) {
+				return (K) Util.extractKey(pkLayout, set);
+			}
+			throw new SQLException("Unable to retrieve insert pk");
 		}
 	}
 }

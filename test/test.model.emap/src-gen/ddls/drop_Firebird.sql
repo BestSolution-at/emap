@@ -52,4 +52,4 @@ DROP sequence SEQ_PLACE_ID;
 DROP sequence SEQ_MADDRESS_ID;
 DROP sequence SEQ_MPERSON_ID;
 DROP sequence SEQ_MPLACE_ID;
-DROP sequence SEQ_MADDRESS_ID;
+DROP sequence SEQ_MTAG_ID;

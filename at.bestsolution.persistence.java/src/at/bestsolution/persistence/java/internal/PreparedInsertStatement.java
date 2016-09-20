@@ -13,7 +13,6 @@ package at.bestsolution.persistence.java.internal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,15 +22,14 @@ import org.apache.log4j.Logger;
 import at.bestsolution.persistence.Key;
 import at.bestsolution.persistence.java.DatabaseSupport;
 import at.bestsolution.persistence.java.DatabaseSupport.InsertStatement;
-import at.bestsolution.persistence.java.KeyLayout.KeyLayoutEntry;
 import at.bestsolution.persistence.java.KeyLayout;
 import at.bestsolution.persistence.java.Util;
 
 public class PreparedInsertStatement extends PreparedStatement implements InsertStatement {
-	private final String tableName;
-	private final KeyLayout<?> pkLayout;
-	private final Map<String, String> pkExpressions;
-	private final String lockColumn;
+	protected final String tableName;
+	protected final KeyLayout<?> pkLayout;
+	protected final Map<String, String> pkExpressions;
+	protected final String lockColumn;
 
 	static final Logger LOGGER = Logger.getLogger(PreparedStatement.class);
 

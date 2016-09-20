@@ -64,7 +64,7 @@ create table "mplace" (
 create table "mtag" (
 	"id" numeric not null PRIMARY KEY
 	, "e_version" integer not null
-	, "value" varchar(255)
+	, "val" varchar(255)
 	, "endlessint" numeric
 	, "fk_address" numeric
 );
