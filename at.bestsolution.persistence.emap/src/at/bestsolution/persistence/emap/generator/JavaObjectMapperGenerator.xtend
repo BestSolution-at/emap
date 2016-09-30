@@ -241,8 +241,9 @@ class JavaObjectMapperGenerator {
 							«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn» m = session.createMapper(«((a.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class);
 							RefreshableObjectMapper<«f.EType.instanceClassName»> mr = (RefreshableObjectMapper<«f.EType.instanceClassName»>)m;
 							List<«f.EType.instanceClassName»> list = m.«a.query.name»(((Number)getPrimaryKeyValue(rv)).longValue());
-							Util.syncLists(rv.get«a.name.javaReservedNameEscape.toFirstUpper»(), list);
-							for( «f.EType.instanceClassName» e : rv.get«a.name.javaReservedNameEscape.toFirstUpper»() ) {
+							List<«f.EType.instanceClassName»> olist = rv.get«a.name.javaReservedNameEscape.toFirstUpper»();
+							Util.syncLists(olist, list);
+							for( «f.EType.instanceClassName» e : olist.toArray(new «f.EType.instanceClassName»[olist.size()]) ) {
 								if( ! refreshedObjects.contains(e) ) {
 									mr.refreshWithReferences(e,refreshedObjects);
 								}
