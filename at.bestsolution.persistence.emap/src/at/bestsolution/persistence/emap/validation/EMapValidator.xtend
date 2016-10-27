@@ -133,7 +133,7 @@ class EMapValidator extends AbstractEMapValidator {
 			}
 		}
 		else {
-			if (attrib.columnName.length > 31) {
+			if (attrib != null && attrib.columnName.length > 31) {
 				warning("Firebird: Identifiers may not be longer than 31 characters", attrib, EMapPackage$Literals::EATTRIBUTE__COLUMN_NAME, NAME_TOO_LONG, attrib.columnName, attrib.name);
 			}
 		}
