@@ -14,15 +14,15 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.21.0</tycho-version>
-		<tycho-extras.version>0.21.0</tycho-extras.version>
+		<tycho-version>0.24.0</tycho-version>
+		<tycho-extras.version>0.24.0</tycho-extras.version>
 		<cbi-plugins.version>1.0.3</cbi-plugins.version>
 		<junit-version>4.8.1</junit-version>
 		<mockito-version>1.8.4</mockito-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform-version>[3.7,3.8)</platform-version>
-		<download-publish-path>/builds/foss/emap/runtime-nightly</download-publish-path>
-		<download-tooling-publish-path>/builds/foss/emap/tooling-nightly</download-tooling-publish-path>
+		<download-publish-path>/builds/foss/emap/runtime-nightly-2.0</download-publish-path>
+		<download-tooling-publish-path>/builds/foss/emap/tooling-nightly-2.0</download-tooling-publish-path>
 		<eclipse-repo.url>https://repo.eclipse.org/content/repositories/releases/</eclipse-repo.url>
 	</properties>
 
