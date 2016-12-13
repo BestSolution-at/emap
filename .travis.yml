@@ -31,4 +31,9 @@ cache:
 script: cd releng && mvn verify
 after_failure:
   - cat ../test/test.junit/target/surefire-reports/*.txt
-
+notifications:
+  email:
+    recipients:
+      - ccaks@bestsolution.at
+    on_success: change
+    on_failure: always
