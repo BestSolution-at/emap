@@ -31,6 +31,7 @@ cache:
 script: cd releng && mvn verify
 after_failure:
   - cat ../test/test.junit/target/surefire-reports/*.txt
+  - cat ../test/test.junit/target/work/configuration/*.log
 notifications:
   email:
     recipients:
