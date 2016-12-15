@@ -14,8 +14,8 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.24.0</tycho-version>
-		<tycho-extras.version>0.24.0</tycho-extras.version>
+		<tycho-version>0.22.0</tycho-version>
+		<tycho-extras.version>0.22.0</tycho-extras.version>
 		<cbi-plugins.version>1.0.3</cbi-plugins.version>
 		<junit-version>4.8.1</junit-version>
 		<mockito-version>1.8.4</mockito-version>
@@ -58,21 +58,26 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/mars</url>
 		</repository-->
-		<repository>
+		<!--repository>
 			<id>mars-201602261000</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/mars/201602261000/</url>
+		</repository-->
+		<repository>
+			<id>neon</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/neon/201610111000/</url>
 		</repository>
 		<!--repository>
 			<id>xtext</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/</url>
 		</repository-->
-		<repository>
+		<!--repository>
 			<id>xtext-2.10.0</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/</url>
-		</repository>
+		</repository-->
 		<!--repository>
 			<id>emf-2.10.x</id>
 			<layout>p2</layout>
