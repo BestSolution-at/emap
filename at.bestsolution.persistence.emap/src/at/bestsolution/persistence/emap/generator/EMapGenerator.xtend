@@ -36,6 +36,7 @@ import org.osgi.framework.FrameworkUtil
 import at.bestsolution.persistence.emap.model.TableModelConverter
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import at.bestsolution.persistence.emap.eMap.EMapPackage
+import at.bestsolution.persistence.emap.model.table.TableModel
 
 /**
  * Generates code from your model files on save.
@@ -90,7 +91,7 @@ class EMapGenerator implements IGenerator {
 			val root = resource.contents.head as EMapping
 			
 			// TODO work more on table model
-			val tableModel = null //tableModelConverter.createTableModel(resource)
+			val TableModel tableModel = null //tableModelConverter.createTableModel(resource)
 			
 			val ctx = new GeneratorContext(tableModel)
 			
