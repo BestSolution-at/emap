@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Compat
 Bundle-SymbolicName: at.bestsolution.persistence.compat
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: at.bestsolution.persistence.compat
 Require-Bundle: at.bestsolution.persistence;bundle-version="1.0.0"
