@@ -13,12 +13,8 @@ package at.bestsolution.persistence;
 import java.util.List;
 
 public interface ConcreteObjectMapper<O, C extends MappedQuery<O>> extends ObjectMapper<O> {
-	public List<Long> selectAllObjectIds();
-	public DynamicSelectQuery<Long,O> selectAllObjectIdsMappedQuery();
-
-	
-	public List<Key<O>> selectAllObjectIds2();
-	public DynamicSelectQuery<Key<O>, O> selectAllObjectIdsMappedQuery2();
+	public <K extends Key<O>> List<K> selectAllObjectIds();
+	public <K extends Key<O>> DynamicSelectQuery<K, O> selectAllObjectIdsMappedQuery();
 	
 	public List<O> selectAll();
 	public C selectAllMappedQuery();
