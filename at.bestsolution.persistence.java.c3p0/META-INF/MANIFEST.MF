@@ -78,3 +78,5 @@ Export-Package: at.bestsolution.persistence.java.c3p0,
  com.mchange.v2.uid,
  com.mchange.v2.util,
  com.mchange.v3.filecache
+Import-Package: org.apache.log4j;resolution:=optional,
+ org.slf4j;version="1.7.2";resolution:=optional
