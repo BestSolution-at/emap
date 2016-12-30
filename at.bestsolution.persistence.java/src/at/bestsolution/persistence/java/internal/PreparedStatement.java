@@ -12,6 +12,7 @@ package at.bestsolution.persistence.java.internal;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Array;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -72,6 +73,11 @@ public class PreparedStatement implements Statement {
 
 	}
 
+	@Override
+	public void addArray(String column, String dataType, List<?> data) {
+		columnList.add(new ArrayColumn(columnList.size(), column, dataType, data));
+	}
+	
 	@Override
 	public void addString(String column, String value) {
 		columnList.add(new StringColumn(columnList.size(), column, value));
@@ -253,6 +259,24 @@ public class PreparedStatement implements Statement {
 		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
 			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value);
 			pstmt.setBigDecimal(index+1, value);
+		}
+	}
+	
+	static class ArrayColumn extends Column {
+		private final List<?> value;
+		private final String typeName;
+		
+		public ArrayColumn(int index, String column, String typeName, List<?> value) {
+			super(index, column);
+			this.typeName = typeName;
+			this.value = value;
+		}
+		
+		@Override
+		public void apply(java.sql.PreparedStatement pstmt) throws SQLException {
+			if (LOGGER.isDebugEnabled()) LOGGER.debug("Parameter " + (index+1) + " => " + value + " as " + typeName);
+			Array array = pstmt.getConnection().createArrayOf(typeName, value.toArray());
+			pstmt.setArray(index+1, array);
 		}
 	}
 
