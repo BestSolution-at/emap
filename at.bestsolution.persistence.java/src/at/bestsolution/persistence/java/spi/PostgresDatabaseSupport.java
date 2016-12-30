@@ -50,6 +50,20 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 	public String getDatabaseType() {
 		return "Postgres";
 	}
+	
+	@Override
+	public String getArrayBaseType(Class<?> javaType) {
+		if (String.class == javaType) {
+			return "varchar";
+		}
+		if (int.class == javaType || Integer.class == javaType) {
+			return "numeric";
+		}
+		if (float.class == javaType || Float.class == javaType || double.class == javaType || Double.class == javaType) {
+			return "decimal";
+		}
+		return null;
+	}
 
 	@Override
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {
@@ -114,7 +128,7 @@ public class PostgresDatabaseSupport implements DatabaseSupport {
 
 	@Override
 	public boolean isArrayStoreSupported(Class<?> type) {
-		return false;
+		return true;
 	}
 
 	public boolean isNestedResultSetsSupported() {

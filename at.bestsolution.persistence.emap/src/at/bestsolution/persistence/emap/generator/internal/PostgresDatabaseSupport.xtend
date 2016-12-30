@@ -31,6 +31,13 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		return "Postgres"
 	}
 
+	override isArrayStoreSupported(Class<?> type) {
+		if (typeof(String) == type) {
+			return true;
+		}
+		
+		return false;
+	}
 	
 
 //	override getSequenceStatementCurVal(EAttribute primaryKey) {
@@ -93,6 +100,10 @@ class PostgresDatabaseSupport extends DatabaseSupport {
 		mapping.addType(EcorePackage.Literals.EBIG_DECIMAL,		"decimal")
 		mapping.addType(EcorePackage.Literals.EBIG_INTEGER,		"numeric")
 		mapping.addType(EcorePackage.Literals.EDATE,			"timestamp")
+	}
+
+	override getArrayDatabaseType(EAttribute attribute, EDataType dataType) {
+		return getDatabaseType(attribute, dataType) + "[]";
 	}
 
 	override getDatabaseType(EAttribute attribute, EDataType dataType) {

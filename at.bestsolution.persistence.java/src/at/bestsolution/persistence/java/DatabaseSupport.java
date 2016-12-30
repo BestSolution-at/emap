@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import at.bestsolution.persistence.DynamicSelectQuery;
@@ -46,6 +47,8 @@ public interface DatabaseSupport {
 	public Timestamp getServerTime(Connection connection);
 	public boolean isDefaultLowerCase();
 
+	public String getArrayBaseType(Class<?> javaType);
+	
 	public enum PrimaryKeyGenType {
 		AUTO,
 		SEQUENCE
@@ -80,6 +83,8 @@ public interface DatabaseSupport {
 		public void addNull(String column, JDBCType type);
 		public void addEnum(String column, Enum<?> value);
 		public void addBlob(String column, Blob value);
+		
+		public void addArray(String column, String dataType, List<?> data);
 		
 		public <K extends Key<?>> void addKey(KeyLayout<K> layout, K key);
 		

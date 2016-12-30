@@ -52,6 +52,12 @@ public class FirebirdDatabaseSupport implements DatabaseSupport {
 	public String getDatabaseType() {
 		return "Firebird";
 	}
+	
+	@Override
+	public String getArrayBaseType(Class<?> javaType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public QueryBuilder createQueryBuilder(JavaObjectMapper<?> rootMapper, String tableName) {

@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EDataType;
 
 import at.bestsolution.persistence.emap.eMap.EAttribute;
 import at.bestsolution.persistence.emap.eMap.EBundleEntity;
+import at.bestsolution.persistence.emap.eMap.EMappingEntity;
 import at.bestsolution.persistence.emap.eMap.ESQLTypeDef;
 
 public abstract class DatabaseSupport {
@@ -40,6 +41,9 @@ public abstract class DatabaseSupport {
 	
 	protected abstract void defineDatatypeMapping(Map<EDataType, ESQLTypeDef> mapping);
 	
+	public String getArrayDatabaseType(EAttribute attribute, EDataType dataType) {
+		return null;
+	}
 	
 	public abstract String getDatabaseType(EAttribute attribute, EDataType dataType);
 	public abstract String getDatabaseType(String javaType);

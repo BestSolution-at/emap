@@ -71,6 +71,12 @@ public class H2DatabaseSupport implements DatabaseSupport {
 	}
 
 	@Override
+	public String getArrayBaseType(Class<?> javaType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public String getDatabaseType() {
 		return "h2";
 	}
