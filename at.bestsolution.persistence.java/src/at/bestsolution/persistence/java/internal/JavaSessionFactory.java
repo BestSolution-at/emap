@@ -1209,7 +1209,7 @@ public class JavaSessionFactory implements SessionFactory {
 			for( RelationSQL r : list ) {
 				if( r.getAction() == sql.getAction() && r.getTableName().equals(sql.getTableName()) ) {
 					if( r.getSelf() == sql.getSelf() &&
-						r.getOpposite() == r.getOpposite()	) {
+						r.getOpposite() == sql.getOpposite()	) {
 						if( isDebug ) {
 							LOGGER.debug("Skiping registration because same is already registered");
 						}
