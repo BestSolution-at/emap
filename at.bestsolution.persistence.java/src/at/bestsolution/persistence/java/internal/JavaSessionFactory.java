@@ -1211,13 +1211,13 @@ public class JavaSessionFactory implements SessionFactory {
 					if( r.getSelf() == sql.getSelf() &&
 						r.getOpposite() == sql.getOpposite()	) {
 						if( isDebug ) {
-							LOGGER.debug("Skiping registration because same is already registered");
+							LOGGER.debug("Skipping registration because same is already registered");
 						}
 						return;
 					} else if( r.getSelf() == sql.getOpposite() &&
 							r.getOpposite() == sql.getSelf() ) {
 						if( isDebug ) {
-							LOGGER.debug("Skiping registration because opposite is already registered");
+							LOGGER.debug("Skipping registration because opposite is already registered");
 						}
 						return;
 					}
