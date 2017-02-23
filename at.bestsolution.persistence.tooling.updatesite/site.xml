@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/at.bestsolution.persistence.tooling.feature_1.0.2.qualifier.jar" id="at.bestsolution.persistence.tooling.feature" version="1.0.2.qualifier">
+   <feature url="features/at.bestsolution.persistence.tooling.feature_1.0.3.qualifier.jar" id="at.bestsolution.persistence.tooling.feature" version="1.0.3.qualifier">
       <category name="emaptool"/>
    </feature>
    <category-def name="emaptool" label="EMap Tooling"/>
