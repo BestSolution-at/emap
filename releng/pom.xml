@@ -11,11 +11,11 @@
 
 	<groupId>at.bestsolution.persistence</groupId>
 	<artifactId>releng</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
-		<tycho-version>0.18.1</tycho-version>
-		<tycho-extras.version>0.18.0</tycho-extras.version>
+		<tycho-version>0.22.0</tycho-version>
+		<tycho-extras.version>0.22.0</tycho-extras.version>
 		<cbi-plugins.version>1.0.3</cbi-plugins.version>
 		<junit-version>4.8.1</junit-version>
 		<mockito-version>1.8.4</mockito-version>

@@ -2,7 +2,7 @@
 <feature
       id="at.bestsolution.persistence.tooling.feature"
       label="emap Tooling"
-      version="1.0.3.qualifier"
+      version="1.0.4.qualifier"
       provider-name="BestSolution.at">
 
    <description url="http://www.example.com/description">

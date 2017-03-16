@@ -2,7 +2,7 @@
 <feature
       id="at.bestsolution.persistence.emfnavi.feature"
       label="EMF Navigation Utility"
-      version="1.0.3.qualifier">
+      version="1.0.4.qualifier">
 
    <description url="http://www.example.com/description">
       Utility to navigate EMF-Objects

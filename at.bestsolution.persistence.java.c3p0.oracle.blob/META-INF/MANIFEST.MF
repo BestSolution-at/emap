@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Blob
 Bundle-SymbolicName: at.bestsolution.persistence.java.c3p0.oracle.blob
-Bundle-Version: 1.0.3.qualifier
+Bundle-Version: 1.0.4.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: libs/c3p0-oracle-thin-extras-0.9.2.1.jar,
  .

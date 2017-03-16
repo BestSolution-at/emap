@@ -5,13 +5,13 @@
 	<groupId>at.bestsolution.persistence</groupId>
 	<artifactId>at.bestsolution.persistence.runtime.feature</artifactId>
 	<packaging>eclipse-feature</packaging>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 
 	<parent>
 		<groupId>at.bestsolution.persistence</groupId>
 		<artifactId>releng</artifactId>
 		<relativePath>../releng/pom.xml</relativePath>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.4-SNAPSHOT</version>
 	</parent>
 
 </project>
