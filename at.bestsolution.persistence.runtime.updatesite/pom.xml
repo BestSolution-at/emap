@@ -29,6 +29,7 @@
 								</goals>
 								<configuration>
 									<tasks>
+										<mkdir dir="${download-publish-path}"/>
 										<delete includeemptydirs="false">
 											<fileset dir="${download-publish-path}">
 												<include name="**" />

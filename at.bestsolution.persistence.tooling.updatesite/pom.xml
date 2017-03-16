@@ -29,6 +29,7 @@
 								</goals>
 								<configuration>
 									<tasks>
+										<mkdir dir="${download-tooling-publish-path}"/>
 										<delete includeemptydirs="false">
 											<fileset dir="${download-tooling-publish-path}">
 												<include name="**" />
