@@ -547,14 +547,18 @@ class JavaObjectMapperGenerator {
       «val containerAttrib = attrib instanceof EReference && (attrib as EReference).container»
       «val attributeClass = eClass.getEStructuralFeature(attribute.name).EType as EClass»
       EClass eClass = «attributeClass.packageName».«attributeClass.EPackage.name.toFirstUpper»Package.eINSTANCE.get«attributeClass.name.toFirstUpper»();
-      «attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
-      if( o == null ) {
-        o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
-      } else {
-        if( LOGGER.isDebugEnabled() ) {
-          LOGGER.debug("Using cached version");
+      «IF attribute.query.parameters.get(0).id»
+        «attributeClass.instanceClassName» o = session.getCache().getObject(eClass, ((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
+        if( o == null ) {
+          o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
+        } else {
+          if( LOGGER.isDebugEnabled() ) {
+            LOGGER.debug("Using cached version");
+          }
         }
-      }
+      «ELSE»
+        «attributeClass.instanceClassName» o = session.createMapper(«((attribute.query.eResource.contents.head as EMapping).root as EMappingEntityDef).fqn».class).«attribute.query.name»(((ProxyData_«eClass.name»)proxyData).«attribute.name.javaReservedNameEscape»);
+      «ENDIF»
      
       «IF containerAttrib»
       if (o != null) {
