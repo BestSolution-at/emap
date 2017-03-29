@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: at.bestsolution.persistence.emap.ui
 Bundle-Vendor: My Company
-Bundle-Version: 1.0.4.qualifier
+Bundle-Version: 1.0.5.qualifier
 Bundle-SymbolicName: at.bestsolution.persistence.emap.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: at.bestsolution.persistence.emap;visibility:=reexport,
