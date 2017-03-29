@@ -126,21 +126,29 @@ public class Util {
 
 	public static final String loadFile(Class<?> clazz, String name) {
 		InputStream inputStream = clazz.getResourceAsStream(name);
-		if (inputStream == null) {
-			return null;
-		}
-		byte[] buf = new byte[1024];
-		int l;
-		StringBuilder b = new StringBuilder();
 		try {
+			if (inputStream == null) {
+				return null;
+			}
+			byte[] buf = new byte[1024];
+			int l;
+			StringBuilder b = new StringBuilder();
 			while ((l = inputStream.read(buf)) != -1) {
 				b.append(new String(buf, 0, l));
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			return b.toString();
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
+			return "";
 		}
-		return b.toString();
+		finally {
+			try {
+				inputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static final ProcessedSQL processSQL(String sql, final Function<String, List<?>> listLookup) {
