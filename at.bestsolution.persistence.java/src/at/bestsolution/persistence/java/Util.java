@@ -163,6 +163,7 @@ public class Util {
 					dynamicParameterNames.add(key);
 					return "?";
 				} else {
+					dynamicParameterNames.add(key);
 					List<TypedValue> list = null;
 					StringBuilder rv = new StringBuilder();
 					for( Object o : data ) {
