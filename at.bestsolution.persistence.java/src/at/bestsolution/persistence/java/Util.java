@@ -187,7 +187,8 @@ public class Util {
 				}
 			}
 		}, "#{", "}", '#').replace(sql);
-		return new ProcessedSQL(s, dynamicParameterNames,null);
+		// WTF
+		return new ProcessedSQL(s, dynamicParameterNames, typedValuesMap);
 	}
 
 	public static final ProcessedSQL processSQL(String sql) {
