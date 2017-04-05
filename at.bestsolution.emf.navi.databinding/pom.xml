@@ -10,7 +10,7 @@
 		<groupId>at.bestsolution.persistence</groupId>
 		<artifactId>releng</artifactId>
 		<relativePath>../releng/pom.xml</relativePath>
-		<version>1.0.5-SNAPSHOT</version>
+		<version>1.0.6-SNAPSHOT</version>
 	</parent>
 
 	<build>

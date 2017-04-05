@@ -11,7 +11,7 @@
 
 	<groupId>at.bestsolution.persistence</groupId>
 	<artifactId>releng</artifactId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<tycho-version>0.22.0</tycho-version>
@@ -21,8 +21,8 @@
 		<mockito-version>1.8.4</mockito-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<platform-version>[3.7,3.8)</platform-version>
-		<download-publish-path>/builds/foss/emap/runtime-releases/1.0.5</download-publish-path>
-		<download-tooling-publish-path>/builds/foss/emap/tooling-releases/1.0.5</download-tooling-publish-path>
+		<download-publish-path>/builds/foss/emap/runtime-nigthly/1.0.x</download-publish-path>
+		<download-tooling-publish-path>/builds/foss/emap/tooling-nightliy/1.0.x</download-tooling-publish-path>
 		<eclipse-repo.url>https://repo.eclipse.org/content/repositories/releases/</eclipse-repo.url>
 	</properties>
 
