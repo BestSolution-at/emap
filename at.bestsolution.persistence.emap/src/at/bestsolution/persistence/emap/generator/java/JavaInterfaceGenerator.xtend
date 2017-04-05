@@ -63,7 +63,7 @@ class JavaInterfaceGenerator {
 		 * @param «p.name»
 		 * «ENDFOR»
 		 */
-		public «IF q.list»java.util.List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.type + " " + p.name])»);
+		public «IF q.list»java.util.List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.parameterType + " " + p.name])»);
 
 		«ENDFOR»
 

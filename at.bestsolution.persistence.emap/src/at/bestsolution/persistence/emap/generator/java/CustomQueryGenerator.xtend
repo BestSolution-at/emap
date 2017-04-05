@@ -194,7 +194,7 @@ class CustomQueryGenerator {
 	}
 	«ENDIF»
 
-	public final «IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|p.type + " " + p.name])») {
+	public final «IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» «q.name»(«q.parameters.join(",",[p|"final " + p.parameterType + " " + p.name])») {
 		final boolean isDebug = LOGGER.isDebugEnabled();
 		if( isDebug ) LOGGER.debug("Started '«q.name»'");
 		«IF q.list»List<«q.returnType.handle.toObjectType»>«ELSE»«q.returnType.handle»«ENDIF» rv = «IF q.list»new ArrayList<«q.returnType.handle.toObjectType»>()«ELSE»«IF q.returnType.boolean»false«ELSEIF q.returnType.primitive»0«ELSE»null«ENDIF»«ENDIF»;
@@ -237,7 +237,21 @@ class CustomQueryGenerator {
 
 		try {
 			«IF ! q.parameters.empty»
-				final ProcessedSQL processedSQL = Util.processSQL(query);
+				«IF q.parameters.findFirst[list] != null»
+					final ProcessedSQL processedSQL = Util.processSQL(query, new at.bestsolution.persistence.Function<String,List<?>>() {
+						public List<?> execute(String name) {
+							«val first = q.parameters.filter[list].head»
+							«FOR p : q.parameters.filter[list]»
+							«IF p != first»else «ENDIF»if( "«p.name»".equals(name)) {
+								return «p.name»;
+							}
+							«ENDFOR»
+							return null;
+						}
+					});
+				«ELSE»
+					final ProcessedSQL processedSQL = Util.processSQL(query);
+				«ENDIF»
 				if( isDebug ) {
 					LOGGER.debug("	Processed-Query: " + processedSQL.sql);
 				}
@@ -246,19 +260,38 @@ class CustomQueryGenerator {
 				pstmt = connection.prepareStatement(processedSQL.sql);
 
 				List<String> debugParams = new ArrayList<String>();
+				int paramIndex = 1;
 				for(int i = 0; i < processedSQL.dynamicParameterNames.size(); i++) {
 					if( "«q.parameters.head.name»".equals(processedSQL.dynamicParameterNames.get(i)) ) {
 						if( isDebug ) {
 							debugParams.add("«q.parameters.head.name» = " + «q.parameters.head.name»);
 						}
-						pstmt.«q.parameters.head.pstmtMethod("i+1",q.parameters.head.name)»;
+						«IF q.parameters.head.list»
+							List<TypedValue> typedValues = processedSQL.listValueMaps.get("«q.parameters.head.name»");
+							if( typedValues != null ) {
+								for( TypedValue typedValue : typedValues ) {
+									Util.setValue(pstmt,paramIndex++,typedValue);
+								}
+							}
+						«ELSE»
+							pstmt.«q.parameters.head.pstmtMethod("paramIndex++", q.parameters.head.name)»;
+						«ENDIF»
 					}
 				«FOR p : q.parameters.filter[it!=q.parameters.head]»
 					else if("«p.name»".equals(processedSQL.dynamicParameterNames.get(i))) {
 						if( isDebug ) {
 							debugParams.add("«p.name» = " + «p.name»);
 						}
-						pstmt.«p.pstmtMethod("i+1",p.name)»;
+						«IF p.list»
+							List<TypedValue> typedValues = processedSQL.listValueMaps.get("«p.name»");
+							if( typedValues != null ) {
+								for( TypedValue typedValue : typedValues ) {
+									Util.setValue(pstmt,paramIndex++,typedValue);
+								}
+							}
+						«ELSE»
+							pstmt.«p.pstmtMethod("paramIndex++",p.name)»;
+						«ENDIF»
 					}
 				«ENDFOR»
 				}
